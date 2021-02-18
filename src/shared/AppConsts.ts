@@ -10,6 +10,22 @@ export class AppConsts {
     static recaptchaSiteKey: string;
     static subscriptionExpireNootifyDayCount: number;
 
+    //V3
+    static remoteOnlineServiceUrl: string;
+    static remoteBigDataServiceUrl: string;
+    static remoteMetaServiceUrl: string;
+    static remoteActivityServiceUrl: string;
+    static remoteCargoServiceUrl: string;
+    static remoteSYNCServiceUrl: string;
+    static remotePaperServiceUrl: string;
+    static remoteUserServiceUrl: string;
+    static remoteFloorServiceUrl: string;
+    static remoteOKRServiceUrl: string;
+    // V3 for ecovacs
+    static deploymentList: any;
+    static customTheme: any;
+
+
     static localeMappings: any = [];
 
     static readonly userManagement = {

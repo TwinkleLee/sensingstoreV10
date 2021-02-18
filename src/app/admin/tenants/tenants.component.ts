@@ -16,6 +16,8 @@ import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistor
 import { filter as _filter } from 'lodash-es';
 import { finalize } from 'rxjs/operators';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
+import { AppConsts } from '@shared/AppConsts';//V3
+import { TokenService } from 'abp-ng2-module';//V3
 
 @Component({
     templateUrl: './tenants.component.html',
@@ -24,19 +26,20 @@ import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 })
 export class TenantsComponent extends AppComponentBase implements OnInit {
 
-    @ViewChild('impersonateUserLookupModal', {static: true}) impersonateUserLookupModal: CommonLookupModalComponent;
-    @ViewChild('createTenantModal', {static: true}) createTenantModal: CreateTenantModalComponent;
-    @ViewChild('editTenantModal', {static: true}) editTenantModal: EditTenantModalComponent;
-    @ViewChild('tenantFeaturesModal', {static: true}) tenantFeaturesModal: TenantFeaturesModalComponent;
-    @ViewChild('dataTable', {static: true}) dataTable: Table;
-    @ViewChild('paginator', {static: true}) paginator: Paginator;
-    @ViewChild('entityTypeHistoryModal', {static: true}) entityTypeHistoryModal: EntityTypeHistoryModalComponent;
+    @ViewChild('impersonateUserLookupModal', { static: true }) impersonateUserLookupModal: CommonLookupModalComponent;
+    @ViewChild('createTenantModal', { static: true }) createTenantModal: CreateTenantModalComponent;
+    @ViewChild('editTenantModal', { static: true }) editTenantModal: EditTenantModalComponent;
+    @ViewChild('tenantFeaturesModal', { static: true }) tenantFeaturesModal: TenantFeaturesModalComponent;
+    @ViewChild('dataTable', { static: true }) dataTable: Table;
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+    @ViewChild('entityTypeHistoryModal', { static: true }) entityTypeHistoryModal: EntityTypeHistoryModalComponent;
 
     subscriptionDateRange: DateTime[] = [this._dateTimeService.getStartOfDay(), this._dateTimeService.getEndOfDayPlusDays(30)];
     creationDateRange: DateTime[] = [this._dateTimeService.getStartOfDay(), this._dateTimeService.getEndOfDay()];
 
     _entityTypeFullName = 'SensingStoreCloud.MultiTenancy.Tenant';
     entityHistoryEnabled = false;
+    customTheme = AppConsts.customTheme;
 
     filters: {
         filterText: string;
@@ -51,7 +54,8 @@ export class TenantsComponent extends AppComponentBase implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _commonLookupService: CommonLookupServiceProxy,
         private _impersonationService: ImpersonationService,
-        private _dateTimeService: DateTimeService
+        private _dateTimeService: DateTimeService,
+        private _tokenService: TokenService//V3
     ) {
         super(injector);
         this.setFiltersFromRoute();
@@ -157,7 +161,29 @@ export class TenantsComponent extends AppComponentBase implements OnInit {
     }
 
     createTenant(): void {
-        this.createTenantModal.show();
+        //V3 tocheck
+        if (this.customTheme == 'kewosi') {// 科沃斯  
+            var url = 'https://s.api.troncell.com/api/services/app/IndependentDeployment/CheckIndependentDeployment'
+            var token = this._tokenService.getToken();
+            var host = AppConsts.deploymentList.ecovacs.host
+            var customer = AppConsts.deploymentList.ecovacs.customer
+            fetch(url + `?customer=${customer}&checkaction=addtenant&host=${host}`, {
+                headers: {
+                    'Authorization': "Bearer " + token
+                }
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                if (!data.result.success) return this.message.error(this.l(data.result.errorMessage));
+                this.createTenantModal.show();
+            }).catch(function (error) {
+                console.log(error);
+            });
+        } else {
+            this.createTenantModal.show();
+        }
+
+
     }
 
     deleteTenant(tenant: TenantListDto): void {
