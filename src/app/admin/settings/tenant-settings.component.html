@@ -197,7 +197,48 @@
                                </label>
                             </div>
                         </tab>
-                        <tab class="p-5" *ngIf="true" heading="{{'Security' | localize}}">
+
+
+                        <tab *ngIf="true" heading="{{l('cloudStorage')}}" customClass="m-tabs__item">
+                            <div class="row" style="margin-left:0;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="bucketName">{{l("bucketName")}}</label>
+                                        <input id="bucketName" type="text" name="bucketName" class="form-control"
+                                            [(ngModel)]="settings.oss.bucketName">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="endpoint">{{l("endpoint")}}</label>
+                                        <input id="endpoint" type="text" name="endpoint" class="form-control" [(ngModel)]="settings.oss.endpoint">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="accessKeyId">{{l("accessKeyId")}}</label>
+                                        <input id="accessKeyId" type="text" name="accessKeyId" class="form-control"
+                                            [(ngModel)]="settings.oss.accessKeyId">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="accessKeySecret">{{l("accessKeySecret")}}</label>
+                                        <input id="accessKeySecret" type="password" name="accessKeySecret" class="form-control"
+                                            [(ngModel)]="settings.oss.accessKeySecret">
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </tab>
+
+
+
+
+
+                        <tab *ngIf="true" heading="{{'Security' | localize}}">
                             <!-- *ngIf="true" is a workaround for https://github.com/valor-software/ng2-bootstrap/issues/823 -->
                             <div>
                                 <h5>{{"PasswordComplexity" | localize}}</h5>
