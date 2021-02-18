@@ -1,6 +1,6 @@
 import { OnInit, Component, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { ListResultDtoOfOrganizationUnitDto, MoveOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ListResultDtoOfGroupDto, MoveOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { filter as _filter, remove as _remove } from 'lodash-es';
 import { throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -118,7 +118,8 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
 
     private getTreeDataFromServer(): void {
         let self = this;
-        this._organizationUnitService.getOrganizationUnits().subscribe((result: ListResultDtoOfOrganizationUnitDto) => {
+        //V3
+        this._organizationUnitService.getOrganizationUnits().subscribe((result: ListResultDtoOfGroupDto) => {
             this.totalUnitCount = result.items.length;
             this.treeData = this._arrayToTreeConverterService.createTree(result.items,
                 'parentId',
