@@ -62,7 +62,9 @@
 
               "src/app/shared/core.less",
               "src/app/shared/layout/layout.less",
-              "src/styles.css"
+              "src/styles.css",
+
+              "src/assets/flaticon/css/flaticon.css"
             ],
             "scripts": [
               "node_modules/@microsoft/signalr/dist/browser/signalr.min.js",
@@ -90,8 +92,8 @@
 
 
 
-              "node_modules/jquery/dist/jquery.js"
-
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap-daterangepicker/daterangepicker.js"
             ]
           },
           "configurations": {
@@ -215,7 +217,8 @@
               "src/assets/metronic/common/js/components/util.js",
 
 
-              "node_modules/jquery/dist/jquery.js"
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap-daterangepicker/daterangepicker.js"
 
             ],
             "assets": [

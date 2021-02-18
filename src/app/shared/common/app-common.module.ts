@@ -60,7 +60,7 @@ import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.com
 import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 import { MyAddressComponent } from '@app/shared/common/my-address/my-address.component';
 
-// import { DateRangePickerComponent } from './timing/date-range-picker.component';
+import { DateRangePickerComponent } from './timing/date-range-picker.component';
 // import { ChartsComponent } from '@app/shared/charts/charts.component';
 
 
@@ -127,7 +127,7 @@ import { MyAddressComponent } from '@app/shared/common/my-address/my-address.com
         // HighTreeComponent,
         MyMapComponent,
         MyAddressComponent,
-        // DateRangePickerComponent,
+        DateRangePickerComponent,
         // ChartsComponent,
     ],
     exports: [
@@ -153,7 +153,7 @@ import { MyAddressComponent } from '@app/shared/common/my-address/my-address.com
         // HighTreeComponent,
         MyMapComponent,
         MyAddressComponent,
-        // DateRangePickerComponent,
+        DateRangePickerComponent,
         // ChartsComponent,
     ],
     providers: [
