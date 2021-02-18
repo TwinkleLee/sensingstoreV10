@@ -1,0 +1,81 @@
+<div appBsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+    aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <form *ngIf="active" #editForm="ngForm" novalidate>
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <span>{{l('manageOuType')}}</span>
+                    </h5>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form novalidate (ngSubmit)="refreshTable()" autocomplete="off">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group kt-form__group align-items-center">
+                                    <label for="ouType">{{l('ouType')}}</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="ouType" name="ouType" [(ngModel)]="ouType" />
+                                        <button type="button" class="btn btn-primary" style="margin-left: 10px;" (click)="createUnitType()">{{l('addOuType')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <p-table #dataTable (onLazyLoad)="getOUTypes($event)" [value]="primengTableHelper.records" [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                [paginator]="false" [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th>{{l('name')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr>
+                                        <td>
+                                            <button class="btn btn-primary" (click)="saveOUType(record)">{{l('Save')}}</button>
+                                            <button class="btn btn-primary" (click)="editOUType(record)">{{l('Edit')}}</button>
+                                            <button class="btn btn-primary" (click)="deleteOUType(record)">{{l('Delete')}}</button>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" maxlength="30" [(ngModel)]="record.name" [name]="'name'+i" [readonly]="!record.editable" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr  *ngIf="primengTableHelper.records">
+                                        <td colspan="2">
+                                            <img class="emptymessage" src="/assets/common/images/placeholder/adsHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <!-- <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator (onPageChange)="getOUTypes($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator> -->
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

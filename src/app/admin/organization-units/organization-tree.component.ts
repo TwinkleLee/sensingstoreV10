@@ -1,6 +1,6 @@
 import { OnInit, Component, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { ListResultDtoOfGroupDto, MoveOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ListResultDtoOfGroupDto, MoveOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy,OrganizationUnitTypeServiceProxy } from '@shared/service-proxies/service-proxies';
 import { filter as _filter, remove as _remove } from 'lodash-es';
 import { throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -16,6 +16,11 @@ import { TreeNode, MenuItem } from 'primeng/api';
 import { ArrayToTreeConverterService } from '@shared/utils/array-to-tree-converter.service';
 import { TreeDataHelperService } from '@shared/utils/tree-data-helper.service';
 import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
+
+import { CreateOrEditUnitTypeModalComponent } from '@app/admin/organization-units/create-or-edit-unitType-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import * as _ from 'lodash';
 
 export interface IOrganizationUnitOnTree extends IBasicOrganizationUnitInfo {
     id: number;
@@ -38,6 +43,7 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
 
     @ViewChild('createOrEditOrganizationUnitModal', { static: true }) createOrEditOrganizationUnitModal: CreateOrEditUnitModalComponent;
     @ViewChild('entityTypeHistoryModal', { static: true }) entityTypeHistoryModal: EntityTypeHistoryModalComponent;
+    @ViewChild('createOrEditOrganizationUnitTypeModal', { static: true }) createOrEditOrganizationUnitTypeModal: CreateOrEditUnitTypeModalComponent;
 
     treeData: any;
     selectedOu: TreeNode;
@@ -46,11 +52,22 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
 
     _entityTypeFullName = 'Abp.Organizations.OrganizationUnit';
 
+
+    //V3
+    nowBusy = true;
+    outypeList: any = [];
+    OUType: any = '';
+    filterText = '';
+    nowItems: any[] = [];
+
     constructor(
         injector: Injector,
         private _organizationUnitService: OrganizationUnitServiceProxy,
         private _arrayToTreeConverterService: ArrayToTreeConverterService,
-        private _treeDataHelperService: TreeDataHelperService
+        private _treeDataHelperService: TreeDataHelperService,
+        private _organizationUnitTypeService: OrganizationUnitTypeServiceProxy,
+        private _router: Router
+
     ) {
         super(injector);
     }
@@ -170,6 +187,15 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
         const canManageOrganizationTree = this.isGranted('Pages.Administration.OrganizationUnits.ManageOrganizationTree');
 
         let items = [
+            {
+                label: this.l('showOuDetail'),
+                disabled: !canManageOrganizationTree,
+                command: (event) => {
+                    console.log(this.selectedOu, this.selectedOu.data.id)
+                    var node = Object.assign({}, this.selectedOu.data)
+                    this._router.navigate(['app', 'admin', 'organization-units', 'OUDetail', node.id], { queryParams: { name: node.displayName } });
+                }
+            },
             {
                 label: this.l('Edit'),
                 disabled: !canManageOrganizationTree,
@@ -330,5 +356,90 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
         let item = this._treeDataHelperService.findNode(this.treeData, { data: { id: ouId } });
         item.data.roleCount += incrementAmount;
         item.roleCount = item.data.roleCount;
+    }
+
+
+
+
+    //V3
+    manageOutype() {
+        this.createOrEditOrganizationUnitTypeModal.show();
+    }
+
+    //查询组织类型
+    getOUType() {
+        //获取组织类型列表
+        this._organizationUnitTypeService.getOrganizationUnitTypeSelect().subscribe((result) => {
+            this.outypeList = result.items;
+        })
+    }
+
+    doFilter() {
+        let self = this;
+        function filterNode(children, filter) {
+            var arr = [];
+            for (var i = 0; i < children.length; i++) {
+                if (String(children[i].id).indexOf(filter) > -1 || String(children[i].outerId).indexOf(filter) > -1 || children[i].displayName.indexOf(filter) > -1) {
+                    checkPush(children[i], true)
+                }
+            }
+            function checkPush(checkItem, deepClone?) {
+                var replaceItem = arr.filter(item => { return item.id == checkItem.id })[0]
+                if (replaceItem) {
+                    if (deepClone && !replaceItem.deep) {
+                        replaceItem.deep = true;
+                        for (var i = 0; i < children.length; i++) {//把下级加入
+                            if (children[i].parentId == replaceItem.id) { checkPush(children[i], true) }
+                        }
+                    } else {
+                        return
+                    }
+                } else if (deepClone) {
+                    checkItem.deep = true;
+                    arr.push(checkItem)
+                    if (checkItem.parentId) {//把上级加入
+                        for (var i = 0; i < children.length; i++) {
+                            if (children[i].id == checkItem.parentId) { checkPush(children[i]) }
+                        }
+                    }
+                    for (var i = 0; i < children.length; i++) {//把下级加入
+                        if (children[i].parentId == checkItem.id) { checkPush(children[i], true) }
+                    }
+                } else {
+                    arr.push(checkItem)
+                    if (checkItem.parentId) {//把上级加入
+                        for (var i = 0; i < children.length; i++) {
+                            if (children[i].id == checkItem.parentId) { checkPush(children[i]) }
+                        }
+                    }
+                }
+            }
+            return arr
+        }
+        var items = filterNode(_.cloneDeep(this.nowItems), this.filterText);
+        console.log(items, 'console.log')
+        this.treeData = this._arrayToTreeConverterService.createTree(items, 'parentId', 'id', null, 'children',
+            [{
+                target: 'label',
+                targetFunction(item) {
+                    return self.generateTextOnTree(item);
+                }
+            }, {
+                target: 'expandedIcon',
+                value: 'fa fa-folder-open m--font-warning'
+            },
+            {
+                target: 'collapsedIcon',
+                value: 'fa fa-folder m--font-warning'
+            },
+            {
+                target: 'selectable',
+                value: true
+            }]);
+    }
+
+    //V3
+    private generateTextOnTree(ou) {
+        return (ou.outerId ? '[' + ou.outerId + ']' : '') + ou.displayName + '(' + ou.memberCount + ')';
     }
 }

@@ -10,6 +10,11 @@ import {OrganizationUnitMembersComponent} from './organization-unit-members.comp
 import {OrganizationUnitRolesComponent} from './organization-unit-roles.component';
 import {OrganizationUnitsComponent} from './organization-units.component';
 
+//V3
+
+import {CreateOrEditUnitTypeModalComponent} from './create-or-edit-unitType-modal.component'
+import {OrganizationUnitStoresComponent} from './organization-unit-stores.component'
+
 @NgModule({
     declarations: [
         AddMemberModalComponent,
@@ -18,7 +23,11 @@ import {OrganizationUnitsComponent} from './organization-units.component';
         OrganizationTreeComponent,
         OrganizationUnitMembersComponent,
         OrganizationUnitRolesComponent,
-        OrganizationUnitsComponent
+        OrganizationUnitsComponent,
+
+        //V3
+        CreateOrEditUnitTypeModalComponent,
+        OrganizationUnitStoresComponent
     ],
     imports: [AppSharedModule, AdminSharedModule, OrganizationUnitsRoutingModule],
     exports: [AddMemberModalComponent, AddRoleModalComponent, OrganizationTreeComponent]

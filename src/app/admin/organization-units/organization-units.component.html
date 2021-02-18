@@ -1,6 +1,12 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'OrganizationUnits' | localize" [description]="'OrganizationUnitsHeaderInfo' | localize">
+
+            <div role="actions">
+                <button *ngIf="'Pages.Administration.OrganizationUnits.ManageOrganizationTree' | permission" class="btn btn-primary" (click)="goImport()"><i class="icon-excel"></i>{{"import" | localize}}
+                </button>
+            </div>
+
         </sub-header>
         <div [class]="containerClass">
             <div class="row">
@@ -11,19 +17,21 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-header align-items-center border-0">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="font-weight-bolder text-dark">  <span *ngIf="organizationUnit">{{organizationUnit.displayName}}</span></span>
+                                <span class="font-weight-bolder text-dark"> <span *ngIf="organizationUnit">{{organizationUnit.displayName}}</span></span>
                             </h3>
                         </div>
                         <div class="card-body">
                             <tabset class="tab-container">
                                 <tab heading="{{'Members' | localize}}" [active]="true">
-                                    <organization-unit-members #ouMembers (membersAdded)="ouTree.membersAdded($event)"
-                                        (memberRemoved)="ouTree.memberRemoved($event)"></organization-unit-members>
+                                    <organization-unit-members #ouMembers (membersAdded)="ouTree.membersAdded($event)" (memberRemoved)="ouTree.memberRemoved($event)"></organization-unit-members>
                                 </tab>
                                 <tab heading="{{'Roles' | localize}}">
-                                    <organization-unit-roles #ouRoles (rolesAdded)="ouTree.rolesAdded($event)"
-                                        (roleRemoved)="ouTree.roleRemoved($event)"></organization-unit-roles>
+                                    <organization-unit-roles #ouRoles (rolesAdded)="ouTree.rolesAdded($event)" (roleRemoved)="ouTree.roleRemoved($event)"></organization-unit-roles>
                                 </tab>
+                                <!-- V3 todo -->
+                                <!-- <tab heading="{{'EntityStore' | localize}}">
+                                    <organization-unit-stores #ouStores></organization-unit-stores>
+                                </tab> -->
                             </tabset>
                         </div>
                     </div>

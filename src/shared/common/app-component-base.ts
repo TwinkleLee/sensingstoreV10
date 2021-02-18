@@ -17,6 +17,9 @@ import { UiCustomizationSettingsDto } from '@shared/service-proxies/service-prox
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxSpinnerTextService } from '@app/shared/ngx-spinner-text.service';
 
+//V3
+import { finalize } from 'rxjs/operators';
+
 export abstract class AppComponentBase {
 
     localizationSourceName = AppConsts.localization.defaultLocalizationSourceName;
@@ -35,6 +38,11 @@ export abstract class AppComponentBase {
     spinnerService: NgxSpinnerService;
     private ngxSpinnerTextService: NgxSpinnerTextService;
 
+    //V3
+    myFinalize = finalize;
+    EmptyHolder: string = AppConsts.appBaseUrl + "/assets/common/images/holderimg.png";
+    LoadingHolder: string = AppConsts.appBaseUrl + "/assets/common/images/timg.gif";
+    EmptyTdText: string = '-';
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
         this.permission = injector.get(PermissionCheckerService);
