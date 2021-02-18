@@ -820,3 +820,12 @@ body .ui-table .ui-table-tbody > tr.ui-state-highlight .dropdown a {
 .modal-dialog {
     padding-top: 25px !important;
 }
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-icon > i {
+    color: #3699FF;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-icon > i {
+    color: #3699FF;
+}
+a:hover i {
+    color: #0073e9;
+}

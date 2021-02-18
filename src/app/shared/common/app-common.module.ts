@@ -51,6 +51,9 @@ import { PasswordInputWithShowButtonComponent } from './password-input-with-show
 import { KeyValueListManagerComponent } from './key-value-list-manager/key-value-list-manager.component';
 import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.component';
 
+
+import { DateRangePickerComponent } from './timing/date-range-picker.component';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -102,7 +105,8 @@ import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.com
         MultipleSelectComboboxInputTypeComponent,
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
-        SubHeaderComponent
+        SubHeaderComponent,
+        DateRangePickerComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -114,7 +118,8 @@ import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.com
         CustomizableDashboardComponent,
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
-        SubHeaderComponent
+        SubHeaderComponent,
+        DateRangePickerComponent
     ],
     providers: [
         DateTimeService,

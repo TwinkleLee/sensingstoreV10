@@ -63,7 +63,7 @@
               "src/app/shared/core.less",
               "src/app/shared/layout/layout.less",
               "src/styles.css",
-              
+
               "src/assets/flaticon/css/flaticon.css"
             ],
             "scripts": [
@@ -88,7 +88,12 @@
               "src/assets/metronic/common/js/components/header.js",
               "src/assets/metronic/common/js/components/scrolltop.js",
               "src/assets/metronic/common/js/components/toggle.js",
-              "src/assets/metronic/common/js/components/util.js"
+              "src/assets/metronic/common/js/components/util.js",
+
+
+
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap-daterangepicker/daterangepicker.js"
             ]
           },
           "configurations": {
