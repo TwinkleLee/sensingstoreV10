@@ -1,0 +1,77 @@
+
+.fileupload{
+    overflow: visible;
+    position: relative;
+    width: 26em;
+    margin: 0 auto;
+}
+.fileupload h5{
+    width: 100%;
+    text-align: center;
+    line-height: 16px;
+    font-size: 16px;
+}
+.mt10{
+    margin-top: 10px;
+}
+.f_left{
+    float: left;
+}
+.dropArea{
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    height: 26em;
+    border: 1px dashed grey;
+    position: relative;
+}
+.dropArea input[type='file']{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    zoom: 1;
+    top: 0px;
+    line-height: 26em;
+    z-index: 500;
+}
+.dropArea a{
+    position: absolute;
+    top: 50%;
+    z-index: 1000;
+    transform: translateX(-50%);
+}
+.dropArea span{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+}
+.dropArea img{
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    position: absolute;
+    display: block;
+    margin: 50% 50%;
+}
+.tab_btn{
+    position: absolute;
+    top:-38px;
+    right: 0px;
+    margin-right: 17px;
+    z-index: 1000;
+}
+.tab-container {
+    width: 100%;
+}
+.imgCenter{
+    height: 26em;
+    line-height: 26em;
+    text-align: center;
+    overflow: hidden;
+}
+.imgCenter img{
+    max-width: 100%;
+    max-height: 100%;
+}

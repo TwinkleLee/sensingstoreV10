@@ -1,0 +1,38 @@
+<div style="position:relative;padding-bottom: 0;top:0.8rem;" (click)="$event.stopPropagation()">
+    <label *ngIf="selfConfig.labelName" style="margin-bottom:0;position:relative;">{{l(selfConfig.labelName)}}</label>
+    <div class="form-group kt-form__group align-items-center" (click)="clickInput()">
+        <div class="input-group">
+            <input class="form-control belongToTree" name="storeName" type="text" readonly="readonly" [ngClass]="{'showFFF':treeList&&treeList.length&&treeList.length>0}"
+                [(ngModel)]="storeText" />
+            <i class="icon-shaixuanxuanzhong belongToTree" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);z-index:50;"></i>
+        </div>
+    </div>
+
+    <!-- There is a bug without div -->
+    <div style="position:absolute;top:6rem;z-index:9999;"></div>
+
+    <!-- <div [ngClass]="{'hide':!showStore,'float_panel':true,'beautyScroll':true}" -->
+    <div *ngIf="showStore" [ngClass]="{'float_panel':true,'beautyScroll':true}" [ngStyle]="{'max-height':avalibleHeight,'top':containerHeight}"
+        style="width:90% !important;left:5%;">
+    <!-- <div [ngClass]="{'hide':!showStore,'float_panel':true,'beautyScroll':true}" [ngStyle]="{'max-height':avalibleHeight,'top':containerHeight}"
+        style="width:90% !important;left:5%;"> -->
+        <div class="panel_body">
+            <form name="StoreForm">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input [(ngModel)]="storeFilter" name="treeFilterText" (keydown.enter)="storeFilterTree($event)"
+                            autoFocus class="form-control kt-input belongToTree" [placeholder]="l('SearchWithThreeDot')"
+                            type="text">
+                    </div>
+                </div>
+                <div class="form-group beautyScroll" [ngStyle]="{'max-height':'50vh','padding-left':'20px'}">
+                    <app-my-tree #storeTree [needAddShowChildren]="needAddShowChildren" [config]="config" [(items)]="treeList" [lastTimeChosenList]="lastTimeChosenList"></app-my-tree>
+                    <h3 *ngIf="!treeList||treeList.length==0">{{l('NoData')}}</h3>
+                </div>
+                <div class="form-group text-right">
+                    <button *ngIf="treeList&&treeList.length" type="button" class="btn btn-primary" (click)="updateSelectedList();">{{l('Confirm')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,128 @@
+<div class="imageGrid row" #imageGrid>
+
+    <div [ngStyle]="{'width':widthP}" *ngFor="let image of imageList;let i = index">
+        <div (click)="chose(image,$event)" [ngClass]="{'imgWrap':true,'chosed':isSelected(image)}">
+            <div class="imgHolder">
+                <div class="imgOverLay">
+                    <div>
+                        <h3>
+                            {{l('name')}} :
+                            {{image.title||image.name||image.displayName||image.awardName||image.skuTitle||image.software?.name||image.software?.alias}}
+                            <br>
+                            <p *ngIf="isApp(image)">{{l('Alias')}} : {{image.alias}}</p>
+                        </h3>
+                        <h3 *ngIf="image.salesVolume!==undefined&&image.sku_id">
+                            {{l('SkuId')}}&nbsp;:&nbsp;{{image.sku_id}}&nbsp;{{l('salesVolume')}}&nbsp;:&nbsp;{{image.salesVolume}}&nbsp;{{l('stock')}}&nbsp;:&nbsp;{{image.quantity}}
+                        </h3>
+                        <h3 *ngIf="image.salesVolume!==undefined&&!image.sku_id">
+                            {{l('id')}}&nbsp;:&nbsp;{{image.id}}&nbsp;{{l('salesVolume')}}&nbsp;:&nbsp;{{image.salesVolume}}&nbsp;{{l('stock')}}&nbsp;:&nbsp;{{image.quantity}}
+                        </h3>
+                        <div class="btnHolder" *ngIf="mode>0">
+                            <a class="my-secondary fangkuai" (click)='deleteImg(image)' *ngIf="appSession.isAdmin||image.isMine!==false&&(judgeOnline&&mode<3&&(image.auditStatus===undefined||image.auditStatus=='Offline'||image.auditStatus==0) ||(!judgeOnline ||judgeOnline=='false' ))&&!image.thumb_url">
+                                <i class="icon-icon-test"></i>
+                                {{l('Delete')}}</a>
+                            <a class="badge-primary fangkuai" (click)='getInfo(image)' *ngIf="mode>1">
+                                <i class="icon-shuxing"></i>
+                                {{l('detail')}}
+                            </a>
+                            <a class="btn-info fangkuai" (click)='setSkuMain(image)' *ngIf="image.isMain===false">
+                                <i class="icon-select"></i>
+                                {{l('setAsMainSku')}}
+                            </a>
+                            <a class="btn-warning fangkuai" (click)='clearSkuMain(image)' *ngIf="image.isMain===true">
+                                <i class="icon-jujue"></i>
+                                {{l('cancelMainSku')}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <span class="my-right" *ngIf="image.isCustom">
+                    <img src="/assets/common/images/w.png" />
+                </span>
+                <span class="left" *ngIf="image.isMine===false">
+                    <img src="/assets/common/images/b.png" />
+                </span>
+                <span class="right-top" *ngIf="image.isMain">
+                    <img src="/assets/common/images/main.png" />
+                </span>
+                <span class="right-top" *ngIf="isDefault(image)">
+                    <img src="/assets/common/images/default.png" />
+                </span>
+                <span class="right" *ngIf="image.price">{{trans(image.price)}}</span>
+                <img [src]="LoadingHolder" alt="" [attr.gridIndex]="i" name="loading" style="width:100%" [ngClass]="{'hide':image.loaded}" />
+                <img [src]="compatXunLei(transfileUrl(image,i))" [attr.gridIndex]="i" [ngStyle]="{'width':image.shape?'100%':'auto','height':!image.shape?'100%':'auto'}"
+                    [ngClass]="{'hide':!image.loaded}" (error)="showEmpty($event,image.resourceType?image.resourceType:image.type)"
+                    (load)="toggleView(image,$event)" alt="" [name]="i" />
+            </div>
+            <div class="imageLabel">
+                <h5>
+                    <span>{{image.title||image.name||image.awardName||image.skuTitle||image.software?.name||image.software?.alias||EmptyTdText}}</span>
+                    <i *ngIf="isResource(image)" [class]="getResType(image)"></i>
+                    <!-- <i  style="font-size: 28px;color: #03A9F4;position: absolute;right: 0px;"  class="icon-moren1"></i> -->
+                </h5>
+                <div class="row tagRow">
+                    <div [ngClass]="{'hide':!getTagsOrCates(image).type,'col-12':true}">
+                        <i [class]="getTagsOrCates(image).icon"></i>
+                        <span>{{getTagsOrCates(image).string}}</span>
+                    </div>
+
+                    <div class="col-6" *ngIf="image.activityName">
+                        <span>{{image.activityName}}</span>
+                    </div>
+
+                    <div class="col-6" *ngIf="image.productCategories" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+                        {{l('type')}} :
+                        <span *ngFor="let cate of image.productCategories;let i = index">
+                            {{cate.name}}
+                            <span *ngIf="i!=image.productCategories.length-1"> | </span>
+                        </span>
+                    </div>
+                    <div class="col-4" *ngIf="image.software">
+                        <span>{{l('type')}} : {{image.software?.type}}</span>
+                    </div>
+                    <div class="col-7" *ngIf="image.software||image.envType">
+                        <span>{{l('envType')}} : {{image.software?.envType||image.envType}}</span>
+                    </div>
+                    <div class="col-5" *ngIf="image.usage!==undefined">
+                        <span>{{l('usage')}} : {{image.usage||EmptyTdText}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6" *ngIf="!image.awardName">
+                        <p>
+                            <span class="fa fa-clock-o fs12 text-muted"></span>
+                            <span style="padding-left: 4px;">{{((image.created||image.creationTime||image.endTime) |
+                                date:'yyyy-MM-dd
+                                HH:mm')||EmptyTdText}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-6 text-right  pRow">
+                        <p *ngIf="image.auditStatus=='Offline'||image.auditStatus==0">
+                            <i class="icon-xiaxian text-danger"></i>
+                            <strong>{{l('offline')}}</strong>
+                        </p>
+                        <p *ngIf="image.auditStatus=='Online'||image.auditStatus==1">
+                            <i class="icon-shangxian text-success"></i>
+                            <strong>{{l('online')}}</strong>
+                        </p>
+                        <p *ngIf="image.isExpired===true">
+                            <i class="icon-jujue text-danger"></i>
+                            <strong>{{l('UnAuthorized')}}</strong>
+                        </p>
+                        <p *ngIf="image.isExpired===false">
+                            <i class="icon-tongguo text-success"></i>
+                            <strong>{{l('Authorized')}}</strong>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="emptyHolder" *ngIf="imageList&&imageList.length==0">
+        <img alt="" class="img-responsive" [src]="getHolder()">
+    </div>
+</div>

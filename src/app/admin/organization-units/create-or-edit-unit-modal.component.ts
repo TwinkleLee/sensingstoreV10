@@ -100,7 +100,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
 
 import * as moment from 'moment';
-// import { MyMapComponent } from '@app/shared/common/map/my-map.component';
+import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 
 export interface IOrganizationUnitOnEdit {
     id?: number;
@@ -119,7 +119,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     @ViewChild('organizationUnitDisplayName', {static: true}) organizationUnitDisplayNameInput: ElementRef;
 
     //troncell
-    // @ViewChild('map',{static:false}) map: MyMapComponent;
+    @ViewChild('map',{static:false}) map: MyMapComponent;
 
     @Output() unitCreated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
     @Output() unitUpdated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
@@ -152,6 +152,12 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         private _changeDetector: ChangeDetectorRef
     ) {
         super(injector);
+    }
+
+    ngOnDestroy() {
+        if (this.interval) {
+            clearInterval(this.interval)
+        }
     }
 
     onShown(): void {
@@ -270,5 +276,29 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     close(): void {
         this.modal.hide();
         this.active = false;
+        if (this.interval) {
+            clearInterval(this.interval)
+        }
+    }
+    showMap(e?: Event) {
+        e && e.preventDefault();
+        //仍是旧地址
+        if (JSON.stringify(this.organizationUnit.position || {}) == this._oldPosition) {
+            if (this.map.visible) {
+                this.map.hide();
+            } else {
+                this.map.show();
+            }
+        } else {
+            this.map.render(false, '500px');
+            this._oldPosition = JSON.stringify(this.organizationUnit.position || {});
+            this.map.show();
+        }
+    }
+    getPointer(e) {
+
+    }
+    mapClick(e) {
+
     }
 }

@@ -86,7 +86,12 @@
               "src/assets/metronic/common/js/components/header.js",
               "src/assets/metronic/common/js/components/scrolltop.js",
               "src/assets/metronic/common/js/components/toggle.js",
-              "src/assets/metronic/common/js/components/util.js"
+              "src/assets/metronic/common/js/components/util.js",
+
+
+
+              "node_modules/jquery/dist/jquery.js"
+
             ]
           },
           "configurations": {
@@ -207,7 +212,11 @@
               "src/assets/metronic/common/js/components/header.js",
               "src/assets/metronic/common/js/components/scrolltop.js",
               "src/assets/metronic/common/js/components/toggle.js",
-              "src/assets/metronic/common/js/components/util.js"
+              "src/assets/metronic/common/js/components/util.js",
+
+
+              "node_modules/jquery/dist/jquery.js"
+
             ],
             "assets": [
               "src/assets",

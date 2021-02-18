@@ -51,6 +51,19 @@ import { PasswordInputWithShowButtonComponent } from './password-input-with-show
 import { KeyValueListManagerComponent } from './key-value-list-manager/key-value-list-manager.component';
 import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.component';
 
+//V3
+// import { ImageGridComponent } from '@app/shared/common/image-grid/image-grid.component';
+// import { FileuploadResPoolComponent } from '@app/shared/common/fileupload/respool/resource-pool.component';
+// import { FileuploadComponent } from '@app/shared/common/fileupload/fileupload.component';
+// import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
+// import { HighTreeComponent } from '@app/shared/common/my-tree/high-tree.component';
+import { MyMapComponent } from '@app/shared/common/map/my-map.component';
+import { MyAddressComponent } from '@app/shared/common/my-address/my-address.component';
+
+// import { DateRangePickerComponent } from './timing/date-range-picker.component';
+// import { ChartsComponent } from '@app/shared/charts/charts.component';
+
+
 @NgModule({
     imports: [
         CommonModule,
@@ -102,7 +115,20 @@ import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.com
         MultipleSelectComboboxInputTypeComponent,
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
-        SubHeaderComponent
+        SubHeaderComponent,
+
+
+
+        //V3
+        // ImageGridComponent,
+        // FileuploadResPoolComponent,
+        // FileuploadComponent,
+        // MyTreeComponent,
+        // HighTreeComponent,
+        MyMapComponent,
+        MyAddressComponent,
+        // DateRangePickerComponent,
+        // ChartsComponent,
     ],
     exports: [
         TimeZoneComboComponent,
@@ -114,7 +140,21 @@ import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.com
         CustomizableDashboardComponent,
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
-        SubHeaderComponent
+        SubHeaderComponent,
+
+
+
+
+        //V3
+        // ImageGridComponent,
+        // FileuploadResPoolComponent,
+        // FileuploadComponent,
+        // MyTreeComponent,
+        // HighTreeComponent,
+        MyMapComponent,
+        MyAddressComponent,
+        // DateRangePickerComponent,
+        // ChartsComponent,
     ],
     providers: [
         DateTimeService,
