@@ -21,6 +21,9 @@ export class AccountComponent extends AppComponentBase implements OnInit {
 
     currentYear: number = this._dateTimeService.getYear();
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
+    //troncell
+    customTheme = AppConsts.customTheme;
+    
     tenantChangeDisabledRoutes: string[] = [
         'select-edition',
         'buy',
@@ -49,6 +52,8 @@ export class AccountComponent extends AppComponentBase implements OnInit {
 
         // We need this small hack in order to catch application root view container ref for modals
         this.viewContainerRef = viewContainerRef;
+
+        console.log(this.remoteServiceBaseUrl, this.customTheme);
     }
 
     showTenantChange(): boolean {
