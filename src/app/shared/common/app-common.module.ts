@@ -62,10 +62,6 @@ import { MyAddressComponent } from '@app/shared/common/my-address/my-address.com
 
 import { DateRangePickerComponent } from './timing/date-range-picker.component';
 // import { ChartsComponent } from '@app/shared/charts/charts.component';
-<<<<<<< HEAD
-=======
-
->>>>>>> eedbc5a5e94da9daf9406babae6814d1e2099470
 
 @NgModule({
     imports: [
@@ -145,25 +141,8 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
         SubHeaderComponent,
-<<<<<<< HEAD
         DateRangePickerComponent,
         // ChartsComponent
-=======
-
-
-
-
-        //V3
-        // ImageGridComponent,
-        // FileuploadResPoolComponent,
-        // FileuploadComponent,
-        // MyTreeComponent,
-        // HighTreeComponent,
-        MyMapComponent,
-        MyAddressComponent,
-        DateRangePickerComponent,
-        // ChartsComponent,
->>>>>>> eedbc5a5e94da9daf9406babae6814d1e2099470
     ],
     providers: [
         DateTimeService,
