@@ -27,7 +27,7 @@ import { UserAgentApplication, AuthResponse } from 'msal';
 import { LocalStorageService } from '@shared/utils/local-storage.service';
 
 //V3 todo
-// import { WeixinOAuth2ServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { WeixinOAuth2ServiceProxy } from '@shared/service-proxies/service-proxies5';
 
 declare const FB: any; // Facebook API
 declare const gapi: any; // Facebook API
@@ -81,7 +81,7 @@ export class LoginService {
         private _localStorageService: LocalStorageService,
         private _twitterService: TwitterServiceProxy,
         //V3 todo
-        // private _WeixinOAuth2ServiceProxy: WeixinOAuth2ServiceProxy
+        private _WeixinOAuth2ServiceProxy: WeixinOAuth2ServiceProxy
     ) {
         this.clear();
     }
@@ -123,28 +123,28 @@ export class LoginService {
     }
 
     //V3 todo
-    // wxAuthenticate(code, state, unbindCallback, finallyCallback?: () => void, redirectUrl?: string, captchaResponse?: string): void {
-    //     finallyCallback = finallyCallback || (() => {
-    //         this.spinnerService.hide();
-    //     });
+    wxAuthenticate(code, state, unbindCallback, finallyCallback?: () => void, redirectUrl?: string, captchaResponse?: string): void {
+        finallyCallback = finallyCallback || (() => {
+            this.spinnerService.hide();
+        });
 
-    //     this._WeixinOAuth2ServiceProxy
-    //         .getLoginResult(code, state, "wechat")
-    //         .subscribe({
-    //             next: (result) => {
-    //                 if (!result.isBind) {
-    //                     unbindCallback(result.unionid);
-    //                 } else {
-    //                     abp.multiTenancy.setTenantIdCookie(result.tenantId);
-    //                     this.processAuthenticateResult(result.authenticateResultModel, redirectUrl);
-    //                     finallyCallback();
-    //                 }
-    //             },
-    //             error: (err: any) => {
-    //                 finallyCallback();
-    //             }
-    //         });
-    // }
+        this._WeixinOAuth2ServiceProxy
+            .getLoginResult(code, state, "wechat")
+            .subscribe({
+                next: (result) => {
+                    if (!result.isBind) {
+                        unbindCallback(result.unionid);
+                    } else {
+                        abp.multiTenancy.setTenantIdCookie(result.tenantId);
+                        this.processAuthenticateResult(result.authenticateResultModel, redirectUrl);
+                        finallyCallback();
+                    }
+                },
+                error: (err: any) => {
+                    finallyCallback();
+                }
+            });
+    }
 
     externalAuthenticate(provider: ExternalLoginProvider): void {
         this.ensureExternalLoginProviderInitialized(provider, () => {

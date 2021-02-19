@@ -116,22 +116,22 @@ export class LoginComponent extends AppComponentBase implements OnInit {
                 this.showMainSpinner();
                 this.submitting = true;
                 //V3 todo
-                // this.loginService.wxAuthenticate(
-                //     code,
-                //     state,
-                //     (unionid) => {
-                //         // this.message.error('请使用账号密码登录', '未绑定账号');
-                //         this.unionid = unionid;
-                //         this.hideMainSpinner();
-                //         console.log(unionid);
-                //     },
-                //     () => {
-                //         this.submitting = false;
-                //         this.hideMainSpinner();
-                //     },
-                //     null,
-                //     null
-                // );
+                this.loginService.wxAuthenticate(
+                    code,
+                    state,
+                    (unionid) => {
+                        // this.message.error('请使用账号密码登录', '未绑定账号');
+                        this.unionid = unionid;
+                        this.hideMainSpinner();
+                        console.log(unionid);
+                    },
+                    () => {
+                        this.submitting = false;
+                        this.hideMainSpinner();
+                    },
+                    null,
+                    null
+                );
             }
         })
     }
@@ -172,23 +172,23 @@ export class LoginComponent extends AppComponentBase implements OnInit {
     //V3 todo
     showLoginQrCode() {
 
-    //     this.message.info(`
-    //     <div class="form-group" id="login_container"></div>
-    //     `, "", { isHtml: true });
-    //     // this.l("ScanBelowQrCodeWithWechat");
-    //     setTimeout(() => {
-    //         new WxLogin({
-    //             // self_redirect:true,
-    //             id: "login_container",
-    //             appid: "wx992b1a4b0a7ef35b",
-    //             scope: "snsapi_login",
-    //             redirect_uri: encodeURIComponent(`${AppConsts.appBaseUrl}/account/login`),
-    //             // state: "",
-    //             // style: "",
-    //             // href: "" //为一个css文件的地址，或直接对CSS进行base64加密：格式：href: "data:text/css;base64,base64加密后的字符串"
-    //         });
-    //         $("iframe").prop("sandbox", "allow-scripts allow-top-navigation allow-same-origin")
-    //     })
+        this.message.info(`
+        <div class="form-group" id="login_container"></div>
+        `, "", { isHtml: true });
+        // this.l("ScanBelowQrCodeWithWechat");
+        setTimeout(() => {
+            new window.WxLogin({
+                // self_redirect:true,
+                id: "login_container",
+                appid: "wx992b1a4b0a7ef35b",
+                scope: "snsapi_login",
+                redirect_uri: encodeURIComponent(`${AppConsts.appBaseUrl}/account/login`),
+                // state: "",
+                // style: "",
+                // href: "" //为一个css文件的地址，或直接对CSS进行base64加密：格式：href: "data:text/css;base64,base64加密后的字符串"
+            });
+            $("iframe").prop("sandbox", "allow-scripts allow-top-navigation allow-same-origin")
+        })
 
     }
 }
