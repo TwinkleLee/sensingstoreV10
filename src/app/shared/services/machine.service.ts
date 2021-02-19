@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FeatureCheckerService } from '@abp/features/feature-checker.service';
+import { FeatureCheckerService } from 'abp-ng2-module';
+// import { FeatureCheckerService } from '@abp/features/feature-checker.service';
 import { ChartReportDto, ChartItem } from '@shared/service-proxies/service-proxies3';
 import * as moment from 'moment';
 

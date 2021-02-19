@@ -61,7 +61,7 @@ import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 import { MyAddressComponent } from '@app/shared/common/my-address/my-address.component';
 
 import { DateRangePickerComponent } from './timing/date-range-picker.component';
-// import { ChartsComponent } from '@app/shared/charts/charts.component';
+import { ChartsComponent } from '@app/shared/charts/charts.component';
 
 @NgModule({
     imports: [
@@ -128,7 +128,7 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         MyMapComponent,
         MyAddressComponent,
         DateRangePickerComponent,
-        // ChartsComponent,
+        ChartsComponent,
     ],
     exports: [
         TimeZoneComboComponent,
@@ -142,7 +142,18 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         KeyValueListManagerComponent,
         SubHeaderComponent,
         DateRangePickerComponent,
-        // ChartsComponent
+
+
+        //V3
+        // ImageGridComponent,
+        // FileuploadResPoolComponent,
+        // FileuploadComponent,
+        // MyTreeComponent,
+        // HighTreeComponent,
+        MyMapComponent,
+        MyAddressComponent,
+        DateRangePickerComponent,
+        ChartsComponent,
     ],
     providers: [
         DateTimeService,
