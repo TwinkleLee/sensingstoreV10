@@ -16,6 +16,10 @@ import { UserNotificationHelper } from '@app/shared/layout/notifications/UserNot
 import { DateTime } from 'luxon';
 import { DateTimeService } from './shared/common/timing/date-time.service';
 
+//V3
+import { SwitchOUModalComponent } from '@app/shared/layout/profile/switch-ou-modal.component';
+
+
 @Component({
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.less']
@@ -37,6 +41,8 @@ export class AppComponent extends AppComponentBase implements OnInit {
     isQuickThemeSelectEnabled: boolean = this.setting.getBoolean('App.UserManagement.IsQuickThemeSelectEnabled');
     IsSessionTimeOutEnabled: boolean = this.setting.getBoolean('App.UserManagement.SessionTimeOut.IsEnabled') && this.appSession.userId != null;
 
+    //V3
+    @ViewChild('switchOUModal', { static: false }) switchOUModal: SwitchOUModalComponent;
     public constructor(
         injector: Injector,
         private _chatSignalrService: ChatSignalrService,
@@ -98,6 +104,12 @@ export class AppComponent extends AppComponentBase implements OnInit {
         abp.event.on('app.show.mySettingsModal', () => {
             this.mySettingsModal.show();
         });
+	
+        //V3
+        abp.event.on('app.show.switchOUModal', () => {
+            this.switchOUModal.show();
+        });
+        
     }
 
     getRecentlyLinkedUsers(): void {

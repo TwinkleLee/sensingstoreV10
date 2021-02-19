@@ -8,6 +8,10 @@ import { ImpersonationService } from '@app/admin/users/impersonation.service';
 import { AppConsts } from '@shared/AppConsts';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
+//V3 todo
+// import { LoginServiceProxy, BindPlatformUserInput } from '@shared/service-proxies/service-proxies';
+// import { UserActionServiceProxy, QrType3, SnsType8 } from '@shared/service-proxies/service-proxies5';
+
 @Component({
     selector: 'user-menu',
     templateUrl: './user-menu.component.html'
@@ -34,6 +38,15 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
 
     mQuickUserOffcanvas: any;
 
+    //V3
+    loadingQrcode = false;
+    qrCodeImage = "";
+    loopCount = 0;
+    loopInterval = null;
+    nowLoopActionId = null;
+    customTheme = AppConsts.customTheme;
+
+
     public constructor(
         injector: Injector,
         private _linkedAccountService: LinkedAccountService,
@@ -43,7 +56,11 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
         private _authService: AppAuthService,
         private _impersonationService: ImpersonationService,
         private _abpSessionService: AbpSessionService,
-        _dateTimeService: DateTimeService
+        _dateTimeService: DateTimeService,
+
+        //V3 todo
+        // private _LoginServiceProxy: LoginServiceProxy,
+        // private _UserActionServiceProxy: UserActionServiceProxy
     ) {
         super(injector, _dateTimeService);
     }
@@ -126,6 +143,56 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
 
     changeMySettings(): void {
         abp.event.trigger('app.show.mySettingsModal');
+    }
+
+    //V3
+    switchOU(): void {
+        abp.event.trigger('app.show.switchOUModal');
+    }
+    BindAccountToWechat() {
+        //V3 todo
+        // if (this.qrCodeImage) return this.onHidden()
+        // if (this.loadingQrcode) return
+        // if (this.loopInterval) clearInterval(this.loopInterval);
+        // this.loadingQrcode = true;
+        // this._UserActionServiceProxy.postPlayerData4ActionQrcodeOnline(undefined, undefined, `${this.tenancyName}/${this.userName}`, undefined, undefined, undefined, QrType3["AfterGame"], SnsType8["WeChat"], undefined, undefined, "781972096d884c3f8a5ce4b9e537c751", undefined, undefined, undefined)
+        //     .pipe(this.myFinalize(() => { this.loadingQrcode = false; }))
+        //     .subscribe(result => {
+        //         this.qrCodeImage = result.qrCodeImage;
+        //         this.nowLoopActionId = result.actionId;
+        //         this.loopInterval = setInterval(() => {
+        //             if (result.actionId != this.nowLoopActionId) return clearInterval(this.loopInterval)//已经换了新的二维码
+        //             if (this.loopCount < 180) {
+        //                 this.loopCount += 2;
+        //                 this._UserActionServiceProxy.queryNeededActionDataById(result.actionId, ["snsuerinfo"])
+        //                     .pipe()
+        //                     .subscribe(loopResult => {
+        //                         if (result.actionId != this.nowLoopActionId) {
+        //                             return
+        //                         } else if (loopResult.score && loopResult.snsUserInfo) {
+        //                             this.loadingQrcode = true;
+        //                             this._LoginServiceProxy.bindPlatformUserWithUnionId(new BindPlatformUserInput({ unionId: loopResult.snsUserInfo.unionid }))
+        //                                 .pipe(this.myFinalize(() => { this.loadingQrcode = false; }))
+        //                                 .subscribe(bindResult => {
+        //                                     this.onHidden();
+        //                                     this.message.warn(this.l("success"));
+        //                                 })
+        //                         }
+        //                     })
+        //             } else {//过期
+        //                 this.onHidden();
+        //                 this.message.warn(this.l("QrCodeExpired"));
+        //             }
+        //         }, 2000)
+        //     });
+    }
+    onHidden() {
+        if (this.loopInterval) clearInterval(this.loopInterval);
+        this.loadingQrcode = false;
+        this.qrCodeImage = "";
+        this.loopCount = 0;
+        this.loopInterval = null;
+        this.nowLoopActionId = null;
     }
 
     registerToEvents() {

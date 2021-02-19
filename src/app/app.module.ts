@@ -86,6 +86,8 @@ import { MenuSearchBarComponent } from './shared/layout/nav/menu-search-bar/menu
 import { NgxSpinnerModule, NgxSpinnerComponent } from 'ngx-spinner';
 import { ScrollTopComponent } from './shared/layout/scroll-top.component';
 import { AppBsModalModule } from '@shared/common/appBsModal/app-bs-modal.module';
+//V3
+import { SwitchOUModalComponent } from '@app/shared/layout/profile/switch-ou-modal.component';
 
 
 @NgModule({
@@ -141,7 +143,10 @@ import { AppBsModalModule } from '@shared/common/appBsModal/app-bs-modal.module'
         SessionTimeoutModalComponent,
         SessionTimeoutComponent,
         MenuSearchBarComponent,
-        ActiveDelegatedUsersComboComponent
+        ActiveDelegatedUsersComboComponent,
+	
+	//V3
+        SwitchOUModalComponent
     ],
     imports: [
         CommonModule,
