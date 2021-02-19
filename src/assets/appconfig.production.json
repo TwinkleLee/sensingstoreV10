@@ -1,6 +1,18 @@
 {
-  "remoteServiceBaseUrl": "https://localhost:44301",
-  "appBaseUrl": "http://localhost:4200",
+  "customTheme": "troncell",
+  "appBaseUrl": "./",
+  "openServiceBaseUrl": "https://o.api.troncell.com:443",
+  "remoteServiceBaseUrl": "https://s.api.troncell.com:443",
+  "remoteBigDataServiceUrl": "https://d.api.troncell.com",
+  "remoteOnlineServiceUrl": "https://o.api.troncell.com",
+  "remoteMetaServiceUrl": "https://r.api.troncell.com",
+  "remoteActivityServiceUrl": "https://g.api.troncell.com",
+  "remoteCargoServiceUrl": "https://e.api.troncell.com",
+  "remoteSYNCServiceUrl": "https://sync.api.troncell.com",
+  "remotePaperServiceUrl": "https://p.api.troncell.com",
+  "remoteUserServiceUrl": "https://u.api.troncell.com",
+  "remoteFloorServiceUrl": "https://floor.api.troncell.com",
+  "remoteOKRServiceUrl": "https://okr.api.troncell.com",
   "localeMappings": {
     "angular": [
       {
@@ -22,6 +34,28 @@
       {
         "from": "vi",
         "to": "en"
+      }
+    ],
+    "moment": [
+      {
+        "from": "es-MX",
+        "to": "es"
+      },
+      {
+        "from": "zh-Hans",
+        "to": "zh-cn"
+      },
+      {
+        "from": "vi",
+        "to": "en-gb"
+      },
+      {
+        "from": "ja-JP",
+        "to": "ja"
+      },
+      {
+        "from": "zh-HK",
+        "to": "zh"
       }
     ],
     "luxon": [

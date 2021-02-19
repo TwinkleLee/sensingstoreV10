@@ -7,6 +7,15 @@ import { ZeroTemplateHttpConfigurationService } from './zero-template-http-confi
 
 
 import * as BigDataApiServiceProxies from './service-proxies3';
+import * as OnlineApiServiceProxies from './service-proxies2';
+import * as MetaApiServiceProxies from './service-proxies4';
+import * as ActivityServiceProxies from './service-proxies5';
+import * as CargoServiceProxies from './service-proxies-cargo';//e
+import * as SYNCServiceProxies from './service-proxies-sync';
+import * as PagerServiceProxies from './service-proxies-pager';
+import * as UserServiceProxies from './service-proxies-user';
+import * as FloorServiceProxies from './service-proxies-floor';//floor
+import * as OKRServiceProxies from './service-proxies-okr';//okr
 @NgModule({
     providers: [
         ApiServiceProxies.AuditLogServiceProxy,
@@ -56,6 +65,18 @@ import * as BigDataApiServiceProxies from './service-proxies3';
         ApiServiceProxies.DynamicEntityPropertyValueServiceProxy,
         ApiServiceProxies.TwitterServiceProxy,
 
+        //V3
+        OnlineApiServiceProxies.OrderServiceProxy,
+        OnlineApiServiceProxies.CommonServiceProxy,
+        OnlineApiServiceProxies.ReportServiceProxy,
+        OnlineApiServiceProxies.MemberServiceProxy,
+        OnlineApiServiceProxies.SensingShopManageServiceProxy,
+        OnlineApiServiceProxies.PayCenterServiceProxy,
+        OnlineApiServiceProxies.TicketServiceProxy,
+        OnlineApiServiceProxies.SensingShopServiceProxy,
+        OnlineApiServiceProxies.SensingShopManageServiceProxy,
+
+
 
         BigDataApiServiceProxies.ReportServiceProxy,
         BigDataApiServiceProxies.QuestionCategoryServiceProxy,
@@ -63,8 +84,82 @@ import * as BigDataApiServiceProxies from './service-proxies3';
         BigDataApiServiceProxies.DeviceOptServiceProxy,
         BigDataApiServiceProxies.FaceRecordServiceProxy,
         BigDataApiServiceProxies.OperationsServiceProxy,
-        BigDataApiServiceProxies.DeviceHeatmapDataServiceProxy, 
-        //V3
+        BigDataApiServiceProxies.DeviceHeatmapDataServiceProxy,
+
+
+
+        MetaApiServiceProxies.DateMetaPhysicsServiceProxy,
+        MetaApiServiceProxies.MetaPhysicsServiceProxy,
+        MetaApiServiceProxies.IdentityServiceProxy,
+        MetaApiServiceProxies.FaceTagsServiceProxy,
+
+
+        CargoServiceProxies.CargoRoadServiceProxy,
+        CargoServiceProxies.ImportServiceProxy,
+        CargoServiceProxies.SensingDeviceServiceProxy,
+        CargoServiceProxies.AppPodServiceProxy,
+        CargoServiceProxies.DeviceAppPodVersionServiceProxy,
+        CargoServiceProxies.CounterAnalysisServiceProxy,
+        CargoServiceProxies.FileServiceProxy,
+        CargoServiceProxies.ReportServiceProxy,
+        CargoServiceProxies.ShelfServiceProxy,
+
+
+
+        ActivityServiceProxies.ActivityServiceProxy,
+        ActivityServiceProxies.QuestionServiceProxy,
+        ActivityServiceProxies.PaperServiceProxy,
+        ActivityServiceProxies.DeviceActivityServiceProxy,
+        ActivityServiceProxies.WeixinMpServiceProxy,
+        ActivityServiceProxies.HtmlTemplateServiceProxy,
+        ActivityServiceProxies.CommonServiceProxy,
+        ActivityServiceProxies.AwardServiceProxy,
+        ActivityServiceProxies.SpecialUserServiceProxy,
+        ActivityServiceProxies.UserActionServiceProxy,
+        ActivityServiceProxies.WeixinOpenPlatformServiceProxy,
+        ActivityServiceProxies.ReportServiceProxy,
+        ActivityServiceProxies.StoreActivityServiceProxy,
+        ActivityServiceProxies.WechatManageServiceProxy,
+        ActivityServiceProxies.UserPaperServiceProxy,
+        ActivityServiceProxies.WeixinOAuth2ServiceProxy,
+        ActivityServiceProxies.TrainingServiceProxy,
+        ActivityServiceProxies.ImportTrainingsServiceProxy,
+        ActivityServiceProxies.CourseServiceProxy,
+        ActivityServiceProxies.ImportQuestionsServiceProxy,
+
+        SYNCServiceProxies.PlanServiceProxy,
+        SYNCServiceProxies.BatchTaskLogServiceProxy,
+        SYNCServiceProxies.WeimobServiceProxy,
+        SYNCServiceProxies.TaobaoServiceProxy,
+        SYNCServiceProxies.MonecityServiceProxy,
+
+        CargoServiceProxies.CargoRoadServiceProxy,
+        CargoServiceProxies.ImportServiceProxy,
+        CargoServiceProxies.SensingDeviceServiceProxy,
+        CargoServiceProxies.AppPodServiceProxy,
+        CargoServiceProxies.DeviceAppPodVersionServiceProxy,
+        CargoServiceProxies.CounterAnalysisServiceProxy,
+        CargoServiceProxies.FileServiceProxy,
+        CargoServiceProxies.ReportServiceProxy,
+
+        PagerServiceProxies.ToolBoxServiceProxy,
+
+
+        UserServiceProxies.ApplicationServiceProxy,
+        UserServiceProxies.AppointmentServiceProxy,
+        UserServiceProxies.IdentityServiceProxy,
+        UserServiceProxies.PageExtraServiceProxy,
+        UserServiceProxies.UserDataServiceProxy,
+
+
+        FloorServiceProxies.FloorServiceProxy,
+        FloorServiceProxies.BuildingServiceProxy,
+        FloorServiceProxies.IdentityServiceProxy,
+        FloorServiceProxies.RoomServiceProxy,
+        FloorServiceProxies.RobotServiceProxy,
+
+        OKRServiceProxies.OKRServiceProxy,
+        
         ApiServiceProxies.OrganizationUnitTypeServiceProxy,
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },

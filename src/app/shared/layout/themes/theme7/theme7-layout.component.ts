@@ -35,7 +35,7 @@ export class Theme7LayoutComponent extends ThemesLayoutBaseComponent implements 
 
     ngOnInit() {
         this.installationMode = UrlHelper.isInstallUrl(location.href);
-        this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-dark-2.svg';
+        this.defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-dark-2.png';
         this.asideToggler = new KTOffcanvas(this.document.getElementById('kt_header_navs'), {
             overlay: true,
             baseClass: 'header-navs',

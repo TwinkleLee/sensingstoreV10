@@ -3,6 +3,11 @@
 # compiled output
 /dist
 /tmp
+/dist.rar
+
+*.bat
+*.zip
+*.xlsx
 
 # dependencies
 /node_modules
@@ -55,3 +60,5 @@ src/assets/metronic/themes/**/css/*.min.css
 src/assets/fonts/*min.css
 
 src/assets/metronic/themes/default/css/skins/**/*.min.css
+
+angular.7z

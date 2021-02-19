@@ -12,7 +12,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class Theme3BrandComponent extends AppComponentBase {
 
-    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-light-sm.svg';
+    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-light-sm.png';
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
 
     constructor(

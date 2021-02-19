@@ -11,7 +11,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class Theme7BrandComponent extends AppComponentBase {
 
-    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-dark-2.svg';
+    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-dark-2.png';
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
 
     constructor(

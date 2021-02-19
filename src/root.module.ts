@@ -33,6 +33,18 @@ import { LocaleMappingService } from '@shared/locale-mapping.service';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
+//V3
+import { API_ONLINE_URL } from '@shared/service-proxies/service-proxies2';
+import { API_BIGDATA_URL } from '@shared/service-proxies/service-proxies3';
+import { API_METAPHYSICS_URL } from '@shared/service-proxies/service-proxies4';
+import { API_ACTIVITY_URL } from '@shared/service-proxies/service-proxies5';
+import { API_CARGO_URL } from '@shared/service-proxies/service-proxies-cargo';
+import { API_SYNC_URL } from '@shared/service-proxies/service-proxies-sync';
+import { API_PAGER_URL } from '@shared/service-proxies/service-proxies-pager';
+import { API_USER_URL } from '@shared/service-proxies/service-proxies-user';
+import { API_FLOOR_URL } from '@shared/service-proxies/service-proxies-floor';
+import { API_OKR_URL } from '@shared/service-proxies/service-proxies-okr';
+
 export function appInitializerFactory(
     injector: Injector,
     platformLocation: PlatformLocation) {
@@ -156,7 +168,7 @@ function initializeTenantResources(injector: Injector) {
         //set og share image meta tag
         if (!appSessionService.tenant || !appSessionService.tenant.logoId) {
             let ui: AppUiCustomizationService = injector.get(AppUiCustomizationService);
-            metaImage.setAttribute('content', window.location.origin + '/assets/common/images/app-logo-on-' + abp.setting.get(appSessionService.theme.baseSettings.theme + '.' + 'App.UiManagement.Left.AsideSkin') + '.svg');
+            metaImage.setAttribute('content', window.location.origin + '/assets/common/images/app-logo-on-' + abp.setting.get(appSessionService.theme.baseSettings.theme + '.' + 'App.UiManagement.Left.AsideSkin') + '.png');
         } else {
             metaImage.setAttribute('content', AppConsts.remoteServiceBaseUrl + '/TenantCustomization/GetLogo?tenantId=' + appSessionService.tenant.id);
         }
@@ -206,6 +218,47 @@ export function convertAbpLocaleToAngularLocale(locale: string): string {
 export function getRemoteServiceBaseUrl(): string {
     return AppConsts.remoteServiceBaseUrl;
 }
+// V3
+export function getOnlineServiceBaseUrl(): string {
+    return AppConsts.remoteOnlineServiceUrl;
+}
+
+export function getBigDataServiceBaseUrl(): string {
+    return AppConsts.remoteBigDataServiceUrl;
+}
+
+export function getMetaPhysicsServiceBaseUrl(): string {
+    return AppConsts.remoteMetaServiceUrl;
+}
+
+export function getActivityServiceBaseUrl(): string {
+    return AppConsts.remoteActivityServiceUrl;
+}
+
+export function getCargoServiceBaseUrl(): string {
+    return AppConsts.remoteCargoServiceUrl;
+}
+
+export function getSYNCServiceBaseUrl(): string {
+    return AppConsts.remoteSYNCServiceUrl;
+}
+
+export function getPaperServiceBaseUrl(): string {
+    return AppConsts.remotePaperServiceUrl;
+}
+
+export function getUserServiceBaseUrl(): string {
+    return AppConsts.remoteUserServiceUrl;
+}
+
+export function getFloorServiceBaseUrl(): string {
+    return AppConsts.remoteFloorServiceUrl;
+}
+
+export function getOKRServiceBaseUrl(): string {
+    return AppConsts.remoteOKRServiceUrl;
+}
+// end
 
 export function getCurrentLanguage(): string {
     return convertAbpLocaleToAngularLocale(abp.localization.currentLanguage.name);
@@ -249,6 +302,17 @@ function handleLogoutRequest(authService: AppAuthService) {
     ],
     providers: [
         { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
+        //V3
+        { provide: API_ONLINE_URL, useFactory: getOnlineServiceBaseUrl },
+        { provide: API_BIGDATA_URL, useFactory: getBigDataServiceBaseUrl },
+        { provide: API_METAPHYSICS_URL, useFactory: getMetaPhysicsServiceBaseUrl },
+        { provide: API_ACTIVITY_URL, useFactory: getActivityServiceBaseUrl },
+        { provide: API_CARGO_URL, useFactory: getCargoServiceBaseUrl },
+        { provide: API_SYNC_URL, useFactory: getSYNCServiceBaseUrl },
+        { provide: API_PAGER_URL, useFactory: getPaperServiceBaseUrl },
+        { provide: API_USER_URL, useFactory: getUserServiceBaseUrl },
+        { provide: API_FLOOR_URL, useFactory: getFloorServiceBaseUrl },
+        { provide: API_OKR_URL, useFactory: getOKRServiceBaseUrl },
         {
             provide: APP_INITIALIZER,
             useFactory: appInitializerFactory,

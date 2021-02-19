@@ -1,6 +1,6 @@
 <div id="kt_header_mobile" class="header-mobile header-mobile-fixed ">
     <a routerLink="/" target="_blank" class="light">
-        <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" src="/assets/common/images/app-logo-on-light.svg"
+        <img *ngIf="!appSession.tenant || !appSession.tenant.logoId" src="/assets/common/images/app-logo-on-light.png"
             alt="logo" height="28" />
         <img *ngIf="appSession.tenant && appSession.tenant.logoId"
             [src]="remoteServiceBaseUrl + '/TenantCustomization/GetTenantLogo?skin=' + currentTheme.baseSettings.menu.asideSkin + '&tenantId=' + appSession.tenant.id + '&id=' + appSession.tenant.logoId"
