@@ -5,6 +5,8 @@ import * as ApiServiceProxies from './service-proxies';
 import { ZeroRefreshTokenService } from '@account/auth/zero-refresh-token.service';
 import { ZeroTemplateHttpConfigurationService } from './zero-template-http-configuration.service';
 
+
+import * as BigDataApiServiceProxies from './service-proxies3';
 @NgModule({
     providers: [
         ApiServiceProxies.AuditLogServiceProxy,
@@ -53,6 +55,16 @@ import { ZeroTemplateHttpConfigurationService } from './zero-template-http-confi
         ApiServiceProxies.DynamicPropertyValueServiceProxy,
         ApiServiceProxies.DynamicEntityPropertyValueServiceProxy,
         ApiServiceProxies.TwitterServiceProxy,
+
+
+        BigDataApiServiceProxies.ReportServiceProxy,
+        BigDataApiServiceProxies.QuestionCategoryServiceProxy,
+        BigDataApiServiceProxies.KnowledgeCategoryServiceProxy,
+        BigDataApiServiceProxies.DeviceOptServiceProxy,
+        BigDataApiServiceProxies.FaceRecordServiceProxy,
+        BigDataApiServiceProxies.OperationsServiceProxy,
+        BigDataApiServiceProxies.DeviceHeatmapDataServiceProxy, 
+
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: AbpHttpConfigurationService, useClass: ZeroTemplateHttpConfigurationService },
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }

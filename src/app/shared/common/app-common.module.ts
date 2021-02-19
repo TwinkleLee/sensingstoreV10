@@ -53,6 +53,7 @@ import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.com
 
 
 import { DateRangePickerComponent } from './timing/date-range-picker.component';
+// import { ChartsComponent } from '@app/shared/charts/charts.component';
 
 @NgModule({
     imports: [
@@ -106,7 +107,8 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
         SubHeaderComponent,
-        DateRangePickerComponent
+        DateRangePickerComponent,
+        // ChartsComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -119,7 +121,8 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
         SubHeaderComponent,
-        DateRangePickerComponent
+        DateRangePickerComponent,
+        // ChartsComponent
     ],
     providers: [
         DateTimeService,
