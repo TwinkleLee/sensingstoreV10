@@ -1,4 +1,4 @@
-<div dropdown class="dropdown dropdown-language" aria-haspopup="true" *ngIf="languages.length > 1" [dropup]="isDropup">
+<div dropdown class="dropdown dropdown-language" aria-haspopup="true" *ngIf="languages.length > 1&&customTheme!='yayi'" [dropup]="isDropup">
     <div dropdownToggle class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" aria-expanded="false">
         <div [class]="customStyle">
             <i [class]="currentLanguage.icon"></i>

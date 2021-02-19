@@ -3,6 +3,8 @@ import { ThemesLayoutBaseComponent } from '../themes/themes-layout-base.componen
 import { AbpSessionService } from 'abp-ng2-module';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
+import { AppConsts } from '@shared/AppConsts';
+
 @Component({
     selector: 'chat-toggle-button',
     templateUrl: './chat-toggle-button.component.html'
@@ -14,6 +16,9 @@ export class ChatToggleButtonComponent extends ThemesLayoutBaseComponent impleme
     isHost = false;
 
     @Input() customStyle = 'btn btn-icon btn-dropdown btn-clean btn-lg mr-1';
+
+    //V3
+    customTheme = AppConsts.customTheme;
 
     public constructor(
         injector: Injector,

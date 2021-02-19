@@ -1,4 +1,4 @@
-<div dropdown class="topbar-item" data-toggle="dropdown" aria-expanded="true"
+<div *ngIf="customTheme!='yayi'" dropdown class="topbar-item" data-toggle="dropdown" aria-expanded="true"
     [dropup]="isDropup" container="{{isDropup ? null: 'body'}}" >
     <div dropdownToggle [class]="customStyle" id="notificationIcon">
         <i class="flaticon-alert-2 unread-notification" *ngIf="unreadNotificationCount"></i>

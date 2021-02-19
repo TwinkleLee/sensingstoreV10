@@ -3,6 +3,7 @@ import { ThemesLayoutBaseComponent } from '../themes/themes-layout-base.componen
 import { ChangeUserLanguageDto, ProfileServiceProxy } from '@shared/service-proxies/service-proxies';
 import { filter as _filter } from 'lodash-es';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
     selector: 'language-switch-dropdown',
@@ -15,6 +16,9 @@ export class LanguageSwitchDropdownComponent extends ThemesLayoutBaseComponent i
 
     @Input() isDropup = false;
     @Input() customStyle = 'btn btn-icon btn-dropdown btn-clean btn-lg mr-1';
+
+    //V3
+    customTheme = AppConsts.customTheme;
 
     public constructor(
         injector: Injector,

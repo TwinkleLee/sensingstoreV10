@@ -4,6 +4,7 @@ import { NotificationServiceProxy, UserNotification } from '@shared/service-prox
 import { IFormattedUserNotification, UserNotificationHelper } from './UserNotificationHelper';
 import { forEach as _forEach  } from 'lodash-es';
 import { UrlHelper } from '@shared/helpers/UrlHelper';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
     templateUrl: './header-notifications.component.html',
@@ -16,6 +17,9 @@ export class HeaderNotificationsComponent extends AppComponentBase implements On
     unreadNotificationCount = 0;
     @Input() isDropup = false;
     @Input() customStyle = 'btn btn-icon btn-dropdown btn-clean btn-lg mr-1';
+
+    //V3
+    customTheme = AppConsts.customTheme;
 
     constructor(
         injector: Injector,

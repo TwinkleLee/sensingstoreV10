@@ -1,6 +1,7 @@
 import { Component, Injector, Input } from '@angular/core';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 import { ThemesLayoutBaseComponent } from '../themes/themes-layout-base.component';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
     selector: 'quick-theme-selection',
@@ -8,7 +9,10 @@ import { ThemesLayoutBaseComponent } from '../themes/themes-layout-base.componen
 })
 export class QuickThemeSelectionComponent extends ThemesLayoutBaseComponent {
 
-    isQuickThemeSelectEnabled: boolean = this.setting.getBoolean('App.UserManagement.IsQuickThemeSelectEnabled');
+    //V3
+    // isQuickThemeSelectEnabled: boolean = this.setting.getBoolean('App.UserManagement.IsQuickThemeSelectEnabled');
+    isQuickThemeSelectEnabled = true;
+    customTheme = AppConsts.customTheme;
 
     @Input() customStyle = 'btn btn-icon btn-clean btn-lg mr-1';
 

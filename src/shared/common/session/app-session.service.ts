@@ -1,6 +1,10 @@
 import { AbpMultiTenancyService } from 'abp-ng2-module';
 import { Injectable } from '@angular/core';
-import { ApplicationInfoDto, GetCurrentLoginInformationsOutput, SessionServiceProxy, TenantLoginInfoDto, UserLoginInfoDto, UiCustomizationSettingsDto } from '@shared/service-proxies/service-proxies';
+import { ApplicationInfoDto, GetCurrentLoginInformationsOutput, SessionServiceProxy, TenantLoginInfoDto, UserLoginInfoDto, UiCustomizationSettingsDto, OrganizationUnitDto } from '@shared/service-proxies/service-proxies';
+
+//V3
+import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
+
 
 @Injectable()
 export class AppSessionService {
@@ -12,9 +16,17 @@ export class AppSessionService {
     private _application: ApplicationInfoDto;
     private _theme: UiCustomizationSettingsDto;
 
+    //V3
+    private _ou: OrganizationUnitDto;
+    private _isAdmin: boolean;
+
     constructor(
         private _sessionService: SessionServiceProxy,
-        private _abpMultiTenancyService: AbpMultiTenancyService) {
+        private _abpMultiTenancyService: AbpMultiTenancyService,
+
+        //V3
+        private _tokenService: TokenAuthServiceProxy,
+    ) {
     }
 
     get application(): ApplicationInfoDto {
@@ -45,6 +57,20 @@ export class AppSessionService {
         return this.tenant ? this.tenant.id : null;
     }
 
+    //V3
+    get ou() {
+        return this._ou;
+    }
+    get ouId() {
+        return this._ou ? this._ou.id : null;
+    }
+    get isAdmin() {
+        return this._isAdmin;
+    }
+    set isAdmin(val) {
+        this._isAdmin = val;
+    }
+
     getShownLoginName(): string {
         const userName = this._user.userName;
         if (!this._abpMultiTenancyService.isEnabled) {
@@ -62,15 +88,58 @@ export class AppSessionService {
         this._theme = val;
     }
 
+    //V3
+    ouList: any = '';
+
     init(): Promise<UiCustomizationSettingsDto> {
         return new Promise<UiCustomizationSettingsDto>((resolve, reject) => {
-            this._sessionService.getCurrentLoginInformations().toPromise().then((result: GetCurrentLoginInformationsOutput) => {
+            this._sessionService.getCurrentLoginInformationsWithOrganizationUnits().toPromise().then((result:any) => {
                 this._application = result.application;
                 this._user = result.user;
                 this._tenant = result.tenant;
                 this._theme = result.theme;
                 this._impersonatorTenant = result.impersonatorTenant;
                 this._impersonatorUser = result.impersonatorUser;
+
+                //V3
+                this._isAdmin = result.isAdmin;
+
+                if (result.organization && result.organization.organizationUnits && result.organization.organizationUnits.length > 0) {
+                    var ouList = result.organization.organizationUnits
+                    var record: any = ouList[0]
+                    this._tokenService.setOrganizationUnitId(record.value).subscribe((result) => {
+                        abp.utils.setCookieValue(
+                            'Abp.OrganizationUnitId',
+                            String(record.value),
+                            new Date(new Date().getTime() + 1 * 86400000), //1 day
+                            abp.appPath
+                        );
+                        this.setCurrentOu(record.name, record.value);
+                    })
+
+                    abp.utils.setCookieValue(
+                        'Abp.OrganizationUnitIdList',
+                        JSON.stringify(ouList),
+                        new Date(new Date().getTime() + 1 * 86400000), //1 day
+                        abp.appPath
+                    );
+                    this.ouList = ouList;
+                } else {
+                    abp.utils.setCookieValue(
+                        'Abp.OrganizationUnitId',
+                        '',
+                        new Date(new Date().getTime() + 1 * 86400000), //1 day
+                        abp.appPath
+                    );
+                    abp.utils.setCookieValue(
+                        'Abp.OrganizationUnitIdList',
+                        '',
+                        new Date(new Date().getTime() + 1 * 86400000), //1 day
+                        abp.appPath
+                    );
+                    this.ouList = '';
+                }
+
                 resolve(result.theme);
             }, (err) => {
                 reject(err);
@@ -118,5 +187,19 @@ export class AppSessionService {
     }
     get impersonatorTenantId(): number {
         return this.impersonatorTenant ? this.impersonatorTenant.id : null;
+    }
+
+
+    // V3
+    /**设置当前ou */
+    setCurrentOu(name, id) {
+        this._ou = new OrganizationUnitDto();
+        this._ou.id = id;
+        this._ou.displayName = name;
+        console.log(this._ou, 'hellohello')
+    }
+    /** 重置ou */
+    resetOu() {
+        this._ou = null;
     }
 }
