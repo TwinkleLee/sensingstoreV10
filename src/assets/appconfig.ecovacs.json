@@ -1,0 +1,99 @@
+{
+  "customTheme": "kewosi",
+  "deploymentList": {
+    "ecovacs":{
+      "customer": "Ecovacs",
+      "host": "http://retail.ecovacs-c.com"
+    }
+  },
+  "appBaseUrl": "./",
+  "openServiceBaseUrl": "",
+  "remoteServiceBaseUrl": "http://s.api.ecovacs-c.com",
+  "remoteBigDataServiceUrl": "http://d.api.ecovacs-c.com",
+  "remoteOnlineServiceUrl": "",
+  "remoteMetaServiceUrl": "",
+  "remoteActivityServiceUrl": "http://g.api.ecovacs-c.com",
+  "remoteCargoServiceUrl": "",
+  "remoteSYNCServiceUrl": "",
+  "remotePaperServiceUrl": "",
+  "remoteUserServiceUrl": "",
+  "remoteFloorServiceUrl": "http://f.api.ecovacs-c.com",
+  "localeMappings": {
+    "angular": [
+      {
+        "from": "pt-BR",
+        "to": "pt"
+      },
+      {
+        "from": "zh-CN",
+        "to": "zh"
+      },
+      {
+        "from": "he-IL",
+        "to": "he"
+      },
+      {
+        "from": "es-MX",
+        "to": "es"
+      },
+      {
+        "from": "vi",
+        "to": "en"
+      },
+      {
+        "from": "ja-JP",
+        "to": "ja"
+      },
+      {
+        "from": "zh-HK",
+        "to": "zh"
+      }
+    ],
+    "moment": [
+      {
+        "from": "es-MX",
+        "to": "es"
+      },
+      {
+        "from": "zh-Hans",
+        "to": "zh-cn"
+      },
+      {
+        "from": "vi",
+        "to": "en-gb"
+      },
+      {
+        "from": "ja-JP",
+        "to": "ja"
+      },
+      {
+        "from": "zh-HK",
+        "to": "zh"
+      }
+    ],
+    "luxon": [
+      {
+        "from": "es-MX",
+        "to": "es"
+      },
+      {
+        "from": "zh-Hans",
+        "to": "zh-cn"
+      },
+      {
+        "from": "vi",
+        "to": "en-gb"
+      }
+    ],
+    "recaptcha": [
+      {
+        "from": "zh-Hans",
+        "to": "zh-cn"
+      },
+      {
+        "from": "es-MX",
+        "to": "es"
+      }
+    ]
+  }
+}

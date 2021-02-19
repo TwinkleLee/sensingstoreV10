@@ -134,6 +134,56 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "eco-dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ecodev.ts"
+                }
+              ]
+            },
+            "eco": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.eco.ts"
+                }
+              ]
+            },
+            "yayi-dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.yayidev.ts"
+                }
+              ]
+            },
+            "yayi": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.yayi.ts"
+                }
+              ]
             }
           }
         },
@@ -148,6 +198,18 @@
             },
             "production": {
               "browserTarget": "abp-zero-template:build:production"
+            },
+            "eco": {
+              "browserTarget": "abp-zero-template:build:eco"
+            },
+            "eco-dev": {
+              "browserTarget": "abp-zero-template:build:eco-dev"
+            },
+            "yayi": {
+              "browserTarget": "abp-zero-template:build:yayi"
+            },
+            "yayi-dev": {
+              "browserTarget": "abp-zero-template:build:yayi-dev"
             }
           }
         },

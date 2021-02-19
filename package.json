@@ -13,7 +13,11 @@
     "e2e": "gulp buildDev && protractor",
     "create-dynamic-bundles": "gulp buildDev",
     "nswag": "cd nswag/ && refresh.bat",
-    "product": "ng build --prod --aot --build-optimizer --source-map=false"
+    "product": "ng build --prod --aot --build-optimizer --source-map=false",
+    "eco-dev": "gulp buildDev && ng serve --host 0.0.0.0 --port 4200 --configuration=eco-dev",
+    "eco": "ng build --prod --aot --build-optimizer --source-map=false --configuration=eco",
+    "yayi-dev": "gulp buildDev && ng serve --host 0.0.0.0 --port 4200 --configuration=yayi-dev",
+    "yayi": "ng build --prod --aot --build-optimizer --source-map=false --configuration=yayi"
   },
   "private": false,
   "dependencies": {

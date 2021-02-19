@@ -81,32 +81,33 @@
 
 
 <!-- yayi -->
-<div *ngIf="customTheme=='yayi'" class="login__form" [@routerTransition] style="position:fixed;top:40%;left:20%;transform: translate(-50%,-50%);">
-    <div class="login__title" id="myContainer">
-        <h3 style="color:#ad8c50;font-weight:bold;margin-top:50px;">
+<div *ngIf="customTheme=='yayi'" class="login-form" [@routerTransition] style="position:fixed;top:40%;left:20%;transform: translate(-50%,-50%);width: 100%;max-width: 450px;">
+    <div class="pb-13 pt-lg-0 pt-5">
+        <h3 class="font-weight-bolder font-size-h4 font-size-h1-lg" style="color:#ad8c50;margin-top:50px;text-align: center;">
             登 录
         </h3>
     </div>
 
-    <form #loginForm="ngForm" class="form" method="post" novalidate (ngSubmit)="login()">
-        <div class="form-group m-form__group"
+    <form #loginForm="ngForm" class="login-form form" method="post" novalidate (ngSubmit)="login()">
+        <div class="form-group"
             style="display:flex;box-shadow: 4.243px 4.243px 9.2px 0.8px rgba(119, 119, 119, 0.25);">
             <img src="./assets/yayi/user.png" style="height:25px;margin:7.5px 15px;">
             <input [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus
-                class="form-control m-input" type="text" autocomplete="off" placeholder="请输入用户名"
-                name="userNameOrEmailAddress" style="margin-top:0;background: #fff !important;" />
+                class="form-control" type="text" autocomplete="off" placeholder="请输入用户名"
+                name="userNameOrEmailAddress" style="margin-top:0;height: 50px;" />
         </div>
 
-        <div class="form-group m-form__group"
+
+        <div class="form-group"
             style="display:flex;box-shadow: 4.243px 4.243px 9.2px 0.8px rgba(119, 119, 119, 0.25);">
             <img src="./assets/yayi/password.png" style="height:25px;margin:7.5px 15px;">
-            <input [(ngModel)]="loginService.authenticateModel.password" class="form-control m-input" type="password"
+            <input [(ngModel)]="loginService.authenticateModel.password" class="form-control" type="password"
                 autocomplete="off" placeholder="请输入密码" name="password" maxlength="32"
-                (keyup)="($event.which===13)?login():0" style="margin-top:0;" />
+                (keyup)="($event.which===13)?login():0" style="margin-top:0;height: 50px;" />
         </div>
 
 
-        <div class="login__actions" style="justify-content: center;">
+        <div class="login__actions" style="justify-content: center;text-align: center;margin: 3rem 0;">
             <img src="./assets/yayi/login.png" (click)="login()" style="position:relative;z-index:50;">
         </div>
     </form>

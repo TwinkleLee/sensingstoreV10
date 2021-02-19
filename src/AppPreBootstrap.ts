@@ -103,6 +103,21 @@ export class AppPreBootstrap {
             AppConsts.remoteServiceBaseUrlFormat = result.remoteServiceBaseUrl;
             AppConsts.localeMappings = result.localeMappings;
 
+            //V3
+            AppConsts.remoteOnlineServiceUrl = result.remoteOnlineServiceUrl;
+            AppConsts.remoteBigDataServiceUrl = result.remoteBigDataServiceUrl;
+            AppConsts.remoteMetaServiceUrl = result.remoteMetaServiceUrl;
+            AppConsts.remoteActivityServiceUrl = result.remoteActivityServiceUrl;
+            AppConsts.remoteCargoServiceUrl = result.remoteCargoServiceUrl;
+            AppConsts.remoteSYNCServiceUrl = result.remoteSYNCServiceUrl;
+            AppConsts.remotePaperServiceUrl = result.remotePaperServiceUrl;
+            AppConsts.remoteUserServiceUrl = result.remoteUserServiceUrl;
+            AppConsts.remoteFloorServiceUrl = result.remoteFloorServiceUrl;
+            AppConsts.remoteOKRServiceUrl = result.remoteOKRServiceUrl;
+            // V3 for ecovacs or yayi
+            AppConsts.deploymentList = result.deploymentList;
+            AppConsts.customTheme = result.customTheme || '';
+
             if (tenancyName == null) {
                 AppConsts.appBaseUrl = result.appBaseUrl.replace(
                     AppConsts.tenancyNamePlaceHolderInUrl + '.',
