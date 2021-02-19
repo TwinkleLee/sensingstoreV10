@@ -1,4 +1,5 @@
 {
+  "customTheme": "troncell",
   "appBaseUrl": "./",
   "remoteServiceBaseUrl": "http://119.3.154.130:8000",
   "openServiceBaseUrl": "https://o.api.troncell.com:443",
