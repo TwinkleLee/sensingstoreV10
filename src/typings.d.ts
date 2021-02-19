@@ -16,6 +16,11 @@ declare var KTHeader: any; // Related to Metronic
 declare var KTScrolltop: any; // Related to Metronic
 declare var StripeCheckout: any;
 
+//V3
+declare var h337: any;
+declare var OSS: any;
+declare var WxLogin: any;
+
 declare namespace abp {
     namespace ui {
         function setBusy(elm?: any, text?: any, optionsOrPromise?: any): void;

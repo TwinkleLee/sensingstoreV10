@@ -134,4 +134,66 @@ export abstract class AppComponentBase {
     hideMainSpinner(text?: string): void {
         this.spinnerService.hide();
     }
+
+    //V3
+    clearInput(e) {
+        $(e.target).val('');
+    }
+    fixPic(e) {
+        $(e.target).attr('src', this.EmptyHolder);
+    }
+
+    fixFileUrl(url) {
+        var u;
+        if (!url) {
+            u = this.EmptyHolder;
+        } else if (url.indexOf('http:') > -1 || url.indexOf('https:') > -1 || url.indexOf('data:') > -1) {
+            u = url;
+        } else {
+            u = AppConsts.remoteServiceBaseUrl + '\\' + url;
+        }
+        return u;
+    }
+    get avalibleHeight() {
+        var body_height = $(".m-grid.m-grid--hor.m-grid--root.m-page").height(),
+            head_height = $("#m_header_nav").height() + $('.m-subheader').height();
+        return (body_height - head_height) + "px";
+    }
+
+    toggleParentTrStyle(event?: Event) {
+        $(event.target).closest("tr").toggleClass(".ui-state-highlight");
+    }
+    juggeChosen(recordList: any[]) {
+        $("tr[trid]").removeClass("ui-state-highlight");
+        recordList.forEach((record) => {
+            let tr = $("tr[trid=" + record.id + "]:visible");
+            tr.addClass("ui-state-highlight");
+            tr.find("span.ui-clickable").addClass('pi pi-check');
+        })
+    }
+
+
+    isJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    checkJson(str) {
+        if (str && str.indexOf("{") == 0) {
+            if (this.isJson(str)) {
+                console.log(true);
+                return true
+            } else {
+                this.message.warn(this.l('JsonNotPattern'))
+                console.log(false);
+                return false
+            }
+        } else {
+            return true
+        }
+    }
 }

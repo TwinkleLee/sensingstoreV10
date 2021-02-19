@@ -54,6 +54,7 @@
     "localforage": "^1.7.3",
     "lodash-es": "^4.17.15",
     "luxon": "^1.25.0",
+    "moment": "^2.29.1",
     "msal": "^1.4.4",
     "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^6.2.0",
