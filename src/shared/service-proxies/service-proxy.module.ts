@@ -64,6 +64,8 @@ import * as BigDataApiServiceProxies from './service-proxies3';
         BigDataApiServiceProxies.FaceRecordServiceProxy,
         BigDataApiServiceProxies.OperationsServiceProxy,
         BigDataApiServiceProxies.DeviceHeatmapDataServiceProxy, 
+        //V3
+        ApiServiceProxies.OrganizationUnitTypeServiceProxy,
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: AbpHttpConfigurationService, useClass: ZeroTemplateHttpConfigurationService },

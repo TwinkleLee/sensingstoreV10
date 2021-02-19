@@ -1,0 +1,36 @@
+<div class="ngx-address">
+    <div Class="ngx-address-title has form-control">
+        <input [(ngModel)]="area" [disabled]="!ready" readonly (click)="showPick()"  class="form-control" style="background: white !important;"/>
+    </div>
+    <div class="ngx-address-overlay" #pick style="top: 2.3rem; left: 0px;display: none;">
+        <div class="ngx-address-select-warp">
+            <div class="ngx-address-select-tab">
+                <a (click)="toggleTab(1)" [ngClass]="{'current':mode==1}">{{l('Province')}}</a>
+                <a (click)="toggleTab(2)" [ngClass]="{'current':mode==2}">{{l('City')}}</a>
+                <a (click)="toggleTab(3)" [ngClass]="{'current':mode==3}">{{l('County')}}</a>
+            </div>
+            <div class="ngx-address-select" [ngClass]="{'current':mode==1}">
+                <dl>
+                    <dd>
+                        <a href="javascript:;" [ngClass]="{'current':position?.province==p.name}" (click)="choseProvince(p)" *ngFor="let p of areaList;let i = index"
+                            [title]="p?.name">{{p?.name}}</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="ngx-address-select" [ngClass]="{'current':mode==2}">
+                <dl>
+                    <dd>
+                        <a href="javascript:;" [ngClass]="{'current':position?.city==c.name}" [title]="c?.name" (click)="choseCity(c)" *ngFor="let c of cityList;let i = index">{{c?.name}}</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="ngx-address-select"  [ngClass]="{'current':mode==3}">
+                <dl>
+                    <dd>
+                        <a href="javascript:;" [ngClass]="{'current':position?.county==c.name}" [title]="c?.name" (click)="choseCounty(c)" *ngFor="let c of countyList;let i = index">{{c.name}}</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

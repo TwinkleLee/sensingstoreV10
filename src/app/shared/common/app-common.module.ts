@@ -51,9 +51,21 @@ import { PasswordInputWithShowButtonComponent } from './password-input-with-show
 import { KeyValueListManagerComponent } from './key-value-list-manager/key-value-list-manager.component';
 import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.component';
 
+//V3
+// import { ImageGridComponent } from '@app/shared/common/image-grid/image-grid.component';
+// import { FileuploadResPoolComponent } from '@app/shared/common/fileupload/respool/resource-pool.component';
+// import { FileuploadComponent } from '@app/shared/common/fileupload/fileupload.component';
+// import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
+// import { HighTreeComponent } from '@app/shared/common/my-tree/high-tree.component';
+import { MyMapComponent } from '@app/shared/common/map/my-map.component';
+import { MyAddressComponent } from '@app/shared/common/my-address/my-address.component';
 
 import { DateRangePickerComponent } from './timing/date-range-picker.component';
 // import { ChartsComponent } from '@app/shared/charts/charts.component';
+<<<<<<< HEAD
+=======
+
+>>>>>>> eedbc5a5e94da9daf9406babae6814d1e2099470
 
 @NgModule({
     imports: [
@@ -108,7 +120,19 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         KeyValueListManagerComponent,
         SubHeaderComponent,
         DateRangePickerComponent,
-        // ChartsComponent
+
+
+
+        //V3
+        // ImageGridComponent,
+        // FileuploadResPoolComponent,
+        // FileuploadComponent,
+        // MyTreeComponent,
+        // HighTreeComponent,
+        MyMapComponent,
+        MyAddressComponent,
+        DateRangePickerComponent,
+        // ChartsComponent,
     ],
     exports: [
         TimeZoneComboComponent,
@@ -121,8 +145,25 @@ import { DateRangePickerComponent } from './timing/date-range-picker.component';
         PasswordInputWithShowButtonComponent,
         KeyValueListManagerComponent,
         SubHeaderComponent,
+<<<<<<< HEAD
         DateRangePickerComponent,
         // ChartsComponent
+=======
+
+
+
+
+        //V3
+        // ImageGridComponent,
+        // FileuploadResPoolComponent,
+        // FileuploadComponent,
+        // MyTreeComponent,
+        // HighTreeComponent,
+        MyMapComponent,
+        MyAddressComponent,
+        DateRangePickerComponent,
+        // ChartsComponent,
+>>>>>>> eedbc5a5e94da9daf9406babae6814d1e2099470
     ],
     providers: [
         DateTimeService,

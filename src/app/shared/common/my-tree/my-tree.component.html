@@ -1,0 +1,37 @@
+<dl #list [ngClass]="{'productCategory':config.specialClass.productCategory}">
+    <dt *ngIf="isRoot&&config.needFilter">
+        <div class="form-group">
+            <div class="input-group">
+                <input name="treeFilterText" autoFocus class="form-control kt-input" type="text">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" (click)="filter()">
+                        <i class="icon-sousuo-sousuo"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </dt>
+    <dt *ngFor="let item of items" class="belongToTree">
+        <label class="kt-checkbox kt-checkbox--air belongToTree" style="white-space: nowrap;">
+            <i class="belongToTree" *ngIf="item[config.children]&&item[config.children].length>0" (click)="toggleChildren(item,$event)"
+                [ngClass]="{'close':!item.showChildren,'open':item.showChildren,'treeToggle':true}" [ngStyle]="{'left':getLeft('i')}"
+                role="presentation"></i>
+            <input class="belongToTree" type="checkbox" [id]="item.id" *ngIf="config.selectable" [(ngModel)]="item.isSelected"
+                (change)="chose(item)">
+            <img *ngIf="config.showIcon" [ngStyle]="{'left':getLeft('img')}" [src]="transIconUrl(item[config.icon])"
+                (error)="showEmpty($event)" (contextmenu)="showMenu($event,item)" />
+            <a class="belongToTree" style="color:#000;margin-left:7px;" (contextmenu)="showMenu($event,item)">
+                <i class="belongToTree" [ngClass]="{'icon-shebei':item.type=='device','icon-zuzhijigou1':item.type=='organization','icon-iconfontshangcheng':item.type=='store'}"></i>
+                {{config.showId?item.id+" : ":""}}{{config.showOuterId&&item.outerId?item.outerId+" :
+                ":""}}{{item[config.name]}}
+                <!-- {{config.specialClass.productCategory}} -->
+            </a>
+            <span class="belongToTree" *ngIf="config.selectable&&(!config.canOnlyChooseType||item.type==config.canOnlyChooseType)"
+                [ngStyle]="{'left':getLeft('span')}"></span>
+        </label>
+        <!-- &&item.showChildren -->
+        <app-my-tree *ngIf="item[config.children]&&item[config.children].length>0&&!item.showChildren" (onMenu)="childMenuEvent($event)"
+            (onCheck)="childCheckEvent()" [(items)]="item[config.children]" [(filterRoot)]="filterRoot" [(root)]="root"
+            [isRoot]="false" [(config)]="config"></app-my-tree>
+    </dt>
+</dl>

@@ -6,6 +6,17 @@
             </span>
         </h3>
         <div class="card-toolbar">
+            <div class="input-group" style="width:50%;">
+                <input autoFocus [(ngModel)]="filterText" name="filterText" class="form-control" placeholder="{{l('SearchWithThreeDot')}}"
+                    type="text">
+                <span class="input-group-btn">
+                    <button (click)="doFilter()" class="btn btn-primary" type="button" style="margin-top:0;margin-bottom:0;margin-right:0.5rem;"><i
+                            class="flaticon-search-1" [attr.aria-label]="l('Search')"></i></button>
+                </span>
+            </div>
+            <button *ngIf="'Pages.Administration.OrganizationUnits.ManageOrganizationTree' | permission" (click)="manageOutype()" class="btn btn-primary">
+                <i class="fa fa-plus"></i> {{"type" | localize}}
+            </button>
             <button *ngIf="'Pages.Administration.OrganizationUnits.ManageOrganizationTree' | permission" (click)="addUnit(null)" class="btn btn-primary">
                 <i class="fa fa-plus"></i> {{"AddRootUnit" | localize}}
             </button>
@@ -22,7 +33,7 @@
             <ng-template let-node pTemplate="default">
                 <div>
                     <span>
-                        {{node.label}}
+                        <span *ngIf="node.outerId">[{{node.outerId}}] </span> {{node.label}}
                     </span>
                     <small style="font-size: .82em; opacity: .5;">{{node.memberCount}} {{'Members' | localize}}, {{node.roleCount}} {{'Roles' | localize}}</small>
                 </div>
@@ -37,3 +48,4 @@
 
 <createOrEditOrganizationUnitModal #createOrEditOrganizationUnitModal (unitCreated)="unitCreated($event)" (unitUpdated)="unitUpdated($event)"></createOrEditOrganizationUnitModal>
 <entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>
+<createOrEditOrganizationUnitTypeModal #createOrEditOrganizationUnitTypeModal (ouTypeSaved)="getOUType()"></createOrEditOrganizationUnitTypeModal>

@@ -218,8 +218,8 @@
               "src/assets/metronic/common/js/components/util.js",
 
 
-              "node_modules/jquery/dist/jquery.js"
-
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap-daterangepicker/daterangepicker.js"
 
             ],
             "assets": [

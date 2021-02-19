@@ -1,0 +1,181 @@
+<div class="row fileupload" #fileupload>
+    <h5 *ngIf="alert" class="m--font-danger">{{alert}}</h5>
+    <tabset class="tab-container tabbable-line">
+        <tab customClass="m-tabs__item active icon-bendiziyuan" heading="{{l('LocalResources')}}"
+            (selectTab)="isLocal=true">
+            <div (drop)="fileGrop($event)" (dragover)="allowGrag($event)" class="dropArea" *ngIf="!multiple">
+                <div style="position:absolute;z-index: 2;">{{l("recommended that the file size should not exceed")}} 200M</div>
+                <a class="text-success" style="width:100%;top:auto;bottom:0;word-wrap:break-word;"
+                    *ngIf="_resourcetype!='Image'" download="" [title]="_fileUrl" target="view_window"
+                    [href]="_fileUrl">
+                    {{_fileUrl}}
+                </a>
+                <img *ngIf="_resourcetype=='Image'" [src]="_fileUrl" width="100%" (error)="showEmpty($event)"
+                    (load)="ajust($event)" style="background:rgb(250,250,250);" />
+                <img *ngIf="_resourcetype=='PDF'" [src]="EmptyHolderP" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='Video'" [src]="EmptyHolderV" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='Audio'" [src]="EmptyHolderA" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='Web'" [src]="EmptyHolderW" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='PPT'" [src]="EmptyHolderPPT" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='Text'" [src]="EmptyHolderT" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='Zip'" [src]="EmptyHolderZ" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='Other'" [src]="EmptyHolderO" alt="" width="100%" (load)="ajust($event)" />
+                <img *ngIf="_resourcetype=='None'" [src]="EmptyHolderO" alt="" width="100%" (load)="ajust($event)" />
+
+
+
+                <form novalidate name="fileUploadForm" id="fileUploadForm">
+                    <input *ngIf="isLocal" type="file" id="file" name="file" [attr.accept]="mode"
+                        [attr.title]="_fileUrl" [attr.required]="require" [attr.size]="_maxSize" [(ngModel)]="fileinput"
+                        (change)="fileChange($event)" />
+                </form>
+            </div>
+        </tab>
+        <tab customClass="m-tabs__item icon-web2 " heading="{{l('WebResources')}}" (selectTab)="isLocal=false">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input name="WebUrl" [(ngModel)]="WebUrl" class="form-control" placeholder="回车即可应用地址"
+                            (keydown.enter)="setWebFileUrl($event)" />
+                        <span class="input-group-btn">
+                            <button (click)="setWebFileUrl()" class="btn btn-primary" type="button">
+                                <i class="icon-sheZhi"></i>{{l('Set')}}
+                            </button>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="form-group imgCenter" style="position: relative;">
+                    <a class="text-success"
+                        style="bottom:0;line-height:normal;word-wrap:break-word;position:absolute;width:100%;text-align:center;left:0;"
+                        *ngIf="_resourcetype!='Image'" download="" target="view_window"
+                        [href]="_fileUrl">{{_fileUrl}}</a>
+                    <img *ngIf="_resourcetype=='Image'" [src]="_fileUrl" alt="" width="100%" (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='PDF'" [src]="EmptyHolderP" alt="" width="100%" (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='Video'" [src]="EmptyHolderV" alt="" width="100%"
+                        (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='Audio'" [src]="EmptyHolderA" alt="" width="100%"
+                        (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='Web'" [src]="EmptyHolderW" alt="" width="100%" (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='PPT'" [src]="EmptyHolderPPT" alt="" width="100%"
+                        (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='Text'" [src]="EmptyHolderT" alt="" width="100%"
+                        (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='Zip'" [src]="EmptyHolderZ" alt="" width="100%" (load)="ajust($event)" />
+                    <img *ngIf="_resourcetype=='Other'" [src]="EmptyHolderO" alt="" width="100%"
+                        (load)="ajust($event)" />
+
+
+
+                </div>
+            </div>
+        </tab>
+
+        <!-- <tab customClass="m-tabs__item active icon-bendiziyuan" heading="{{l('Text')}}" (selectTab)="isLocal=false">
+            <div class="row">
+                <div class="form-group col-12">
+                    <label>{{l("TextResources")}}</label>
+                    <textarea rows="8" class="form-control" name="description"></textarea>
+                </div>
+            </div>
+        </tab> -->
+
+        <tab *ngIf="appSession.tenantId" customClass="m-tabs__item icon-jiaruziyuanku" heading="{{l('ResourcePool')}}"
+            (selectTab)="isLocal=false;getResources()">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input"
+                                [placeholder]="l('name')" type="text">
+                            <span class="input-group-btn">
+                                <button (click)="getResources()" class="btn btn-primary" type="button">
+                                    <i class="icon-sousuo-sousuo"></i>
+                                </button>
+                                <button (click)="showPool()" class="btn btn-primary" type="button">
+                                    <i class="icon-kuozhan"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="primeng-datatable-container  col-12" [busyIf]="primengTableHelper.isLoading">
+                    <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                    <p-table #dataTable (onLazyLoad)="getResources($event)" [value]="primengTableHelper.records"
+                        [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="false"
+                        [responsive]="primengTableHelper.isResponsive">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 30%">{{l('Actions')}}</th>
+                                <th style="width:20%" pSortableColumn="id">
+                                    {{l('ID')}}
+                                    <p-sortIcon field="id"></p-sortIcon>
+                                </th>
+                                <th>{{l('name')}}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                            <tr>
+                                <td>
+                                    <span class="text-info" *ngIf="record.id==appliedResourceId">已应用</span>
+                                    <button type="button" class="btn btn-primary" *ngIf="record.id!=appliedResourceId"
+                                        (click)="useResPool(record)">{{l('Apply')}}</button>
+                                </td>
+                                <td>
+                                    <span [title]="record.id">{{record.id}}</span>
+                                </td>
+                                <td>
+                                    <span [title]="record.name">{{record.name}}</span>
+                                </td>
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-records>
+                            <tr *ngIf="primengTableHelper.records">
+                                <td colspan="3">
+                                    <img style="width:100%;"
+                                        src="/assets/common/images/placeholder/resourceHolder.png" />
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <div class="primeng-paging-container  col-12">
+                        <p-paginator rows="5" #paginator (onPageChange)="getResources($event)"
+                            [totalRecords]="primengTableHelper.totalRecordsCount">
+                        </p-paginator>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+    <div class="progress width-percent-100" *ngIf="progress">
+        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20"
+            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: progress+'%'}">
+            <span class="sr-only">{{progress}}% Complete</span>
+        </div>
+    </div>
+    <div class="row">
+        <span class="clickable-item text-muted" style="margin-left: 19px;" (click)="toggleAdvance()">
+            <i [ngClass]="{'fa':true,'fa-angle-up':poped,'fa-angle-down':!poped}"></i>
+            {{l("ShowOrHideMoreSettings")}}</span>
+        <span class="clickable-item text-muted" style="margin-left: 143px;" (click)="clearFile()">
+            <i class="icon-qingchu"></i> {{l('Clear')}}</span>
+    </div>
+    <!-- <div class="form-control" hidden #advance style="position: absolute;bottom: -120px;z-index: 1000;"> -->
+    <div class="form-control" hidden #advance style="position: absolute;top: 100%;z-index: 1000;border:none;">
+        <label class="control-label">{{l("type")}}</label>
+        <select class="form-control" [(ngModel)]="_resourcetype" name="resourceType">
+            <option [value]="type" *ngFor="let type of ResourceFileDtoTypes">{{type}}</option>
+        </select>
+        <label class="kt-checkbox kt-checkbox--success" style="margin-top: 6px;">
+            <input type="checkbox" [(ngModel)]="_toResource" name="_toResource"> {{l("SaveToResouce")}}
+            <span></span>
+        </label>
+        <label class="kt-checkbox kt-checkbox--success" style="margin-top: 6px;margin-left: 6px;">
+            <input type="checkbox" [(ngModel)]="CreateThumbnail" name="CreateThumbnail"> {{l("isCreateThumbnail")}}
+            <span></span>
+        </label>
+    </div>
+</div>
+<app-fileupload-res-pool #resourcePool (onApply)="applyResource($event)" [filearea]="getFilearea()">
+</app-fileupload-res-pool>

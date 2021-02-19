@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h2 style="color:red;">
+    重复name
+  </h2>
+  <ul id="name"></ul>
+  <h2 style="color:blue;">
+    重复value
+  </h2>
+  <ul id="value"></ul>
+</body>
+<script>
+  var str;//本地直接打开时,在此处填写XML文件的内容
+  var xmlUrl = "SensingStoreCloud-zh-CN.xml";//通过服务器启动时,在此处填写XML文件的路径
+
+  if (window.location.host.indexOf("127.0.0.1") >= 0 || window.location.host.indexOf("localhost") >= 0) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.open("GET", xmlUrl, false);
+    xhr.send(null);
+    var xmlDoc = xhr.responseXML;
+    var xmlvar = xmlDoc.getElementsByTagName("texts")[0];
+    str = (new XMLSerializer()).serializeToString(xmlvar);
+  }
+
+  var regx = /<text[\s\S]+?\/>|<text[\s\S]+?<\/text>/gm;
+  var arr = str.match(regx);
+  objArr = arr.map(item => {
+    var obj = {
+      name: item.match(/name="[\s\S]+?"/g)[0].match(/"[\s\S]+?"/g)[0].replace(/"/g, ''),
+    }
+    if (item.match(/value="[\s\S]+?"/)) {
+      obj.value = item.match(/value="[\s\S]+?"/g)[0].match(/"[\s\S]+?"/g)[0].replace(/"/g, '');
+    } else if (item.match(/>[\s\S]+?</)) {
+      obj.value = item.match(/>[\s\S]+?</g)[0].replace(/>|</g, '');
+    }
+    return obj
+  })
+
+  var nameArr = [];
+  var valueArr = [];
+  for (var i = 0; i < objArr.length; i++) {
+    for (var j = 0; j < objArr.length; j++) {
+      if (objArr[i].name == objArr[j].name && i != j && nameArr.indexOf(objArr[i].name) < 0) {
+        nameArr.push(objArr[i].name)
+        console.error('重复name,', objArr[i].name)
+
+        var para = document.createElement("li");//创建需要增加的元素节点
+        var node = document.createTextNode(objArr[i].name);//创建文本节点
+        para.appendChild(node);//将文本节点增加至创建的元素中 
+        var element = document.getElementById("name");//获取父节点
+        element.appendChild(para);
+      }
+      if (objArr[i].value == objArr[j].value && i != j && valueArr.indexOf(objArr[i].value) < 0) {
+        valueArr.push(objArr[i].value)
+        console.warn('重复value,', objArr[i].value)
+
+        var para = document.createElement("li");//创建需要增加的元素节点
+        var node = document.createTextNode(objArr[i].value);//创建文本节点
+        para.appendChild(node);//将文本节点增加至创建的元素中 
+        var element = document.getElementById("value");//获取父节点
+        element.appendChild(para);
+      }
+    }
+  }
+</script>
+
+</html>

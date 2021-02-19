@@ -1,50 +1,43 @@
-<div class="login-form" [@routerTransition]>
+<div *ngIf="customTheme!='yayi'" class="login-form" [@routerTransition]>
     <div class="pb-13 pt-lg-0 pt-5">
-        <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
+        <h3 *ngIf="!unionid" class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
             {{ 'LogIn' | localize }}
         </h3>
+        <span *ngIf="unionid" style="color:red;font-weight:normal;font-size:1.4rem;">
+            {{ 'The wechat has not been bound to the account. Please enter the account password to bind' | localize }}
+        </span>
     </div>
     <!--begin::Form-->
     <form #loginForm="ngForm" class="login-form form" method="post" method="post" (ngSubmit)="login()">
         <div class="form-group">
-            <input #userNameOrEmailAddressInput="ngModel"
-                [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus
-                class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text"
-                autocomplete="new-password" placeholder="{{'UserNameOrEmail' | localize}} *"
-                name="userNameOrEmailAddress" required />
+            <input #userNameOrEmailAddressInput="ngModel" [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" autocomplete="new-password" placeholder="{{'UserNameOrEmail' | localize}} *" name="userNameOrEmailAddress" required />
             <validation-messages [formCtrl]="userNameOrEmailAddressInput" *ngIf="!userNameOrEmailAddressInput.touched">
             </validation-messages>
         </div>
 
         <div class="form-group">
-            <input #passwordInput="ngModel" [(ngModel)]="loginService.authenticateModel.password"
-                class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password"
-                autocomplete="new-password" placeholder="{{'Password' | localize}} *" name="password" required
-                maxlength="32" />
+            <input #passwordInput="ngModel" [(ngModel)]="loginService.authenticateModel.password" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password" autocomplete="new-password" placeholder="{{'Password' | localize}} *" name="password" required maxlength="32" />
             <validation-messages [formCtrl]="passwordInput" *ngIf="!passwordInput.touched"></validation-messages>
         </div>
 
         <div class="form-group d-flex justify-content-between mt-4">
             <label class="checkbox checkbox-outline">
-                <input [(ngModel)]="loginService.rememberMe" type="checkbox" name="rememberMe"
-                    value="true" />
+                <input [(ngModel)]="loginService.rememberMe" type="checkbox" name="rememberMe" value="true" />
                 <span class="ml-2"></span>
                 {{"RememberMe" | localize}}
             </label>
-            <a routerLink="/account/forgot-password" id="forget-password"
-                class="text-primary font-size-h6 font-weight-bolder text-hover-primary">{{"ForgotPassword" | localize}}</a>
+            <a routerLink="/account/forgot-password" id="forget-password" class="text-primary font-size-h6 font-weight-bolder text-hover-primary">{{"ForgotPassword" | localize}}</a>
         </div>
 
         <div class="pb-lg-0 pb-5">
-            <button type="submit" class="btn btn-block btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"
-                [disabled]="!loginForm.form.valid">{{"LogIn" | localize}}</button>
+            <button type="submit" class="btn btn-block btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" [disabled]="!loginForm.form.valid">{{"LogIn" | localize}}</button>
         </div>
     </form>
 
     <!--end::Form-->
 
     <!--begin::Options-->
-    <div class="mt-10 mb-2" *ngIf="(multiTenancySideIsTeanant || !isMultiTenancyEnabled) && loginService.externalLoginProviders.length > 0">
+    <div class="mt-10 mb-2" *ngIf="!unionid&&(multiTenancySideIsTeanant || !isMultiTenancyEnabled) && loginService.externalLoginProviders.length > 0">
         <div class="divider">
             <span></span>
             <span>{{"LoginWith" | localize}}</span>
@@ -52,10 +45,16 @@
         </div>
     </div>
 
-    <div class="pb-lg-0 pb-5"
-        *ngIf="(multiTenancySideIsTeanant || !isMultiTenancyEnabled) && loginService.externalLoginProviders.length > 0">
-        <a *ngFor="let provider of loginService.externalLoginProviders" class="btn btn-sm btn-light-primary font-weight-bolder py-2"
-            (click)="externalLogin(provider)" title="{{provider.name}}">
+    <!-- V3 -->
+    <div ss="login__options" *ngIf="!unionid&&customTheme!='kewosi'">
+        <a class="btn btn-outline-secondary btn btn-sm" (click)="showLoginQrCode()">
+            <i class="fab icon-gongzhonghao"></i>
+            WeChat
+        </a>
+    </div>
+
+    <div class="pb-lg-0 pb-5" *ngIf="(multiTenancySideIsTeanant || !isMultiTenancyEnabled) && loginService.externalLoginProviders.length > 0">
+        <a *ngFor="let provider of loginService.externalLoginProviders" class="btn btn-sm btn-light-primary font-weight-bolder py-2" (click)="externalLogin(provider)" title="{{provider.name}}">
             <i class="fab fa-{{provider.icon}}"></i>
             {{provider.name}}
         </a>
@@ -78,4 +77,37 @@
         <span> | </span>
     </span>
     <a routerLink="/account/email-activation" id="email-activation-btn">{{"EmailActivation" | localize}}</a>
+</div>
+
+
+<!-- yayi -->
+<div *ngIf="customTheme=='yayi'" class="login__form" [@routerTransition] style="position:fixed;top:40%;left:20%;transform: translate(-50%,-50%);">
+    <div class="login__title" id="myContainer">
+        <h3 style="color:#ad8c50;font-weight:bold;margin-top:50px;">
+            登 录
+        </h3>
+    </div>
+
+    <form #loginForm="ngForm" class="form" method="post" novalidate (ngSubmit)="login()">
+        <div class="form-group m-form__group"
+            style="display:flex;box-shadow: 4.243px 4.243px 9.2px 0.8px rgba(119, 119, 119, 0.25);">
+            <img src="./assets/yayi/user.png" style="height:25px;margin:7.5px 15px;">
+            <input [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus
+                class="form-control m-input" type="text" autocomplete="off" placeholder="请输入用户名"
+                name="userNameOrEmailAddress" style="margin-top:0;background: #fff !important;" />
+        </div>
+
+        <div class="form-group m-form__group"
+            style="display:flex;box-shadow: 4.243px 4.243px 9.2px 0.8px rgba(119, 119, 119, 0.25);">
+            <img src="./assets/yayi/password.png" style="height:25px;margin:7.5px 15px;">
+            <input [(ngModel)]="loginService.authenticateModel.password" class="form-control m-input" type="password"
+                autocomplete="off" placeholder="请输入密码" name="password" maxlength="32"
+                (keyup)="($event.which===13)?login():0" style="margin-top:0;" />
+        </div>
+
+
+        <div class="login__actions" style="justify-content: center;">
+            <img src="./assets/yayi/login.png" (click)="login()" style="position:relative;z-index:50;">
+        </div>
+    </form>
 </div>

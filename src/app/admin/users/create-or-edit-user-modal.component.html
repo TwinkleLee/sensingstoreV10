@@ -8,7 +8,7 @@
                         <span *ngIf="!user.id">{{"CreateNewUser" | localize}}</span>
                     </h4>
                     <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')" [disabled]="saving">
-                         <i aria-hidden="true" class="ki ki-close"></i>
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -60,12 +60,7 @@
                             <div class="form-group" *ngIf="!setRandomPassword">
                                 <div class="right">
                                     <label for="Password">{{"Password" | localize}}</label>
-                                    <input id="Password" type="password" name="Password" #Password="ngModel" id="Password" class="form-control" [(ngModel)]="user.password" [required]="!user.id && !setRandomPassword" maxlength="32"
-                                           [requireDigit]="passwordComplexitySetting.requireDigit" [requireLowercase]="passwordComplexitySetting.requireLowercase"
-                                           [requireUppercase]="passwordComplexitySetting.requireUppercase" [requireNonAlphanumeric]="passwordComplexitySetting.requireNonAlphanumeric" [requiredLength]="passwordComplexitySetting.requiredLength"
-                                           validateEqual="PasswordRepeat" reverse="true"
-                                           autocomplete="new-password"
-                                           >
+                                    <input id="Password" type="password" name="Password" #Password="ngModel" id="Password" class="form-control" [(ngModel)]="user.password" [required]="!user.id && !setRandomPassword" maxlength="32" [requireDigit]="passwordComplexitySetting.requireDigit" [requireLowercase]="passwordComplexitySetting.requireLowercase" [requireUppercase]="passwordComplexitySetting.requireUppercase" [requireNonAlphanumeric]="passwordComplexitySetting.requireNonAlphanumeric" [requiredLength]="passwordComplexitySetting.requiredLength" validateEqual="PasswordRepeat" reverse="true" autocomplete="new-password">
                                 </div>
                             </div>
                             <div [hidden]="setRandomPassword || userForm.form.valid || userForm.form.pristine">
@@ -80,12 +75,7 @@
                             <div class="form-group" *ngIf="!setRandomPassword">
                                 <div class="right">
                                     <label for="PasswordRepeat">{{"PasswordRepeat" | localize}}</label>
-                                    <input id="PasswordRepeat" type="password" name="PasswordRepeat" #PasswordRepeat="ngModel" class="form-control" [(ngModel)]="userPasswordRepeat" [required]="!user.id && !setRandomPassword" maxlength="32"
-                                           [requireDigit]="passwordComplexitySetting.requireDigit" [requireLowercase]="passwordComplexitySetting.requireLowercase"
-                                           [requireUppercase]="passwordComplexitySetting.requireUppercase" [requireNonAlphanumeric]="passwordComplexitySetting.requireNonAlphanumeric" [requiredLength]="passwordComplexitySetting.requiredLength"
-                                           validateEqual="Password" reverse="false"
-                                           autocomplete="new-password"
-                                           >
+                                    <input id="PasswordRepeat" type="password" name="PasswordRepeat" #PasswordRepeat="ngModel" class="form-control" [(ngModel)]="userPasswordRepeat" [required]="!user.id && !setRandomPassword" maxlength="32" [requireDigit]="passwordComplexitySetting.requireDigit" [requireLowercase]="passwordComplexitySetting.requireLowercase" [requireUppercase]="passwordComplexitySetting.requireUppercase" [requireNonAlphanumeric]="passwordComplexitySetting.requireNonAlphanumeric" [requiredLength]="passwordComplexitySetting.requiredLength" validateEqual="Password" reverse="false" autocomplete="new-password">
                                 </div>
                             </div>
                             <div [hidden]="setRandomPassword || userForm.form.valid || userForm.form.pristine">
@@ -98,13 +88,24 @@
                                     <li [hidden]="userForm.controls['PasswordRepeat'].valid">{{"PasswordsDontMatch" | localize}}</li>
                                 </ul>
                             </div>
+                            <div class="form-group">
+                                <label>{{l("OuterId")}}</label>
+                                <input type="text" name="outerId" class="form-control" [(ngModel)]="user.outerId" maxlength="24">
+                            </div>
+                            <div class="form-group">
+                                <label>{{l("gender")}}</label>
+                                <select type="text" name="gender" class="form-control" [(ngModel)]="user.gender">
+                                    <option value=''>{{l('unknown')}}</option>
+                                    <option value='male'>{{l('male')}}</option>
+                                    <option value='female'>{{l('female')}}</option>
+                                </select>
+                            </div>
                             <div class="checkbox-list">
                                 <label for="EditUser_ShouldChangePasswordOnNextLogin" class="checkbox">
                                     <input id="EditUser_ShouldChangePasswordOnNextLogin" type="checkbox" name="ShouldChangePasswordOnNextLogin" [(ngModel)]="user.shouldChangePasswordOnNextLogin">
-                                    <span></span>
                                     {{"ShouldChangePasswordOnNextLogin" | localize}}
                                 </label>
-                                
+
                                 <span class="form-text text-muted" *ngIf="!isSMTPSettingsProvided()">{{'SMTPSettingsNotProvidedWarningText' | localize}}</span>
                                 <label for="EditUser_SendActivationEmail" class="checkbox" [class.checkbox-disabled]="!isSMTPSettingsProvided()">
                                     <input id="EditUser_SendActivationEmail" type="checkbox" name="SendActivationEmail" [disabled]="!isSMTPSettingsProvided()" [(ngModel)]="sendActivationEmail">
@@ -129,6 +130,11 @@
                                     <span></span>
                                     {{"IsLockoutEnabled" | localize}}
                                 </label>
+                                <label for="EditUser_isStaff" class="checkbox">
+                                    <input id="EditUser_isStaff" type="checkbox" name="IsStaff" [(ngModel)]="user.isStaff">
+                                    <span></span>
+                                    {{l("IsStaff")}}
+                                </label>
                             </div>
                         </tab>
                         <tab class="pt-5" heading="{{'Roles' | localize}}">
@@ -145,6 +151,55 @@
                         </tab>
                         <tab class="pt-5" heading="{{'OrganizationUnits' | localize}}">
                             <organization-unit-tree [cascadeSelectEnabled]="false" #organizationUnitTree></organization-unit-tree>
+                        </tab>
+                        <tab heading="{{l('ClerkMessage')}}" *ngIf="user?.isStaff" customClass="kt-tabs__item">
+                            <div class="form-group">
+                                <label>{{l("OnlineStoreName")}}</label>
+                                <input type="text" name="onlineStoreNameInput" class="form-control" [(ngModel)]="onlineStoreNameInput" maxlength="24">
+                            </div>
+                            <div class="form-group">
+                                <label>{{l("OnlineStoreJobNumber")}}</label>
+                                <input type="text" name="codeInput" class="form-control" [(ngModel)]="codeInput" maxlength="24">
+                            </div>
+                            <div class="form-group">
+                                <label></label>
+                                <button type="button" class="btn btn-default" (click)="addOnlineStoreMsg()">{{l('add')}}</button>
+                            </div>
+                            <div class="row">
+                                <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                    <p-table #dataTable [(value)]="OnlineStoreMsgList" [lazy]="false" [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th>{{l('OnlineStoreName')}}</th>
+                                                <th>{{l('OnlineStoreJobNumber')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td>
+                                                    <a class="btn btn-default" (click)="saveOnlineStoreMsg(record)" *ngIf="record.editable">{{l('Save')}}</a>
+                                                    <a class="btn btn-default" (click)="editOnlineStoreMsg(record)" *ngIf="!record.editable">{{l('Edit')}}</a>
+                                                    <a class="btn btn-default" (click)="deleteOnlineStoreMsg(i)">{{l('Delete')}}</a>
+                                                </td>
+                                                <td>
+                                                    <input type="text" maxlength="30" [(ngModel)]="record.onlineStoreName" [name]="'onlineStoreName'+i" [readonly]="!record.editable" required />
+                                                </td>
+                                                <td>
+                                                    <input type="text" maxlength="20" [(ngModel)]="record.code" [name]="'code'+i" [readonly]="!record.editable" required />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="primengTableHelper.records">
+                                                <td colspan="3">
+                                                    <img class="emptymessage" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
                         </tab>
                     </tabset>
                 </div>

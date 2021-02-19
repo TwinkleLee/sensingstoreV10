@@ -7,6 +7,8 @@ import { IOrganizationUnitsTreeComponentData, OrganizationUnitsTreeComponent } f
 import { map as _map, filter as _filter } from 'lodash-es';
 import { finalize } from 'rxjs/operators';
 
+import { CreateOrUpdateUserOnlineStoreProfileInput, OnlineStoreProfileServiceProxy } from '@shared/service-proxies/service-proxies';
+
 @Component({
     selector: 'createOrEditUserModal',
     templateUrl: './create-or-edit-user-modal.component.html',
@@ -36,13 +38,18 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     allOrganizationUnits: OrganizationUnitDto[];
     memberedOrganizationUnits: string[];
     userPasswordRepeat = '';
-
+    //V3
+    onlineStoreNameInput: string = '';
+    codeInput: string = '';
+    OnlineStoreMsgList: CreateOrUpdateUserOnlineStoreProfileInput[] = [];
+    filterText: string = '';
     constructor(
         injector: Injector,
         private _userService: UserServiceProxy,
         private _profileService: ProfileServiceProxy
     ) {
         super(injector);
+        this.user.gender = '';
     }
 
     show(userId?: number): void {
@@ -51,7 +58,8 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
             this.setRandomPassword = true;
             this.sendActivationEmail = true;
         }
-
+        this.onlineStoreNameInput = '';
+        this.codeInput = '';
         this._userService.getUserForEdit(userId).subscribe(userResult => {
             this.user = userResult.user;
             this.roles = userResult.roles;
@@ -59,6 +67,9 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
             this.allOrganizationUnits = userResult.allOrganizationUnits;
             this.memberedOrganizationUnits = userResult.memberedOrganizationUnits;
+
+            //V3
+            this.OnlineStoreMsgList = userResult.onlineStoreProfiles ? userResult.onlineStoreProfiles : [];
 
             this.getProfilePicture(userId);
 
@@ -144,6 +155,9 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
         input.organizationUnits = this.organizationUnitTree.getSelectedOrganizations();
 
+        //V3
+        input.onlineStoreProfiles = this.OnlineStoreMsgList;
+
         this.saving = true;
         this._userService.createOrUpdateUser(input)
             .pipe(finalize(() => { this.saving = false; }))
@@ -171,4 +185,26 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
             this.s('Abp.Net.Mail.Smtp.Password') === '');
     }
 
+    //V3 店员管理
+    addOnlineStoreMsg() {
+        var input = new CreateOrUpdateUserOnlineStoreProfileInput();
+        input.code = this.codeInput;
+        input.onlineStoreName = this.onlineStoreNameInput;
+        this.OnlineStoreMsgList.push(input);
+        this.codeInput = "";
+        this.onlineStoreNameInput = "";
+    }
+    editOnlineStoreMsg(record) {
+        record.editable = true;
+    }
+    deleteOnlineStoreMsg(i) {
+        this.message.confirm(this.l('deleteOnlineStoreMsgQuestion'), this.l('AreYouSure'), result => {
+            if (result) {
+                this.OnlineStoreMsgList.splice(i, 1);
+            }
+        })
+    }
+    saveOnlineStoreMsg(record) {
+        record.editable = false;
+    }
 }
