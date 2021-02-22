@@ -17,7 +17,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class BrandResourceModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+    @ViewChild('createOrEditModal') modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     active = false;
