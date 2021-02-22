@@ -114,6 +114,8 @@ export class AppPreBootstrap {
             AppConsts.remoteUserServiceUrl = result.remoteUserServiceUrl;
             AppConsts.remoteFloorServiceUrl = result.remoteFloorServiceUrl;
             AppConsts.remoteOKRServiceUrl = result.remoteOKRServiceUrl;
+
+            AppConsts.remoteDeviceCenterUrl = result.remoteDeviceCenterUrl;
             // V3 for ecovacs or yayi
             AppConsts.deploymentList = result.deploymentList;
             AppConsts.customTheme = result.customTheme || '';

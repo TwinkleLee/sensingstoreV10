@@ -21,6 +21,8 @@ export class AppConsts {
     static remoteUserServiceUrl: string;
     static remoteFloorServiceUrl: string;
     static remoteOKRServiceUrl: string;
+
+    static remoteDeviceCenterUrl: string;
     // V3 for ecovacs
     static deploymentList: any;
     static customTheme: any;
