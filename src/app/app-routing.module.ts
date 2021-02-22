@@ -27,6 +27,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
                         data: { preload: true }
                     },
                     {
+                        path: 'device',
+                        loadChildren: () => import('app/device/device.module').then(m => m.DeviceModule), //Lazy load main module
+                        data: { preload: true }
+                    },
+                    {
                         path: 'admin',
                         loadChildren: () => import('app/admin/admin.module').then(m => m.AdminModule), //Lazy load admin module
                         data: { preload: true },

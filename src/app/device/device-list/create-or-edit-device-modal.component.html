@@ -1,0 +1,295 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #DevicesForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("CreateNewDevice")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>
+                                    {{l("name")}}
+                                    <span *ngIf="Device.deviceTypeId!=20">*</span>
+                                </label>
+                                <input #nameInput="ngModel" class="form-control" type="text" name="Name"
+                                    [(ngModel)]="Device.name" [required]="Device.deviceTypeId!=20" maxlength="32">
+                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="appSession.ouList">
+                            <div class="form-group">
+                                <label>{{l("OU")}}</label>
+                                <select [(ngModel)]="Device.organizationUnitId" name="organizationUnitId"
+                                    class="form-control">
+                                    <option value=""></option>
+                                    <option [value]="ou.value" *ngFor="let ou of appSession.ouList">{{ou.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{l("DeviceType")}}*</label>
+                                <select [(ngModel)]="Device.deviceTypeId" #deviceTypeInput="ngModel" name="deviceTypeId"
+                                    class="form-control" required (change)="changeType()">
+                                    <option [value]="deviceType.value" *ngFor="let deviceType of deviceTypeList">
+                                        {{deviceType.name}}</option>
+                                </select>
+                                <validation-messages [formCtrl]="deviceTypeInput"></validation-messages>
+                            </div>
+                        </div>
+
+
+                        <!-- 客流设备 -->
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==4">
+                            <div class="form-group">
+                                <label>{{l("belongGateWay")}}</label>
+                                <select [(ngModel)]="belongGateWay" name="belongGateWay" class="form-control"
+                                    [disabled]="gatewayList.length==0">
+                                    <option value=""></option>
+                                    <option *ngFor="let item of gatewayList" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!-- 传感器终端 -->
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==18">
+                            <div class="form-group">
+                                <label>{{l("gateWayType")}}</label>
+                                <select [(ngModel)]="gatewayType" name="gatewayType" class="form-control" required>
+                                    <option value="0">{{l("passiveGateWay")}}</option>
+                                    <option value="1">{{l("activeGateWay")}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==18">
+                            <div class="form-group">
+                                <label>{{l("pollingTime")}} ({{l("seconds")}})</label>
+                                <input [(ngModel)]="pollingTime" class="form-control" type="number" name="pollingTime"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==18&&gatewayType==1">
+                            <div class="form-group">
+                                <label>{{l("sensorType")}}</label>
+                                <select [(ngModel)]="agreementId" name="agreementId" class="form-control"
+                                    [disabled]="agreementList.length==0" required>
+                                    <option value=""></option>
+                                    <option *ngFor="let item of agreementList" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!-- 传感器 -->
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19">
+                            <div class="form-group">
+                                <label>{{l("belongGateWay")}}</label>
+                                <select [(ngModel)]="belongGateWay2" name="belongGateWay2" class="form-control"
+                                    (change)="changeGateWay()" [disabled]="gatewayList2.length==0">
+                                    <option value=""></option>
+                                    <option *ngFor="let item of gatewayList2" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&(fromGatewayType==0||fromGatewayType==1)">
+                            <div class="form-group">
+                                <label>{{l("addressCode")}}</label>
+                                <input [(ngModel)]="addressCode" class="form-control" type="text" name="addressCode"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&fromGatewayType==0">
+                            <div class="form-group">
+                                <label>{{l("sensorType")}}</label>
+                                <select [(ngModel)]="agreementId" name="agreementId" class="form-control"
+                                    [disabled]="agreementList.length==0" required>
+                                    <option *ngFor="let item of agreementList" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&fromGatewayType==0">
+                            <div class="form-group">
+                                <label>{{l("pollingCommand")}}</label>
+                                <input [(ngModel)]="command" class="form-control" type="text" name="command" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==23||Device.deviceTypeId==20">
+                            <div class="form-group">
+                                <label>{{l("belongGateWay")}}</label>
+                                <select [(ngModel)]="belongGateWay3" name="belongGateWay3" class="form-control"
+                                    (change)="changeGateWay3()">
+                                    <option value=""></option>
+                                    <option *ngFor="let item of gatewayList3" [value]="item.id">{{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==23">
+                            <div class="form-group">
+                                <label>{{l("LayerOrderNumber")}}</label>
+                                <input [(ngModel)]="LayerOrderNumber" class="form-control" type="number"
+                                    name="LayerOrderNumber">
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==23">
+                            <div class="form-group">
+                                <label>{{l("row")}}Id</label>
+                                <select [(ngModel)]="LayerThingId" name="LayerThingId" class="form-control">
+                                    <option value=""></option>
+                                    <option *ngFor="let item of LayerThingIdList" [value]="item.layerId">{{item.index}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==20">
+                            <div class="form-group">
+                                <label>{{l("cargoLaneId")}}</label>
+                                <select [(ngModel)]="LayerThingId" name="cargoLaneId" class="form-control">
+                                    <option value=""></option>
+                                    <option *ngFor="let item of LayerThingIdList" [value]="item.id">{{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("osType")}}*</label>
+                                <select #osType="ngModel" [(ngModel)]="Device.osType" name="osType" class="form-control"
+                                    required>
+                                    <option value="Windows">Windows</option>
+                                    <option value="Android">Android</option>
+                                </select>
+                                <validation-messages [formCtrl]="osType"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("Peripheral")}}</label>
+                                <p-autoComplete [(ngModel)]="peripheralIds" [suggestions]="devicePeriList"
+                                    (completeMethod)="filterPeri($event)" field="selectValue" dataKey="selectKey"
+                                    placeholder="{{l('Peripheral')}}" [minLength]="1" name="MultiSelectInput"
+                                    inputStyleClass="form-control" [forceSelection]="true" (onSelect)="assignPeri()"
+                                    (onUnselect)="assignPeri()" (onBlur)="clearInput($event)" [multiple]="true"
+                                    [dropdown]="true">
+                                </p-autoComplete>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("mac")}}</label>
+                                <input #macInput="ngModel" class="form-control" type="text" name="mac"
+                                    [(ngModel)]="Device.mac" maxlength="64"
+                                    pattern="^[A-F0-9]{2}(-[A-F0-9]{2}){5}$|^[A-F0-9]{2}(:[A-F0-9]{2}){5}$|^[A-F0-9]{12}$" />
+                                <validation-messages [formCtrl]="macInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("onlineTrafficTarget")}}</label>
+                                <select class="form-control " id="onlineTrafficTarget" name="onlineTrafficTarget"
+                                    [(ngModel)]="Device.onlineTrafficTarget">
+                                    <option [value]="onlineStore.value" *ngFor="let onlineStore of onlineStoreInfo">
+                                        {{onlineStore.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("hardwareCode")}}</label>
+                                <input #hardwareCodeInput="ngModel" class="form-control" type="text" name="hardwareCode"
+                                    pattern="[0-9a-zA-Z]*" maxlength="64" [(ngModel)]="Device.hardwareCode">
+                                <validation-messages [formCtrl]="hardwareCodeInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>
+                                    {{l("outId")}}
+                                    <span *ngIf="Device.deviceTypeId!=20">*</span>
+                                </label>
+                                <input #outIdInput="ngModel" class="form-control" type="text" name="outerId"
+                                    maxlength="64" [required]="Device.deviceTypeId==20" [(ngModel)]="Device.outerId">
+                                <validation-messages [formCtrl]="outIdInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("address")}}</label>
+                                <input #addressInput="ngModel" class="form-control" type="text" name="address"
+                                    [(ngModel)]="Device.address" maxlength="300">
+                                <validation-messages [formCtrl]="addressInput"></validation-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12" *ngIf="Device.deviceTypeId!=20">
+                            <div class="form-group">
+                                <label>{{l("description")}}</label>
+                                <textarea class="form-control" name="description" style="height:120px;"
+                                    [(ngModel)]="Device.description" maxlength="3000"></textarea>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-3" *ngIf="Device.deviceTypeId!=20" style="position:relative;"
+                            [hidden]="Device.deviceTypeId==18">
+                            <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                <input class="form-control" [(ngModel)]="Device.isSupportAccessToChildDevices" type="checkbox"
+                                    name="isSupportAccessToChildDevices" />{{l("isSupportAccessToChildDevices")}}
+                                <span></span>
+                            </label>
+                        </div> -->
+                        <!-- <div class="form-group col-3" *ngIf="Device.deviceTypeId!=20" style="position:relative;">
+                            <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                <input class="form-control" [(ngModel)]="Device.isSupportRemoteControl" type="checkbox"
+                                    name="isSupportRemoteControl" />{{l("isSupportRemoteControl")}}
+                                <span></span>
+                            </label>
+                        </div> -->
+
+
+
+                    </div>
+
+
+                    <!-- <div class="row">
+                        <div class="form-group col-3" style="position:relative;margin:1rem 0;"
+                            *ngFor="let ability of abilities">
+                            <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                <input class="form-control" [(ngModel)]="ability.active" type="checkbox"
+                                    [name]="ability.name"
+                                    style="width: 1rem;display: inline-block;height: 1rem;">{{l(ability.name)}}
+                                <span></span>
+                            </label>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!DevicesForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

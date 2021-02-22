@@ -1,0 +1,181 @@
+﻿<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:50%;">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="operation == 'edit'">{{l("EditDeviceRecord")}}</span>
+                        <span *ngIf="operation != 'edit'">{{l("CreateDeviceRecord")}}</span>
+                    </h4>
+
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row" *ngIf="tenants.length>0">
+                        <div class="col-6" *ngIf="!appSession.tenant">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('TenantSelection')}} *</label>
+                                <div class="input-group" style="width:80%;">
+                                    <select class="form-control" [(ngModel)]="tenantId" name="tenantId" [disabled]="!tenants"
+                                        (change)="changeTenant()">
+                                        <option value="">{{l("HOST")}}</option>
+                                        <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name+'('+tenant.tenancyName+')'}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6" *ngIf="!appSession.tenant">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('Device')}}</label>
+                                <div class="input-group" style="width:80%;">
+                                    <select #DeviceCombobox class="form-control" [(ngModel)]="deviceId" name="deviceId"
+                                        [disabled]="!tenants" (change)="changeDevice()">
+                                        <option value="">{{l("None")}}</option>
+                                        <option *ngFor="let device of devices" [value]="device.id">{{device.name+'('+device.organizationUnitName+')'}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <!-- <div class="col-6"> -->
+                        <!-- <div class="form-group kt-form__group row">
+                                <label for="SampleDatePicker" class="col-md-12">{{l('StartTime')}} *</label>
+                                <div class="" style="width:80%;padding-left:15px;">
+                                    <input id="SampleDatePicker" type="datetime" #SampleDatePicker name="SampleDatePicker"
+                                        class="form-control" required value="{{initDate}}">
+                                </div>
+                            </div> -->
+                        <div class="form-group col-6">
+                            <label>{{l("StartTime")}}</label>
+                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": true,"timePickerSeconds": true}'
+                                name="startTime" [(startDate)]="deviceRecord.startTime" [(endDate)]="deviceRecord.startTime"
+                                [allowFutureDate]="false" needInitDate="true" [admitDelete]="false">
+                            </date-range-picker>
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="col-6"> -->
+                        <!-- <div class="form-group kt-form__group row">
+                                <label for="SampleDatePicker2" class="col-md-12">{{l('EndTime')}}</label>
+                                <div class="" style="width:80%;padding-left:15px;">
+                                    <input id="SampleDatePicker2" type="datetime" #SampleDatePicker2 name="SampleDatePicker2"
+                                        class="form-control" value="{{initDate2}}">
+                                </div>
+                            </div> -->
+                        <div class="form-group col-6">
+                            <label>{{l("EndTime")}}</label>
+                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": true,"timePickerSeconds": true}'
+                                name="startTime" [(startDate)]="deviceRecord.endTime" [(endDate)]="deviceRecord.endTime"
+                                [allowFutureDate]="false" needInitDate="false" [admitDelete]="false">
+                            </date-range-picker>
+                        </div>
+                        <!-- </div> -->
+
+
+
+                        <div class="col-6" *ngIf="tenants.length>0" [busyIf]="!categorysReady">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('QuestionType')}}</label>
+                                <div class="input-group" style="width:80%;">
+                                    <select #QuestionCombobox class="form-control" [(ngModel)]="categoryId" name="categoryId"
+                                        [disabled]="!categorys" (change)="changeCategory()">
+                                        <option value="">{{l("None")}}</option>
+                                        <option *ngFor="let category of categorys" [value]="category.id">
+                                            <!-- <span *ngIf="category.parentCategoryId">——</span> -->
+                                            <span>{{category.name}}</span>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("bugDescription")}} *</label>
+                                <textarea style="height:100px !important;" #descriptionInput="ngModel" class="form-control"
+                                    name="description" [(ngModel)]="deviceRecord.question" required></textarea>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-6" *ngIf="tenants.length>0" [busyIf]="!optKnowledgesReady">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('SolutionType')}}</label>
+                                <div class="input-group" style="width:80%;">
+                                    <select #SolutionCombobox class="form-control" [(ngModel)]="optKnowledgeId" name="optKnowledgeId"
+                                        [disabled]="!optKnowledges" (change)="changeoptKnowledge()">
+                                        <option value="">{{l("None")}}</option>
+                                        <option *ngFor="let optKnowledge of optKnowledges" [value]="optKnowledge.id">{{optKnowledge.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("solution")}}</label>
+                                <textarea style="height:100px !important;" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="deviceRecord.action"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>{{l("totalMinutes")}}({{l('minutes')}})</label>
+                                <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="deviceRecord.totalMinutes">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>{{l("theOne")}}</label>
+                                <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="deviceRecord.operator">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('auditStatus')}}</label>
+                                <div class="input-group">
+                                    <select class="form-control" (change)="optStatusChange()" [(ngModel)]="deviceRecord.optStatus"
+                                        name="selectStatus" required>
+                                        <!-- <option value="">{{l('AllTypes')}}</option> -->
+                                        <option value="0">{{l('unsolved')}}</option>
+                                        <option value="1">{{l('resolving')}}</option>
+                                        <option value="2">{{l('resolved')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" *ngIf="tenants.length==0">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+                <div class="modal-footer" *ngIf="tenants.length>0">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid||!tenantId"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
