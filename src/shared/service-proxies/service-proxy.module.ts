@@ -16,6 +16,10 @@ import * as PagerServiceProxies from './service-proxies-pager';
 import * as UserServiceProxies from './service-proxies-user';
 import * as FloorServiceProxies from './service-proxies-floor';//floor
 import * as OKRServiceProxies from './service-proxies-okr';//okr
+
+
+import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//device center
+
 @NgModule({
     providers: [
         ApiServiceProxies.AuditLogServiceProxy,
@@ -159,7 +163,7 @@ import * as OKRServiceProxies from './service-proxies-okr';//okr
         FloorServiceProxies.RobotServiceProxy,
 
         OKRServiceProxies.OKRServiceProxy,
-        
+
         ApiServiceProxies.LoginServiceProxy,
         ApiServiceProxies.TagServiceProxy,
         ApiServiceProxies.FileServiceProxy,
@@ -211,6 +215,23 @@ import * as OKRServiceProxies from './service-proxies-okr';//okr
         ApiServiceProxies.SkuRfidServiceProxy,
         ApiServiceProxies.IndependentDeploymentServiceProxy,
         ApiServiceProxies.ImportFloorGuideRoomAndStoreServiceProxy,
+
+
+
+        //2021 新版本 device center
+        DEVICECENTERServiceProxies.OrganizationUnitServiceProxy,
+        DEVICECENTERServiceProxies.DeviceActionServiceProxy,
+        DEVICECENTERServiceProxies.DeviceServiceProxy,
+        DEVICECENTERServiceProxies.DeviceCategoryServiceProxy,
+        DEVICECENTERServiceProxies.SensingDeviceServiceProxy,
+        DEVICECENTERServiceProxies.BrandServiceProxy,
+        DEVICECENTERServiceProxies.ApplyServiceProxy,
+        DEVICECENTERServiceProxies.GroupKPIServiceProxy,
+        DEVICECENTERServiceProxies.IdentityServiceProxy,
+        DEVICECENTERServiceProxies.StoreServiceProxy,
+        DEVICECENTERServiceProxies.TagServiceProxy,
+
+        //
 
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },

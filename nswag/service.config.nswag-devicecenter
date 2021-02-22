@@ -52,7 +52,7 @@
       "convertConstructorInterfaceData": false,
       "importRequiredTypes": true,
       "useGetBaseUrlMethod": false,
-      "baseUrlTokenName": "API_BIGDATA_URL",
+      "baseUrlTokenName": "API_DEVICECENTER_URL",
       "queryNullValue": "",
       "inlineNamedDictionaries": false,
       "inlineNamedAny": false,
