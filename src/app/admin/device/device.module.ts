@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
 import { UtilsModule } from '@shared/utils/utils.module';
 import { CountoModule } from 'angular2-counto';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ModalModule } from '@node_modules/ngx-bootstrap/modal';
+import { TabsModule } from '@node_modules/ngx-bootstrap/tabs';
+import { TooltipModule } from '@node_modules/ngx-bootstrap/tooltip';
+import { BsDropdownModule } from '@node_modules/ngx-bootstrap/dropdown';
+import { PopoverModule } from '@node_modules/ngx-bootstrap/popover';
 import { DeviceRoutingModule } from './device-routing.module'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -26,7 +26,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 //设备
 // import { DeviceTypeComponent } from '@app/device/device-type/device-type.component';
 // import { CreateOrEditDevModalComponent } from '@app/device/device-type/create-or-edit-deviceType-modal.component';
-import { DeviceListComponent } from '@app/device/device-list/device-list.component';
+import { DeviceListComponent } from '@app/admin/device/device-list/device-list.component';
 // import { CreateOrEditDeviceModalComponent } from '@app/device/device-list/create-or-edit-device-modal.component';
 // import { DeviceEditComponent } from '@app/device/device-list/operation/device-edit.component';
 // import { CreateOrEditDeviceRecordComponent } from '@app/device/device-list/operation/create-or-edit-deviceRecord-modal.component';

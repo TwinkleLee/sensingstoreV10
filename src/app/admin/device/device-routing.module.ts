@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 //设备
 // import { DeviceTypeComponent } from '@app/device/device-type/device-type.component';
-import { DeviceListComponent } from '@app/device/device-list/device-list.component';
+import { DeviceListComponent } from '@app/admin/device/device-list/device-list.component';
 // import { DeviceGameComponent } from '@app/device/device-list/game.component'
 // import { DeviceEditComponent } from '@app/device/device-list/operation/device-edit.component';
 // import { DeviceReviewComponent } from '@app/device/device-review/device-review.component';

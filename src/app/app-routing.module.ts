@@ -28,7 +28,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
                     },
                     {
                         path: 'device',
-                        loadChildren: () => import('app/device/device.module').then(m => m.DeviceModule), //Lazy load main module
+                        loadChildren: () => import('app/admin/device/device.module').then(m => m.DeviceModule), //Lazy load main module
                         data: { preload: true }
                     },
                     {
@@ -39,7 +39,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
                     },
                     {
                         path: 'brandcenter',
-                        loadChildren: () => import('app/brandcenter/brandcenter.module').then(m => m.BrandcenterModule),
+                        loadChildren: () => import('app/admin/brandcenter/brandcenter.module').then(m => m.BrandcenterModule),
                         data: { preload: true }
                     },
                     {

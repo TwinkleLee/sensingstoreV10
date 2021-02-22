@@ -28,9 +28,9 @@ import { from } from 'rxjs';
 
 
 //推荐
-import { BrandCenterComponent } from '@app/brandcenter/brand-center/brand-center.component';
-import { BrandOperationComponent } from '@app/brandcenter/brand-center/operation/brand-center-operation.component';
-import { BrandResourceModalComponent } from '@app/brandcenter/brand-center/operation/brand-res-modal.component';
+import { BrandCenterComponent } from '@app/admin/brandcenter/brand-center/brand-center.component';
+// import { BrandOperationComponent } from '@app/brandcenter/brand-center/operation/brand-center-operation.component';
+// import { BrandResourceModalComponent } from '@app/brandcenter/brand-center/operation/brand-res-modal.component';
 
 @NgModule({
     imports: [
@@ -54,8 +54,8 @@ import { BrandResourceModalComponent } from '@app/brandcenter/brand-center/opera
     ],
     declarations: [
         BrandCenterComponent,
-        BrandOperationComponent,
-        BrandResourceModalComponent,
+        // BrandOperationComponent,
+        // BrandResourceModalComponent,
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
