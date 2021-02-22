@@ -246,7 +246,7 @@ export class MyTreeComponent implements OnInit {
         })
     }
     //选中自己以及子孙
-    private chose(item) {
+    public chose(item) {
         if (this.config.selecionMode == 2) { return; }//无差别模式不操作子孙
         if (this.config.singleSelect && item.isSelected) { return this.operateAll(false, item.id); }
         if (!(item.children instanceof Array)) { return; }//没有子孙不需要继续
@@ -264,21 +264,21 @@ export class MyTreeComponent implements OnInit {
         this.onCheck.emit();
     }
 
-    private childCheckEvent(e) {
+    public childCheckEvent() {
         this.onCheck.emit();
     }
     //切换子节点显隐
-    private toggleChildren(item, event?: Event) {
+    public toggleChildren(item, event?: Event) {
         event.preventDefault();
         item.showChildren = !item.showChildren;
     }
-    private childMenuEvent(e) {
+    public childMenuEvent(e) {
         this.onMenu.emit(e);
     }
 
 
     //显示右键菜单
-    private showMenu(e, item) {
+    public showMenu(e, item) {
         e.preventDefault();
         if (!this.config.menu) {
             return;
