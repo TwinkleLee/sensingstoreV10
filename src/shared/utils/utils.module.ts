@@ -26,6 +26,11 @@ import { DateRangePickerLuxonModifierDirective } from './date-time/date-range-pi
 
 //V3
 import { DeviceStatusPipe } from './moment-format.pipe';
+import { MomentFormatPipe } from './moment-format.pipe';
+import { MomentFromNowPipe } from './moment-from-now.pipe';
+import { DatePickerMomentModifierDirective } from './date-time/date-picker-moment-modifier.directive';
+import { DateRangePickerMomentModifierDirective } from './date-time/date-range-picker-moment-modifier.directive';
+
 
 @NgModule({
     imports: [
@@ -59,7 +64,11 @@ import { DeviceStatusPipe } from './moment-format.pipe';
         PermissionAllPipe,
 
         // V3
-        DeviceStatusPipe
+        DeviceStatusPipe,
+	    MomentFormatPipe,
+        MomentFromNowPipe,
+	    DatePickerMomentModifierDirective,
+        DateRangePickerMomentModifierDirective,
     ],
     exports: [
         EqualValidator,
@@ -81,7 +90,11 @@ import { DeviceStatusPipe } from './moment-format.pipe';
         PermissionAllPipe,
 
         // V3
-        DeviceStatusPipe
+        DeviceStatusPipe,
+	    MomentFormatPipe,
+        MomentFromNowPipe,
+	    DatePickerMomentModifierDirective,
+        DateRangePickerMomentModifierDirective,
     ]
 })
 export class UtilsModule { }
