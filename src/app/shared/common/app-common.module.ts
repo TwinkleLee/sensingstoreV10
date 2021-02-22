@@ -52,11 +52,11 @@ import { KeyValueListManagerComponent } from './key-value-list-manager/key-value
 import { SubHeaderComponent } from '@app/shared/common/sub-header/sub-header.component';
 
 //V3
-// import { ImageGridComponent } from '@app/shared/common/image-grid/image-grid.component';
-// import { FileuploadResPoolComponent } from '@app/shared/common/fileupload/respool/resource-pool.component';
-// import { FileuploadComponent } from '@app/shared/common/fileupload/fileupload.component';
-// import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
-// import { HighTreeComponent } from '@app/shared/common/my-tree/high-tree.component';
+import { ImageGridComponent } from '@app/shared/common/image-grid/image-grid.component';
+import { FileuploadResPoolComponent } from '@app/shared/common/fileupload/respool/resource-pool.component';
+import { FileuploadComponent } from '@app/shared/common/fileupload/fileupload.component';
+import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
+import { HighTreeComponent } from '@app/shared/common/my-tree/high-tree.component';
 import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 import { MyAddressComponent } from '@app/shared/common/my-address/my-address.component';
 
@@ -120,11 +120,11 @@ import { ChartsComponent } from '@app/shared/charts/charts.component';
 
 
         //V3
-        // ImageGridComponent,
-        // FileuploadResPoolComponent,
-        // FileuploadComponent,
-        // MyTreeComponent,
-        // HighTreeComponent,
+        ImageGridComponent,
+        FileuploadResPoolComponent,
+        FileuploadComponent,
+        MyTreeComponent,
+        HighTreeComponent,
         MyMapComponent,
         MyAddressComponent,
         DateRangePickerComponent,
@@ -145,11 +145,11 @@ import { ChartsComponent } from '@app/shared/charts/charts.component';
 
 
         //V3
-        // ImageGridComponent,
-        // FileuploadResPoolComponent,
-        // FileuploadComponent,
-        // MyTreeComponent,
-        // HighTreeComponent,
+        ImageGridComponent,
+        FileuploadResPoolComponent,
+        FileuploadComponent,
+        MyTreeComponent,
+        HighTreeComponent,
         MyMapComponent,
         MyAddressComponent,
         DateRangePickerComponent,
