@@ -55,7 +55,7 @@ export class AppNavigationService {
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 
             new AppMenuItem('Device', '', 'icon-devices', '', [], [
-                new AppMenuItem('DeviceTable', 'Pages.Tenant.Devices', 'icon-devices', '/app/device/deviceList'),
+                new AppMenuItem('DeviceTable', 'Pages.Tenant.Devices', 'icon-devices', '/app/admin/device/deviceList'),
                 new AppMenuItem('DeviceType', 'Pages.DeviceTypes', 'icon-renlianshibie', '/app/device/deviceType'),
                 new AppMenuItem('Peripherals', 'Pages.Peripherals', 'icon-shexiangtou', '/app/device/peripheral'),
                 new AppMenuItem('DeviceReview', 'Pages.Tenant.Devices.Audit', 'icon-shenhe1', '/app/device/deviceReview'),
@@ -106,7 +106,7 @@ export class AppNavigationService {
 
             // 品牌中心 
             new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '', [], [
-                new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '/app/brandcenter/brandcenter'),
+                new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/brandcenter'),
                 new AppMenuItem('BrandCategory', 'Pages.Tenant.Products', 'icon-brand', '/app/category/brandCate'),
             ]),
 

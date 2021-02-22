@@ -125,6 +125,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'brandcenter',
                         loadChildren: () => import('./brandcenter/brandcenter.module').then(m => m.BrandcenterModule),
                     },
+                    {
+                        path: 'device',
+                        loadChildren: () => import('./device/device.module').then(m => m.DeviceModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

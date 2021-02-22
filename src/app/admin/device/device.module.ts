@@ -50,8 +50,15 @@ import { DeviceListComponent } from '@app/admin/device/device-list/device-list.c
 
 import { ConnectorService } from '@app/shared/services/connector.service';
 
+import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
+import {AppSharedModule} from '@app/shared/app-shared.module';
+
 @NgModule({
     imports: [
+        AdminSharedModule,
+        AppSharedModule,
+
+        
         CommonModule,
         FormsModule,
         ModalModule,
