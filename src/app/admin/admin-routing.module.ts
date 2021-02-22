@@ -120,6 +120,11 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         loadChildren: () => import('./dynamic-properties/dynamic-entity-properties/value/dynamic-entity-property-value.module').then(m => m.DynamicEntityPropertyValueModule),
                         data: { permission: 'Pages.Administration.DynamicEntityProperties' }
                     },
+
+                    {
+                        path: 'brandcenter',
+                        loadChildren: () => import('./brandcenter/brandcenter.module').then(m => m.BrandcenterModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]
