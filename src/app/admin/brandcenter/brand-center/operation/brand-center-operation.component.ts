@@ -5,7 +5,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
-import { BrandResourceModalComponent } from '@app/brandcenter/brand-center/operation/brand-res-modal.component';
+import { BrandResourceModalComponent } from '@app/admin/brandcenter/brand-center/operation/brand-res-modal.component';
 import { finalize } from 'rxjs/operators';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 

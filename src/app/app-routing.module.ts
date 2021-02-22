@@ -33,11 +33,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
                         canLoad: [AppRouteGuard]
                     },
                     {
-                        path: 'brandcenter',
-                        loadChildren: () => import('app/brandcenter/brandcenter.module').then(m => m.BrandcenterModule),
-                        data: { preload: true }
-                    },
-                    {
                         path: '**', redirectTo: 'notifications'
                     }
                 ]

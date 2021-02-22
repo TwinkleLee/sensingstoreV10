@@ -28,12 +28,18 @@ import { from } from 'rxjs';
 
 
 //推荐
-import { BrandCenterComponent } from '@app/brandcenter/brand-center/brand-center.component';
-import { BrandOperationComponent } from '@app/brandcenter/brand-center/operation/brand-center-operation.component';
-import { BrandResourceModalComponent } from '@app/brandcenter/brand-center/operation/brand-res-modal.component';
+import { BrandCenterComponent } from './brand-center/brand-center.component';
+import { BrandOperationComponent } from './brand-center/operation/brand-center-operation.component';
+import { BrandResourceModalComponent } from './brand-center/operation/brand-res-modal.component';
+
+import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
+import {AppSharedModule} from '@app/shared/app-shared.module';
 
 @NgModule({
     imports: [
+        AdminSharedModule,
+        AppSharedModule,
+        
         CommonModule,
         FormsModule,
         ModalModule,
