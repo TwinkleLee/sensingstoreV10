@@ -170,7 +170,7 @@ export class BrandOperationComponent extends AppComponentBase {
 
 
     back() {
-        this.router.navigate(['app', 'brandcenter', 'brandCenter']);
+        this.router.navigate(['app', 'admin', 'brandcenter', 'brandCenter']);
     }
     save() {
         console.log(this.brand)

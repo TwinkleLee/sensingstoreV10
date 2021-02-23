@@ -35,7 +35,7 @@ export class AppNavigationService {
             //     new AppMenuItem('Settings', 'Pages.Administration.Host.Settings', 'flaticon-settings', '/app/admin/hostSettings'),
             //     new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings')
             // ]),
-            // new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
+            new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
 
             new AppMenuItem('Dashboard', 'Pages.Administration.Host.Dashboard', 'icon-dashboard', '', [], [
                 new AppMenuItem('Dashboard', 'Pages.Administration.Host.Dashboard', 'icon-dashboard', '/app/admin/hostDashboard'),
@@ -56,9 +56,9 @@ export class AppNavigationService {
 
             new AppMenuItem('Device', '', 'icon-devices', '', [], [
                 new AppMenuItem('DeviceTable', 'Pages.Tenant.Devices', 'icon-devices', '/app/admin/device/deviceList'),
-                new AppMenuItem('DeviceType', 'Pages.DeviceTypes', 'icon-renlianshibie', '/app/device/deviceType'),
-                new AppMenuItem('Peripherals', 'Pages.Peripherals', 'icon-shexiangtou', '/app/device/peripheral'),
-                new AppMenuItem('DeviceReview', 'Pages.Tenant.Devices.Audit', 'icon-shenhe1', '/app/device/deviceReview'),
+                new AppMenuItem('DeviceType', 'Pages.DeviceTypes', 'icon-renlianshibie', '/app/admin/device/deviceType'),
+                new AppMenuItem('Peripherals', 'Pages.Peripherals', 'icon-shexiangtou', '/app/admin/device/peripheral'),
+                new AppMenuItem('DeviceReview', 'Pages.Tenant.Devices.Audit', 'icon-shenhe1', '/app/admin/device/deviceReview'),
             ]),
 
 

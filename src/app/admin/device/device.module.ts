@@ -28,14 +28,14 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 // import { CreateOrEditDevModalComponent } from '@app/device/device-type/create-or-edit-deviceType-modal.component';
 import { DeviceListComponent } from '@app/admin/device/device-list/device-list.component';
 import { CreateOrEditDeviceModalComponent } from '@app/admin/device/device-list/create-or-edit-device-modal.component';
-// import { DeviceEditComponent } from '@app/device/device-list/operation/device-edit.component';
+// import { DeviceEditComponent } from '@app/admin/device/device-list/operation/device-edit.component';
 // import { CreateOrEditDeviceRecordComponent } from '@app/device/device-list/operation/create-or-edit-deviceRecord-modal.component';
-// import { DeviceReviewComponent } from '@app/device/device-review/device-review.component';
+import { DeviceReviewComponent } from '@app/admin/device/device-review/device-review.component';
 // import { AdsAlertModalComponent } from '@app/device/device-list/tabAlert/ads-selection-modal.component';
 // import { CouponAlertModalComponent } from '@app/device/device-list/tabAlert/coupon-selection-modal.component';
 // import { AppAlertModalComponent } from '@app/device/device-list/tabAlert/app-selection-modal.component';
 // import { AppSettingModalComponent } from '@app/device/device-list/tabAlert/app-setting-modal.component';
-// import { DeviceDetailModalComponent } from '@app/device/device-review/detail/device-detail-modal.component';
+import { DeviceDetailModalComponent } from '@app/admin/device/device-review/detail/device-detail-modal.component';
 // import { SkusSelectionModalComponent } from '@app/device/device-list/tabAlert/skus-selection-modal.component';
 // import { DeviceProductSkuComponent } from '@app/device/device-list/operation/device-product-skus.component';
 // import { DeviceGameComponent } from '@app/device/device-list/game.component'
@@ -88,12 +88,12 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         CreateOrEditDeviceModalComponent,
         // DeviceEditComponent,
         // CreateOrEditDeviceRecordComponent,
-        // DeviceReviewComponent,
+        DeviceReviewComponent,
         // AdsAlertModalComponent,
         // CouponAlertModalComponent,
         // AppAlertModalComponent,
         // AppSettingModalComponent,
-        // DeviceDetailModalComponent,
+        DeviceDetailModalComponent,
         // SkusSelectionModalComponent,
         // DeviceProductSkuComponent,
         // DeviceGameComponent,

@@ -1,6 +1,6 @@
 <div appBsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
-    tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static', keyboard: !saving}">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #UsersForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
                 <div class="modal-header">
@@ -8,8 +8,8 @@
                         <span *ngIf="operationType=='add'">{{l("CreateNewResource")}}</span>
                         <span *ngIf="operationType=='edit'">{{l("EditResource")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')" [disabled]="saving">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">

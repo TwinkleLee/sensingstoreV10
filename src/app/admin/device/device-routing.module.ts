@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 // import { DeviceTypeComponent } from '@app/device/device-type/device-type.component';
 import { DeviceListComponent } from '@app/admin/device/device-list/device-list.component';
 // import { DeviceGameComponent } from '@app/device/device-list/game.component'
-// import { DeviceEditComponent } from '@app/device/device-list/operation/device-edit.component';
-// import { DeviceReviewComponent } from '@app/device/device-review/device-review.component';
+// import { DeviceEditComponent } from '@app/admin/device/device-list/operation/device-edit.component';
+import { DeviceReviewComponent } from '@app/admin/device/device-review/device-review.component';
 // import { DeviceProductSkuComponent } from '@app/device/device-list/operation/device-product-skus.component';
 // import { PeripheralComponent } from '@app/device/peripheral/peripheral.component';
 
@@ -21,7 +21,7 @@ import { DeviceListComponent } from '@app/admin/device/device-list/device-list.c
                 children: [
                     //设备
                     // { path: 'deviceType', component: DeviceTypeComponent },
-                    // { path: 'deviceReview', component: DeviceReviewComponent, data: { permission: 'Pages.Tenant.Devices.Audit' } },
+                    { path: 'deviceReview', component: DeviceReviewComponent, data: { permission: 'Pages.Tenant.Devices.Audit' } },
                     // { path: 'peripheral', component: PeripheralComponent },
                     { path: 'deviceList', component: DeviceListComponent, data: { permission: 'Pages.Tenant.Devices' } },
                     // { path: 'deviceList/operation/:id', component: DeviceEditComponent, data: { permission: 'Pages.Tenant.Devices.Edit' } },

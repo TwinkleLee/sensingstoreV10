@@ -780,10 +780,16 @@ div .primeng-datatable-container .ui-table th {
 }
 
 /* autocomplete变形问题 */
-
-.ui-autocomplete-multiple-container li {
+.p-autocomplete {
+    max-height: 3.2rem;
+}
+p-autocomplete {
     padding: 0 !important;
 }
+
+/* .ui-autocomplete-multiple-container li {
+    padding: 0 !important;
+} */
 
 .kt-subheader__wrapper > button {
     margin-left: 6px !important;

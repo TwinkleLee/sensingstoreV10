@@ -1,5 +1,5 @@
 <div appBsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
-    tabindex="-1" role="dialog" aria-hidden="true">
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static', keyboard: !saving}">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <form *ngIf="active" #DevicesForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
@@ -7,8 +7,8 @@
                     <h4 class="modal-title">
                         <span>{{l("CreateNewDevice")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')" [disabled]="saving">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -84,7 +84,7 @@
                         <div class="col-sm-6" *ngIf="Device.deviceTypeId==18&&gatewayType==1">
                             <div class="form-group">
                                 <label>{{l("sensorType")}}</label>
-                                <select [(ngModel)]="agreementId" name="agreementId" class="form-control"
+                                <select type="text" [(ngModel)]="agreementId" name="agreementId" class="form-control"
                                     [disabled]="agreementList.length==0" required>
                                     <option value=""></option>
                                     <option *ngFor="let item of agreementList" [value]="item.id">{{item.name}}</option>
@@ -189,7 +189,7 @@
                                     placeholder="{{l('Peripheral')}}" [minLength]="1" name="MultiSelectInput"
                                     inputStyleClass="form-control" [forceSelection]="true" (onSelect)="assignPeri()"
                                     (onUnselect)="assignPeri()" (onBlur)="clearInput($event)" [multiple]="true"
-                                    [dropdown]="true">
+                                    [dropdown]="true" styleClass="width-percent-100" id="MultiSelectInput">
                                 </p-autoComplete>
                             </div>
                         </div>
@@ -281,13 +281,8 @@
                     </div> -->
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="saving" type="button" class="btn btn-primary"
-                        (click)="close()">{{l("Cancel")}}</button>
-                    <button type="submit" class="btn btn-primary blue" [disabled]="!DevicesForm.form.valid"
-                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
-                        <i class="fa fa-save"></i>
-                        <span>{{l("Save")}}</span>
-                    </button>
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{"Cancel" | localize}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!DevicesForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{"Save" | localize}}</span></button>
                 </div>
             </form>
         </div>
