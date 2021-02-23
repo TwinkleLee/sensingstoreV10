@@ -1,0 +1,353 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Software' | localize" [description]="'SoftwareManage' | localize">
+            <div role="actions">
+                <button class="btn btn-primary" (click)="createSoftware()" *ngIf="appSession.tenantId===null">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateNewApp")}}</button>
+                <div class="btn-group dropdown" dropdown
+                    *ngIf="appSession.tenantId!= null&&isGranted('Pages.Softwares.Publish')&&appSession.ouId==null">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
+                        (click)="initPublishList()">
+                        {{l('publishApp')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton"
+                        x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishApp()">
+                            {{l('publishApp')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-chehui1" (click)="withdrawAll()">
+                            {{l('withdrawAll')}}
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+
+            <div class="m-portlet m-portlet--mobile">
+                <div class="Container row">
+                    <div class="m-portlet__body" *ngIf="!appSession.tenant" style="width:100%;">
+                        <div class="row">
+                            <form class="horizontal-form" autocomplete="off">
+                                <div>
+                                    <div class="row align-items-center mb-4">
+                                        <div class="col-4">
+                                            <div class="form-group align-items-center">
+                                                <div class="input-group">
+                                                    <input (keyup.enter)="getSoftwares()" [(ngModel)]="filterText" name="filterText" autoFocus
+                                                        class="form-control m-input" [placeholder]="l('Name')"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group align-items-center">
+                                                <div class="input-group">
+                                                    <select class="form-control" [(ngModel)]="isShowToTenant"
+                                                        name="isShowToTenant">
+                                                        <option value="">{{l('All')}}</option>
+                                                        <option value="true">{{l('isShowToTenant')}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-primary"
+                                                        [buttonBusy]="primengTableHelper.isLoading"
+                                                        (click)="getSoftwares()">
+                                                        <i class="la la-refresh"></i>
+                                                        {{l("search")}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 text-right">
+                                            <div>
+                                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                    <label class="btn btn-secondary icon-liebiao"
+                                                        [ngClass]="{'active': !showImageGrid}" (click)="toggle(true)">
+                                                        <input type="radio" name="options" id="option1"
+                                                            autocomplete="off" checked>
+                                                    </label>
+                                                    <label class="btn btn-secondary icon-weibiaoti2010102-copy"
+                                                        [ngClass]="{'active': showImageGrid}" (click)="toggle(false)">
+                                                        <input type="radio" name="options" id="option2"
+                                                            autocomplete="off">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row align-items-center">
+                            <!--<Primeng-Datatable-Start>-->
+                            <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                <app-image-grid id="gridShow" gridOwner="app" style="display: none;width: 100%;"
+                                    (onOperate)="onOperate($event)" [(selection)]="AppPublishList"
+                                    [imageList]="this.primengTableHelper.records"></app-image-grid>
+                                <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                                <p-table #dataTable id="tableShow" (onLazyLoad)="getSoftwares($event)"
+                                    [value]="primengTableHelper.records"
+                                    [rows]="primengTableHelper.defaultRecordsCountPerPage" lazy="true"
+                                    [paginator]="false" [(selection)]="AppPublishList"
+                                    [resizableColumns]="primengTableHelper.resizableColumns"
+                                    [responsive]="primengTableHelper.isResponsive">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="width:10%">{{l('Actions')}}</th>
+                                            <th style="width: 5.0em">
+                                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                            </th>
+                                            <th style="width:5%">{{l('RecordId')}}</th>
+                                            <th>{{l('Name')}}</th>
+                                            <th *ngIf="appSession.tenant">{{l('Alias')}}</th>
+                                            <th>{{l('versionNumber')}}</th>
+                                            <th>{{l('code')}}</th>
+                                            <th>{{l('type')}}</th>
+                                            <th>{{l('isShowToTenant')}}</th>
+                                            <th>{{l('envType')}}</th>
+                                            <th pSortableColumn="startTime" *ngIf="appSession.tenant">
+                                                {{l('startTime')}}
+                                                <p-sortIcon field="startTime"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="endTime" *ngIf="appSession.tenant">
+                                                {{l('endTime')}}
+                                                <p-sortIcon field="endTime"></p-sortIcon>
+                                            </th>
+                                            <th *ngIf="appSession.tenant">{{l('isdefaultstart')}}</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                        <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                            <td>
+                                                <span *ngIf="record.isExpired"
+                                                    class="text-danger">{{l('appAuthExpired')}}</span>
+                                                <div class="btn-group dropdown" dropdown normalizePosition
+                                                    *ngIf="!record.isExpired">
+                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                        dropdownToggle data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>
+                                                        <span class="caret"></span> {{l("Actions")}}
+                                                    </button>
+                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                        <li *ngIf="appSession.tenantId!=null">
+                                                            <a class="icon-jichushezhi"
+                                                                (click)="editAppSetting(record)">{{l('Settings')}}</a>
+                                                        </li>
+                                                        <li *ngIf="appSession.tenantId==null">
+                                                            <a class="icon-bianji"
+                                                                (click)="editSoftware(record)">{{l('Edit')}}</a>
+                                                        </li>
+                                                        <li *ngIf="isGranted('Pages.Softwares.Delete')">
+                                                            <a class="icon-icon-test"
+                                                                (click)="deleteSoftware(record)">{{l('Delete')}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p-tableCheckbox #TableCheckbox *ngIf="!record.isExpired"
+                                                    [value]="record">
+                                                </p-tableCheckbox>
+                                            </td>
+                                            <td> {{transIndex(i)}}</td>
+                                            <td>
+                                                <span *ngIf="appSession.tenant">{{record.software?.name}}</span>
+                                                <span *ngIf="!appSession.tenant">{{record.name}}</span>
+                                            </td>
+                                            <td *ngIf="appSession.tenant">{{record.alias}}</td>
+                                            <td>
+                                                <span
+                                                    *ngIf="appSession.tenant">{{record.software?.versionNumber}}</span>
+                                                <span *ngIf="!appSession.tenant">{{record.versionNumber}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="appSession.tenant">{{record.software?.code}}</span>
+                                                <span *ngIf="!appSession.tenant">{{record.code}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="appSession.tenant">{{record.software?.type}}</span>
+                                                <span *ngIf="!appSession.tenant">{{record.type}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="!appSession.tenant&&record.isShowToTenant"
+                                                    class="label label-success label-inline">{{l("Yes")}}</span>
+                                                <span *ngIf="!appSession.tenant&&!record.isShowToTenant"
+                                                    class="label label-dark label-inline">{{l("No")}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="appSession.tenant">{{record.software?.envType}}</span>
+                                                <span *ngIf="!appSession.tenant">{{record.envType}}</span>
+                                            </td>
+                                            <td *ngIf="appSession.tenant">{{record.startTime | date:'yyyy-MM-dd
+                                            HH:mm'}}</td>
+                                            <td *ngIf="appSession.tenant">{{record.endTime | date:'yyyy-MM-dd HH:mm'}}
+                                            </td>
+                                            <td *ngIf="appSession.tenant">
+                                                <span *ngIf="record.isDefault"
+                                                    class="label label-success label-inline">{{l("true")}}</span>
+                                                <span *ngIf="!record.isDefault"
+                                                    class="label label-dark label-inline">{{l("false")}}</span>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-records>
+                                        <tr *ngIf="primengTableHelper.records">
+                                            <td colspan="9">
+                                                <img class="emptymessage"
+                                                    src="/assets/common/images/placeholder/appHolder.png" />
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <div class="primeng-paging-container">
+                                    <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                        (onPageChange)="getSoftwares($event)"
+                                        [totalRecords]="primengTableHelper.totalRecordsCount"
+                                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                    </p-paginator>
+                                    <span class="total-records-count">
+                                        {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                    </span>
+                                </div>
+                            </div>
+                            <!--<Primeng-Datatable-End>-->
+                        </div>
+                    </div>
+                    <div class="m-portlet__body" *ngIf="appSession.tenant&&AuthorizedSoftwaresList.length">
+                        <div class="row">
+                            <div style="width:100%;font-weight: bold;font-size:2rem;">{{l("mySoftwares")}}</div>
+                            <div (click)="editAppSetting(software)"
+                                style="display:inline-block;width:100px;margin:15px;position:relative;cursor:pointer;"
+                                *ngFor="let software of AuthorizedSoftwaresList">
+                                <div class="form-group" (click)="$event.stopPropagation()"
+                                    style="position:absolute;top:0;right:-10%;">
+                                    <label class="m-checkbox">
+                                        <input class="form-control" [(ngModel)]="tenantAppPublish[software.id]"
+                                            type="checkbox" [name]="software.id" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <img [src]="fixFileUrl(software.software.logoUrl)" (error)="showEmpty($event)"
+                                    style="width:100px;height:100px;border-radius: 50%;">
+                                <div style="width:100%;text-align:center;">
+                                    {{software.alias?software.alias:software.software.name}}</div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="ForTenantExpiredSoftwaresList.length">
+                            <div style="width:100%;font-weight: bold;font-size:2rem;">{{l("appAuthExpired")}}</div>
+                            <div (click)="editAppSetting(software)"
+                                style="display:inline-block;width:100px;margin:15px;cursor:pointer;"
+                                *ngFor="let software of ForTenantExpiredSoftwaresList">
+                                <img [src]="fixFileUrl(software.logoUrl)" (error)="showEmpty($event)"
+                                    style="width:100px;height:100px;border-radius: 50%;">
+                                <div style="width:100%;text-align:center;">
+                                    {{software.alias?software.alias:software.software.name}}</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="ForTenantSoftwaresList.length">
+                            <div style="width:100%;font-weight: bold;font-size:2rem;">{{l("unAuthedSoftwares")}}</div>
+                            <div (click)="editAppSetting({software:software})"
+                                style="display:inline-block;width:100px;margin:15px;cursor:pointer;"
+                                *ngFor="let software of ForTenantSoftwaresList">
+                                <img [src]="fixFileUrl(software.logoUrl)" (error)="showEmpty($event)"
+                                    style="width:100px;height:100px;border-radius: 50%;">
+                                <div style="width:100%;text-align:center;">
+                                    {{software.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}"
+                        [ngStyle]="{'height':avalibleHeight}" *ngIf="isGranted('Pages.Softwares.Publish')&&toPublish">
+                        <div class="panel_head">
+                            <h3>{{l('PublishingSoftware')}}</h3>
+                            <div class="text-right x">
+                                <button (click)="toPublish=!toPublish">
+                                    <i class="icon-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel_body">
+                            <form (ngSubmit)="doPublishApp()" name="publishAppForm">
+                                <div class="form-group">
+                                    <div class="radio-inline">
+                                        <label class="radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="add">
+                                            {{l('append')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="update">
+                                            {{l('update')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="delete">
+                                            {{l('withdraw')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="checkbox checkbox-primary">
+                                            <input class="form-control" [(ngModel)]="onlyPublishToDevice"
+                                                type="checkbox"
+                                                name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
+                                            <span></span>
+                                        </label>
+                                        <label class="checkbox checkbox-primary">
+                                            <input class="form-control" [(ngModel)]="informDevice" type="checkbox"
+                                                name="informDevice" />{{l("informDevice")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                            (keydown.enter)="filterTree($event)" class="form-control m-input"
+                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group beautyScroll" [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 253px)','padding-left':'20px'}"> -->
+                                <div class="form-group beautyScroll"
+                                    [ngStyle]="{'max-height':'calc('+customHeight+' - 253px)','padding-left':'20px'}">
+                                    <app-my-tree #myTree [(items)]="deviceTree"></app-my-tree>
+                                    <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
+                                </div>
+                                <!-- {{avalibleHeight}} -->
+                                <div class="form-group text-right">
+                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit"
+                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <createAppModal #createAppModal (modalSave)="getSoftwares()"></createAppModal>
+        <SoftwareAuth #SoftwareAuth></SoftwareAuth>
+        <softwareSettingModal #softwareSettingModal (modalSave)="getSoftwares()"></softwareSettingModal> -->
+    </div>
+
+</div>

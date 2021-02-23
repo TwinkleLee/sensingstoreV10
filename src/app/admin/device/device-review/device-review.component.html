@@ -11,10 +11,10 @@
                         <tab heading="{{l('toBeReviewed')}}" class="pt-5">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
-                                    <div class="kt-form kt-form--label-align-right">
-                                        <div class="row align-items-center m--margin-bottom-10">
+                                    <div>
+                                        <div class="row align-items-center mb-4">
                                             <div class="col-3">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group align-items-center">
                                                     <label>{{l('name')}}</label>
                                                     <div class="input-group">
                                                         <input [(ngModel)]="filterText1" name="filterText1" autoFocus
@@ -31,7 +31,7 @@
                                             </div>
                                             <!-- 时间范围筛选 -->
                                             <div class="col-3" style="position:relative;">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group align-items-center">
                                                     <label>{{l('startEndTime')}}</label>
                                                     <date-range-picker needInitDate="true" name="SampleDateRangePicker"
                                                         [showButton]="false" (buttonEmit)="getApplyForms(null,true)"
@@ -41,7 +41,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-2">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group align-items-center">
                                                     <label>&nbsp;</label>
                                                     <div class="input-group">
                                                         <button type="button" class="btn btn-primary"
@@ -140,7 +140,7 @@
                                         </ng-template>
                                         <ng-template pTemplate="emptymessage" let-records>
                                             <tr *ngIf="primengTableHelper.records">
-                                                <td colspan="9">
+                                                <td colspan="9" class="text-center">
                                                     <img class="emptymessage"
                                                         src="/assets/common/images/placeholder/reviewHolder.png" />
                                                 </td>
@@ -164,14 +164,14 @@
                         <tab heading="{{l('reviewed')}}" class="pt-5">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
-                                    <div class="kt-form kt-form--label-align-right">
-                                        <div class="row align-items-center m--margin-bottom-10">
+                                    <div>
+                                        <div class="row align-items-center mb-4">
                                             <div class="col-3">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group align-items-center">
                                                     <label>{{l('name')}}</label>
                                                     <div class="input-group">
                                                         <input [(ngModel)]="filterText2" name="filterText2" autoFocus
-                                                            class="form-control kt-input"
+                                                            class="form-control m-input"
                                                             (keyup.enter)="getApplyForms(null,false)"
                                                             [placeholder]="l('SearchWithThreeDot')" type="text">
                                                         <!-- <span class="input-group-btn">
@@ -191,7 +191,7 @@
                                         </div> -->
 
                                             <div class="col-3" style="position:relative;">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group align-items-center">
                                                     <label>{{l('startEndTime')}}</label>
                                                     <date-range-picker needInitDate="true" name="SampleDateRangePicker"
                                                         [showButton]="false" (buttonEmit)="getApplyForms(null,false)"
@@ -201,7 +201,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-2">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group align-items-center">
                                                     <label>&nbsp;</label>
                                                     <div class="input-group">
                                                         <button type="button" class="btn btn-primary"
@@ -280,7 +280,7 @@
                                         </ng-template>
                                         <ng-template pTemplate="emptymessage" let-records>
                                             <tr *ngIf="primengTableHelper2.records">
-                                                <td colspan="9">
+                                                <td colspan="9" class="text-center">
                                                     <img class="emptymessage"
                                                         src="/assets/common/images/placeholder/reviewHolder.png" />
                                                 </td>
@@ -326,9 +326,9 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" (click)="no()"
+                            <button type="button" class="btn btn-primary" (click)="no()"
                                 data-dismiss="modal">{{l('Close')}}</button>
-                            <button type="button" class="btn btn-primary" (click)="ok()">{{l('Send')}}</button>
+                            <button type="button" class="btn btn-primary blue" (click)="ok()">{{l('Send')}}</button>
                         </div>
                     </div>
                 </div>

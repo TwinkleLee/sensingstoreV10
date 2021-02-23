@@ -7,8 +7,8 @@
                     <h4 class="modal-title">
                         <span>{{l("detail")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')" [disabled]="saving">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -64,7 +64,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="emptymessage" let-records>
                                     <tr *ngIf="primengTableHelper.records">
-                                        <td colspan="9">
+                                        <td colspan="9" class="text-center">
                                             <img class="emptymessage" src="/assets/common/images/placeholder/deviceHolder.png" />
                                         </td>
                                     </tr>
