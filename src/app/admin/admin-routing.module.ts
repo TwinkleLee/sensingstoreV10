@@ -129,6 +129,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'device',
                         loadChildren: () => import('./device/device.module').then(m => m.DeviceModule),
                     },
+                    {
+                        path: 'software',
+                        loadChildren: () => import('./software/software.module').then(m => m.SoftwareModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

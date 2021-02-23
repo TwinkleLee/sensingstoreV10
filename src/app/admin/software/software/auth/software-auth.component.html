@@ -1,0 +1,55 @@
+<div bsModal #createAppModal="bs-modal" (onShown)="onShown()" aria-labelledby="createAppModal" class="modal fade" tabindex="-1"
+    role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #softwareAuthForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="!isUpdate">{{l("addAppAuth")}}</span>
+                        <span *ngIf="isUpdate">{{l("updateAppAuth")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
+                            <div class="form-group">
+                                <label>{{l("authApp")}}*</label>
+                                <select #appInput="ngModel" [disabled]="isquick||isUpdate" class="form-control" type="text" name="softwareId" [(ngModel)]="auth.softwareId"
+                                    required>
+                                    <option [value]="app.id" *ngFor="let app of appList">{{app.name}}</option>
+                                </select>
+                                <validation-messages [formCtrl]="appInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>{{l("authTenant")}}*</label>
+                                <p-autoComplete [(ngModel)]="tenant" [readonly]="isUpdate" [suggestions]="tenantList" (completeMethod)="filterTenant($event)" field="name"
+                                    placeholder="{{l('authTenant')}}" [minLength]="1" name="MultiSelectInput" inputStyleClass="form-control"
+                                 [multiple]="false" dataKey="id" required #tenantInput="ngModel"
+                                    [dropdown]="true">
+                                </p-autoComplete>
+                                <validation-messages [formCtrl]="tenantInput"></validation-messages>
+                            </div>
+                            <div class="form-group">
+                                <label>{{l("authTimeScope")}}*</label>
+                                <!-- 时间范围筛选 -->
+                                <date-range-picker #dateranger needInitDate="true" name="SampleDateRangePicker" required rangeMode="future"
+                                 [(startDate)]="auth.startTime" [(endDate)]="auth.endTime" [allowFutureDate]="true">
+                                </date-range-picker>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!softwareAuthForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
