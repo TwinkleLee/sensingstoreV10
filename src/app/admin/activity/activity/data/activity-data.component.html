@@ -1,0 +1,834 @@
+<div>
+  <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+    <div class="kt-subheader kt-grid__item">
+      <div [class]="containerClass">
+        <div class="kt-subheader__main">
+          <i class="icon-fanhui text-info" (click)="goBack()"></i>
+          <h3 class="kt-subheader__title">
+            <span>{{"ActivityData" | localize}}</span>
+          </h3>
+          <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+          <span class="kt-subheader__desc">
+            {{activityId}} | {{activityName}}
+          </span>
+        </div>
+        <div class="kt-subheader__toolbar">
+          <div class="kt-subheader__wrapper">
+            <div *ngIf="isGranted('Pages.Tenant.Activities.ClearData')" class="belongToRestore">
+              <button [buttonBusy]="restoreBusy" (click)="showRestore=!showRestore"
+                class="btn btn-primary belongToRestore">
+                <i class="fa fa-cog belongToRestore"></i>{{l('Restore factory settings')}}
+              </button>
+              <div class="belongToRestore" *ngIf="showRestore"
+                style="width:100%;position:absolute;z-index:10;background:#fff;box-shadow: -3px 4px 12px rgba(36, 41, 46, 0.05);">
+                <div class="form-group belongToRestore" style="padding:1rem 1rem 0.5rem;margin-bottom:0 !important;">
+                  <label class="kt-checkbox belongToRestore">
+                    <input class="form-control belongToRestore" [(ngModel)]="RestoreSet.isClearAction" type="checkbox"
+                      name="isClearAction" />{{l("isClearAction")}}
+                    <span class="belongToRestore"></span>
+                  </label>
+                </div>
+                <div class="form-group belongToRestore" style="padding:1rem 1rem 0.5rem;margin-bottom:0 !important;">
+                  <label class="kt-checkbox belongToRestore">
+                    <input class="form-control belongToRestore" [(ngModel)]="RestoreSet.isClearUserData" type="checkbox"
+                      name="restart" />{{l("isClearUserData")}}
+                    <span class="belongToRestore"></span>
+                  </label>
+                </div>
+                <div class="form-group belongToRestore"
+                  style="padding:1rem 1rem 0.5rem;margin-bottom:0 !important;border-bottom: 1px solid #e2e2e2;">
+                  <label class="kt-checkbox belongToRestore">
+                    <input class="form-control belongToRestore" [(ngModel)]="RestoreSet.isClearAward" type="checkbox"
+                      name="isClearAward" />{{l("isClearAward")}}
+                    <span class="belongToRestore"></span>
+                  </label>
+                </div>
+                <button (click)="clearData()" class="btn btn-primary belongToRestore" style="margin: 0.5rem;">
+                  {{l('Submit')}}
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+    <div class="kt-portlet kt-portlet--mobile">
+      <tabset class="tab-container tabbable-line">
+        <tab heading="{{l('Statistical report of activities')}}" customClass="kt-tabs__item icon-xiaoshoue"
+          style="margin-left:-5px;">
+          <div class="col-12">
+            <div class="kt-portlet" origin>
+              <div class="col-12" style="padding:30px;" [busyIf]="activityLoading">
+                <label class="chartLabel row" style="margin-bottom:30px;">
+                  <div class="col-4">
+                    <div class="input-group">
+                      <select class="form-control" [(ngModel)]="activityGameId" name="activityGameSelect">
+                        <option value="">{{l('All')}}</option>
+                        <option [value]="activityGame.value" *ngFor="let activityGame of activityGameList">
+                          {{activityGame.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="input-group">
+                      <date-range-picker needInitDate="true" [dateRangePickerOptions]='{ "opens": "left"}'
+                        style="width: 80%;position: relative;" name="SampleDateRangePicker" [(startDate)]="startDate3"
+                        [(endDate)]="endDate3" rangeMode="history">
+                      </date-range-picker>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary"
+                          (click)="drawActivityChart()">{{l('search')}}</button>
+                      </span>
+                    </div>
+                  </div>
+
+                </label>
+
+                <div style="margin-bottom:30px;">
+                  <table id="table">
+                    <tr>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/interactiveCount.png">
+                          <div class="div1" style="color:#9abc32;">{{activityData.interactiveCount}}</div>
+                          <div class="div2">{{l('interactiveCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/fansCount.png">
+                          <div class="div1" style="color:#4ec83b;">{{activityData.fansCount}}</div>
+                          <div class="div2">{{l('fansCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/shareCount.png">
+                          <div class="div1" style="color:#9abc32;">{{activityData.shareCount}}</div>
+                          <div class="div2">{{l('shareCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/viewCount.png">
+                          <div class="div1" style="color:#cb6fd7;">{{activityData.viewCount}}</div>
+                          <div class="div2">{{l('viewCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/likeCount.png">
+                          <div class="div1" style="color:#d53f40;">{{activityData.likeCount}}</div>
+                          <div class="div2">{{l('likeCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/spreadCount.png">
+                          <div class="div1" style="color:#6fb3e0;">{{activityData.spreadCount}}</div>
+                          <div class="div2">{{l('spreadCount')}}</div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/genderRatio.png">
+                          <div class="div1" style="color:#cb6fd7;">
+                            {{activityData.maleCount}}:{{activityData.femaleCount}}</div>
+                          <div class="div2">{{l('genderRatio')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/awardCount.png">
+                          <div class="div1" style="color:#f79263;">{{activityData.awardCount}}</div>
+                          <div class="div2">{{l('awardCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/gameCount.png">
+                          <div class="div1" style="color:#00b5a4;">{{activityData.gameCount}}</div>
+                          <div class="div2">{{l('gameCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/offlineCount.png">
+                          <div class="div1" style="color:#3983c2;">{{activityData.offlineCount}}</div>
+                          <div class="div2">{{l('offlineCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/offlineStopCount.png">
+                          <div class="div1" style="color:#e8b110;">{{activityData.offlineStopCount}}</div>
+                          <div class="div2">{{l('offlineStopCount')}}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="position:relative;">
+                          <img src="/assets/common/images/chart/offlineStopRatio.png">
+                          <div class="div1" style="color:#f79263;">{{activityData.offlineStopRatio}}</div>
+                          <div class="div2">{{l('offlineStopRatio')}}</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="form-group">
+                  <app-charts chartId="ActivityChart" chartType="Line" #chart3></app-charts>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </tab>
+        <tab heading="{{l('ActionData')}}" customClass="kt-tabs__item icon-jiaose" (selectTab)="getPlayerData()">
+          <div>
+            <div class="kt-content" style="padding-top:0 !important;">
+              <div class="kt-portlet kt-portlet--mobile" style="padding-top:0 !important;">
+                <div class="Container row" style="padding-top:0 !important;">
+                  <div class="kt-portlet__body" style="padding-top:0 !important;">
+                    <div class="row">
+                      <form class="horizontal-form" autocomplete="off">
+                        <div class="kt-form kt-form--label-align-right">
+                          <div class="row align-items-center kt--margin-bottom-10">
+                            <div class="col-3">
+                              <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('userNickName')}}</label>
+                                <div class="input-group">
+                                  <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                    class="form-control kt-input" type="text">
+                                  <span class="input-group-btn">
+                                    <button (click)="getPlayerData()" class="btn btn-primary" type="submit">
+                                      <i class="icon-sousuo-sousuo"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3" style="position:relative;top:-0.5rem;">
+                              <div class="input-group">
+                                <label>{{l('gameName')}}</label>
+                                <div class="input-group">
+                                  <select class="form-control" [(ngModel)]="activityGameId" name="activityGameSelect"
+                                    (change)="getPlayerData();">
+                                    <option value="">{{l('All')}}</option>
+                                    <option [value]="activityGame.value" *ngFor="let activityGame of activityGameList">
+                                      {{activityGame.name}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3" style="position:relative;">
+                              <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('gameTime')}}</label>
+                                <date-range-picker #playerDateranger name="SampleDateRangePicker" [showButton]="true"
+                                  rangeMode="star" (buttonEmit)="getPlayerData()" [(startDate)]="StartTime"
+                                  [(endDate)]="EndTime" [allowFutureDate]="true" needInitDate="true"
+                                  [admitDelete]="false">
+                                </date-range-picker>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="row align-items-center">
+                      <!--<Primeng-Datatable-Start>-->
+                      <div class="primeng-datatable-container" [busyIf]="WhitelistPrimeng.isLoading">
+                        <!-- resizableColumns="WhitelistPrimeng.resizableColumns" -->
+                        <p-table #whitelistDataTable (onLazyLoad)="getPlayerData($event)"
+                          [value]="WhitelistPrimeng.records" [rows]="WhitelistPrimeng.defaultRecordsCountPerPage"
+                          [(selection)]="selectList" [paginator]="false" [lazy]="true"
+                          [resizableColumns]="WhitelistPrimeng.resizableColumns"
+                          [responsive]="WhitelistPrimeng.isResponsive">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>{{l('Actions')}}</th>
+                              <!-- <th style="width: 5.0em">
+                                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                    </th> -->
+                              <th style="width:5%">{{l('RecordId')}}</th>
+                              <th>{{l('headImage')}}</th>
+                              <th>{{l('userNickName')}}</th>
+                              <th>{{l('gender')}}</th>
+                              <th>{{l('city')}}</th>
+                              <th>{{l('province')}}</th>
+                              <th>{{l('from')}}</th>
+                              <th pSortableColumn="endTime">
+                                {{l('gameTime')}}
+                                <p-sortIcon field="endTime"></p-sortIcon>
+                              </th>
+                              <th>{{l('gameName')}}</th>
+                              <th pSortableColumn="score">
+                                {{l('score')}}
+                                <p-sortIcon field="score"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="awardName">
+                                {{l('awardProduct')}}
+                                <p-sortIcon field="awardName"></p-sortIcon>
+                              </th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-record let-i="rowIndex">
+                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+
+                              <td>
+                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                  <button class="dropdown-toggle btn btn-sm btn-primary" data-toggle="dropdown"
+                                    dropdownToggle aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                    <span class="caret"></span> {{l("Actions")}}
+                                  </button>
+                                  <ul class="dropdown-menu" *dropdownMenu>
+                                    <li>
+                                      <a (click)="goDetail(record)" class="icon-bianji">{{l('detail')}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <!-- <td>
+                              <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                            </td> -->
+                              <td style="width:5%"> {{transIndex2(i)}}</td>
+                              <td>
+                                <img [src]="fixFileUrl(record.headimgurl)" />
+                              </td>
+                              <td>
+                                <span>{{record.nickname}}</span>
+                              </td>
+                              <td>
+                                <span *ngIf="record.sex==1">{{l('male')}}</span>
+                                <span *ngIf="record.sex==2">{{l('female')}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.city}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.province}}</span>
+                              </td>
+                              <td>
+                                <span *ngIf="record.snsType==0">{{l('Taobao')}}</span>
+                                <span *ngIf="record.snsType==1">{{l('WeChat')}}</span>
+                                <span *ngIf="record.snsType==2">{{l('Others')}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.endTime | date : "yyyy/MM/dd"}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.softwareName}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.score}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.awardName}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage" let-records>
+                            <tr *ngIf="WhitelistPrimeng.records">
+                              <td colspan="10">
+                                <img class="emptymessage" src="/assets/common/images/placeholder/couponHolder.png" />
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                        <div class="primeng-paging-container">
+                          <p-paginator [rows]="WhitelistPrimeng.defaultRecordsCountPerPage" #whitelistPaginator
+                            (onPageChange)="getPlayerData()" [totalRecords]="WhitelistPrimeng.totalRecordsCount"
+                            [rowsPerPageOptions]="WhitelistPrimeng.predefinedRecordsCountPerPage">
+                          </p-paginator>
+                          <span class="total-records-count">
+                            {{l('TotalRecordsCount', WhitelistPrimeng.totalRecordsCount)}}
+                          </span>
+                        </div>
+                      </div>
+                      <!--<Primeng-Datatable-End>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <playerDataDetailModal (modalSave)="getPlayerData()" #playerDataDetailModal></playerDataDetailModal>
+
+          </div>
+        </tab>
+        <tab heading="{{l('winningUser')}}" customClass="kt-tabs__item icon-huojiang"
+          (selectTab)="getActivityAwardUser()">
+          <div>
+            <div class="kt-content" style="padding-top:0 !important;">
+              <div class="kt-portlet kt-portlet--mobile" style="padding-top:0 !important;">
+                <div class="Container row" style="padding-top:0 !important;">
+                  <div class="kt-portlet__body" style="padding-top:0 !important;">
+                    <div class="row">
+                      <form class="horizontal-form" autocomplete="off">
+                        <div class="kt-form kt-form--label-align-right">
+                          <div class="row align-items-center kt--margin-bottom-10">
+
+                            <div class="col-3" style="position:relative;top:-0.5rem;">
+                              <div class="input-group">
+                                <label>{{l('gameName')}}</label>
+                                <div class="input-group">
+                                  <select class="form-control" [(ngModel)]="activityGameId" name="activityGameSelect"
+                                    (change)="getActivityAwardUser();">
+                                    <option value="">{{l('All')}}</option>
+                                    <option [value]="activityGame.value" *ngFor="let activityGame of activityGameList">
+                                      {{activityGame.name}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="row align-items-center">
+                      <!--<Primeng-Datatable-Start>-->
+                      <div class="primeng-datatable-container" [busyIf]="WinnerPrimeng.isLoading">
+                        <!-- resizableColumns="WinnerPrimeng.resizableColumns" -->
+                        <p-table #winnerDataTable (onLazyLoad)="getActivityAwardUser($event)"
+                          [value]="WinnerPrimeng.records" [rows]="WinnerPrimeng.defaultRecordsCountPerPage"
+                          [(selection)]="selectList" [paginator]="false" [lazy]="true"
+                          [resizableColumns]="WinnerPrimeng.resizableColumns" [responsive]="WinnerPrimeng.isResponsive">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>{{l('Actions')}}</th>
+                              <th style="width:5%">{{l('RecordId')}}</th>
+                              <th>{{l('nickName')}}</th>
+                              <th>{{l('headImage')}}</th>
+                              <!-- <th>{{l('from')}}</th> -->
+                              <th>{{l('awardProduct')}}</th>
+                              <th>{{l('gameName')}}</th>
+                              <th>{{l('awardSeq')}}</th>
+                              <th>{{l('auditStatus')}}</th>
+                              <th>{{l('expressCompany')}}</th>
+                              <th>{{l('expressNO')}}</th>
+
+
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-record let-i="rowIndex">
+                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                              <td>
+                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                  <button class="dropdown-toggle btn btn-sm btn-primary" data-toggle="dropdown"
+                                    dropdownToggle aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                    <span class="caret"></span> {{l("Actions")}}
+                                  </button>
+                                  <ul class="dropdown-menu" *dropdownMenu>
+                                    <li>
+                                      <a (click)="expressDetail(record)" class="icon-bianji">{{l('Edit')}}</a>
+                                    </li>
+                                    <li *ngIf="isGranted('Pages.Tenant.Activities.ClearData')">
+                                      <a (click)="ClearUserAwardData(record)"
+                                        class="icon-Clearsearch">{{l('ClearData')}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td> {{transIndex3(i,winnerPaginator)}}</td>
+                              <td>
+                                <span>{{record.nickname}}</span>
+                              </td>
+                              <td>
+                                <img [src]="fixFileUrl(record.headimgurl)" [alt]="record.title" />
+                              </td>
+                              <!-- <td>{{record.snsAppName}}</td> -->
+                              <td>{{record.name}}</td>
+                              <td>{{record.gameName}}</td>
+                              <td>{{record.awardSeq}}</td>
+                              <td>
+                                <span *ngIf="record['isConfirmed']"
+                                  class="kt-badge  kt-badge--success kt-badge--inline">{{l("hasReceived")}}</span>
+                                <span *ngIf="!record['isConfirmed']"
+                                  class="kt-badge  kt-badge--danger kt-badge--inline">{{l("notReceived")}}</span>
+                              </td>
+                              <td>{{record.expressCompany}}</td>
+                              <td>{{record.expressNO}}</td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage" let-records>
+                            <tr *ngIf="WinnerPrimeng.records">
+                              <td colspan="7">
+                                <img class="emptymessage" src="/assets/common/images/placeholder/couponHolder.png" />
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                        <div class="primeng-paging-container">
+                          <p-paginator [rows]="WinnerPrimeng.defaultRecordsCountPerPage" #winnerPaginator
+                            (onPageChange)="getActivityAwardUser($event)"
+                            [totalRecords]="WinnerPrimeng.totalRecordsCount"
+                            [rowsPerPageOptions]="WinnerPrimeng.predefinedRecordsCountPerPage">
+                          </p-paginator>
+                          <span class="total-records-count">
+                            {{l('TotalRecordsCount', WinnerPrimeng.totalRecordsCount)}}
+                          </span>
+                        </div>
+                      </div>
+                      <!--<Primeng-Datatable-End>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <expressDetailModal #expressDetailModal (modalSave)="getActivityAwardUser()"></expressDetailModal>
+
+        </tab>
+        <tab heading="{{l('UserData')}}" customClass="kt-tabs__item icon-yonghu" (selectTab)="getUserData()">
+          <div>
+            <div class="kt-content" style="padding-top:0 !important;">
+              <div class="kt-portlet kt-portlet--mobile" style="padding-top:0 !important;">
+                <div class="Container row" style="padding-top:0 !important;">
+                  <div class="kt-portlet__body" style="padding-top:0 !important;">
+                    <div class="row">
+                      <form class="horizontal-form" autocomplete="off">
+                        <div class="kt-form kt-form--label-align-right">
+                          <div class="row align-items-center kt--margin-bottom-10">
+                            <div class="col-xl-3">
+                              <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('userNickName')}}</label>
+                                <div class="input-group">
+                                  <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                    class="form-control kt-input" type="text">
+                                  <span class="input-group-btn">
+                                    <button (click)="getUserData()" class="btn btn-primary" type="submit">
+                                      <i class="icon-sousuo-sousuo"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3" style="position:relative;top:-0.5rem;">
+                              <div class="input-group">
+                                <label>{{l('gameName')}}</label>
+                                <div class="input-group">
+                                  <select class="form-control" [(ngModel)]="activityGameId" name="activityGameSelect"
+                                    (change)="getUserData();">
+                                    <option value="">{{l('All')}}</option>
+                                    <option [value]="activityGame.value" *ngFor="let activityGame of activityGameList">
+                                      {{activityGame.name}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-3" style="position:relative;">
+                              <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('gameTime')}}</label>
+                                <date-range-picker #userDateranger name="SampleDateRangePicker" [showButton]="true"
+                                  rangeMode="star" (buttonEmit)="getUserData()" [(startDate)]="StartTime2"
+                                  [(endDate)]="EndTime2" [allowFutureDate]="true" needInitDate="true"
+                                  [admitDelete]="false">
+                                </date-range-picker>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="row align-items-center">
+                      <!--<Primeng-Datatable-Start>-->
+                      <div class="primeng-datatable-container" [busyIf]="UserPrimeng.isLoading">
+                        <p-table #userDataTable (onLazyLoad)="getUserData($event)" [value]="UserPrimeng.records"
+                          [rows]="UserPrimeng.defaultRecordsCountPerPage" [(selection)]="selectList" [paginator]="false"
+                          [lazy]="true" [resizableColumns]="UserPrimeng.resizableColumns"
+                          [responsive]="UserPrimeng.isResponsive">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>{{l('Actions')}}</th>
+                              <!-- <th style="width: 5.0em">
+                              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th> -->
+                              <th style="width:5%">{{l('RecordId')}}</th>
+                              <th>{{l('headImage')}}</th>
+                              <th>{{l('userNickName')}}</th>
+                              <th>{{l('gender')}}</th>
+                              <th>{{l('city')}}</th>
+                              <th>{{l('province')}}</th>
+                              <th>{{l('from')}}</th>
+                              <th pSortableColumn="Count">
+                                {{l('counts')}}
+                                <p-sortIcon field="Count"></p-sortIcon>
+                              </th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-record let-i="rowIndex">
+                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                              <!-- <td>
+                              <button class="btn btn-sm btn-primary" (click)="goDetail(record)">
+                                {{l("detail")}}
+                              </button>
+                            </td> -->
+                              <td
+                                *ngIf="isGranted('Pages.Tenant.Activities.Delete')||isGranted('Pages.Tenant.Activities.Edit')">
+                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                  <button class="dropdown-toggle btn btn-sm btn-primary" data-toggle="dropdown"
+                                    dropdownToggle aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                    <span class="caret"></span> {{l("Actions")}}
+                                  </button>
+                                  <ul class="dropdown-menu" *dropdownMenu>
+                                    <li>
+                                      <a (click)="addToBlackList(record)"
+                                        class="icon-huojiang">{{l('addToBlackList')}}</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="addToWhiteList(record)"
+                                        class="icon-huodong11">{{l('addToWhiteList')}}</a>
+                                    </li>
+                                    <li *ngIf="isGranted('Pages.Tenant.Activities.ClearData')">
+                                      <a (click)="ClearUserActivityData(record)"
+                                        class="icon-Clearsearch">{{l('ClearData')}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <!-- <td>
+                              <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                            </td> -->
+                              <td style="width:5%"> {{transIndex(i)}}</td>
+                              <td>
+                                <img [src]="fixFileUrl(record.headimgurl)" />
+                              </td>
+                              <td>
+                                <span>{{record.nickname}}</span>
+                              </td>
+                              <td>
+                                <span *ngIf="record.sex==1">{{l('male')}}</span>
+                                <span *ngIf="record.sex==2">{{l('female')}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.city}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.province}}</span>
+                              </td>
+
+                              <td>
+                                <span *ngIf="record.snsType==0">{{l('Taobao')}}</span>
+                                <span *ngIf="record.snsType==1">{{l('WeChat')}}</span>
+                                <span *ngIf="record.snsType==2">{{l('Others')}}</span>
+                              </td>
+
+                              <td>
+                                <span>{{record.actionCount}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage" let-records>
+                            <tr *ngIf="UserPrimeng.records">
+                              <td colspan="8">
+                                <img class="emptymessage" src="/assets/common/images/placeholder/couponHolder.png" />
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                        <div class="primeng-paging-container">
+                          <p-paginator [rows]="UserPrimeng.defaultRecordsCountPerPage" #userPaginator
+                            (onPageChange)="getUserData()" [totalRecords]="UserPrimeng.totalRecordsCount"
+                            [rowsPerPageOptions]="UserPrimeng.predefinedRecordsCountPerPage">
+                          </p-paginator>
+                          <span class="total-records-count">
+                            {{l('TotalRecordsCount', UserPrimeng.totalRecordsCount)}}
+                          </span>
+                        </div>
+                      </div>
+
+                      <!--<Primeng-Datatable-End>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+        <tab heading="{{l('RegisterUser')}}" customClass="kt-tabs__item icon-shenhe1" (selectTab)="getRegisterUser()">
+          <div>
+            <div class="kt-content" style="padding-top:0 !important;">
+              <div class="kt-portlet kt-portlet--mobile" style="padding-top:0 !important;">
+                <div class="Container row" style="padding-top:0 !important;">
+                  <div class="kt-portlet__body" style="padding-top:0 !important;">
+                    <div class="row">
+                      <form class="horizontal-form" autocomplete="off">
+                        <div class="kt-form kt-form--label-align-right">
+                          <div class="row align-items-center kt--margin-bottom-10">
+                            <div class="col-xl-3">
+                              <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('name')}}</label>
+                                <div class="input-group">
+                                  <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                    class="form-control kt-input" type="text">
+                                  <span class="input-group-btn">
+                                    <button (click)="getRegisterUser()" class="btn btn-primary" type="submit">
+                                      <i class="icon-sousuo-sousuo"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="col-3" style="position:relative;top:-0.5rem;">
+                              <div class="input-group">
+                                <label>{{l('gameName')}}</label>
+                                <div class="input-group">
+                                  <select class="form-control" [(ngModel)]="activityGameId" name="activityGameSelect"
+                                    (change)="getRegisterUser();">
+                                    <option value="">{{l('All')}}</option>
+                                    <option [value]="activityGame.value" *ngFor="let activityGame of activityGameList">{{activityGame.name}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div> -->
+
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="row align-items-center">
+                      <!--<Primeng-Datatable-Start>-->
+                      <div class="primeng-datatable-container" [busyIf]="RegisterPrimeng.isLoading">
+                        <p-table #registerDataTable [value]="RegisterPrimeng.records"
+                          [rows]="RegisterPrimeng.defaultRecordsCountPerPage" [(selection)]="selectList"
+                          [paginator]="false" [lazy]="true" [resizableColumns]="RegisterPrimeng.resizableColumns"
+                          [responsive]="RegisterPrimeng.isResponsive">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>{{l('Actions')}}</th>
+                              <th style="width:5%">{{l('RecordId')}}</th>
+                              <th>{{l('headImage')}}</th>
+                              <th>{{l('userNickName')}}</th>
+                              <th>{{l('name')}}</th>
+                              <th>{{l('gender')}}</th>
+                              <th>{{l('phone')}}</th>
+                              <th style="width:20vw">{{l('address')}}</th>
+                              <th>{{l('ID')}}</th>
+                              <!-- <th>{{l('from')}}</th> -->
+                              <th>{{l('isSigned')}}</th>
+                              <th>{{l('isValidated')}}</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-record let-i="rowIndex">
+                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+
+                              <td
+                                *ngIf="isGranted('Pages.Tenant.Activities.Delete')||isGranted('Pages.Tenant.Activities.Edit')">
+                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                  <button class="dropdown-toggle btn btn-sm btn-primary" data-toggle="dropdown"
+                                    dropdownToggle aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                    <span class="caret"></span> {{l("Actions")}}
+                                  </button>
+                                  <ul class="dropdown-menu" *dropdownMenu>
+                                    <li *ngIf="!record.isValidated">
+                                      <a (click)="goValidate(record)" class="icon-shenhe1">{{l('goValidate')}}</a>
+                                    </li>
+                                    <li *ngIf="record.isValidated">
+                                      <a (click)="cancelValidate(record)"
+                                        class="icon-huodong11">{{l('cancelValidate')}}</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="addToBlackList(record.snsUserInfo)"
+                                        class="icon-huojiang">{{l('addToBlackList')}}</a>
+                                    </li>
+                                    <li>
+                                      <a (click)="addToWhiteList(record.snsUserInfo)"
+                                        class="icon-huodong11">{{l('addToWhiteList')}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+
+
+                              <td style="width:5%"> {{transIndex(i)}}</td>
+                              <td>
+                                <img [src]="fixFileUrl(record.snsUserInfo.headimgurl)" />
+                              </td>
+                              <td>
+                                <span>{{record.snsUserInfo.nickname}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.name}}</span>
+                              </td>
+                              <td>
+                                <span *ngIf="record.snsUserInfo.sex==1">{{l('male')}}</span>
+                                <span *ngIf="record.snsUserInfo.sex==2">{{l('female')}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.phone}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.address}}</span>
+                              </td>
+                              <td>
+                                <span>{{record.identityID}}</span>
+                              </td>
+                              <!-- <td>
+                              <span *ngIf="record.snsUserInfo.snsType==0">{{l('Taobao')}}</span>
+                              <span *ngIf="record.snsUserInfo.snsType==1">{{l('WeChat')}}</span>
+                              <span *ngIf="record.snsUserInfo.snsType==2">{{l('Others')}}</span>
+                            </td> -->
+                              <td>
+                                <span *ngIf="record.isSigned"
+                                  class="kt-badge  kt-badge--success kt-badge--inline">{{l(record.isSigned)}}</span>
+                                <span *ngIf="!record.isSigned"
+                                  class="kt-badge  kt-badge--danger kt-badge--inline">{{l(record.isSigned)}}</span>
+                              </td>
+                              <td>
+                                <span *ngIf="record.isValidated"
+                                  class="kt-badge  kt-badge--success kt-badge--inline">{{l(record.isValidated)}}</span>
+                                <span *ngIf="!record.isValidated"
+                                  class="kt-badge  kt-badge--danger kt-badge--inline">{{l(record.isValidated)}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage" let-records>
+                            <tr *ngIf="RegisterPrimeng.records">
+                              <td colspan="11">
+                                <img class="emptymessage" src="/assets/common/images/placeholder/couponHolder.png" />
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                        <div class="primeng-paging-container">
+                          <p-paginator [rows]="RegisterPrimeng.defaultRecordsCountPerPage" #registerPaginator
+                            (onPageChange)="getRegisterUser()" [totalRecords]="RegisterPrimeng.totalRecordsCount"
+                            [rowsPerPageOptions]="RegisterPrimeng.predefinedRecordsCountPerPage">
+                          </p-paginator>
+                          <span class="total-records-count">
+                            {{l('TotalRecordsCount', RegisterPrimeng.totalRecordsCount)}}
+                          </span>
+                        </div>
+                      </div>
+
+                      <!--<Primeng-Datatable-End>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+        <changeWhiteListModal #changeWhiteListModal (modalSave)="getPlayerData()"></changeWhiteListModal>
+
+      </tabset>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>

@@ -133,6 +133,14 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'software',
                         loadChildren: () => import('./software/software.module').then(m => m.SoftwareModule),
                     },
+                    {
+                        path: 'activity',
+                        loadChildren: () => import('./activity/activity.module').then(m => m.ActivityModule),
+                    },
+                    {
+                        path: 'advertisement',
+                        loadChildren: () => import('./advertisement/advertisement.module').then(m => m.AdvertisementModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

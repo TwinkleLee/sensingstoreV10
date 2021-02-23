@@ -1,0 +1,110 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" name="CommonForm" #ScheduleForm="ngForm" novalidate (ngSubmit)="save()"
+                autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="width:100%;">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <div class="input-group">
+                                    <date-range-picker #dateranger style="width: 80%;position: relative;"
+                                        [dateRangePickerOptions]='{ "opens": "left"}' name="startTime"
+                                        [(startDate)]="searchStartDate" [(endDate)]="searchEndDate"
+                                        [allowFutureDate]="true" needInitDate="true" [admitDelete]="false"
+                                        [minDate]="minDate" [maxDate]="maxDate" rangeMode="star">
+                                    </date-range-picker>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="getScheduleCalendar()">{{l('search')}}</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-4" style="padding:0 3%;position:relative;">
+                                <div style="display: flex;justify-content:space-evenly; line-height: 2rem;">
+                                    <div>
+                                        <span
+                                            [ngStyle]="{'font-weight':modeSmall?'bold':'normal',color:modeSmall?'#000':'#ccc'}">
+                                            {{l("小")}}
+                                        </span>
+                                    </div>
+                                    <div (click)="changeMode()"
+                                        style="width:4rem;height:2rem;border:2px solid #ccc;position: relative;border-radius: 1rem;">
+
+                                        <div class="btn-primary" [ngStyle]="{'left':modeSmall?'-1px':'50%'}"
+                                            style="width:2rem;height:2rem;top:-1px;border-radius: 50%;position:absolute;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span
+                                            [ngStyle]="{'font-weight':!modeSmall?'bold':'normal',color:!modeSmall?'#000':'#ccc'}">
+                                            {{l("大")}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="overflowContainer" style="width:100%;display:flex;height:calc(100vh - 19rem);overflow:auto;font-weight:bold;">
+                        <div style="width:6rem;position: sticky;left: 0;background: #fff;z-index: 11;">
+                            <div class="timeList" style="background: #fff;">
+                                <div [ngClass]="{modeSmall:modeSmall,modeBig:!modeSmall}"
+                                    *ngFor="let time of ['00','01','02','03','04','05','06','07','08','09',10,11,12,13,14,15,16,17,18,19,20,21,22,23]">
+                                    {{time+":00"}}
+                                </div>
+                                <div [ngClass]="{modeSmall:modeSmall,modeBig:!modeSmall}"
+                                    style="position:absolute;height:1rem;width:100%;">
+                                    24:00
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex;flex-grow:1;border: 1px solid #000;height:fit-content;">
+                            <div *ngFor="let date of dateList;" class="dateItem">
+                                <div class="topDate">
+                                    {{date.date | date : "yyyy/MM/dd"}}
+                                </div>
+                                <div class="adList" (click)="editDate(date)"
+                                    [ngStyle]="{'top':timeToSecond(date.startTime)*heightRem1S+2+'rem','height':(timeToSecond(date.endTime)-timeToSecond(date.startTime))*heightRem1S+'rem'}">
+
+                                    <div *ngFor="let adGroup of date.adGroups"
+                                        style="overflow:hidden;position:relative;cursor:pointer;"
+                                        [ngStyle]="{'line-height':adGroup.height+'rem', height:adGroup.height+'rem',background:adGroup.bgColor,'margin-top':adGroup.marginTop+'rem'}"
+                                        [title]="adGroup.formatStartTime+'&#10;'+adGroup.title+'&#10;'+adGroup.formatEndTime">
+                                        <div *ngIf="adGroup.height>=1;"
+                                            style="width:100%;overflow:hidden;line-height:1rem;vertical-align: middle;display: inline-block;color:#fff;">
+                                            <span *ngIf="adGroup.type==-1"><i class="icon-shangpinguanli"
+                                                    style="margin-right: 0.75rem;"></i>{{l('EmptyTimeSlot')}}</span>
+                                            <span *ngIf="adGroup.type==0"><i class="icon-yingyong"
+                                                    style="margin-right: 0.75rem;"></i>{{adGroup.packageName}}</span>
+                                            <span *ngIf="adGroup.type==1"><i class="icon-app"
+                                                    style="margin-right: 0.75rem;"></i>{{adGroup.children[0].name}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div [ngClass]="{modeSmall:modeSmall,modeBig:!modeSmall}"
+                                    style="outline:1px solid #000;"
+                                    *ngFor="let time of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<programModal #programModal (modalSave)="getScheduleCalendar()"></programModal>

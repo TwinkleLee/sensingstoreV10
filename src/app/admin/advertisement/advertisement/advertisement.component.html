@@ -1,0 +1,388 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Advertisement' | localize" [description]="'AdvertisementManage' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Ads.Apply')">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button"
+                        id="applyButton" data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                        aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton"
+                        x-placement="bottom-start">
+                        <a class="dropdown-item icon-shangxian1" (click)="online()">
+                            {{l('onlineBatch')}}
+                        </a>
+                        <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                            {{l('offlineBatch')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="onlineAll()">
+                            {{l('onlineAll')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="offlineAll()">
+                            {{l('offlineAll')}}
+                        </a>
+                        <a class="dropdown-item icon-shanchu" (click)="deleteBatch()">
+                            {{l('deleteBatch')}}
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Ads.Publish')">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('publishAds')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton"
+                        x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishAds()">
+                            {{l('publishAds')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-chehui1" (click)="withdrawAll()">
+                            {{l('withdrawAll')}}
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Ads.Create')">
+                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
+                        [buttonBusy]="exportLoading">
+                        {{l('ImportOrExport')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="port" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="import()">
+                            {{l('import')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="goExport()">
+                            {{l('export')}}
+                        </a>
+                    </div>
+                </div>
+
+                <button *ngIf="isGranted('Pages.Tenant.Ads.Create')" class="btn  btn-primary"
+                    (click)="createAds()">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateNewAd")}}</button>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div>
+                        <div class="row">
+                            <form class="horizontal-form" autocomplete="off" name="AdsForm">
+                                <div>
+                                    <div class="row align-items-center mb-4">
+                                        <div class="col-3">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <input [(ngModel)]="filterText" name="filterText" (keyup.enter)="getAds()"
+                                                        autoFocus class="form-control m-input "
+                                                        (keyup.enter)="getAds($event)"
+                                                        [placeholder]="l('Name')" type="text">
+                                                    <!-- <span class="input-group-btn">
+                                                    <button (click)="getAds()" class="btn btn-primary" type="submit">
+                                                        <i class="icon-sousuo-sousuo"></i>
+                                                    </button>
+                                                </span> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <select class="form-control" [(ngModel)]="auditStatus"
+                                                        name="auditStatus" (ngModelChange)="getAds()">
+                                                        <option value="">
+                                                            {{l("All")+' / '+l("online")+' / '+l("offline")}}</option>
+                                                        <option [value]="AuditStatus.Offline">{{l("Offline")}}</option>
+                                                        <option [value]="AuditStatus.Online">{{l("Online")}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <select class="form-control" [(ngModel)]="adsTag"
+                                                        name="belongStore">
+                                                        <option value="">{{l('AllTags')}}</option>
+                                                        <option [value]="tag.id" *ngFor="let tag of tags">{{tag.value}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-1">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-primary"
+                                                        [buttonBusy]="primengTableHelper.isLoading" (click)="getAds()">
+                                                        <i class="la la-refresh"></i>
+                                                        {{l("search")}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3 text-right">
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label [ngClass]="{'active':!showImage}"
+                                                    class="btn btn-secondary icon-liebiao" (click)="toggle(true)">
+                                                    <input type="radio" name="options" id="option1" autocomplete="off"
+                                                        checked>
+                                                </label>
+                                                <label [ngClass]="{'active':showImage}"
+                                                    class="btn btn-secondary icon-weibiaoti2010102-copy"
+                                                    (click)="toggle(false)">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off">
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                <app-image-grid id="gridShow" style="display: none;width: 100%;" gridOwner="ads"
+                                    (onOperate)="onOperate($event)" [(selection)]="AdsPublishList"
+                                    [imageList]="primengTableHelper.records"></app-image-grid>
+                                <p-table #dataTable id="tableShow" (onLazyLoad)="getAds($event)"
+                                    [value]="primengTableHelper.records"
+                                    [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
+                                    [lazy]="true" [(selection)]="AdsPublishList"
+                                    [resizableColumns]="primengTableHelper.resizableColumns"
+                                    [responsive]="primengTableHelper.isResponsive">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>{{l('Actions')}}</th>
+                                            <th style="width: 5.0em">
+                                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                            </th>
+                                            <th style="width: 5%">{{l('RecordId')}}</th>
+                                            <th>{{l('name')}}</th>
+                                            <th>{{l('type')}}</th>
+                                            <th>{{l('age')}}</th>
+                                            <th>{{l('gender')}}</th>
+                                            <th pSortableColumn="lastModificationTime">{{l('updateTime')}}
+                                                <p-sortIcon field="lastModificationTime"></p-sortIcon>
+                                            </th>
+                                            <th>{{l('tags')}}</th>
+                                            <th pSortableColumn="auditStatus">{{l('Status')}}
+                                                <p-sortIcon field="auditStatus"></p-sortIcon>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                        <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                            <td>
+                                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                        data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>
+                                                        <span class="caret"></span> {{l("Actions")}}
+                                                    </button>
+                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                        <li *ngIf="isGranted('Pages.Tenant.Ads.Edit')">
+                                                            <a class="icon-bianji"
+                                                                (click)="editAds(record)">{{l('Edit')}}</a>
+                                                        </li>
+                                                        <li
+                                                            *ngIf="record.isMine!==false&&record.auditStatus==0&&isGranted('Pages.Tenant.Ads.Delete')">
+                                                            <a class="icon-icon-test"
+                                                                (click)="deleteAds(record)">{{l('Delete')}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p-tableCheckbox #TableCheckbox [value]="record"></p-tableCheckbox>
+                                            </td>
+                                            <td> {{transIndex(i)}}</td>
+                                            <td>
+                                                <span>{{record.name}}</span>
+                                            </td>
+                                            <td>{{record.resourceType}}</td>
+                                            <td>{{record.ageScope||EmptyTdText}}</td>
+                                            <td>
+                                                <span *ngIf="record.gender==null">-</span>
+                                                <span *ngIf="record.gender==''">{{l('unknown')}}</span>
+                                                <span *ngIf="record.gender">{{l(record.gender)}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{record.lastModificationTime| date : "yyyy/MM/dd HH:mm"}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span *ngFor="let tag of record.adsTags"
+                                                    class="kt-badge  kt-badge--info kt-badge--inline">
+                                                    {{tag.name}}
+                                                </span>
+                                                <span *ngIf="!record.adsTags||record.adsTags.length==0">
+                                                    {{EmptyTdText}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="record['auditStatus']==1"
+                                                    class="label label-success label-inline">{{l("online")}}</span>
+                                                <span *ngIf="record['auditStatus']==0"
+                                                    class="label label-dark label-inline">{{l("offline")}}</span>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-records>
+                                        <tr *ngIf="primengTableHelper.records">
+                                            <td colspan="10" class="text-center">
+                                                <img class="emptymessage"
+                                                    src="/assets/common/images/placeholder/adsHolder.png" />
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <div class="primeng-paging-container">
+                                    <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                        (onPageChange)="getAds($event)"
+                                        [totalRecords]="primengTableHelper.totalRecordsCount"
+                                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                    </p-paginator>
+                                    <span class="total-records-count">
+                                        {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}" *ngIf="toPublish"
+                        [ngStyle]="{'height':avalibleHeight}">
+                        <div class="panel_head">
+                            <h3>{{l('PublishingAds')}}</h3>
+                            <div class="text-right x">
+                                <button (click)="toPublish=!toPublish">
+                                    <i class="icon-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel_body">
+                            <form (ngSubmit)="doPublishAds()" name="publishAdsForm">
+                                <div class="form-group">
+                                    <div class="radio-inline">
+                                        <label class="radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="add">
+                                            {{l('append')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="update">
+                                            {{l('update')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="delete">
+                                            {{l('withdraw')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="checkbox checkbox-primary">
+                                            <input class="form-control" [(ngModel)]="onlyPublishToDevice"
+                                                type="checkbox"
+                                                name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
+                                            <span></span>
+                                        </label>
+                                        <label class="checkbox checkbox-primary">
+                                            <input class="form-control" [(ngModel)]="isCreateDefaultSchedule"
+                                                type="checkbox"
+                                                name="isCreateDefaultSchedule" />{{l("isCreateDefaultSchedule")}}
+                                            <span></span>
+                                        </label>
+                                        <label class="checkbox checkbox-primary">
+                                            <input class="form-control" [(ngModel)]="informDevice" type="checkbox"
+                                                name="informDevice" />{{l("informDevice")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: flex;">
+
+                                    <div class="input-group" style="width:50%;">
+                                        <select class="form-control" [(ngModel)]="deviceTypeId" name="belongStore"
+                                            (change)="filterTree()">
+                                            <option value="">{{l('AllTypes')}}</option>
+                                            <option [value]="deviceType.id" *ngFor="let deviceType of deviceTypeList">
+                                                {{deviceType.name}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group" style="width:50%;">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                            (keydown.enter)="filterTree($event)" class="form-control kt-input"
+                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group beautyScroll"
+                                    [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 253px)','padding-left':'20px'}">
+                                    <app-my-tree #myTree [config]="{'showId':true}" [(items)]="deviceTree">
+                                    </app-my-tree>
+                                    <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit"
+                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    (click)="no()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="reason" class="col-form-label">{{l('reason')}}:</label>
+                                        <textarea class="form-control" id="reason" name="reason"
+                                            [(ngModel)]="apply.reason"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="no()"
+                                    data-dismiss="modal">{{l('Close')}}</button>
+                                <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy"
+                                    [busyText]="l('SavingWithThreeDot')" [disabled]="busy"><i></i>{{l('Send')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <createOrEditAdModal #createOrEditAdModal [mapList]="mapList" (modalSave)="getAds()"></createOrEditAdModal> -->
+</div>

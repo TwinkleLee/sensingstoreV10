@@ -1,0 +1,407 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true"
+    (click)="contextmenuConfig.show=false;contextmenuConfig.nowSelectedIndexList=[];" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg" style="max-width:92% !important;">
+        <div class="modal-content">
+            <form *ngIf="active" #ProgramsForm="ngForm" name="CommonForm" novalidate autocomplete="off" class="kt-form">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="!isFromCalender&&Program?.id">{{l("Edit")}}{{l("programList")}}: {{Program?.id +' |
+                            '+Program?.name}}</span>
+                        <span *ngIf="!isFromCalender&&!Program?.id">{{l("Create")}}{{l("programList")}}</span>
+
+                        <span *ngIf="isFromCalender">{{l("Edit")}}{{l("AdsSchedule")}}{{l("programList")}}:
+                            {{calenderId}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-2">
+                            <label>{{l("name")}}</label>
+                            <input #personalNameInput="ngModel" class="form-control" type="text" name="name"
+                                [required]="!isFromCalender" [disabled]="isFromCalender" [(ngModel)]="Program.name"
+                                placeholder="{{l('name')}}" maxlength="32">
+                        </div>
+                        <div class="form-group col-1">
+                            <label [title]="l('priorityDes')">{{l("priority")}}</label>
+                            <input class="form-control" type="number" name="priority" [(ngModel)]="content.priority"
+                                placeholder="{{l('priority')}}" maxlength="32">
+                        </div>
+                        <div class="form-group col-2" style="position:relative;">
+                            <label>&nbsp;</label>
+                            <div style="display: flex;justify-content:space-evenly; line-height: 2rem;" class="mt-1">
+                                <div [ngStyle]="{'font-weight':content.playModel==0?'bold':'normal',color:content.playModel==0?'#000':'#ccc'}"
+                                    [title]="l('The content that has not been played at the time point will be truncated &#10; The program list will not affect the large screen content before the start time and after the end time')">
+                                    {{l("Play in time")}}
+                                </div>
+                                <div (click)="content.playModel = 1 - content.playModel"
+                                    style="width:4rem;height:2rem;border:2px solid #ccc;position: relative;border-radius: 1rem;margin: 0 1rem;">
+
+                                    <div class="btn-primary" [ngStyle]="{'left':content.playModel==0?'-0.5rem':'50%'}"
+                                        style="width:2rem;height:2rem;top:-1px;border-radius: 50%;position:absolute;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span
+                                        [ngStyle]="{'font-weight':content.playModel==1?'bold':'normal',color:content.playModel==1?'#000':'#ccc'}"
+                                        [title]="l('Once the app is started, it will start to play the contents of the program list in sequence&#10;If the application is not closed after the program is played, it will continue to play from the beginning&#10;If there are advertisements that are not played out in one playback cycle due to configuration problems, it will be ensured that the next cycle will be started after the playback is completed')">
+                                        {{l("Play in sequence")}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <div class="form-group">
+                                <label>{{l("executeMode")}} *</label>
+                                <div class="form-group mt-2">
+                                    <div class="kt-radio-inline">
+                                        <label class="kt-radio">
+                                            <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                value="0"> {{l('section')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                value="1"> {{l('eachDay')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                value="2"> {{l('eachWeek')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                value="3">
+                                            {{l('eachMonth')}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2" *ngIf="content.model=='0'">
+                            <div class="form-group">
+                                <div class="col m--align-left" style="padding:0;">
+                                    <label>{{l('startEndTime')}}</label>
+                                    <date-range-picker name="startEndTime" [(startDate)]="content.startTime"
+                                        [(endDate)]="content.endTime" [allowFutureDate]="true" needInitDate="true"
+                                        [admitDelete]="true">
+                                    </date-range-picker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4" *ngIf="content.model=='2'">
+                            <div class="form-group" style="margin-bottom: 0 !important;">
+                                <label>{{l("executeDate")}}</label>
+                                <div class="col m--align-left mt-2">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="margin-right:1rem;"
+                                        *ngFor="let item of weekList">
+                                        <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                            [name]="item.name" [value]="item.value" />{{l(item.name)}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" *ngIf="content.model=='3'">
+                            <div class="form-group">
+                                <label>{{l("executeDate")}} ({{l("SuchAs")}} :{{l("EditMonth")}})</label>
+                                <input class="form-control" type="text" name="monthDay" [(ngModel)]="content.monthDay"
+                                    pattern="^\d{1,2}(,\d{1,2}){0,}$" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="margin-top:1rem;position: relative;">
+                        <div id="overflowContainer"
+                            style="display: inline-block;width:calc(100% - 1rem);position: relative;overflow:auto;height:12rem;padding-left:3rem;padding-right:5rem;padding-top:2rem;">
+                            <div id="timelineContainer"
+                                style="display:flex;position: relative;line-height:2rem;top: 1rem;">
+                                <!-- <p-inputMask id="startTime" [(ngModel)]="Program.startTime"
+                                    name="startTime" mask="99:99:99" placeholder="00:00:00" slotChar="00:00:00"
+                                    styleClass="form-control myPInputMask" (ngModelChange)="startTimeChange()">
+                                </p-inputMask> -->
+                                <input id="startTime" name="startTime" type="text" [value]="Program.startTime"
+                                    (change)="startTimeChange($event)"
+                                    style="width: 6rem;text-align: center;letter-spacing: 0.05rem;height:3rem;position:absolute;top:-75%;left:0;z-index:10;">
+                                <input id="endTime" name="endTime" type="text" [value]="Program.endTime"
+                                    (change)="endTimeChange($event,item)"
+                                    style="width: 6rem;text-align: center;letter-spacing: 0.05rem;height:3rem;position:absolute;top:-75%;right:-3rem;z-index:10;">
+                                <div *ngFor="let hour of hourList;"
+                                    style="position: absolute;bottom:110%;transform: translateX(-50%);height:2.5rem;font-weight: bold;"
+                                    [ngStyle]="{left:hour.posPercent*100+'%'}">
+                                    <span *ngIf="hour.type=='big'">
+                                        {{hour.hour}}
+                                    </span>
+                                    <div *ngIf="hour.type=='big'"
+                                        style="position: absolute;left:50%;top:80%;width:1px;background: #000;height:1rem;">
+                                    </div>
+                                    <div *ngIf="hour.type=='small'"
+                                        style="position: absolute;left:50%;top:90%;width:1px;background: #000;height:0.75rem;">
+                                    </div>
+                                </div>
+                                <div style="width:100%;height:4rem;border:1px solid #000;display: flex;">
+                                    <div [ngStyle]="{'width':item.styleWidthPercent}"
+                                        style="text-align:center;position:relative;"
+                                        *ngFor="let item of Program.ads;let i=index;"
+                                        [ngClass]="{invalid:item.invalid,selected:contextmenuConfig.nowSelectedIndexList.indexOf(i)!=-1,hovered:nowHoveredIndex==i}">
+                                        <div draggable="true" (dragstart)="dragstart($event,i)" (drop)="drop($event,i)"
+                                            (dragover)="dragover($event,i)" (click)="selectItem($event,i,true);"
+                                            (contextmenu)="showContextmenu($event,i);" class="timelineItem"
+                                            [ngStyle]="{background:item.type==-1?'#ccc':bgColorList[i % bgColorList.length],color:colorReverse(bgColorList[i % bgColorList.length])}">
+                                            {{item.name}} <br>
+                                            {{item.formatTotalTimeSpan}}
+                                        </div>
+                                        <div
+                                            style="position:absolute;width:10rem;left:100%;top:110%;transform: translateX(-50%);">
+                                            <span *ngIf="item.id" (click)="reduceEndTime(item)"
+                                                [ngStyle]="{color:item.scheduleEndTime-item.scheduleStartTime>item.timeSpanNum?'#000':'#ccc'}"
+                                                style="cursor: pointer;">
+                                                ←
+                                            </span>
+                                            <input [id]="'inputMask'+i" [name]="'inputMask'+i" type="text"
+                                                [value]="item.formatScheduleEndTime"
+                                                (change)="myFormatScheduleEndTimeChange($event,item)"
+                                                [ngClass]="{invalid:item.invalid,selected2:contextmenuConfig.nowSelectedIndexList.indexOf(i)!=-1}"
+                                                style="width: 6rem;text-align: center;letter-spacing: 0.05rem;height:3rem;">
+
+                                            <span *ngIf="item.id" (click)="addEndTime(item)" style="cursor: pointer;">
+                                                →
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="mb-4" style="background: #999;width:90%;height:1px;"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-10"
+                            style="display: inline-flex;justify-content: space-between;position: relative;"
+                            *ngFor="let item of Program.ads;let i=index;">
+                            <div style="position:absolute;width:1.5rem;height:1.5rem;border:2px solid #000;top:0.75rem;cursor: pointer;"
+                                draggable="true" (dragstart)="dragstart($event,i)" (drop)="drop($event,i)"
+                                (click)="selectItem($event,i,true);" (dragover)="dragover($event,i)"
+                                (contextmenu)="showContextmenu($event,i);" [ngClass]="{hovered:nowHoveredIndex==i}"
+                                [ngStyle]="{'border-color':item.type==-1?'#ccc':bgColorList[i % bgColorList.length],color:colorReverse(bgColorList[i % bgColorList.length]),
+                                'background-color':contextmenuConfig.nowSelectedIndexList.indexOf(i)!=-1?(item.type==-1?'#ccc':bgColorList[i % bgColorList.length]):'transparent'}">
+                                <div *ngIf="i!=Program.ads.length-1"
+                                    style="position: absolute;top:calc(100% + 2px);left:50%;width:1px;height:2.5rem;background:#000;">
+                                </div>
+
+                            </div>
+                            <div class="form-group" style="margin-left:3rem;">
+                                <div style="display: flex;justify-content: start;">
+                                    <input [id]="'formatScheduleStartTime'+i" [name]="'formatScheduleStartTime'+i"
+                                        type="text" [value]="item.formatScheduleStartTime"
+                                        (change)="myFormatScheduleStartTimeChange($event,item,true,i)"
+                                        (click)="selectItem($event,i);"
+                                        style="width: 6rem;text-align: center;letter-spacing: 0.05rem;">
+                                    <div style="margin:0 0.5rem;line-height:3rem;font-size: 2rem;">
+                                        ~
+                                    </div>
+                                    <input [id]="'formatScheduleEndTime'+i" [name]="'formatScheduleEndTime'+i"
+                                        type="text" [value]="item.formatScheduleEndTime"
+                                        (change)="myFormatScheduleEndTimeChange($event,item,true,i)"
+                                        (click)="selectItem($event,i);"
+                                        style="width: 6rem;text-align: center;letter-spacing: 0.05rem;">
+
+                                    <div style="line-height: 3rem;margin-left:1.5rem;">
+                                        <div
+                                            style="display: inline-block;font-size: 1.5rem;line-height: 2.5rem;width:2rem;">
+                                            <i *ngIf="item.type==-1" class="icon-shangpinguanli"></i>
+                                            <i *ngIf="item.type==0" class="icon-yingyong"></i>
+                                            <i *ngIf="item.type==1" class="icon-app"></i>
+                                        </div>
+                                        <div *ngIf="item.type==-1" style="display: inline-block;">
+                                            {{item.name}}
+                                        </div>
+                                        <div *ngIf="item.type==0" style="display: inline-block;">
+                                            <div
+                                                style="max-width:10rem;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;float: left;margin-right:0.5rem;">
+                                                {{item.name}}
+                                            </div>
+                                            <div style="display: inline-block;">
+                                                {{l("Has")}}
+                                                <span style="text-decoration: underline;cursor: pointer;"
+                                                    (click)="showChildrenModal(item)">
+                                                    {{item.children?item.children.length:1}}个{{l("Advertisement")}}
+                                                </span>
+                                                {{l("OncePlayDurationIs")}}
+                                                {{item.timeSpan}}
+                                                {{l("CanPlayTimes",null,parseFloat(((item.scheduleEndTime-item.scheduleStartTime)/item.timeSpanNum).toFixed(2)))}}
+                                            </div>
+                                        </div>
+                                        <div *ngIf="item.type==1" style="display: inline-block;">
+                                            {{item.name}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="padding-right:0;display: flex;">
+                                <div style="position:relative;margin-right:1rem;">
+                                    <button type="button" class="btn btn-primary" (click)="setAd(i)">
+                                        <span>{{l("setAd")}}</span>
+                                    </button>
+                                </div>
+                                <div *ngIf="isGranted('Pages.Softwares')" style="position:relative;margin-right:1rem;">
+                                    <button type="button" class="btn btn-primary" (click)="setSoftware(i)">
+                                        <span>{{l("setSoftware")}}</span>
+                                    </button>
+                                </div>
+                                <div style="position:relative;margin-right:1rem;">
+                                    <button type="button" class="btn btn-primary" (click)="setNone(i)">
+                                        <span>{{l("ClearTimeSlot")}}</span>
+                                    </button>
+                                </div>
+                                <div style="position:relative;margin-right:1rem;">
+                                    <button type="button" class="btn btn-primary" (click)="deleteThing(i)">
+                                        <i class="caret"></i>
+                                        <span>{{l("Delete")}}</span>
+                                    </button>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0 !important;">
+                                    <div class="col m--align-left mt-2"
+                                        [title]="l('When there is a user action, it will not jump to the next ad / APP')">
+                                        <label class="kt-checkbox kt-checkbox--primary" style="margin-right:1rem;">
+                                            <input class="form-control" [(ngModel)]="item.unstoppable" type="checkbox"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [value]="true" />{{l("unstoppable")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row" style="display: flex;justify-content: center;">
+                        <div style="position:relative;margin-right:3rem;">
+                            <button type="button" class="btn btn-primary" (click)="addThing('ad')">
+                                <i class="caret"></i>
+                                <span>{{l("add")}}{{l("Advertisement")}}{{l("TimeSlot")}}</span>
+                            </button>
+                        </div>
+                        <div *ngIf="isGranted('Pages.Softwares')" style="position:relative;margin-right:3rem;">
+                            <button type="button" class="btn btn-primary" (click)="addThing('software')">
+                                <i class="caret"></i>
+                                <span>{{l("add")}}{{l("software")}}{{l("TimeSlot")}}</span>
+                            </button>
+                        </div>
+                        <div style="position:relative;">
+                            <button type="button" class="btn btn-primary" (click)="addThing('none')">
+                                <i class="caret"></i>
+                                <span>{{l("add")}}{{l("EmptyTimeSlot")}}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="form-group col-12">
+                            <label>{{l("Note")}}</label>
+                            <textarea style="height:100px !important;" class="form-control" name="extensionData"
+                                [(ngModel)]="content.extensionData" maxlength="200"></textarea>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="button" class="btn btn-primary blue"
+                        [disabled]="!ProgramsForm.form.valid||!Program.ads||!Program.ads.length" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')" (click)="save()">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="contextmenuConfig.show" class="contextmenuContainer" [style.left.px]="contextmenuConfig.left"
+        [style.top.px]="contextmenuConfig.top">
+        <div class="contextmenuItem" *ngIf="contextmenuConfig.nowSelectedIndexList.length==1"
+            (click)="setSoftware(contextmenuConfig.nowSelectedIndexList[0])">
+            {{l('setSoftware')}}
+        </div>
+        <div class="contextmenuItem" *ngIf="contextmenuConfig.nowSelectedIndexList.length==1"
+            (click)="setAd(contextmenuConfig.nowSelectedIndexList[0])">
+            {{l('setAd')}}
+        </div>
+        <div class="contextmenuItem" *ngIf="contextmenuConfig.nowSelectedIndexList.length==1"
+            (click)="setNone(contextmenuConfig.nowSelectedIndexList[0])">
+            {{l('ClearTimeSlot')}}
+        </div>
+        <div class="contextmenuItem" (click)="deleteThing(contextmenuConfig.nowSelectedIndexList)">
+            {{l('Delete')}}
+        </div>
+        <!-- <div class="contextmenuItem" *ngIf="contextmenuConfig.permitCombine" (click)="mergeAsAdsGroup()">
+            {{l('mergeAsAdsGroup')}}
+        </div>
+        <div class="contextmenuItem" *ngIf="contextmenuConfig.permitSplit" (click)="splitAdsGroup()">
+            {{l('splitAdsGroup')}}
+        </div> -->
+    </div>
+
+</div>
+<ProductAlertModal #ProductAlertModal [outputWhenClose]="true" [AuditStatus]="input.AuditStatus"
+    [Sorting]="input.Sorting" (modalSave)="changeAd($event)"></ProductAlertModal>
+
+<div bsModal #confirmModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg"
+        style="margin: 0;max-width: 100% !important;position: fixed;height:100vh;width:100vw;background:rgba(0,0,0,0.3);">
+        <div *ngIf="Program&&Program.ads&&originIndex&&Program.ads[originIndex]" class="modal-content"
+            style="width:50%;left:25%;position:absolute;top:50%;transform:translateY(-50%);">
+            <div style="padding:20px;">
+                [{{Program.ads[originIndex].name}}]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                    (click)="dropBefore()">{{l('moveToBefore','['+Program.ads[targetIndex].name+']')}}</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="dropAfter()">{{l('moveToAfter','['+Program.ads[targetIndex].name+']')}}</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="dropEX()">{{l('exchangePosWith','['+Program.ads[targetIndex].name+']')}}</button>
+                <button type="button" class="btn btn-primary" (click)="confirmModal.hide()">{{l("Cancel")}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #childrenModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg"
+        style="margin: 0;max-width: 100% !important;position: fixed;height:100vh;width:100vw;background:rgba(0,0,0,0.3);">
+        <div class="modal-content" style="width:50%;left:25%;position:absolute;top:50%;transform:translateY(-50%);">
+            <div style="padding:20px;">
+
+                <table id="table">
+                    <tr style="background: #eee;">
+                        <td>
+                            {{l("name")}}
+                        </td>
+                        <td>
+                            {{l("Duration")}}
+                        </td>
+                        <td>
+                            {{l('Transition')}}
+                        </td>
+                    </tr>
+                    <tr *ngFor="let item of childrenModalItem.children">
+                        <td>{{item.name}}</td>
+                        <td>{{item.timeSpan}}</td>
+                        <td>{{l(item.transition)}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

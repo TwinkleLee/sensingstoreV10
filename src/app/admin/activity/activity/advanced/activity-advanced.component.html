@@ -1,0 +1,529 @@
+<div>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+        <div class="kt-subheader kt-grid__item">
+            <div [class]="containerClass">
+                <div class="kt-subheader__main">
+                    <i class="icon-fanhui text-info" (click)="goBack()"></i>
+                    <h3 class="kt-subheader__title">
+                        <span>{{"AdvancedSetup" | localize}}</span>
+                    </h3>
+                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                    <span class="kt-subheader__desc">
+                        {{activityId}} | {{activityName}}
+                    </span>
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <div class="kt-portlet kt-portlet--mobile">
+                <div class="Container row">
+                    <div class="kt-portlet__body" style="width: 100%;">
+                        <form #AdvancedActivityForm="ngForm" name="CommonForm" novalidate autocomplete="off">
+                            <div class="modal-body">
+                                <tabset class="tab-container tabbable-line">
+                                    <tab heading="{{l('BasicSetup')}}" customClass="kt-tabs__item icon-jibenxinxi"
+                                        (selectTab)="changeSetup('basic')">
+                                    </tab>
+                                    <tab heading="{{l('AdvancedSetup')}}" active="true"
+                                        customClass="kt-tabs__item active icon-gaojishezhi"
+                                        (selectTab)="changeSetup('advanced')">
+                                        <tabset class="tab-container tabbable-line">
+                                            <tab heading="{{l('ActivityIntroduce')}}/{{l('ActivityCenter')}}"
+                                                customClass="kt-tabs__item" (selectTab)="getActivityFlow(0)"
+                                                [busyIf]="BusyList[0]||saving">
+                                                <form #Form0="ngForm" name="CommonForm" novalidate (ngSubmit)="save(0)"
+                                                    autocomplete="off" (selectTab)="stopPropagation($event)">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-6" *ngIf="!Flow0.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('PageTemplate')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="Flow0.htmlTemplateId"
+                                                                            name="htmlTemplateId" required>
+                                                                            <option *ngFor="let item of list0"
+                                                                                [value]="item.id">{{item.title}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6" *ngIf="Flow0.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('outerLink')}}</label>
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text"
+                                                                            name="outsideLink" required
+                                                                            [(ngModel)]="Flow0.outsideLink">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6" style="position:relative;">
+                                                                <label class="kt-checkbox kt-checkbox--primary"
+                                                                    style="position: absolute;top:50%;">
+                                                                    <input class="form-control"
+                                                                        [(ngModel)]="Flow0.isUseOutside" type="checkbox"
+                                                                        name="isUseOutside" />{{l("ifUseOuterLink")}}
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <h1>{{l('Select the following single box to define the page menu')}}</h1>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow0.isHasRegister" type="checkbox"
+                                            name="isHasRegister" />{{l("ifShowLogin")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow0.isHasGame" type="checkbox" name="isHasGame" />{{l("ifShowOnlineGame")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow0.isHasGameResult" type="checkbox"
+                                            name="isHasGameResult" />{{l("ifShowGameRecord")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow0.isHasReward" type="checkbox"
+                                            name="isHasReward" />{{l("ifShowWinningList")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary blue"
+                                                            [disabled]="!Form0.form.valid" [buttonBusy]="saving"
+                                                            [busyText]="l('SavingWithThreeDot')">
+                                                            <i class="fa fa-save"></i>
+                                                            <span>{{l("Save")}}</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </tab>
+                                            <tab heading="{{l('Register')}}" customClass="kt-tabs__item"
+                                                (selectTab)="getActivityFlow(1)" [busyIf]="BusyList[1]||saving">
+                                                <form #Form1="ngForm" name="CommonForm" novalidate (ngSubmit)="save(1)"
+                                                    autocomplete="off" (selectTab)="stopPropagation($event)">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-6" *ngIf="!Flow1.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('PageTemplate')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="Flow1.htmlTemplateId"
+                                                                            name="htmlTemplateId" required>
+                                                                            <option *ngFor="let item of list1"
+                                                                                [value]="item.id">{{item.title}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6" *ngIf="Flow1.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('outerLink')}}</label>
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text"
+                                                                            name="outsideLink" required
+                                                                            [(ngModel)]="Flow1.outsideLink">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6" style="position:relative;">
+                                                                <label class="kt-checkbox kt-checkbox--primary"
+                                                                    style="position: absolute;top:50%;">
+                                                                    <input class="form-control"
+                                                                        [(ngModel)]="Flow1.isUseOutside" type="checkbox"
+                                                                        name="rememberMe" />{{l("ifUseOuterLink")}}
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <h1>{{l('Select the following single box to define the page menu')}}</h1>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow1.isHasIntroduce" type="checkbox"
+                                            name="isHasIntroduce" />{{l("ifShowActivityIntroduce")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow1.isHasGame" type="checkbox" name="isHasGame" />{{l("ifShowOnlineGame")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow1.isHasGameResult" type="checkbox"
+                                            name="isHasGameResult" />{{l("ifShowGameRecord")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow1.isHasReward" type="checkbox"
+                                            name="isHasReward" />{{l("ifShowWinningList")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary blue"
+                                                            [disabled]="!Form1.form.valid" [buttonBusy]="saving"
+                                                            [busyText]="l('SavingWithThreeDot')">
+                                                            <i class="fa fa-save"></i>
+                                                            <span>{{l("Save")}}</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </tab>
+
+                                            <tab heading="{{l('signIn')}}" customClass="kt-tabs__item"
+                                                (selectTab)="getActivityFlow(2)" [busyIf]="BusyList[2]||saving">
+                                                <form #Form2="ngForm" name="CommonForm" novalidate (ngSubmit)="save(2)"
+                                                    autocomplete="off" (selectTab)="stopPropagation($event)">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-6" *ngIf="!Flow2.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('signIn')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="Flow2.htmlTemplateId"
+                                                                            name="htmlTemplateId" required>
+                                                                            <option *ngFor="let item of list2"
+                                                                                [value]="item.id">{{item.title}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6" *ngIf="Flow2.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('outerLink')}}</label>
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text"
+                                                                            name="outsideLink" required
+                                                                            [(ngModel)]="Flow2.outsideLink">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6" style="position:relative;">
+                                                                <label class="kt-checkbox kt-checkbox--primary"
+                                                                    style="position: absolute;top:50%;">
+                                                                    <input class="form-control"
+                                                                        [(ngModel)]="Flow2.isUseOutside" type="checkbox"
+                                                                        name="isUseOutside" />{{l("ifUseOuterLink")}}
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <h1>{{l('Select the following single box to define the page menu')}}</h1>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow2.isHasIntroduce" type="checkbox"
+                                            name="isHasIntroduce" />{{l("ifShowActivityIntroduce")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow2.isHasRegister" type="checkbox"
+                                            name="isHasRegister" />{{l("ifShowLogin")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow2.isHasGameResult" type="checkbox"
+                                            name="isHasGameResult" />{{l("ifShowGameRecord")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow2.isHasReward" type="checkbox"
+                                            name="isHasReward" />{{l("ifShowWinningList")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary blue"
+                                                            [disabled]="!Form2.form.valid" [buttonBusy]="saving"
+                                                            [busyText]="l('SavingWithThreeDot')">
+                                                            <i class="fa fa-save"></i>
+                                                            <span>{{l("Save")}}</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </tab>
+
+                                            <tab heading="{{l('GameResult')}}" customClass="kt-tabs__item"
+                                                (selectTab)="getActivityFlow(3)" [busyIf]="BusyList[3]||saving">
+                                                <form #Form3="ngForm" name="CommonForm" novalidate (ngSubmit)="save(3)"
+                                                    autocomplete="off" (selectTab)="stopPropagation($event)">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-6" *ngIf="!Flow3.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('PageTemplate')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="Flow3.htmlTemplateId"
+                                                                            name="htmlTemplateId" required>
+                                                                            <option *ngFor="let item of list3"
+                                                                                [value]="item.id">{{item.title}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6" *ngIf="Flow3.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('outerLink')}}</label>
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text"
+                                                                            name="outsideLink" required
+                                                                            [(ngModel)]="Flow3.outsideLink">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6" style="position:relative;">
+                                                                <label class="kt-checkbox kt-checkbox--primary"
+                                                                    style="position: absolute;top:50%;">
+                                                                    <input class="form-control"
+                                                                        [(ngModel)]="Flow3.isUseOutside" type="checkbox"
+                                                                        name="isUseOutside" />{{l("ifUseOuterLink")}}
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <h1>{{l('Select the following single box to define the page menu')}}</h1>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow3.isHasIntroduce" type="checkbox"
+                                            name="isHasIntroduce" />{{l("ifShowActivityIntroduce")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow3.isHasGame" type="checkbox" name="isHasGame" />{{l("ifShowOnlineGame")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow3.isHasReward" type="checkbox"
+                                            name="isHasReward" />{{l("ifShowWinningList")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary blue"
+                                                            [disabled]="!Form3.form.valid" [buttonBusy]="saving"
+                                                            [busyText]="l('SavingWithThreeDot')">
+                                                            <i class="fa fa-save"></i>
+                                                            <span>{{l("Save")}}</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </tab>
+                                            <tab heading="{{l('WinningStatus')}}" customClass="kt-tabs__item"
+                                                (selectTab)="getActivityFlow(4)" [busyIf]="BusyList[4]||saving">
+                                                <form #Form4="ngForm" name="CommonForm" novalidate (ngSubmit)="save(4)"
+                                                    autocomplete="off" (selectTab)="stopPropagation($event)">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-6" *ngIf="!Flow4.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('PageTemplate')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="Flow4.htmlTemplateId"
+                                                                            name="htmlTemplateId" required>
+                                                                            <option *ngFor="let item of list4"
+                                                                                [value]="item.id">{{item.title}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6" *ngIf="Flow4.isUseOutside">
+                                                                <div
+                                                                    class="form-group kt-form__group align-items-center">
+                                                                    <label>{{l('outerLink')}}</label>
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" type="text"
+                                                                            name="outsideLink" required
+                                                                            [(ngModel)]="Flow4.outsideLink">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6" style="position:relative;">
+                                                                <label class="kt-checkbox kt-checkbox--primary"
+                                                                    style="position: absolute;top:50%;">
+                                                                    <input class="form-control"
+                                                                        [(ngModel)]="Flow4.isUseOutside" type="checkbox"
+                                                                        name="isUseOutside" />{{l("ifUseOuterLink")}}
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <h1>{{l('Select the following single box to define the page menu')}}</h1>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow4.isHasIntroduce" type="checkbox"
+                                            name="isHasIntroduce" />{{l("ifShowActivityIntroduce")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow4.isHasGame" type="checkbox" name="isHasGame" />{{l("ifShowOnlineGame")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
+                                        <input class="form-control" [(ngModel)]="Flow4.isHasGameResult" type="checkbox"
+                                            name="isHasGameResult" />{{l("ifShowGameRecord")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary blue"
+                                                            [disabled]="!Form4.form.valid" [buttonBusy]="saving"
+                                                            [busyText]="l('SavingWithThreeDot')">
+                                                            <i class="fa fa-save"></i>
+                                                            <span>{{l("Save")}}</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </tab>
+                                            <tab heading="{{l('ActivityShare')}}" customClass="kt-tabs__item"
+                                                (selectTab)="getActivityShare()" [busyIf]="BusyList[5]||saving">
+                                                <form #ShareForm="ngForm" name="CommonForm" novalidate
+                                                    (ngSubmit)="save()" autocomplete="off"
+                                                    (selectTab)="stopPropagation($event)">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-9">
+                                                                <div class="row">
+                                                                    <div class="form-group col-12">
+                                                                        <label>{{l("title")}}</label>
+                                                                        <input class="form-control" type="text"
+                                                                            name="share" required
+                                                                            [(ngModel)]="Share.title">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-12">
+                                                                        <label>{{l("link")}}</label>
+                                                                        <input class="form-control" type="text"
+                                                                            name="link" required
+                                                                            [(ngModel)]="Share.link"
+                                                                            pattern="^(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-12">
+                                                                        <label>{{l("description")}}</label>
+                                                                        <textarea class="form-control" rows="5"
+                                                                            name="description"
+                                                                            [(ngModel)]="Share.description"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group">
+                                                                            <label
+                                                                                class="control-label">{{l("Image")}}</label>
+                                                                            <app-fileupload [fileUrl]="Share.imageLink"
+                                                                                (onUpLoadEvent)="imageOnUpload($event)"
+                                                                                accept="image/*"></app-fileupload>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary blue"
+                                                            [disabled]="!ShareForm.form.valid" [buttonBusy]="saving"
+                                                            [busyText]="l('SavingWithThreeDot')">
+                                                            <i class="fa fa-save"></i>
+                                                            <span>{{l("Save")}}</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </tab>
+                                        </tabset>
+                                    </tab>
+                                    <tab heading="{{l('LotterySetup')}}"
+                                        customClass="kt-tabs__item icon-jiangxiangshezhi"
+                                        (selectTab)="changeSetup('prize')">
+                                    </tab>
+                                    <tab *ngIf="!deviceId" heading="{{l('GameSetup')}}"
+                                        customClass="kt-tabs__item icon-youxiguanli" (selectTab)="changeSetup('game')">
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,354 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form *ngIf="active" #PersonalitysForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()"
+        autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="Game?.id">{{l("editGame")}}: {{Game?.id +' | '+Game?.name}}</span>
+            <span *ngIf="!Game?.id">{{l("createGame")}}</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <tabset class="tab-container tabbable-line">
+            <tab heading="{{l('Settings')}}" customClass="kt-tabs__item">
+              <div class="row">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="form-group kt-form__group align-items-center col-6">
+                      <label>{{l('Game')}}</label>
+                      <div class="input-group">
+                        <select #select class="form-control" [(ngModel)]="Game.dispatchedSoftwareId"
+                          name="dispatchedSoftwareId">
+                          <option value="" selected="selected">{{l('请选择游戏')}}</option>
+                          <option *ngFor="let item of gameList" [value]="item.id">
+                            {{item.alias?item.alias:item.software?.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("otherName")}}</label>
+                      <input class="form-control" type="text" name="name" [(ngModel)]="Game.name" required>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l('supportedPlayersCount')}}</label>
+                      <input class="form-control" type="text" name="supportedPlayersCount"
+                        [(ngModel)]="Game.supportedPlayersCount">
+                    </div>
+                    <div class="form-group col-6" style="position:relative;">
+                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                        <input class="form-control" [(ngModel)]="Game.isNeedCheckBeforScanQRCode" type="checkbox"
+                          name="isNeedCheckBeforScanQRCode" />{{l("isNeedCheckBeforScanQRCode")}}
+                        <span></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="deviceId">
+                    <div class="form-group col-12">
+                      <label>{{l("securityKey")}}</label>
+                      <input class="form-control" type="text" name="securityKey" [(ngModel)]="Game.securityKey"
+                        disabled="disabled">
+                    </div>
+                    <div class="form-group col-12"
+                      *ngIf="(Game.weChatAuthorizationType==1||Game.weChatAuthorizationType==4)&&Game.securityKey">
+                      <label>{{l("URL")}}</label>
+                      <input class="form-control" type="text"
+                        [value]="'https://m.sensingstore.com/transfer-action.html?securityKey='+Game.securityKey"
+                        disabled="disabled">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group kt-form__group align-items-center col-6">
+                      <label>{{l('weChatAuthorizationType')}}</label>
+                      <div class="input-group">
+                        <select class="form-control" [(ngModel)]="Game.weChatAuthorizationType"
+                          name="weChatAuthorizationType">
+                          <option value="0">{{l('Follow')}}</option>
+                          <option value="1">{{l('Web')}}</option>
+                          <option value="3">{{l('FollowAutoRegister')}}</option>
+                          <option value="4">{{l('WebAutoRegister')}}</option>
+                          <option value="2">{{l('NoAuthorize')}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group kt-form__group align-items-center col-6">
+                      <label>{{l('taobaoAuthorizationType')}}</label>
+                      <div class="input-group">
+                        <select class="form-control" [(ngModel)]="Game.taobaoAuthorizationType"
+                          name="taobaoAuthorizationType">
+                          <!-- <option value="0">{{l('Follow')}}</option> -->
+                          <option value="1">{{l('Web')}}</option>
+                          <option value="2">{{l('NoAuthorize')}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="col-form-label">{{l('extensionData')}}</label>
+                      <div class="form-group">
+                        <textarea rows="5" class="form-control" [(ngModel)]="Game.extensionData"
+                          name="extensionData"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="control-label">{{l("materialPacketUrl")}}</label>
+                    <app-fileupload [fileUrl]="Game.materialPacketUrl" (onUpLoadEvent)="PacketOnUpload($event)"
+                      accept="*"></app-fileupload>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="{{l('BeforeGame')}}" customClass="kt-tabs__item">
+              <div class="row">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="form-group col-6" style="position:relative;">
+                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                        <input class="form-control" [(ngModel)]="Game.isSendSnsMsgBeforeGame" type="checkbox"
+                          name="isSendSnsMsgBeforeGame" />{{l("isSendSnsMsgBeforeGame")}}
+                        <span></span>
+                      </label>
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l('weChatType')}}</label>
+                      <select class="form-control" [(ngModel)]="Game.beforeGameMessage.weChatType" name="weChatType">
+                        <option value="0">{{l('Text')}}</option>
+                        <option value="1">{{l('News')}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6" *ngIf="Game.beforeGameMessage.weChatType==1">
+                      <label>{{l("title")}}</label>
+                      <input class="form-control" type="text" name="title" [(ngModel)]="Game.beforeGameMessage.title">
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("textMessage")}}</label>
+                      <input class="form-control" type="text" name="textMessage"
+                        [(ngModel)]="Game.beforeGameMessage.textMessage">
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="Game.beforeGameMessage.weChatType==1">
+
+
+                    <div class="form-group col-6" style="position:relative;">
+                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                        <input class="form-control" [(ngModel)]="BeforeNotUseTemplate" type="checkbox"
+                          name="BeforeNotUseTemplate" />{{l("notUseTemplate")}}
+                        <span></span>
+                      </label>
+                    </div>
+                    <div class="col-6" *ngIf="!BeforeNotUseTemplate">
+                      <div class="form-group kt-form__group align-items-center">
+                        <label>{{l('PageTemplate')}}</label>
+                        <div class="input-group">
+                          <select class="form-control" [(ngModel)]="Game.beforeGameMessage.htmlTemplateID"
+                            name="htmlTemplateID">
+                            <option value="">{{l('notUseTemplate')}}</option>
+                            <option *ngFor="let item of templateList" [value]="item.id">{{item.title}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6" *ngIf="BeforeNotUseTemplate">
+                      <div class="form-group kt-form__group align-items-center">
+                        <label>{{l('url')}}</label>
+                        <div class="input-group">
+                          <input class="form-control" type="text" name="url" [(ngModel)]="Game.beforeGameMessage.url">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4" *ngIf="Game.beforeGameMessage.weChatType==1">
+                  <div class="form-group">
+                    <label class="control-label">{{l("Image")}}</label>
+                    <app-fileupload [fileUrl]="Game.beforeGameMessage.picUrl" (onUpLoadEvent)="BeforeOnUpload($event)"
+                      accept="image/*"></app-fileupload>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="{{l('AfterGame')}}" customClass="kt-tabs__item">
+              <div class="row">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="form-group col-6" style="position:relative;">
+                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                        <input class="form-control" [(ngModel)]="Game.isSendSnsMsgAfterGame" type="checkbox"
+                          name="isSendSnsMsgAfterGame" />{{l("isSendSnsMsgAfterGame")}}
+                        <span></span>
+                      </label>
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l('weChatType')}}</label>
+                      <select class="form-control" [(ngModel)]="Game.afterGameMessage.weChatType" name="weChatType2">
+                        <option value="0">{{l('Text')}}</option>
+                        <option value="1">{{l('News')}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6" *ngIf="Game.afterGameMessage.weChatType==1">
+                      <label>{{l("title")}}</label>
+                      <input class="form-control" type="text" name="title2" [(ngModel)]="Game.afterGameMessage.title">
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("textMessage")}}</label>
+                      <input class="form-control" type="text" name="textMessage2"
+                        [(ngModel)]="Game.afterGameMessage.textMessage">
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="Game.afterGameMessage.weChatType==1">
+                    <div class="form-group col-6" style="position:relative;">
+                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                        <input class="form-control" [(ngModel)]="AfterNotUseTemplate" type="checkbox"
+                          name="AfterNotUseTemplate" />{{l("notUseTemplate")}}
+                        <span></span>
+                      </label>
+                    </div>
+                    <div class="col-6" *ngIf="!AfterNotUseTemplate">
+                      <div class="form-group kt-form__group align-items-center">
+                        <label>{{l('PageTemplate')}}</label>
+                        <div class="input-group">
+                          <select class="form-control" [(ngModel)]="Game.afterGameMessage.htmlTemplateID"
+                            name="htmlTemplateID2">
+                            <option value="">{{l('notUseTemplate')}}</option>
+                            <option *ngFor="let item of templateList" [value]="item.id">{{item.title}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6" *ngIf="AfterNotUseTemplate">
+                      <div class="form-group kt-form__group align-items-center">
+                        <label>{{l('url')}}</label>
+                        <div class="input-group">
+                          <input class="form-control" type="text" name="url2" [(ngModel)]="Game.afterGameMessage.url">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4" *ngIf="Game.afterGameMessage.weChatType==1">
+                  <div class="form-group">
+                    <label class="control-label">{{l("Image")}}</label>
+                    <app-fileupload [fileUrl]="Game.afterGameMessage.picUrl" (onUpLoadEvent)="AfterOnUpload($event)"
+                      accept="image/*"></app-fileupload>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="{{l('ShareGame')}}" customClass="kt-tabs__item">
+              <div class="row">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="form-group col-6" style="position:relative;">
+                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                        <input class="form-control" [(ngModel)]="Game.isShareAction" type="checkbox"
+                          name="isShareAction" />{{l("isShareAction")}}
+                        <span></span>
+                      </label>
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("title")}}</label>
+                      <input class="form-control" type="text" name="title3" [(ngModel)]="Game.actionShare.title">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l("description")}}</label>
+                      <input class="form-control" type="text" name="description"
+                        [(ngModel)]="Game.actionShare.description">
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group kt-form__group align-items-center">
+                        <label>{{l('link')}}</label>
+                        <div class="input-group">
+                          <input class="form-control" type="text" name="link" [(ngModel)]="Game.actionShare.link">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="control-label">{{l("Image")}}</label>
+                    <app-fileupload [fileUrl]="Game.actionShare.imageLink" (onUpLoadEvent)="ShareOnUpload($event)"
+                      accept="image/*"></app-fileupload>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab *ngIf="!deviceId" heading="{{l('NotificationSettings')}}" customClass="kt-tabs__item"
+              (selectTab)="GetSnsUserInform();CreateActionInform();">
+              <div class="row">
+                <div class="col-4" style="text-align: center;">
+                  <div>
+                    扫描以下二维码新增绑定通知用户
+                  </div>
+                  <img *ngIf="informQrcodeImage" [src]="informQrcodeImage">
+                </div>
+
+                <div class="col-8" style="text-align: center;line-height:3rem;">
+                  <div class="row" style="position: relative;height:4rem;">
+                    <button type="button" class="btn btn-primary" style="position: absolute;right:0.5rem;width:6rem;"
+                      (click)="GetSnsUserInform();CreateActionInform();">
+                      {{l("Refresh")}}
+                    </button>
+                  </div>
+                  <div class="row" *ngIf="informUsers.length">
+                    <div class="col-12">
+
+                      <div class="row" style="outline: 1px solid #000;">
+                        <div class="col-2" style="outline: 1px solid #000;">{{l("headImage")}}</div>
+                        <div class="col-4" style="outline: 1px solid #000;">{{l("nickName")}}</div>
+                        <div class="col-4" style="outline: 1px solid #000;">{{l("creationTime")}}</div>
+                        <div class="col-2" style="outline: 1px solid #000;">{{l("Delete")}}</div>
+                      </div>
+                      <div class="row" style="outline: 1px solid #000;" *ngFor="let user of informUsers">
+                        <div class="col-2" style="outline: 1px solid #000;">
+                          <img [src]="fixFileUrl(user.headimgurl)" style="width:2.5rem;height:2.5rem;">
+                        </div>
+                        <div class="col-4" style="outline: 1px solid #000;">
+                          {{user.nickname}}
+                        </div>
+                        <div class="col-4" style="outline: 1px solid #000;">
+                          {{user.creationTime| date : "yyyy/MM/dd"}}
+                        </div>
+                        <div class="col-2" style="outline: 1px solid #000;">
+                          <button type="button" class="btn btn-primary" (click)="DeleteSnsUserInform(user)">
+                            {{l("Delete")}}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary blue" [disabled]="!PersonalitysForm.form.valid"
+            [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+            <i class="fa fa-save"></i>
+            <span>{{l("Save")}}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

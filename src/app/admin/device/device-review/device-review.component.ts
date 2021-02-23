@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng//table';
+import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import {ApplyServiceProxy, AuditApplyFormInput,ApplyStatus as AuditApplyFormInputApplyStatus} from '@shared/service-proxies/service-proxies';

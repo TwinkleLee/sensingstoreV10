@@ -1,0 +1,164 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form *ngIf="active" #couponForm="ngForm" name="CouponForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="record?.id">{{l("EditAdsPackage")}}: {{record?.id+' | '+record?.name}}</span>
+            <span *ngIf="!record.id">{{l("CreateNewAdsPackage")}}</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group">
+                <label>{{l("name")}} <strong>*</strong></label>
+                <input #nameInput="ngModel" class="form-control" type="text" name="name" [(ngModel)]="record.name"
+                  required maxlength="32">
+                <validation-messages [formCtrl]="nameInput"></validation-messages>
+              </div>
+
+              <div class="form-group">
+                <label>{{l("description")}}</label>
+                <input #descriptionInput="ngModel" class="form-control" type="text" name="description"
+                  [(ngModel)]="record.description" maxlength="500">
+                <validation-messages [formCtrl]="descriptionInput"></validation-messages>
+              </div>
+
+              <!-- *ngIf="customTheme=='kewosi'" -->
+              <div class="form-group">
+                <div style="margin: 1vw 0;"><input name="isLocationBased" type="checkbox" [(ngModel)]="record.isLocationBased" style="margin-right: 1vw;">基于位置巡航</div>
+                <div class="row" *ngIf="record.isLocationBased">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>{{l('SelectDevice')}}</label>
+                      <select #TypeCombobox2 class="form-control" (change)="selectDevice()" [(ngModel)]="record.deviceId"
+                          name="deviceId" >
+                        <option [value]="item.id" *ngFor="let item of deviceList">{{item.value}}</option>
+                      </select>
+                      
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label>{{l('ChooseRoute')}}</label>
+                    <select #TypeCombobox2 name="patrolId" [disabled]="!record.deviceId" class="form-control" (change)="getPointList()" [(ngModel)]="record.patrolName">
+                        <option [value]="item.value" *ngFor="let item of routeList">{{item.value}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-3 offset-1  align-self-center">
+              <div class="form-group">
+                <div class="input-group">
+                  <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                    (click)="showSelectMoreAds()">
+                    <i class="fa fa-plus"></i>
+                    {{l("SelectMoreAds")}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <!--<Primeng-Datatable-Start>-->
+            <div class="primeng-datatable-container">
+              <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+              <p-table #dataTable [value]="adPackageList" [paginator]="false">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>{{l('Actions')}}</th>
+                    <th style="width:5%">{{l('RecordId')}}</th>
+                    <th>
+                      {{l('name')}}
+                    </th>
+                    <th>
+                      {{l('AdsResourceType')}}
+                    </th>
+                    <!-- customTheme=='kewosi'&& -->
+                    <th *ngIf="record.isLocationBased">{{l("StartPoint")}}</th>
+                    <th *ngIf="record.isLocationBased">{{l("EndPoint")}}</th>
+                    <th>{{l('orderNumber')}} *</th>
+                    <th>
+                      {{l('Duration')}}(S)
+                    </th>
+                    <th>
+                      {{l('Transition')}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                  <tr [pSelectableRow]="record">
+                    <td>
+                      <div class="btn-group dropdown" normalizePosition>
+                        <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)" type="button">
+                          <span class="caret"></span> {{l("Delete")}}
+                        </button>
+                      </div>
+                    </td>
+                    <td style="width:5%">
+                      {{i+1}}
+                    </td>
+                    <td>
+                      {{record.ad.name}}
+                    </td>
+                    <td>
+                      {{record.ad.resourceType}}
+                    </td>
+                    <!-- customTheme=='kewosi'&& -->
+                    <td *ngIf="_record.isLocationBased">
+                      <select class="form-control" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="record.startPointName">
+                        <option ngValue="">{{ l('NULL') }}</option>
+                        <option *ngFor="let item of pointList" [ngValue]="item.value">
+                          {{item.value}}</option>
+                      </select>
+                    </td>
+                    <td *ngIf="_record.isLocationBased">
+                      <select class="form-control" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="record.stopPointName">
+                        <option *ngFor="let item of pointList" [ngValue]="item.value">
+                          {{item.value}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="record.orderNumber" required>
+                    </td>
+                    <td>
+                      <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="record.playDuration" required>
+                    </td>
+                    <td>
+                      <select class="form-control" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="record.playTransition">
+                        <option *ngFor="let trans of _adsTransitionList" [ngValue]="trans" [selected]="trans==='None'">
+                          {{trans}}</option>
+                      </select>
+
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <!--<Primeng-Datatable-End>-->
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary blue" [disabled]="!couponForm.form.valid" [buttonBusy]="saving"
+            [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ProductAlertModal #ProductAlertModal [outputWhenClose]="true" [isMultiSelected]="true"
+  (modalSave)="addMoreAds($event)"></ProductAlertModal>

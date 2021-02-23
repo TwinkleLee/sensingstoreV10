@@ -1,0 +1,204 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #PersonalitysForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()"
+                autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Personality?.id">{{l("EditCargoLane")}}: {{Personality?.id +' |
+                            '+Personality?.name}}</span>
+                        <span *ngIf="!Personality?.id">{{l("CreateCargoLane")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('CargoLaneInformation')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label>{{l("cargoLaneName")}}</label>
+                                            <input #personalNameInput="ngModel" class="form-control" type="text"
+                                                name="name" required [(ngModel)]="Personality.name"
+                                                placeholder="{{l('name')}}" maxlength="32">
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label>{{l("outerId")}}</label>
+                                            <input class="form-control" type="text" name="outerId"
+                                                [(ngModel)]="Personality.outerId" required pattern="\w+" maxlength="32">
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="form-group col-4">
+                                            <label>{{l("grossWeight")}}</label>
+                                            <input class="form-control" type="number" name="grossWeight"
+                                                [(ngModel)]="Personality.grossWeight" maxlength="32">
+                                        </div>
+
+                                        <div class="form-group col-4">
+                                            <label>{{l("width")}}</label>
+                                            <input class="form-control" type="number" name="width"
+                                                [(ngModel)]="Personality.resolution_Width" maxlength="32" readonly>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label>{{l('type')}}</label>
+                                            <div class="form-group ">
+                                                <div class="input-group">
+                                                    <select #TypeCombobox class="form-control"
+                                                        [(ngModel)]="Personality.cargoType" name="cargoType" required>
+                                                        <option [value]="0">{{l('orderCargo')}}</option>
+                                                        <option [value]="1">{{l('randomCargo')}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label>{{l("stockCapacity")}}</label>
+                                            <input class="form-control" type="number" name="stockCapacity"
+                                                [(ngModel)]="Personality.stockCapacity" required pattern="\d+"
+                                                maxlength="8">
+                                        </div>
+                                        <div class="form-group col-4" style="position:relative;">
+                                            <label class="kt-checkbox kt-checkbox--primary"
+                                                style="position:absolute;top:50%;">
+                                                <input class="form-control" [(ngModel)]="Personality.isEnabled"
+                                                    type="checkbox" name="isEnabled" />{{l("IsEnabled")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4" style="margin-bottom:0 !important;">
+                                            <label>{{l("cargoInfo")}}</label>
+                                        </div>
+                                        <div class="form-group col-2" style="margin-bottom:0 !important;">
+                                            <label>{{l("type")}}</label>
+                                        </div>
+                                        <div class="form-group col-3" style="margin-bottom:0 !important;">
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <label>{{l("stock")}}</label>
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label>{{l("orderNumber")}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngFor="let item of Personality.cargoThings;let i=index;">
+                                        <div class="form-group col-4">
+                                            <input class="form-control" type="text"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="item.thingName"
+                                                readonly>
+                                        </div>
+                                        <div class="form-group col-2">
+                                            <div class="form-group ">
+                                                <div class="input-group">
+                                                    <select (ngModelChange)="changeType(item)" #TypeCombobox
+                                                        class="form-control" [(ngModel)]="item.type"
+                                                        [ngModelOptions]="{standalone: true}" required>
+                                                        <option [value]="0">{{l('product')}}</option>
+                                                        <option [value]="1">{{l('Sku')}}</option>
+                                                        <option [value]="2">{{l('award')}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group col-3">
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <input class="form-control" type="number"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="item.stock"
+                                                        pattern="\d+" maxlength="8">
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <input class="form-control" type="number"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="item.orderNumber" pattern="\d+" maxlength="8">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-2" style="padding-right:0;">
+                                            <div style="position:relative;">
+                                                <button type="button" class="btn btn-primary" (click)="setCargo(item)">
+                                                    <i class="icon-bianji"></i>
+                                                    <span>{{l("setCargo")}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-1" style="padding-left:0;">
+                                            <div style="position:relative;">
+                                                <button type="button" class="btn btn-primary" (click)="deleteThing(i)">
+                                                    <i class="caret"></i>
+                                                    <span>{{l("Delete")}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" *ngIf="Personality.cargoType==1">
+                                        <div class="form-group col-12" style="padding-left:0;text-align: center;">
+                                            <div style="position:relative;">
+                                                <button type="button" class="btn btn-primary" (click)="addThing()">
+                                                    <i class="caret"></i>
+                                                    <span>{{l("AddThing")}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>{{l("Note")}}</label>
+                                            <textarea style="height:100px !important;" class="form-control"
+                                                name="extensionData" [(ngModel)]="Personality.extensionData"
+                                                maxlength="200"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{l("Image")}}</label>
+                                                <app-fileupload [fileUrl]="Personality.iconUrl" (onUpLoadEvent)="logoOnUpload($event)" accept="image/*"></app-fileupload>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!PersonalitysForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<ProductAlertModal #ProductAlertModal (modalSave)="changeCargo($event)"></ProductAlertModal>

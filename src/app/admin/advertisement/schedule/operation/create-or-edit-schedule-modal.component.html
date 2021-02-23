@@ -1,0 +1,152 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" name="CommonForm" #ScheduleForm="ngForm" novalidate (ngSubmit)="save()"
+                autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Schedule?.id">{{l("edit")}}{{l("Scheduling")}}: {{Schedule?.id}}</span>
+                        <span *ngIf="!Schedule?.id">{{l("Create")}}{{l("Scheduling")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l("name")}} *</label>
+                                <input class="form-control" type="text" name="name" [(ngModel)]="Schedule.name"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("startDate")}}</label>
+                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true}'
+                                name="startTime" [(startDate)]="Schedule.activeTime" [(endDate)]="Schedule.activeTime"
+                                [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
+                            </date-range-picker>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("endDate")}}</label>
+                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true}'
+                                name="endTime" [(startDate)]="Schedule.endTime" [(endDate)]="Schedule.endTime"
+                                [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
+                            </date-range-picker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label>{{l("description")}}</label>
+                            <textarea rows="5" class="form-control" name="description"
+                                [(ngModel)]="Schedule.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!Schedule?.id">
+                        <div class="form-group col-12 kt-form__group align-items-center">
+                            <label>{{l('24HTimeline')}}</label>
+                            <div class="input-group">
+                                <select class="form-control" [(ngModel)]="programId" name="programId">
+                                    <option value="">{{l("None")}}</option>
+                                    <option *ngFor="let item of programList" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-6">
+                            <div class="form-group">
+                                <label class="control-label">{{l("thumbnail")}}</label>
+                                <app-fileupload [fileUrl]="Schedule.iconUrl" (onUpLoadEvent)="imageOnUpload($event)"
+                                    accept="image/*"></app-fileupload>
+                            </div>
+                        </div> -->
+                        <!-- <div class="row align-items-center">
+                            <div class="primeng-datatable-container" [busyIf]="UserPrimeng.isLoading">
+                                <p-table #UserDataTable (onLazyLoad)="getSchedule($event)"
+                                    [value]="UserPrimeng.records" [rows]="UserPrimeng.defaultRecordsCountPerPage"
+                                    [paginator]="false" [lazy]="true" [(selection)]="UserCheckedList"
+                                    [resizableColumns]="UserPrimeng.resizableColumns"
+                                    responsive="UserPrimeng.isResponsive">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="width:5%">{{l('RecordId')}}</th>
+                                            <th>{{l('name')}}</th>
+                                            <th>{{l('PlayModel')}}</th>
+                                            <th>{{l('executeMode')}}</th>
+                                            <th>
+                                                {{l('startTime')}}
+                                            </th>
+                                            <th>
+                                                {{l('endTime')}}
+                                            </th>
+                                            <th>{{l('priority')}}</th>
+                                            
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                        <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                            <td> {{transIndex(i)}}</td>
+                                            <td>
+                                                <span>{{record.name}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="record.content.playModel==0">{{l("Play in time")}}</span>
+                                                <span *ngIf="record.content.playModel==1">{{l("Play in sequence")}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="record.content.model==0">{{l('section')}}</span>
+                                                <span *ngIf="record.content.model==1">{{l('eachDay')}}</span>
+                                                <span *ngIf="record.content.model==2">{{l('eachWeek')}}</span>
+                                                <span *ngIf="record.content.model==3">{{l('eachMonth')}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{record.startTime}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{record.endTime}}</span>
+                                            </td>
+                                            <th><span>{{record.priority}}</span></th>
+
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-records>
+                                        <tr *ngIf="UserPrimeng.records">
+                                            <td colspan="6">
+                                                <img class="emptymessage"
+                                                    src="/assets/common/images/placeholder/productinfoHolder.png" />
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <div class="primeng-paging-container">
+                                    <p-paginator [rows]="UserPrimeng.defaultRecordsCountPerPage" #UserPaginator
+                                        (onPageChange)="getUserPapers($event)"
+                                        [totalRecords]="UserPrimeng.totalRecordsCount"
+                                        [rowsPerPageOptions]="UserPrimeng.predefinedRecordsCountPerPage">
+                                    </p-paginator>
+                                    <span class="total-records-count">
+                                        {{l('TotalRecordsCount', UserPrimeng.totalRecordsCount)}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div> -->
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ScheduleForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 <div [@routerTransition] (click)="clickContainer()">
     <div class="content d-flex flex-column flex-column-fluid">
-        <sub-header [title]="'Device' | localize" [description]="'DeviceHeaderInfo' | localize">
+        <sub-header [title]="'Device' | localize" [description]="'DeviceManage' | localize">
             <div role="actions">
                 <div class="btn-group dropdown" dropdown
                     *ngIf="isGranted('Pages.Tenant.Devices.Apply')&&appSession.tenant">

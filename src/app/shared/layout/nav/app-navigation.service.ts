@@ -76,9 +76,9 @@ export class AppNavigationService {
 
             //广告管理
             new AppMenuItem('Advertisement', 'Pages.Tenant.Ads', 'icon-guanggao1', '', [], [
-                new AppMenuItem('AdvertisementList', 'Pages.Tenant.Ads', 'icon-guanggao1', '/app/advertisement/adsList'),
-                new AppMenuItem('AdvertisementReview', 'Pages.Tenant.Ads.Audit', 'icon-shenhe1', '/app/advertisement/adsReview'),
-                new AppMenuItem('AdsPackage', 'Pages.Tenant.Ads.AdsPackage', 'icon-yingyong', '/app/advertisement/adsPackage'),
+                new AppMenuItem('AdvertisementList', 'Pages.Tenant.Ads', 'icon-guanggao1', '/app/admin/advertisement/adsList'),
+                new AppMenuItem('AdvertisementReview', 'Pages.Tenant.Ads.Audit', 'icon-shenhe1', '/app/admin/advertisement/adsReview'),
+                new AppMenuItem('AdsPackage', 'Pages.Tenant.Ads.AdsPackage', 'icon-yingyong', '/app/admin/advertisement/adsPackage'),
             ]),
 
             //自定义营销页模块设置
@@ -148,7 +148,7 @@ export class AppNavigationService {
 
             //活动管理
             new AppMenuItem('Activities', 'Pages.Tenant.Activities', 'icon-huodong', '', [], [
-                new AppMenuItem('ActivityList', 'Pages.Tenant.Activities', 'icon-huodongliebiao', '/app/activity/activity'),
+                new AppMenuItem('ActivityList', 'Pages.Tenant.Activities', 'icon-huodongliebiao', '/app/admin/activity/activity'),
                 new AppMenuItem('ActivityData', 'Pages.Tenant.Activities', 'icon-huodongshuju1', '/app/activity/activities/playerdata'),
                 new AppMenuItem('PageTemplate', 'Pages.Tenant.Activities', 'icon-moban', '/app/activity/activities/pagetemplate')
             ]),

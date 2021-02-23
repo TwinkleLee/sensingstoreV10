@@ -1,0 +1,127 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form *ngIf="active" #PersonalitysForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="Prize?.id">{{l("editPrize")}}: {{Prize?.id +' | '+Prize?.name}}</span>
+            <span *ngIf="!Prize?.id">{{l("CreateNewPrize")}}</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <tabset class="tab-container tabbable-line">
+            <tab heading="{{l('PrizeSetup')}}" customClass="kt-tabs__item">
+              <div class="row">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l("name")}} *</label>
+                      <input class="form-control" type="text" name="name" required [(ngModel)]="Prize.name">
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("rate")}} ({{l("SuchAs")}}:0.25)</label>
+                      <input class="form-control" type="text" name="rate" [(ngModel)]="Prize.rate">
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l("planQty")}}</label>
+                      <input class="form-control" type="number" name="planQty" [(ngModel)]="Prize.planQty">
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("actualQty")}}</label>
+                      <input class="form-control" type="number" name="actualQty" [(ngModel)]="Prize.actualQty">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l("awardSeq")}}(>=1)</label>
+                      <input class="form-control" type="number" name="awardSeq" [(ngModel)]="Prize.awardSeq" required
+                        pattern="^[1-9][0-9]*$">
+                    </div>
+                    <!-- <div class="form-group col-6">
+                      <label>{{l("awardProduct")}}</label>
+                      <input class="form-control" type="text" name="awardProduct" [(ngModel)]="Prize.awardProduct">
+                    </div> -->
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l("minScore")}}</label>
+                      <input class="form-control" type="number" name="minScore" [(ngModel)]="Prize.minScore">
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("maxScore")}}</label>
+                      <input class="form-control" type="number" name="maxScore" [(ngModel)]="Prize.maxScore">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>{{l("description")}}</label>
+                      <input class="form-control" type="text" name="description" [(ngModel)]="Prize.description">
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("type")}}</label>
+                      <select class="form-control" [(ngModel)]="Prize.type" name="type" required>
+                        <option value="0">{{l('Coupon')}}</option>
+                        <option value="1">{{l('Product')}}</option>
+                        <option value="2">{{l('ThankYou')}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="Prize.type==0">
+                    <div class="form-group col-6"></div>
+                    <!-- <div class="form-group col-6">
+                      <label>{{l("CouponUrl")}}</label>
+                      <input class="form-control" type="text" name="CouponUrl" [(ngModel)]="Prize.couponUrl">
+                    </div> -->
+
+                    <div class="form-group col-6">
+                      <label>{{l("CouponUrl")}}</label>
+                      <select class="form-control" [(ngModel)]="Prize.couponUrl" name="couponUrl" required>
+                        <option *ngFor="let item of couponList" [value]="item.id">{{item.title}}</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <div class="row" *ngIf="Prize.type==1">
+                    <div class="form-group col-6">
+                      <label>{{l("fromType")}}</label>
+                      <select class="form-control" [(ngModel)]="Prize.thingType" name="thingType">
+                        <option value="">{{l('Other')}}</option>
+                        <option value="0">{{l('Spu')}}</option>
+                        <option value="1">{{l('Sku')}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-6">
+                      <label>{{l("fromType")}}{{l("ID")}}</label>
+                      <input class="form-control" type="text" name="thingId" [(ngModel)]="Prize.thingId">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="control-label">{{l("awardImage")}}</label>
+                    <app-fileupload [fileUrl]="Prize.awardImagePath" (onUpLoadEvent)="logoOnUpload($event)" accept="image/*"></app-fileupload>
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary blue" [disabled]="!PersonalitysForm.form.valid" [buttonBusy]="saving"
+            [busyText]="l('SavingWithThreeDot')">
+            <i class="fa fa-save"></i>
+            <span>{{l("Save")}}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

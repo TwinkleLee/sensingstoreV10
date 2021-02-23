@@ -1,0 +1,191 @@
+<div>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+        <div class="kt-subheader kt-grid__item">
+            <div [class]="containerClass">
+                <div class="kt-subheader__main">
+                    <i class="icon-fanhui text-info" (click)="goBack()"></i>
+                    <h3 class="kt-subheader__title">
+                        <span>{{"BasicSetup" | localize}}</span>
+                    </h3>
+                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                    <span class="kt-subheader__desc">
+                        {{Activity.id}} | {{Activity.name}}
+                    </span>
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="Container row">
+                <div class="kt-portlet__body" style="width: 100%;">
+                    <form #BasicActivityForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()"
+                        autocomplete="off">
+                        <div class="modal-body">
+                            <tabset class="tab-container tabbable-line">
+                                <tab heading="{{l('BasicSetup')}}" customClass="kt-tabs__item icon-jibenxinxi"
+                                    (selectTab)="changeSetup('basic')" [busyIf]="busy||saving">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <label>{{l("name")}} *</label>
+                                                    <input #personalNameInput="ngModel" class="form-control" type="text"
+                                                        name="name" required [(ngModel)]="Activity.name"
+                                                        placeholder="{{l('name')}}">
+                                                    <validation-messages [formCtrl]="personalNameInput">
+                                                    </validation-messages>
+                                                </div>
+
+                                                <div class="form-group col-6">
+                                                    <label>{{l("ActivitySponsor")}}</label>
+                                                    <input class="form-control" type="text" name="organizer"
+                                                        [(ngModel)]="Activity.organizer">
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+
+
+
+                                                <div class="form-group col-6">
+                                                    <label>{{l("ActivityAddress")}}</label>
+                                                    <input class="form-control" type="text" name="address"
+                                                        [(ngModel)]="Activity.address">
+                                                </div>
+
+                                                <div class="form-group col-6" *ngIf="showPicker">
+                                                    <label>{{l("startDate")}}-{{l('endDate')}}</label>
+                                                    <date-range-picker #Dateranger2 needInitDate="true"
+                                                        name="Dateranger2" [(startDate)]="Activity.openDate"
+                                                        [(endDate)]="Activity.endDate" rangeMode="future"
+                                                        [allowFutureDate]="true">
+                                                    </date-range-picker>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <label>{{l('PublicAccount')}}</label>
+                                                    <div class="form-group ">
+                                                        <div class="input-group">
+                                                            <select class="form-control"
+                                                                [(ngModel)]="Activity.weChatAppID" name="weChatAppID">
+                                                                <option [value]="type.weixinAppID"
+                                                                    *ngFor="let type of wxList">{{type.nickName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label>{{l('taobaoAccount')}}</label>
+                                                    <div class="form-group ">
+                                                        <div class="input-group">
+                                                            <select class="form-control"
+                                                                [(ngModel)]="Activity.taobaoSellerID"
+                                                                name="taobaoSellerID">
+                                                                <option [value]="type.taobao_user_id"
+                                                                    *ngFor="let type of tbList">
+                                                                    {{type.taobao_user_nick}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-3" style="position:relative;">
+                                                    <label class="kt-checkbox kt-checkbox--primary"
+                                                        style="position:absolute;top:50%;">
+                                                        <input class="form-control"
+                                                            [(ngModel)]="Activity.isNeedRegister" type="checkbox"
+                                                            name="isNeedRegister" />{{l("NeedRegister")}}
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group col-3" style="position:relative;">
+                                                    <label class="kt-checkbox kt-checkbox--primary"
+                                                        style="position:absolute;top:50%;">
+                                                        <input class="form-control"
+                                                            [(ngModel)]="Activity.isNeedValidate" type="checkbox"
+                                                            name="isNeedValidate" />{{l("NeedValidate")}}
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-group col-3" style="position:relative;">
+                                                    <label class="kt-checkbox kt-checkbox--primary"
+                                                        style="position:absolute;top:50%;">
+                                                        <input class="form-control" [(ngModel)]="Activity.isPublic"
+                                                            type="checkbox" name="isPublic" />{{l("ifFormalUse")}}
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="margin-top:20px;">
+                                                <div class="form-group col-12">
+                                                    <label>{{l("ActivityDescription")}}</label>
+                                                    <input class="form-control" type="text" name="description"
+                                                        [(ngModel)]="Activity.description">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <label>{{l("ActivityRule")}}</label>
+                                                    <textarea class="form-control" rows="7" name="rules"
+                                                        [(ngModel)]="Activity.rules"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">{{l("logo")}}</label>
+                                                        <app-fileupload [fileUrl]="Activity.activityLogoPath"
+                                                            (onUpLoadEvent)="logoOnUpload($event)" accept="image/*">
+                                                        </app-fileupload>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </tab>
+                                <tab heading="{{l('AdvancedSetup')}}" customClass="kt-tabs__item icon-gaojishezhi"
+                                    (selectTab)="changeSetup('advanced')">
+                                </tab>
+                                <tab heading="{{l('LotterySetup')}}" customClass="kt-tabs__item icon-jiangxiangshezhi"
+                                    (selectTab)="changeSetup('prize')">
+                                </tab>
+                                <tab *ngIf="!deviceId" heading="{{l('GameSetup')}}"
+                                    customClass="kt-tabs__item icon-youxiguanli" (selectTab)="changeSetup('game')">
+                                </tab>
+                            </tabset>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary blue"
+                                [disabled]="!BasicActivityForm.form.valid" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{l("Save")}}</span>
+                            </button>
+                            <button type="button" class="btn btn-primary blue"
+                                [disabled]="!BasicActivityForm.form.valid" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')" (click)="saveAsTemplate()">
+                                <i class="fa fa-save"></i>
+                                <span>{{l("SaveAsTemplate")}}</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

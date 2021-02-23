@@ -1,0 +1,337 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'ActivityList' | localize" [description]="'ActivityListManage' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Activities.Apply')">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shangxian1" (click)="online()">
+                            {{l('onlineBatch')}}
+                        </a>
+                        <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                            {{l('offlineBatch')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="onlineAll()">
+                            {{l('onlineAll')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="offlineAll()">
+                            {{l('offlineAll')}}
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Activities.Publish')">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('publishActivity')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishActivity()">
+                            {{l('publishActivity')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-chehui1" (click)="withdrawAll()">
+                            {{l('withdrawAll')}}
+                        </a>
+                    </div>
+                </div>
+                <button class="btn btn-primary" (click)="createActivity()"
+                    *ngIf="isGranted('Pages.Tenant.Activities.Create')">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateNewActivity")}}</button>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                    <div class="card-body">
+                        <div class="row">
+                            <form class="horizontal-form" autocomplete="off">
+                                <div>
+                                    <div class="row align-items-center mb-4">
+                                        <div class="col-4">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <label>{{l('name')}}</label>
+                                                <div class="input-group">
+                                                    <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                        class="form-control m-input" (keyup.enter)="getActivity($event)"
+                                                        [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                    <!-- <span class="input-group-btn">
+                                                    <button (click)="getActivity()" class="btn btn-primary" type="submit">
+                                                        <i class="icon-sousuo-sousuo"></i>
+                                                    </button>
+                                                </span> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group align-items-center">
+                                                <label></label>
+                                                <div class="input-group">
+                                                    <select #TypeCombobox2 class="form-control" [(ngModel)]="isTemplate"
+                                                        name="metaTypeSelect2">
+                                                        <option value="false">{{l('OnlyActivity')}}</option>
+                                                        <option value="true">{{l('OnlyTemplate')}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <label>&nbsp;</label>
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-primary"
+                                                        [buttonBusy]="primengTableHelper.isLoading"
+                                                        (click)="getActivity()">
+                                                        <i class="la la-refresh"></i>
+                                                        {{l("search")}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-4" style="position:relative;">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>{{l('ActivityDate')}}</label>
+                                            <date-range-picker name="SampleDateRangePicker" [showButton]="true" rangeMode="star" (buttonEmit)="getActivity()" [(startDate)]="StartTime"
+                                                [(endDate)]="EndTime" [allowFutureDate]="true">
+                                            </date-range-picker>
+                                        </div>
+                                    </div> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row align-items-center">
+                            <!--<Primeng-Datatable-Start>-->
+                            <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                                <p-table #dataTable (onLazyLoad)="getActivity($event)"
+                                    [value]="primengTableHelper.records"
+                                    [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                    [(selection)]="activityPublishList" [paginator]="false" [lazy]="true"
+                                    [resizableColumns]="primengTableHelper.resizableColumns"
+                                    [responsive]="primengTableHelper.isResponsive">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>
+                                                {{l('Actions')}}</th>
+                                            <th style="width: 5.0em">
+                                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                            </th>
+                                            <th style="width:5%">{{l('RecordId')}}</th>
+                                            <th>{{l('name')}}</th>
+                                            <th>{{l('Logo')}}</th>
+                                            <th pSortableColumn="ownerName">
+                                                {{l('owner')}}
+                                                <p-sortIcon field="ownerName"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="openDate">
+                                                {{l('startDate')}}
+                                                <p-sortIcon field="openDate"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="endDate">{{l('endDate')}}
+                                                <p-sortIcon field="endDate"></p-sortIcon>
+                                            </th>
+                                            <th>{{l('ifFormalUse')}}</th>
+                                            <th>{{l('isTemplate')}}</th>
+                                            <th>{{l('Status')}}</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                        <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                            <td>
+                                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                        data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>
+                                                        <span class="caret"></span> {{l("Actions")}}
+                                                    </button>
+                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                        <li
+                                                            *ngIf="isGranted('Pages.Tenant.Activities.Edit')&&record.isMine!==false">
+                                                            <a (click)="editActivity(record)"
+                                                                class="icon-bianji">{{l('Edit')}}</a>
+                                                        </li>
+                                                        <li>
+                                                            <a (click)="showActivityData(record)"
+                                                                class="icon-artboard13">{{l('Dashboard')}}</a>
+                                                        </li>
+                                                        <li
+                                                            *ngIf="isGranted('Pages.Tenant.Activities.Delete')&&record['auditStatus']==0&&record.isMine!==false">
+                                                            <a (click)="deleteActivity(record)"
+                                                                class="icon-icon-test">{{l('Delete')}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                            </td>
+                                            <td> {{transIndex(i)}}</td>
+                                            <td>
+                                                <span [title]="record.name">{{record.name}}</span>
+                                            </td>
+                                            <td>
+                                                <img [src]="fixFileUrl(record.activityLogoPath)"
+                                                    (error)="showEmpty($event)" />
+                                            </td>
+                                            <td>{{record.ownerName}}</td>
+                                            <td>{{record.openDate | date : "yyyy/MM/dd"}}</td>
+                                            <td>{{record.endDate| date : "yyyy/MM/dd"}}</td>
+                                            <td>
+                                                <span *ngIf="record['isPublic']"
+                                                    class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                <span *ngIf="!record['isPublic']"
+                                                    class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="record['isTemplate']"
+                                                    class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                <span *ngIf="!record['isTemplate']"
+                                                    class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="record['auditStatus']==1"
+                                                    class="kt-badge  kt-badge--success kt-badge--inline">{{l("online")}}</span>
+                                                <span *ngIf="record['auditStatus']==0"
+                                                    class="kt-badge  kt-badge--danger kt-badge--inline">{{l("offline")}}</span>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-records>
+                                        <tr *ngIf="primengTableHelper.records">
+                                            <td colspan="11">
+                                                <img class="emptymessage"
+                                                    src="/assets/common/images/placeholder/productHolder.png" />
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <div class="primeng-paging-container">
+                                    <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                        (onPageChange)="getActivity($event)"
+                                        [totalRecords]="primengTableHelper.totalRecordsCount"
+                                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                    </p-paginator>
+                                    <span class="total-records-count">
+                                        {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                    </span>
+                                </div>
+                            </div>
+                            <!--<Primeng-Datatable-End>-->
+                        </div>
+                    </div>
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}"
+                        [ngStyle]="{'height':avalibleHeight}"
+                        *ngIf="isGranted('Pages.Tenant.Activities.Publish')&&toPublish">
+                        <div class="panel_head">
+                            <h3>{{l('publishActivity')}}</h3>
+                            <div class="text-right x">
+                                <button (click)="toPublish=!toPublish">
+                                    <i class="icon-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel_body">
+                            <form (ngSubmit)="doPublishActivity()" name="publishConForm">
+                                <div class="form-group">
+                                    <div class="kt-radio-inline">
+                                        <label class="kt-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="add">
+                                            {{l('append')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="update">
+                                            {{l('update')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="delete">
+                                            {{l('withdraw')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-checkbox kt-checkbox--primary">
+                                            <input class="form-control" [(ngModel)]="onlyPublishToDevice"
+                                                type="checkbox"
+                                                name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                            class="form-control kt-input" (keydown.enter)="filterTree($event)"
+                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group beautyScroll"
+                                    [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 253px)','padding-left':'20px'}">
+                                    <app-my-tree #myTree [config]="{'showId':true}" [(items)]="deviceTree">
+                                    </app-my-tree>
+                                    <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit"
+                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+
+        <div *ngIf="isGranted('Pages.Tenant.Activities.Apply')">
+            <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="no()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="reason" class="col-form-label">{{l('Message')}}:</label>
+                                    <textarea class="form-control" id="reason" name="reason"
+                                        [(ngModel)]="apply.reason"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="no()"
+                                data-dismiss="modal">{{l('Close')}}</button>
+                            <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy"
+                                [busyText]="l('SavingWithThreeDot')" [disabled]="busy">
+                                <i></i>{{l('Send')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <createActivityModal #createActivityModal (modalSave)="getActivity()"></createActivityModal> -->
+    </div>
+</div>

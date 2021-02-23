@@ -1,0 +1,138 @@
+<div bsModal #playerDataDetailModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span>{{l("playerDataDetail")}}</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <tabset class="tab-container tabbable-line">
+            <tab heading="{{l('playerDataDetail')}}" customClass="kt-tabs__item">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("headImage")}}</label>
+                    <br>
+                    <img [src]="fixFileUrl(Detail.headimgurl)" style="width:1.85rem;height:1.85rem;" />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("viewCount")}}</label>
+                    <input class="form-control" type="text" name="viewCount" [(ngModel)]="Detail.viewCount" maxlength="32"
+                      disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("shareCount")}}</label>
+                    <input class="form-control" type="text" name="shareCount" [(ngModel)]="Detail.shareCount" maxlength="32"
+                      disabled="disabled">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("likeCount")}}</label>
+                    <input class="form-control" type="text" name="likeCount" [(ngModel)]="Detail.likeCount" maxlength="32"
+                      disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("score")}}</label>
+                    <input class="form-control" type="text" name="score" [(ngModel)]="Detail.score" maxlength="32"
+                      disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("playerAge")}}</label>
+                    <input class="form-control" type="text" name="playerAge" [(ngModel)]="Detail.playerAge" maxlength="32"
+                      disabled="disabled">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("softwareName")}}</label>
+                    <input class="form-control" type="text" name="softwareName" [(ngModel)]="Detail.softwareName"
+                      maxlength="32" disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("activityName")}}</label>
+                    <input class="form-control" type="text" name="activityName" [(ngModel)]="Detail.activityName"
+                      maxlength="32" disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>{{l("startDate")}}</label>
+                    <input class="form-control" type="text" name="startTime" [(ngModel)]="Detail.startTime" maxlength="32"
+                      disabled="disabled">
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="form-group col-12">
+                <label>{{l("startDate")}}-{{l('endDate')}}</label>
+                <date-range-picker needInitDate="true" name="SampleDateRangePicker" [(startDate)]="Detail.startTime" [(endDate)]="Detail.endTime"
+                    rangeMode="all" [allowFutureDate]="true">
+                  </date-range-picker>
+              </div> -->
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>{{l("gameImage")}}</label>
+                  <br>
+                  <img [src]="fixFileUrl(Detail.gameImage)" style="width:200px;" />
+                </div>
+                <div class="form-group col-6">
+                  <label>{{l("playerImage")}}</label>
+                  <br>
+                  <img [src]="fixFileUrl(Detail.playerImage)" style="width:200px;" />
+                </div>
+              </div>
+            </tab>
+            <tab heading="{{l('giveAward')}}" customClass="kt-tabs__item">
+              <div class="row">
+
+                <div class="col-2">
+                  <div class="form-group kt-form__group align-items-center">
+                    <!-- <label>{{l('awardProduct')}}</label> -->
+                    <div class="input-group">
+                      <select class="form-control" [(ngModel)]="Detail.awardId" name="awardSelect">
+                        <option value="">
+                          <!-- {{l('notGiveAward')}} -->
+                        </option>
+                        <option [value]="item.id" *ngFor="let item of awardList">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <!-- <label>&nbsp;</label> -->
+                  <button [disabled]="saving" type="button" class="btn btn-primary" (click)="DoLotteryAction2Award()">{{l("giveAward")}}</button>
+                </div>
+
+              </div>
+
+            </tab>
+          </tabset>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form *ngIf="active" #CreateActivityForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span>{{l("CreateNewActivity")}}</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>{{l("activityName")}} *</label>
+                <input class="form-control" type="text" name="name" [(ngModel)]="name" required maxlength="32">
+              </div>
+              <div class="form-group" *ngIf="appSession.ouList">
+                  <label>{{l("OU")}}</label>
+                  <select [(ngModel)]="organizationUnitId" name="organizationUnitId" class="form-control">
+                    <option value=""></option>
+                    <option [value]="ou.value" *ngFor="let ou of appSession.ouList">{{ou.name}}</option>
+                  </select>
+                </div>
+              <div class="form-group kt-form__group align-items-center">
+                <label>{{l('activityTemplate')}}</label>
+                <div class="input-group">
+                  <select class="form-control" [(ngModel)]="activityTemplate" name="activityTemplate">
+                    <option value="">{{l("notUseTemplate")}}</option>
+                    <option *ngFor="let item of templateList" [value]="item.key">{{item.value}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col m--align-left">
+                <label class="kt-checkbox kt-checkbox--primary">
+                  <input class="form-control" [(ngModel)]="ifFormalUse" type="checkbox" name="ifFormalUse"/>{{l("ifFormalUse")}}
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- </tab> -->
+          <!-- </tabset> -->
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary blue" [disabled]="!CreateActivityForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+            <i class="fa fa-save"></i>
+            <span>{{l("Save")}}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,236 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static', keyboard: !saving}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #AdsForm="ngForm" novalidate name="AdsForm" (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Ad?.id">{{l("EditNewAd")}}: {{Ad?.id +' | '+Ad?.name}}</span>
+                        <span *ngIf="!Ad?.id">{{l("CreateNewAd")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item icon-guanggao1">
+                            <div class="row">
+                                <div class="col-8">
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>{{l("name")}} *</label>
+                                                <input #nameInput="ngModel" class="form-control" type="text" name="Name"
+                                                    [(ngModel)]="Ad.name" required maxlength="32">
+                                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6" *ngIf="appSession.ouList&&!Ad?.id">
+                                            <div class="form-group">
+                                                <label>{{l("OU")}}</label>
+                                                <select [(ngModel)]="Ad.organizationUnitId" name="organizationUnitId"
+                                                    class="form-control">
+                                                    <option value=""></option>
+                                                    <option [value]="ou.value" *ngFor="let ou of appSession.ouList">{{ou.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("age")}}</label>
+                                            <!-- <input #ageInput="ngModel" pattern="^\b(\d+(-\d+)?)(\s*,\s*(\d+(-\d+)?))*\b$" -->
+                                            <input #ageInput="ngModel" pattern="^\b(\d{1,2}(-\d{1,2})?)(\s*,\s*(\d{1,2}(-\d{1,2})?))*\b$"
+                                                class="form-control" type="text" name="age" [(ngModel)]="Ad.ageScope"
+                                                placeholder="{{l('ageScopePlaceholder')}}">
+                                            <validation-messages [formCtrl]="ageInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l("gender")}}</label>
+                                            <select type="text" name="gender" class="form-control" [(ngModel)]="Ad.gender"
+                                                #genderInput="ngModel">
+                                                <option value=''>{{l('unknown')}}</option>
+                                                <option value='male'>{{l('male')}}</option>
+                                                <option value='female'>{{l('female')}}</option>
+                                            </select>
+                                            <validation-messages [formCtrl]="genderInput"></validation-messages>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("tags")}}</label>
+                                            <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion"
+                                                (completeMethod)="filter($event)" field="value" placeholder="tags"
+                                                dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignTags()"
+                                                (onUnselect)="assignTags()" (onBlur)="clearInput($event)" [minLength]="1"
+                                                name="MultiSelectInput" inputStyleClass="form-control" styleClass="width-percent-100">
+                                            </p-autoComplete>
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l("extraInfo")}}</label>
+                                            <input #extraInfoInput="ngModel" class="form-control" type="text" name="extraInfo"
+                                                [(ngModel)]="Ad.extraInfo">
+                                            <validation-messages [formCtrl]="extraInfoInput"></validation-messages>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("startTime")}}</label>
+                                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": true,"timePickerSeconds": true}'
+                                                name="startTime" [(startDate)]="Ad.startTime" [(endDate)]="Ad.startTime"
+                                                [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
+                                            </date-range-picker>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l("timeSpan")}}(00:30:00)</label>
+                                            <input class="form-control" maxlength="64" type="text" name="timeSpan"
+                                                [(ngModel)]="Ad.timeSpan">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("linkMsg")}}</label>
+                                            <input #linkMsgInput="ngModel" class="form-control" maxlength="64" type="text"
+                                                name="AdAttributes" [(ngModel)]="Ad.productAttributes">
+                                            <validation-messages [formCtrl]="linkMsgInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l("orderNumber")}}</label>
+                                            <input #linkMsgInput="ngModel" class="form-control" maxlength="64" type="number"
+                                                name="orderNumber" [(ngModel)]="Ad.orderNumber">
+                                        </div>
+
+                                        <!-- troncell  *ngIf="customTheme=='kewosi'" -->
+                                        <div class="form-group col-6" >
+                                            <!-- robotMapName -->
+                                            <label>{{l("AssociatedMap")}}</label>
+                                            <select 
+                                                (change)="getMapPointList()"
+                                                class="form-control"
+                                                [(ngModel)]="Ad.robotMapName"
+                                                name="robotMapName">
+                                                <option *ngFor="let map of mapList" [value]="map.value">{{map.value}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <!-- robotMapPointName -->
+                                            <label>{{l("AssociatedPoint")}}</label>
+                                            <select 
+                                                class="form-control"
+                                                [disabled]="!Ad.robotMapName"
+                                                [(ngModel)]="Ad.robotMapPointName"
+                                                name="robotMapPointName">
+                                                <option *ngFor="let mapPoint of mapPointList" [value]="mapPoint.value">{{mapPoint.value}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col m--align-left">
+                                            <label class="kt-checkbox kt-checkbox--primary">
+                                                <input class="form-control" [(ngModel)]="Ad.isCustom" type="checkbox"
+                                                    name="isCustom" />{{l("customContent")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <!-- troncell *ngIf="customTheme=='kewosi'" -->
+                                    <div class="form-group">
+                                        <label>{{l("NavigationGuideWord")}}</label>
+                                        <input #guideWordInput="ngModel" class="form-control" name="guideWord" [(ngModel)]="Ad.guideWord" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>{{l("description")}}</label>
+                                        <textarea #descriptionInput="ngModel" class="form-control" name="description"
+                                            [(ngModel)]="Ad.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group kt-form__group">
+                                        <label class="control-label">{{l("Resources")}}</label>
+                                        <app-fileupload [fileUrl]="Ad.fileUrl" [_resourcetype]="Ad.resourceType||'Image'"
+                                            (onUpLoadEvent)="onUpload($event)" require="required" accept="*"
+                                            (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <!--  资溝列表-->
+                        <tab *ngIf="operation=='edit'&&!Ad.pageTemplate" heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
+                            (selectTab)="getResByAdId()">
+                            <div class="row align-items-center">
+                                <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                    <div class="kt-form kt-form--label-align-right" *ngIf="Ad.isMine!==false">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="offset-4 col-8">
+                                                <div class="form-group">
+                                                    <div class="input-group" style="text-align:right;display: block;">
+                                                        <button type="button" (click)="createResource()" class="btn btn-primary icon-add">{{l('add')}}</button>
+                                                        <button type="button" (click)="deleteResources()" class="btn btn-primary icon-piliangcaozuo">{{l('deleteBatch')}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="primeng-datatable-container" [busyIf]="resPrimeng.isLoading">
+                                    <app-image-grid id="gridShow" style="width: 100%;" gridOwner="resource" (onOperate)="onOperateResource($event)"
+                                        (onLazyLoad)="getResByAdId($event)" [(selection)]="resourceSelection"
+                                        [imageList]="resPrimeng.records"></app-image-grid>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="resPrimeng.defaultRecordsCountPerPage" #paginatorRes
+                                            (onPageChange)="getResByAdId($event)" [totalRecords]="resPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="resPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', resPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab *ngIf="Ad.isCustom" heading="{{l('customContent')}}" customClass="kt-tabs__item icon-nav-entry">
+                            <div class="row align-items-center">
+                                <div class="col-12 text-right">
+                                    <button type="button" class="btn btn-primary" (click)="formatting()">{{l("formatting")}}</button>
+                                    <button type="button" class="btn btn-primary" (click)="preview()">{{l("preview")}}</button>
+                                </div>
+                                <textarea class="form-control" name="customContent" style="margin:1rem;padding:0;height:50vh !important;"
+                                    [(ngModel)]="Ad.customContent" rows="20" required></textarea>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" *ngIf="Ad.isMine!==false" class="btn btn-primary blue" [disabled]="!AdsForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <createOrEditAdResourceModal #createOrEditAdResourceModal (modalSave)="getResByAdId()"></createOrEditAdResourceModal>
+
+
+
+    <div *ngIf="showPreview" style="position:fixed;width:100%;height:100%;left:0;top:0;z-index:99999;">
+
+        <!-- <iframe id="iframe" (load)="iframeLoad()" [src]="editorUrl" frameborder="0" style="width:100%;height:100%;"> -->
+        <iframe *ngIf="isLocal" id="iframe" (load)="iframeLoad()" src="http://localhost:8081/editor.html" frameborder="0" style="width:100%;height:100%;"></iframe>
+        <iframe *ngIf="!isLocal" id="iframe" (load)="iframeLoad()" src="https://m.sensingstore.com/editor.html" frameborder="0" style="width:100%;height:100%;"></iframe>
+
+    </div>
+
+</div>
