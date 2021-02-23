@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DeviceServiceProxy, CreateDeviceInput, UpdateDeviceInput, DeviceTypeServiceProxy, PeripheralServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
@@ -158,7 +158,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
     changeGateWay3() {
 
         this._ShelfServiceProxy.getSingleShelf(
-            this.belongGateWay3
+            this.belongGateWay3,
+            undefined
         ).subscribe(result => {
             console.log("getSingleShelf", result)
             if (this.Device.deviceTypeId == 23) {

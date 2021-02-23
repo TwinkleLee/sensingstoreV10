@@ -14,7 +14,7 @@ export class YourInterceptor implements HttpInterceptor {
   }
 }
 import { Paginator } from 'primeng/paginator';
-// import { CreateOrEditDeviceModalComponent } from '@app/device/device-list/create-or-edit-device-modal.component';
+import { CreateOrEditDeviceModalComponent } from '@app/admin/device/device-list/create-or-edit-device-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
@@ -34,7 +34,7 @@ import { TokenService } from 'abp-ng2-module';
 })
 export class DeviceListComponent extends AppComponentBase implements OnInit {
 
-  // @ViewChild('createOrEditDeviceModal', { static: true }) createOrEditDeviceModal: CreateOrEditDeviceModalComponent;
+  @ViewChild('createOrEditDeviceModal', { static: true }) createOrEditDeviceModal: CreateOrEditDeviceModalComponent;
   // @ViewChild('editUserPermissionsModal') editPerPermissionsModal: EditPerPermissionsModalComponent;
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -412,11 +412,11 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
           },
           'success': function (res) {
               if (!res.result.success) return _that.message.error(_that.l(res.result.errorMessage));
-              // _that.createOrEditDeviceModal.show();
+              _that.createOrEditDeviceModal.show();
           }
       })
     } else {
-        // this.createOrEditDeviceModal.show();
+        this.createOrEditDeviceModal.show();
     }
   }
   editDevice(record) {
