@@ -39,6 +39,19 @@
                                                         [allowFutureDate]="true">
                                                     </date-range-picker>
                                                 </div>
+                                                <!-- <div class="form-group row">
+                                                    <label for="SampleDateRangePicker" class="col-md-12">Default daterange picker</label>
+                                                    <div class="col-lg-10 col-md-9 col-sm-8">
+                                                        <input name="SampleDateRangePicker"
+                                                               type="text"
+                                                               class="form-control"
+                                                               id="SampleDateRangePicker"
+                                                               bsDaterangepicker
+                                                               dateRangePickerLuxonModifier
+                                                               [(date)]="sampleDateRange"
+                                                        />
+                                                    </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-2">
                                                 <div class="form-group kt-form__group align-items-center">
@@ -54,15 +67,6 @@
                                                 </div>
                                             </div>
 
-                                            <!-- <div class="col-6">
-                                            <div class="form-group kt-form__group align-items-center">
-                                                <div class="input-group">
-                                                    <date-range-picker name="SampleDateRangePicker" [(startDate)]="startTime"
-                                                        [(endDate)]="endTime" [allowFutureDate]="true">
-                                                    </date-range-picker>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                         </div>
                                     </div>
                                 </form>
@@ -174,21 +178,9 @@
                                                             class="form-control kt-input"
                                                             (keyup.enter)="getApplyForms(null,false)"
                                                             [placeholder]="l('SearchWithThreeDot')" type="text">
-                                                        <!-- <span class="input-group-btn">
-                                                        <button (click)="getApplyForms(null,false)" class="btn btn-primary"
-                                                            type="submit">
-                                                            <i class="icon-sousuo-sousuo"></i>
-                                                        </button>
-                                                    </span> -->
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- 时间范围筛选 -->
-                                            <!-- <div class="col-6">
-                                            <date-range-picker name="SampleDateRangePicker" [(startDate)]="startTime"
-                                                [(endDate)]="endTime" [allowFutureDate]="true">
-                                            </date-range-picker>
-                                        </div> -->
 
                                             <div class="col-3" style="position:relative;">
                                                 <div class="form-group kt-form__group align-items-center">
