@@ -424,7 +424,7 @@ export class AdvertisementComponent extends AppComponentBase {
   }
   //广告导入
   import() {
-    this.router.navigate(['app', 'import', 'import', 'ads']);
+    this.router.navigate(['app', 'admin','import', 'import', 'ads']);
   }
   //筛选树
   filterTree(e?: Event) {

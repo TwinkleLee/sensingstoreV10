@@ -1,0 +1,21 @@
+.btn-file{
+    width: 100%;
+    position: relative;
+    height: 43px;
+    line-height: 25px;
+    color: rgb(255, 255, 255);
+}
+.btn-file input{
+    opacity: 0;
+    position: absolute;
+}
+.btn-file span{
+    height: 100%;
+    padding: 10px;
+    width: 100%;
+    display: inline-block;
+}
+.row form{
+    width: 100%;
+    padding-top: 10px;
+}

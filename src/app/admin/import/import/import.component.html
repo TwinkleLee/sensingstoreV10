@@ -1,0 +1,146 @@
+<div>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Excel'+l('batch')+l(target)+l('Import')" [description]="'target' | localize">
+            <div role="actions"></div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4 br-r br-grey" *ngIf="getAccept()=='zip'">
+                            <h3>
+                                {{l('importTip1')}}</h3>
+                            <p>
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip2')}}</p>
+                            <p>
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip3')}}</p>
+                            <p>
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip4')}}</p>
+                            <p>
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip5')}}</p>
+                        </div>
+                        <div class="col-4 br-r br-grey" *ngIf="getAccept()=='excel'">
+                            <h3 class="mb25">
+                                {{l('importTip1')}}</h3>
+                            <p class="mb15">
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip6')}}
+                            </p>
+                            <p class="mb15">
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip7')}}
+                            </p>
+                            <p class="mb15">
+                                <span class="fa fa-check text-success pr5"></span>
+                                {{l('importTip8')}}
+                            </p>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-9">
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn-primary btn width-percent-100" type="button"
+                                        (click)="download(tempUrls[target])"
+                                        style="margin-left: 8px;width: 103%;margin-bottom: 8px;border-radius: 0;">
+                                        {{l('downloadDemo')}}</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <form class="form-horizontal " enctype='multipart/form-data' (ngSubmit)="upload()"
+                                    #importForm="ngForm" id='importForm' name="importForm" novalidate="novalidate">
+                                    <div class="form-group row">
+                                        <div class="col-9 col-xs-9">
+                                            <span class="form-control" style="height: 100%;">{{fileName}}</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="btn-file badge-primary">
+                                                <input [accept]="getAccept()=='zip'?'.zip':'.xlsx'" class="hidden"
+                                                    name="file" type="file" multiple (change)="fileChangeEvent($event)">
+                                                <span class="fileinput-new" *ngIf="getAccept()=='zip'"
+                                                    style="text-align: center">{{l('choseToImportFile')}}(*.zip)</span>
+                                                <span class="fileinput-new" *ngIf="getAccept()=='excel'"
+                                                    style="text-align: center">{{l('choseToImportFile')}}(*.xlsx)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-9">
+
+                                            <div class="progress" style="margin-top: 10px; margin-bottom: 9px;"
+                                                *ngIf="!progress">
+                                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="20"
+                                                    class="progress-bar progress-bar-default .progress-bar-animated"
+                                                    role="progressbar">
+                                                    <span class="sr-only">{{progress}}% Complete</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress" *ngIf="progress">
+                                                <div class="progress-bar progress-bar-info progress-bar-striped"
+                                                    role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100" [ngStyle]="{width: progress+'%'}">
+                                                    <span class="sr-only">{{progress}}% Complete</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="btn  btn-primary width-percent-100" [disabled]="!fileName"
+                                                type="submit" style="border-radius: 0"> {{l('upload')}} </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [ngStyle]="{'display':target=='product'?'block':'none'}" style="padding:15px 30px;">
+        <div class="primeng-datatable-container" [busyIf]="historyPrimeng.isLoading">
+            <!-- resizableColumns="historyPrimeng.resizableColumns" -->
+            <p-table #dataTablehistory [value]="historyPrimeng.records" (onLazyLoad)="getSyncHistory($event)"
+                [rows]="historyPrimeng.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                [resizableColumns]="historyPrimeng.resizableColumns" [responsive]="historyPrimeng.isResponsive">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:5%">{{l('RecordId')}}</th>
+                        <th style="width:25%">{{l('name')}}</th>
+                        <th>{{l('startTime')}}</th>
+                        <th>{{l('endTime')}}</th>
+                        <th>{{l('SynchronizationProgress')}}</th>
+                        <th>{{l('auditStatus')}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                    <tr>
+                        <td>{{transIndex(i)}}</td>
+                        <td>{{record.name}}</td>
+                        <td>{{record.creationTime | date:"yyyy/MM/dd HH:mm"}}</td>
+                        <td>{{record.lastModificationTime | date:"yyyy/MM/dd HH:mm"}}</td>
+                        <td>
+                            {{record['completedCount'] +'/'+ record['totalCount']}}
+                        </td>
+                        <td>{{record.status}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="primeng-paging-container">
+                <p-paginator [rows]="historyPrimeng.defaultRecordsCountPerPage" #paginatorhistory
+                    (onPageChange)="getSyncHistory($event)" [totalRecords]="historyPrimeng.totalRecordsCount"
+                    [rowsPerPageOptions]="historyPrimeng.predefinedRecordsCountPerPage">
+                </p-paginator>
+                <span class="total-records-count">
+                    {{l('TotalRecordsCount', historyPrimeng.totalRecordsCount)}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

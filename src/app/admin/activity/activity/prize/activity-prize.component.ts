@@ -272,7 +272,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
   }
 
   goImport() {
-    this.router.navigate(['app', 'import', 'import', 'whiteuser']);
+    this.router.navigate(['app', 'admin','import', 'import', 'whiteuser']);
   }
   createWhitelist() {
     this.createOrEditWhiteListModal.show()

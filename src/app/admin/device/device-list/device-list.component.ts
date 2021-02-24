@@ -715,7 +715,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   }
   //前往导入页面
   goImport() {
-    this.router.navigate(['app', 'import', 'import', 'device']);
+    this.router.navigate(['app', 'admin','import', 'import', 'device']);
   }
 
   goExport() {

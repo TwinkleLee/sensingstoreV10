@@ -173,6 +173,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'floor',
                         loadChildren: () => import('./floor/floor.module').then(m => m.FloorModule),
                     },
+                    {
+                        path: 'import',
+                        loadChildren: () => import('./import/import.module').then(m => m.ImportModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

@@ -970,7 +970,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     cargoGoImport() {
-        this.router.navigate(['app', 'import', 'import', 'cargo'], { queryParams: { id: this.device.id } });
+        this.router.navigate(['app', 'admin','import', 'import', 'cargo'], { queryParams: { id: this.device.id } });
     }
     OnCargo() {
         if (this.CargoSelectionList.length === 0) {
