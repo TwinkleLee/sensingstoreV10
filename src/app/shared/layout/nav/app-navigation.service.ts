@@ -198,7 +198,7 @@ export class AppNavigationService {
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'icon-yonghu', '/app/admin/roles'),
                 new AppMenuItem('Users', 'Pages.Administration.Users', 'icon-jiaose', '/app/admin/users'),
                 new AppMenuItem('Languages', 'Pages.Administration.Languages', 'icon-zhongwenyuyan', '/app/admin/languages'),
-                new AppMenuItem('DownloadLogs', 'Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration', 'icon-config-audit', '/app/downloadLogs/downloadLogs'),
+                new AppMenuItem('DownloadLogs', 'Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration', 'icon-config-audit', '/app/admin/downloadLogs/downloadLogs'),
                 new AppMenuItem('Maintenance', 'Pages.Administration.Host.Maintenance', 'icon-houtaiweihu', '/app/admin/maintenance'),
                 new AppMenuItem('Subscription', 'Pages.Administration.Tenant.SubscriptionManagement', 'icon-21', '/app/admin/subscription-management'),
                 new AppMenuItem('VisualSettings', 'Pages.Administration.UiCustomization', 'icon-xunhuan', '/app/admin/ui-customization'),

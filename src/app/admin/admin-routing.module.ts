@@ -161,6 +161,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'customComponent',
                         loadChildren: () => import('./customComponent/customComponent.module').then(m => m.CustomComponentModule),
                     },
+                    {
+                        path: 'downloadLogs',
+                        loadChildren: () => import('./downloadLogs/downloadLogs.module').then(m => m.DownloadLogsModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]
