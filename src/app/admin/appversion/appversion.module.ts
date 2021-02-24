@@ -9,7 +9,7 @@ import { TabsModule } from '@node_modules/ngx-bootstrap/tabs';
 import { TooltipModule } from '@node_modules/ngx-bootstrap/tooltip';
 import { BsDropdownModule } from '@node_modules/ngx-bootstrap/dropdown';
 import { PopoverModule } from '@node_modules/ngx-bootstrap/popover';
-import { ApppodRoutingModule } from './apppod-routing.module';
+import { AppVersionRoutingModule } from './appversion-routing.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { BsDatepickerModule, BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -24,20 +24,17 @@ import { TreeModule } from 'primeng/tree';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { from } from 'rxjs';
 
-import { AppPodComponent } from '@app/admin/apppod/apppod/apppod.component';
-import { CreateOrEditApppodModalComponent } from '@app/admin/apppod/apppod/create-or-edit-apppod-modal.component';
-import { ApppodHistoryModalComponent } from '@app/admin/apppod/apppod/operation/apppod-history-modal.component';
-
+import { CreateOrEditAppVersionModalComponent } from './app-version/create-or-edit-appVersion-modal.component'
+import { AppVersionComponent } from './app-version/appVersion.component'
 
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
 import {AppSharedModule} from '@app/shared/app-shared.module';
-
-
 @NgModule({
     imports: [
         AdminSharedModule,
         AppSharedModule,
 
+        
         CommonModule,
         FormsModule,
         ModalModule,
@@ -45,7 +42,7 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         TooltipModule,
         AppCommonModule,
         UtilsModule,
-        ApppodRoutingModule,
+        AppVersionRoutingModule,
         CountoModule,
         NgxChartsModule,
         BsDatepickerModule.forRoot(),
@@ -57,9 +54,8 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         AutoCompleteModule,
     ],
     declarations: [
-        AppPodComponent,
-        CreateOrEditApppodModalComponent,
-        ApppodHistoryModalComponent,
+        CreateOrEditAppVersionModalComponent,
+        AppVersionComponent
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
@@ -67,4 +63,4 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale }
     ]
 })
-export class ApppodModule { }
+export class AppVersionModule { }

@@ -141,6 +141,14 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'advertisement',
                         loadChildren: () => import('./advertisement/advertisement.module').then(m => m.AdvertisementModule),
                     },
+                    {
+                        path: 'apppod',
+                        loadChildren: () => import('./apppod/apppod.module').then(m => m.ApppodModule),
+                    },
+                    {
+                        path: 'appversion',
+                        loadChildren: () => import('./appversion/appversion.module').then(m => m.AppVersionModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

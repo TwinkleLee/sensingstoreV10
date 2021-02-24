@@ -202,7 +202,7 @@ export class AppNavigationService {
                 new AppMenuItem('Maintenance', 'Pages.Administration.Host.Maintenance', 'icon-houtaiweihu', '/app/admin/maintenance'),
                 new AppMenuItem('Subscription', 'Pages.Administration.Tenant.SubscriptionManagement', 'icon-21', '/app/admin/subscription-management'),
                 new AppMenuItem('VisualSettings', 'Pages.Administration.UiCustomization', 'icon-xunhuan', '/app/admin/ui-customization'),
-                new AppMenuItem('AppVersion', '', 'icon-1311shangpinfenleipicishuxing', '/app/appversion/appVersion'),
+                new AppMenuItem('AppVersion', '', 'icon-1311shangpinfenleipicishuxing', '/app/admin/appversion/appVersion'),
                 new AppMenuItem('Settings', 'Pages.Administration.Host.Settings', 'icon-xitongguanli', '/app/admin/hostSettings'),
                 new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'icon-xitongguanli', '/app/admin/tenantSettings'),
             ]),
