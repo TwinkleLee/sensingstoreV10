@@ -1,0 +1,91 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="customItem?.id">{{l("edit")}}{{l("CustomComponent")}}</span>
+                        <span *ngIf="!customItem.id">{{l("add")}}{{l("CustomComponent")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("type")}} *</label>
+                                        <input class="form-control" type="text" name="type"
+                                            [(ngModel)]="customItem.type" required maxlength="32">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("name")}} *</label>
+                                        <input class="form-control" type="text" name="displayName"
+                                            [(ngModel)]="customItem.displayName" required maxlength="32">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label>{{l("sort")}}</label>
+                                            <input class="form-control" type="number" name="orderNumber"
+                                                [(ngModel)]="customItem.orderNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group" style="position:relative;margin-top:1rem;">
+                                        <label class="kt-checkbox kt-checkbox--primary">
+                                            <input class="form-control" [(ngModel)]="customItem.enabled" type="checkbox"
+                                                name="enabled" />{{l("IsEnabled")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group" style="position:relative;margin-top:1rem;"
+                                        (click)="changeCategory()">
+                                        <label class="kt-checkbox kt-checkbox--primary">
+                                            <input class="form-control" [value]="customItem.category==0" type="checkbox"
+                                                name="category">{{l("Default")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <app-fileupload [fileUrl]="customItem.icon" (onUpLoadEvent)="onUpload($event,'icon')"
+                                    accept="image/*"></app-fileupload>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <app-fileupload [fileUrl]="customItem.iconFocus"
+                                    (onUpLoadEvent)="onUpload($event,'iconFocus')" accept="image/*"></app-fileupload>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

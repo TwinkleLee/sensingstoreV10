@@ -82,7 +82,7 @@ export class AppNavigationService {
             ]),
 
             //自定义营销页模块设置
-            new AppMenuItem('CustomComponent', 'Pages.Administration.Host.Settings', 'icon-ziyuanguanli', '/app/customComponent/customComponent'),
+            new AppMenuItem('CustomComponent', 'Pages.Administration.Host.Settings', 'icon-ziyuanguanli', '/app/admin/customComponent/customComponent'),
 
 
             //应用管理
