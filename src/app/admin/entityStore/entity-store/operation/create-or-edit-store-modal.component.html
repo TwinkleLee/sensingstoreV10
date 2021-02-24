@@ -1,0 +1,294 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg" [busyIf]="showBusy">
+
+        <div class="modal-content">
+
+            <form *ngIf="active" #editForm="ngForm" novalidate (ngSubmit)="save()">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <span *ngIf="organizationUnit.storeId">{{l("Edit")}}{{l("Store")}}</span>
+                        <span *ngIf="!organizationUnit.storeId">{{l("AddStore")}}</span>
+                    </h5>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("Name")}} *</label>
+                            <input #organizationUnitDisplayName="ngModel" class="form-control" type="text"
+                                name="displayName" [ngClass]="{'edited': organizationUnit.displayName}"
+                                [(ngModel)]="organizationUnit.displayName" required maxlength="128">
+                            <validation-messages [formCtrl]="organizationUnitDisplayName"></validation-messages>
+                        </div>
+
+
+                        <div class="col-sm-6" *ngIf="appSession.ouList&&!organizationUnit.storeId">
+                            <div class="form-group">
+                                <label>{{l("OU")}}</label>
+                                <select [(ngModel)]="organizationUnit.organizationUnitId" name="organizationUnitId"
+                                    class="form-control">
+                                    <option value=""></option>
+                                    <option [value]="ou.value" *ngFor="let ou of appSession.ouList">{{ou.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("outerId")}} </label>
+                            <input #organizationUnitOuterId="ngModel" class="form-control" type="text" name="outerId"
+                                [(ngModel)]="organizationUnit.outerId">
+                            <validation-messages [formCtrl]="organizationUnitOuterId"></validation-messages>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label class="control-label" for="shutdownTime">{{l('openingTime')}}</label>
+                            <input class="form-control" [(ngModel)]="openingTime" id="openingTime" name="openingTime"
+                                [placeholder]="l('openingTime')" type="time">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="control-label" for="shutdownTime">{{l('closedTime')}}</label>
+                            <input class="form-control" [(ngModel)]="closedTime" id="closedTime" name="closedTime"
+                                [placeholder]="l('closedTime')" type="time">
+                        </div>
+
+
+                        <div class="form-group col-6">
+                            <label>{{l("QRCodeLink")}} </label>
+                            <input #organizationUnitQrCodeExtraInfo="ngModel" class="form-control" type="text"
+                                name="qrCodeUrl" [(ngModel)]="organizationUnit.qrCodeUrl">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("qrcodeRules")}} </label>
+                            <input #organizationUnitqrcodeRules="ngModel" class="form-control" type="text"
+                                name="qrcodeRules" [(ngModel)]="organizationUnit.qrcodeRules">
+                            <validation-messages [formCtrl]="organizationUnitqrcodeRules"></validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("qrCodeExtraInfo")}} </label>
+                            <input #organizationUnitQrCodeExtraInfo="ngModel" class="form-control" type="text"
+                                name="qrCodeExtraInfo" [(ngModel)]="organizationUnit.qrCodeExtraInfo">
+                            <validation-messages [formCtrl]="organizationUnitQrCodeExtraInfo"></validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("webAddressUrl")}} </label>
+                            <input #organizationUnitWebAddressUrl="ngModel" class="form-control" type="text"
+                                name="webAddressUrl" [(ngModel)]="organizationUnit.webAddressUrl">
+                            <validation-messages [formCtrl]="organizationUnitWebAddressUrl"></validation-messages>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("taobaoStoreId")}} </label>
+                            <input #organizationUnittaobaoStoreId="ngModel" class="form-control" type="text"
+                                name="taobaoStoreId" [(ngModel)]="organizationUnit.taobaoStoreId">
+                            <validation-messages [formCtrl]="organizationUnittaobaoStoreId"></validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("contact")}} </label>
+                            <input #organizationUnitContact="ngModel" class="form-control" type="text" name="contact"
+                                [(ngModel)]="organizationUnit.contact">
+                            <validation-messages [formCtrl]="organizationUnitContact"></validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("bizType")}} </label>
+                            <input #organizationUnitbizType="ngModel" class="form-control" type="text" name="bizType"
+                                [(ngModel)]="organizationUnit.bizType">
+                            <validation-messages [formCtrl]="organizationUnitbizType"></validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("categoryId")}} </label>
+                            <input #organizationUnitcategoryId="ngModel" class="form-control" type="text"
+                                name="categoryId" [(ngModel)]="organizationUnit.categoryId">
+                            <validation-messages [formCtrl]="organizationUnitcategoryId"></validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("defaultOnlineShopName")}} </label>
+                            <input #organizationUnitdefaultOnlineShopName="ngModel" class="form-control" type="text"
+                                name="defaultOnlineShopName" [(ngModel)]="organizationUnit.defaultOnlineShopName">
+                            <validation-messages [formCtrl]="organizationUnitdefaultOnlineShopName">
+                            </validation-messages>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("area")}} </label>
+                            <app-my-address [(position)]="organizationUnit.position"></app-my-address>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("addressDetail")}} </label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="addressDetail"
+                                    (keydown.enter)="showMap($event)" [(ngModel)]="organizationUnit.position.location">
+                                <span class="input-group-btn">
+                                    <button (click)="showMap()" class="btn btn-primary" type="button">
+                                        <i class="icon-address"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-12">
+                            <app-my-map (afterInit)="getPointer($event)" (mapClick)="mapClick($event)" #map
+                                [address]="[organizationUnit.position]"></app-my-map>
+                        </div>
+
+
+                        <div class="form-group col-6">
+                            <label>{{l("StoreDevicesInfo")}} </label>
+                            <input class="form-control" type="text" name="storeDevicesInfo"
+                                [(ngModel)]="organizationUnit.storeDevicesInfo">
+                        </div>
+
+                        <!-- 绑定房间 roomIds -->
+                        <div class="form-group col-6">
+                            <label>{{l("Building")}} </label>
+                            <!-- (completeMethod)="floorFilter($event)" -->
+                            <select class="form-control typeSelect" [(ngModel)]="buildingId" (change)="buildingChang()"
+                                name="TypeSelectInput" [attr.data-live-search]="true" jq-plugin="selectpicker">
+                                <option [value]="item.id" *ngFor="let item of buildingList">{{item.value}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("Room")}} </label>
+                            <p-autoComplete [(ngModel)]="rooms" [disabled]="!buildingId" [suggestions]="roomSuggestions"
+                                (completeMethod)="roomFilter($event)" field="value" [placeholder]="l('Room')"
+                                dataKey="id" [dropdown]="true" (onSelect)="assignRoom()" (onUnselect)="assignRoom()"
+                                [minLength]="1" [multiple]="true" name="SelectInput" inputStyleClass="form-control"
+                                styleClass="width-percent-100">
+                            </p-autoComplete>
+                        </div>
+
+
+                        <div class="form-group col-6">
+                            <label>{{l("storeType")}} </label>
+                            <input class="form-control" type="text" name="storeType"
+                                [(ngModel)]="organizationUnit.storeType">
+                        </div>
+
+
+                        <div class="form-group col-6">
+                            <label>{{l("Brand")}}</label>
+                            <select [(ngModel)]="organizationUnit.brandId" name="brandId" class="form-control">
+                                <option value="">{{l("None")}}</option>
+                                <option [value]="brand.id" *ngFor="let brand of brandList">{{brand.name}}</option>
+                            </select>
+                        </div>
+
+                        <!-- <div class="col-12">
+                            <div class="form-group col-6">
+                                <label>{{l("Room")}}</label>
+                                <select [(ngModel)]="organizationUnit.brandId" name="brandId" class="form-control">
+                                    <option value="">{{l("None")}}</option>
+                                    <option [value]="brand.id" *ngFor="let brand of brandList">{{brand.name}}</option>
+                                </select>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group col-12">
+                            <a class="btn btn-default" (click)="checkBoxShow=!checkBoxShow">{{l('showHidden')}}</a>
+                        </div>
+                        <div class="m-checkbox-list form-group  col-12" *ngIf="checkBoxShow">
+                            <div class="row" style="padding-left: 20px;">
+                                <div class="col-3">
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isNeedThingApprove"
+                                            name="isNeedThingApprove">
+                                        {{l("isNeedThingApprove")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isNeedDeviceApprove"
+                                            name="isNeedDeviceApprove">
+                                        {{l("isNeedDeviceApprove")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isNeedAdsApprove"
+                                            name="isNeedAdsApprove">
+                                        {{l("isNeedAdsApprove")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isNeedAppApprove"
+                                            name="isNeedAppApprove">
+                                        {{l("isNeedAppApprove")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isNeedCouponApprove"
+                                            name="isNeedCouponApprove">
+                                        {{l("isNeedCouponApprove")}}
+                                        <span></span>
+                                    </label>
+
+                                </div>
+                                <div class="col-3">
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isCouponAutoSendDown"
+                                            name="isCouponAutoSendDown">
+                                        {{l("isCouponAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isAdsAutoSendDown"
+                                            name="isAdsAutoSendDown">
+                                        {{l("isAdsAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isAppAutoSendDown"
+                                            name="isAppAutoSendDown">
+                                        {{l("isAppAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.isProductAutoSendDown"
+                                            name="isProductAutoSendDown"> {{l("isProductAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="col-3">
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox"
+                                            [(ngModel)]="organizationUnit.canAcceptCouponAutoSendDown"
+                                            name="canAcceptCouponAutoSendDown"> {{l("canAcceptCouponAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.canAcceptAdsAutoSendDown"
+                                            name="canAcceptAdsAutoSendDown"> {{l("canAcceptAdsAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox" [(ngModel)]="organizationUnit.canAcceptAppAutoSendDown"
+                                            name="canAcceptAppAutoSendDown"> {{l("canAcceptAppAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input type="checkbox"
+                                            [(ngModel)]="organizationUnit.canAcceptProductAutoSendDown"
+                                            name="canAcceptProductAutoSendDown"> {{l("canAcceptProductAutoSendDown")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!editForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -64,7 +64,7 @@ export class AppNavigationService {
 
             //店铺管理
             new AppMenuItem('ElectronicCommerce', 'Pages.Tenant.StoreMenu', 'icon-shop', '', [], [
-                new AppMenuItem('EntityStore', 'Pages.Tenant.Stores', 'icon-shop', '/app/entityStore/entityStore'),
+                new AppMenuItem('EntityStore', 'Pages.Tenant.Stores', 'icon-shop', '/app/admin/entityStore/entityStore'),
                 new AppMenuItem('OnlineStore', 'Pages.Tenant.OnlineStores', 'icon-iconfontshangcheng', '/app/onlineStore/onlineStore'),
             ]),
 

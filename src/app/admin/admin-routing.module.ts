@@ -165,6 +165,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'downloadLogs',
                         loadChildren: () => import('./downloadLogs/downloadLogs.module').then(m => m.DownloadLogsModule),
                     },
+                    {
+                        path: 'entityStore',
+                        loadChildren: () => import('./entitystore/entitystore.module').then(m => m.EntityStoreModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

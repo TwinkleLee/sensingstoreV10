@@ -1,0 +1,318 @@
+<div [@routerTransition] (click)="clickContainer()">
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'EntityStore' | localize" [description]="'EntityStore' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('publishStore')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishStore()">
+                            {{l('publishStore')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-chehui1" (click)="withdrawAll()">
+                            {{l('withdrawAll')}}
+                        </a>
+
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i>
+                    {{l('export')}}</button>
+
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shangxian1" (click)="online()">
+                            {{l('onlineBatch')}}
+                        </a>
+                        <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                            {{l('offlineBatch')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="onlineAll()">
+                            {{l('onlineAll')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="offlineAll()">
+                            {{l('offlineAll')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shanchu" (click)="deleteBatch()">
+                            {{l('deleteBatch')}}
+                        </a>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-primary" (click)="addStore()" *ngIf="isGranted('Pages.Tenant.Stores.Create')">
+                    <i class="fa fa-plus"></i>
+                    {{l("AddStore")}}</button>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass" style="position:relative;">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div>
+                                <div class="row align-items-center mb-4">
+                                    <div class="col-3">
+                                        <label>{{l('storeOuterId')}}/{{l('name')}}</label>
+                                        <div class="form-group align-items-center">
+                                            <div class="input-group">
+                                                <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                    class="form-control m-input" (keyup.enter)="getStoreList($event)"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3" style="margin-bottom: 0rem; position: relative;top:-0.6rem;">
+                                        <label style="margin-bottom: 0rem; ">{{l('organization-units')}}</label>
+                                        <app-high-tree #highTree [containerHeight]="'3rem'" [treeList]="ouTree"
+                                            (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('area')}}</label>
+                                            <input class="form-control" #RegionCombobox name="areaFilter"
+                                                id="areaFilter" list="areaList" [(ngModel)]="areaFilter" />
+                                            <datalist id="areaList">
+                                                <option value="">{{l('All')}}</option>
+                                                <option [value]="item" *ngFor="let item of areaList">{{item}}</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label>{{l('type')}}</label>
+                                        <div class="form-group ">
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="storeStatus"
+                                                    name="storeStatus">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option [value]="1">{{l("online")}}</option>
+                                                    <option [value]="0">{{l("offline")}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label style="display:block;">&nbsp;</label>
+                                        <div class="form-group align-items-center">
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading"
+                                                    (click)="getStoreList()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <p-table #dataTable (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [(selection)]="storeCheckedList"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('storeOuterId')}}</th>
+                                        <th>{{l('Name')}}</th>
+                                        <th pSortableColumn="openingTime">
+                                            {{l('openingTime')}}
+                                            <p-sortIcon field="openingTime"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="closedTime">
+                                            {{l('closedTime')}}
+                                            <p-sortIcon field="closedTime"></p-sortIcon>
+                                        </th>
+                                        <th>{{l('qrCodeExtraInfo')}}</th>
+                                        <th>{{l('taobaoStoreId')}}</th>
+                                        <th>{{l('organization-units')}}</th>
+                                        <th style="width:20%">{{l('address')}}</th>
+                                        <th>{{l('Room')}}</th>
+                                        <th>{{l('Brand')}}</th>
+                                        <th>{{l('auditStatus')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
+                                                        <a (click)="editStore(record)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')">
+                                                        <a (click)="deleteStore(record)"
+                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a (click)="goDetail(record)"
+                                                            class="icon-shop">{{l('detail')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td style="width:5%"> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.outerId}}</span>
+                                        </td>
+                                        <td>
+                                            <span [title]="record.displayName">{{record.displayName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.openingTime | date : "yyyy/MM/dd HH:mm"| slice:11:20}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.closedTime | date : "yyyy/MM/dd HH:mm"| slice:11:20}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.qrCodeExtraInfo}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.taobaoStoreId}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.organziationUnitName}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.position">{{record.position.area}}
+                                                {{record.position.province}}
+                                                {{record.position.city}} {{record.position.county}}
+                                                {{record.position.location}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record['roomIds']!='[]'"
+                                                class="label label-success label-inline">{{l("isbinded")}}</span>
+                                            <span *ngIf="record['roomIds']=='[]'"
+                                                class="label label-dark label-inline">{{l("unbinded")}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{getBrandName(record)}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record['storeStatus']==1"
+                                                class="label label-success label-inline">{{l("online")}}</span>
+                                            <span *ngIf="record['storeStatus']==0"
+                                                class="label label-dark label-inline">{{l("offline")}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="13" class="text-center">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/deviceHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getStoreList($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+
+
+
+                <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}" *ngIf="toPublish"
+                    [ngStyle]="{'height':avalibleHeight}" style="top:0;right:0;">
+                    <div class="panel_head">
+                        <h3>{{l('publishStore')}}</h3>
+                        <div class="text-right x">
+                            <button (click)="toPublish=!toPublish">
+                                <i class="icon-close"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel_body">
+                        <form (ngSubmit)="doPublishStore()" name="publishConForm">
+                            <div class="form-group">
+                                <div class="radio-inline">
+                                    <label class="radio">
+                                        <input type="radio" name="publishType" [(ngModel)]="publishType" value="add">
+                                        {{l('append')}}
+                                        <span></span>
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="publishType" [(ngModel)]="publishType" value="update">
+                                        {{l('update')}}
+                                        <span></span>
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="publishType" [(ngModel)]="publishType" value="delete">
+                                        {{l('withdraw')}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex;">
+                                <div class="input-group" style="width:100%;">
+                                    <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                        class="form-control m-input" (keydown.enter)="filterTree($event)"
+                                        [placeholder]="l('SearchWithThreeDot')" type="text">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                            <i class="icon-sousuo-sousuo"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group beautyScroll" style="max-height:55vh;padding-left:20px;">
+                                <app-my-tree #myTree [config]="{'showId':true}" [(items)]="ouTree"></app-my-tree>
+                                <h3 *ngIf="!ouTree||ouTree.length==0">{{l('NoData')}}</h3>
+                            </div>
+                            <div class="form-group text-right">
+                                <button *ngIf="ouTree&&ouTree.length" type="submit"
+                                    class="btn btn-primary">{{l('Publish')}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <createOrEditStoreModal #createOrEditStoreModal [brandList]="brandList" (modalSave)="getStoreList()"
+            [buildingList]="buildingList"></createOrEditStoreModal>
+    </div>
+</div>
