@@ -153,6 +153,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'category',
                         loadChildren: () => import('./category/category.module').then(m => m.CategoryModule),
                     },
+                    {
+                        path: 'deployment',
+                        loadChildren: () => import('./deployment/deployment.module').then(m => m.DeploymentModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

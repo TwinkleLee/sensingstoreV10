@@ -1,0 +1,50 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <!-- <span>{{l("handle")}}{{l('messageRecord')}}</span> ：{{objItem?.customer}} -->
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l("DomainName")}}:{{objItem?.id +' | '+ objName}}</span>
+                        <span *ngIf="!objItem?.id">{{l("Create")}}{{l("DomainName")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("currentTenantsCount")}}</label>
+                            <input disabled class="form-control" type="text" name="currentTenantsCount" [(ngModel)]="objItem.currentTenantsCount">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("limitTenantsCount")}}</label>
+                            <input class="form-control" type="text" name="limitTenantsCount" [(ngModel)]="objItem.limitTenantsCount">
+                        </div>
+                        <div class="form-group col-6">
+                          <label>{{l("DomainName")}}</label>
+                          <input class="form-control" type="text" name="DomainName" [(ngModel)]="objItem.host">
+                        </div>
+
+                        <div class="form-group col-6">
+                          <label>{{l("supportEndTime")}}</label>
+                          <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false,"timePickerSeconds": false}'
+                            name="supportEndTime" needInitDate="true" [(startDate)]="objItem.supportEndTime" [(endDate)]="objItem.supportEndTime" [allowFutureDate]="false" needInitDate="true" [admitDelete]="true">
+                          </date-range-picker>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
