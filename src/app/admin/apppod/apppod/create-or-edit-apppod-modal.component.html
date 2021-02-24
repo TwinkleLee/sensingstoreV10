@@ -1,0 +1,77 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="metaType?.id">{{l("Edit")}}Apppod</span>
+                        <span *ngIf="!metaType.id">{{l("Create")}}Apppod</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body" [busyIf]="modalLoading">
+                    <tabset>
+                        <tab heading="{{l('AppPod')}}" class="tab">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("versionNumber")}} *({{l("SuchAs")}}:1.0.0.9)</label>
+                                        <input class="form-control" type="text" name="version" [(ngModel)]="metaType.version"
+                                            required pattern="\d+.\d+.\d+.\d+" *ngIf="operation=='add'">
+                                        <input class="form-control" type="text" name="version" [(ngModel)]="metaType.version"
+                                            required pattern="\d+.\d+.\d+.\d+" *ngIf="operation=='edit'" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("MD5")}}</label>
+                                        <input class="form-control" type="text" name="MD5" [(ngModel)]="metaType.md5">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="checkbox">
+                                            <input [(ngModel)]="metaType.isNeedRestart"
+                                                type="checkbox" name="restart"/>{{l("restartMachine")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>{{l('Download')}}{{l('address')}}</label>
+                                        <input class="form-control" type="text" name="downloadUrl" [(ngModel)]="metaType.downloadUrl">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label>{{l("Set")}}</label>
+                                    <textarea style="height:150px !important;" rows="3" class="form-control" name="appSetting"
+                                        [(ngModel)]="metaType.appSetting"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label>{{l("updateContent")}}</label>
+                                    <textarea style="height:100px !important;" rows="3" class="form-control" name="description"
+                                        [(ngModel)]="metaType.description"></textarea>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
