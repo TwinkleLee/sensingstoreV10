@@ -99,9 +99,9 @@ export class AppNavigationService {
 
             //Floor
             new AppMenuItem('Floor', 'Pages.Tenant.FloorGuide', 'icon-loufang', '', [], [
-                new AppMenuItem('Building', 'Pages.Tenant.FloorGuide', 'icon-shop', '/app/floor/building'),
-                new AppMenuItem('Floor', 'Pages.Tenant.FloorGuide', 'icon-louceng', '/app/floor/floor'),
-                new AppMenuItem('Room', 'Pages.Tenant.FloorGuide', 'icon-fangjianshu', '/app/floor/room'),
+                new AppMenuItem('Building', 'Pages.Tenant.FloorGuide', 'icon-shop', '/app/admin/floor/building'),
+                new AppMenuItem('Floor', 'Pages.Tenant.FloorGuide', 'icon-louceng', '/app/admin/floor/floor'),
+                new AppMenuItem('Room', 'Pages.Tenant.FloorGuide', 'icon-fangjianshu', '/app/admin/floor/room'),
             ]),
 
             // 品牌中心 

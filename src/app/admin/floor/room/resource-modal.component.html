@@ -1,0 +1,58 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ProductsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="operationType=='add'">{{l("CreateNewResource")}}</span>
+                        <span *ngIf="operationType=='edit'">{{l("EditResource")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l('Angle')}}</label>
+                                <input class="form-control" required name="angle" type="text"
+                                    [(ngModel)]="resource.angle" />
+                            </div>
+                            <div class="form-group">
+                                <label>{{l('pathLocationX')}}</label>
+                                <input class="form-control" required name="pathLocationX" type="text"
+                                    [(ngModel)]="resource.pathLocationX" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{l('pathLocationY')}}</label>
+                                <input class="form-control" required name="pathLocationY" type="text"
+                                    [(ngModel)]="resource.pathLocationY" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label>{{l('Resource')}}</label>
+                            <div class="form-group">
+                                <app-fileupload [fileUrl]="resource.logoUrl" (onUpLoadEvent)="onUpload($event)"
+                                    (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

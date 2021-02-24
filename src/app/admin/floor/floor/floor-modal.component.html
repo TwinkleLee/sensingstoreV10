@@ -1,0 +1,98 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l("Floor")}}:
+                            {{objItem?.name}}</span>
+                        <span *ngIf="!objItem?.id">{{l("Create")}}{{l("Floor")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('BaseMsg')}}">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("itemId")}}</label>
+                                    <input class="form-control" type="text" name="no" [(ngModel)]="objItem.no" maxlength="32">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("Name")}}</label>
+                                    <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required>
+                                </div>
+                                <div class="col-6">
+                                    <label>{{l("Building")}}</label>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.buildingId" name="buildingId"
+                                                required>
+                                                <option *ngFor="let building of buildingList" [value]="building.id">
+                                                    {{building.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group col-6">
+                                    <label>{{l("Name")}}</label>
+                                    <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("itemId")}}</label>
+                                    <input class="form-control" type="text" name="no" [(ngModel)]="objItem.no" maxlength="32">
+                                </div> -->
+                            </div>
+                        </tab>
+                        <tab *ngIf="operation=='edit'" heading="{{l('resouceList')}}"
+                            (selectTab)="getResByFloorId()">
+                            <div class="row align-items-center">
+                                <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                    <div class="m-form m-form--label-align-right">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="offset-4 col-8">
+                                                <div class="form-group">
+                                                    <div class="input-group" style="text-align:right;display: block;">
+                                                        <button type="button" (click)="createResource()" class="btn btn-primary icon-add">{{l('add')}}</button>
+                                                        <button type="button" (click)="deleteResources()" class="btn btn-primary icon-piliangcaozuo">{{l('deleteBatch')}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                               <div class="primeng-datatable-container" [busyIf]="resPrimeng.isLoading">
+                                    <app-image-grid id="gridShow" style="width: 100%;" gridOwner="resource" (onOperate)="onOperateResource($event)"
+                                        (onLazyLoad)="getResByFloorId($event)" [(selection)]="resourceSelection"
+                                        [imageList]="resPrimeng.records"></app-image-grid>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="resPrimeng.defaultRecordsCountPerPage" #paginatorRes
+                                            (onPageChange)="getResByFloorId($event)" [totalRecords]="resPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="resPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', resPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+                
+                <resourceModal #resourceModal (modalSave)="getResByFloorId()"></resourceModal>
+
+            </form>
+        </div>
+    </div>
+</div>

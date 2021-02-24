@@ -169,6 +169,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'entityStore',
                         loadChildren: () => import('./entitystore/entitystore.module').then(m => m.EntityStoreModule),
                     },
+                    {
+                        path: 'floor',
+                        loadChildren: () => import('./floor/floor.module').then(m => m.FloorModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

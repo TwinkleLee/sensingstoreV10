@@ -1,0 +1,211 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l("Room")}}:
+                            {{objItem?.name}}</span>
+                        <span *ngIf="!objItem?.id">{{l("Create")}}{{l("Room")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('BaseMsg')}}">
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("itemId")}}</label>
+                                    <input class="form-control" type="text" name="no" [(ngModel)]="objItem.no"
+                                        maxlength="32">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("Name")}}</label>
+                                    <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name"
+                                        required>
+                                </div>
+
+                                <div class="col-6">
+                                    <label>{{l("type")}}</label>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.roomType" name="roomType"
+                                                required>
+                                                <option *ngFor="let type of roomTypeList" [value]="type">
+                                                    {{type}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <label>{{l("Building")}}</label>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="buildingId" name="buildingId"
+                                                (ngModelChange)="getFloors()" required>
+                                                <option *ngFor="let building of buildingList" [value]="building.id">
+                                                    {{building.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label>{{l("Floor")}}</label>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.floorId" name="floorId"
+                                                [disabled]="!buildingId" required>
+                                                <option *ngFor="let floor of floorList" [value]="floor.id">
+                                                    {{floor.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("store")}}</label>
+                                    <input class="form-control" type="text" name="storeName"
+                                        [(ngModel)]="objItem.storeName" disabled>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("Brand")}}</label>
+                                    <input class="form-control" type="text" name="brandName"
+                                        [(ngModel)]="objItem.brandName" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-6">
+                                    <label>{{l("width")}}</label>
+                                    <input class="form-control" type="number" name="areaWidth"
+                                        [(ngModel)]="objItem.areaWidth">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("height")}}</label>
+                                    <input class="form-control" type="number" name="areaHeight"
+                                        [(ngModel)]="objItem.areaHeight">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label>{{l("description")}}</label>
+                                    <textarea rows="5" class="form-control" name="description"
+                                        [(ngModel)]="objItem.description"></textarea>
+                                </div>
+                            </div>
+                        </tab>
+
+                        <tab *ngIf="operation=='edit'" heading="{{l('resouceList')}}"
+                            customClass="m-tabs__item icon-ziyuan" (selectTab)="getResByRoomId()">
+                            <div class="row align-items-center">
+                                <div class="m-form m-form--label-align-right" style="width:100%;">
+                                    <div class="row align-items-center mb-4">
+                                        <div class="offset-4 col-8">
+                                            <div class="form-group">
+                                                <div class="input-group" style="text-align:right;display: block;">
+                                                    <button type="button" (click)="createAngle()"
+                                                        class="btn btn-primary icon-add">{{l('add')}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-Start>-->
+                                <div class="primeng-datatable-container">
+                                    <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                                    <p-table #dataTable [value]="angleList" [paginator]="false">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>
+                                                    {{l('angle')}}
+                                                </th>
+                                                <th>{{l('logo')}}</th>
+                                                <th>
+                                                    {{l('pathLocationX')}}
+                                                </th>
+                                                <th>{{l('pathLocationY')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record">
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button type="button"
+                                                            class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a (click)="editAngle(record)"
+                                                                    class="icon-bianji">{{l('Edit')}}</a>
+                                                            </li>
+                                                            <li>
+                                                                <a (click)="deleteAngle(record)"
+                                                                    class="icon-icon-test">{{l('Delete')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td style="width:5%">
+                                                    {{i+1}}
+                                                </td>
+                                                <td>
+                                                    {{record.angle}}
+                                                </td>
+                                                <td>
+                                                    <img [src]="fixFileUrl(record.logoUrl)" />
+                                                </td>
+                                                <td>
+                                                    {{record.pathLocationX}}
+                                                </td>
+                                                <td>
+                                                    {{record.pathLocationY}}
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="!angleList.length">
+                                                <td colspan="6">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+
+                            </div>
+                        </tab>
+
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+
+                <roomResourceModal #roomResourceModal (modalSave)="getResByRoomId()"></roomResourceModal>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>

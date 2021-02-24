@@ -10,6 +10,7 @@ import { TabsModule } from '@node_modules/ngx-bootstrap/tabs';
 import { TooltipModule } from '@node_modules/ngx-bootstrap/tooltip';
 import { BsDropdownModule } from '@node_modules/ngx-bootstrap/dropdown';
 import { PopoverModule } from '@node_modules/ngx-bootstrap/popover';
+
 import { AdvertisementRoutingModule } from './advertisement-routing.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 

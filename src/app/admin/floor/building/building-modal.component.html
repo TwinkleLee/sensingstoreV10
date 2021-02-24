@@ -1,0 +1,68 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l("Building")}}:
+                            {{objItem?.name}}</span>
+                        <span *ngIf="!objItem?.id">{{l("Create")}}{{l("Building")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("itemId")}}</label>
+                            <input class="form-control" type="text" name="no" [(ngModel)]="objItem.no" maxlength="32">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("Name")}}</label>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("country")}}</label>
+                            <input class="form-control" type="text" name="company" [(ngModel)]="objItem.country">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("province")}}</label>
+                            <input class="form-control" type="text" name="stateOrProvince" [(ngModel)]="objItem.stateOrProvince">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("city")}}</label>
+                            <input class="form-control" type="text" name="cityOrTown" [(ngModel)]="objItem.cityOrTown">
+                        </div>
+                        <div class="form-group col-3">
+                            <label>{{l("longitude")}}</label>
+                            <input class="form-control" type="text" name="longitude" [(ngModel)]="objItem.longitude">
+                        </div>
+                        <div class="form-group col-3">
+                            <label>{{l("latitude")}}</label>
+                            <input class="form-control" type="text" name="latitude" [(ngModel)]="objItem.latitude">
+                        </div>
+                        
+                        <div class="form-group col-12">
+                            <label>{{l("description")}}</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="objItem.description"
+                                style="height:100px !important;"></textarea>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
