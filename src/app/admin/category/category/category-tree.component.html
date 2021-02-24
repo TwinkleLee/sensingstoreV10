@@ -1,0 +1,22 @@
+<div class="checkbox-list" #list>
+    <div class="btn btn-primary beautyDiv" style="width:100%;height:38px;visibility:hidden;opacity:0.55;" *ngIf="isRoot"
+        (drop)="drop($event, items)" ondragover="return false">
+        <i class="fa"></i> {{l("Root")}}
+    </div>
+    <label class="checkbox01" [attr.for]="item.id" *ngFor="let item of items" [draggable]="config.draggable" style="margin-bottom:0;padding-bottom:5px;"
+        (dragstart)="dragStart($event,item)" (drop)="drop($event,item)" (drag)="drag($event)" (dragend)="dragEnd($event)">
+        <i *ngIf="item[config.children]&&item[config.children].length>0" (click)="toggleChildren(item)" [ngClass]="{'close':!item.showChildren,'open':item.showChildren,'treeToggle':true}"
+            [ngStyle]="{'left':config.selectable?(config.showIcon?'-50px':'-22px'):(config.showIcon?'-22px':'0px')}"
+            role="presentation"></i>
+        <input type="checkbox" [id]="item.id" *ngIf="config.selectable" [(ngModel)]="item.isSelected" (change)="chose(item)">
+        <!-- <img *ngIf="config.showIcon" [src]="transIconUrl(item[config.icon])" (error)="showEmpty($event)" (contextmenu)="showMenu($event,item)" /> -->
+        <img *ngIf="config.showIcon" [src]="transIconUrl(item[config.icon])" (error)="showEmpty($event)" (contextmenu)="nothing($event)" />
+        <a ondragover="return false" (contextmenu)="showMenu($event,item)" (click)="click($event,item)">{{item[config.name]}}
+            {{item.productCount?'('+item.productCount+')':''}}</a>
+        <span *ngIf="config.selectable" [ngStyle]="{'left':config.showIcon?'-22px':'0px'}"></span>
+        <!-- &&item.showChildren -->
+        <app-new-tree *ngIf="item[config.children]&&item[config.children].length>0&&!item.showChildren" (onMenu)="childMenuEvent($event)"
+            (emitDrag)="childDropEvent($event)" [(items)]="item[config.children]" [(root)]="root" [isRoot]="false"
+            [(config)]="config"></app-new-tree>
+    </label>
+</div>

@@ -1,0 +1,82 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #categoryForm="ngForm" name="ProductCategoryForm" novalidate (ngSubmit)="save()"
+                autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="operation=='edit'">{{l("EditNewCate")}}: {{category?.id}}</span>
+                        <span *ngIf="operation=='add'">{{l("CreateNewCate")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("CateName")}} *</label>
+                                <input #nameInput="ngModel" class="form-control" type="text" name="Name" [(ngModel)]="category.name"
+                                    required maxlength="32">
+                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                            </div>
+                        </div>
+                      
+
+                        <div class="col-6" *ngIf="type=='questionType'">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l('TenantSelection')}}</label>
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="category.tenantId" name="tenantId">
+                                        <option value="">{{l("HOST")}}</option>
+                                        <option *ngFor="let tenant of tenantList" [value]="tenant.id">{{tenant.name+'('+tenant.tenancyName+')'}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("parentCategory")}}</label>
+                                <input [(ngModel)]="category.parentCategoryName" type="text" class="form-control" name="parentCategoryName"
+                                    readonly />
+                            </div>
+                        </div>
+                        <div class="col-6" *ngIf="type=='category' || type=='brandCate'">
+                            <div class="form-group kt-form__group">
+                                <label class="control-label">{{l("Picture")}}</label>
+                                <app-fileupload [fileUrl]="category.imageUrl" (onUpLoadEvent)="PictureOnUpload($event)"></app-fileupload>
+                            </div>
+                        </div>
+                        <div class="col-6" *ngIf="type=='category' || type=='brandCate'">
+                            <div class="form-group kt-form__group">
+                                <label class="control-label">{{l("Icon")}} </label>
+                                <app-fileupload [fileUrl]="category.iconUrl" (onUpLoadEvent)="IconOnUpload($event)"></app-fileupload>
+                            </div>
+                        </div>
+                        <div class="col-12" *ngIf="type=='category' || type=='brandCate'">
+                            <div class="form-group kt-checkbox-list">
+                                <label class="kt-checkbox">
+                                    <input name="isSpecial" type="checkbox" [(ngModel)]="category.isSpecial">
+                                    {{l("isSpecial")}}
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="button" class="btn btn-primary blue" [disabled]="!categoryForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" (click)="save()">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

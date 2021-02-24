@@ -1,0 +1,240 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header *ngIf="type=='category'" [title]="'ProductCategory' | localize"
+            [description]="'ProductCategory' | localize">
+            <div role="actions"></div>
+        </sub-header>
+        <sub-header *ngIf="type=='questionType'" [title]="'QuestionType' | localize"
+            [description]="'QuestionType' | localize">
+            <div role="actions"></div>
+        </sub-header>
+        <sub-header *ngIf="type=='brandCate'" [title]="'BrandCategory' | localize"
+            [description]="'BrandCategory' | localize">
+            <div role="actions"></div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="row">
+                <div class="col-6" style="position:relative;">
+                    <div class="freeze-ui" style="position:absolute;" *ngIf="treeBusy"></div>
+                    <div class="card card-custom gutter-b">
+                        <div class="card-body" style="padding-top: 1rem;">
+                            <div style="width:100%;">
+                                <button (click)="addRootCate()" class="btn btn-primary" style="float:right;">
+                                    <i class="fa fa-plus"></i> {{l("AddRootCategory")}}
+                                </button>
+                                <div *ngIf="type=='questionType'" style="margin:0 1rem;float:right;">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="tenantId" name="tenantId"
+                                                (change)="changeTenant()">
+                                                <option value="">{{l("HOST")}}</option>
+                                                <option *ngFor="let tenant of tenants" [value]="tenant.id">
+                                                    {{tenant.name+'('+tenant.tenancyName+')'}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                style="max-height: 700px;position:relative;padding-top:0 !important;">
+                                <app-new-tree #tree [(items)]="categoryList" (onMenu)="onMenu($event)"
+                                    (emitDrag)="emitDrag($event)" [(config)]="treeConfig"></app-new-tree>
+                                <div *ngIf="!haveCategory" class="text-muted">
+                                    <img src="assets/common/images/placeholder/productcateHolder.png" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <createOrEditCateModal #createOrEditCateModal (modalSave)="getCateTree()"></createOrEditCateModal>
+                </div>
+
+
+
+                <div class="col-6" *ngIf="type=='questionType'">
+                    <div class="kt-portlet kt-portlet--mobile" style="margin-bottom:0;">
+                        <div class="kt-portlet__head" style="position:relative;top:1rem;">
+                            <div class="kt-portlet__head-caption">
+                                <div class="kt-portlet__head-title">
+                                    <h3 class="kt-portlet__head-text">
+                                        <span>{{l("SolutionType")}}</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="kt-portlet__head-tools">
+                                <button (click)="deleteBatch()" class="btn btn-primary blue">
+                                    <i class="icon-piliangcaozuo"></i> {{l("deleteBatch")}}</button>
+                                <button (click)="addSolutionType()" class="btn btn-primary">
+                                    <i class="fa fa-plus"></i> {{l("CreateNewCate")}}
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="kt-portlet kt-portlet--mobile">
+                            <div class="kt-portlet__body">
+                                <div class="row">
+                                    <form class="horizontal-form" autocomplete="off">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center kt--margin-bottom-10">
+                                                <div class="col-3">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <label>{{l('name')}}</label>
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                                class="form-control kt-input" type="text"
+                                                                (keyup.enter)="getKnowledgeCategories()"
+                                                                [placeholder]="l('search')">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3" *ngIf="!appSession.tenant">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <label>{{l('TenantSelection')}}</label>
+                                                        <div class="input-group">
+
+                                                            <select class="form-control" [(ngModel)]="tenantId"
+                                                                name="tenantId" (change)="changeTenant()">
+                                                                <option value="">{{l("HOST")}}</option>
+                                                                <option *ngFor="let tenant of tenants"
+                                                                    [value]="tenant.id">
+                                                                    {{tenant.name+'('+tenant.tenancyName+')'}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <label>{{l('QuestionType')}}</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="questionTypeId"
+                                                                name="QuestionType">
+                                                                <option value="">{{l("AllTypes")}}</option>
+                                                                <option *ngFor="let questionType of questionTypeList"
+                                                                    [value]="questionType.id">{{questionType.name}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-3 text-right">
+                                                    <label style="display:block;">&nbsp;</label>
+                                                    <div class="form-group align-items-center">
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary"
+                                                                [buttonBusy]="primengTableHelper.isLoading"
+                                                                (click)="getKnowledgeCategories()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row align-items-center">
+                                    <!--<Primeng-Datatable-Start>-->
+                                    <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                        <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                                        <p-table #dataTable (onLazyLoad)="getKnowledgeCategories($event)"
+                                            [value]="primengTableHelper.records"
+                                            [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
+                                            [lazy]="true" [(selection)]="selectedList"
+                                            [resizableColumns]="primengTableHelper.resizableColumns"
+                                            [responsive]="primengTableHelper.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width: 20%">{{l('Actions')}}</th>
+                                                    <th style="width: 5.0em">
+                                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                    </th>
+                                                    <th style="width:10%">{{l('RecordId')}}</th>
+                                                    <th>{{l('QuestionType')}}</th>
+                                                    <th>{{l('name')}}</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td>
+                                                        <div class="btn-group dropdown" dropdown normalizePosition>
+                                                            <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                                dropdownToggle data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-cog"></i>
+                                                                <span class="caret"></span> {{l("Actions")}}
+                                                            </button>
+                                                            <ul class="dropdown-menu" *dropdownMenu>
+                                                                <li>
+                                                                    <a class="icon-bianji"
+                                                                        (click)="editSolutionType(record)">{{l('Edit')}}</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="icon-icon-test"
+                                                                        (click)="deleteSolutionType(record)">{{l('Delete')}}</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+
+                                                    </td>
+                                                    <td style="width: 5.0em">
+                                                        <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                                    </td>
+                                                    <td> {{transIndex(i,paginator)}}</td>
+
+                                                    <td>
+                                                        <span>{{record.categoryName}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.name}}</span>
+                                                    </td>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="primengTableHelper.records">
+                                                    <td colspan="5">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                                #paginator (onPageChange)="getKnowledgeCategories($event)"
+                                                [totalRecords]="primengTableHelper.totalRecordsCount"
+                                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!--<Primeng-Datatable-End>-->
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <createOrEditSolCatModal #createOrEditSolCatModal (modalSave)="getKnowledgeCategories()">
+                    </createOrEditSolCatModal>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

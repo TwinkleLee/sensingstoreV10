@@ -1,0 +1,9 @@
+ul li {
+  list-style-type: none
+}
+
+.checkbox01 {
+  display: block !important;
+  padding-left: 22px;
+  text-align: left;
+}

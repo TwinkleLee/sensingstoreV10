@@ -107,14 +107,14 @@ export class AppNavigationService {
             // 品牌中心 
             new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '', [], [
                 new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/brandcenter'),
-                new AppMenuItem('BrandCategory', 'Pages.Tenant.Products', 'icon-brand', '/app/category/brandCate'),
+                new AppMenuItem('BrandCategory', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/category/brandCate'),
             ]),
 
             //商品管理
             new AppMenuItem('Product', 'Pages.Tenant.Products', 'icon-product', '', [], [
                 new AppMenuItem('ProductList', 'Pages.Tenant.Products', 'icon-product', '/app/product/product'),
                 new AppMenuItem('ProductInfo', 'Pages.Tenant.Products', 'icon-1311shangpinfenleipicishuxing', '/app/product/prodInfo'),
-                new AppMenuItem('ProductCategory', 'Pages.Tenant.Products', 'icon-shangpinguanli', '/app/category/category'),
+                new AppMenuItem('ProductCategory', 'Pages.Tenant.Products', 'icon-shangpinguanli', '/app/admin/category/category'),
                 new AppMenuItem('ProductReview', 'Pages.Tenant.Products.Audit', 'icon-shenhe1', '/app/product/reviewProduct'),
                 new AppMenuItem('Likes', 'Pages.Tenant.Products.Like', 'icon-xin', '/app/product/like'),
                 new AppMenuItem('Match', 'Pages.Tenant.Products.Match', 'icon-dapei', '/app/product/match'),
@@ -176,7 +176,7 @@ export class AppNavigationService {
             //维护信息
             new AppMenuItem('MaintainRecord', 'Pages.Administration.Host.MaintainRecord', 'icon-houtaiweihu', '', [], [
                 new AppMenuItem('MaintainRecord', 'Pages.Administration.Host.MaintainRecord', 'icon-houtaiweihu', '/app/maintainInfo/maintainInfo'),
-                new AppMenuItem('manageCate', 'Pages.Administration.Host.MaintainRecord', 'icon-fenlei1', '/app/category/maintain/questionType'),
+                new AppMenuItem('manageCate', 'Pages.Administration.Host.MaintainRecord', 'icon-fenlei1', '/app/admin/category/maintain/questionType'),
             ]),
 
             //PageStatistics
