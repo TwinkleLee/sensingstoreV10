@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AdServiceProxy, AdDto, CreateAdInput, UpdateAdInput, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';

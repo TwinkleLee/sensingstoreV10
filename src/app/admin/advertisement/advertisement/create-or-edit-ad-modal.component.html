@@ -1,5 +1,5 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
-    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static', keyboard: !saving}">
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #AdsForm="ngForm" novalidate name="AdsForm" (ngSubmit)="save()" autocomplete="off">
@@ -8,8 +8,8 @@
                         <span *ngIf="Ad?.id">{{l("EditNewAd")}}: {{Ad?.id +' | '+Ad?.name}}</span>
                         <span *ngIf="!Ad?.id">{{l("CreateNewAd")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -134,7 +134,7 @@
 
                                         <div class="col m--align-left">
                                             <label class="kt-checkbox kt-checkbox--primary">
-                                                <input class="form-control" [(ngModel)]="Ad.isCustom" type="checkbox"
+                                                <input style="margin-right: 1vw;" [(ngModel)]="Ad.isCustom" type="checkbox"
                                                     name="isCustom" />{{l("customContent")}}
                                                 <span></span>
                                             </label>

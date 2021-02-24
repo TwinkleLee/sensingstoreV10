@@ -149,8 +149,8 @@ export class AppNavigationService {
             //活动管理
             new AppMenuItem('Activities', 'Pages.Tenant.Activities', 'icon-huodong', '', [], [
                 new AppMenuItem('ActivityList', 'Pages.Tenant.Activities', 'icon-huodongliebiao', '/app/admin/activity/activity'),
-                new AppMenuItem('ActivityData', 'Pages.Tenant.Activities', 'icon-huodongshuju1', '/app/activity/activities/playerdata'),
-                new AppMenuItem('PageTemplate', 'Pages.Tenant.Activities', 'icon-moban', '/app/activity/activities/pagetemplate')
+                new AppMenuItem('ActivityData', 'Pages.Tenant.Activities', 'icon-huodongshuju1', '/app/admin/activity/activities/playerdata'),
+                new AppMenuItem('PageTemplate', 'Pages.Tenant.Activities', 'icon-moban', '/app/admin/activity/activities/pagetemplate')
             ]),
 
             //Traning

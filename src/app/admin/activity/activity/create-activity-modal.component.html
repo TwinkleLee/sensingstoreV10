@@ -1,5 +1,5 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
-  role="dialog" aria-hidden="true">
+  role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <form *ngIf="active" #CreateActivityForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
@@ -8,7 +8,7 @@
             <span>{{l("CreateNewActivity")}}</span>
           </h4>
           <button type="button" class="close" (click)="close()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <i aria-hidden="true" class="ki ki-close"></i>
           </button>
         </div>
         <div class="modal-body">
@@ -25,7 +25,7 @@
                     <option [value]="ou.value" *ngFor="let ou of appSession.ouList">{{ou.name}}</option>
                   </select>
                 </div>
-              <div class="form-group kt-form__group align-items-center">
+              <div class="form-group m-form__group align-items-center">
                 <label>{{l('activityTemplate')}}</label>
                 <div class="input-group">
                   <select class="form-control" [(ngModel)]="activityTemplate" name="activityTemplate">
@@ -35,8 +35,8 @@
                 </div>
               </div>
               <div class="col m--align-left">
-                <label class="kt-checkbox kt-checkbox--primary">
-                  <input class="form-control" [(ngModel)]="ifFormalUse" type="checkbox" name="ifFormalUse"/>{{l("ifFormalUse")}}
+                <label class="checkbox checkbox-primary">
+                  <input style="margin-left: 1vw;" [(ngModel)]="ifFormalUse" type="checkbox" name="ifFormalUse"/>{{l("ifFormalUse")}}
                   <span></span>
                 </label>
               </div>

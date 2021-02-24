@@ -1,84 +1,69 @@
 <div [@routerTransition]>
-  <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-    <div class="kt-subheader kt-grid__item">
-      <div [class]="containerClass">
-        <div class="kt-subheader__main">
-          <a id="aaa" href=""> </a>
-          <h3 class="kt-subheader__title">
-            <span>{{"ActivityData" | localize}}</span>
-          </h3>
-          <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-          <span class="kt-subheader__desc">
-            {{"PlayerDataManage" | localize}}
-          </span>
-        </div>
-        <div class="kt-subheader__toolbar">
-          <div class="kt-subheader__wrapper">
-            <button type="button" class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
-              <i class="icon-excel"></i>
-              {{l('export')}}</button>
-          </div>
-        </div>
+  <div class="content d-flex flex-column flex-column-fluid">
+    <sub-header [title]="'ActivityData' | localize" [description]="'PlayerDataManage' | localize">
+      <div role="actions">
+        <button type="button" class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
+          <i class="icon-excel"></i>
+          {{l('export')}}</button>
       </div>
-    </div>
+    </sub-header>
 
-    <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-      <div class="kt-portlet kt-portlet--mobile">
-        <div class="kt-portlet__body">
-          <div class="row">
-            <form class="horizontal-form" autocomplete="off">
-              <div class="kt-form kt-form--label-align-right">
-                <div class="row align-items-center m--margin-bottom-10">
-                  <div class="col-xl-3">
-                    <div class="form-group kt-form__group align-items-center">
-                      <label>{{l('userNickName')}}</label>
-                      <div class="input-group">
-                        <input (keyup.enter)="getPlayerDataList()" [(ngModel)]="filterText" name="filterText" autoFocus class="form-control kt-input"
-                          type="text">
-                        <!-- <span class="input-group-btn">
-                        <button (click)="getPlayerDataList()" class="btn btn-primary" type="submit">
-                          <i class="icon-sousuo-sousuo"></i>
-                        </button>
-                      </span> -->
-                      </div>
+    <div [class]="containerClass">
+      <div class="card card-custom gutter-b">
+        <div class="card-body">
+          <form class="horizontal-form" autocomplete="off">
+            <div>
+              <div class="row align-items-center mb-4">
+                <div class="col-xl-3">
+                  <div class="form-group m-form__group align-items-center">
+                    <label>{{l('userNickName')}}</label>
+                    <div class="input-group">
+                      <input (keyup.enter)="getPlayerDataList()" [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input"
+                        type="text">
+                      <!-- <span class="input-group-btn">
+                      <button (click)="getPlayerDataList()" class="btn btn-primary" type="submit">
+                        <i class="icon-sousuo-sousuo"></i>
+                      </button>
+                    </span> -->
                     </div>
                   </div>
-                  <div class="col-3" style="position:relative;">
-                    <div class="form-group kt-form__group align-items-center">
-                      <label>{{l('gameTime')}}</label>
-                      <date-range-picker name="SampleDateRangePicker" [showButton]="false" [needInitDate]="true"
-                        rangeMode="history" (buttonEmit)="getPlayerDataList()" [(startDate)]="StartTime"
-                        [(endDate)]="EndTime">
-                      </date-range-picker>
+                </div>
+                <div class="col-3" style="position:relative;">
+                  <div class="form-group m-form__group align-items-center">
+                    <label>{{l('gameTime')}}</label>
+                    <date-range-picker name="SampleDateRangePicker" [showButton]="false" [needInitDate]="true"
+                      rangeMode="history" (buttonEmit)="getPlayerDataList()" [(startDate)]="StartTime"
+                      [(endDate)]="EndTime">
+                    </date-range-picker>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="form-group m-form__group align-items-center">
+                    <label>{{l('activityName')}}</label>
+                    <div class="input-group">
+                      <select class="form-control" [(ngModel)]="ActivityId" name="metaTypeSelect2">
+                        <option value="">{{l('AllTypes')}}</option>
+                        <option [value]="item.id" *ngFor="let item of ActivityList">{{item.name}}</option>
+                      </select>
                     </div>
                   </div>
-                  <div class="col-2">
-                    <div class="form-group kt-form__group align-items-center">
-                      <label>{{l('activityName')}}</label>
-                      <div class="input-group">
-                        <select class="form-control" [(ngModel)]="ActivityId" name="metaTypeSelect2">
-                          <option value="">{{l('AllTypes')}}</option>
-                          <option [value]="item.id" *ngFor="let item of ActivityList">{{item.name}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-2">
-                    <div class="form-group kt-form__group align-items-center">
-                      <label>&nbsp;</label>
-                      <div class="input-group">
-                        <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
-                          (click)="getPlayerDataList()">
-                          <i class="la la-refresh"></i>
-                          {{l("search")}}
-                        </button>
-                      </div>
+                </div>
+                <div class="col-2">
+                  <div class="form-group m-form__group align-items-center">
+                    <label>&nbsp;</label>
+                    <div class="input-group">
+                      <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                        (click)="getPlayerDataList()">
+                        <i class="la la-refresh"></i>
+                        {{l("search")}}
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
+
           <div class="row align-items-center">
             <!--<Primeng-Datatable-Start>-->
             <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
@@ -145,7 +130,7 @@
                 </ng-template>
                 <ng-template pTemplate="emptymessage" let-records>
                   <tr *ngIf="primengTableHelper.records">
-                    <td colspan="11">
+                    <td colspan="11" class="text-center">
                       <img class="emptymessage" src="/assets/common/images/placeholder/deviceHolder.png" />
                     </td>
                   </tr>

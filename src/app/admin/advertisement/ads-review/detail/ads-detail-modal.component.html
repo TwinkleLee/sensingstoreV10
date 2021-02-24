@@ -1,5 +1,5 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
-    role="dialog" aria-hidden="true">
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form  #DevicesForm="ngForm" novalidate autocomplete="off">
@@ -7,8 +7,8 @@
                     <h4 class="modal-title">
                         <span>{{l("detail")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">

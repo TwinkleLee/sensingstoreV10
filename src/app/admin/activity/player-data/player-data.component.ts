@@ -1,10 +1,10 @@
 import { Component, Injector, ViewChild, ElementRef } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { Table } from 'primeng/components/table/table';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
-import { PlayerDataDetailComponent } from '@app/activity/player-data/detail/player-data-detail.component';
+import { Table } from 'primeng/table';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { PlayerDataDetailComponent } from '@app/admin/activity/player-data/detail/player-data-detail.component';
 import { UserActionServiceProxy, ActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
 import * as moment from 'moment';
 

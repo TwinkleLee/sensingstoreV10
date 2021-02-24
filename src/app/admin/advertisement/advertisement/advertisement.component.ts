@@ -4,7 +4,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, DeviceServiceProxy, IdNameDto, IdTypeDto, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
-// import { CreateOrEditAdModalComponent } from './create-or-edit-ad-modal.component'
+import { CreateOrEditAdModalComponent } from './create-or-edit-ad-modal.component'
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { Table, TableCheckbox } from 'primeng/table';
@@ -23,7 +23,7 @@ export class AdvertisementComponent extends AppComponentBase {
   @ViewChild('dataTable' ,{static:true}) dataTable: Table;
   @ViewChild('paginator' ,{static:true}) paginator: Paginator;
   @ViewChild('myTree' ,{static:false}) myTree: MyTreeComponent;
-  // @ViewChild('createOrEditAdModal' ,{static:true}) createOrEditAdModal: CreateOrEditAdModalComponent;
+  @ViewChild('createOrEditAdModal' ,{static:true}) createOrEditAdModal: CreateOrEditAdModalComponent;
   @ViewChild('TableCheckbox' ,{static:true}) TableCheckbox: TableCheckbox;
 
   imgView: number = 0;
@@ -184,11 +184,11 @@ export class AdvertisementComponent extends AppComponentBase {
 
   //新增广告
   createAds() {
-    // this.createOrEditAdModal.show();
+    this.createOrEditAdModal.show();
   }
   //编辑广告
   editAds(record) {
-    // this.createOrEditAdModal.show(Object.assign({}, record));
+    this.createOrEditAdModal.show(Object.assign({}, record));
   }
   //图片操作
   onOperate(event) {

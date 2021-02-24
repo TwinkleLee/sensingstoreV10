@@ -1,13 +1,13 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ApplyServiceProxy, AuditApplyFormInput, ApplyStatus as AuditApplyFormInputApplyStatus } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
-import { AdsDetailModalComponent } from '@app/advertisement/ads-review/detail/ads-detail-modal.component';
+import { AdsDetailModalComponent } from '@app/admin/advertisement/ads-review/detail/ads-detail-modal.component';
 
 @Component({
   selector: 'app-ads-review',

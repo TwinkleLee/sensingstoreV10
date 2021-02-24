@@ -29,17 +29,17 @@ import { ActivityComponent } from '@app/admin/activity/activity/activity.compone
 // import { ActivityBasicComponent } from '@app/activity/activity/basic/activity-basic.component'
 // import { ActivityAdvancedComponent } from '@app/activity/activity/advanced/activity-advanced.component'
 // import { ActivityPrizeComponent } from '@app/activity/activity/prize/activity-prize.component'
-// import { PageTemplateComponent } from '@app/activity/activity-template/page-template.component'
+import { PageTemplateComponent } from '@app/admin/activity/activity-template/page-template.component'
 // import { GameComponent } from '@app/activity/activity/game/game.component'
-// import { CreateActivityModalComponent } from '@app/activity/activity/create-activity-modal.component';
+import { CreateActivityModalComponent } from '@app/admin/activity/activity/create-activity-modal.component';
 // import { ChangeWhiteListModalComponent } from '@app/activity/activity/data/operation/change-white-list.component';
 // import { ExpressDetailModalComponent } from '@app/activity/activity/data/operation/express-detail.component';
 // import { CreateOrEditPrizeModalComponent } from '@app/activity/activity/prize/operation/create-or-edit-prize.component';
 // import { CreateOrEditWhiteListModalComponent } from '@app/activity/activity/prize/operation/create-or-edit-white-list.component';
-// import { PageTemplateModalComponent } from '@app/activity/activity-template/operation/create-or-edit-pageTemplate.component';
+import { PageTemplateModalComponent } from '@app/admin/activity/activity-template/operation/create-or-edit-pageTemplate.component';
 // //活动
-// import { PlayerDataComponent } from '@app/activity/player-data/player-data.component'
-// import { PlayerDataDetailComponent } from '@app/activity/player-data/detail/player-data-detail.component'
+import { PlayerDataComponent } from '@app/admin/activity/player-data/player-data.component'
+import { PlayerDataDetailComponent } from '@app/admin/activity/player-data/detail/player-data-detail.component'
 
 // import { CreateOrEditGameModalComponent } from '@app/activity/activity/game/operation/create-or-edit-game.component';
 
@@ -77,18 +77,18 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         // ActivityBasicComponent,
         // ActivityAdvancedComponent,
         // ActivityPrizeComponent,
-        // PageTemplateComponent,
+        PageTemplateComponent,
         // GameComponent,
-        // CreateActivityModalComponent,
+        CreateActivityModalComponent,
         // ChangeWhiteListModalComponent,
         // ExpressDetailModalComponent,
         // CreateOrEditPrizeModalComponent,
         // CreateOrEditWhiteListModalComponent,
-        // PageTemplateModalComponent,
-        // PlayerDataComponent,
+        PageTemplateModalComponent,
+        PlayerDataComponent,
         // //活动
         // CreateOrEditGameModalComponent,
-        // PlayerDataDetailComponent
+        PlayerDataDetailComponent
     ],
     exports:[
         // CreateOrEditGameModalComponent

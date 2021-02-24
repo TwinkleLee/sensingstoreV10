@@ -1,11 +1,11 @@
 import { Component, Injector, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { Table } from 'primeng/components/table/table';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { Table } from 'primeng/table';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
 import { AppConsts } from '@shared/AppConsts';
-import { PageTemplateModalComponent } from '@app/activity/activity-template/operation/create-or-edit-pageTemplate.component';
+import { PageTemplateModalComponent } from '@app/admin/activity/activity-template/operation/create-or-edit-pageTemplate.component';
 import { HtmlTemplateServiceProxy } from '@shared/service-proxies/service-proxies5';
 
 

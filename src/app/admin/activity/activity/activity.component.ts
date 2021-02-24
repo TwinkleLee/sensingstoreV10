@@ -8,7 +8,7 @@ import { CouponDto, CouponServiceProxy, OrganizationUnitServiceProxy, AuditStatu
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
-// import { CreateActivityModalComponent } from '@app/activity/activity/create-activity-modal.component';
+import { CreateActivityModalComponent } from '@app/admin/activity/activity/create-activity-modal.component';
 import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, ActivityAuditInputCurrentAuditStatus, ActivityAuditInputTargetAuditStatus } from '@shared/service-proxies/service-proxies5';
 
 
@@ -21,7 +21,7 @@ import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, Activit
 })
 export class ActivityComponent extends AppComponentBase {
 
-  // @ViewChild('createActivityModal',{static:true}) CreateActivityModalComponent: CreateActivityModalComponent;
+  @ViewChild('createActivityModal',{static:true}) CreateActivityModalComponent: CreateActivityModalComponent;
   @ViewChild('dataTable',{static:true}) dataTable: Table;
   @ViewChild('paginator',{static:true}) paginator: Paginator;
   @ViewChild('myTree',{static:false}) myTree: MyTreeComponent;
@@ -91,7 +91,7 @@ export class ActivityComponent extends AppComponentBase {
   }
   //新增红包
   createActivity() {
-    // this.CreateActivityModalComponent.show();
+    this.CreateActivityModalComponent.show();
   }
   editActivity(record) {
     this.router.navigate(['app', 'activity', 'activity', 'basic'], { queryParams: { id: record.id, name: record.name } });

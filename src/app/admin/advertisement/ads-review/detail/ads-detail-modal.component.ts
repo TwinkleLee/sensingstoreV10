@@ -1,10 +1,10 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { ApplyServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
 import { finalize } from 'rxjs/operators';
 
 

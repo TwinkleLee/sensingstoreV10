@@ -26,13 +26,13 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 // 广告
 import { AdvertisementComponent } from '@app/admin/advertisement/advertisement/advertisement.component';
-// import { CreateOrEditAdModalComponent } from '@app/advertisement/advertisement/create-or-edit-ad-modal.component'
+import { CreateOrEditAdModalComponent } from '@app/admin/advertisement/advertisement/create-or-edit-ad-modal.component'
 // //ads-package
-// import { AdsPackageComponent } from '@app/advertisement/ads-package/ads-package.component';
-// import { CreateOrEditAdsPackageModalComponent } from '@app/advertisement/ads-package/create-or-edit-ads-package-modal.component'
-// import { AdsReviewComponent } from '@app/advertisement/ads-review/ads-review.component';
-// import { AdsDetailModalComponent } from '@app/advertisement/ads-review/detail/ads-detail-modal.component';
-// import { CreateOrEditAdResourceModalComponent } from '@app/advertisement/advertisement/create-or-edit-ad-resource-modal.component';
+import { AdsPackageComponent } from '@app/admin/advertisement/ads-package/ads-package.component';
+import { CreateOrEditAdsPackageModalComponent } from '@app/admin/advertisement/ads-package/create-or-edit-ads-package-modal.component'
+import { AdsReviewComponent } from '@app/admin/advertisement/ads-review/ads-review.component';
+import { AdsDetailModalComponent } from '@app/admin/advertisement/ads-review/detail/ads-detail-modal.component';
+import { CreateOrEditAdResourceModalComponent } from '@app/admin/advertisement/advertisement/create-or-edit-ad-resource-modal.component';
 // import { Schedule } from '@app/advertisement/schedule/schedule.component';
 // import { ScheduleModalComponent } from '@app/advertisement/schedule/operation/create-or-edit-schedule-modal.component';
 // import { ScheduleProgram } from '@app/advertisement/schedule/schedule-program.component';
@@ -71,12 +71,12 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
     ],
     declarations: [
         AdvertisementComponent,
-        // CreateOrEditAdModalComponent,
-        // AdsPackageComponent,
-        // CreateOrEditAdsPackageModalComponent,
-        // AdsReviewComponent,
-        // AdsDetailModalComponent,
-        // CreateOrEditAdResourceModalComponent,
+        CreateOrEditAdModalComponent,
+        AdsPackageComponent,
+        CreateOrEditAdsPackageModalComponent,
+        AdsReviewComponent,
+        AdsDetailModalComponent,
+        CreateOrEditAdResourceModalComponent,
         // Schedule,
         // ScheduleModalComponent,
         // ScheduleProgram,
