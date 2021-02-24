@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild, ViewEncapsulation,ElementRef } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -22,6 +22,9 @@ export class DeviceReviewComponent extends AppComponentBase {
   @ViewChild('dataTable2',{static:true}) dataTable2: Table;
   @ViewChild('paginator2',{static:true}) paginator2: Paginator;
   @ViewChild('deviceDetailModal',{static:true}) deviceDetailModal: DeviceDetailModalComponent;
+
+  // @ViewChild('SampleDateTimePicker', {static: true}) sampleDateTimePicker: ElementRef;
+
 
   primengTableHelper2=new PrimengTableHelper();
   
