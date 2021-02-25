@@ -1,0 +1,72 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('payWay')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('payWay')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label>{{l("Name")}} *</label>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required
+                                maxlength="32">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("appID")}} *</label>
+                            <input class="form-control" type="text" name="appID" [(ngModel)]="objItem.appID" required
+                                maxlength="32">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("from")}} *</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="objItem.from" name="from" required>
+                                        <option value=""></option>
+                                        <option value="weixin">{{l('wxPay')}}</option>
+                                        <option value="alipay">{{l('aliPay')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-6" *ngIf="objItem.from=='weixin'">
+                            <label>{{l("Mch_ID")}} *</label>
+                            <input class="form-control" type="text" name="Mch_ID" [(ngModel)]="objItem.parameters.Mch_ID"
+                                required>
+                        </div>
+                        <div class="form-group col-6" *ngIf="objItem.from=='weixin'">
+                            <label>{{l("PayKey")}} *</label>
+                            <input class="form-control" type="text" name="PayKey" [(ngModel)]="objItem.parameters.PayKey"
+                                required>
+                        </div>
+
+                        <div class="form-group col-6" *ngIf="objItem.from=='weixin'">
+                            <label>{{l("SslCert")}}</label>
+                            <input class="form-control" type="text" name="SslCert" [(ngModel)]="objItem.parameters.SslCert">
+                        </div>
+                        <div class="form-group col-6" *ngIf="objItem.from=='weixin'">
+                            <label>{{l("SslCert_Password")}}</label>
+                            <input class="form-control" type="text" name="SslCert_Password" [(ngModel)]="objItem.parameters.SslCert_Password">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>{{l("description")}}</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="objItem.description" style="height:100px !important;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -197,6 +197,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'order',
                         loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
                     },
+                    {
+                        path: 'paycenter',
+                        loadChildren: () => import('./paycenter/paycenter.module').then(m => m.PayCenterModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

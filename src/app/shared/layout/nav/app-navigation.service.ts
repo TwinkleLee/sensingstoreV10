@@ -169,8 +169,8 @@ export class AppNavigationService {
 
             //支付中心
             new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-qian', '', [], [
-                new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-qian', '/app/paycenter/payCenter'),
-                new AppMenuItem('PayRecord', 'Pages.Tenant.PayCenter', 'icon-artboard13', '/app/paycenter/payRecord'),
+                new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-qian', '/app/admin/paycenter/payCenter'),
+                new AppMenuItem('PayRecord', 'Pages.Tenant.PayCenter', 'icon-artboard13', '/app/admin/paycenter/payRecord'),
             ]),
 
             //维护信息
