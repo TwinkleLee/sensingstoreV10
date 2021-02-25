@@ -1,0 +1,227 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'OnlineStore' | localize" [description]="'OnlineStore' | localize">
+            <div role="actions">
+                <button class="btn btn-primary" (click)="chooseTaobao()" [disabled]="chooseTaobaoLoading">
+                    <i class="icon-shenhe1"></i>
+                    {{l("StoreAuthorize")}}</button>
+                <button class="btn btn-primary" (click)="createOnlineStore()">
+                    <i class="icon-add"></i>
+                    {{l("CreateNewonlinestore")}}</button>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off" name="devicesForm">
+
+                            <div class="row align-items-center mb-4">
+                                <div class="col-4">
+                                    <label>{{l('storeOuterId')}}/{{l('name')}}</label>
+                                    <div class="form-group align-items-center">
+                                        <div class="input-group">
+                                            <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                class="form-control m-input" (keyup.enter)="getOnlineStore()"
+                                                [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group kt-form__group align-items-center">
+                                                <div class="input-group align-items-center">
+                                                    <label>{{l('storeOuterId')}}/{{l('name')}}</label>
+                                                    <input [(ngModel)]="filterText" name="filterText"
+                                                        (keyup.enter)="getOnlineStore()" autoFocus
+                                                        class="form-control kt-input" [placeholder]="l('name')"
+                                                        type="text">
+                                                </div>
+                                            </div> -->
+                                </div>
+                                <div class="col-2">
+                                    <label style="display:block;">&nbsp;</label>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-primary"
+                                                [buttonBusy]="primengTableHelper.isLoading" (click)="getOnlineStore()">
+                                                <i class="la la-refresh"></i>
+                                                {{l("search")}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <div class="row align-items-center">
+                            <!--<Primeng-Datatable-Start>-->
+                            <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                                <p-table #dataTable (onLazyLoad)="getOnlineStore($event)"
+                                    [value]="primengTableHelper.records"
+                                    [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
+                                    [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns"
+                                    [responsive]="primengTableHelper.isResponsive">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="width:10%">{{l('Actions')}}</th>
+                                            <th style="width:5%">{{l('RecordId')}}</th>
+                                            <th style="width:25%">{{l('name')}}</th>
+                                            <th pSortableColumn="expires_in">{{l('AuthTime')}}
+                                                <p-sortIcon field="expires_in"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="creationTime">{{l('CreationTime')}}
+                                                <p-sortIcon field="creationTime"></p-sortIcon>
+                                            </th>
+                                            <th>{{l('link')}}</th>
+                                            <th>{{l('fromType')}}</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                        dropdownToggle aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>
+                                                        <span class="caret"></span> {{l("Actions")}}
+                                                    </button>
+                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                        <li
+                                                            *ngIf="record.fromType=='Taobao'||record.fromType=='Weimob'||record.fromType=='Monecity'">
+                                                            <a (click)="syncOnlineStore(record)"
+                                                                class="icon-tongbu4">{{l('Synchronize')}}</a>
+                                                        </li>
+                                                        <li
+                                                            *ngIf="record.fromType=='Taobao'||record.fromType=='Weimob'||record.fromType=='Monecity'">
+                                                            <a (click)="goHistory(record)"
+                                                                class="icon-artboard13">{{l('syncInfo')}}</a>
+                                                        </li>
+                                                        <li
+                                                            *ngIf="isGranted('Pages.Tenant.OnlineStores.Edit')&&record.fromType!='TroncellWeiShop'">
+                                                            <a (click)="editOnlineStore(record)"
+                                                                class="icon-bianji">{{l('Edit')}}</a>
+                                                        </li>
+                                                        <li
+                                                            *ngIf="isGranted('Pages.Tenant.OnlineStores.Edit')&&record.fromType=='TroncellWeiShop'">
+                                                            <a (click)="manageWeShop(record)"
+                                                                class="icon-bianji">{{l('Administration')}}</a>
+                                                        </li>
+                                                        <li
+                                                            *ngIf="isGranted('Pages.Tenant.OnlineStores.Delete')&&record.fromType!='TroncellWeiShop'">
+                                                            <a (click)="deleteOnlineStore(record)"
+                                                                class="icon-icon-test">{{l('Delete')}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>{{transIndex(i)}}</td>
+                                            <td>{{record.taobao_user_nick}}</td>
+                                            <td>
+                                                {{ record['lastModificationTime'] | date:"yyyy/MM/dd"}}
+                                                <!-- {{ record['expires_in'] | date:"yyyy/MM/dd"}} -->
+                                            </td>
+                                            <td>
+                                                {{ record['creationTime'] | date:"yyyy/MM/dd"}}
+                                            </td>
+                                            <td>
+                                                <span>{{record.url}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{record.fromType}}</span>
+                                                <span *ngIf="record.fromType&&record.openPlatfromName">|</span>
+                                                <span>{{record.openPlatfromName}}</span>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-records>
+                                        <tr *ngIf="primengTableHelper.records">
+                                            <td colspan="7" class="text-center">
+                                                <img class="emptymessage"
+                                                    src="/assets/common/images/placeholder/onlinestoreHolder.png" />
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <div class="primeng-paging-container">
+                                    <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                        (onPageChange)="getOnlineStore($event)"
+                                        [totalRecords]="primengTableHelper.totalRecordsCount"
+                                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                    </p-paginator>
+                                    <span class="total-records-count">
+                                        {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <!--<Primeng-TurboTable-End>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="modal" id="choseType" tabindex="-1" role="dialog" aria-labelledby="choseTypeLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="choseTypeLabel">{{l('SynchronizeProduct')}}</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="m-radio-list">
+                                            <label class="m-radio">
+                                                <input type="radio" name="options" [(ngModel)]="syncType"
+                                                    [value]="SyncInputSyncType._0">{{l('syncLabel1')}}
+                                                <span></span>
+                                            </label>
+                                            <label class="m-radio">
+                                                <input type="radio" name="options" [(ngModel)]="syncType"
+                                                    [value]="SyncInputSyncType._1">{{l('syncLabel2')}}
+                                                <span></span>
+                                            </label>
+                                            <label class="m-radio">
+                                                <input type="radio" name="options" [(ngModel)]="syncType"
+                                                    [value]="SyncInputSyncType._2">{{l('syncLabel3')}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group" *ngIf="syncType==SyncInputSyncType._2">
+                                            <label>{{l('syncLabel4')}}</label>
+                                            <div class="m-checkbox-list">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="options"
+                                                        [(ngModel)]="ignoreField1">{{l('productName')}}
+                                                    <span></span>
+                                                </label>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="options"
+                                                        [(ngModel)]="ignoreField2">{{l('productPic')}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="no()"
+                                    data-dismiss="modal">{{l('Close')}}</button>
+                                <button type="button" class="btn btn-primary" (click)="ok()">{{l('Send')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <createOrEditExternalAccessModal #createOrEditOnlineModal (modalSave)="getOnlineStore()">
+            </createOrEditExternalAccessModal>
+            <chooseTaobaoModal #chooseTaobaoModal></chooseTaobaoModal>
+            <planHistoryModal #planHistoryModalComponent></planHistoryModal>
+        </div>
+    </div>
+</div>

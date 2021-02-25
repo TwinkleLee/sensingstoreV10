@@ -1,0 +1,228 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="plan?.id">{{l("EditPlan")}}</span>
+                        <span *ngIf="!plan?.id">{{l("CreatePlan")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('syncPlan')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("PlanName")}} *</label>
+                                        <input class="form-control" type="text" name="PlanName" [(ngModel)]="plan.name"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("store")}} *</label>
+                                        <!-- <select class="form-control" name="externalAccessTokenInfoId" [(ngModel)]="plan.externalAccessTokenInfoId"
+                                            required>
+                                            <option [value]="onlineStore.id" *ngFor="let onlineStore of onlineStoreList">{{onlineStore.openPlatfromName}}-{{onlineStore.taobao_user_nick}}</option>
+                                        </select> -->
+                                        <input class="form-control" type="text" name="externalAccessTokenInfoId" [(ngModel)]="basic.name"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="row">
+                                <div class="form-group col-6">
+                                    <div class="form-group">
+                                        <label for="startTime" class="control-label">{{l("startTime")}}</label>
+                                        <input id="startTime" type="text" #SampleDatePicker name="startTime" class="form-control"
+                                            [(ngModel)]="plan.schedule.startDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6" *ngIf="plan.schedule.model!='0'">
+                                    <div class="form-group">
+                                        <label for="endTime" class="control-label">{{l("endTime")}}</label>
+                                        <input id="endTime" type="text" #SampleDatePicker name="endTime" class="form-control"
+                                            [(ngModel)]="plan.schedule.endDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                            required>
+                                    </div>
+                                </div>
+                            </div> -->
+
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("startTime")}}</label>
+                                    <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false}'
+                                        name="startTime" [(startDate)]="plan.schedule.statDate" [(endDate)]="plan.schedule.statDate"
+                                        [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
+                                    </date-range-picker>
+                                </div>
+                                <div class="form-group col-6" *ngIf="plan.schedule.model!='0'">
+                                    <label>{{l("endTime")}}</label>
+                                    <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false}'
+                                        name="endTime" [(startDate)]="plan.schedule.endDate" [(endDate)]="plan.schedule.endDate"
+                                        [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
+                                    </date-range-picker>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>{{l("updateRate")}} *</label>
+                                                <div class="form-group">
+                                                    <div class="m-radio-inline">
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateRate" [(ngModel)]="plan.schedule.model"
+                                                                value="0"> {{l('once')}}
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateRate" [(ngModel)]="plan.schedule.model"
+                                                                value="1"> {{l('eachDay')}}
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateRate" [(ngModel)]="plan.schedule.model"
+                                                                value="2"> {{l('eachWeek')}}
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateRate" [(ngModel)]="plan.schedule.model"
+                                                                value="3"> {{l('eachMonth')}}
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row" *ngIf="plan.schedule.model=='0'">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>{{l("executeDate")}} ({{l("SuchAs")}} : 2018-05-31)</label>
+                                                <input class="form-control" type="text" name="executeDate" [(ngModel)]="plan.executeDate"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="row" *ngIf="plan.schedule.model=='2'">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="col m--align-left">
+                                                    <label class="kt-checkbox kt-checkbox--primary" *ngFor="let item of weekList">
+                                                        <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                                            [name]="item.name" [value]="item.value" />{{l(item.name)}}
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="plan.schedule.model=='3'">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>{{l("executeDate")}} ({{l("SuchAs")}} : 12,15)</label>
+                                                <input class="form-control" type="text" name="monthDay" [(ngModel)]="plan.schedule.monthDay"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row" *ngIf="plan.schedule.model!='0'"> -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>{{l("executeTime")}} ({{l("SuchAs")}} : 02:00,04:30)</label>
+                                                <input class="form-control" type="text" name="runTime" [(ngModel)]="plan.schedule.runTime"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>{{l("updateMode")}} *</label>
+                                                <div class="form-group" style="padding-top:0.5rem;">
+                                                    <div class="m-radio-inline">
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateMode" [(ngModel)]="plan.syncOption.syncType"
+                                                                value="0"> {{l('syncAll')}}
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateMode" [(ngModel)]="plan.syncOption.syncType"
+                                                                value="1"> {{l('syncAdd')}}
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="updateMode" [(ngModel)]="plan.syncOption.syncType"
+                                                                value="2"> {{l('syncDiff')}}
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="col m--align-left" style="padding-left:0;">
+                                                    <label>{{l("syncContent")}}</label>
+                                                    <div class="form-group" style="padding-top:0.5rem;">
+
+                                                        <label style="width:25%;" class="kt-checkbox kt-checkbox--primary"
+                                                            *ngFor="let item of syncFieldsList">
+                                                            <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                                                [name]="item.name" [value]="item.value" />{{l(item.name)}}
+                                                            <span></span>
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="kt-checkbox kt-checkbox--primary">
+                                        <input class="form-control" [(ngModel)]="plan.isEnabled" type="checkbox" name="isEnabled"
+                                            value="true" />{{l("On")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("syncHistory")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <!-- <tabset class="tab-container tabbable-line"> -->
+                    <!-- <tab heading="{{l('syncHistory')}}" customClass="kt-tabs__item"> -->
+
+                    <div class="kt-content">
+                        <div class="kt-portlet kt-portlet--mobile">
+                            <div class="kt-portlet__body">
+                                <!-- <div class="row">
+                                    <form class="horizontal-form" autocomplete="off">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-xl-12">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('SearchWithThreeDot')"
+                                                                type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getPlanHistory()" class="btn btn-primary"
+                                                                    type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div> -->
+
+                                <div class="row align-items-center">
+                                    <!--<Primeng-Datatable-Start>-->
+                                    <div class="primeng-datatable-container" [busyIf]="primengTableHelper0.isLoading">
+                                        <p-table #dataTable (onLazyLoad)="getPlanHistory($event)" [value]="primengTableHelper0.records"
+                                            [rows]="primengTableHelper0.defaultRecordsCountPerPage" [paginator]="false"
+                                            [lazy]="false" [resizableColumns]="primengTableHelper0.resizableColumns"
+                                            [responsive]="primengTableHelper0.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <th>{{l('name')}}</th>
+                                                    <th>{{l('batchType')}}</th>
+                                                    <th>{{l('SynchronizationProgress')}}</th>
+                                                    <th>{{l('auditStatus')}}</th>
+                                                    <th>{{l('startTime')}}</th>
+                                                    <th>{{l('endTime')}}</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                    <td style="width:5%"> {{transIndex(i)}}</td>
+                                                    <td>
+                                                        <span>{{record.name}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.batchType}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.completedCount}}/{{record.totalCount}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.status}}</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <span>{{record.creationTime | date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.lastModificationTime | date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="primengTableHelper0.records">
+                                                    <td colspan="7">
+                                                        <img class="emptymessage" src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="primengTableHelper0.defaultRecordsCountPerPage"
+                                                #paginator (onPageChange)="getPlanHistory($event)" [totalRecords]="primengTableHelper0.totalRecordsCount"
+                                                [rowsPerPageOptions]="primengTableHelper0.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', primengTableHelper0.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!--<Primeng-Datatable-End>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- </tab> -->
+                    <!-- </tabset> -->
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

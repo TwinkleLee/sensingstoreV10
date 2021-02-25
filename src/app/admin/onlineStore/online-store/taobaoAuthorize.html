@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>SensingStoreCloud</title>
+    <base href="/">
+    <meta property="og:title" content="SensingStoreCloud" />
+    <meta property="og:image" content="" />
+    <meta property="og:description" content="Base solution for your next web application" />
+    <meta property="og:url" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <h5>
+        淘宝同步成功
+    </h5>
+</body>
+<script type="text/javascript">
+    (function (win,undefined) {
+        var query = win.location.search.replace("?","");
+        if(query==''){return;}
+    var queries = query.split("&"),code="",state="";
+        queries.forEach((item)=>{
+              if(item.indexOf('code')>-1){
+                code = item.replace("code=","");
+              }else if(item.indexOf('state')>-1){
+                state = item.replace("state=","");
+              }
+        }) 
+    localStorage.setItem("taobaoAuthorizeCallBackData",JSON.stringify({
+        'code':code,
+        'state':state
+    }));
+    window.close();
+    })(window)
+
+</script>
+
+</html>

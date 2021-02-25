@@ -1,0 +1,88 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #onlinestoreForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="onlinestore?.id">{{l("Editonlinestore")}}: {{onlinestore?.id+' |
+                            '+onlinestore?.taobao_user_nick}}</span>
+                        <span *ngIf="!onlinestore?.id">{{l("CreateNewonlinestore")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("storeName")}} *</label>
+                                <input #nameInput="ngModel" class="form-control" type="text" name="name" [(ngModel)]="onlinestore.taobao_user_nick"
+                                    required maxlength="32">
+                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("Token")}} *</label>
+                                <input #TokenInput="ngModel" class="form-control" name="Token" [(ngModel)]="onlinestore.access_token"
+                                    required />
+                                <validation-messages [formCtrl]="TokenInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("UserName")}}*</label>
+                                <input #UserNameInput="ngModel" required class="form-control" type="text" autocomplete="off"
+                                    name="userName" [(ngModel)]="onlinestore.userName" maxlength="32">
+                                <validation-messages [formCtrl]="UserNameInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("Password")}}*</label>
+                                <input #PasswordInput="ngModel" required class="form-control" type="password"
+                                    autocomplete="off" name="password" [(ngModel)]="onlinestore.password" maxlength="32">
+                                <validation-messages [formCtrl]="PasswordInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("URL")}}*</label>
+                                <input #urlInput="ngModel" required class="form-control" type="text" pattern="^(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$"
+                                    name="url" [(ngModel)]="onlinestore.url" maxlength="500">
+                                <validation-messages [formCtrl]="urlInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("fromType")}}*</label>
+                                <select #fromTypeInput="ngModel" class="form-control" name="fromType" [(ngModel)]="onlinestore.fromType"
+                                    required>
+                                    <option value="Platform">平台分类</option>
+                                    <option value="Taobao">淘宝分类</option>
+                                    <option value="Oracle">Oracle</option>
+                                    <option value="JD">京东</option>
+                                    <option value="BaiSheng">百盛ERP</option>
+                                    <option value="Shangpai">商派ER</option>
+                                    <option value="Weimob">Weimob</option>
+                                    <option value="Monecity">又一城</option>
+                                </select>
+                                <validation-messages [formCtrl]="fromTypeInput"></validation-messages>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!onlinestoreForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

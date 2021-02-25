@@ -189,6 +189,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'objective',
                         loadChildren: () => import('./objective/objective.module').then(m => m.ObjectiveModule),
                     },
+                    {
+                        path: 'onlineStore',
+                        loadChildren: () => import('./onlineStore/onlineStore.module').then(m => m.OnlineStoreModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

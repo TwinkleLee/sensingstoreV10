@@ -1,0 +1,36 @@
+<style>
+    .class:hover {
+        background: #ccc;
+    }
+</style>
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-sm" style="margin-top:30vh;">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l("ChooseAuthorize")}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <div style="display:flex;padding-bottom:20px;" [busyIf]="gettingTaobaoAuthUrl">
+                    <div *ngFor="let item of list" style="flex-grow:1;max-width:25%;" (click)="goTaobao(item)">
+                        <div style="text-align: center;padding:30px 0;" class="class">
+                            <img [src]="item.icon" style="height:5vw;">
+                            <div style="line-height: 8vh;height:15vh;">
+                                <div>{{item.type}}</div>
+                                <div>{{item.appName}}</div>
+                                <div style="overflow: hidden;text-overflow: ellipsis;">({{item.appKey}})</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,244 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="l('OnlineStore') + l('syncInfo')" [description]="basic.name">
+            <div action="back">
+                <i class="icon-fanhui text-info" (click)="goBack()"></i>
+            </div>
+            <div role="actions">
+
+                <button class="btn btn-primary" (click)="createPlan()">
+                    <i class="icon-add"></i>
+                    {{l("CreatePlan")}}</button>
+
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <!-- 同步计划 -->
+                        <div class="primeng-datatable-container" [busyIf]="planPrimeng.isLoading">
+                            <p-table #dataTablePlan [value]="planPrimeng.records" (onLazyLoad)="getPlanList($event)"
+                                [rows]="planPrimeng.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [resizableColumns]="planPrimeng.resizableColumns"
+                                [responsive]="planPrimeng.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:10%">{{l('Actions')}}</th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('PlanName')}}</th>
+                                        <th>{{l('store')}}</th>
+                                        <th>{{l('createTime')}}</th>
+                                        <th>{{l('updateRate')}}</th>
+                                        <th>{{l('executeTime')}}</th>
+                                        <th>{{l('updateMode')}}</th>
+                                        <th>{{l('IsEnabled')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li>
+                                                        <a *ngIf="record['isEnabled']" class="icon-xiaxian1"
+                                                            (click)="offPlan(record)">{{l('Off')}}</a>
+                                                        <a *ngIf="!record['isEnabled']" class="icon-shangxian1"
+                                                            (click)="onPlan(record)">{{l('On')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a (click)="editPlan(record)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a (click)="showHistory(record)"
+                                                            class="icon-shangpinliebiao">{{l('historyInfo')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a (click)="deletePlan(record)"
+                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>{{transIndex3(i)}}</td>
+                                        <td>
+                                            <span>{{record.name}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.externalAccessInfoName}}</span>
+                                        </td>
+
+                                        <td>
+                                            {{record.creationTime | date:"yyyy/MM/dd"}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.schedule.model==0">{{l('once')}}</span>
+                                            <span *ngIf="record.schedule.model==1">{{l('eachDay')}}</span>
+                                            <span *ngIf="record.schedule.model==2">{{l('eachWeek')}}
+                                                {{record.schedule.weeDay}}</span>
+                                            <span *ngIf="record.schedule.model==3">{{l('eachMonth')}}
+                                                {{record.schedule.monthDay}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.schedule.model==0" style="margin-right:10px;">{{record.schedule.statDate
+                                                | date:"yyyy/MM/dd"}}</span>
+                                            <span>{{record.schedule.runTime}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.syncOption.syncType==0">{{l('syncAll')}}</span>
+                                            <span *ngIf="record.syncOption.syncType==1">{{l('syncAdd')}}</span>
+                                            <span *ngIf="record.syncOption.syncType==2">{{l('syncDiff')}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record['isEnabled']"
+                                                class="label label-success label-inline">{{l("On")}}</span>
+                                            <span *ngIf="!record['isEnabled']"
+                                                class="label label-dark label-inline">{{l("Off")}}</span>
+                                        </td>
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="planPrimeng.records">
+                                        <td colspan="7">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/onlinestoreHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="planPrimeng.defaultRecordsCountPerPage" #paginatorPlan
+                                    (onPageChange)="getPlanList($event)" [totalRecords]="planPrimeng.totalRecordsCount"
+                                    [rowsPerPageOptions]="planPrimeng.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', planPrimeng.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- 导入进度 -->
+                        <div class="primeng-datatable-container" [busyIf]="historyPrimeng.isLoading">
+                            <p-table #dataTablehistory [value]="historyPrimeng.records"
+                                (onLazyLoad)="getSyncHistory($event)" [rows]="historyPrimeng.defaultRecordsCountPerPage"
+                                [paginator]="false" [lazy]="true" [resizableColumns]="historyPrimeng.resizableColumns"
+                                [responsive]="historyPrimeng.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th style="width:25%">{{l('name')}}</th>
+                                        <th style="width:25%">{{l('SynchronizationProgress')}}</th>
+                                        <th>{{l('auditStatus')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr>
+                                        <td>{{transIndex2(i)}}</td>
+                                        <td>{{record.name}}</td>
+                                        <td>
+                                            {{record['completedCount'] +'/'+ record['totalCount']}}
+                                        </td>
+                                        <td>{{record.status}}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="historyPrimeng.records">
+                                        <td colspan="4">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/onlinestoreHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="historyPrimeng.defaultRecordsCountPerPage" #paginatorhistory
+                                    (onPageChange)="getSyncHistory($event)"
+                                    [totalRecords]="historyPrimeng.totalRecordsCount"
+                                    [rowsPerPageOptions]="historyPrimeng.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', historyPrimeng.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!--<Primeng-TurboTable-End>-->
+                    </div>
+
+                </div>
+            </div>
+            <!-- <div>
+            <div class="modal" id="choseType" tabindex="-1" role="dialog" aria-labelledby="choseTypeLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="choseTypeLabel">{{l('SynchronizeProduct')}}</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <div class="m-radio-list">
+                                        <label class="m-radio">
+                                            <input type="radio" name="options" [(ngModel)]="syncType" [value]="SyncInputSyncType.Full">{{l('syncLabel1')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="m-radio">
+                                            <input type="radio" name="options" [(ngModel)]="syncType" [value]="SyncInputSyncType.LocalBasicAdd">{{l('syncLabel2')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="m-radio">
+                                            <input type="radio" name="options" [(ngModel)]="syncType" [value]="SyncInputSyncType.LocalBasicUpdate">{{l('syncLabel3')}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group" *ngIf="syncType==SyncInputSyncType.LocalBasicUpdate">
+                                        <label>{{l('syncLabel4')}}</label>
+                                        <div class="kt-checkbox-list">
+                                            <label class="kt-checkbox">
+                                                <input type="checkbox" name="options" [(ngModel)]="ignoreField1">{{l('productName')}}
+                                                <span></span>
+                                            </label>
+                                            <label class="kt-checkbox">
+                                                <input type="checkbox" name="options" [(ngModel)]="ignoreField2">{{l('productPic')}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="no()" data-dismiss="modal">{{l('Close')}}</button>
+                            <button type="button" class="btn btn-primary" (click)="ok()">{{l('Send')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+            <createOrEditPlanModal #CreateOrEditPlanModal (modalSave)="getPlanList()"></createOrEditPlanModal>
+            <planHistoryModal #planHistoryModalComponent></planHistoryModal>
+        </div>
+    </div>
+</div>
