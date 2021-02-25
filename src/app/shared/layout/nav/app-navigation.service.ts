@@ -175,7 +175,7 @@ export class AppNavigationService {
 
             //维护信息
             new AppMenuItem('MaintainRecord', 'Pages.Administration.Host.MaintainRecord', 'icon-houtaiweihu', '', [], [
-                new AppMenuItem('MaintainRecord', 'Pages.Administration.Host.MaintainRecord', 'icon-houtaiweihu', '/app/maintainInfo/maintainInfo'),
+                new AppMenuItem('MaintainRecord', 'Pages.Administration.Host.MaintainRecord', 'icon-houtaiweihu', '/app/admin/maintainInfo/maintainInfo'),
                 new AppMenuItem('manageCate', 'Pages.Administration.Host.MaintainRecord', 'icon-fenlei1', '/app/admin/category/maintain/questionType'),
             ]),
 

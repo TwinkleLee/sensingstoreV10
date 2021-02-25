@@ -2,6 +2,9 @@
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="(operation=='edit'?'editBrand':'createBrand') | localize"
             [description]="brand?.id+' | '+brand?.name"> 
+            <div action="back">
+                <i class="icon-fanhui text-info" (click)="goBack()"></i>
+            </div>
         </sub-header>
 
         <div [class]="containerClass">

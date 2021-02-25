@@ -29,7 +29,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DeviceListComponent } from '@app/admin/device/device-list/device-list.component';
 import { CreateOrEditDeviceModalComponent } from '@app/admin/device/device-list/create-or-edit-device-modal.component';
 // import { DeviceEditComponent } from '@app/admin/device/device-list/operation/device-edit.component';
-// import { CreateOrEditDeviceRecordComponent } from '@app/device/device-list/operation/create-or-edit-deviceRecord-modal.component';
+import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component';
 import { DeviceReviewComponent } from '@app/admin/device/device-review/device-review.component';
 // import { AdsAlertModalComponent } from '@app/device/device-list/tabAlert/ads-selection-modal.component';
 // import { CouponAlertModalComponent } from '@app/device/device-list/tabAlert/coupon-selection-modal.component';
@@ -87,7 +87,7 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         DeviceListComponent,
         CreateOrEditDeviceModalComponent,
         // DeviceEditComponent,
-        // CreateOrEditDeviceRecordComponent,
+        CreateOrEditDeviceRecordComponent,
         DeviceReviewComponent,
         // AdsAlertModalComponent,
         // CouponAlertModalComponent,
@@ -102,7 +102,7 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         // CargoModalComponent,
     ],
     exports: [
-        // CreateOrEditDeviceRecordComponent,
+        CreateOrEditDeviceRecordComponent,
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

@@ -260,4 +260,8 @@ export class BrandOperationComponent extends AppComponentBase {
     showCateTree() {
         $("#BrandCategory>ul.dropdown-menu").show();
     }
+
+    goBack () {
+        this.router.navigate(['app', 'admin', 'brandcenter']);
+    }
 }

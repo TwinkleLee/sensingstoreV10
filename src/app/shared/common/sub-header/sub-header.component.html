@@ -1,6 +1,7 @@
 <div [class]="currentTheme.baseSettings.subHeader.containerStyle">
     <div [class]="containerClass + ' d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap'">
         <div class="d-flex align-items-center flex-wrap mr-2">
+            <ng-content select="div[action=back]"></ng-content>
             <h1 *ngIf="currentTheme.baseSettings.subHeader.subheaderSize == 1" [class]="currentTheme.baseSettings.subHeader.titleStlye">{{title}}</h1>
             <h2 *ngIf="currentTheme.baseSettings.subHeader.subheaderSize == 2" [class]="currentTheme.baseSettings.subHeader.titleStlye">{{title}}</h2>
             <h3 *ngIf="currentTheme.baseSettings.subHeader.subheaderSize == 3" [class]="currentTheme.baseSettings.subHeader.titleStlye">{{title}}</h3>

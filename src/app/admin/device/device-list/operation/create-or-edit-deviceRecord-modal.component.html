@@ -1,5 +1,5 @@
 ﻿<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
-    tabindex="-1" role="dialog" aria-hidden="true">
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog" style="max-width:50%;">
         <div class="modal-content">
             <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
@@ -10,14 +10,14 @@
                     </h4>
 
                     <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
                 </div>
                 <div class="modal-body">
 
                     <div class="row" *ngIf="tenants.length>0">
                         <div class="col-6" *ngIf="!appSession.tenant">
-                            <div class="form-group kt-form__group align-items-center">
+                            <div class="form-group m-form__group align-items-center">
                                 <label>{{l('TenantSelection')}} *</label>
                                 <div class="input-group" style="width:80%;">
                                     <select class="form-control" [(ngModel)]="tenantId" name="tenantId" [disabled]="!tenants"
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="col-6" *ngIf="!appSession.tenant">
-                            <div class="form-group kt-form__group align-items-center">
+                            <div class="form-group m-form__group align-items-center">
                                 <label>{{l('Device')}}</label>
                                 <div class="input-group" style="width:80%;">
                                     <select #DeviceCombobox class="form-control" [(ngModel)]="deviceId" name="deviceId"
@@ -81,7 +81,7 @@
 
 
                         <div class="col-6" *ngIf="tenants.length>0" [busyIf]="!categorysReady">
-                            <div class="form-group kt-form__group align-items-center">
+                            <div class="form-group m-form__group align-items-center">
                                 <label>{{l('QuestionType')}}</label>
                                 <div class="input-group" style="width:80%;">
                                     <select #QuestionCombobox class="form-control" [(ngModel)]="categoryId" name="categoryId"
@@ -111,7 +111,7 @@
 
 
                         <div class="col-6" *ngIf="tenants.length>0" [busyIf]="!optKnowledgesReady">
-                            <div class="form-group kt-form__group align-items-center">
+                            <div class="form-group m-form__group align-items-center">
                                 <label>{{l('SolutionType')}}</label>
                                 <div class="input-group" style="width:80%;">
                                     <select #SolutionCombobox class="form-control" [(ngModel)]="optKnowledgeId" name="optKnowledgeId"
@@ -144,7 +144,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group kt-form__group align-items-center">
+                            <div class="form-group m-form__group align-items-center">
                                 <label>{{l('auditStatus')}}</label>
                                 <div class="input-group">
                                     <select class="form-control" (change)="optStatusChange()" [(ngModel)]="deviceRecord.optStatus"
