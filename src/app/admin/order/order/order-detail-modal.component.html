@@ -1,0 +1,380 @@
+<div bsModal #createOrEditModal="bs-modal" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg" *ngIf="active">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l('orderDetail')}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <tabset class="tab-container tabbable-line">
+                    <tab heading="{{l('OrderMsg')}}" customClass="kt-tabs__item" [active]="activeIndex==0">
+                        <form #OrderForm="ngForm" novalidate autocomplete="off" (ngSubmit)="save($event)">
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l('orderNo')}} *</label>
+                                    <input *ngIf="operationType=='add'" class="form-control" [(ngModel)]="order.orderNO"
+                                        name="orderNO" required />
+                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                        [(ngModel)]="order.orderNO" name="orderNO" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('orderDay')}}</label>
+                                    <span *ngIf="operationType=='edit'" style="background:#f4f5f8;"
+                                        class="form-control">{{(order.orderDateTime|
+                                        date:'yyyy-MM-dd HH:mm:ss')||EmptyTdText}}</span>
+                                    <date-range-picker *ngIf="operationType=='add'"
+                                        [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": true,"timePickerSeconds": true}'
+                                        name="orderDateTime" [(startDate)]="order.orderDateTime"
+                                        [(endDate)]="order.orderDateTime" [allowFutureDate]="true" needInitDate="true"
+                                        [admitDelete]="false">
+                                    </date-range-picker>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('payWay')}}</label>
+                                    <input *ngIf="operationType=='add'" class="form-control" [(ngModel)]="order.payType"
+                                        name="payType" />
+                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                        [(ngModel)]="order.payType" name="payType" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('payTime')}}</label>
+                                    <span style="background:#f4f5f8;" class="form-control">{{(order.payTime
+                                        |date:'yyyy-MM-dd HH:mm:ss') ||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('consignTime')}}</label>
+                                    <span style="background:#f4f5f8;" class="form-control">{{(order.consignTime
+                                        |date:'yyyy-MM-dd HH:mm:ss')||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('orderStatus')}}</label>
+                                    <span class="form-control">{{order.orderStatus||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('returnsTime')}}</label>
+                                    <span style="background:#f4f5f8;"
+                                        class="form-control">{{(order.returnsTime|date:'yyyy-MM-dd HH:mm:ss')||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('refundTime')}}</label>
+                                    <span style="background:#f4f5f8;" class="form-control">{{(order.refundTime
+                                        | date:'yyyy-MM-dd HH:mm')||EmptyTdText}}</span>
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin:25px 0;" *ngIf="operationType=='add'">
+                                <div class="col-10"></div>
+                                <div class="col-2 text-right">
+                                    <button class="btn btn-primary blue" type="button" (click)="createOrderItem()">
+                                        <i class="fa fa-plus"></i> {{l("add")}}Sku</button>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="primeng-datatable-container">
+                                    <p-table #dataTable [value]="order.orderItems" [paginator]="false">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width:5%;"></th>
+                                                <th style="width:20%;">{{l('productNo')}}</th>
+                                                <th>
+                                                    {{l('productName')}}
+                                                </th>
+                                                <th style="width:6%;"></th>
+                                                <th style="width:8%;">{{l('Amount')}}</th>
+                                                <th style="width:10%;">
+                                                    {{l('totalFee')}}
+                                                </th>
+                                                <th style="width:10%;">
+                                                    {{l('payment')}}
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" class="aaa">
+                                                <td>
+                                                    <div class="btn-group dropdown" normalizePosition>
+                                                        <button
+                                                            style="background:transparent;border:none;color:#333 !important;"
+                                                            class="icon-icon-test btn btn-sm btn-primary" type="button"
+                                                            (click)="deleteOrderItem(i)"
+                                                            *ngIf="order.orderItems.length>1&&operationType=='add'">
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input *ngIf="operationType=='add'" class="form-control" type="text"
+                                                        [name]="'skuId'+i" [(ngModel)]="record.outerId" required>
+                                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                                        type="text" [name]="'skuId'+i" [(ngModel)]="record.outerId"
+                                                        disabled="disabled">
+                                                </td>
+                                                <td *ngIf="operationType=='edit'">
+                                                    <input class="form-control" type="text" [name]="'title'+i"
+                                                        [(ngModel)]="record.title" disabled="disabled">
+                                                </td>
+                                                <td style="position:relative;"
+                                                    *ngIf="operationType=='edit'&&record.picUrl&&record.picUrl!='null'">
+                                                    <img [src]="record.picUrl"
+                                                        style="position:absolute;top:50%;left:50%;height:100%;transform:translate(-50%,-50%);max-width:initial;">
+                                                </td>
+                                                <td class="nohidden" style="padding-top:1rem !important;"
+                                                    *ngIf="operationType=='add'">
+                                                    <p-autoComplete [(ngModel)]="record.title"
+                                                        [suggestions]="recordTitleList"
+                                                        (completeMethod)="filterGoods(record.title)" field="title"
+                                                        [name]="'title'+i" inputStyleClass="form-control"
+                                                        [forceSelection]="false" [dropdown]="true"
+                                                        (onSelect)="assignPeri($event,record)" [multiple]="false"
+                                                        required>
+                                                    </p-autoComplete>
+                                                </td>
+                                                <td style="position:relative;" *ngIf="operationType=='add'">
+                                                    <img [src]="record.picUrl" *ngIf="record.title&&record.title.title"
+                                                        style="position:absolute;top:50%;left:50%;height:100%;transform:translateX(-50%,-50%);max-width:initial;">
+                                                </td>
+                                                <td>
+                                                    <input *ngIf="operationType=='add'" class="form-control"
+                                                        type="number" [name]="'number'+i" [(ngModel)]="record.number"
+                                                        required>
+                                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                                        type="number" [name]="'number'+i" [(ngModel)]="record.number"
+                                                        disabled="disabled">
+                                                </td>
+                                                <td>
+                                                    <input *ngIf="operationType=='add'" class="form-control"
+                                                        type="number" [name]="'totalFee'+i"
+                                                        [(ngModel)]="record.totalFee" required>
+                                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                                        type="number" [name]="'totalFee'+i"
+                                                        [(ngModel)]="record.totalFee" disabled="disabled">
+                                                </td>
+                                                <td>
+                                                    <input *ngIf="operationType=='add'" class="form-control"
+                                                        type="number" [name]="'payment'+i" [(ngModel)]="record.payment"
+                                                        required>
+                                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                                        type="number" [name]="'payment'+i" [(ngModel)]="record.payment"
+                                                        disabled="disabled">
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:35px;">
+                                <div class="form-group col-4">
+                                    <label>{{l('totalFees')}}</label>
+                                    <span *ngIf="!editable" class="form-control">{{order.totalFee||EmptyTdText}}</span>
+                                    <input *ngIf="operationType=='add'" class="form-control"
+                                        [(ngModel)]="order.totalFee" name="totalFee" required />
+                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                        [(ngModel)]="order.totalFee" name="totalFee" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('discountFee')}}</label>
+                                    <span *ngIf="!editable"
+                                        class="form-control">{{order.discountFee||EmptyTdText}}</span>
+                                    <input *ngIf="operationType=='add'" class="form-control"
+                                        [(ngModel)]="order.discountFee" name="discountFee" required />
+                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                        [(ngModel)]="order.discountFee" name="discountFee" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('taxFee')}}</label>
+                                    <span *ngIf="!editable" class="form-control">{{order.taxFee||EmptyTdText}}</span>
+                                    <input *ngIf="operationType=='add'" class="form-control" [(ngModel)]="order.taxFee"
+                                        name="taxFee" required />
+                                    <input *ngIf="operationType=='edit'" class="form-control" [(ngModel)]="order.taxFee"
+                                        name="taxFee" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('postFee')}}</label>
+                                    <span *ngIf="!editable" class="form-control">{{order.postFee||EmptyTdText}}</span>
+                                    <input *ngIf="operationType=='add'" class="form-control" [(ngModel)]="order.postFee"
+                                        name="postFee" required />
+                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                        [(ngModel)]="order.postFee" name="postFee" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('realAmount')}}</label>
+                                    <span *ngIf="!editable" class="form-control">{{order.payment||EmptyTdText}}</span>
+                                    <input *ngIf="operationType=='add'" class="form-control" [(ngModel)]="order.payment"
+                                        name="payment" required />
+                                    <input *ngIf="operationType=='edit'" class="form-control"
+                                        [(ngModel)]="order.payment" name="payment" disabled="disabled" />
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                                <button *ngIf="editable" class="btn btn-primary" [disabled]="!OrderForm.form.valid"
+                                    [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" type="submit">
+                                    {{l('Save')}}</button>
+                            </div>
+                        </form>
+                    </tab>
+
+                    <tab *ngIf="operationType=='edit'" heading="{{l('expressInfo')}}" customClass="kt-tabs__item"
+                        (selectTab)="getOrderDeliverInfo()" [active]="activeIndex==1">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label>{{l('name')}}</label>
+                                <input class="form-control" [(ngModel)]="order.memberName" name="memberName"
+                                    disabled="disabled" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label>{{l('contact')}}</label>
+                                <input class="form-control" [(ngModel)]="order.postPhone" name="postPhone"
+                                    disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-3">
+                                <label>{{l('province')}}</label>
+                                <input class="form-control" [(ngModel)]="order.province" name="province"
+                                    disabled="disabled" />
+                            </div>
+                            <div class="form-group col-3">
+                                <label>{{l('city')}}</label>
+                                <input class="form-control" [(ngModel)]="order.city" name="city" disabled="disabled" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label>{{l('address')}}</label>
+                                <input class="form-control" [(ngModel)]="order.address" name="address"
+                                    disabled="disabled" />
+                            </div>
+                        </div>
+
+                        <div *ngIf="order.from=='weishop'">
+                            <div class="row">
+
+                                <div class="form-group col-6">
+                                    <label>{{l('expressCompany')}}</label>
+                                    <span *ngIf="order.status!='待发货'"
+                                        class="form-control">{{deliver.companyName}}</span>
+                                    <div class="form-group" *ngIf="order.status=='待发货'">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="deliver.expressCompanyId"
+                                                name="expressCompanyId">
+                                                <option value=""></option>
+                                                <option [value]="company.id" *ngFor="let company of companyList">
+                                                    {{company.companyName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-6">
+                                    <label>{{l('expressNO')}}</label>
+                                    <span *ngIf="order.status!='待发货'"
+                                        class="form-control">{{deliver.expressNumber}}</span>
+                                    <input *ngIf="order.status=='待发货'" class="form-control"
+                                        [(ngModel)]="deliver.expressNumber" name="expressNumber" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                            <button *ngIf="order.from=='weishop'&&order.status=='待发货'" class="btn btn-primary"
+                                [disabled]="!deliver.expressNumber||!deliver.expressCompanyId" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')" type="button" (click)="saveDeliver();">
+                                <i class="fa fa-save"></i>{{l('consignGood')}}</button>
+                        </div>
+                    </tab>
+
+                    <tab *ngIf="operationType=='edit'&&order.from=='weishop'&&(order.status=='退款中'||order.status=='退款')"
+                        heading="{{l('returnGoodDetail')}}" customClass="kt-tabs__item" (selectTab)="getRefundDetail()"
+                        [active]="activeIndex==2">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label>{{l('refundWay')}}</label>
+                                <input *ngIf="refund.refundWay==0" class="form-control" [value]="l('RefundGood')"
+                                    name="refundWay" disabled="disabled" />
+                                <input *ngIf="refund.refundWay==1" class="form-control" [value]="l('ReturnGood')"
+                                    name="refundWay" disabled="disabled" />
+                                <input *ngIf="refund.refundWay==2" class="form-control" [value]="l('ExchangeGood')"
+                                    name="refundWay" disabled="disabled" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label>{{l('refundAmount')}}</label>
+                                <input class="form-control" [(ngModel)]="refund.refundAmount" name="refundAmount"
+                                    disabled="disabled" />
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>{{l('refundReason')}}</label>
+                                <input class="form-control" [(ngModel)]="refund.refundReason" name="refundReason"
+                                    disabled="disabled" />
+                            </div>
+                            <div class="form-group col-12">
+                                <label>{{l('description')}}</label>
+                                <input class="form-control" [(ngModel)]="refund.description" name="description"
+                                    disabled="disabled" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label>{{l('expressCompany')}}</label>
+                                <span class="form-control">{{refund.companyName}}</span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label>{{l('expressNO')}}</label>
+                                <span class="form-control">{{refund.expressNumber}}</span>
+                            </div>
+
+                            <div style="width:100%;height:100px;display:flex;padding:20px;">
+                                <div *ngFor="let img of refund.imageUrls"
+                                    style="width:100px;height:100px;position:relative;">
+                                    <img [src]="img"
+                                        style="position:absolute;top:50%;left:50%;height:100%;transform:translate(-50%,-50%);max-width:initial;">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                            <button *ngIf="order.status=='退款中'" class="btn btn-primary" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')" type="button" (click)="agreeReturn();">
+                                {{l('agree')}}</button>
+                            <button *ngIf="order.status=='退款中'" class="btn btn-primary" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')" type="button" (click)="disagreeReturn();">
+                                {{l('disagree')}}</button>
+                        </div>
+                    </tab>
+
+                    <tab heading="{{l('UserInformations')}}" *ngIf="order.member" customClass="kt-tabs__item">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label>{{l('name')}}</label>
+                                <input class="form-control" [(ngModel)]="order.member.name" name="userName"
+                                    disabled="disabled" />
+                            </div>
+                            <div class="form-group col-6">
+                                <label>{{l('phone')}}</label>
+                                <input *ngIf="!order.member.regPhone" class="form-control" [(ngModel)]="order.postPhone"
+                                    name="postPhone" disabled="disabled" />
+                                <input *ngIf="order.member.regPhone" class="form-control"
+                                    [(ngModel)]="order.member.regPhone" name="postPhone" disabled="disabled" />
+                            </div>
+                            <div *ngIf="order.member.snsUserInfo" class="form-group col-12">
+                                <label>{{l('headImage')}}</label>
+                                <img [src]="order.member.snsUserInfo.headimgurl" style="width:100px;height:100px;">
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

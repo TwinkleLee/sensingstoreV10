@@ -193,6 +193,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'onlineStore',
                         loadChildren: () => import('./onlineStore/onlineStore.module').then(m => m.OnlineStoreModule),
                     },
+                    {
+                        path: 'order',
+                        loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

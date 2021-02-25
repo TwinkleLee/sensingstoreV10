@@ -1,0 +1,282 @@
+<div [@routerTransition]>
+  <div class="content d-flex flex-column flex-column-fluid">
+    <sub-header [title]="'Order' | localize" [description]="'OrderManagement' | localize">
+      <div role="actions">
+        <button type="button" class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
+          <i class="icon-excel"></i>
+          {{l('export')}}</button>
+      </div>
+    </sub-header>
+
+
+    <div [class]="containerClass">
+      <div class="card card-custom gutter-b">
+        <div class="card-body">
+
+          <div class="row">
+            <form class="horizontal-form" autocomplete="off" name="AdsForm">
+             
+                <div class="row align-items-center mb-4">
+                  <div class="col-2">
+                    <label>{{l('orderNo')}}</label>
+                    <div class="form-group ">
+                      <div class="input-group">
+                        <input [(ngModel)]="filterText" name="filterText" (keyup.enter)="getOrders()" autoFocus
+                          class="form-control m-input " [placeholder]="l('orderNo')" type="text">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-2">
+                    <label>{{l('memberName')}}</label>
+                    <div class="form-group ">
+                      <div class="input-group">
+                        <input [(ngModel)]="memberName" name="memberName" (keyup.enter)="getOrders()"
+                          class="form-control m-input " type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label>{{l('phone')}}</label>
+                    <div class="form-group ">
+                      <div class="input-group">
+                        <input [(ngModel)]="regPhone" name="regPhone" (keyup.enter)="getOrders()"
+                          class="form-control m-input " type="text">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <label>{{l('orderDay')}}</label>
+                    <div class="form-group" style="position: static;">
+                      <date-range-picker name="SampleDateRangePicker" [(startDate)]="startTime" [(endDate)]="endTime"
+                        rangeMode="history" needInitDate="true">
+                      </date-range-picker>
+                    </div>
+                  </div>
+
+                  <div class="col-2">
+                    <label>{{l('orderStatus')}}</label>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <select class="form-control" [(ngModel)]="orderStatus" name="orderStatus">
+                          <option value="">{{l('All')}}</option>
+                          <option [value]="status.value" *ngFor="let status of orderStatusList">{{status.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+                  <div class="col-2">
+                    <label>{{l('from')}}</label>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <select class="form-control" [(ngModel)]="from" name="from">
+                          <option value="">{{l('All')}}</option>
+                          <option [value]="from.value" *ngFor="let from of fromList">{{from.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-4" style="position:relative;padding-bottom: 0;top:0.8rem;">
+                    <label style="top: -0.5rem;position:relative;">{{l('belongStore')}}</label>
+                    <div class="form-group m-form__group align-items-center">
+                      <div class="input-group" style="top:-0.6rem;">
+                        <input class="form-control belongToTree" name="belongStore" type="text" readonly="readonly"
+                          style="background:#FFF !important;" [(ngModel)]="storeText"
+                          (click)="showStore=!showStore;storeFilterTree()" />
+                        <i class="icon-shaixuanxuanzhong belongToTree"
+                          style="position:absolute;right:6px;top:50%;transform:translateY(-50%);z-index:98;"
+                          (click)="showStore=!showStore;storeFilterTree()"></i>
+                      </div>
+                    </div>
+
+                    <!-- There is a bug without div -->
+                    <div style="position:absolute;top:6rem;z-index:9999;"></div>
+
+                    <!-- <div [ngClass]="{'hide':!showStore,'float_panel':true,'beautyScroll':true}" -->
+                    <div *ngIf="showStore" [ngClass]="{'float_panel':true,'beautyScroll':true}"
+                      [ngStyle]="{'max-height':avalibleHeight+' !important;'}"
+                      style="width:90% !important;top:6rem;left:5%;">
+                      <div class="panel_body">
+                        <form name="brandForm">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input [(ngModel)]="storeFilter" name="treeFilterText"
+                                (keydown.enter)="storeFilterTree($event)" autoFocus
+                                class="form-control m-input belongToTree" [placeholder]="l('SearchWithThreeDot')"
+                                type="text">
+                            </div>
+                          </div>
+                          <div class="form-group beautyScroll"
+                            [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 300px)','padding-left':'20px'}">
+                            <app-my-tree #storeTree [config]="{'showOuterId':true,'needFilter':false,'name':'text'}"
+                              [(items)]="stores"></app-my-tree>
+                            <h3 *ngIf="!stores||stores.length==0">{{l('NoData')}}</h3>
+                          </div>
+                          <div class="form-group text-right">
+                            <button *ngIf="stores&&stores.length" type="button" class="btn btn-primary"
+                              (click)="getOrders();updateStoreSelected()">{{l('search')}}</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-2">
+                    <div class="form-group m-form__group align-items-center">
+                      <label>&nbsp;</label>
+                      <div class="input-group">
+                        <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                          (click)="getOrders()">
+                          <i class="la la-refresh"></i>
+                          {{l("search")}}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              
+            </form>
+          </div>
+          <div class="row align-items-center">
+            <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+              <p-table #dataTable id="tableShow" (onLazyLoad)="getOrders($event)" [value]="primengTableHelper.records"
+                [rows]="primengTableHelper.defaultRecordsCountPerPage" [(selection)]="orderSelection"
+                [paginator]="false" [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns"
+                [responsive]="primengTableHelper.isResponsive" [scrollable]="true" ScrollWidth="100%">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width:250px;" *ngIf="isGranted('Pages.Tenant.Order.Delete')">{{l('Actions')}}</th>
+                    <th style="width:50px;">{{l('RecordId')}}</th>
+                    <th style="width:200px;">{{l('orderNo')}}</th>
+                    <th pSortableColumn="orderDateTime" style="width:150px;">
+                      {{l('orderDay')}}
+                      <p-sortIcon field="orderDateTime"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="totalFee" style="width:120px;">
+                      {{l('totalAmount')}}
+                      <p-sortIcon field="totalFee"></p-sortIcon>
+                    </th>
+                    <th style="width:120px;">{{l('realAmount')}}</th>
+
+
+                    <th pSortableColumn="status" style="width:120px;">
+                      {{l('orderStatus')}}
+                      <p-sortIcon field="status"></p-sortIcon>
+                    </th>
+                    <th style="width:200px;">{{l('orderDetail')}}</th>
+                    <th pSortableColumn="storeName" style="width:120px;">
+                      {{l('dealShop')}}
+                      <p-sortIcon field="storeName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="payType" style="width:120px;">
+                      {{l('payWay')}}
+                      <p-sortIcon field="payType"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="payTime" style="width:150px;">
+                      {{l('payTime')}}
+                      <p-sortIcon field="payTime"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="from" style="width:120px;">
+                      {{l('from')}}
+                      <p-sortIcon field="from"></p-sortIcon>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                  <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                    <td *ngIf="isGranted('Pages.Tenant.Order.Delete')" style="width:250px;">
+                      <button class="btn btn-sm btn-primary" (click)="goDetail(record,true)">
+                        {{l("Detail")}}
+                      </button>
+
+                      <button class="btn btn-sm btn-primary" (click)="consignGood(record)"
+                        *ngIf="record.from=='weishop'&&record.status=='待发货'">
+                        {{l("consignGood")}}
+                      </button>
+                      <button class="btn btn-sm btn-primary" (click)="closeWeishopOrder(record)"
+                        *ngIf="record.from=='weishop'&&record.status=='待付款'">
+                        {{l("Cancel")}}
+                      </button>
+                      <button class="btn btn-sm btn-primary" (click)="returnGood(record)"
+                        *ngIf="record.from=='weishop'&&record.status=='退款中'">
+                        {{l("returnGood")}}
+                      </button>
+                      <button class="btn btn-sm btn-primary" (click)="confirmWeishopOrder(record)"
+                        *ngIf="record.from=='weishop'&&(record.status=='待评价'||record.status=='待收货')">
+                        {{l("complete")}}
+                      </button>
+
+                    </td>
+                    <td style="width:50px;"> {{transIndex(i)}}</td>
+                    <td style="width:200px;"><span>{{record.orderNO}}</span></td>
+                    <td style="width:150px;">{{record.orderDateTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td style="width:120px;">{{record.totalFee|currency:'￥'}}</td>
+                    <td style="width:120px;">{{record.payment |currency:'￥'}}</td>
+
+                    <td style="width:120px;">
+                      <span>{{l(record.status)}}</span>
+                    </td>
+                    <td style="width:200px;">
+                      <span>
+                        <span *ngFor="let item of record.orderItems"
+                          style="margin-right:1rem;white-space: normal;text-align: left;">
+                          {{item.outerId}} {{item.title}} (
+                          {{item.totalFee/item.number}}×{{item.number}} )
+                        </span>
+                      </span>
+                    </td>
+                    <td style="width:120px;"><span>{{record.storeName}}</span></td>
+                    <td style="width:120px;">{{record.payType}}</td>
+                    <td style="width:150px;">{{record.payTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td style="width:120px;">
+                      <span *ngFor="let from of fromList">
+                        <span *ngIf="from.value==record.from">
+                          {{from.name}}
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-records>
+                  <tr *ngIf="primengTableHelper.records">
+                    <td colspan="12">
+                      <img class="emptymessage" src="/assets/common/images/placeholder/orderHolder.png" />
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <div class="primeng-paging-container">
+                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                  (onPageChange)="getOrders($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                  [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                </p-paginator>
+                <span class="total-records-count">
+                  {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                  <span style="margin-left:20px;">
+                    {{l('totalFees')}} : {{totalSale|currency:'￥'}}
+                  </span>
+                </span>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<orderDetailModal #orderDetailModal (modalSave)="getOrders()"></orderDetailModal>
