@@ -55,15 +55,15 @@
                         </div>
                         <div class="form-group col-6">
                             <label>{{l('Parent')}}</label>
-                            <p-autoComplete *ngIf="objItem.parent == 0,else content" [(ngModel)]="parentId" [suggestions]="parentSelection"
+                            <p-autoComplete *ngIf="objItem.parent == 0,else content" [(ngModel)]="parent" [suggestions]="parentSelection"
                                 (completeMethod)="parentFilter($event)" field="value" [placeholder]="l('Parent')"
                                 dataKey="id" [dropdown]="true" (onSelect)="assignParent()"
                                 (onUnselect)="assignParent()" [minLength]="1"
                                 name="parentId" inputStyleClass="form-control" styleClass="width-percent-100">
                             </p-autoComplete>
                             <ng-template #content>
-                                <p-autoComplete [(ngModel)]="parentId" [suggestions]="parentSelection"
-                                    (completeMethod)="parent2Filter($event)" field="value" [placeholder]="l('Parent')"
+                                <p-autoComplete [(ngModel)]="parent" [suggestions]="parentSelection"
+                                    (completeMethod)="parent2Filter()" field="value" [placeholder]="l('Parent')"
                                     dataKey="id" [dropdown]="true" (onSelect)="assignParent()"
                                     (onUnselect)="assignParent()" [minLength]="1"
                                     name="parentId" inputStyleClass="form-control" styleClass="width-percent-100">
@@ -84,7 +84,7 @@
                         <div class="form-group col-6">
                             <label>{{l('joinUser')}}</label>
                             <p-autoComplete [(ngModel)]="joinUsers" [suggestions]="joinUserSuggestion"
-                                (completeMethod)="joinUserFilter($event)" field="value" [placeholder]="l('JoinUser')"
+                                (completeMethod)="joinUserFilter()" field="value" [placeholder]="l('JoinUser')"
                                 dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignJoinUsers()"
                                 (onUnselect)="assignJoinUsers()" (onBlur)="clearInput($event)" [minLength]="1"
                                 name="joinUserId" inputStyleClass="form-control" styleClass="width-percent-100">

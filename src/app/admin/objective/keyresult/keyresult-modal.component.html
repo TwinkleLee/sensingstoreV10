@@ -49,7 +49,7 @@
                         <div class="form-group col-6">
                             <label>{{l('joinUser')}}</label>
                             <p-autoComplete [(ngModel)]="joinUsers" [suggestions]="joinUserSuggestion"
-                                (completeMethod)="joinUserFilter($event)" field="value" [placeholder]="l('JoinUser')"
+                                (completeMethod)="joinUserFilter()" field="value" [placeholder]="l('JoinUser')"
                                 dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignJoinUsers()"
                                 (onUnselect)="assignJoinUsers()" (onBlur)="clearInput($event)" [minLength]="1"
                                 name="joinUserId" inputStyleClass="form-control" styleClass="width-percent-100">
