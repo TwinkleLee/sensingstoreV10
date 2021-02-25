@@ -34,6 +34,6 @@ export class OrganizationUnitsComponent extends AppComponentBase {
         this.ouStores.organizationUnit = event;
     }
     goImport(){
-        this.router.navigate(['app','import','import','organization-units']);
+        this.router.navigate(['app', 'admin','import','import','organization-units']);
     }
 }

@@ -1,0 +1,504 @@
+<div bsModal #createOrEditModal="bs-modal" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1" role="dialog"
+    aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #MemberForm="ngForm" novalidate autocomplete="off" (ngSubmit)="save($event)">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l('MemberDetail')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('MemberMsg')}}" active="true" (selectTab)="showSave = true">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l('memberNo')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.memberNo" name="outerId" />
+                                    <span *ngIf="!editable" class="form-control">{{member.memberNo||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('membershipType')}}</label>
+                                    <select *ngIf="editable" class="form-control" [(ngModel)]="member.type" name="memberShipType">
+                                        <option value="">{{l('All')}}</option>
+                                        <option [value]="memberType.value" *ngFor="let memberType of memberTypes">{{memberType.name}}</option>
+                                    </select>
+                                    <span *ngIf="!editable" class="form-control">{{member.type||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('wechatNick')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.weChatNickName"
+                                        name="weChatNickName" />
+                                    <span *ngIf="!editable" class="form-control">{{member.weChatNickName||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('Name')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.name" name="name" />
+                                    <span *ngIf="!editable" class="form-control">{{member.name||EmptyTdText}}</span>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label>{{l('birthDay')}}</label>
+                                    <date-range-picker *ngIf="editable" [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true}'
+                                        needInitDate="true" #dateranger name="birthTime" [(startDate)]="member.birthTime"
+                                        [(endDate)]="member.birthTime" [allowFutureDate]="true"></date-range-picker>
+                                    <span *ngIf="!editable" class="form-control">{{(member.birthTime |
+                                        date:"yyyy-MM-dd")||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('gender')}}</label>
+                                    <select *ngIf="editable" type="text" name="gender" class="form-control" [(ngModel)]="member.gender">
+                                        <option value=''>{{l('unknown')}}</option>
+                                        <option value='male'>{{l('male')}}</option>
+                                        <option value='female'>{{l('female')}}</option>
+                                    </select>
+                                    <span *ngIf="!editable" class="form-control">{{member.gender||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('registerPhoneNumber')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.regPhone" name="regPhone"
+                                        maxlength="11" pattern="^[1][3,4,5,7,8][0-9]{9}$" />
+                                    <span *ngIf="!editable" class="form-control">{{member.regPhone||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l('firstBuyTime')}}</label>
+                                    <date-range-picker *ngIf="editable" [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true}'
+                                        needInitDate="true" name="firstBuyTime" [(startDate)]="member.firstBuyTime"
+                                        [(endDate)]="member.firstBuyTime" [allowFutureDate]="true"></date-range-picker>
+                                    <span *ngIf="!editable" class="form-control">{{(member.firstBuyTime |
+                                        date:'yyyy-MM-dd
+                                        HH:mm') ||EmptyTdText}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label>{{l('IDCardNo')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.idNumber" name="idNumber"
+                                        maxlength="18" />
+                                    <span *ngIf="!editable" class="form-control">{{member.idNumber||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('career')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.career" name="career" />
+                                    <span *ngIf="!editable" class="form-control">{{member.career||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('inCome')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.income" name="income" />
+                                    <span *ngIf="!editable" class="form-control">{{member.income||EmptyTdText}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label>{{l('memberPoint')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.point" name="point" />
+                                    <span *ngIf="!editable" class="form-control">{{member.point||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('memberPointRate')}}</label>
+                                    <input *ngIf="editable" class="form-control" [(ngModel)]="member.pointRate" name="pointRate" />
+                                    <span *ngIf="!editable" class="form-control">{{member.pointRate||EmptyTdText}}</span>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l('canExchangeGifts')}}</label>
+                                    <select *ngIf="editable" class="form-control" [(ngModel)]="member.canExchangeGifts"
+                                        name="canExchangeGifts">
+                                        <option [value]='true'>{{l('Yes')}}</option>
+                                        <option [value]='false'>{{l('No')}}</option>
+                                    </select>
+                                    <span *ngIf="!editable" class="form-control">{{member.canExchangeGifts||EmptyTdText}}</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-12 text-right" *ngIf="editable">
+                                    <button type="button" class="btn btn-primary" (click)="addAddress()" style="margin-bottom: 6px;">
+                                        <i class="fa fa-plus"></i>{{l('add')}}</button>
+                                </div>
+                                <div class="primeng-datatable-container">
+                                    <!-- resizableColumns="OrderPrimeng.resizableColumns" -->
+                                    <p-table #dataTable id="tableShow" [value]="member.shippingAddresses" [paginator]="false"
+                                        [lazy]="true" [responsive]="OrderPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width:5%">{{l('Actions')}}</th>
+                                                <th>{{l('province')}}</th>
+                                                <th>{{l('city')}}</th>
+                                                <th>{{l('addressDetail')}}</th>
+                                                <th>{{l('mailNo')}}</th>
+                                                <th>{{l('phone')}}</th>
+                                                <th style="width:5%">{{l('Default')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td>
+                                                    <i class="icon-icon-test" (click)="deleteAddress(i)"></i>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="!editable">{{record.province}}</span>
+                                                    <input required *ngIf="editable" class="form-control" type="text"
+                                                        [(ngModel)]="record.province" [name]="'province'+i" />
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="!editable">{{record.city}}</span>
+                                                    <input required *ngIf="editable" class="form-control" type="text"
+                                                        [(ngModel)]="record.city" [name]="'city'+i" />
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="!editable">{{record.area}}</span>
+                                                    <input required *ngIf="editable" class="form-control" type="text"
+                                                        [(ngModel)]="record.area" [name]="'area'+i" />
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="!editable">{{record.zipCode}}</span>
+                                                    <input required *ngIf="editable" class="form-control" type="text"
+                                                        [(ngModel)]="record.zipCode" [name]="'zipCode'+i" />
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="!editable">{{record.postPhone}}</span>
+                                                    <!-- <input required *ngIf="editable" pattern="^[1][3,4,5,7,8][0-9]{9}$" class="form-control" type="text" maxlength="11" [(ngModel)]="record.postPhone"
+                                                        [name]="'postPhone'+i" /> -->
+                                                    <input required *ngIf="editable" class="form-control" type="text"
+                                                        maxlength="11" [(ngModel)]="record.postPhone" [name]="'postPhone'+i" />
+                                                </td>
+                                                <td>
+                                                    <label class="m-radio">
+                                                        <input type="radio" name="isDefault" [value]="true" [(ngModel)]="record.isDefault">
+                                                        <span></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="{{l('OrderMsg')}}" (selectTab)="getSalesInfo();showSave = false"
+                            *ngIf="operationType=='edit'">
+                            <div class="row">
+                                <form class="horizontal-form" autocomplete="off">
+                                    <div>
+                                        <div class="row align-items-center mb-4">
+                                            <div class="col-4">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('orderNo')}}</label>
+                                                    <div class="input-group">
+                                                        <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                            class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
+                                                            type="text">
+                                                        <span class="input-group-btn">
+                                                            <button (click)="getSalesInfo()" class="btn btn-primary"
+                                                                type="submit">
+                                                                <i class="icon-sousuo-sousuo"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4" style="position:relative;">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('orderDay')}}</label>
+                                                    <date-range-picker name="SampleDateRangePicker" needInitDate="true"
+                                                        [showButton]="true" (buttonEmit)="getSalesInfo()" [(startDate)]="startTime"
+                                                        [(endDate)]="endTime" [allowFutureDate]="false" [admitDelete]="false">
+                                                    </date-range-picker>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>{{l('orderStatus')}}</label>
+                                                <div class="form-group" style="margin-bottom:0;">
+                                                    <div class="input-group">
+                                                        <select class="form-control" [(ngModel)]="orderStatus" name="orderStatus"
+                                                            (ngModelChange)="getSalesInfo()">
+                                                            <option value="">{{l('All')}}</option>
+                                                            <option [value]="status.value" *ngFor="let status of orderStatusList">{{status.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="primeng-datatable-container" [busyIf]="OrderPrimeng.isLoading">
+                                    <p-table #dataTable (onLazyLoad)="getSalesInfo($event)" [value]="OrderPrimeng.records"
+                                        [rows]="OrderPrimeng.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                        [resizableColumns]="OrderPrimeng.resizableColumns" [responsive]="OrderPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>{{l('orderNo')}}</th>
+                                                <th pSortableColumn="orderDateTime">
+                                                    {{l('orderDay')}}
+                                                    <p-sortIcon field="orderDateTime"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="totalFee">
+                                                    {{l('totalAmount')}}
+                                                    <p-sortIcon field="totalFee"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="payment">
+                                                    {{l('realAmount')}}
+                                                    <p-sortIcon field="payment"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="payType">
+                                                    {{l('payWay')}}
+                                                    <p-sortIcon field="payType"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="payTime">
+                                                    {{l('payTime')}}
+                                                    <p-sortIcon field="payTime"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="storeName">
+                                                    {{l('dealShop')}}
+                                                    <p-sortIcon field="storeName"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="status">
+                                                    {{l('orderStatus')}}
+                                                    <p-sortIcon field="status"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td style="width:5%" *ngIf="toDebug"> {{transIndex(i)}}</td>
+                                                <td style="width:5%" *ngIf="!toDebug"> {{i+1}}</td>
+                                                <td>
+                                                    <span>{{record.orderNO}}</span>
+                                                </td>
+                                                <td>{{record.orderDateTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                <td>{{record.totalFee|currency:'￥'}}</td>
+                                                <td>{{record.payment|currency:'￥'}}</td>
+                                                <td>{{record.payType}}</td>
+                                                <td>{{record.payTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                <td><span>{{record.storeName}}</span></td>
+                                                <td>
+                                                    <span>{{l(record.status)}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="OrderPrimeng.records">
+                                                <td colspan="9">
+                                                    <img class="emptymessage" src="/assets/common/images/placeholder/orderHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="OrderPrimeng.defaultRecordsCountPerPage" #paginator
+                                            (onPageChange)="getSalesInfo($event)" [totalRecords]="OrderPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="OrderPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', OrderPrimeng.totalRecordsCount)}}
+                                            <span style="margin-left:20px;">
+                                                {{l('totalFees')}} : {{amount|currency:'￥'}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+                            </div>
+                        </tab>
+                        <tab heading="{{l('SkuMsg')}}" (selectTab)="getSkuInfo();showSave = false"
+                            *ngIf="operationType=='edit'">
+                            <div class="m-portlet__head-tools width-percent-50" style="margin-left:0;margin-top:30px;">
+                                <div class="form-group  width-percent-100">
+                                    <div class="input-group" style="justify-content: flex-start">
+                                        <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true"
+                                            #orderDateranger style="width: 80%;" name="orderDateranger" [(startDate)]="StartTime"
+                                            [(endDate)]="EndTime" [allowFutureDate]="false" [admitDelete]="false">
+                                        </date-range-picker>
+                                        <span class="input-group-btn">
+                                            <button (click)="getSkuInfo()" class="btn btn-primary   fixed-button" type="button">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="primeng-datatable-container" [busyIf]="SkuPrimeng.isLoading">
+                                    <p-table #SkuDataTable (onLazyLoad)="getSkuInfo($event)" [value]="SkuPrimeng.records"
+                                        [rows]="SkuPrimeng.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                        [responsive]="SkuPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('RecordId')}}</th>
+                                                <th pSortableColumn="orderDateTime">
+                                                    {{l('buyTime')}}
+                                                    <p-sortIcon field="orderDateTime"></p-sortIcon>
+                                                </th>
+                                                <th>{{l('Image')}}</th>
+                                                <th>Sku{{l('name')}}</th>
+                                                <th pSortableColumn="number">
+                                                    {{l('amount')}}
+                                                    <p-sortIcon field="number"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="totalFee">
+                                                    {{l('totalFees')}}
+                                                    <p-sortIcon field="totalFee"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td style="width:5%" *ngIf="toDebug"> {{transIndex2(i)}}</td>
+                                                <td style="width:5%" *ngIf="!toDebug"> {{i+1}}</td>
+                                                <td>
+                                                    <span>{{record.orderDateTime| date : "yyyy/MM/dd"}}</span>
+                                                </td>
+                                                <td>
+                                                    <img [src]="fixFileUrl(record.picUrl)" />
+                                                </td>
+                                                <td>
+                                                    <span>{{record.title}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.number}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.totalFee|currency:'￥'}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="SkuPrimeng.records">
+                                                <td colspan="6">
+                                                    <img class="emptymessage" src="/assets/common/images/placeholder/productHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="SkuPrimeng.defaultRecordsCountPerPage" #SkuPaginator
+                                            (onPageChange)="getSkuInfo($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                            [rowsPerPageOptions]="SkuPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', SkuPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+
+
+
+
+
+
+                        <tab heading="{{l('PointHistory')}}" (selectTab)="getMemberPointLog();showSave = false"
+                            *ngIf="operationType=='edit'">
+                            <div class="m-portlet__head-tools width-percent-50" style="margin-left:0;margin-top:30px;">
+                                <div class="form-group  width-percent-100">
+                                    <div class="input-group" style="justify-content: flex-start">
+                                        <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true"
+                                            #orderDateranger style="width: 80%;" name="orderDateranger" [(startDate)]="StartTime"
+                                            [(endDate)]="EndTime" [allowFutureDate]="false" [admitDelete]="false">
+                                        </date-range-picker>
+                                        <span class="input-group-btn">
+                                            <button (click)="getMemberPointLog()" class="btn btn-primary   fixed-button"
+                                                type="button">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="primeng-datatable-container" [busyIf]="PointPrimeng.isLoading">
+                                    <p-table #PointDataTable (onLazyLoad)="getMemberPointLog($event)" [value]="PointPrimeng.records"
+                                        [rows]="PointPrimeng.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                        [responsive]="PointPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('RecordId')}}</th>
+                                                <th pSortableColumn="creationTime">
+                                                    {{l('creationTime')}}
+                                                    <p-sortIcon field="creationTime"></p-sortIcon>
+                                                </th>
+                                                <th>{{l('openId')}}</th>
+                                                <th>{{l('from')}}</th>
+                                                <th>{{l('Type')}}</th>
+                                                <th>{{l('description')}}</th>
+                                                <th>{{l('amount')}}</th>
+                                                <th>{{l('amountBefore')}}</th>
+                                                <th>{{l('amountAfter')}}</th>
+
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td style="width:5%"> {{transIndex3(i)}}</td>
+                                                <td>
+                                                    <span>{{record.creationTime| date : "yyyy/MM/dd"}}</span>
+                                                </td>
+
+                                                <td>
+                                                    <span>{{record.openId}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.from}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.inOrOutType}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.description}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.amount}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.amountBefore}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.amountAfter}}</span>
+                                                </td>
+
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="PointPrimeng.records">
+                                                <td colspan="9">
+                                                    <img class="emptymessage" src="/assets/common/images/placeholder/productHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="PointPrimeng.defaultRecordsCountPerPage" #PointPaginator
+                                            (onPageChange)="getMemberPointLog($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                            [rowsPerPageOptions]="PointPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', PointPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+
+
+
+
+
+
+
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button *ngIf="editable&&showSave" class="btn btn-primary" [disabled]="!MemberForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" type="submit">
+                        <i class="fa fa-save"></i>{{l('Save')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

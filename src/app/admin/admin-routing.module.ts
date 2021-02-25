@@ -181,6 +181,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'maintainInfo',
                         loadChildren: () => import('./maintainInfo/maintainInfo.module').then(m => m.MaintainInfoManageModule),
                     },
+                    {
+                        path: 'memberShip',
+                        loadChildren: () => import('./memberShip/memberShip.module').then(m => m.MemberShipModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

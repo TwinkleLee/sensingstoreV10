@@ -68,8 +68,8 @@ export class AppNavigationService {
                 new AppMenuItem('OnlineStore', 'Pages.Tenant.OnlineStores', 'icon-iconfontshangcheng', '/app/onlineStore/onlineStore'),
             ]),
 
-            new AppMenuItem('Order', 'Pages.Tenant.Order', 'icon-dingdan1', '/app/order/order'),
-            new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/memberShip/memberShip'),
+            new AppMenuItem('Order', 'Pages.Tenant.Order', 'icon-dingdan1', '/app/admin/order/order'),
+            new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/admin/memberShip/memberShip'),
 
             //host建立商城
             new AppMenuItem('WeShop', 'Pages.Administration.Host.MaintainRecord', 'icon-iconfontshangcheng', '/app/weshop/hostOnlineStore'),

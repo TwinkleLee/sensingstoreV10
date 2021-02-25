@@ -1,43 +1,29 @@
 <div [@routerTransition]>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <span>{{"Room" | localize}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{"Room" | localize}}
-                    </span>
-                </div>
-                <!-- <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
-                        <button (click)="createItem()" class="btn btn-primary blue">
-                            <i class="fa fa-plus"></i> {{l("add")}}{{l('Floor')}}</button>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <div class="kt-portlet__body">
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'Room' | localize" [description]="'Room' | localize">
+            <div role="actions"></div>
+        </sub-header>
+
+        <div [class]="containerClass ">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off">
-                            <div class="kt-form kt-form--label-align-right">
-                                <div class="row align-items-center m--margin-bottom-10">
+                            
+                                <div class="row align-items-center mb-4">
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group m-form__group align-items-center">
                                             <label>{{l('name')}}</label>
                                             <div class="input-group">
                                                 <input [(ngModel)]="filterText" name="filterText" autoFocus
-                                                    class="form-control kt-input" (keyup.enter)="getList()"
+                                                    class="form-control m-input" (keyup.enter)="getList()"
                                                     [placeholder]="l('SearchWithThreeDot')" type="text">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group m-form__group align-items-center">
                                             <label>{{l('Building')}}</label>
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="buildingId" name="buildingId"
@@ -51,7 +37,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group m-form__group align-items-center">
                                             <label>{{l('Floor')}}</label>
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="floorId" name="floorId"
@@ -65,7 +51,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group m-form__group align-items-center">
                                             <label>&nbsp;</label>
                                             <div class="input-group">
                                                 <button type="button" class="btn btn-primary"
@@ -85,7 +71,7 @@
                                             <i class="fa fa-plus"></i>{{l("add")}}{{l("Room")}}</button>
                                     </div>
                                 </div>
-                            </div>
+                            
                         </form>
                     </div>
                     <div class="row align-items-center">
