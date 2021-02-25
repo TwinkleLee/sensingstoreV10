@@ -1,0 +1,658 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'product' | localize" [description]="'productList' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Apply')">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shangxian1" (click)="online()">
+                            {{l('onlineBatch')}}
+                        </a>
+                        <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                            {{l('offlineBatch')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="onlineAll()">
+                            {{l('onlineAll')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="offlineAll()">
+                            {{l('offlineAll')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shanchu" (click)="deleteBatch()">
+                            {{l('deleteBatch')}}
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Publish')">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('publishProducts')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishproducts()">
+                            {{l('publishSelected')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-sousuo-sousuo" (click)="publishSearch()">
+                            {{l('publishSearchResult')}}
+                        </a>
+
+                    </div>
+                </div>
+                <div class="btn-group dropdown" #dropdown0="bs-dropdown" dropdown [autoClose]="false"
+                    *ngIf="isGranted('Pages.Tenant.Products.Edit')">
+                    <button class="btn btn-primary dropdown-toggle icon-fenlei" type="button" id="setCateButton"
+                        (click)="getCates(true)" data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                        aria-expanded="false">
+                        {{l('setCate')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="setCateButton" x-placement="bottom-start">
+                        <form class="px-4 py-3 noPaddingBottom">
+                            <div class="form-group">
+                                <input class="form-control" name="cateFilter" [placeholder]="l('enterToSearch')"
+                                    [(ngModel)]="cateFilter" (keyup.enter)="getCates()" />
+                            </div>
+                            <div class="form-group beautyScroll noPaddingBottom">
+                                <app-my-tree #cateTree [(items)]="Categories" [config]="cateConfig">
+                                </app-my-tree>
+                            </div>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a *ngIf="!cateIds || cateIds.length==0" class="icon-apply dropdown-item"
+                            (click)="goCate(2)">{{l('Create')+l('cate')}}</a>
+                        <a *ngIf="cateIds&&cateIds.length>0" class="icon-apply dropdown-item"
+                            (click)="dropdown0.hide();setCate()">{{l('setCate')}}</a>
+                        <a *ngIf="cateIds&&cateIds.length>0" class="icon-Clearsearch dropdown-item"
+                            (click)="dropdown0.hide();clearCate()">{{l('clearCate')}}</a>
+                        <a class="icon-jiaoyiguanli dropdown-item" (click)="goCate()">{{l('manageCate')}}</a>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" #dropdown1="bs-dropdown" dropdown [autoClose]="false"
+                    *ngIf="isGranted('Pages.Tenant.Products.Edit')">
+                    <button class="btn btn-primary dropdown-toggle icon-biaoqian2" type="button" id="setTagButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('setTag')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="setTagButton" x-placement="bottom-start">
+                        <form class="px-4 py-3 noPaddingBottom">
+                            <div class="form-group">
+                                <input class="form-control" name="tagFilter" [placeholder]="l('enterToSearch')"
+                                    [(ngModel)]="tagFilter" (keyup.enter)="filterTags()" />
+                            </div>
+                            <div class="form-group beautyScroll noPaddingBottom">
+                                <app-my-tree #tagTree [(items)]="tagList" [config]="tagConfig"></app-my-tree>
+                            </div>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a *ngIf="!tagIds || tagIds.length==0" class="icon-apply dropdown-item"
+                            (click)="goTag(2)">{{l('Create')+l('Tags')}}</a>
+                        <a *ngIf="tagIds&&tagIds.length>0" class="icon-apply dropdown-item"
+                            (click)="dropdown1.hide();setTag()">{{l('setTag')}}</a>
+                        <a *ngIf="tagIds&&tagIds.length>0" class="icon-Clearsearch dropdown-item"
+                            (click)="dropdown1.hide();clearTag()">{{l('clearTag')}}</a>
+                        <a class="icon-jiaoyiguanli dropdown-item" (click)="goTag()">{{l('manageTag')}}</a>
+                    </div>
+                </div>
+
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Create')">
+                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
+                        [buttonBusy]="exportLoading">
+                        {{l('ImportOrExport')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="port" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="goImport()">
+                            {{l('import')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="goExport()">
+                            {{l('export')}}
+                        </a>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" (click)="alertCreateModal()"
+                    *ngIf="isGranted('Pages.Tenant.Products.Create')">
+                    <i class="icon-add"></i>
+                    {{l("CreateNewproducts")}}</button>
+            </div>
+        </sub-header>
+
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off" name="productsForm">
+                            <div class="kt-form kt-form--label-align-right">
+                                <div class="row align-items-center m--margin-bottom-10">
+                                    <!-- 过滤字段 -->
+                                    <div class="col-3">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button class="form-control filterButton">
+                                                    <input [(ngModel)]="filterText" name="filterText"
+                                                        (keyup.enter)="getProducts()"
+                                                        [placeholder]="l('productSearchPlaceholder')" autoFocus
+                                                        class="form-control kt-input" type="text"
+                                                        style="position:relative;top:-1px;">
+                                                    <i class="icon-shaixuanxuanzhong filterIcon"
+                                                        [attr.title]="l('ShowAdvancedFilters')"
+                                                        (click)="toggleFilter(true)" style="right: 0.5rem;"></i>
+                                                    <div class="dropdown-menu">
+
+                                                        <form (ngSubmit)="doFilterproducts()" name="filterProForm"
+                                                            autocomplete="off" #productsFilterForm="ngForm" novalidate>
+                                                            <div class="form-group col-12">
+                                                                <label>{{l('name')}}</label>
+                                                                <input class="form-control" [(ngModel)]="filterText"
+                                                                    maxlength="256" name="filterText"
+                                                                    [placeholder]="l('productSearchPlaceholder')"
+                                                                    type="text" />
+                                                            </div>
+                                                            <div class="col-12 row">
+                                                                <div class="form-group col-6">
+                                                                    <label>{{l("PriceArea")}}</label>
+                                                                    <input class="form-control" [(ngModel)]="Price1"
+                                                                        name="price1" type="number" />
+                                                                </div>
+                                                                <div class="form-group col-6">
+                                                                    <label>&nbsp;</label>
+                                                                    <input class="form-control" [(ngModel)]="Price2"
+                                                                        name="price2" type="number" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-12" style="position:relative;">
+                                                                <label>{{l('Category')}}</label>
+                                                                <input class="form-control" readonly
+                                                                    [(ngModel)]="CatetoryId" name="CatetoryId"
+                                                                    type="text" (click)="showTree()" />
+                                                                <div class="input-group" *ngIf="showTreeFlag"
+                                                                    style="position:absolute;width:92%;z-index:888;background:#fff;">
+                                                                    <li
+                                                                        style="max-height: 250px;overflow-y:auto;width:100%;">
+                                                                        <app-my-tree
+                                                                            style="position:relative;left:25px;" #tree
+                                                                            [(items)]="CategoriesTree"
+                                                                            [(config)]="treeConfig"
+                                                                            (onCheck)="getChosen()"></app-my-tree>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-12">
+                                                                <label>{{l('Tags')}}</label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control" [(ngModel)]="TagId"
+                                                                        name="TagId">
+                                                                        <option value="">{{l('All')}}</option>
+                                                                        <option [value]="tag.id"
+                                                                            *ngFor="let tag of Tags">{{tag.value}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 row">
+
+                                                                <div class="form-group col-6">
+                                                                    <label>{{l('area')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="region" name="region">
+                                                                            <option value="">{{l('All')}}</option>
+                                                                            <option [value]="item"
+                                                                                *ngFor="let item of regionList">
+                                                                                <span
+                                                                                    *ngIf="isNull(item)">{{l('Other')}}</span>
+                                                                                <span
+                                                                                    *ngIf="!isNull(item)">{{item}}</span>
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-6">
+                                                                    <label>{{l('Language')}}</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control"
+                                                                            [(ngModel)]="language" name="language">
+                                                                            <option value="">{{l('All')}}</option>
+                                                                            <option [value]="item"
+                                                                                *ngFor="let item of languageList">
+                                                                                <span
+                                                                                    *ngIf="isNull(item)">{{l('Other')}}</span>
+                                                                                <span
+                                                                                    *ngIf="!isNull(item)">{{item}}</span>
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-12 row">
+                                                                <div class="form-group col-6">
+                                                                    <label>{{l('stock')}}</label>
+                                                                    <select class="form-control" name="stockOperator"
+                                                                        [(ngModel)]="stockOperator">
+                                                                        <option value="=">{{l('equal')}}</option>
+                                                                        <option value=">">{{l('larger')}}</option>
+                                                                        <option value="<">{{l('smaller')}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-6">
+                                                                    <label>&nbsp;</label>
+                                                                    <input class="form-control" name="Stock"
+                                                                        type="number" [(ngModel)]="Stock" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 row">
+                                                                <div class="form-group col-6">
+                                                                    <label>{{l("salesVolume")}}</label>
+                                                                    <select class="form-control"
+                                                                        name="salesVolumeOperator"
+                                                                        [(ngModel)]="salesVolumeOperator">
+                                                                        <option value="=">{{l('equal')}}</option>
+                                                                        <option value=">">{{l('larger')}}</option>
+                                                                        <option value="<">{{l('smaller')}}</option>
+                                                                    </select>
+
+                                                                </div>
+                                                                <div class="form-group col-6">
+                                                                    <label>&nbsp;</label>
+                                                                    <input class="form-control" name="salesVolume2"
+                                                                        type="number" [(ngModel)]="salesVolume" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-12">
+                                                                <!-- <label>&nbsp;</label> -->
+                                                                <!-- <label class="kt-checkbox" for="IsSearchSku">
+                                                                    <input type="checkbox" id="IsSearchSku" name="IsSearchSku"
+                                                                        [(ngModel)]="IsSearchSku">
+                                                                    <p>{{l('isFilterSku')}}</p>
+                                                                    <span></span>
+                                                                </label> -->
+                                                                <label class="kt-checkbox kt-checkbox--primary">
+                                                                    <input class="form-control"
+                                                                        [(ngModel)]="IsSearchSku" type="checkbox"
+                                                                        name="IsSearchSku" />
+                                                                    <b style="margin-left: 30px;line-height: 1.5rem;">
+                                                                        {{l("isFilterSku")}}
+                                                                    </b>
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group col-12">
+                                                                <button [disabled]="!productsFilterForm.form.valid"
+                                                                    type="submit" class="btn btn-primary">查询</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </button>
+                                                <!-- <span class="input-group-btn">
+                                                    <button (click)="getProducts()" class="btn btn-primary" type="submit">
+                                                        <i class="icon-sousuo-sousuo"></i>
+                                                    </button>
+                                                </span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 时间范围筛选 -->
+                                    <!-- <div class="col-2" style="position: relative;top:-0.5rem;">
+                                        <label>{{l('lastUpdated')}}</label>
+                                        <date-range-picker name="SampleDateRangePicker" [(startDate)]="StartTime"
+                                            [(endDate)]="EndTime" [allowFutureDate]="true" [needInitDate]="true" [admitDelete]="true">
+                                        </date-range-picker>
+                                    </div> -->
+                                    <!-- 筛选在线/离线  -->
+                                    <div class="col-2">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="AuditStatus"
+                                                    name="AuditStatus">
+                                                    <option value="">
+                                                        {{l("All")+' / '+l("online")+' / '+l("offline")}}</option>
+                                                    <option [value]="AuditStatus3.Offline">{{l("offline")}}</option>
+                                                    <option [value]="AuditStatus3.Online">{{l("online")}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 按品牌筛选 -->
+                                    <div class="col-2" style="position:relative;">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>{{l("Brand")}}</label>
+                                            <div class="input-group">
+                                                <input class="form-control belongToTree" name="brandControl" type="text"
+                                                    readonly="readonly" style="background:#FFF !important;"
+                                                    [(ngModel)]="BrandText"
+                                                    (click)="showBrand=!showBrand;brandFilterTree()" />
+                                                <i class="icon-shaixuanxuanzhong belongToTree"
+                                                    style="position:absolute;right:6px;top:50%;transform:translateY(-50%);z-index:19;"
+                                                    (click)="showBrand=!showBrand;brandFilterTree()"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- There is a bug without div -->
+                                        <div style="position:absolute;top:6rem;z-index:9999;"></div>
+
+                                        <!-- <div [ngClass]="{'hide':!showBrand,'float_panel':true,'beautyScroll':true}" -->
+                                        <div *ngIf="showBrand" [ngClass]="{'float_panel':true,'beautyScroll':true}"
+                                            [ngStyle]="{'height':'calc('+avalibleHeight+' - 20px)'}"
+                                            style="top:6rem;left:5%;">
+                                            <div class="panel_body">
+                                                <form name="brandForm">
+                                                    <div class="form-group beautyScroll"
+                                                        style="padding-left:21px;max-height:50vh;">
+                                                        <app-my-tree #brandTree
+                                                            [config]="{'showId':false,'needFilter':false,'name':'name'}"
+                                                            [(items)]="brandList"></app-my-tree>
+                                                        <h3 *ngIf="!brandList||brandList.length==0">{{l('NoData')}}
+                                                        </h3>
+                                                    </div>
+                                                    <div class="form-group text-right">
+                                                        <button *ngIf="brandList&&brandList.length" type="button"
+                                                            class="btn btn-primary"
+                                                            (click)="getProducts();updateBrandSelected()">{{l('search')}}</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading" (click)="getProducts()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 text-right">
+                                        <label>&nbsp;</label>
+                                        <div>
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label
+                                                    [ngClass]="{'active':!showImage,'btn btn-secondary icon-liebiao':true}"
+                                                    (click)="toggle(false)">
+                                                    <input type="radio" name="options" id="option1" autocomplete="off"
+                                                        checked>
+                                                </label>
+                                                <label
+                                                    [ngClass]="{'active':showImage,'btn btn-secondary icon-weibiaoti2010102-copy':true}"
+                                                    (click)="toggle(true)">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <app-image-grid [style]="{'display':showImage?'flex':'none'}"
+                                (onOperate)="onOperate($event)" [(selection)]="productsPublishList"
+                                [imageList]="primengTableHelper.records"></app-image-grid>
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <p-table #dataTable [style]="{'display':showImage?'none':'block'}"
+                                (onLazyLoad)="getProducts($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [(selection)]="productsPublishList"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th style="width:5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:10%">ItemId</th>
+                                        <th style="width:30%">{{l('name')}}</th>
+                                        <th pSortableColumn="creationTime">
+                                            {{l('createTime')}}
+                                            <p-sortIcon field="creationTime"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="lastModificationTime">
+                                            {{l('updateTime')}}
+                                            <p-sortIcon field="lastModificationTime"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="quantity">{{l('stock')}}
+                                            <p-sortIcon field="quantity"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="salesVolume">{{l('salesVolume')}}
+                                            <p-sortIcon field="salesVolume"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="price">{{l('price')}}
+                                            <p-sortIcon field="price"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="auditStatus">{{l('auditStatus')}}
+                                            <p-sortIcon field="auditStatus"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Products.Edit')">
+                                                        <a (click)="productOperation(record)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li
+                                                        *ngIf="isGranted('Pages.Tenant.Products.Delete')&&record.auditStatus=='Offline'&&record.isMine!==false">
+                                                        <a (click)="deleteProduct(record)"
+                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox #TableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <!-- <td> {{transIndex(i)}}</td> -->
+                                        <td>
+                                            <span [title]="record.itemId">{{record.itemId}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.title}}</span>
+                                        </td>
+                                        <td>{{record.creationTime | date:'yyyy/MM/dd'}}</td>
+                                        <td>{{record.lastModificationTime | date:'yyyy/MM/dd'}}</td>
+                                        <td>{{record.quantity}}</td>
+                                        <td>{{record.salesVolume}}</td>
+                                        <td>{{'￥'+record.price}}</td>
+                                        <td>
+                                            <span *ngIf="record['auditStatus']=='Online'"
+                                                class="kt-badge  kt-badge--success kt-badge--inline">{{l("OnSale")}}</span>
+                                            <span *ngIf="record['auditStatus']=='Offline'"
+                                                class="kt-badge  kt-badge--danger kt-badge--inline">{{l("OffSale")}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="10" class="text-center">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/productHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getProducts($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}" *ngIf="toPublish"
+                        [ngStyle]="{'height':avalibleHeight}">
+                        <div class="panel_head">
+                            <h3>{{l('PublishingProduct')}}</h3>
+                            <div class="text-right x">
+                                <button (click)="toPublish=!toPublish">
+                                    <i class="icon-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel_body">
+                            <form (ngSubmit)="doPublishproducts()" name="publishProForm">
+                                <div class="form-group">
+                                    <div class="kt-radio-inline">
+                                        <label class="kt-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="add">
+                                            {{l('append')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="update">
+                                            {{l('update')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="delete">
+                                            {{l('withdraw')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-checkbox kt-checkbox--primary">
+                                            <input class="form-control" [(ngModel)]="informDevice" type="checkbox"
+                                                name="informDevice" />{{l("informDevice")}}
+                                            <span></span>
+                                        </label>
+                                        <div class="input-group" style="width:50%;display:inline-block;margin-left:3%;">
+                                            <select class="form-control" [(ngModel)]="publishTargetType"
+                                                name="publishTargetType" style="width:100%;">
+                                                <option value="">{{l('All')}}</option>
+                                                <option value="organization">{{l("onlyPublishToOU")}}</option>
+                                                <option value="store">{{l("onlyPublishToStore")}}</option>
+                                                <option value="device">{{l("onlyPublishToDevice")}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: flex;">
+
+
+                                    <div class="input-group" style="width:50%;">
+                                        <select class="form-control" [(ngModel)]="deviceTypeId" name="belongStore"
+                                            (change)="filterTree()">
+                                            <option value="">{{l('AllTypes')}}</option>
+                                            <option [value]="deviceType.id" *ngFor="let deviceType of deviceTypeList">
+                                                {{deviceType.name}}</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="input-group" style="width:50%;">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText"
+                                            (keydown.enter)="filterTree($event)" autoFocus class="form-control kt-input"
+                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group beautyScroll" style="padding-left:22px;max-height:50vh;">
+                                    <app-my-tree #myTree [config]="{'showId':true,'needFilter':false}"
+                                        [(items)]="deviceTree"></app-my-tree>
+                                    <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit"
+                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div *ngIf="isGranted('Pages.Tenant.Products.Apply')">
+                <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    (click)="no()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="reason" class="col-form-label">{{l('Message')}}:</label>
+                                        <textarea class="form-control" id="reason" name="reason"
+                                            [(ngModel)]="apply.reason"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="m-radio-list">
+                                            <label class="m-radio">
+                                                <input type="radio" name="options" [(ngModel)]="apply.options"
+                                                    value="all">
+                                                {{apply.wanted==CreateApplyFormInputWanted.Offline?l('offlineAllSku'):l('onlineAllSku')}}
+                                                <span></span>
+                                            </label>
+                                            <br>
+                                            <label class="m-radio">
+                                                <input type="radio" name="options" [(ngModel)]="apply.options"
+                                                    value="none">
+                                                {{l('none')}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="no()"
+                                    data-dismiss="modal">{{l('Close')}}</button>
+                                <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy"
+                                    [busyText]="l('SavingWithThreeDot')" [disabled]="busy">
+                                    <i></i>{{l('Send')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <createOrEditProdModal #createOrEditProdModal (modalSave)="getProducts()"></createOrEditProdModal>
+        </div>
+    </div>

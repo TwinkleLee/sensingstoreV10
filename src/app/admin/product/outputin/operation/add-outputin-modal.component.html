@@ -1,0 +1,131 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}" (click)="clickContainer()">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <form *ngIf="active" name="CommonForm" #InputsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="!Input.outPutInStorageType">{{l("OutQuantity")}}</span>
+                        <span *ngIf="Input.outPutInStorageType">{{l("InQuantity")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>{{l("outerId")}}</label>
+                                <input class="form-control" type="text" name="outerId" [(ngModel)]="Input.outerId">
+                            </div>
+                        </div>
+                        <div class="col-4" style="position:relative;padding-bottom: 0;top:-0.4rem;" [hidden]="!treeList.length">
+                            <app-high-tree #highTree [selfConfig]="{labelName:l('belongStore')}" [config]="{singleSelect:true,canOnlyChooseType:'store'}"
+                                [treeList]="treeList" (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>{{l("from")}}</label>
+                                <input class="form-control" type="text" name="from" [(ngModel)]="Input.from">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("description")}}</label>
+                                <input class="form-control" type="text" name="descrtption" [(ngModel)]="Input.descrtption">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row align-items-center" *ngIf="isTenant||Input.storeId">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container">
+                            <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                            <p-table #RecommendTable [value]="skuList" [paginator]="false">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th>
+                                            {{l('name')}} *
+                                        </th>
+                                        <th>sku_id *</th>
+                                        <th>
+                                            {{l('Image')}}
+                                        </th>
+                                        <th>
+                                            {{l('nowQuantity')}}
+                                        </th>
+                                        <th>
+                                            <span *ngIf="Input.outPutInStorageType==0">{{l('OutQuantity')}}</span>
+                                            <span *ngIf="Input.outPutInStorageType==1">{{l('InQuantity')}}</span>
+                                            <span *ngIf="Input.outPutInStorageType==2">{{l('RealQuantity')}}</span>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record">
+                                        <td>
+                                            <div class="btn-group dropdown" normalizePosition>
+                                                <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
+                                                    type="button" tabindex="-1">
+                                                    <span class="caret"></span> {{l("Delete")}}
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control titleInputInAddOutputinModal" type="text"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.title"
+                                                (keydown.enter)="doSearch($event,record,i)" [readonly]="record.loading">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.sku_id" (keydown.enter)="doSearch($event,record,i)"
+                                                [readonly]="record.loading">
+                                        </td>
+                                        <td>
+                                            <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;" (error)="fixPic($event)" />
+                                        </td>
+                                        <td>
+                                            <span>{{record.quantity}}</span>
+                                        </td>
+                                        <td>
+                                            <input class="form-control numberInputInAddOutputinModal" type="number"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number"
+                                                (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)"
+                                                [readonly]="record.loading||!record.skuId" [class.recordNotValid]="!record.valid">
+                                        </td>
+                                    </tr>
+                                </ng-template>
+
+                            </p-table>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                        <div class="row" style="margin:25px 0;width:100%;">
+                            <div class="col-12 text-center">
+                                <button (click)="add()" class="btn btn-primary blue" type="button">
+                                    <i class="fa fa-plus"></i> {{l("add")}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="button" class="btn btn-primary blue" [disabled]="!InputsForm.form.valid||!Input.outPutInStorageSkus.length"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" (click)="save();">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<skuGridModal #skuGridModal (modalSave)="getSelect($event)"></skuGridModal>

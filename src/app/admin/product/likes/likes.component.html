@@ -1,0 +1,148 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Likes' | localize" [description]="'LikeInfoManage' | localize">
+            <div role="actions">
+                <button (click)="goImport()" class="btn btn-primary blue">
+                    <i class="icon-excel"></i> {{l("import")}}</button>
+                <button (click)="operateLikeInfo('add')" class="btn btn-primary blue">
+                    <i class="fa fa-plus"></i> {{l("CreateNewLike")}}</button>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+
+                            <div class="row align-items-center mb-4">
+                                <div class="col-4">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <input [(ngModel)]="filterText" (keyup.enter)="getLikeInfos($event)"
+                                                name="filterText" autoFocus class="form-control m-input"
+                                                [placeholder]="l('Name')" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-primary"
+                                                [buttonBusy]="primengTableHelper.isLoading" (click)="getLikeInfos()">
+                                                <i class="la la-refresh"></i>
+                                                {{l("search")}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <!-- <label class="btn btn-secondary active icon-liebiao" (click)="toggle(true)">
+                                                <input type="radio" name="options" id="option1" autocomplete="off"
+                                                    checked>
+                                            </label>
+                                            <label class="btn btn-secondary icon-weibiaoti2010102-copy" (click)="toggle(false)">
+                                                <input type="radio" name="options" id="option2" autocomplete="off">
+                                            </label> -->
+                                        <label [ngClass]="{'active':!showImage}" class="btn btn-secondary icon-liebiao"
+                                            (click)="toggle(true)">
+                                            <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                        </label>
+                                        <label [ngClass]="{'active':showImage}"
+                                            class="btn btn-secondary icon-weibiaoti2010102-copy"
+                                            (click)="toggle(false)">
+                                            <input type="radio" name="options" id="option2" autocomplete="off">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <app-image-grid id="gridShow" style="display: none;width: 100%;"
+                                (onOperate)="onOperate($event)" [(selection)]="likeSelection"
+                                [imageList]="primengTableHelper.records" gridOwner="guess"></app-image-grid>
+                            <p-table #dataTable id="tableShow" (onLazyLoad)="getLikeInfos($event)"
+                                [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                responsive="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:15%">{{l('Actions')}}</th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th style="width:25%">{{l('name')}}</th>
+                                        <th>{{l('Picture')}}</th>
+                                        <th>{{l('CreationTime')}}</th>
+                                        <th>{{l('lastUpdated')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Products.Like.Edit')">
+                                                        <a class="icon-bianji"
+                                                            (click)="operateLikeInfo('info',record)">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Products.Like.Delete')">
+                                                        <a class="icon-icon-test"
+                                                            (click)="operateLikeInfo('delete',record)">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td> {{transIndex(i)}}</td>
+                                        <td>{{record.name}}</td>
+                                        <td>
+                                            <img [src]="fixFileUrl(record.image)" [alt]="record.name" />
+                                        </td>
+                                        <td><span>{{record.creationTime | date:'yyyy-MM-dd'}}</span></td>
+                                        <td><span>{{record.lastModificationTime | date:'yyyy-MM-dd'}}</span></td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="6" class="text-center">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/guessHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getLikeInfos($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <createOrEditLikeModal #createOrEditLikeModal (modalSave)="getLikeInfos()"></createOrEditLikeModal>
+
+        <!-- <EditPerPermissionsModal #editUserPermissionsModal></EditPerPermissionsModal> -->
+    </div>
+
+</div>

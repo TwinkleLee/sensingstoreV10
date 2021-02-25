@@ -148,39 +148,39 @@ export class ImportComponent extends AppComponentBase implements OnInit {
   //返回
   goBack() {
     if (this.target == 'whiteuser') {
-      this.router.navigate(['app', 'activity', 'activity', 'prize']);
+      this.router.navigate(['app', 'admin', 'activity', 'activity', 'prize']);
     } else if (this.target == 'cargo') {
-      this.router.navigate(['app', 'device', 'deviceList', 'operation', this.deviceId]);
+      this.router.navigate(['app', 'admin', 'device', 'deviceList', 'operation', this.deviceId]);
     } else if (this.target == 'rfid') {
-      this.router.navigate(['app', 'product', 'skuList']);
+      this.router.navigate(['app', 'admin', 'product', 'skuList']);
     } else if (this.target == 'storagecheck') {
-      this.router.navigate(['app', 'product', 'outputin']);
-    } 
-    
+      this.router.navigate(['app', 'admin', 'product', 'outputin']);
+    }
+
     else if (this.target == 'advertisement') {
-      this.router.navigate(['app', 'advertisement', 'advertisement']);
-    } 
+      this.router.navigate(['app', 'admin', 'advertisement', 'advertisement']);
+    }
     else if (this.target == 'device') {
-      this.router.navigate(['app', 'device', 'device']);
-    } 
+      this.router.navigate(['app', 'admin', 'device', 'device']);
+    }
     else if (this.target == 'room') {
-      this.router.navigate(['app', 'floor', 'room']);
-    } 
+      this.router.navigate(['app', 'admin', 'floor', 'room']);
+    }
     else if (this.target == 'like') {
-      this.router.navigate(['app', 'product', 'like']);
-    } 
+      this.router.navigate(['app', 'admin', 'product', 'like']);
+    }
     else if (this.target == 'question') {
-      this.router.navigate(['app', 'question', 'question']);
-    } 
+      this.router.navigate(['app', 'admin', 'question', 'question']);
+    }
     else if (this.target == 'faceRecommend') {
-      this.router.navigate(['app', 'recommend', 'faceRecommend']);
-    } 
+      this.router.navigate(['app', 'admin', 'recommend', 'faceRecommend']);
+    }
     else if (this.target == 'recommend') {
-      this.router.navigate(['app', 'recommend', 'recommend']);
-    } 
+      this.router.navigate(['app', 'admin', 'recommend', 'recommend']);
+    }
     else if (this.target == 'training') {
-      this.router.navigate(['app', 'training', 'training']);
-    } 
+      this.router.navigate(['app', 'admin', 'training', 'training']);
+    }
     else {
       this.router.navigate(['app', 'admin', this.target]);
     }

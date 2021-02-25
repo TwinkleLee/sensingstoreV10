@@ -1,0 +1,85 @@
+<div>
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="like?.id?l('EditLike'):l('CreateNewLike')" [description]="like?.id+' | '+like?.name">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions">
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form #LikeoperationForm="ngForm" name="LikesForm" novalidate (ngSubmit)="save()"
+                        autocomplete="off">
+                        <tabset class="tab-container tabbable-line">
+                            <tab heading="{{l('LikeMsg')}}" customClass="kt-tabs__item">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label>{{l("name")}} *</label>
+                                            <input #nameInput="ngModel" class="form-control" type="text" name="Name"
+                                                [(ngModel)]="like.name" required maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{l("code")}} *</label>
+                                            <input #nameInput="ngModel" pattern="[0-9a-zA-Z]*" [disabled]="like?.id"
+                                                class="form-control" type="text" name="code" [(ngModel)]="like.code"
+                                                required maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{l("description")}}</label>
+                                            <textarea #nameInput="ngModel" class="form-control" type="text"
+                                                name="description" [(ngModel)]="like.description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{l("orderNumber")}}</label>
+                                            <input #nameInput="ngModel" class="form-control"
+                                                pattern="^(([1-9][0-9]*)|0)\b$" type="number" name="orderNumber"
+                                                [(ngModel)]="like.orderNumber" maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div>
+                                            <label>{{l('skus')}} *</label>
+                                            <div class="form-group">
+                                                <a (click)='addLikeSku()' class="addSkuA">+</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group kt-form__group">
+                                            <label class="control-label">{{l("Picture")}} *</label>
+                                            <app-fileupload [fileUrl]="like.image" (onUpLoadEvent)="onUpload($event)"
+                                                (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <app-image-grid id="gridShow" gridOwner="sku" mode="1" judgeOnline="false"
+                                                style="width: 100%;" (onOperate)="editSkus($event)"
+                                                [imageList]="skuList">
+                                            </app-image-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                        </tabset>
+                        <div class="card-footer" style="text-align: right;">
+                            <button [disabled]="saving" type="button" class="btn btn-primary"
+                                (click)="goBack()">{{l("Cancel")}}</button>
+                            <button type="submit" class="btn btn-primary blue"
+                                [disabled]="!LikeoperationForm.form.valid" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{l("Save")}}</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<createOrEditLikeModal #createOrEditLikeModal (modalSave)="saveSkus($event)"></createOrEditLikeModal>

@@ -1,0 +1,314 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" (onHide)="clearBind()" aria-labelledby="createOrEditModal"
+    class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"  [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #productsForm="ngForm" name="ProductsForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("CreateNewProduct")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('ProductsMsg')}}" customClass="m-tabs__item">
+                            <!-- 基本信息填写  -->
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("name")}} *</label>
+                                            <input #titleInput="ngModel" class="form-control" type="text" name="title"
+                                                [(ngModel)]="product.title" required maxlength="32">
+                                            <validation-messages [formCtrl]="titleInput"></validation-messages>
+                                        </div>
+
+                                        <div class="col-sm-6" *ngIf="appSession.ouList">
+                                            <div class="form-group">
+                                                <label>{{l("OU")}}</label>
+                                                <select [(ngModel)]="product.organizationUnitId" name="organizationUnitId"
+                                                    class="form-control">
+                                                    <option value=""></option>
+                                                    <option [value]="ou.value" *ngFor="let ou of appSession.ouList">{{ou.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("itemId")}}*</label>
+                                            <input #itemIdInput="ngModel" pattern="[0-9a-zA-Z]*" class="form-control"
+                                                required type="text" name="itemId" [(ngModel)]="product.itemId"
+                                                maxlength="32">
+                                            <validation-messages [formCtrl]="itemIdInput"></validation-messages>
+                                        </div>
+                                        <div [ngClass]="areaMode?'form-group col-3':'form-group col-6'">
+                                            <label>{{l("PriceArea")}}*</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text icon-xunhuan" (click)="areaMode=!areaMode"></span>
+                                                </div>
+                                                <input #price1Input="ngModel" pattern="([0-9]*(\.[0-9]+)?|0)"
+                                                    [placeholder]="areaMode?l('MinimumPrice'):l('priceAreaSwitchTips')"
+                                                    class="form-control" type="text" name="price" [(ngModel)]="product.price">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-3" *ngIf="areaMode">
+                                            <label>&nbsp;</label>
+                                            <input #priceInput="ngModel" [placeholder]="l('MaximumPrice')" class="form-control"
+                                                [attr.max]="product.price" maxlength="24" pattern="([0-9]*(\.[0-9]+)?|0)"
+                                                step="0.01" name="price2" [(ngModel)]="product.price2">
+                                            <validation-messages [formCtrl]="priceInput"></validation-messages>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <!-- 此处曾经被注释,可能是因为会和其他地方干扰,待测试 -->
+                                        <div class="form-group col-6">
+                                            <label>{{l("ProductCategory")}}</label>
+                                            <div class="form-group" id="ProductCategory">
+                                                <input class="form-control" readonly type="text" [title]="categoryName"
+                                                    id="categoryName" name="ProductCategory" [(ngModel)]="categoryName"
+                                                    (click)="showCateTree()">
+                                                <ul class="dropdown-menu" style="width:100%;padding-left: 30px;overflow: auto;position: absolute;">
+                                                    <li *ngIf="categoryList&&categoryList.length==0">
+                                                        {{l('NoProductCategoryDefinedYet')}}
+                                                    </li>
+                                                    <li style="max-height: 300px;">
+                                                        <app-my-tree #tree [(items)]="categoryList" [(config)]="treeConfig"></app-my-tree>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l("auditStatus")}}</label>
+                                            <span class="form-control">
+                                                <span class="icon-xiaxian"></span>{{l('Offline')}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>{{l("subTitle")}}</label>
+                                            <input class="form-control" type="text" name="subTitle" [(ngModel)]="product.subTitle"
+                                                maxlength="128">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <button class="btn btn-default" type="button" (click)="isDetail=!isDetail">{{l('detailMessage')}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group m-form__group">
+                                        <label class="control-label">{{l("Picture")}}</label>
+                                        <app-fileupload [fileUrl]="product.picUrl" (onUpLoadEvent)="onUpload($event)"
+                                            (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  额外信息   -->
+                            <div class="row" *ngIf="isDetail">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("age")}}</label>
+
+                                        <!-- <input #ageInput="ngModel" pattern="^\b(.+(-.+)?)(\s*,\s*(.+(-.+)?))*\b$" class="form-control" type="text" name="age" [(ngModel)]="product.ageScope" -->
+                                        <input #ageInput="ngModel" pattern="^\b(\d{1,2}(-\d{1,2})?)(\s*,\s*(\d{1,2}(-\d{1,2})?))*\b$"
+                                            class="form-control" type="text" name="age" [(ngModel)]="product.ageScope"
+                                            placeholder="{{l('ageScopePlaceholder')}}">
+                                        <validation-messages [formCtrl]="ageInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("gender")}}</label>
+                                        <select type="text" name="gender" class="form-control" [(ngModel)]="product.gender">
+                                            <option value=''>{{l('unknown')}}</option>
+                                            <option value='male'>{{l('male')}}</option>
+                                            <option value='female'>{{l('female')}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("promPrice")}}</label>
+                                        <!-- <input #promPriceInput="ngModel" class="form-control" type="number" name="promPrice" step="0.01" pattern="([1-9][0-9]*(\.[0-9]+)?|0)" -->
+                                        <input #promPriceInput="ngModel" class="form-control" type="text" name="promPrice"
+                                            pattern="([0-9]*(\.[0-9]+)?)" [(ngModel)]="product.promPrice">
+                                        <validation-messages [formCtrl]="promPriceInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("rfidCode")}}</label>
+                                        <input #rfidCodeInput="ngModel" class="form-control" maxlength="32" pattern="[0-9a-zA-Z]*"
+                                            type="text" name="rfidCode" [(ngModel)]="product.rfidCode">
+                                        <validation-messages [formCtrl]="rfidCodeInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("keywords")}}</label>
+                                        <input #keywordsInput="ngModel" class="form-control" type="text" maxlength="32"
+                                            name="keywords" [(ngModel)]="product.keywords">
+                                        <validation-messages [formCtrl]="keywordsInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("barcode")}}</label>
+                                        <input #barcodeInput="ngModel" class="form-control" pattern="[0-9a-zA-Z]*"
+                                            maxlength="32" type="text" name="barcode" [(ngModel)]="product.barcode">
+                                        <validation-messages [formCtrl]="barcodeInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("salesVolume")}}</label>
+                                        <input #salesVolumeInput="ngModel" class="form-control" pattern="^(([1-9][0-9]*)|0)\b$"
+                                            step="1" type="number" name="salesVolume" [(ngModel)]="product.salesVolume">
+                                        <validation-messages [formCtrl]="salesVolumeInput"></validation-messages>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("orderNumber")}}</label>
+                                        <input #orderNumberInput="ngModel" class="form-control" pattern="^(([1-9][0-9]*)|0)\b$"
+                                            step="1" type="number" name="orderNumber" [(ngModel)]="product.orderNumber">
+                                        <validation-messages [formCtrl]="orderNumberInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("outerId")}}</label>
+                                        <input #outerIdInput="ngModel" pattern="[0-9a-zA-Z]*" class="form-control" type="text"
+                                            name="outerId" [(ngModel)]="product.outerId" maxlength="32">
+                                        <validation-messages [formCtrl]="outerIdInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("starLevel")}}</label>
+                                        <input #starLevelInput="ngModel" class="form-control" pattern="[1-9][0-9]*"
+                                            type="number" name="starLevel" [(ngModel)]="product.starLevel">
+                                        <validation-messages [formCtrl]="starLevelInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("tags")}}</label>
+                                        <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion"
+                                            (completeMethod)="filter($event)" field="value" placeholder="tags" dataKey="id"
+                                            [multiple]="true" [dropdown]="true" (onSelect)="assignTags()" (onUnselect)="assignTags()"
+                                            (onBlur)="clearInput($event)" [minLength]="1" name="MultiSelectInput"
+                                            inputStyleClass="form-control" styleClass="width-percent-100">
+                                        </p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("stock")}}</label>
+                                        <!-- <input class="form-control" type="number" pattern="^(([1-9][0-9]*)|0)\b$" step="1" name="quantity" [(ngModel)]="product.quantity"> -->
+                                        <input class="form-control" type="text" pattern="([0-9]*)" name="quantity"
+                                            [(ngModel)]="product.quantity">
+
+                                    </div>
+                                </div>
+
+
+
+                                <form>
+
+
+                                    <div class="row" *ngIf="product.pointRule">
+
+                                        <div class="form-group col-3" style="position:relative;min-height:5rem;">
+                                            <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                                <input [(ngModel)]="product.pointRule.redeemRule.pointRedeemable"
+                                                    type="checkbox" name="pointRedeemable" />{{l("pointRedeemable")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable">
+                                            <label>{{l("redeemType")}}</label>
+                                            <select type="text" name="redeemType" class="form-control" [(ngModel)]="product.pointRule.redeemRule.redeemType"
+                                                required>
+                                                <option value='1'>{{l("Full")}}</option>
+                                                <option value='2'>{{l("Partial")}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable">
+                                            <div class="form-group">
+                                                <label>{{l("redeemAmount")}}</label>
+                                                <input class="form-control" type="number" name="redeemAmount"
+                                                    [(ngModel)]="product.pointRule.redeemRule.redeemAmount" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType==2">
+                                            <div class="form-group">
+                                                <label>{{l("cashAmount")}}</label>
+                                                <input class="form-control" type="number" name="cashAmount" [(ngModel)]="product.pointRule.redeemRule.cashAmount"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row" *ngIf="product.pointRule">
+
+                                        <div class="form-group col-3" style="position:relative;min-height:5rem;">
+                                            <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                                <input [(ngModel)]="product.pointRule.awardRule.pointAwardable"
+                                                    type="checkbox" name="pointAwardable" />{{l("pointAwardable")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-3" *ngIf="product.pointRule.awardRule.pointAwardable">
+                                            <div class="form-group">
+                                                <label>{{l("awardAmount")}}</label>
+                                                <input class="form-control" type="number" name="awardAmount"
+                                                    [(ngModel)]="product.pointRule.awardRule.awardAmount" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>{{l("description")}}</label>
+                                        <textarea #nameInput="ngModel" class="form-control" name="description"
+                                            [(ngModel)]="product.description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <!-- <button type="submit" class="btn btn-primary blue" [disabled]="!productsForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"> -->
+                    <button type="button" class="btn btn-primary blue" [disabled]="!productsForm.form.valid" (click)="save()"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

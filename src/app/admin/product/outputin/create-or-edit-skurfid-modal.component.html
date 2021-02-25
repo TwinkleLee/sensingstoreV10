@@ -1,0 +1,50 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <form *ngIf="active" #skuRfidForm="ngForm" name="SkuRfidForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="skuRfid?.id">{{l("EditSkuRfid")}}: {{skuRfid?.id}}</span>
+            <span *ngIf="!skuRfid.id">{{l("CreateSkuRfid")}}</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" aria-label="Close">
+            <i aria-hidden="true" class="ki ki-close"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- 外部新增 -->
+            <div class="form-group col-4" *ngIf="!skuRfid.id&&!skuRfid.skuId">
+              <label>{{l("sku_Id")}} *</label>
+              <input class="form-control" type="text" name="sku_Id" [(ngModel)]="skuRfid.sku_Id" required>
+            </div>
+
+            <div class="form-group col-4">
+              <label>{{l("rfidCode")}} *</label>
+              <input class="form-control" type="text" name="rfidCode" [(ngModel)]="skuRfid.rfidCode" required>
+            </div>
+            <!-- 外部或内部新增 -->
+            <div class="form-group col-4" *ngIf="!skuRfid.id">
+              <div class="form-group kt-form__group align-items-center">
+                <label>{{l('belongStore')}} *</label>
+                <div class="input-group">
+                  <select class="form-control" [(ngModel)]="skuRfid.storeId" name="storeId" required>
+                    <option *ngFor="let store of storeList" [value]="store.storeId">{{store.displayName}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary blue" [disabled]="!skuRfidForm.form.valid" [buttonBusy]="saving"
+            [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

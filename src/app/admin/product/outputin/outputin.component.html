@@ -1,0 +1,209 @@
+<div [@routerTransition] (click)="clickContainer()">
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'QuantityManage' | localize" [description]="'QuantityManage' | localize">
+            <div role="actions">
+                <button (click)="OutQuantity()" class="btn btn-primary blue">
+                    <i class="fa icon-shuminghaoshang_xian"></i> {{l("OutQuantity")}}</button>
+                <button (click)="InQuantity()" class="btn btn-primary blue">
+                    <i class="fa icon-shuminghaoxia_xian"></i> {{l("InQuantity")}}</button>
+
+                <div class="btn-group dropdown" dropdown>
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('checkQuantity')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-xunhuan" (click)="checkQuantity()">
+                            {{l('Create')}}{{l('checkQuantity')}}
+                        </a>
+                        <a class="dropdown-item icon-excel" (click)="importQuantity()">
+                            {{l('Import')}}{{l('checkQuantity')}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-2">
+                            <label>{{l('description')}}/{{l('billNo')}}/{{l('outerId')}}</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input [(ngModel)]="filter" name="filter" (keyup.enter)="getList()" autoFocus
+                                        class="form-control m-input" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <label>{{l('type')}}</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="OutPutInStorageType"
+                                        name="OutPutInStorageType">
+                                        <option value="">{{l('All')}}</option>
+                                        <option value="0">{{l('OutQuantity')}}</option>
+                                        <option value="1">{{l('InQuantity')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <label>{{l('Date')}}</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true"
+                                        #clickDateranger style="width: 100%;" name="clickDateranger"
+                                        [(startDate)]="startTime" [(endDate)]="endTime" [allowFutureDate]="false"
+                                        [admitDelete]="false">
+                                    </date-range-picker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2" style="position:relative;padding-bottom: 0;top:-0.6rem;">
+                            <app-high-tree #highTree [selfConfig]="{labelName:l('belongStore')}" [treeList]="treeList"
+                                (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                        </div>
+
+                        <div class="col-2" *ngIf="isTenant">
+                            <label>{{l('onlyShowMainStorage')}}</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="ignoreStore" name="ignoreStore">
+                                        <option [value]="false">{{l('Yes')}}</option>
+                                        <option [value]="true">{{l('No')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-1">
+                            <div class="form-group m-form__group align-items-center">
+                                <label>&nbsp;</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-primary"
+                                        [buttonBusy]="primengTableHelper.isLoading" (click)="getList()">
+                                        <i class="la la-refresh"></i>
+                                        {{l("search")}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="form-group m-form__group align-items-center">
+                                <label>&nbsp;</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-primary"
+                                        [buttonBusy]="primengTableHelper.isLoading" (click)="showDetail()">
+                                        {{l("showDetail")}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <p-table #dataTable (onLazyLoad)="getList($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 8%">{{l('Actions')}}</th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('billNo')}}</th>
+                                        <th>{{l('outerId')}}</th>
+                                        <th>{{l('type')}}</th>
+                                        <th>{{l('LayoutTime')}}</th>
+                                        <th>sku{{l('amount')}}</th>
+                                        <th pSortableColumn="skuCount">{{l('amount')}}
+                                            <p-sortIcon field="skuCount"></p-sortIcon>
+                                        </th>
+                                        <th>{{l('description')}}</th>
+                                        <th>{{l('storeName')}}</th>
+                                        <th>{{l('from')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group" normalizePosition>
+                                                <button class="btn btn-sm btn-primary" (click)="showDetail(record)">
+                                                    {{l("detail")}}
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="width:5%"> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.billNo}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.outerId}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.outPutInStorageType==0">{{l('OutQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==1">{{l('InQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==2">{{l('checkQuantity')}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.creationTime| date : "yyyy/MM/dd HH:mm"}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.skuNumber}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.skuCount}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.description}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.storeName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.from}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="10">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/deviceHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getList($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <outputinDetailModal #outputinDetailModal></outputinDetailModal>
+        <addOutputinModal #addOutputinModal (modalSave)="getList()"></addOutputinModal>
+    </div>
+
+</div>

@@ -1,0 +1,64 @@
+<div bsModal #createModal="bs-modal" (onShown)="onShown()" aria-labelledby="createModal" class="modal fade" tabindex="-1"
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #PropertysForm="ngForm" name="ProductCategoryForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("CreateNewProperty")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('PropertyMsg')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>{{l("name")}} *</label>
+                                        <input #nameInput="ngModel" class="form-control" type="text" name="name" [(ngModel)]="Property.name" required maxlength="32">
+                                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{l("description")}}</label>
+                                        <textarea #descriptionInput="ngModel" class="form-control" type="text" name="description" [(ngModel)]="Property.description"></textarea>
+                                        <validation-messages [formCtrl]="descriptionInput"></validation-messages>
+                                    </div>
+                                    <div class="form-group">
+                                            <div class="kt-checkbox-list form-group">
+                                                    <label class="kt-checkbox kt-checkbox--success">
+                                                        <input type="checkbox" name="isForSale" [(ngModel)]="Property.isForSale">
+                                                        {{l("isForSale")}}
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="kt-checkbox kt-checkbox--success" *ngIf="Property?.isForSale">
+                                                        <input type="checkbox"  name="isDefaultDecideImage" [(ngModel)]="Property.isDefaultDecideImage">
+                                                        {{l("isDefaultDecideImage")}}
+                                                        <span></span>
+                                                    </label>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="control-label" for="icon">{{l('icon')}}</label>
+                                            <app-fileupload   [fileUrl]="Property.iconUrl" (onUpLoadEvent)="onUpload($event)"></app-fileupload>
+                                        </div>
+                                    </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!PropertysForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

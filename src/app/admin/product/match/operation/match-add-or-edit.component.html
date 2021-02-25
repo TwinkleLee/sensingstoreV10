@@ -1,0 +1,78 @@
+<div>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="match?.id?l('EditMatch'):l('CreateNewMatch')" [description]="match?.id+' | '+match?.name">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions">
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form #matchInfooperationForm="ngForm" name="MatchsForm" novalidate (ngSubmit)="save()"
+                        autocomplete="off">
+                        <tabset class="tab-container tabbable-line">
+                            <tab heading="{{l('MatchMsg')}}">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>{{l("name")}} *</label>
+                                            <input #nameInput="ngModel" class="form-control" type="text" name="name"
+                                                [(ngModel)]="match.name" required maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{l("code")}} *</label>
+                                            <input #nameInput="ngModel" pattern="[0-9a-zA-Z]*" [disabled]="match?.id"
+                                                class="form-control" type="text" name="code" [(ngModel)]="match.code"
+                                                required maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{l("orderNumber")}} *</label>
+                                            <input #nameInput="ngModel" class="form-control"
+                                                pattern="^(([1-9][0-9]*)|0)\b$" type="number" name="orderNumber"
+                                                [(ngModel)]="match.orderNumber" maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div>
+                                            <label>{{l('skus')}} *</label>
+                                            <div class="form-group">
+                                                <a (click)='addMatchSku()' class="addSkuA">+</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group m-form__group">
+                                            <label class="control-label">{{l("Picture")}}</label>
+                                            <app-fileupload [fileUrl]="match.showImage"
+                                                (onUpLoadEvent)="onUpload($event)"></app-fileupload>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <app-image-grid gridOwner="sku" mode="1" judgeOnline="false" id="gridShow"
+                                                style="width: 100%;" (onOperate)="editSkus($event)"
+                                                [imageList]="skuList"></app-image-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                        </tabset>
+                        <div class="card-footer" style="text-align: right">
+                            <button [disabled]="saving" type="button" class="btn btn-primary"
+                                (click)="goBack()">{{l("Cancel")}}</button>
+                            <button type="submit" class="btn btn-primary blue"
+                                [disabled]="!matchInfooperationForm.form.valid" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{l("Save")}}</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <createOrEditMatchModal #createOrEditMatchModal (modalSave)="saveSkus($event)"></createOrEditMatchModal>
+</div>

@@ -1,0 +1,243 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #skusForm="ngForm" name="ProductsForm" novalidate (ngSubmit)="save()"
+                autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("CreateSku")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('SkuMsg')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>{{l("name")}} *</label>
+                                        <input #nameInput="ngModel" class="form-control" type="text" name="title"
+                                            [(ngModel)]="sku.title" required maxlength="32">
+                                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("skuId")}}*</label>
+                                            <input class="form-control" type="text" name="skuId"
+                                                [(ngModel)]="sku.sku_id" maxlength="32" pattern="[0-9a-zA-Z]*" required>
+                                        </div>
+                                        <div [ngClass]="areaMode?'form-group col-3':'form-group col-6'">
+                                            <label>{{l("PriceArea")}}*</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text icon-xunhuan"
+                                                        (click)="areaMode=!areaMode"></span>
+                                                </div>
+                                                <input #price1Input="ngModel" pattern="([1-9][0-9]{0,8}(\.[0-9]+)?|0)"
+                                                    [placeholder]="areaMode?l('MinimumPrice'):l('priceAreaSwitchTips')"
+                                                    class="form-control" type="text" name="price"
+                                                    [(ngModel)]="sku.price">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-3" *ngIf="areaMode">
+                                            <label>&nbsp;</label>
+                                            <input #priceInput="ngModel" [placeholder]="l('MaximumPrice')"
+                                                class="form-control" [attr.max]="sku.price" maxlength="24"
+                                                pattern="([1-9][0-9]*(\.[0-9]+)?|0)" step="0.01" name="price2"
+                                                [(ngModel)]="sku.price2">
+                                            <validation-messages [formCtrl]="priceInput"></validation-messages>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label>{{l("age")}}</label>
+                                            <input #ageInput="ngModel"
+                                                pattern="^\b(\d+(-\d+)?)(\s*,\s*(\d+(-\d+)?))*\b$" class="form-control"
+                                                type="text" name="age" [(ngModel)]="sku.ageScope"
+                                                placeholder="{{l('ageScopePlaceholder')}}">
+                                            <validation-messages [formCtrl]="ageInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label>{{l("gender")}}</label>
+                                            <select type="text" name="gender" class="form-control"
+                                                [(ngModel)]="sku.gender">
+                                                <option value=''>{{l('unknown')}}</option>
+                                                <option value='male'>{{l('male')}}</option>
+                                                <option value='female'>{{l('female')}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label>{{l("weight")}}</label>
+                                                <input class="form-control" type="number" name="weight"
+                                                    [(ngModel)]="sku.weight">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <button class="btn btn-default" type="button"
+                                                (click)="isDetail=!isDetail">{{l('detailMessage')}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group kt-form__group">
+                                        <label class="control-label">{{l("Picture")}}</label>
+                                        <app-fileupload [fileUrl]="sku.picUrl" (onUpLoadEvent)="onUpload($event)"
+                                            (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="isDetail">
+                                <div class="form-group col-4">
+                                    <label>{{l("outerId")}}</label>
+                                    <input #outerIdInput="ngModel" pattern="[0-9a-zA-Z]*" class="form-control"
+                                        type="text" name="outerId" [(ngModel)]="sku.outerId" maxlength="32">
+                                    <validation-messages [formCtrl]="outerIdInput"></validation-messages>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l("orderNumber")}}</label>
+                                    <input #orderNumberInput="ngModel" class="form-control" type="number"
+                                        pattern="^(([1-9][0-9]*)|0)\b$" step="1" name="orderNumber"
+                                        [(ngModel)]="sku.orderNumber">
+                                    <validation-messages [formCtrl]="orderNumberInput"></validation-messages>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l("starLevel")}}</label>
+                                    <input class="form-control" type="number" pattern="[1-9][0-9]*" name="starLevel"
+                                        [(ngModel)]="sku.starLevel">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l("promPrice")}}</label>
+                                    <!-- <input #promPriceInput="ngModel" class="form-control" maxlength="24" pattern="([1-9][0-9]*(\.[0-9]+)?|0)" step="0.01" type="number" -->
+                                    <input #promPriceInput="ngModel" class="form-control" maxlength="24"
+                                        pattern="^\d{1,8}(\.[0-9]+)?$" type="text" name="promPrice"
+                                        [(ngModel)]="sku.promPrice">
+                                    <validation-messages [formCtrl]="promPriceInput"></validation-messages>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("rfidCode")}}</label>
+                                        <input #rfidCodeInput="ngModel" class="form-control" pattern="[0-9a-zA-Z]*"
+                                            maxlength="32" type="text" name="rfidCode" [(ngModel)]="sku.rfidCode">
+                                        <validation-messages [formCtrl]="rfidCodeInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("barcode")}}</label>
+                                        <input #barcodeInput="ngModel" class="form-control" pattern="[0-9a-zA-Z]*"
+                                            maxlength="32" type="text" name="barcode" [(ngModel)]="sku.barcode">
+                                        <validation-messages [formCtrl]="barcodeInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("salesVolume")}}</label>
+                                        <input #salesVolumeInput="ngModel" class="form-control"
+                                            pattern="^(([1-9][0-9]*)|0)\b$" type="number" name="salesVolume"
+                                            [(ngModel)]="sku.salesVolume">
+                                        <validation-messages [formCtrl]="salesVolumeInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("tags")}}</label>
+                                        <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion"
+                                            (completeMethod)="filter($event)" field="value" placeholder="tags"
+                                            dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignTags()"
+                                            (onUnselect)="assignTags()" (onBlur)="clearInput($event)" [minLength]="1"
+                                            name="MultiSelectInput" inputStyleClass="form-control"
+                                            styleClass="width-percent-100">
+                                        </p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("stock")}}</label>
+                                        <input #quantityInput="ngModel" class="form-control" type="number"
+                                            pattern="^(([1-9][0-9]*)|0)\b$" name="quantity" [(ngModel)]="sku.quantity">
+                                        <validation-messages [formCtrl]="quantityInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>{{l("description")}}</label>
+                                        <textarea #nameInput="ngModel" class="form-control" name="description"
+                                            [(ngModel)]="sku.description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" *ngIf="mainProperty.propertyId">
+                                    <div class="form-group">
+                                        <label>{{mainProperty.propertyName}}*({{l('keyProperty')}})</label>
+                                        <select [(ngModel)]="mainPropertyIds[0]" name="mainPropertyId0"
+                                            class="form-control" (ngModelChange)="changeImage($event)" required>
+                                            <option [value]="value.id"
+                                                *ngFor="let value of mainProperty.propertyValues">{{value.value}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12" *ngFor="let addProperty of addPropertyList;let i = index;">
+                                    <div class="form-group row">
+                                        <div class="col-1" style="line-height: 43px">
+                                            <label>{{addProperty.name}}</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select [(ngModel)]="mainPropertyIds[i+1]" [name]="'mainPropertyId'+(i+1)"
+                                                class="form-control">
+                                                <option [value]="value.id"
+                                                    *ngFor="let value of addProperty.propertyValues">{{value.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="deleteProperty(i)">{{l('Delete')}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12" *ngIf="propertyList.length>0">
+                                    <div class="form-group row">
+                                        <div class="col-10">
+                                            <select [(ngModel)]="selectProperty" name="selectProperty"
+                                                class="form-control">
+                                                <option [value]="property" *ngFor="let property of propertyList">
+                                                    {{property.propertyName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="addProperty()">{{l('add')}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="button" *ngIf="editable" class="btn btn-primary blue"
+                        [disabled]="!skusForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"
+                        (click)="save()">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

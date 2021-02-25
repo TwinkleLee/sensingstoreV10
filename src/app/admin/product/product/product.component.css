@@ -1,0 +1,37 @@
+.filterButton{
+    padding: 0px;
+    font-size: 1rem;
+    border-right: 0px;
+}
+.filterButton input{
+    border-radius: .25rem 0 0 .25rem;
+}
+.filterButton .filterIcon{
+    position: absolute;
+    top: calc(50% - 0.5rem);
+    right: 0;
+}
+.filterButton .filterIcon:hover{
+    color:#00bcd4;
+}
+.filterButton .dropdown-menu{
+    width: 100%;
+    z-index: 1000;
+}
+.filterButton + span.input-group-btn{
+    margin-left: -1px;
+}
+.filterButton + span.input-group-btn button{
+    height:calc(100% - 1px);
+}
+.filterButton div.dropdown-menu .m-checkbox{
+    padding-left: 0px;
+}
+.filterButton div.dropdown-menu .m-checkbox p{
+    padding-left: 30px;
+}
+.noPaddingBottom{
+    padding-bottom: 0px !important;
+}
+
+

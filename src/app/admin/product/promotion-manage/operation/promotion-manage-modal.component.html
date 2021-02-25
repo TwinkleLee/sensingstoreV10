@@ -1,0 +1,164 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ProgramsForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Program?.id">{{l("edit")}}{{l("PromotionActivity")}}</span>
+                        <span *ngIf="!Program?.id">{{l("Create")}}{{l("PromotionActivity")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label>{{l("name")}}</label>
+                                    <input #personalNameInput="ngModel" class="form-control" type="text" name="name"
+                                        required [(ngModel)]="Program.name" placeholder="{{l('name')}}" maxlength="32">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>{{l("outerId")}}</label>
+                                    <input class="form-control" type="text" name="outerId" [(ngModel)]="Program.outerId"
+                                        maxlength="32">
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <div class="col m--align-left" style="padding:0;">
+                                        <label>{{l('startEndTime')}}</label>
+                                        <date-range-picker name="startEndTime" [(startDate)]="Program.startTime"
+                                            [(endDate)]="Program.endTime" [allowFutureDate]="true" needInitDate="true"
+                                            [admitDelete]="true" [dateRangePickerOptions]='{ "opens": "left","timePicker": true,"timePickerSeconds": true}'>
+                                        </date-range-picker>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l('type')}}</label>
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="Program.promotionType" name="promotionType">
+                                                <option value="0">{{l('InShop')}}</option>
+                                                <!-- <option value="1">{{l('InGroup')}}</option> -->
+                                                <option value="2">{{l('InProduct')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4" *ngIf="Program.promotionType!=2">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l('discountType')}}</label>
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="Program.discountType" name="discountType"
+                                                required>
+                                                <option value="0">{{l('Voucher')}}</option>
+                                                <option value="1">{{l('Discount')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-4" *ngIf="Program.promotionType!=2">
+                                    <label>{{l("value")}}</label>
+                                    <input class="form-control" type="text" name="discountAmount" [(ngModel)]="Program.discountAmount"
+                                        maxlength="32" required>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display:none;">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <div class="col m--align-left" style="margin-top:3rem;padding-left:0;">
+                                            <label class="kt-checkbox kt-checkbox--primary">
+                                                <input class="form-control" [(ngModel)]="content.isEnable" type="checkbox"
+                                                    name="isEnable"/>{{l('AdvancedSetup')}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="min-height: 6.5rem;">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{l("executeDate")}}</label>
+                                        <div class="form-group">
+                                            <div class="m-radio-inline">
+                                                <label class="m-radio">
+                                                    <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                        value="1"> {{l('eachDay')}}
+                                                    <span></span>
+                                                </label>
+                                                <label class="m-radio">
+                                                    <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                        value="2"> {{l('eachWeek')}}
+                                                    <span></span>
+                                                </label>
+                                                <label class="m-radio">
+                                                    <input type="radio" name="executeDate" [(ngModel)]="content.model"
+                                                        value="3"> {{l('eachMonth')}}
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label>{{l("startTime")}}</label>
+                                        <input class="form-control" type="time" name="contentStartTime" [(ngModel)]="content.startTime"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label>{{l("endTime")}}</label>
+                                        <input class="form-control" type="time" name="contentEndTime" [(ngModel)]="content.endTime"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="col-4" *ngIf="content.model=='2'">
+                                    <div class="form-group">
+                                        <div class="col m--align-left">
+                                            <label class="kt-checkbox kt-checkbox--primary" *ngFor="let item of weekList">
+                                                <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                                    [name]="item.name" [value]="item.value" />{{l(item.name)}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4" *ngIf="content.model=='3'">
+                                    <div class="form-group">
+                                        <label>{{l("executeDate")}} ({{l("SuchAs")}} : 12,15)</label>
+                                        <input class="form-control" type="text" name="monthDay" [(ngModel)]="content.monthDay"
+                                            pattern="^\d{1,2}(,\d{1,2}){0,}$" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ProgramsForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

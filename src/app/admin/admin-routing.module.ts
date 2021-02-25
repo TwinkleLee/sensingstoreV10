@@ -205,6 +205,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'platformManage',
                         loadChildren: () => import('./platformManage/platformManage.module').then(m => m.PlatformManageModule),
                     },
+                    {
+                        path: 'product',
+                        loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

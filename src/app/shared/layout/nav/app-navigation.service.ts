@@ -112,15 +112,15 @@ export class AppNavigationService {
 
             //商品管理
             new AppMenuItem('Product', 'Pages.Tenant.Products', 'icon-product', '', [], [
-                new AppMenuItem('ProductList', 'Pages.Tenant.Products', 'icon-product', '/app/product/product'),
-                new AppMenuItem('ProductInfo', 'Pages.Tenant.Products', 'icon-1311shangpinfenleipicishuxing', '/app/product/prodInfo'),
+                new AppMenuItem('ProductList', 'Pages.Tenant.Products', 'icon-product', '/app/admin/product/product'),
+                new AppMenuItem('ProductInfo', 'Pages.Tenant.Products', 'icon-1311shangpinfenleipicishuxing', '/app/admin/product/prodInfo'),
                 new AppMenuItem('ProductCategory', 'Pages.Tenant.Products', 'icon-shangpinguanli', '/app/admin/category/category'),
-                new AppMenuItem('ProductReview', 'Pages.Tenant.Products.Audit', 'icon-shenhe1', '/app/product/reviewProduct'),
-                new AppMenuItem('Likes', 'Pages.Tenant.Products.Like', 'icon-xin', '/app/product/like'),
-                new AppMenuItem('Match', 'Pages.Tenant.Products.Match', 'icon-dapei', '/app/product/match'),
-                new AppMenuItem('QuantityManage', 'Pages.Tenant.Products', 'icon-xunhuan', '/app/product/outputin'),
-                new AppMenuItem('QuantityList', 'Pages.Tenant.Products', 'icon-tuijian', '/app/product/skuList'),
-                new AppMenuItem('PromotionManage', 'Pages.Tenant.Products', 'icon-qian', '/app/product/promotionManage'),
+                new AppMenuItem('ProductReview', 'Pages.Tenant.Products.Audit', 'icon-shenhe1', '/app/admin/product/reviewProduct'),
+                new AppMenuItem('Likes', 'Pages.Tenant.Products.Like', 'icon-xin', '/app/admin/product/like'),
+                new AppMenuItem('Match', 'Pages.Tenant.Products.Match', 'icon-dapei', '/app/admin/product/match'),
+                new AppMenuItem('QuantityManage', 'Pages.Tenant.Products', 'icon-xunhuan', '/app/admin/product/outputin'),
+                new AppMenuItem('QuantityList', 'Pages.Tenant.Products', 'icon-tuijian', '/app/admin/product/skuList'),
+                new AppMenuItem('PromotionManage', 'Pages.Tenant.Products', 'icon-qian', '/app/admin/product/promotionManage'),
             ]),
 
 

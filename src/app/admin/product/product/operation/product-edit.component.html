@@ -1,0 +1,804 @@
+<div>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'ProductEdit' | localize" [description]="product?.id + ' | '+product?.title">
+            <div role="actions">
+                <a [ngClass]="{'icon-shangyiye':true,'text-primary':product.preProductId,'text-secondary':!product.preProductId}"
+                    (click)="switchProduct(false)"></a>
+                <a [ngClass]="{'icon-xiayiye':true,'text-primary':product.nextProductId,'text-secondary':!product.nextProductId}"
+                    (click)="switchProduct(true)"></a>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <tabset class="tab-container tabbable-line" #tabset>
+                        <!--  商品基础信息-->
+                        <tab heading="{{l('Product')}}" customClass="m-tabs__item icon-product">
+                            <form #productOperationForm='ngForm' name="ProductsForm" (ngSubmit)="save()" novalidate="">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label>{{l("name")}} *</label>
+                                            <input #nameInput="ngModel" class="form-control" type="text" name="title"
+                                                [(ngModel)]="product.title" required maxlength="128">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label>{{l("itemId")}} *</label>
+                                                <input #itemIdInput="ngModel" class="form-control"
+                                                    pattern="[0-9a-zA-Z]*" type="text" name="itemId"
+                                                    [(ngModel)]="product.itemId" required maxlength="32">
+                                                <validation-messages [formCtrl]="itemIdInput"></validation-messages>
+                                            </div>
+                                            <div class="form-group col-3">
+                                                <label>{{l("PriceArea")}}*</label>
+                                                <input #priceInput="ngModel" class="form-control" min="0" maxlength="24"
+                                                    pattern="([0-9]*(\.[0-9]+)?|0)" step="0.01" type="number"
+                                                    name="price" [(ngModel)]="product.price" required>
+                                                <validation-messages [formCtrl]="priceInput"></validation-messages>
+                                            </div>
+                                            <div class="form-group col-3">
+                                                <label>&nbsp;</label>
+                                                <input #price2Input="ngModel" [attr.max]="product.price" maxlength="24"
+                                                    pattern="([0-9]*(\.[0-9]+)?|0)" step="0.01" class="form-control"
+                                                    type="number" name="price2" [(ngModel)]="product.price2">
+                                                <validation-messages [formCtrl]="price2Input"></validation-messages>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-8">
+                                                <label>{{l("categorys")}}</label>
+                                                <div class="form-group" id="ProductCategory">
+                                                    <input class="form-control" readonly type="text"
+                                                        [title]="categoryName" id="categoryName" name="ProductCategory"
+                                                        [(ngModel)]="categoryName" (click)="showCateTree()">
+                                                    <ul class="dropdown-menu"
+                                                        style="width:100%;padding-left: 30px;overflow: auto;position: absolute;">
+                                                        <li *ngIf="categoryList&&categoryList.length==0">
+                                                            {{l('NoProductCategoryDefinedYet')}}
+                                                        </li>
+                                                        <li style="max-height: 300px;">
+                                                            <app-my-tree #tree [(items)]="categoryList"
+                                                                [(config)]="treeConfig"></app-my-tree>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <label>{{l("auditStatus")}}</label>
+                                                <input class="form-control" readonly type="text" name="auditStatus"
+                                                    [(ngModel)]="product.auditStatusForShow">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label>{{l("subTitle")}}</label>
+                                                <input class="form-control" type="text" name="subTitle"
+                                                    [(ngModel)]="product.subTitle" maxlength="32">
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label>{{l("outerId")}}</label>
+                                                <input class="form-control" type="text" pattern="[0-9a-zA-Z]*"
+                                                    name="outerId" [(ngModel)]="product.outerId" maxlength="32">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label>{{l("barcode")}}</label>
+                                                <input class="form-control" type="text" pattern="[0-9a-zA-Z]*"
+                                                    name="barcode" [(ngModel)]="product.barcode">
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label>{{l("rfidCode")}}</label>
+                                                <input class="form-control" type="text" pattern="[0-9a-zA-Z]*"
+                                                    name="rfidCode" [(ngModel)]="product.rfidCode">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label>{{l("promPrice")}}</label>
+                                                <input class="form-control" type="number" name="promPrice" step="0.01"
+                                                    pattern="([1-9][0-9]*(\.[0-9]+)?|0)"
+                                                    [(ngModel)]="product.promPrice">
+                                            </div>
+
+
+                                            <div class="form-group col-6">
+                                                <label>{{l("tags")}}</label>
+                                                <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion"
+                                                    (completeMethod)="filter($event)" field="value" placeholder="tags"
+                                                    dataKey="id" [multiple]="true" [dropdown]="true"
+                                                    (onSelect)="assignTags()" (onUnselect)="assignTags()"
+                                                    (onBlur)="clearInput($event)" [minLength]="1"
+                                                    name="MultiSelectInput" inputStyleClass="form-control"
+                                                    styleClass="width-percent-100">
+                                                </p-autoComplete>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group m-form__group">
+                                            <label class="control-label">{{l("Picture")}}</label>
+                                            <app-fileupload [fileUrl]="product?.id?product.picUrl:''"
+                                                (onUpLoadEvent)="onUpload($event)"
+                                                (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-4">
+                                        <label>{{l("age")}}</label>
+                                        <input class="form-control" pattern="^\b(.+(-.+)?)(\s*,\s*(.+(-.+)?))*\b$"
+                                            type="text" name="age" [(ngModel)]="product.ageScope"
+                                            placeholder="{{l('ageScopePlaceholder')}}">
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("gender")}}</label>
+                                        <select type="text" name="gender" class="form-control"
+                                            [(ngModel)]="product.gender">
+                                            <option value=''>{{l('unknown')}}</option>
+                                            <option value='male'>{{l('male')}}</option>
+                                            <option value='female'>{{l('female')}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("BrandName")}}</label>
+                                        <select class="form-control" [(ngModel)]="product.brandId" name="brandId">
+                                            <option value=''>{{l('unknown')}}</option>
+                                            <option [value]='b.id' *ngFor="let b of brands">{{b.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>{{l("keywords")}}</label>
+                                            <input class="form-control" type="text" name="keywords"
+                                                [(ngModel)]="product.keywords" maxlength="64">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>{{l("salesVolume")}}</label>
+                                            <input class="form-control" type="number" pattern="^(([1-9][0-9]*)|0)\b$"
+                                                step="1" name="salesVolume" [(ngModel)]="product.salesVolume">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>{{l("orderNumber")}}</label>
+                                            <input class="form-control" type="text" pattern="^(([1-9][0-9]*)|0)\b$"
+                                                step="1" name="orderNumber" [(ngModel)]="product.orderNumber">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>{{l("starLevel")}}</label>
+                                            <input class="form-control" type="number" pattern="[1-9][0-9]*"
+                                                name="starLevel" [(ngModel)]="product.starLevel">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>{{l("stock")}}</label>
+                                            <input class="form-control" type="number" step="1"
+                                                pattern="^(([1-9][0-9]*)|0)\b$" name="quantity"
+                                                [(ngModel)]="product.quantity">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label>{{l('area')}}</label>
+                                        <input class="form-control" #RegionCombobox name="RegionCombobox"
+                                            id="RegionCombobox" list="list2" [(ngModel)]="product.region" />
+                                        <datalist id="list2">
+                                            <option value="">{{l('All')}}</option>
+                                            <option [value]="item" *ngFor="let item of regionList">{{item}}</option>
+                                        </datalist>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label>{{l('Language')}}</label>
+                                        <input class="form-control" #LanguageSelectInput name="LanguageSelectInput"
+                                            id="LanguageSelectInput" list="list1" [(ngModel)]="product.language" />
+                                        <datalist id="list1">
+                                            <option value="">{{l('All')}}</option>
+                                            <option [value]="item" *ngFor="let item of languageList">{{item}}</option>
+                                        </datalist>
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-3">
+                                        <label>{{l("freightType")}}</label>
+                                        <select type="text" name="freightType" class="form-control"
+                                            [(ngModel)]="product.freightType">
+                                            <option value='0'>{{l('freightTemplate')}}</option>
+                                            <option value='1'>{{l('fixedPrice')}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3" *ngIf="product.freightType==0">
+                                        <label>{{l("freightTemplate")}}</label>
+                                        <select type="text" name="shopFreightId" class="form-control"
+                                            [(ngModel)]="product.shopFreightId">
+                                            <option value=''></option>
+                                            <option [value]='item.id' *ngFor="let item of freightList">
+                                                {{item.displayName}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3" *ngIf="product.freightType==1">
+                                        <div class="form-group">
+                                            <label>{{l("fixedPrice")}}</label>
+                                            <input class="form-control" type="number" name="fixedPrice"
+                                                [(ngModel)]="product.fixedPrice" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" *ngIf="product.pointRule">
+
+                                    <div class="form-group col-3" style="position:relative;min-height:5rem;">
+                                        <label class="checkbox checkbox-primary"
+                                            style="position:absolute;top:50%;">
+                                            <input class="form-control"
+                                                [(ngModel)]="product.pointRule.redeemRule.pointRedeemable"
+                                                type="checkbox" name="pointRedeemable" />{{l("pointRedeemable")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable">
+                                        <label>{{l("redeemType")}}</label>
+                                        <select type="text" name="redeemType" class="form-control"
+                                            [(ngModel)]="product.pointRule.redeemRule.redeemType" required>
+                                            <option value='1'>{{l("Full")}}</option>
+                                            <option value='2'>{{l("Partial")}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable">
+                                        <div class="form-group">
+                                            <label>{{l("redeemAmount")}}</label>
+                                            <input class="form-control" type="number" name="redeemAmount"
+                                                [(ngModel)]="product.pointRule.redeemRule.redeemAmount" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3"
+                                        *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType==2">
+                                        <div class="form-group">
+                                            <label>{{l("cashAmount")}}</label>
+                                            <input class="form-control" type="number" name="cashAmount"
+                                                [(ngModel)]="product.pointRule.redeemRule.cashAmount" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" *ngIf="product.pointRule">
+
+                                    <div class="form-group col-3" style="position:relative;min-height:5rem;">
+                                        <label class="checkbox checkbox-primary"
+                                            style="position:absolute;top:50%;">
+                                            <input class="form-control"
+                                                [(ngModel)]="product.pointRule.awardRule.pointAwardable" type="checkbox"
+                                                name="pointAwardable" />{{l("pointAwardable")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-3" *ngIf="product.pointRule.awardRule.pointAwardable">
+                                        <div class="form-group">
+                                            <label>{{l("awardAmount")}}</label>
+                                            <input class="form-control" type="number" name="awardAmount"
+                                                [(ngModel)]="product.pointRule.awardRule.awardAmount" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>{{l("description")}}</label>
+                                            <textarea class="form-control" name="description"
+                                                [(ngModel)]="product.description"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 text-right">
+                                    <button class="btn btn-primary" type="button"
+                                        (click)="back()">{{l('back')}}</button>
+                                    <button class="btn btn-primary" *ngIf="product.isMine!==false"
+                                        [disabled]="!productOperationForm.form.valid" [buttonBusy]="saving"
+                                        [busyText]="l('SavingWithThreeDot')" type="submit">
+                                        <i class="fa fa-save"></i>{{l('Save')}}</button>
+                                </div>
+                            </form>
+                        </tab>
+                        <!--  电商平台信息-->
+                        <tab heading="{{l('onlineMsg')}}" customClass="m-tabs__item icon-pingtai1"
+                            (selectTab)="getOnlineByProductId()">
+                            <div class="row align-items-center">
+                                <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                    <div class="m-form m-form--label-align-right" *ngIf="product.isMine!==false">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="offset-4 col-8">
+                                                <div class="form-group">
+                                                    <div class="input-group" style="display: block;text-align: right;">
+                                                        <button type="button" (click)="createOnline()"
+                                                            class="btn btn-primary icon-add">{{l('add')}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="primeng-datatable-container" [busyIf]="onlinePrimeng.isLoading">
+                                    <p-table #dataTableOnline (onLazyLoad)="getOnlineByProductId($event)"
+                                        [value]="onlinePrimeng.records"
+                                        [rows]="onlinePrimeng.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns"
+                                        [responsive]="primengTableHelper.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width:15%">{{l('Actions')}}</th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>{{l('Id')}}</th>
+                                                <th>{{l('OnlinePlatform')}}</th>
+                                                <th>{{l('price')}}</th>
+                                                <th>{{l('num')}}</th>
+                                                <th style="width:35%">{{l('QRCodeLink')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a class="icon-bianji"
+                                                                    (click)="editOnline(record)">{{l('Edit')}}</a>
+                                                            </li>
+                                                            <li *ngIf="product.isMine!==false">
+                                                                <a class="icon-icon-test"
+                                                                    (click)="deleteOnline(record)">{{l('Delete')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>{{transIndex(i,onlinePrimeng,paginatorOnline)}}</td>
+                                                <td>{{record.pid}}</td>
+                                                <td>
+                                                    <!-- <span>{{record.onlineStoreName}}</span> -->
+                                                    <span *ngIf="record.onlineStoreName=='Platform'">平台分类</span>
+                                                    <span *ngIf="record.onlineStoreName=='Taobao'">淘宝分类</span>
+                                                    <span *ngIf="record.onlineStoreName=='Oracle'">Oracl类</span>
+                                                    <span *ngIf="record.onlineStoreName=='JD'">京东</span>
+                                                    <span *ngIf="record.onlineStoreName=='BaiSheng'">百盛ERP</span>
+                                                    <span *ngIf="record.onlineStoreName=='Shangpai'">商派ER</span>
+                                                </td>
+                                                <td>{{record.price||EmptyTdText}}</td>
+                                                <td>{{record.inventory}}</td>
+                                                <td>
+                                                    <span>{{record.qrcode}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="onlinePrimeng.records">
+                                                <td colspan="7">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/onlinestoreHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="onlinePrimeng.defaultRecordsCountPerPage" #paginatorOnline
+                                            (onPageChange)="getOnlineByProductId($event)"
+                                            [totalRecords]="onlinePrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="onlinePrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', onlinePrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <!--  sku-->
+                        <tab heading="{{l('sku')}}" [active]="backFromSku"
+                            customClass="m-tabs__item icon-ccgl-xinghapweihu-4" (selectTab)="getSkuByProductId()">
+                            <div class="row align-items-center">
+                                <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                    <div class="m-form m-form--label-align-right">
+                                        <div class="row align-items-center mb-4">
+                                            <div class="col-4">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <div class="input-group">
+                                                        <input [(ngModel)]="skuFilterText" name="skuFilterText"
+                                                            (keyup.enter)="getSkuByProductId()" autoFocus
+                                                            class="form-control m-input" [placeholder]="l('name')"
+                                                            type="text">
+                                                        <span class="input-group-btn">
+                                                            <button (click)="getSkuByProductId()"
+                                                                class="btn btn-primary" type="submit">
+                                                                <i class="icon-sousuo-sousuo"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="input-group" style="text-align:right;display: block;"
+                                                    *ngIf="product.isMine!==false">
+                                                    <button type="button" (click)="createSku()"
+                                                        class="btn btn-primary icon-add">{{l('CreateSku')}}</button>
+                                                    <div class="btn-group dropdown" dropdown
+                                                        *ngIf="isGranted('Pages.Tenant.Products.Apply')">
+                                                        <button
+                                                            class="btn btn-primary dropdown-toggle icon-piliangcaozuo"
+                                                            type="button" id="applyButton" data-toggle="dropdown"
+                                                            dropdownToggle aria-haspopup="true" aria-expanded="false">
+                                                            {{l('batchOperation')}}
+                                                        </button>
+                                                        <div class="dropdown-menu" *dropdownMenu
+                                                            aria-labelledby="applyButton" x-placement="bottom-start">
+                                                            <a class="dropdown-item icon-shangxian1" (click)="online()">
+                                                                {{l('onlineBatch')}}
+                                                            </a>
+                                                            <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                                                                {{l('offlineBatch')}}
+                                                            </a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item icon-shuminghaoshang_xian"
+                                                                (click)="onlineAll()">
+                                                                {{l('onlineAll')}}
+                                                            </a>
+                                                            <a class="dropdown-item icon-shuminghaoxia_xian"
+                                                                (click)="offlineAll()">
+                                                                {{l('offlineAll')}}
+                                                            </a>
+                                                            <div class="dropdown-divider"></div>
+
+                                                            <a (click)="deleteSkus()" class="dropdown-item icon-shanchu"
+                                                                *ngIf="isGranted('Pages.Tenant.Products.Delete')">
+                                                                {{l('deleteBatch')}}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                        <label class="btn btn-secondary active  icon-liebiao"
+                                                            (click)="toggleSkuGrid(true)">
+                                                            <input type="radio" name="options" id="option1"
+                                                                autocomplete="off" checked>
+                                                        </label>
+                                                        <label class="btn btn-secondary icon-weibiaoti2010102-copy"
+                                                            (click)="toggleSkuGrid(false)">
+                                                            <input type="radio" name="options" id="option2"
+                                                                autocomplete="off">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="primeng-datatable-container" [busyIf]="skuPrimeng.isLoading">
+                                    <app-image-grid id="skuGridShow" style="width: 100%;display: none;"
+                                        (onOperate)="onOperateSku($event)" (onLazyLoad)="getSkuByProductId($event)"
+                                        [(selection)]="skuSelection" [imageList]="skuPrimeng.records" gridOwner="sku">
+                                    </app-image-grid>
+                                    <!-- image - grid -->
+                                    <p-table #dataTable id="skuTableShow" (onLazyLoad)="getSkuByProductId($event)"
+                                        [value]="skuPrimeng.records" [rows]="skuPrimeng.defaultRecordsCountPerPage"
+                                        [paginator]="false" [lazy]="true" [(selection)]="skuSelection"
+                                        [resizableColumns]="skuPrimeng.resizableColumns"
+                                        [responsive]="skuPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width:5.0em">
+                                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                </th>
+                                                <th style="width:10%">SkuId</th>
+                                                <th style="width:25%">{{l('name')}}</th>
+                                                <th pSortableColumn="creationTime">
+                                                    {{l('createTime')}}
+                                                    <p-sortIcon field="creationTime"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="lastModificationTime">
+                                                    {{l('updateTime')}}
+                                                    <p-sortIcon field="lastModificationTime"></p-sortIcon>
+                                                </th>
+                                                <th>{{l('stock')}}</th>
+                                                <th>{{l('salesVolume')}}</th>
+                                                <th>{{l('price')}}</th>
+                                                <th>{{l('auditStatus')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li *ngIf="isGranted('Pages.Tenant.Products.Edit')">
+                                                                <a (click)="editSku(record)"
+                                                                    class="icon-bianji">{{l('Edit')}}</a>
+                                                            </li>
+                                                            <li
+                                                                *ngIf="isGranted('Pages.Tenant.Products.Edit')&&record.auditStatus==0&&product.isMine!==false">
+                                                                <a (click)="deleteSku(record.id)"
+                                                                    class="icon-icon-test">{{l('Delete')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p-tableCheckbox #TableCheckbox [value]="record"></p-tableCheckbox>
+                                                </td>
+                                                <!-- <td> {{transIndex(i,skuPrimeng,paginator,null)}}</td> -->
+                                                <td>
+                                                    <span [title]="record.sku_id">{{record.sku_id}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.title}}</span>
+                                                </td>
+                                                <td>{{record.creationTime | date:'yyyy/MM/dd'}}</td>
+                                                <td>{{record.lastModificationTime | date:'yyyy/MM/dd'}}</td>
+                                                <td>{{record.quantity}}</td>
+                                                <td>{{record.salesVolume}}</td>
+                                                <td>{{'￥'+record.price}}</td>
+                                                <td>
+                                                    <span *ngIf="record['auditStatus']==1"
+                                                        class="label label-success label-inline">{{l("OnSale")}}</span>
+                                                    <span *ngIf="record['auditStatus']==0"
+                                                        class="label label-dark label-inline">{{l("OffSale")}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="skuPrimeng.records">
+                                                <td colspan="10">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/skuHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="skuPrimeng.defaultRecordsCountPerPage" #paginatorSku
+                                            (onPageChange)="getSkuByProductId($event)"
+                                            [totalRecords]="skuPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="skuPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', skuPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <!--  资源列表-->
+                        <tab heading="{{l('resouceList')}}" customClass="m-tabs__item icon-ziyuan"
+                            (selectTab)="getResByProductId()">
+                            <div class="row align-items-center">
+                                <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                    <div class="m-form m-form--label-align-right" *ngIf="product.isMine!==false">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="offset-4 col-8">
+                                                <div class="form-group">
+                                                    <div class="input-group" style="text-align:right;display: block;">
+                                                        <button type="button" (click)="createResource()"
+                                                            class="btn btn-primary icon-add">{{l('add')}}</button>
+                                                        <button type="button" (click)="deleteResources()"
+                                                            class="btn btn-primary icon-piliangcaozuo">{{l('deleteBatch')}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="primeng-datatable-container" [busyIf]="resPrimeng.isLoading">
+                                    <app-image-grid id="gridShow" style="width: 100%;" gridOwner="resource"
+                                        (onOperate)="onOperateResource($event)" (onLazyLoad)="getResByProductId($event)"
+                                        [(selection)]="resourceSelection" [imageList]="resPrimeng.records">
+                                    </app-image-grid>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="resPrimeng.defaultRecordsCountPerPage" #paginatorRes
+                                            (onPageChange)="getResByProductId($event)"
+                                            [totalRecords]="resPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="resPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', resPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <!--  评价-->
+                        <tab heading="{{l('judgement')}}" customClass="m-tabs__item icon-daipingjia01"
+                            (selectTab)="getCommentsByProductId()">
+                            <div class="row align-items-center">
+                                <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                    <div class="m-form m-form--label-align-right" *ngIf="product.isMine!==false">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="offset-4 col-8">
+                                                <div class="form-group">
+                                                    <div class="input-group" style="text-align:right;display: block;">
+                                                        <button type="button" (click)="createComment()"
+                                                            class="btn btn-primary icon-add">{{l('add')}}</button>
+                                                        <button type="button" (click)="deleteComments()"
+                                                            class="btn btn-primary icon-piliangcaozuo">{{l('deleteBatch')}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="primeng-datatable-container" [busyIf]="commentPrimeng.isLoading">
+                                    <p-table #dataTableComment (onLazyLoad)="getCommentsByProductId($event)"
+                                        [(selection)]="commentSelection" [value]="commentPrimeng.records"
+                                        [rows]="commentPrimeng.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [resizableColumns]="commentPrimeng.resizableColumns"
+                                        [responsive]="commentPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width: 5.0em">
+                                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                </th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>{{l('Time')}}</th>
+                                                <th>{{l('orderNumber')}}</th>
+                                                <th>{{l('UserName')}}</th>
+                                                <th>{{l('CommentContent')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a class="icon-bianji"
+                                                                    (click)="editComment(record)">{{l('Edit')}}</a>
+                                                            </li>
+                                                            <li *ngIf="product.isMine!==false">
+                                                                <a class="icon-icon-test"
+                                                                    (click)="deleteComment(record)">{{l('Delete')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td class="ui-resizable-column">
+                                                    <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                                </td>
+                                                <td> {{transIndex(i,commentPrimeng,paginatorComment)}}</td>
+                                                <td>{{record.commentDateTime | date: 'yyyy-MM-dd'}}</td>
+                                                <td>{{record.orderNumber}}</td>
+                                                <td>
+                                                    <span>{{record.userName}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{record.content||EmptyTdText}}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="commentPrimeng.records">
+                                                <td colspan="7">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/commentHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="commentPrimeng.defaultRecordsCountPerPage"
+                                            #paginatorComment (onPageChange)="getCommentsByProductId($event)"
+                                            [totalRecords]="commentPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="commentPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', commentPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isGranted('Pages.Tenant.Products.Apply')">
+            <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="no()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="reason" class="col-form-label">{{l('Message')}}:</label>
+                                    <textarea class="form-control" id="reason" name="reason"
+                                        [(ngModel)]="apply.reason"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="no()"
+                                data-dismiss="modal">{{l('Close')}}</button>
+                            <button type="button" [disabled]="applySaving" [buttonBusy]="applySaving"
+                                [busyText]="l('SavingWithThreeDot')" class="btn btn-primary" (click)="ok()"
+                                [buttonBusy]="busy" [busyText]="l('SavingWithThreeDot')" [disabled]="busy">
+                                <i class="fa fa-save"></i>{{l('Send')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <createOrEditSkuModal [editable]="product.isMine!==false" #createOrEditSkuModal (modalSave)="getSkuByProductId()">
+    </createOrEditSkuModal>
+    <createOrEditOnlineModal [editable]="product.isMine!==false" #createOrEditOnlineModal
+        (modalSave)="getOnlineByProductId()"></createOrEditOnlineModal>
+    <createOrEditCommentsModal [editable]="product.isMine!==false" #createOrEditCommentsModal
+        (modalSave)="getCommentsByProductId()"></createOrEditCommentsModal>
+    <createOrEditProductResourceModal [editable]="product.isMine!==false" #createOrEditProductResourceModal
+        (modalSave)="getResByProductId()"></createOrEditProductResourceModal>

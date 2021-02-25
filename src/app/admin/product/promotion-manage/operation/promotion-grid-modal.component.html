@@ -1,0 +1,57 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form #matchInfoForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("product")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group kt-form__group align-items-center">
+                                <div class="input-group">
+                                    <input [(ngModel)]="filterText" (keydown.enter)="getSkus(null,$event)" name="filterText"
+                                        autoFocus class="form-control kt-input" [placeholder]="l('Name')" type="text">
+                                    <span class="input-group-btn">
+                                        <button (click)="getSkus()" class="btn btn-primary" type="button">
+                                            <i class="icon-sousuo-sousuo"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                        <app-image-grid (onOperate)="onOperate($event)" [(selection)]="selection" [imageList]="this.primengTableHelper.records"
+                            [mode]="0" [justForShow]="false" [isSingleSelect]="true" [operationAfterChoose]="true"></app-image-grid>
+                        <!-- <app-image-grid (onLazyLoad)="getSkus($event)" (onOperate)="onOperate($event)" [(selection)]="selection" [imageList]="this.primengTableHelper.records" [mode]="0" [justForShow]="true"></app-image-grid> -->
+                        <div class="primeng-paging-container">
+                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                (onPageChange)="getSkus($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                            </p-paginator>
+                            <span class="total-records-count">
+                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!matchInfoForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>

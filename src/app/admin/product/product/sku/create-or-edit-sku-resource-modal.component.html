@@ -1,0 +1,61 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ProductsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="operationType=='add'">{{l("CreateNewResource")}}</span>
+                        <span *ngIf="operationType=='edit'">{{l("EditResource")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('Resource')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>{{l('name')}}</label>
+                                        <input class="form-control" name="name" type="text" [(ngModel)]="resource.name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{l('usage')}}</label>
+                                        <input class="form-control" name="type" type="text" [(ngModel)]="resource.usage" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{l('orderNumber')}}</label>
+                                        <input class="form-control" name="orderNumber" pattern="^(([1-9][0-9]*)|0)\b$"
+                                            type="text" [(ngModel)]="resource.orderNumber" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>{{l("description")}}</label>
+                                            <textarea rows="5" class="form-control" name="description" [(ngModel)]="resource.description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label>{{l('Resource')}}</label>
+                                    <div class="form-group">
+                                        <app-fileupload [fileUrl]="resource.fileUrl" (onUpLoadEvent)="onUpload($event)"></app-fileupload>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" *ngIf="editable" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

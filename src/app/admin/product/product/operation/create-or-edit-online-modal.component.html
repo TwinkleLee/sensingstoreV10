@@ -1,0 +1,105 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #onlinestoresForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="operationType=='add'">{{l("CreateNewonlinestore")}}</span>
+                        <span *ngIf="operationType=='edit'">{{l("Editonlinestore")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('storeMessage')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>{{l("ItemId")}}</label>
+                                        <input #nameInput="ngModel"  pattern="[0-9a-zA-Z]*" class="form-control" type="text" name="ItemId" [(ngModel)]="onlineStore.pid" maxlength="32">
+                                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("price")}}</label>
+                                        <input #priceInput="ngModel" class="form-control" min="0" maxlength="24" pattern="([1-9][0-9]*(\.[0-9]+)?|0)" step="0.01" type="number" name="price" [(ngModel)]="onlineStore.price">
+                                        <validation-messages [formCtrl]="priceInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("onlinestoreId")}}</label>
+                                        <input class="form-control" type="text" pattern="[0-9a-zA-Z]*"  name="onlinestoreId" [(ngModel)]="onlineStore.storeId" maxlength="32" >
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("stock")}}</label>
+                                        <input #quantityInput="ngModel"  pattern="^(([1-9][0-9]*)|0)\b$" class="form-control" type="number" name="quantity" [(ngModel)]="onlineStore.inventory">
+                                        <validation-messages [formCtrl]="quantityInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("onlineMallId")}}</label>
+                                        <!-- <input #onlineMallIdInput="ngModel" class="form-control" pattern="[0-9a-zA-Z]*"  type="text" name="onlineMallId" [(ngModel)]="onlineStore.onlineStoreId" -->
+                                        <input #onlineMallIdInput="ngModel" class="form-control" pattern="[0-9]*"  type="text" name="onlineMallId" [(ngModel)]="onlineStore.onlineStoreId"
+                                        
+                                            maxlength="32" placeholder={{0098278}}>
+                                        <validation-messages [formCtrl]="onlineMallIdInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("QRCodeLink")}}*</label>
+                                        <input #QRCodeLinkInput="ngModel" class="form-control" type="text" name="QRCodeLink" [(ngModel)]="onlineStore.qrcode"
+                                        pattern="^(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$"
+                                            maxlength="256" required>
+                                        <validation-messages [formCtrl]="QRCodeLinkInput"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("onlineTrafficTarget")}}*</label>
+                                        <input class="form-control" #llllll name="llllll" id="onlineTrafficTarget" list="list" [(ngModel)]="onlineStore.onlineStoreName" required/>
+                                        <datalist id="list">
+                                            <option value="Platform"></option>
+                                            <option value="Taobao"></option>
+                                            <option value="Oracle"></option>
+                                            <option value="JD"></option>
+                                            <option value="BaiSheng"></option>
+                                            <option value="Shangpai"></option>
+                                            <option value="Weimob"></option>
+                                            <option value="WX-miniprogram"></option>                     
+                                        </datalist>
+                                        <!-- <select #onlineTrafficTargetInput="ngModel" required class="form-control " id="onlineTrafficTarget" name="onlineTrafficTarget"
+                                            [(ngModel)]="onlineStore.onlineStoreName">
+                                            <option value="Platform">平台分类</option>
+                                            <option value="Taobao">淘宝分类</option>
+                                            <option value="Oracle">Oracl类</option>
+                                            <option value="JD">京东</option>
+                                            <option value="BaiSheng">百盛ERP</option>
+                                            <option value="Shangpai">商派ER</option>    
+                                        </select>
+                                        <validation-messages [formCtrl]="onlineTrafficTargetInput"></validation-messages> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit"  *ngIf="editable" class="btn btn-primary blue" [disabled]="!onlinestoresForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+<div>
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'Match' | localize" [description]="'MatchInfoManage' | localize">
+            <div role="actions">
+                <div *ngIf="isGranted('Pages.Tenant.Products.Match.Create')">
+                    <button (click)="goImport()" class="btn btn-primary blue">
+                        <i class="icon-excel"></i> {{l("import")}}</button>
+                    <button (click)="operateMatchInfo('add')" class="btn btn-primary blue">
+                        <i class="fa fa-plus"></i> {{l("CreateNewMatch")}}</button>
+                </div>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+
+                            <div class="row align-items-center mb-4">
+                                <div class="col-4">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <div class="input-group">
+                                            <input (keyup.enter)="getMatchInfos($event)" [(ngModel)]="filterText"
+                                                name="filterText" autoFocus class="form-control kt-input"
+                                                [placeholder]="l('Name')" type="text">
+                                            <!-- <span class="input-group-btn">
+                                                    <button (click)="getMatchInfos()" class="btn btn-primary" type="submit">
+                                                        <i class="icon-sousuo-sousuo"></i>
+                                                    </button>
+                                                </span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-primary"
+                                                [buttonBusy]="primengTableHelper.isLoading" (click)="getMatchInfos()">
+                                                <i class="la la-refresh"></i>
+                                                {{l("search")}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn btn-secondary active icon-liebiao" (click)="toggle(true)">
+                                            <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                        </label>
+                                        <label class="btn btn-secondary icon-weibiaoti2010102-copy"
+                                            (click)="toggle(false)">
+                                            <input type="radio" name="options" id="option2" autocomplete="off">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <app-image-grid id="gridShow" style="display: none;width: 100%;"
+                                (onOperate)="onOperate($event)" [(selection)]="matchSelection"
+                                [imageList]="primengTableHelper.records" gridOwner="match"></app-image-grid>
+
+                            <p-table #dataTable id="tableShow" (onLazyLoad)="getMatchInfos($event)"
+                                [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                responsive="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="max-width:15%">{{l('Actions')}}</th>
+                                        <th style="max-width:5%">{{l('RecordId')}}</th>
+                                        <th style="max-width:25%">{{l('name')}}</th>
+                                        <th>{{l('Picture')}}</th>
+                                        <th>{{l('CreationTime')}}</th>
+                                        <th>{{l('lastUpdated')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Products.Match.Edit')">
+                                                        <a class="icon-bianji"
+                                                            (click)="operateMatchInfo('info',record)">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Products.Match.Delete')">
+                                                        <a class="icon-icon-test"
+                                                            (click)="operateMatchInfo('delete',record)">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td> {{transIndex(i)}}</td>
+                                        <td>{{record.name}}</td>
+                                        <td>
+                                            <img [src]="fixFileUrl(record.showImage)" [alt]="record.name" />
+                                        </td>
+                                        <td>{{record.creationTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                                        <td>{{record.lastModificationTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="6" class="text-center">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/matchHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getMatchInfos($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <createOrEditMatchModal #createOrEditMatchModal (modalSave)="getMatchInfos()"></createOrEditMatchModal>
+
+        <!-- <EditPerPermissionsModal #editUserPermissionsModal></EditPerPermissionsModal> -->
+    </div>
+</div>
