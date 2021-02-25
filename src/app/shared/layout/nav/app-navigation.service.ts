@@ -162,7 +162,7 @@ export class AppNavigationService {
             ]),
 
             //平台管理
-            new AppMenuItem('PlatformManage', 'Pages.Administration.Host.Platform', 'icon-leixing1', '/app/platformManage/platformManage'),
+            new AppMenuItem('PlatformManage', 'Pages.Administration.Host.Platform', 'icon-leixing1', '/app/admin/platformManage/platformManage'),
 
             // OKR管理
             // new AppMenuItem('OKRManage', '', 'icon-leixing1', '/app/admin/objective/objective'),

@@ -1,0 +1,70 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form *ngIf="active" name="CommonForm" #PlatformsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Platform?.id">{{l("Edit")}}{{l("platform")}}: {{Platform?.id}}</span>
+                        <span *ngIf="!Platform?.id">{{l("Create")}}{{l("platform")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("appName")}} *</label>
+                                        <input class="form-control" type="text" name="appName" [(ngModel)]="Platform.appName"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("appKey")}} *</label>
+                                        <input class="form-control" type="text" name="appKey" [(ngModel)]="Platform.appKey"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("platform")}}{{l("name")}}</label>
+                                        <input class="form-control" type="text" name="name" [(ngModel)]="Platform.name">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("type")}}</label>
+                                        <input class="form-control" type="text" name="type" [(ngModel)]="Platform.type">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="control-label">{{l("Image")}}</label>
+                                <app-fileupload [fileUrl]="Platform.icon" (onUpLoadEvent)="imageOnUpload($event)"
+                                    accept="image/*"></app-fileupload>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!PlatformsForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

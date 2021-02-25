@@ -201,6 +201,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'paycenter',
                         loadChildren: () => import('./paycenter/paycenter.module').then(m => m.PayCenterModule),
                     },
+                    {
+                        path: 'platformManage',
+                        loadChildren: () => import('./platformManage/platformManage.module').then(m => m.PlatformManageModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]
