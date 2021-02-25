@@ -1,0 +1,166 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'OKR' | localize" [description]="'Execute' | localize">
+            <div role="actions">
+                <button (click)="deleteBatch()" class="btn btn-primary blue">
+                    <i class="icon-piliangcaozuo"></i>
+                    {{l("deleteBatch")}}</button>
+                <button class="btn btn-primary" (click)="createItem()">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateNewExecute")}}</button>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+
+                            <div class="row align-items-center mb-4">
+                                <div class="col-3">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <label>{{l('Name')}}</label>
+                                        <div class="input-group">
+                                            <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                class="form-control m-input" (keyup.enter)="getList($event)"
+                                                [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <label>{{l('Status')}}</label>
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="complete" name="complete">
+                                                <option value="">
+                                                    {{l("All")}}</option>
+                                                <option value="true">{{l("Completed")}}</option>
+                                                <option value="false">{{l("UnCompleted")}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label>{{l('Time')}}</label>
+                                    <div class="form-group" style="position: static;">
+                                        <date-range-picker name="SampleDateRangePicker" [(startDate)]="startTime"
+                                            [(endDate)]="endTime" rangeMode="history" [allowFutureDate]="true"
+                                            needInitDate="false">
+                                        </date-range-picker>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <label>&nbsp;</label>
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-primary"
+                                                [buttonBusy]="primengTableHelper.isLoading" (click)="getList()">
+                                                <i class="la la-refresh"></i>
+                                                {{l("search")}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <p-table #dataTable (onLazyLoad)="getList($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns" [(selection)]="selectedList"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 15%">{{l('Actions')}}</th>
+                                        <th style="width: 5%">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('Name')}}</th>
+                                        <th>{{l('Target')}}</th>
+                                        <th>{{l('Current')}}</th>
+                                        <th>{{l('startDate')}}</th>
+                                        <th>{{l('endDate')}}</th>
+                                        <th>{{l('description')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li>
+                                                        <a (click)="editItem(record)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a (click)="deleteItem(record)"
+                                                            class="icon-shanchu1">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td style="width:5%"> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.displayName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.target}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.current}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.startTime | date : "yyyy/MM/dd"}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.endTime | date : "yyyy/MM/dd"}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.description}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="5" class="text-center">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/deviceHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getList($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                        <executetModal #executetModal (modalSave)="getList()"></executetModal>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

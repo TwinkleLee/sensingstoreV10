@@ -185,6 +185,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'memberShip',
                         loadChildren: () => import('./memberShip/memberShip.module').then(m => m.MemberShipModule),
                     },
+                    {
+                        path: 'objective',
+                        loadChildren: () => import('./objective/objective.module').then(m => m.ObjectiveModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

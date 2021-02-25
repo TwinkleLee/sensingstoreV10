@@ -165,7 +165,7 @@ export class AppNavigationService {
             new AppMenuItem('PlatformManage', 'Pages.Administration.Host.Platform', 'icon-leixing1', '/app/platformManage/platformManage'),
 
             // OKR管理
-            // new AppMenuItem('OKRManage', '', 'icon-leixing1', '/app/objective/objective'),
+            // new AppMenuItem('OKRManage', '', 'icon-leixing1', '/app/admin/objective/objective'),
 
             //支付中心
             new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-qian', '', [], [

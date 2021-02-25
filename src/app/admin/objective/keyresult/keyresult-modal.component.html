@@ -1,0 +1,83 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <!-- <span>{{l("handle")}}{{l('messageRecord')}}</span> -->
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l("KeyResult")}}:{{objItem?.id +' | '+ objName}}</span>
+                        <span *ngIf="!objItem?.id">{{l("Create")}}{{l("KeyResult")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("Name")}}</label>
+                            <input class="form-control" type="text" name="displayName" [(ngModel)]="objItem.displayName" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("Time")}}</label>
+                            <date-range-picker name="SampleDateRangePicker" [(startDate)]="objItem.startTime" [(endDate)]="objItem.endTime"
+                            rangeMode="history" needInitDate="true">
+                            </date-range-picker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("ConfidencePercent ")}}</label>
+                            <input class="form-control" type="text" name="confidencePercent " [(ngModel)]="objItem.confidencePercent">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("Weighting")}}</label>
+                            <input class="form-control" type="text" name="weighting " [(ngModel)]="objItem.weighting" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l('headerUser')}}</label>
+                            <p-autoComplete [(ngModel)]="headerUsers" [suggestions]="headerUserSuggestion"
+                                (completeMethod)="headerUserFilter($event)" field="value" [placeholder]="l('HeaderUser')"
+                                dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignHeaderUser()"
+                                (onUnselect)="assignHeaderUser()" (onBlur)="clearInput($event)" [minLength]="1"
+                                name="headerUserId" inputStyleClass="form-control" styleClass="width-percent-100">
+                            </p-autoComplete>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l('joinUser')}}</label>
+                            <p-autoComplete [(ngModel)]="joinUsers" [suggestions]="joinUserSuggestion"
+                                (completeMethod)="joinUserFilter($event)" field="value" [placeholder]="l('JoinUser')"
+                                dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignJoinUsers()"
+                                (onUnselect)="assignJoinUsers()" (onBlur)="clearInput($event)" [minLength]="1"
+                                name="joinUserId" inputStyleClass="form-control" styleClass="width-percent-100">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label>{{l("Target ")}}</label>
+                            <input class="form-control" type="text" name="target " [(ngModel)]="objItem.target" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label>{{l("Description")}}</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="objItem.description" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
