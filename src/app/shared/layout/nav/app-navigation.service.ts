@@ -155,9 +155,9 @@ export class AppNavigationService {
 
             //Traning
             new AppMenuItem('Training', 'Pages.Tenant.Training', 'icon-peixun', '', [], [
-                new AppMenuItem('Course', 'Pages.Tenant.Training', 'icon-kecheng', '/app/training/course'),
-                new AppMenuItem('TrainingList', 'Pages.Tenant.Training', 'icon-peixunjihua', '/app/training/training'),
-                new AppMenuItem('MyTraining', 'Pages.Tenant.Training', 'icon-peixunguanli', '/app/training/my-training'),
+                new AppMenuItem('Course', 'Pages.Tenant.Training', 'icon-kecheng', '/app/admin/training/course'),
+                new AppMenuItem('TrainingList', 'Pages.Tenant.Training', 'icon-peixunjihua', '/app/admin/training/training'),
+                new AppMenuItem('MyTraining', 'Pages.Tenant.Training', 'icon-peixunguanli', '/app/admin/training/my-training'),
                 // new AppMenuItem('TrainingAudit', 'Pages.Tenant.Training.Audit', 'icon-renlianshibie', '/app/training/training-audit')
             ]),
 

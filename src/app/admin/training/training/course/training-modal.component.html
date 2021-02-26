@@ -1,0 +1,56 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("Create")}}{{l("Training")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                          <label>{{l("lecturer")}}</label>
+                          <p-autoComplete [(ngModel)]="lecturers" [suggestions]="lecturerSuggestion"
+                              (completeMethod)="lecturerFilter($event)" field="value" [placeholder]="l('lecturer')"
+                              dataKey="id" [dropdown]="true" (onSelect)="assignLecturer()"
+                              (onUnselect)="assignLecturer()" [minLength]="1"
+                              name="SelectInput" inputStyleClass="form-control" styleClass="width-percent-100">
+                          </p-autoComplete>
+
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("tags")}}</label>
+                            <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion"
+                                (completeMethod)="filter($event)" field="value" placeholder="tags"
+                                dataKey="id" [dropdown]="true" (onSelect)="assignTags()"
+                                (onUnselect)="assignTags()" [minLength]="1"
+                                name="MultiSelectInput" inputStyleClass="form-control" styleClass="width-percent-100">
+                            </p-autoComplete>
+                            <!-- <validation-messages [formCtrl]="nameInput"></validation-messages> -->
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("startTime")}}</label>
+                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false,"timePickerSeconds": false}'
+                              name="startTime" needInitDate="true" [(startDate)]="training.startTime" [(endDate)]="training.startTime" [allowFutureDate]="false" needInitDate="false" [admitDelete]="false">
+                            </date-range-picker>
+                          </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
