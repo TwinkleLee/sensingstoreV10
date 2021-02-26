@@ -190,7 +190,7 @@ export class AppNavigationService {
 
             //系统管理
             new AppMenuItem('System', 'Pages.Administration', 'icon-jichushezhi', '', [], [
-                new AppMenuItem('TagManagement', 'Pages.Tenant.Tags', 'icon-biaoqian', '/app/tags/tags'),
+                new AppMenuItem('TagManagement', 'Pages.Tenant.Tags', 'icon-biaoqian', '/app/admin/tags/tags'),
                 new AppMenuItem('ResourceManagement', 'Pages.Tenant.Resources', 'icon-ziyuanguanli', '/app/admin/resource/resource'),
                 new AppMenuItem('PublicAccount', 'Pages.Tenant.PublicAccount', 'icon-gongzhonghao', '/app/admin/publicaccount/publicaccount'),
                 new AppMenuItem('Tenants', 'Pages.Tenants', 'icon-kehuguanli', '/app/admin/tenants'),

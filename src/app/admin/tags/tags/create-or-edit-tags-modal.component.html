@@ -1,0 +1,75 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #tagForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="tag?.id">{{l("EditTag")}}: {{tag?.id+' | '+tag?.value}}</span>
+                        <span *ngIf="!tag.id">{{l("CreateNewTag")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('TagMsg')}}" class="pt-5" customClass="m-tabs__item">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>{{l("TagName")}} *</label>
+                                            <input #nameInput="ngModel" class="form-control" type="text" name="TagName"
+                                                [(ngModel)]="tag.value" required maxlength="32">
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>{{l("TagType")}}*</label>
+                                            <select #nameInput="ngModel" class="form-control" type="text" name="TagType"
+                                                [(ngModel)]="tag.type" required maxlength="32">
+                                                <option *ngFor="let tagType of tagTypes" [value]="tagType.value">{{tagType.name}}</option>
+                                            </select>
+                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="reason" class="col-form-label">{{l('description')}}:</label>
+                                                <textarea class="form-control" id="description" name="description" [(ngModel)]="tag.description"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group checkbox-list">
+                                            <label class="checkbox">
+                                                <input type="checkbox" [(ngModel)]="tag.isSpecial" name="isSpecial">
+                                                {{l("isSpecial")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group m-form__group">
+                                        <app-fileupload [fileUrl]="tag.iconUrl" (onUpLoadEvent)="onUpload($event)"
+                                            (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!tagForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
