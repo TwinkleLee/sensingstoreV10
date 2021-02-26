@@ -217,6 +217,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'question',
                         loadChildren: () => import('./question/question.module').then(m => m.QuestionModule),
                     },
+                    {
+                        path: 'recommend',
+                        loadChildren: () => import('./recommend/recommend.module').then(m => m.RecommendModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

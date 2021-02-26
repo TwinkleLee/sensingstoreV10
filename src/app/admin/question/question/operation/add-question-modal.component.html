@@ -15,7 +15,7 @@
                 <div class="modal-body" style="padding-bottom:0;">
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off">
-                            <div class="kt-form kt-form--label-align-right">
+                            <div class="m-form m-form--label-align-right">
                                 <div class="row align-items-center m--margin-bottom-10">
                                     <div class="col-3">
                                         <div class="form-group kt-form__group align-items-center">
@@ -137,7 +137,7 @@
                                         </td>
                                         <td>
                                             <!-- <span>{{record.tagIds}}</span> -->
-                                            <span *ngFor="let tag of record.tags" class="kt-badge  kt-badge--info kt-badge--inline">
+                                            <span *ngFor="let tag of record.tags" class="label label-dark label-inline">
                                                 {{tag.name}}
                                             </span>
                                             <span *ngIf="!record.tags||record.tags.length==0">

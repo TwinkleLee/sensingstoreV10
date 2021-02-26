@@ -1,0 +1,104 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #PersonalitysForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Personality?.id">{{l("EditConstellation")}}: {{Personality?.id +' | '+Personality?.name}}</span>
+                        <span *ngIf="!Personality?.id">{{l("CreateInformation")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('PersonalityInformation')}}" customClass="kt-tabs__item">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("name")}}</label>
+                                            <input #personalNameInput="ngModel" class="form-control" type="text" name="name" required [(ngModel)]="Personality.name"
+                                                placeholder="{{l('name')}}">
+                                            <validation-messages [formCtrl]="personalNameInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l('type')}}</label>
+                                            <div class="form-group ">
+                                                <div class="input-group">
+                                                    <select class="form-control" [(ngModel)]="Personality.typeId" name="metaType" required>
+                                                        <option value="">{{l('AllTypes')}}</option>
+                                                        <option [value]="type.id" *ngFor="let type of types">{{type.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>{{l("startDate")}}-{{l('endDate')}}</label>
+                                            <date-range-picker needInitDate="true" name="SampleDateRangePicker" [(startDate)]="Personality.startTime" [(endDate)]="Personality.endTime" rangeMode="all"
+                                                [allowFutureDate]="true">
+                                            </date-range-picker>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>{{l("InformationSources")}}</label>
+                                            <input #InformationSourcesInput="ngModel" class="form-control" maxlength="64" type="text" name="InformationSources" [(ngModel)]="Personality.from">
+                                            <validation-messages [formCtrl]="InformationSourcesInput"></validation-messages>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label>{{l("UiCustomization_Theme")}}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text icon-yanse">
+                                                        <input type="color" id="mainColor" name="mainColor" [(ngModel)]="Personality.themeColor" class="hiddenChose" />
+                                                    </span>
+                                                </div>
+                                                <input class="form-control" type="text" [placeholder]="l('colorPickTips')" [ngStyle]="{'color':Personality.themeColor}" name="mainColor"
+                                                    [(ngModel)]="Personality.themeColor">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>{{l("Note")}}</label>
+                                            <textarea class="form-control" name="description" [(ngModel)]="Personality.description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{l("logo")}}</label>
+                                                <app-fileupload [fileUrl]="Personality.logoUrl" (onUpLoadEvent)="logoOnUpload($event)" accept="image/*"></app-fileupload>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{l("Image")}}</label>
+                                                <app-fileupload [fileUrl]="Personality.picUrl" (onUpLoadEvent)="imageOnUpload($event)" accept="image/*"></app-fileupload>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!PersonalitysForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

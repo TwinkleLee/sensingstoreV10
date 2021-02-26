@@ -1,0 +1,399 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Recommend' | localize" [description]="'PersonalRecommend' | localize">
+            <div role="actions">
+                <button *ngIf="tenantId" class="btn btn-primary" (click)="goImport()">
+                    <i class="icon-excel"></i> {{l('import')}} </button>
+                <div *ngIf="tenantId" class="btn-group dropdown" dropdown normalizePosition>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-tongbu2"></span> {{l("SynchronousData")}}
+                    </button>
+                    <ul class="dropdown-menu" *dropdownMenu #TypeHostbox>
+                        <li *ngFor="let type of HostCategories">
+                            <a (click)="synchronousData(type)">{{type.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </sub-header>
+        
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <tabset class="fortuneTabset">
+                        <tab heading="{{l('PersonalityInformation')}}" customClass="m-tabs__item icon-gexing">
+                            <div class="row">
+                                <form class="horizontal-form" autocomplete="off">
+                                    <div class="m-form">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="col-4">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('Name')}}</label>
+                                                    <div class="input-group">
+                                                        <input (keyup.enter)="getPersonalityInformation()" [(ngModel)]="metaName" name="metaName" autoFocus
+                                                            class="form-control m-input" [placeholder]="l('Name')"
+                                                            type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('type')}}</label>
+                                                    <div class="input-group">
+                                                        <select class="form-control" [(ngModel)]="metaTypeSelect"
+                                                            name="metaTypeSelect">
+                                                            <option value="">{{l('AllTypes')}}</option>
+                                                            <option [value]="item.id"
+                                                                *ngFor="let item of PersonalCategories">{{item.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-primary"
+                                                            [buttonBusy]="PersonalityPrimeng.isLoading"
+                                                            (click)="getPersonalityInformation()">
+                                                            <i class="la la-refresh"></i>
+                                                            {{l("search")}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <div class="">
+                                                    <button type="button" *ngIf="!tenantId" (click)="importData()"
+                                                        class="btn btn-primary blue">
+                                                        <i class="icon-xunhuan"></i> {{l("SynchronousData")}}</button>
+                                                    <button type="button" (click)="deletePersonalList()"
+                                                        class="btn btn-primary blue"
+                                                        *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">
+                                                        <i class="icon-piliangcaozuo"></i> {{l("deleteBatch")}}</button>
+                                                    <button type="button" (click)="createPersonality()"
+                                                        class="btn btn-primary blue"
+                                                        *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
+                                                        <i class="fa fa-plus"></i> {{l("CreateInformation")}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row align-items-center">
+                                <!--<Primeng-Datatable-Start>-->
+                                <div class="primeng-datatable-container" [busyIf]="PersonalityPrimeng.isLoading">
+                                    <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                                    <p-table #PersonalityDataTable (onLazyLoad)="getPersonalityInformation($event)"
+                                        [value]="PersonalityPrimeng.records"
+                                        [rows]="PersonalityPrimeng.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [(selection)]="PersonalCheckedList"
+                                        [resizableColumns]="PersonalityPrimeng.resizableColumns"
+                                        responsive="PersonalityPrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width: 5.0em">
+                                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                </th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>
+                                                    {{l('name')}}
+                                                </th>
+                                                <th>
+                                                    {{l('logo')}}
+                                                </th>
+                                                <th pSortableColumn="startTime">
+                                                    {{l('startDate')}}
+                                                    <p-sortIcon field="startTime"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="endTime">
+                                                    {{l('endDate')}}
+                                                    <p-sortIcon field="endTime"></p-sortIcon>
+                                                </th>
+                                                <th>{{l('type')}}</th>
+                                                <th>
+                                                    {{l('InformationSources')}}
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a class="icon-jinriyunshi"
+                                                                    (click)="goFortune(record.name)">{{l('checkFortune')}}</a>
+                                                            </li>
+                                                            <li *ngIf="isGranted('Pages.Tenant.Recommends.Edit')">
+                                                                <a class="icon-bianji"
+                                                                    (click)="editPersonality(record)">{{l('Edit')}}</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="icon-icon-test"
+                                                                    (click)="deletePersonality(record)"
+                                                                    *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">{{l('Delete')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 5.0em">
+                                                    <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                                </td>
+                                                <td> {{transIndex(i,PersonalityPaginator)}}</td>
+                                                <td>
+                                                    <span>{{record.name}}</span>
+                                                </td>
+                                                <td>
+                                                    <img [src]="fixFileUrl(record.logoUrl)" />
+                                                </td>
+                                                <td>
+                                                    {{record.startTime | date:"MM-dd"}}
+                                                </td>
+                                                <td>
+                                                    {{record.endTime | date:"MM-dd"}}
+                                                </td>
+                                                <td>
+                                                    <span>{{record.type?.name}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.from}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="PersonalityPrimeng.records">
+                                                <td colspan="9">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/productinfoHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="PersonalityPrimeng.defaultRecordsCountPerPage"
+                                            #PersonalityPaginator (onPageChange)="getPersonalityInformation($event)"
+                                            [totalRecords]="PersonalityPrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="PersonalityPrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', PersonalityPrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+                            </div>
+                        </tab>
+                        <tab heading="{{l('FortuneInformation')}}" customClass="m-tabs__item icon-jinriyunshi"
+                            (selectTab)="getFortuneInformation($event)">
+                            <div class="row">
+                                <form class="horizontal-form" autocomplete="off">
+                                    <div class="m-form m-form--label-align-right">
+                                        <div class="row align-items-center m--margin-bottom-10">
+                                            <div class="col-3">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('name')}}</label>
+                                                    <div class="input-group">
+                                                        <input [(ngModel)]="metaName2" name="metaName2" autoFocus
+                                                            class="form-control m-input"
+                                                            (keyup.enter)="getFortuneInformation()"
+                                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 时间范围筛选 -->
+                                            <div class="col-2" style="position:relative;">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('FortuneDate')}}</label>
+                                                    <date-range-picker name="SampleDateRangePicker" [showButton]="false"
+                                                        rangeMode="star" (buttonEmit)="getFortuneInformation()"
+                                                        [(startDate)]="StartTime" [(endDate)]="EndTime"
+                                                        [allowFutureDate]="true" [needInitDate]="true">
+                                                    </date-range-picker>
+                                                </div>
+                                            </div>
+                                            <!-- 名称/类型搜索条件 -->
+                                            <div class="col-2">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('PersonalCategory')}}</label>
+                                                    <div class="input-group">
+                                                        <select #TypeCombobox2 class="form-control"
+                                                            [(ngModel)]="metaTypeSelect2" name="metaTypeSelect2"
+                                                            [attr.data-live-search]="true" jq-plugin="selectpicker">
+                                                            <option value="">{{l('AllTypes')}}</option>
+                                                            <option [value]="item.id"
+                                                                *ngFor="let item of PersonalCategories">{{item.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-1">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-primary"
+                                                            [buttonBusy]="FortunePrimeng.isLoading"
+                                                            (click)="getFortuneInformation()">
+                                                            <i class="la la-refresh"></i>
+                                                            {{l("search")}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <label>&nbsp;</label>
+                                                <div class="">
+                                                    <button *ngIf="!tenantId" (click)="importDateData()"
+                                                        class="btn btn-primary blue">
+                                                        <i class="icon-xunhuan"></i> {{l("SynchronousData")}}</button>
+                                                    <button type="button" (click)="deleteFortuneList()"
+                                                        class="btn btn-primary blue"
+                                                        *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">
+                                                        <i class="icon-piliangcaozuo"></i> {{l("deleteBatch")}}</button>
+                                                    <button type="button" (click)="createFortune()"
+                                                        class="btn btn-primary blue"
+                                                        *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
+                                                        <i class="fa fa-plus"></i> {{l("CreateFortune")}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="row align-items-center">
+                                <div class="primeng-datatable-container" [busyIf]="FortunePrimeng.isLoading">
+                                    <p-table #FortuneDataTable (onLazyLoad)="getFortuneInformation($event)"
+                                        [value]="FortunePrimeng.records"
+                                        [rows]="FortunePrimeng.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [(selection)]="FortuneCheckedList"
+                                        [resizableColumns]="FortunePrimeng.resizableColumns"
+                                        responsive="FortunePrimeng.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width: 5.0em">
+                                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                </th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>
+                                                    {{l('PersonalCategory')}}
+                                                </th>
+                                                <th>
+                                                    {{l('name')}}
+                                                </th>
+                                                <th pSortableColumn="date">
+                                                    {{l('FortuneDate')}}
+                                                    <p-sortIcon field="date"></p-sortIcon>
+                                                </th>
+                                                <th>
+                                                    {{l('OverallFortune')}}
+                                                </th>
+                                                <th>
+                                                    {{l('LuckyNumber')}}
+                                                </th>
+                                                <th>
+                                                    {{l('LuckyColor')}}
+                                                </th>
+                                                <th>
+                                                    {{l('LuckyPosition')}}
+                                                </th>
+                                                <th>
+                                                    {{l('BestMatch')}}
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li *ngIf="isGranted('Pages.Tenant.Recommends.Edit')">
+                                                                <a class="icon-bianji"
+                                                                    (click)="editFortune(record.id)">{{l('Edit')}}</a>
+                                                            </li>
+                                                            <li *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">
+                                                                <a class="icon-icon-test"
+                                                                    (click)="deleteFortune(record)">{{l('Delete')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 5.0em">
+                                                    <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                                </td>
+                                                <td> {{transIndex(i,FortunePaginator)}}</td>
+                                                <td> {{record.typeName}}</td>
+                                                <td>
+                                                    <span>{{record.metaphysicsName}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.date | date:"yyyy-MM-dd"}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.lucks[0]?.summary}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.lucks[0]?.number}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.lucks[0]?.color}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.lucks[0]?.direction}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.lucks[0]?.bestMatch}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="FortunePrimeng.records">
+                                                <td colspan="11">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/productinfoHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="FortunePrimeng.defaultRecordsCountPerPage"
+                                            #FortunePaginator (onPageChange)="getFortuneInformation($event)"
+                                            [totalRecords]="FortunePrimeng.totalRecordsCount"
+                                            [rowsPerPageOptions]="FortunePrimeng.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', FortunePrimeng.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <PersonalityModal #PersonalityModal (modalSave)="getPersonalityInformation()"></PersonalityModal>
+        <FortuneModal #FortuneModal (modalSave)="getFortuneInformation()"></FortuneModal>
+    </div>
+
+</div>

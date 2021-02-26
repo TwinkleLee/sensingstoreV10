@@ -1,0 +1,27 @@
+.fortune-label{
+    display: block;
+    margin-top:5px;
+}
+.fortune-star{
+    width:30%;
+    margin-right:5%;
+    display: inline-block;
+}
+.fortune-presummary-short{
+    width:60%;
+    display: inline-block;
+}
+.fortune-presummary-long{
+    width:95%;
+    display: inline-block;
+}
+.fortune-luckArray{
+    display:inline-block;
+    width:50%;
+    padding:0 15px 0;
+    margin:0;
+    box-sizing: border-box;
+}
+.user-edit-dialog-profile-image {
+    margin-bottom: 20px;
+}

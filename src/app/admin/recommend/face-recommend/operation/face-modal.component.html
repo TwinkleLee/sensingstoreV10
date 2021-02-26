@@ -1,0 +1,183 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" name="CommonForm" #FortunesForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Fortune?.id">{{l("EditFaceTag")}}: {{Fortune?.id}}</span>
+                        <span *ngIf="!Fortune?.id">{{l("CreateFaceTag")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("name")}} *</label>
+                                        <input class="form-control" type="text" name="name" [(ngModel)]="Fortune.name"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l('type')}}</label>
+                                        <div class="input-group">
+                                            <select #TypeCombobox1 class="form-control" [(ngModel)]="Fortune.type" name="type">
+                                                <option value="">{{l('unknown')}}</option>
+                                                <option value="形容标签">{{l('形容标签')}}</option>
+                                                <!-- <option value="Adj">{{l('形容标签')}}</option> -->
+                                                <option value="名称标签">{{l('名称标签')}}</option>
+                                                <!-- <option value="Noun">{{l('名称标签')}}</option> -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l('gender')}}</label>
+                                        <div class="input-group">
+                                            <select #TypeCombobox2 class="form-control" [(ngModel)]="Fortune.gender"
+                                                name="gender">
+                                                <option value="不限">{{l('unknown')}}</option>
+                                                <option value="男">{{l('male')}}</option>
+                                                <option value="女">{{l('female')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("age")}}({{l("SuchAs")}} : 15-25)</label>
+                                        <input class="form-control" type="text" name="ageRange" [(ngModel)]="Fortune.ageRange">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("emotion")}}({{l("SuchAs")}} : 15-25)</label>
+                                        <input class="form-control" type="text" name="happinessRange" [(ngModel)]="Fortune.happinessRange">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("faceScore")}}({{l("SuchAs")}} : 15-25)</label>
+                                        <input class="form-control" type="text" name="beautyScoreRange" [(ngModel)]="Fortune.beautyScoreRange">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group kt-form__group align-items-center">
+                                        <label>{{l("sort")}}</label>
+                                        <input class="form-control" type="number" name="priority" [(ngModel)]="Fortune.priority">
+                                    </div>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;">
+                                    <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                        <input class="form-control" [(ngModel)]="Fortune.isEnabled" type="checkbox"
+                                            name="isEnabled" />{{l("isEnabled")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("other")}}</label>
+                                    <textarea rows="5" class="form-control" name="extensionData" [(ngModel)]="Fortune.extensionData"></textarea>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("description")}}</label>
+                                    <textarea rows="5" class="form-control" name="description" [(ngModel)]="Fortune.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="control-label">{{l("Image")}}</label>
+                                <app-fileupload [fileUrl]="Fortune.iconUrl" (onUpLoadEvent)="imageOnUpload($event)"
+                                    accept="image/*"></app-fileupload>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin:25px 0;">
+                        <div class="col-10"></div>
+                        <div class="col-2 text-right">
+                            <button (click)="createRecommend()" class="btn btn-primary blue" type="button">
+                                <i class="fa fa-plus"></i> {{l("CreateRecommend")}}</button>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container">
+                            <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                            <p-table #RecommendTable [value]="Fortune.recommends" [paginator]="false">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>
+                                            {{l('recommendType')}}
+                                        </th>
+                                        <th>{{l('recommendContent')}}</th>
+                                        <th>
+                                            {{l('recommendReason')}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record">
+                                        <td>
+                                            <div class="btn-group dropdown" normalizePosition>
+                                                <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
+                                                    type="button">
+                                                    <span class="caret"></span> {{l("Delete")}}
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="width:5%">
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.type" required>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.thingId" required>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.reason">
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+
+                        </div>
+
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!FortunesForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

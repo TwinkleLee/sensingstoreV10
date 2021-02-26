@@ -1,0 +1,198 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'FaceRecommend' | localize" [description]="'FaceRecommend' | localize">
+            <div role="actions">
+
+                <div class="btn-group dropdown">
+                    <button *ngIf="tenantId" class="btn btn-primary" (click)="SynchronousData()"
+                        style="margin-left:6px;">
+                        <span class="icon-tongbu2"></span> {{l("SynchronousData")}}
+                    </button>
+                    <button class="btn btn-primary" (click)="goImport()" style="margin-left:6px;">
+                        <i class="icon-excel"></i> {{l('import')}}
+                    </button>
+
+                    <div class="btn-group dropdown" dropdown>
+                        <button *ngIf="tenantId" class="btn btn-primary dropdown-toggle icon-piliangcaozuo"
+                            style="margin-left:6px;" type="button" id="applyButton" data-toggle="dropdown"
+                            dropdownToggle aria-haspopup="true" aria-expanded="false">
+                            {{l('batchOperation')}}
+                        </button>
+                        <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton"
+                            x-placement="bottom-start" style="width:100%;">
+                            <a class="dropdown-item icon-shangxian1" (click)="On()">
+                                {{l('On')}}
+                            </a>
+                            <a class="dropdown-item icon-xiaxian1" (click)="Off()">
+                                {{l('Off')}}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item icon-shanchu" (click)="deleteBatch()">
+                                {{l('deleteBatch')}}
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary" (click)="createActivity()"
+                    *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateTag")}}</button>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="m-form">
+                                <div class="row align-items-center mb-4">
+                                    <div class="col-4">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('name')}}</label>
+                                            <div class="input-group">
+                                                <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                    class="form-control m-input" (keyup.enter)="getFaceTagList($event)"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('IsEnabled')}}</label>
+                                            <div class="input-group">
+                                                <select #TypeCombobox2 class="form-control" [(ngModel)]="IsEnabled"
+                                                    name="metaTypeSelect2">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option value="true">{{l('true')}}</option>
+                                                    <option value="false">{{l('false')}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading"
+                                                    (click)="getFaceTagList()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <p-table #dataTable (onLazyLoad)="getFaceTagList($event)"
+                                [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                [(selection)]="activityPublishList" [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngIf="isGranted('Pages.Tenant.Recommends.Delete')||isGranted('Pages.Tenant.Recommends.Edit')">
+                                            {{l('Actions')}}</th>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('name')}}</th>
+                                        <th>
+                                            {{l('gender')}}
+                                        </th>
+                                        <th>
+                                            {{l('age')}}
+                                        </th>
+                                        <th>{{l('emotion')}}</th>
+                                        <th>{{l('faceScore')}}</th>
+                                        <th>{{l('IsEnabled')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td
+                                            *ngIf="isGranted('Pages.Tenant.Recommends.Delete')||isGranted('Pages.Tenant.Recommends.Edit')">
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Recommends.Edit')">
+                                                        <a (click)="editActivity(record.id)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">
+                                                        <a (click)="deleteActivity(record.id)"
+                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.name}}</span>
+                                        </td>
+                                        <td>{{record.gender}}</td>
+                                        <td>{{record.ageRange}}</td>
+                                        <td>{{record.happinessRange}}</td>
+                                        <td>{{record.beautyScoreRange}}</td>
+                                        <td>
+                                            <span *ngIf="record['isEnabled']"
+                                                class="label label-success label-inline">{{l("On")}}</span>
+                                            <span *ngIf="!record['isEnabled']"
+                                                class="label label-dark label-inline">{{l("Off")}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="9">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/couponHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getFaceTagList($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <faceModal #FaceModal (modalSave)="getFaceTagList()"></faceModal>
+    </div>
+
+</div>

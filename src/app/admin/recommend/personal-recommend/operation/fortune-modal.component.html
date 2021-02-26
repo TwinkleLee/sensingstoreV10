@@ -1,0 +1,135 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" [busyIf]="!getPersonalityInformationFlag">
+            <form *ngIf="active" name="CommonForm" #FortunesForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Fortune?.id">{{l("EditFortune")}}: {{Fortune?.id}}</span>
+                        <span *ngIf="!Fortune?.id">{{l("CreateFortune")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l("name")}} *</label>
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="Fortune.metaphysicsId" name="Name"
+                                        required>
+                                        <option value="">{{l('All')}}</option>
+                                        <option [value]="item.id" *ngFor="let item of metaNameSelectList">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <label>{{l("FortuneDate")}}</label>
+                            <date-range-picker needInitDate="true" name="SampleDateRangePicker" [(startDate)]="Fortune.date"
+                                [(endDate)]="Fortune.date" [allowFutureDate]="true" [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true}'>
+                            </date-range-picker>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>{{l("luckFrom")}}</label>
+                                <input #fromInput="ngModel" class="form-control" type="text" name="From" [(ngModel)]="Fortune.from"
+                                    placeholder="{{l('luckFrom')}}">
+                                <validation-messages [formCtrl]="fromInput"></validation-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l(tab)}}" customClass="kt-tabs__item" *ngFor="let tab of tabArray;index as index;">
+                            <div class="fortune-luckArray" *ngFor="let item of luckArray">
+                                <label *ngIf="item" class="fortune-label">{{l('luck'+item)}}</label>
+                                <input *ngIf="['summary','love','career','health','fortune'].indexOf(item)>=0" class="form-control fortune-star"
+                                    type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="Fortune.lucks[index][item+'Presummary']"
+                                    placeholder="{{l('starLevel')}}">
+                                <input *ngIf="['summary','love','career','health','fortune'].indexOf(item)<0" class="form-control fortune-presummary-long"
+                                    type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="Fortune.lucks[index][item]"
+                                    placeholder="{{l('description')}}">
+                                <input *ngIf="['summary','love','career','health','fortune'].indexOf(item)>=0" class="form-control fortune-presummary-short"
+                                    type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="Fortune.lucks[index][item]"
+                                    placeholder="{{l('description')}}">
+                                <!-- <input *ngIf="item&&item=='bestMatch'" class="form-control fortune-presummary-long" type="text" name="{{tab+item}}" [(ngModel)]="Fortune.lucks[index][item]" placeholder="{{l('description')}}"> -->
+                            </div>
+                            <div class="row" style="margin:25px 0;">
+                                <div class="col-10"></div>
+                                <div class="col-2 text-right">
+                                    <button (click)="createRecommend()" class="btn btn-primary blue" type="button">
+                                        <i class="fa fa-plus"></i> {{l("CreateRecommend")}}</button>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container">
+                            <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                            <p-table #RecommendTable [value]="Fortune.recommneds" [paginator]="false">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>
+                                            {{l('recommendType')}} *
+                                        </th>
+                                        <th>{{l('recommendContent')}} *</th>
+                                        <th>
+                                            {{l('recommendReason')}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record">
+                                        <td>
+                                            <div class="btn-group dropdown" normalizePosition>
+                                                <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
+                                                    type="button">
+                                                    <span class="caret"></span> {{l("Delete")}}
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="width:5%">
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.type" required>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.thingId" required>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.reason">
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+
+                        </div>
+
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!FortunesForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

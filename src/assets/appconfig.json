@@ -3,17 +3,17 @@
   "appBaseUrl": "./",
   "remoteServiceBaseUrl": "http://119.3.154.130:8000",
   "remoteDeviceCenterUrl": "http://119.3.154.130:8001",
-  "openServiceBaseUrl": "https://o.api.troncell.com:443",
-  "remoteBigDataServiceUrl": "https://d.api.troncell.com",
+  "//openServiceBaseUrl": "https://o.api.troncell.com:443",
+  "//remoteBigDataServiceUrl": "https://d.api.troncell.com",
   "///remoteOnlineServiceUrl": "https://o.api.troncell.com",
   "remoteMetaServiceUrl": "https://r.api.troncell.com",
   "///remoteActivityServiceUrl": "https://g.api.troncell.com",
-  "remoteCargoServiceUrl": "https://e.api.troncell.com",
-  "remoteSYNCServiceUrl": "https://sync.api.troncell.com",
-  "remotePaperServiceUrl": "https://p.api.troncell.com",
+  "///remoteCargoServiceUrl": "https://e.api.troncell.com",
+  "//remoteSYNCServiceUrl": "https://sync.api.troncell.com",
+  "//remotePaperServiceUrl": "https://p.api.troncell.com",
   "remoteUserServiceUrl": "https://u.api.troncell.com",
   "//remoteFloorServiceUrl": "https://floor.api.troncell.com",
-  "remoteOKRServiceUrl": "https://okr.api.troncell.com",
+  "//remoteOKRServiceUrl": "https://okr.api.troncell.com",
   "localeMappings": {
     "angular": [
       {
