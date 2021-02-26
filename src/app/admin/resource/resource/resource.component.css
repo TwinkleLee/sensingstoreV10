@@ -1,0 +1,7 @@
+.dropdown-menu form div.form-group::-webkit-scrollbar{
+    display: none;
+}
+.dropdown-menu form div.form-group{
+    max-height: 200px;
+    overflow: scroll;
+}

@@ -1,0 +1,104 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #resourceForm="ngForm" name="resourceForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="resource?.id">{{l("EditResource")}}: {{resource?.id+' | '+resource?.name}}</span>
+                        <span *ngIf="!resource?.id">{{l("CreateNewResource")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("ResourceName")}} *</label>
+                                    <input #nameInput="ngModel" class="form-control" type="text" name="name" [(ngModel)]="resource.name" required maxlength="64">
+                                    <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                </div>
+                                <div class="formCtrl col-6">
+                                    <label>{{l("ResourceCategory")}}</label>
+                                    <select class="form-control" [(ngModel)]="resource.category" name="category" (change)="resetResource()">
+                                        <option [value]="type" *ngFor="let type of FileArea2s">{{l(type)}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label>{{l("Incident")}} *</label>
+                            </div>
+                            <div class="form-group">
+                                <form name="IncidentForm" id="IncidentForm" novalidate>
+                                    <div class="input-group">
+                                        <input class="form-control" id="file" type="file" hidden name="fileUrl" multiple="false" (change)="uploadFile($event)">
+                                        <input #IncidentInput="ngModel" class="form-control" type="text" name="filename"
+                                            [(ngModel)]="file.name" required maxlength="144">
+                                        <span class="input-group-btn">
+                                            <label for="file" style="margin-bottom: 0px;" class="btn btn-primary">{{resource?.fileUrl?l('Edit'):l('add')}}</label>
+                                            <button *ngIf="resource?.fileUrl" class="btn btn-primary" (click)="resetResource()">{{l('Delete')}}</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div> -->
+
+                        </div>
+                        <div class="col-12" *ngIf="progress!=0">
+                            <div class="progress" *ngIf="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                    aria-valuemax="100" [ngStyle]="{width: progress+'%'}">
+                                    <span class="sr-only">{{progress}}% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <!-- <div class="form-group col-6">
+                                    <label>{{l("type")}}</label>
+                                    <select class="form-control" [(ngModel)]="resource.type" name="resourceType">
+                                        <option [value]="type" *ngFor="let type of ResourceFileDtoTypes">{{type}}</option>
+                                    </select>
+                                </div> -->
+                                <div class="form-group col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>{{l("tags")}}</label>
+                                            <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion" (completeMethod)="filter($event)" field="value" placeholder="tags"
+                                                dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignTags()" (onUnselect)="assignTags()"
+                                                (onBlur)="clearInput($event)" [minLength]="1" name="MultiSelectInput" inputStyleClass="form-control"
+                                                styleClass="width-percent-100">
+                                            </p-autoComplete>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="margin-top:1rem;">
+                                                <label>{{l("description")}}</label>
+                                                <textarea class="form-control" name="description" [(ngModel)]="resource.content">
+                                                    </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <app-fileupload [fileUrl]="resource.fileUrl" (onUpLoadEvent)="resourceOnUpload($event)" accept="image/*"></app-fileupload>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!resourceForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

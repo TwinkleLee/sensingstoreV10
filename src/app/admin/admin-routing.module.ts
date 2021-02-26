@@ -225,6 +225,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'redpacket',
                         loadChildren: () => import('./redpacket/redpacket.module').then(m => m.RedpacketModule),
                     },
+                    {
+                        path: 'resource',
+                        loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

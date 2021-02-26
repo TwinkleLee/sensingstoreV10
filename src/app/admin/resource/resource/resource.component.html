@@ -1,0 +1,222 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Resource' | localize" [description]="'ResourceManagement' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown [autoClose]="false">
+                    <button class="btn btn-primary dropdown-toggle icon-biaoqian2" dropdownToggle type="button"
+                        aria-haspopup="true" (click)="getTags(true)" aria-expanded="false"
+                        id="setTagButton">{{l('setTag')}}</button>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu">
+                        <form class="px-4 py-3">
+                            <div class="form-group">
+                                <input class="form-control" name="tagFilter" [placeholder]="l('enterToSearch')"
+                                    [(ngModel)]="tagFilter" (keyup.enter)="getTags()" />
+                            </div>
+                            <div class="form-group beautyScroll">
+                                <app-my-tree #tagTree [(items)]="tags" [config]="tagConfig"></app-my-tree>
+                            </div>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a *ngIf="tagIds.length==0" class="icon-apply dropdown-item"
+                            (click)="goTag(0)">{{l('Create')+l('Tags')}}</a>
+                        <a *ngIf="tagIds.length>0" class="icon-apply dropdown-item"
+                            (click)="setTag()">{{l('setTag')}}</a>
+                        <a *ngIf="tagIds.length>0" class="icon-Clearsearch dropdown-item"
+                            (click)="clearTag()">{{l('clearTag')}}</a>
+                        <a class="icon-jiaoyiguanli dropdown-item" (click)="goTag()">{{l('manageTag')}}</a>
+                    </ul>
+                </div>
+                <button (click)="createResource()" class="btn btn-primary"><i class="fa fa-plus"></i>
+                    {{"CreateNewResource" | localize}}</button>
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="m-form">
+                                <div class="row align-items-center m--margin-bottom-10">
+                                    <div class="col-3">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <div> <label>&nbsp;</label></div>
+                                            <div class="input-group">
+                                                <input (keyup.enter)="getResources()" [(ngModel)]="filterText"
+                                                    name="filterText" autoFocus class="form-control m-input"
+                                                    [placeholder]="l('name')" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group m-form__group align-items-center row">
+                                            <div> <label>{{l('type')}}</label></div>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="resourceType"
+                                                    name="resourceType">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option [value]="type" *ngFor="let type of Types">{{type}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <div> <label>{{l('ResourceCategory')}}</label></div>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="resourceCate"
+                                                    name="resourceCate">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option [value]="cate" *ngFor="let cate of FileArea2s">
+                                                        {{l(cate)}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading"
+                                                    (click)="getResources()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2 text-right">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <div><label>&nbsp;</label></div>
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label class="btn btn-secondary active icon-liebiao"
+                                                    (click)="toggle(true)">
+                                                    <input type="radio" name="options" id="option1" autocomplete="off"
+                                                        checked>
+                                                </label>
+                                                <label class="btn btn-secondary icon-weibiaoti2010102-copy"
+                                                    (click)="toggle(false)">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <app-image-grid id="gridShow" style="width: 100%;display:none;" gridOwner="resource"
+                                (onLazyLoad)="getResources($event)" (onOperate)="onOperate($event)"
+                                [(selection)]="resourceSelectionList" [imageList]="primengTableHelper.records">
+                            </app-image-grid>
+                            <p-table #dataTable id="tableShow" (onLazyLoad)="getResources($event)"
+                                [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [(selection)]="resourceSelectionList" responsive="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 10%">{{l('Actions')}}</th>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('name')}}</th>
+                                        <th>{{l('type')}}</th>
+                                        <th>{{l('ResourceCategory')}}</th>
+                                        <th pSortableColumn="creationTime">
+                                            {{l('createTime')}}
+                                            <p-sortIcon field="creationTime"></p-sortIcon>
+                                        </th>
+                                        <th>{{l('tags')}}</th>
+                                        <th>{{l('description')}}</th>
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Resources.Edit')">
+                                                        <a class="icon-bianji"
+                                                            (click)="editResource(record)">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Resources.Delete')">
+                                                        <a class="icon-icon-test"
+                                                            (click)="deleteResource(record)">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td style="width: 5.0em">
+                                            <p-tableCheckbox #TableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td>{{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.name}}</span>
+                                        </td>
+                                        <td>{{record.typeString}}</td>
+                                        <td>
+                                            <span *ngIf="record.category==null">-</span>
+                                            <span *ngIf="record.category!=null">{{l(record.category)}}</span>
+                                        </td>
+                                        <td>{{record.creationTime| date : "yyyy/MM/dd"}}</td>
+                                        <td>
+                                            <span *ngFor="let tag of record.resourceTags"
+                                                class="label label-dark label-inline">
+                                                {{tag.name}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.content}}</span>
+                                        </td>
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="9">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/resourceHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getResources($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <createOrEditResourceModal #createOrEditResourceModal (modalSave)="getResources()"></createOrEditResourceModal>
+
+        <!-- <EditPerPermissionsModal #editUserPermissionsModal></EditPerPermissionsModal> -->
+    </div>
+</div>
