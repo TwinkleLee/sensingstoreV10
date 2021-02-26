@@ -1,0 +1,28 @@
+<div bsModal #publishTicket="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span>{{l("publishTicket")}}</span>
+        </h4>
+        <button type="button" class="close" (click)="close()" aria-label="Close">
+          <i aria-hidden="true" class="ki ki-close"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="min-height:30vh;">
+        <div class="row">
+          <div class="form-group col-3" style="position:relative;margin-top:2rem;" *ngFor="let item of memberList">
+            <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+              <input [(ngModel)]="objItem[item.value]" type="checkbox" [ngModelOptions]="{standalone: true}"/>{{item.name}}
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: center;">
+        <button type="button" class="btn btn-primary" (click)="publish()" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">{{l('publish')}}</button>
+      </div>
+    </div>
+  </div>
+</div>

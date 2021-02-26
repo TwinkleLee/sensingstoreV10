@@ -1,0 +1,333 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'CouponReview' | localize" [description]="'CouponReviewManage' | localize">
+            <div role="actions"></div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <tabset>
+                        <tab heading="{{l('toBeReviewed')}}" class="pt-5" customClass="m-tabs__item icon-artboard13"
+                            (selectTab)="getApplyForms(null,true)">
+                            <div class="row">
+                                <form class="horizontal-form" autocomplete="off">
+                                    <div class="m-form">
+                                        <div class="row align-items-center mb-4">
+                                            <div class="col-3">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('name')}}</label>
+                                                    <div class="input-group">
+                                                        <input (keyup.enter)="getApplyForms(null,true)"
+                                                            [(ngModel)]="filterText1" name="filterText1" autoFocus
+                                                            class="form-control m-input"
+                                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                        <!-- <span class="input-group-btn">
+                                                        <button (click)="getApplyForms(null,true)" class="btn btn-primary" type="submit">
+                                                            <i class="icon-sousuo-sousuo"></i>
+                                                        </button>
+                                                    </span> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 时间范围筛选 -->
+                                            <!-- <div class="col-6">
+                                            <date-range-picker name="SampleDateRangePicker" [(startDate)]="startTime"
+                                                [(endDate)]="endTime" [allowFutureDate]="true">
+                                            </date-range-picker>
+                                        </div> -->
+                                            <div class="col-3" style="position:relative;">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('startEndTime')}}</label>
+                                                    <date-range-picker needInitDate="true" name="SampleDateRangePicker"
+                                                        [showButton]="false" (buttonEmit)="getApplyForms(null,true)"
+                                                        [(startDate)]="startTime" [(endDate)]="endTime"
+                                                        [allowFutureDate]="true">
+                                                    </date-range-picker>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-primary"
+                                                            [buttonBusy]="primengTableHelper.isLoading"
+                                                            (click)="getApplyForms(null,true)">
+                                                            <i class="la la-refresh"></i>
+                                                            {{l("search")}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row align-items-center">
+                                <!--<Primeng-Datatable-Start>-->
+                                <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                    <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                                    <p-table #dataTable1 (onLazyLoad)="getApplyForms($event,true)"
+                                        [value]="primengTableHelper.records"
+                                        [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns"
+                                        [responsive]="primengTableHelper.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>{{l('reviewStatus')}}</th>
+                                                <th>{{l('requestStatus')}}</th>
+                                                <th>{{l('reason')}}</th>
+                                                <th>{{l('reply')}}</th>
+                                                <th>{{l('applicant')}}</th>
+                                                <th pSortableColumn="creationTime">
+                                                    {{l('createTime')}}
+                                                    <p-sortIcon field="creationTime"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="lastModificationTime">{{l('updateTime')}}
+                                                    <p-sortIcon field="lastModificationTime"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a class="icon-xiangqing"
+                                                                    (click)="goDetail(record)">{{l('detail')}}</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="icon-tongguo"
+                                                                    (click)="agree(record)">{{l('agree')}}</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="icon-butongguo"
+                                                                    (click)="disagree(record)">{{l('disagree')}}</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="icon-icon-test"
+                                                                    (click)='withdraw(record)'>{{l('withdraw')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td> {{transIndex(i,null,true)}}</td>
+                                                <td>{{l(record.applyStatus)}}</td>
+                                                <td>{{record.wanted}}</td>
+                                                <td>
+                                                    <span>{{record.reason}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.resultMessage}}</span>
+                                                </td>
+                                                <td>{{record.applyUserName}}</td>
+                                                <td>{{record.creationTime| date : "yyyy/MM/dd"}}</td>
+                                                <td>{{record.lastModificationTime| date : "yyyy/MM/dd"}}</td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="primengTableHelper.records">
+                                                <td colspan="9">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/reviewHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator1
+                                            (onPageChange)="getApplyForms($event,true)"
+                                            [totalRecords]="primengTableHelper.totalRecordsCount"
+                                            [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+                            </div>
+                        </tab>
+                        <tab heading="{{l('reviewed')}}" class="pt-5" customClass="m-tabs__item icon-devices"
+                            (selectTab)="getApplyForms(null,false)">
+                            <div class="row">
+                                <form class="horizontal-form" autocomplete="off">
+                                    <div class="m-form m-form--label-align-right">
+                                        <div class="row align-items-center mb-4">
+                                            <div class="col-3">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('name')}}</label>
+                                                    <div class="input-group">
+                                                        <input (keyup.enter)="getApplyForms(null,true)"
+                                                            [(ngModel)]="filterText2" name="filterText2" autoFocus
+                                                            class="form-control m-input"
+                                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                        <!-- <span class="input-group-btn">
+                                                        <button (click)="getApplyForms(null,false)" class="btn btn-primary"
+                                                            type="submit">
+                                                            <i class="icon-sousuo-sousuo"></i>
+                                                        </button>
+                                                    </span> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 时间范围筛选 -->
+                                            <!-- <div class="col-6">
+                                            <date-range-picker name="SampleDateRangePicker" [(startDate)]="startTime"
+                                                [(endDate)]="endTime" [allowFutureDate]="true">
+                                            </date-range-picker>
+                                        </div> -->
+                                            <div class="col-3" style="position:relative;">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>{{l('startEndTime')}}</label>
+                                                    <date-range-picker needInitDate="true" name="SampleDateRangePicker"
+                                                        [showButton]="false" (buttonEmit)="getApplyForms(null,false)"
+                                                        [(startDate)]="startTime" [(endDate)]="endTime"
+                                                        [allowFutureDate]="true">
+                                                    </date-range-picker>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-primary"
+                                                            [buttonBusy]="primengTableHelper2.isLoading"
+                                                            (click)="getApplyForms(null,false)">
+                                                            <i class="la la-refresh"></i>
+                                                            {{l("search")}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row align-items-center">
+                                <!--<Primeng-Datatable-Start>-->
+                                <div class="primeng-datatable-container" [busyIf]="primengTableHelper2.isLoading">
+                                    <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                                    <p-table #dataTable2 (onLazyLoad)="getApplyForms($event,false)"
+                                        [value]="primengTableHelper2.records"
+                                        [rows]="primengTableHelper2.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [resizableColumns]="primengTableHelper2.resizableColumns"
+                                        [responsive]="primengTableHelper2.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>{{l('Actions')}}</th>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th>{{l('reviewStatus')}}</th>
+                                                <th>{{l('requestStatus')}}</th>
+                                                <th>{{l('reason')}}</th>
+                                                <th>{{l('reply')}}</th>
+                                                <th>{{l('applicant')}}</th>
+                                                <th pSortableColumn="creationTime">
+                                                    {{l('createTime')}}
+                                                    <p-sortIcon field="creationTime"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="lastModificationTime">{{l('updateTime')}}
+                                                    <p-sortIcon field="lastModificationTime"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr>
+                                                <td>
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a class="icon-xiangqing"
+                                                                    (click)='goDetail(record)'>{{l('detail')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td> {{transIndex(i,null,true)}}</td>
+                                                <td>{{l(record.applyStatus)}}</td>
+                                                <td>{{record.wanted}}</td>
+                                                <td>
+                                                    <span>{{record.reason}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.resultMessage}}</span>
+                                                </td>
+                                                <td>{{record.applyUserName}}</td>
+                                                <td>{{record.creationTime| date : "yyyy/MM/dd"}}</td>
+                                                <td>{{record.lastModificationTime| date : "yyyy/MM/dd"}}</td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="primengTableHelper2.records">
+                                                <td colspan="9">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/reviewHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="primengTableHelper2.defaultRecordsCountPerPage" #paginator2
+                                            (onPageChange)="getApplyForms($event,false)"
+                                            [totalRecords]="primengTableHelper2.totalRecordsCount"
+                                            [rowsPerPageOptions]="primengTableHelper2.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', primengTableHelper2.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviewLabel">{{l('review')}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="no()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="resultMessage" class="col-form-label">{{l('Message')}}:</label>
+                                    <textarea class="form-control" id="resultMessage" name="resultMessage"
+                                        [(ngModel)]="apply.resultMessage"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="no()"
+                                data-dismiss="modal">{{l('Close')}}</button>
+                            <button type="button" class="btn btn-primary" (click)="ok()">{{l('Send')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<couponDetailModal #couponDetailModal></couponDetailModal>

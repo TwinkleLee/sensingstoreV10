@@ -1,0 +1,252 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Ticket' | localize" [description]="'Ticket' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Ads.Apply')">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button"
+                        id="applyButton" data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                        aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton"
+                        x-placement="bottom-start">
+                        <a class="dropdown-item icon-shangxian1" (click)="online()">
+                            {{l('onlineBatch')}}
+                        </a>
+                        <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                            {{l('offlineBatch')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shanchu" (click)="deleteBatch()">
+                            {{l('deleteBatch')}}
+                        </a>
+                    </div>
+                </div>
+                <button (click)="publishTicket()" class="btn btn-primary blue">
+                    <i class="fa icon-fabu1"></i> {{l("publishTicket")}}</button>
+                <button (click)="createItem()" class="btn btn-primary blue">
+                    <i class="fa fa-plus"></i> {{l("add")}}{{l('Ticket')}}</button>
+            </div>
+        </sub-header>
+
+        
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="m-form">
+                                <div class="row align-items-center mb-4">
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('Name')}}</label>
+                                            <div class="input-group">
+                                                <input [(ngModel)]="filter" name="filter" autoFocus
+                                                    class="form-control m-input" (keyup.enter)="getList()"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('Status')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="ticketStatus"
+                                                    name="ticketStatus">
+                                                    <option value="">{{l("All")+' / '+l("online")+' / '+l("offline")}}
+                                                    </option>
+                                                    <option [value]="TicketStatus.Offline">{{l("offline")}}</option>
+                                                    <option [value]="TicketStatus.Online">{{l("online")}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('TicketType')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="ticketType" name="ticketType">
+                                                    <option value="">{{l("All")}}</option>
+                                                    <option [value]="0">{{l("Voucher")}}</option>
+                                                    <option [value]="1">{{l("Discount")}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('TakeType')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="takeType" name="takeType">
+                                                    <option value="">{{l("All")}}</option>
+                                                    <option [value]="0">{{l("UserTake")}}</option>
+                                                    <option [value]="1">{{l("ManagerGrant")}}</option>
+                                                    <option [value]="2">{{l("RegisterAutoGrant")}}</option>
+                                                    <option [value]="3">{{l("GameAutoGrant")}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading" (click)="getList()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <p-table #dataTable (onLazyLoad)="getList($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [(selection)]="publishList" [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 10%">{{l('Actions')}}</th>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('name')}}</th>
+                                        <th>{{l('description')}}</th>
+                                        <th>{{l('Image')}}</th>
+                                        <th>{{l('usage')}}</th>
+                                        <th>{{l('TicketType')}}</th>
+                                        <th>{{l('TakeType')}}</th>
+                                        <th>{{l('limitTimes')}}</th>
+                                        <th>{{l('takeTimes')}}</th>
+                                        <th>{{l('startTime')}}</th>
+                                        <th>{{l('endTime')}}</th>
+                                        <th>{{l('avaliableDays')}}</th>
+                                        <th>{{l('auditStatus')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li>
+                                                        <a class="icon-bianji"
+                                                            (click)="editItem(record)">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="icon-icon-test"
+                                                            (click)="deleteItem(record)">{{l('Delete')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="icon-huiyuanguanli"
+                                                            (click)="goMember(record)">{{l('getTicketMember')}}</a>
+                                                    </li>
+                                                    <li *ngIf="record.takeType==3">
+                                                        <a class="icon-hongbao"
+                                                            (click)="createCouponByTicket(record)">{{l('CreatingCoupon')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox #TableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td style="width:5%"> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.name}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.description}}</span>
+                                        </td>
+                                        <td>
+                                            <img [src]="fixFileUrl(record.picUrl)" />
+                                        </td>
+                                        <td>
+                                            <span>{{record.usage}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.ticketType==0">{{l('Voucher')}}</span>
+                                            <span *ngIf="record.ticketType==1">{{l('Discount')}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.takeType==0">{{l('UserTake')}}</span>
+                                            <span *ngIf="record.takeType==1">{{l('ManagerGrant')}}</span>
+                                            <span *ngIf="record.takeType==2">{{l('RegisterAutoGrant')}}</span>
+                                            <span *ngIf="record.takeType==3">{{l('GameAutoGrant')}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.limitTimes}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.takeTimes}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span>{{record.startTime| date : "yyyy/MM/dd HH:mm"}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.endTime| date : "yyyy/MM/dd HH:mm"}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.avaliableDays}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span *ngIf="record.ticketStatus==0"
+                                                class="label label-success label-inline">{{l('offline')}}</span>
+                                            <span *ngIf="record.ticketStatus==1"
+                                                class="label label-dark label-inline">{{l('online')}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="14">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/deviceHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getList($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ticketModal [storeList]="storeList" #ticketModal (modalSave)="getList()"></ticketModal>
+        <publishTicketModal #publishTicketModal></publishTicketModal>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" (click)="clickContainer()" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('Ticket')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('Ticket')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("Name")}} *</label>
+                                    <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name"
+                                        required maxlength="32">
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label>{{l("usage")}} *</label>
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.usage" name="usage">
+                                                <option value="weishop">{{l('weishop')}}</option>
+                                                <option value="device">{{l('device')}}</option>
+                                                <option value="activity">{{l('activity')}}</option>
+                                                <option value="market">{{l('market')}}</option>
+                                                <option value="park">{{l('park')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-6">
+                                    <label>{{l("TicketType")}} *</label>
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.ticketType" name="ticketType">
+                                                <option value="0">{{l('Voucher')}}</option>
+                                                <option value="1">{{l('Discount')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("ticketValue")}} *</label>
+                                    <input class="form-control" type="number" name="value" [(ngModel)]="objItem.value"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-4">
+                                    <label>{{l("auditStatus")}} *</label>
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.ticketStatus" name="ticketStatus">
+                                                <option value="0">{{l('Offline')}}</option>
+                                                <option value="1">{{l('Online')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label>{{l("TakeType")}} *</label>
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.takeType" name="takeType">
+                                                <option value="0">{{l('UserTake')}}</option>
+                                                <option value="1">{{l('ManagerGrant')}}</option>
+                                                <option value="2">{{l('RegisterAutoGrant')}}</option>
+                                                <option value="3">{{l('GameAutoGrant')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4 form-group" *ngIf="objItem.takeType==0">
+                                    <app-high-tree #memberTree [treeList]="memberTypeList" [selfConfig]="{labelName:l('Membership')+l('useScope')}"
+                                        [config]="{name:'name',preciseMatch:false}" (onTreeUpdate)="onTreeUpdate3($event)"
+                                        [initShowArray]="memberInitArray"></app-high-tree>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-6">
+                                    <label>{{l("price")}}{{l("useScope")}}</label>
+                                    <input class="form-control" type="number" name="amount" [(ngModel)]="objItem.useCondition.amount">
+                                </div>
+                                <div class="col-6 form-group">
+                                    <app-high-tree #tagTree [treeList]="tagList" [selfConfig]="{labelName:l('tags')+l('useScope')}"
+                                        [config]="{name:'value',preciseMatch:false}" (onTreeUpdate)="onTreeUpdate1($event)"
+                                        [initShowArray]="tagInitArray"></app-high-tree>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <app-high-tree #typeTree [treeList]="typeList" [selfConfig]="{labelName:l('type')+l('useScope')}"
+                                        [config]="{name:'text',preciseMatch:false,selecionMode:1}" (onTreeUpdate)="onTreeUpdate2($event)"
+                                        [initShowArray]="typeInitArray"></app-high-tree>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>{{l("store")}}</label>
+                                    <select name="storeId" class="form-control" [(ngModel)]="objItem.storeId">
+                                        <option value="">{{l('null')}}</option>
+                                        <option *ngFor="let item of storeList" [value]="item.id">{{ item.value }}</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>{{l("startDate")}}-{{l('endDate')}}</label>
+                                    <date-range-picker #Dateranger2 needInitDate="true" name="Dateranger2"
+                                        [(startDate)]="objItem.startTime" [(endDate)]="objItem.endTime" rangeMode="star"
+                                        [allowFutureDate]="true" [admitDelete]="true">
+                                    </date-range-picker>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("avaliableDays")}} *</label>
+                                    <input class="form-control" type="number" name="avaliableDays" [(ngModel)]="objItem.avaliableDays">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label>{{l("limitTimes")}} *</label>
+                                    <input class="form-control" type="number" name="limitTimes" [(ngModel)]="objItem.limitTimes">
+                                </div>
+                                <div class="form-group col-3">
+                                    <label>{{l("takeTimes")}} *</label>
+                                    <input class="form-control" type="number" name="takeTimes" [(ngModel)]="objItem.takeTimes"
+                                        disabled>
+                                </div>
+                                <div class="form-group col-3">
+                                    <label>{{l("repeatTakeTimes")}} *</label>
+                                    <input class="form-control" type="number" name="repeatTakeTimes" [(ngModel)]="objItem.repeatTakeTimes">
+                                </div>
+
+                                <div class="form-group col-3" style="position:relative;">
+                                    <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                        <input [(ngModel)]="objItem.mergeUse" type="checkbox" name="mergeUse" />{{l("mergeUse")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("Name")}}</label>
+                                    <input class="form-control" type="text" name="displayName" [(ngModel)]="objItem.displayName"
+                                        readonly maxlength="32">
+                                </div>
+
+
+                                <div class="form-group col-12">
+                                    <label>{{l("description")}}</label>
+                                    <input class="form-control" type="text" name="description" [(ngModel)]="objItem.description"
+                                        readonly>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="control-label">{{l("Image")}}</label>
+                                <app-fileupload [fileUrl]="objItem.picUrl" (onUpLoadEvent)="logoOnUpload($event)"
+                                    accept="image/*"></app-fileupload>
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{l("UiCustomization_Theme")}}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text icon-yanse">
+                                            <input type="color" id="color" name="color" [(ngModel)]="objItem.color"
+                                                class="hiddenChose" />
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" [placeholder]="l('colorPickTips')"
+                                        [ngStyle]="{'color':objItem.color}" name="color" [(ngModel)]="objItem.color">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

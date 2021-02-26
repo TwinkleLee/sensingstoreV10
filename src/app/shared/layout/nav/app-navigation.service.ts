@@ -141,9 +141,9 @@ export class AppNavigationService {
 
             //红包管理
             new AppMenuItem('Coupon', 'Pages.Tenant.Coupons', 'icon-hongbao', '', [], [
-                new AppMenuItem('RedPacket', 'Pages.Tenant.Coupons', 'icon-hongbao', '/app/redpacket/coupon'),
-                new AppMenuItem('CouponReview', 'Pages.Tenant.Coupons.Audit', 'icon-shenhe1', '/app/redpacket/reviewCoupon'),
-                new AppMenuItem('Ticket', 'Pages.Tenant.Coupons', 'icon-biaoqian', '/app/redpacket/ticket'),
+                new AppMenuItem('RedPacket', 'Pages.Tenant.Coupons', 'icon-hongbao', '/app/admin/redpacket/coupon'),
+                new AppMenuItem('CouponReview', 'Pages.Tenant.Coupons.Audit', 'icon-shenhe1', '/app/admin/redpacket/reviewCoupon'),
+                new AppMenuItem('Ticket', 'Pages.Tenant.Coupons', 'icon-biaoqian', '/app/admin/redpacket/ticket'),
             ]),
 
             //活动管理

@@ -1,0 +1,324 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Coupon' | localize" [description]="'CouponManage' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Coupons.Apply')">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shangxian1" (click)="online()">
+                            {{l('onlineBatch')}}
+                        </a>
+                        <a class="dropdown-item icon-xiaxian1" (click)="offline()">
+                            {{l('offlineBatch')}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="onlineAll()">
+                            {{l('onlineAll')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="offlineAll()">
+                            {{l('offlineAll')}}
+                        </a>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('publishCoupon')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishCoupon()">
+                            {{l('publishCoupon')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-chehui1" (click)="withdrawAll()">
+                            {{l('withdrawAll')}}
+                        </a>
+
+                    </div>
+                </div>
+                <button class="btn btn-primary" (click)="createCoupon()"
+                    *ngIf="isGranted('Pages.Tenant.Coupons.Create')">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateNewCoupon")}}</button>
+            </div>
+        </sub-header>
+
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="m-form">
+                                <div class="row align-items-center mb-4">
+                                    <div class="col-3">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('Name')}}</label>
+                                            <div class="input-group">
+                                                <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                    class="form-control m-input" (keyup.enter)="getCoupons()"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 筛选在线/离线  -->
+                                    <div class="col-3">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('auditStatus')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="auditStatus"
+                                                    name="auditStatus">
+                                                    <option value="">
+                                                        {{l("All")+' / '+l("online")+' / '+l("offline")}}</option>
+                                                    <option [value]="AuditStatus.Offline">{{l("offline")}}</option>
+                                                    <option [value]="AuditStatus.Online">{{l("online")}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-3 form-group">
+                                        <app-high-tree (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                                    </div> -->
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading" (click)="getCoupons()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <p-table #dataTable (onLazyLoad)="getCoupons($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [(selection)]="couponPublishList"
+                                [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th
+                                            *ngIf="isGranted('Pages.Tenant.Coupons.Delete')||isGranted('Pages.Tenant.Coupons.Edit')">
+                                            {{l('Actions')}}</th>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('name')}}</th>
+                                        <th>{{l('Picture')}}</th>
+                                        <th pSortableColumn="amount">
+                                            {{l('money')}}
+                                            <p-sortIcon field="amount"></p-sortIcon>
+                                        </th>
+                                        <th>{{l('CouponUrl')}}</th>
+                                        <th pSortableColumn="creationTime">
+                                            {{l('startTime')}}
+                                            <p-sortIcon field="creationTime"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="end_time">{{l('endTime')}}
+                                            <p-sortIcon field="end_time"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="auditStatus">{{l('Status')}}
+                                            <p-sortIcon field="auditStatus"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td
+                                            *ngIf="isGranted('Pages.Tenant.Coupons.Delete')||isGranted('Pages.Tenant.Coupons.Edit')">
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Coupons.Edit')">
+                                                        <a (click)="editCoupon(record)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li
+                                                        *ngIf="isGranted('Pages.Tenant.Coupons.Delete')&&record['auditStatus']==0&&record.isMine!==false">
+                                                        <a (click)="deleteCoupon(record)"
+                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.title}}</span>
+                                        </td>
+                                        <td>
+                                            <img [src]="fixFileUrl(record.pictures)" [alt]="record.title" />
+                                        </td>
+                                        <td>{{record.amount}}</td>
+                                        <td>
+                                            <span>{{record.url}}</span>
+                                        </td>
+                                        <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
+                                        <td>{{record.end_time| date : "yyyy/MM/dd"}}</td>
+                                        <td>
+                                            <span *ngIf="record['auditStatus']==1"
+                                                class="label label-success label-inline">{{l("OnSale")}}</span>
+                                            <span *ngIf="record['auditStatus']==0"
+                                                class="label label-dark label-inline">{{l("OffSale")}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="10">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/couponHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getCoupons($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+                <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}"
+                    [ngStyle]="{'height':avalibleHeight}" *ngIf="isGranted('Pages.Tenant.Coupons.Publish')&&toPublish">
+                    <div class="panel_head">
+                        <h3>{{l('publishCoupon')}}</h3>
+                        <div class="text-right x">
+                            <button (click)="toPublish=!toPublish">
+                                <i class="icon-close"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel_body">
+                        <form (ngSubmit)="doPublishCoupon()" name="publishConForm">
+                            <div class="form-group">
+                                <div class="m-radio-inline">
+                                    <label class="m-radio">
+                                        <input type="radio" name="publishType" [(ngModel)]="publishType" value="add">
+                                        {{l('append')}}
+                                        <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                        <input type="radio" name="publishType" [(ngModel)]="publishType" value="update">
+                                        {{l('update')}}
+                                        <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                        <input type="radio" name="publishType" [(ngModel)]="publishType" value="delete">
+                                        {{l('withdraw')}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input [(ngModel)]="onlyPublishToDevice" type="checkbox"
+                                            name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox checkbox-primary">
+                                        <input [(ngModel)]="informDevice" type="checkbox"
+                                            name="informDevice" />{{l("informDevice")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex;">
+
+                                <div class="input-group" style="width:50%;">
+                                    <select class="form-control" [(ngModel)]="deviceTypeId" name="belongStore"
+                                        (change)="filterTree()">
+                                        <option value="">{{l('AllTypes')}}</option>
+                                        <option [value]="deviceType.id" *ngFor="let deviceType of deviceTypeList">
+                                            {{deviceType.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group" style="width:50%;">
+                                    <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                        class="form-control m-input" (keydown.enter)="filterTree($event)"
+                                        [placeholder]="l('SearchWithThreeDot')" type="text">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                            <i class="icon-sousuo-sousuo"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group beautyScroll"
+                                [ngStyle]="{'max-height':'50vh','padding-left':'20px'}">
+                                <app-my-tree #myTree [config]="{'showId':true}" [(items)]="deviceTree">
+                                </app-my-tree>
+                                <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
+                            </div>
+                            <div class="form-group text-right">
+                                <button *ngIf="deviceTree&&deviceTree.length" type="submit"
+                                    class="btn btn-primary">{{l('Publish')}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="isGranted('Pages.Tenant.Coupons.Apply')">
+            <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="no()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="reason" class="col-form-label">{{l('Message')}}:</label>
+                                    <textarea class="form-control" id="reason" name="reason"
+                                        [(ngModel)]="apply.reason"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="no()"
+                                data-dismiss="modal">{{l('Close')}}</button>
+                            <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy"
+                                [busyText]="l('SavingWithThreeDot')" [disabled]="busy"><i></i>{{l('Send')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <createOrEditCouponModal #createOrEditCouponModal (modalSave)="getCoupons()"></createOrEditCouponModal>
+    </div>
+</div>
