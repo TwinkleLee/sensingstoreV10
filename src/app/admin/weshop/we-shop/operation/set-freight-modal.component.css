@@ -1,0 +1,37 @@
+.province {
+  width: 20%;
+  padding: 1vw;
+  cursor: pointer;
+  position: relative;
+}
+
+.province input {
+  position: relative;
+  top: 0.1rem;
+}
+
+.province .cityContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fffec6;
+  display: none;
+  width: 180%;
+  z-index: 10;
+  border: 1px solid #f7e4a5
+}
+
+.province .cityContainer .city {
+  width: 25%;
+  padding: 0.5vw 1vw;
+}
+
+.province:hover {
+  background: #fffec6;
+  outline: 1px solid #f7e4a5
+}
+
+.province:hover .cityContainer {
+  display: flex;
+  flex-wrap: wrap;
+}

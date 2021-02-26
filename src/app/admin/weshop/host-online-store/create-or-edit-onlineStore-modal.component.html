@@ -1,0 +1,50 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="shopItem?.id">{{l("edit")}}{{l("WeShop")}}</span>
+                        <span *ngIf="!shopItem.id">{{l("add")}}{{l("WeShop")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("Name")}} *</label>
+                                <input class="form-control" type="text" name="displayName" [(ngModel)]="shopItem.displayName"
+                                    required maxlength="32">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("TenantSelection")}}</label>
+                                <select [(ngModel)]="shopItem.tenantId" name="tenantId" class="form-control">
+                                    <option [value]="tenant.id" *ngFor="let tenant of tenantList">{{tenant.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("URL")}}</label>
+                                <input class="form-control" type="text" name="shopUrl" [(ngModel)]="shopItem.shopUrl"
+                                    required maxlength="32">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

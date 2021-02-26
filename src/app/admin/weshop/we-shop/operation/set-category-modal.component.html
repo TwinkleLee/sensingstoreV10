@@ -1,0 +1,49 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form *ngIf="active" #cateForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="cate?.id">{{l("EditCate")}}: {{cate?.id+' | '+cate?.value}}</span>
+                        <span *ngIf="!cate.id">{{l("CreateNewCate")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("type")}}</label>
+                                <select class="form-control" type="text" name="categoryId" [(ngModel)]="cate.categoryId" required>
+                                    <option *ngFor="let item of cateList" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("orderNumber")}}</label>
+                                <input class="form-control" type="number" name="orderNumber" [(ngModel)]="cate.orderNumber">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group kt-form__group">
+                                <app-fileupload [fileUrl]="cate.pictureUrl" (onUpLoadEvent)="onUpload($event)"
+                                    (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!cateForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

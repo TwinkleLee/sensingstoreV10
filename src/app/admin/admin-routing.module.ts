@@ -233,6 +233,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'tags',
                         loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule),
                     },
+                    {
+                        path: 'training',
+                        loadChildren: () => import('./training/training.module').then(m => m.TrainingModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

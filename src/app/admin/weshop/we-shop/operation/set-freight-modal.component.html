@@ -1,0 +1,184 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="freight?.id">{{l("add")}}{{l('FreightSetting')}}</span>
+                        <span *ngIf="!freight.id">{{l("Edit")}}{{l('FreightSetting')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{l("Name")}} *</label>
+                                <input class="form-control" type="text" name="displayName" [(ngModel)]="freight.displayName"
+                                    required maxlength="32">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label>{{l('shopShopFreightType')}}</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="freight.shopShopFreightType" name="shopShopFreightType">
+                                        <option [value]="0">{{l('ByNumber')}}</option>
+                                        <option [value]="1">{{l('ByWeight')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-4" style="position:relative;">
+                            <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                <input class="form-control" [(ngModel)]="freightStatus" type="checkbox" name="freightStatus" />{{l("On")}}
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="form-group col-4" style="position:relative;">
+                            <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                <input class="form-control" [(ngModel)]="freight.isDefault" type="checkbox" name="isDefault" />{{l("isDefault")}}
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="row" style="font-weight:bold;margin:0.5rem 0;">
+                            <div class="col-3">{{l('area')}}</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">{{l('firstNumber')}}</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">{{l('secondNumber')}}</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">{{l('firstWeight')}}({{l('gram')}})</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">{{l('secondWeight')}}({{l('gram')}})</div>
+                            <div class="col-2">{{l('firstPrice')}}({{l('yuan')}})</div>
+                            <div class="col-2">{{l('secondPrice')}}({{l('yuan')}})</div>
+                            <div class="col-1">{{l('Actions')}}</div>
+                        </div>
+                        <div class="row" style="margin:0.5rem 0;">
+                            <div class="col-3">{{l('Default')}}</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                                <input class="form-control" type="number" name="firstNumber" [(ngModel)]="freight.firstNumber"
+                                    required>
+                            </div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                                <input class="form-control" type="number" name="secondNumber" [(ngModel)]="freight.secondNumber"
+                                    required>
+                            </div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                                <input class="form-control" type="number" name="firstWeight" [(ngModel)]="freight.firstWeight"
+                                    required>
+                            </div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                                <input class="form-control" type="number" name="secondWeight" [(ngModel)]="freight.secondWeight"
+                                    required>
+                            </div>
+                            <div class="col-2">
+                                <input class="form-control" type="number" name="firstPrice" [(ngModel)]="freight.firstPrice"
+                                    required>
+                            </div>
+                            <div class="col-2">
+                                <input class="form-control" type="number" name="secondPrice" [(ngModel)]="freight.secondPrice"
+                                    required>
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+
+
+                        <div class="row" *ngFor="let area of freight.areas;let i=index;" style="margin:0.5rem 0;">
+                            <div class="col-3">
+                                {{area.city}}
+                                <a style="text-decoration:underline;color:blue;" (click)="editArea(area,i)">{{l('edit')}}</a>
+                            </div>
+
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                                <input class="form-control" type="number" [name]="'firstNumber'+i" [(ngModel)]="area.firstNumber"
+                                    required>
+                            </div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                                <input class="form-control" type="number" [name]="'secondNumber'+i" [(ngModel)]="area.secondNumber"
+                                    required>
+                            </div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                                <input class="form-control" type="number" [name]="'firstWeight'+i" [(ngModel)]="area.firstWeight"
+                                    required>
+                            </div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                                <input class="form-control" type="number" [name]="'secondWeight'+i" [(ngModel)]="area.secondWeight"
+                                    required>
+                            </div>
+                            <div class="col-2">
+                                <input class="form-control" type="number" [name]="'firstPrice'+i" [(ngModel)]="area.firstPrice"
+                                    required>
+                            </div>
+                            <div class="col-2">
+                                <input class="form-control" type="number" [name]="'secondPrice'+i" [(ngModel)]="area.secondPrice"
+                                    required>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn btn-primary" (click)="deleteArea(i)">X</button>
+                            </div>
+                        </div>
+
+
+                        <button type="button" class="btn btn-primary" (click)="addArea()">{{l("add")}}{{l('freightArea')}}</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+    <div *ngIf="showSelect" (click)="showSelect=false;" style="position:fixed;width:100%;height:100%;top:0;left:0;background:rgba(0,0,0,0.3);overflow:auto;">
+        <div class="myContainer" style="position:absolute;width:75%;left:12.5%;top:1.75rem;background:#fff;display:flex;flex-wrap: wrap;padding-top:2rem;"
+            (click)="$event.stopPropagation()">
+            <button type="button" class="close" (click)="showSelect=false;" aria-label="Close" style="position:absolute;right:1rem;top:1rem;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+
+            <div *ngFor="let province of districts" class="province">
+                <input *ngIf="province.able" type="checkbox" (click)="selectAll(province)" [checked]="province.selected" readonly />
+                <span *ngIf="province.able" (click)="selectAll(province)">{{province.name}}</span>
+
+                <input *ngIf="!province.able" type="checkbox" disabled />
+                <span *ngIf="!province.able" style="color:#ccc;">{{province.name}}</span>
+
+
+                <span *ngIf="province.contain" style="color:#DC586E;"> ( {{province.contain}} ) </span>
+                <div class="cityContainer">
+                    <div *ngFor="let city of province.children" class="city" (click)="selectCity(city,province)">
+                        <input *ngIf="city.able" type="checkbox" [checked]="city.selected" readonly />
+                        <span *ngIf="city.able">{{city.name}}</span>
+                        
+                        <input *ngIf="!city.able" type="checkbox" disabled />
+                        <span *ngIf="!city.able" style="color:#ccc;">{{city.name}}</span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="width:100%;">
+                <button type="button" class="btn btn-primary" (click)="showSelect=false;">{{l("Cancel")}}</button>
+                <button type="button" class="btn btn-primary blue" (click)="saveArea()"><i class="fa fa-save"></i>
+                    <span>{{l("Save")}}</span></button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

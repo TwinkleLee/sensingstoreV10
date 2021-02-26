@@ -72,7 +72,7 @@ export class AppNavigationService {
             new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/admin/memberShip/memberShip'),
 
             //host建立商城
-            new AppMenuItem('WeShop', 'Pages.Administration.Host.MaintainRecord', 'icon-iconfontshangcheng', '/app/weshop/hostOnlineStore'),
+            new AppMenuItem('WeShop', 'Pages.Administration.Host.MaintainRecord', 'icon-iconfontshangcheng', '/app/admin/weshop/hostOnlineStore'),
 
             //广告管理
             new AppMenuItem('Advertisement', 'Pages.Tenant.Ads', 'icon-guanggao1', '', [], [

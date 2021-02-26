@@ -9,7 +9,7 @@ import { TabsModule } from '@node_modules/ngx-bootstrap/tabs';
 import { TooltipModule } from '@node_modules/ngx-bootstrap/tooltip';
 import { BsDropdownModule } from '@node_modules/ngx-bootstrap/dropdown';
 import { PopoverModule } from '@node_modules/ngx-bootstrap/popover';
-import { TrainingRoutingModule } from './training-routing.module';
+import { WeshopRoutingModule } from './weshop-routing.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { BsDatepickerModule, BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -21,23 +21,30 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { TreeModule } from 'primeng/tree';
 
-import { TrainingListComponent} from '@app/admin/training/training/training-list.component';
-import { MyTrainingComponent} from '@app/admin/training/training/my-training.component';
-import { CreateOrEditTrainingModalComponent} from '@app/admin/training/training/create-or-edit-training-modal.component';
-import { CourseComponent} from '@app/admin/training/training/course/course.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+
 import { from } from 'rxjs';
-import {CreateOrEditCourseModalComponent} from './training/course/course-modal.component'
-import { SetTrainingModalComponent } from './training/course/training-modal.component'
+import { WeShopComponent } from '@app/admin/weshop/we-shop/we-shop.component';
+import { SwiperModalComponent } from '@app/admin/weshop/we-shop/operation/set-swiper-modal.component';
+import { SetTagModalComponent } from '@app/admin/weshop/we-shop/operation/set-tags-modal.component';
+import { SetCategoryModalComponent } from '@app/admin/weshop/we-shop/operation/set-category-modal.component';
+import { SetFreightModalComponent } from '@app/admin/weshop/we-shop/operation/set-freight-modal.component';
+
+
+//host线上店
+import { HostOnlineStoreComponent } from '@app/admin/weshop/host-online-store/online-store.component';
+import { HostOnlineStoreModalComponent } from '@app/admin/weshop/host-online-store/create-or-edit-onlineStore-modal.component';
 
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
 import {AppSharedModule} from '@app/shared/app-shared.module';
+
 
 @NgModule({
     imports: [
         AdminSharedModule,
         AppSharedModule,
 
+        
         CommonModule,
         FormsModule,
         ModalModule,
@@ -45,7 +52,7 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         TooltipModule,
         AppCommonModule,
         UtilsModule,
-        TrainingRoutingModule,
+        WeshopRoutingModule,
         CountoModule,
         NgxChartsModule,
         BsDatepickerModule.forRoot(),
@@ -57,17 +64,18 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         AutoCompleteModule,
     ],
     declarations: [
-        TrainingListComponent,
-        MyTrainingComponent,
-        CreateOrEditTrainingModalComponent,
-        CourseComponent,
-        CreateOrEditCourseModalComponent,
-        SetTrainingModalComponent
+        WeShopComponent,
+        SwiperModalComponent,
+        SetTagModalComponent,
+        SetCategoryModalComponent,
+        SetFreightModalComponent,
+        HostOnlineStoreComponent,
+        HostOnlineStoreModalComponent,
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
         { provide: BsDaterangepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDaterangepickerConfig },
-        { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale }
+        { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale },
     ]
 })
-export class TrainingModule { }
+export class WeshopModule { }
