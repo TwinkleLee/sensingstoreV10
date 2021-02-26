@@ -1,0 +1,54 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('application')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('application')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button> 
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("Name")}} *</label>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required
+                                maxlength="32">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("host")}} *</label>
+                            <input class="form-control" type="text" name="host" [(ngModel)]="objItem.host" required
+                                maxlength="32">
+                        </div>
+
+                        <div class="form-group col-6" *ngIf="objItem.appKey">
+                            <label>{{l("appKey")}}</label>
+                            <input class="form-control" type="text" name="appKey" [(ngModel)]="objItem.appKey" disabled>
+                        </div>
+                        <!-- <div class="form-group col-12">
+                            <label>{{l("description")}}</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="objItem.description"
+                                style="height:100px !important;"></textarea>
+                        </div> -->
+                        <div class="form-group col-12">
+                            <label>{{l("extensionData")}}</label>
+                            <textarea class="form-control" name="extensionData" [(ngModel)]="objItem.extensionData"
+                                style="height:100px !important;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

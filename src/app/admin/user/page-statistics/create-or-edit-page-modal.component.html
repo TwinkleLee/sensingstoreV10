@@ -1,0 +1,68 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('Page')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('Page')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button> 
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("Name")}} *</label>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required
+                                maxlength="32">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>{{l("url")}} *</label>
+                            <input class="form-control" type="text" name="url" [(ngModel)]="objItem.url" required
+                                maxlength="32">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("product")}}</label>
+                            <input (click)="chooseProduct()" class="form-control" type="text" name="product"
+                                [value]="objItem.pageExtras[0].productName" readonly>
+                        </div>
+                        <div class="form-group col-6">
+
+                            <div class="form-group m-form__group align-items-center">
+                                <label>{{l('salesperson')}}</label>
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="objItem.pageExtras[0].salesId"
+                                        name="salesId">
+                                        <option value="">{{l("None")}}</option>
+                                        <option *ngFor="let salesperson of salespersonList" [value]="salesperson.id">
+                                            {{salesperson.surname}}{{salesperson.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label>{{l("extensionData")}}</label>
+                            <textarea class="form-control" name="extensionData" [(ngModel)]="objItem.extensionData"
+                                style="height:100px !important;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ProductAlertModal #ProductAlertModal [outputWhenClose]="true" (modalSave)="changeProduct($event)"></ProductAlertModal>
