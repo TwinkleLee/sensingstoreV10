@@ -1,0 +1,105 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('MenuSetting')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('MenuSetting')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <div style="border:1px solid #ccc;width:100%;height:500px;position:relative;">
+                                <img style="width: 100%;" class="img-responsive" src="/assets/common/images/wxTitleBar.png">
+                                <div style="color:#fff;width:100%;position:absolute;left:0;top:0;line-height:6vw;font-size:1.2vw;text-align: center;">{{nickName}}</div>
+                                <div style="display:flex;position:absolute;width:100%;bottom:0;left:0;">
+                                    <div *ngFor="let button of objItem.menuContent.button;let index1 = index;" (click)="selectButton(button,true)"
+                                        style="flex-grow:1;border:1px solid #ccc;background:#eee;height:3vw;border-bottom:none;text-align: center;width:100%;line-height:3vw;position: relative;">
+                                        <span>{{button.name}}</span>
+                                        <b style="position:absolute;left:0;top:0;cursor: pointer;" *ngIf="index1>0"
+                                            (click)="goLeft(index1)">←</b>
+                                        <b style="position:absolute;right:0;top:0;cursor: pointer;" *ngIf="index1<objItem.menuContent.button.length-1"
+                                            (click)="goRight(index1)">→</b>
+                                        <div *ngIf="button.sub_button&&button.sub_button.length" style="position:absolute;bottom:100%;width:90%;left:5%;border:1px solid #000;">
+                                            <div *ngFor="let sub_button of button.sub_button;let index2 = index;"
+                                                (click)="$event.stopPropagation();selectButton(sub_button,false)" style="width:100%;height:3vw;line-height:3vw;outline: 1px solid #000;position: relative;">
+                                                <span>{{sub_button.name}}</span>
+                                                <b style="position:absolute;left:5px;;top:0;cursor: pointer;" *ngIf="index2<button.sub_button.length-1"
+                                                    (click)="goUp(index1,index2)">↓</b>
+                                                <b style="position:absolute;right:5px;top:0;cursor: pointer;" *ngIf="index2>0"
+                                                    (click)="goDown(index1,index2)">↑</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label>{{l("Set")}}{{l("Name")}} *</label>
+                                    <input class="form-control" type="text" name="displayName" [(ngModel)]="objItem.displayName"
+                                        required maxlength="32">
+                                </div>
+                                <div class="form-group col-12">
+                                    <button [disabled]="objItem.menuContent.button.length>=3" type="button" class="btn btn-primary"
+                                        (click)="AddMenu()">{{l("AddMenu")}}</button>
+                                    <button *ngIf="selectedButton" [disabled]="selectedButton.type||!(selectedButton&&selectedButton.isRoot&&((selectedButton.sub_button&&selectedButton.sub_button.length<5)||!selectedButton.sub_button))"
+                                        type="button" class="btn btn-primary" (click)="AddChildMenu()">{{l("AddChildMenu")}}</button>
+                                    <button *ngIf="selectedButton" [disabled]="!selectedButton" type="button" class="btn btn-primary"
+                                        (click)="DeleteMenu()">{{l("DeleteMenu")}}</button>
+                                </div>
+                                <div *ngIf="selectedButton" style="width:100%;">
+                                    <div class="form-group col-6">
+                                        <label>{{l("Name")}}</label>
+                                        <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="selectedButton.name">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>{{l("type")}}</label>
+                                        <div class="form-group ">
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="selectedButton.type"
+                                                    [ngModelOptions]="{standalone: true}" *ngIf="!selectedButton.sub_button||selectedButton.sub_button.length==0">
+                                                    <option></option>
+                                                    <option value="click">click</option>
+                                                    <option value="view">view</option>
+                                                </select>
+                                                <input type="text" readonly [value]="selectedButton.type?selectedButton.type:''"
+                                                    *ngIf="selectedButton.sub_button&&selectedButton.sub_button.length>0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6" *ngIf="selectedButton.type=='view'">
+                                        <label>{{l("URL")}}</label>
+                                        <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="selectedButton.url">
+                                    </div>
+                                    <div class="form-group col-6" *ngIf="selectedButton.type=='click'">
+                                        <label>{{l("key")}}</label>
+                                        <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="selectedButton.key">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

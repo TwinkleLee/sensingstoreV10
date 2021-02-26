@@ -1,0 +1,153 @@
+<div [@routerTransition]>
+  <div class="content d-flex flex-column flex-column-fluid">
+    <sub-header [title]="'PublicAccount' | localize" [description]="'PublicAccount' | localize">
+      <div role="actions">
+      </div>
+    </sub-header>
+
+    <div [class]="containerClass">
+      <div class="card card-custom gutter-b">
+          <div class="card-body">
+          <div class="row">
+            <form class="horizontal-form" autocomplete="off">
+              <div class="m-form">
+                <div class="row align-items-center mb-4">
+                  <div class="col-3">
+                    <div class="form-group m-form__group align-items-center">
+                      <label>{{l('name')}}</label>
+                      <div class="input-group">
+                        <input (keyup.enter)="getWXList()" [(ngModel)]="filterText" name="filterText" autoFocus
+                          class="form-control m-input" type="text">
+                        <!-- <span class="input-group-btn">
+                        <button (click)="getWXList()" class="btn btn-primary" type="submit">
+                          <i class="icon-sousuo-sousuo"></i>
+                        </button>
+                      </span> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="form-group m-form__group align-items-center">
+                      <label>&nbsp;</label>
+                      <div class="input-group">
+                        <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                          (click)="getWXList()">
+                          <i class="la la-refresh"></i>
+                          {{l("search")}}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-7 text-right">
+                    <button class="btn btn-primary" style="position:relative;top:1rem;" (click)="goCreate()"
+                      *ngIf="isGranted('Pages.Tenant.Activities.Create')">
+                      <i class="fa fa-plus"></i>
+                      {{l("bindPublicAccount")}}</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="row align-items-center">
+            <!--<Primeng-Datatable-Start>-->
+            <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+              <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+              <p-table #dataTable (onLazyLoad)="getWXList($event)" [value]="primengTableHelper.records"
+                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                [(selection)]="MetaCheckedList" [resizableColumns]="primengTableHelper.resizableColumns"
+                [responsive]="primengTableHelper.isResponsive">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 15%">{{l('Actions')}}</th>
+                    <th style="width:5%">{{l('RecordId')}}</th>
+                    <th>{{l('weixinAppID')}}</th>
+                    <th>{{l('head_img')}}</th>
+                    <th>{{l('name')}}</th>
+                    <th>{{l('Status')}}</th>
+                    <th>{{l('verify_type_info')}}</th>
+                    <th>{{l('AuthTime')}}</th>
+                    <th>{{l('expiredTime')}}</th>
+                    <th>{{l('service_type_info')}}</th>
+                    <th>{{l('lastUpdated')}}</th>
+                    <th>{{l('mpType')}}</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                  <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                    <td style="width:250px;">
+                      <button class="btn btn-sm btn-primary" (click)="goManage(record)">
+                        {{l("PublicAccountManage")}}
+                      </button>
+                    </td>
+                    <td style="width:5%"> {{transIndex(i)}}</td>
+                    <td>
+                      <span>{{record.weixinAppID}}</span>
+                    </td>
+                    <td>
+                      <img [src]="fixFileUrl(record.head_img)" />
+                    </td>
+                    <td>
+                      <span>{{record.nickName}}</span>
+                    </td>
+                    <td>
+                      <span *ngIf="record.status==0">{{l('Authrozied')}}</span>
+                      <span *ngIf="record.status==1">{{l('UnAuthrozied')}}</span>
+                      <span *ngIf="record.status==2">{{l('Locked')}}</span>
+                      <span *ngIf="record.status==3">{{l('UnLocked')}}</span>
+                    </td>
+                    <td>
+                      <span *ngIf="record.verify_type_info==-1">{{l('UnAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==0">{{l('WechatAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==1">{{l('SinaWeiboAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==2">{{l('QQweiboAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==3">{{l('NoNameAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==4">{{l('NoNameBySinaWeiboAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==5">{{l('NoNameByQqWeiboAuthentication')}}</span>
+                    </td>
+                    <td>
+                      <span>{{record.authorizationTime| date : "yyyy/MM/dd"}}</span>
+                    </td>
+                    <td>
+                      <span>{{record.expiredTime| date : "yyyy/MM/dd"}}</span>
+                    </td>
+                    <td>
+                      <span *ngIf="record.service_type_info==0">{{l('SubscribeAccount')}}</span>
+                      <span *ngIf="record.service_type_info==1">{{l('HistoryToSubscribeAccount')}}</span>
+                      <span *ngIf="record.service_type_info==2">{{l('ServiceAccount')}}</span>
+                    </td>
+                    <td>
+                      <span>{{record.lastModificationTime| date : "yyyy/MM/dd"}}</span>
+                    </td>
+                    <td>
+                      <span *ngIf="record.mpType==0">{{l('PrivateUse')}}</span>
+                      <span *ngIf="record.mpType==1">{{l('PublicUse')}}</span>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-records>
+                  <tr *ngIf="primengTableHelper.records">
+                    <td colspan="12" class="text-center">
+                      <img class="emptymessage" src="/assets/common/images/placeholder/deviceHolder.png" />
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <div class="primeng-paging-container">
+                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                  (onPageChange)="getWXList($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                  [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                </p-paginator>
+                <span class="total-records-count">
+                  {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                </span>
+              </div>
+            </div>
+            <!--<Primeng-Datatable-End>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <createPublicAccountModal #createPublicAccountModal (modalSave)="getWXList()"></createPublicAccountModal>
+  </div>
+
+</div>

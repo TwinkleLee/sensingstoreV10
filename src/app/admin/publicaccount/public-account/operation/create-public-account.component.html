@@ -1,0 +1,95 @@
+<div bsModal #createPublicAccountModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span>{{l("Authorization information")}}</span>
+        </h4>
+        <button type="button" class="close" (click)="close()" aria-label="Close">
+          <i aria-hidden="true" class="ki ki-close"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <tabset class="tab-container tabbable-line">
+          <tab heading="{{l('playerDataDetail')}}" customClass="m-tabs__item">
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group" style="text-align:center;">
+                  <img [src]="profilePicture1" alt="">
+                  <div>{{l('WeChat official license')}}</div>
+                  <div>{{l('Standardizing operational services and implementing business on behalf of the public')}}</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group" style="text-align:center;">
+                  <img [src]="profilePicture2" alt="">
+                  <div>{{l('No tedious setting of the public number')}}</div>
+                  <div>{{l('Public number operators no longer need to understand tedious parameter settings')}}</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group" style="text-align:center;">
+                  <img [src]="profilePicture3" alt="">
+                  <div>{{l('A safe and reliable authorization')}}</div>
+                  <div>{{l('The password is not provided to the developer to ensure reliable security')}}</div>
+                </div>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+        <tabset class="tab-container tabbable-line">
+          <tab heading="{{l('Public number landing authorization')}}" customClass="m-tabs__item">
+            <div class="row" style="margin:0;">
+              {{l('A secure authorization mechanism allows the public number to authorize their own rights and capabilities to developers,enabling
+              development to help public numbers realize their business')}}
+            </div>
+          </tab>
+        </tabset>
+        <tabset class="tab-container tabbable-line">
+          <tab heading="{{l('The authorization and use of the platform')}}" customClass="m-tabs__item">
+            <div class="row" style="font-size:1.05rem;margin:10px 0;">
+              <div class="col-4">
+                <a target="_blank" href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318459&lang=zh_CN">{{l('User
+                  management permissions')}}</a>
+              </div>
+              <div class="col-4">
+                <a target="_blank" href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318459&lang=zh_CN">{{l('WeChat
+                  sweep privilege')}}</a>
+              </div>
+              <div class="col-4">
+                <a target="_blank" href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318459&lang=zh_CN">{{l('Web
+                  development permissions')}}</a>
+              </div>
+            </div>
+            <div class="row" style="font-size:1.05rem;margin:10px 0;">
+              <div class="col-4">
+                <a target="_blank" href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318459&lang=zh_CN">{{l('Shake
+                  the perimeter')}}</a>
+              </div>
+              <div class="col-4">
+                <a target="_blank" href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318459&lang=zh_CN">{{l('Account
+                  management authority')}}</a>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+        <tabset class="tab-container tabbable-line">
+          <tab heading="{{l('Please Choose Your Public-Account')}}" customClass="m-tabs__item">
+            <div class="form-row" style="text-align:center">
+              <div class="form-group col-2" *ngFor="let item of list">
+                <label class="btn m-btn--pill btn-secondary" (click)="chooseAccount()">
+                  <input type="radio" [(ngModel)]="id" name="dataChartType" [value]="item.id" class="toggle" style="visibility:visible"> {{l(item.name)}}(AppId:{{l(item.componentAppID)}})
+                </label>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+      <div class="modal-footer" style="justify-content: center;" *ngIf="href">
+        <button type="button" class="btn btn-primary" (click)="authorizate()"><a style="color:#fff;" href="{{href}}" target="_blank">{{l("WeChat
+            public number landing authorization")}}</a></button>
+      </div>
+    </div>
+  </div>
+</div>

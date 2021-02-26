@@ -192,7 +192,7 @@ export class AppNavigationService {
             new AppMenuItem('System', 'Pages.Administration', 'icon-jichushezhi', '', [], [
                 new AppMenuItem('TagManagement', 'Pages.Tenant.Tags', 'icon-biaoqian', '/app/tags/tags'),
                 new AppMenuItem('ResourceManagement', 'Pages.Tenant.Resources', 'icon-ziyuanguanli', '/app/resource/resource'),
-                new AppMenuItem('PublicAccount', 'Pages.Tenant.PublicAccount', 'icon-gongzhonghao', '/app/publicaccount/publicaccount'),
+                new AppMenuItem('PublicAccount', 'Pages.Tenant.PublicAccount', 'icon-gongzhonghao', '/app/admin/publicaccount/publicaccount'),
                 new AppMenuItem('Tenants', 'Pages.Tenants', 'icon-kehuguanli', '/app/admin/tenants'),
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'icon-zuzhijigou', '/app/admin/organization-units'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'icon-yonghu', '/app/admin/roles'),
