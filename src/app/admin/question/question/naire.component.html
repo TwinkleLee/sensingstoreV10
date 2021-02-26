@@ -1,0 +1,278 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'NaireList' | localize" [description]="'NaireManage' | localize">
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown>
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="publishNaire()"
+                            *ngIf="isGranted('Pages.Tenant.Question.Publish')">
+                            {{l('publishNaire')}}
+                        </a>
+                        <a class="dropdown-item icon-icon-test" (click)="deleteBatch()"
+                            *ngIf="isGranted('Pages.Tenant.Question.Delete')">
+                            {{l('deleteBatch')}}
+                        </a>
+                    </div>
+                </div>
+                <button class="btn btn-primary" (click)="createNaire()"
+                    *ngIf="isGranted('Pages.Tenant.Question.Create')">
+                    <i class="fa fa-plus"></i>
+                    {{l("CreateNaire")}}</button>
+            </div>
+        </sub-header>
+
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="m-form ">
+                                <div class="row align-items-center mb-4">
+                                    <div class="col-3">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('name')}}</label>
+                                            <div class="input-group">
+                                                <input (keyup.enter)="getPaper()" [(ngModel)]="filterText"
+                                                    name="filterText" autoFocus class="form-control m-input"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                <!-- <span class="input-group-btn">
+                                                    <button (click)="getPaper()" class="btn btn-primary" type="submit">
+                                                        <i class="icon-sousuo-sousuo"></i>
+                                                    </button>
+                                                </span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('tags')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="tagFilter" name="type">
+                                                    <option value="">{{l('AllTags')}}</option>
+                                                    <option [value]="tag.id" *ngFor="let tag of tags">{{tag.value}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading" (click)="getPaper()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <p-table #dataTable (onLazyLoad)="getPaper($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [(selection)]="paperPublishList"
+                                [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{l('Actions')}}</th>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('name')}}</th>
+                                        <th>{{l('title')}}</th>
+                                        <th>{{l('compositionType')}}</th>
+
+                                        <!-- <th pSortableColumn="actualQuestionsCount">{{l('actualQuestionsCount')}}
+                                            <p-sortIcon field="actualQuestionsCount"></p-sortIcon>
+                                        </th> -->
+                                        <th>{{l('actualQuestionsCount')}}</th>
+
+                                        <th pSortableColumn="questionsCount">{{l('questionCount')}}
+                                            <p-sortIcon field="questionsCount"></p-sortIcon>
+                                        </th>
+                                        <!-- <th>{{l('owner')}}</th> -->
+                                        <th>{{l('tags')}}</th>
+                                        <!-- <th pSortableColumn="endDate">{{l('createTime')}}
+                                            <p-sortIcon field="endDate"></p-sortIcon>
+                                        </th> -->
+                                        <!-- <th>{{l('Status')}}</th> -->
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Question.Edit')">
+                                                        <a (click)="editNaire(record)"
+                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Question.Delete')">
+                                                        <a (click)="deleteNaire(record)"
+                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a (click)="goDashboard(record)"
+                                                            class="icon-baobiao">{{l('Dashboard')}}</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.name}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.displayName}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.compositionType==0">{{l("Fixed")}}</span>
+                                            <span *ngIf="record.compositionType==1">{{l("Random")}}</span>
+                                            <span *ngIf="record.compositionType==2">{{l('Fixed')}} +
+                                                {{l('Random')}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.actualQuestionsCount}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.questionsCount}}</span>
+                                        </td>
+                                        <!-- <td>
+                                            <span>{{record.owner}}</span>
+                                        </td> -->
+                                        <td>
+                                            <span *ngFor="let tag of record.tags"
+                                                class="label label-dark label-inline">
+                                                {{tag.name}}
+                                            </span>
+                                            <span *ngIf="!record.tags||record.tags.length==0">
+                                                {{EmptyTdText}}
+                                            </span>
+                                        </td>
+                                        <!-- <td>{{record.endDate| date : "yyyy/MM/dd"}}</td> -->
+                                        <!-- <td>
+                                            <span *ngIf="record['auditStatus']==1" class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
+                                            <span *ngIf="record['auditStatus']==0" class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                        </td> -->
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="8" class="text-center">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/productHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getPaper($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}"
+                        [ngStyle]="{'height':avalibleHeight}"
+                        *ngIf="isGranted('Pages.Tenant.Question.Publish')&&toPublish">
+                        <div class="panel_head">
+                            <h3>{{l('publishNaire')}}</h3>
+                            <div class="text-right x">
+                                <button (click)="toPublish=!toPublish">
+                                    <i class="icon-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel_body">
+                            <form (ngSubmit)="doPublishNaire()" name="publishConForm">
+                                <div class="form-group">
+                                    <div class="m-radio-inline">
+                                        <label class="m-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="add">
+                                            {{l('append')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="m-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="update">
+                                            {{l('update')}}
+                                            <span></span>
+                                        </label>
+                                        <label class="m-radio">
+                                            <input type="radio" name="publishType" [(ngModel)]="publishType"
+                                                value="delete">
+                                            {{l('withdraw')}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                            class="form-control m-input" (keydown.enter)="filterTree($event)"
+                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group beautyScroll"
+                                    [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 253px)','padding-left':'20px'}">
+                                    <app-my-tree #myTree [config]="{'showId':true,'name':'name'}"
+                                        [(items)]="softwareTree"></app-my-tree>
+                                    <h3 *ngIf="!softwareTree||softwareTree.length==0">{{l('NoData')}}</h3>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button *ngIf="softwareTree&&softwareTree.length" type="submit"
+                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <naireModal #naireModal (modalSave)="getPaper()"></naireModal>
+    </div>
+
+</div>

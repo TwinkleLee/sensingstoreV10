@@ -1,0 +1,203 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" name="CommonForm" #FortunesForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="Question?.id">{{l("EditQuestion")}} | {{Question?.id}}</span>
+                        <span *ngIf="!Question?.id">{{l("CreateQuestion")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <label>{{l("title")}} *</label>
+                                        <input class="form-control" type="text" name="title" [(ngModel)]="Question.title"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <label>{{l('type')}}</label>
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="Question.type" name="type">
+                                                <option value="0">{{l('oneChoose')}}</option>
+                                                <option value="1">{{l('multiChoose')}}</option>
+                                                <option value="2">{{l('text')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" *ngIf="Question.type==1">
+                                    <div class="form-group m-form__group align-items-center">
+                                        <label>{{l('questionScoreType')}}</label>
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="Question.questionScoreType" name="questionScoreType">
+                                                <option value="0">{{l('PartialScore')}}</option>
+                                                <option value="1">{{l('FullScore')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>{{l("tags")}}</label>
+                                    <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion" (completeMethod)="filter($event)"
+                                        field="value" placeholder="tags" dataKey="id" [multiple]="true" [dropdown]="true"
+                                        (onSelect)="assignTags()" (onUnselect)="assignTags()" (onBlur)="clearInput($event)"
+                                        [minLength]="1" name="MultiSelectInput" inputStyleClass="form-control"
+                                        styleClass="width-percent-100">
+                                    </p-autoComplete>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("score")}}</label>
+                                        <input class="form-control" type="text" name="score" [(ngModel)]="Question.score">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>{{l("sort")}}</label>
+                                        <input class="form-control" type="number" name="orderNo" [(ngModel)]="Question.orderNo">
+                                    </div>
+                                </div>
+                                <div class="form-group col-6" style="position:relative;padding-bottom:2vw;">
+                                    <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                        <input [(ngModel)]="Question.enabled" type="checkbox" name="enabled" />{{l("isEnabled")}}
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="Question.type==2">
+                                <div class="form-group col-12">
+                                    <label>{{l("answer")}}</label>
+                                    <textarea rows="5" class="form-control" name="answer" [(ngModel)]="Question.answer"
+                                        style="height:100px !important;"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label>{{l("description")}}</label>
+                                    <textarea rows="5" class="form-control" name="description" [(ngModel)]="Question.description"
+                                        style="height:100px !important;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="control-label">{{l("Image")}}</label>
+                                <app-fileupload [fileUrl]="Question.imageUrl" (onUpLoadEvent)="imageOnUpload($event)"
+                                    accept="image/*"></app-fileupload>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="control-label">{{l("Logo")}}</label>
+                                <app-fileupload [fileUrl]="Question.logoUrl" (onUpLoadEvent)="logoOnUpload($event)"
+                                    accept="image/*"></app-fileupload>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="Question.type!=2" class="row" style="margin:25px 0;">
+                        <div class="col-10"></div>
+                        <div class="col-2 text-right">
+                            <button (click)="createRecommend()" class="btn btn-primary blue" type="button">
+                                <i class="fa fa-plus"></i> {{l("CreateAnswer")}}</button>
+                        </div>
+                    </div>
+
+
+
+                    <div *ngIf="Question.type!=2" class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container">
+                            <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                            <p-table [value]="Question.questionItems" [paginator]="false">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:12%;">{{l('Actions')}}</th>
+                                        <th style="width:6%;">{{l('sort')}}</th>
+                                        <th style="width:6%;">{{l('prefix')}}</th>
+                                        <th>
+                                            {{l('content')}}
+                                        </th>
+                                        <th style="width:6%;">{{l('rightAnswer')}}</th>
+                                        <th style="width:12%;" *ngIf="Question.type==1&&Question.questionScoreType==0">{{l('scoreRate')}}
+                                            ({{l('SuchAs')}}0.25)</th>
+                                        <th style="width:25%;">
+                                            {{l('extensionData')}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record">
+                                        <td>
+                                            <div class="btn-group dropdown" normalizePosition>
+                                                <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
+                                                    type="button">
+                                                    <span class="caret"></span> {{l("Delete")}}
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.orderNo">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="string" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.prefix">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.content">
+                                        </td>
+                                        <td style="position:relative;">
+                                            <div *ngIf="Question.type==0" (click)="doSingleSelect(record)" style="position:absolute;width:100%;height:100%;top:0;z-index:2;"></div>
+                                            <div class="form-group" style="position:relative;">
+                                                <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                                    <input class="form-control" [(ngModel)]="record.isAnswer" type="checkbox"
+                                                        [ngModelOptions]="{standalone: true}" />
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td *ngIf="Question.type==1&&Question.questionScoreType==0">
+                                            <input *ngIf="record.isAnswer" class="form-control" type="number"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.score">
+                                            <span *ngIf="!record.isAnswer"> - </span>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.extensionData">
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+
+                        </div>
+
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!FortunesForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

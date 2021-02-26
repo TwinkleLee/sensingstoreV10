@@ -213,6 +213,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'publicaccount',
                         loadChildren: () => import('./publicaccount/publicaccount.module').then(m => m.PublicaccountModule),
                     },
+                    {
+                        path: 'question',
+                        loadChildren: () => import('./question/question.module').then(m => m.QuestionModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]

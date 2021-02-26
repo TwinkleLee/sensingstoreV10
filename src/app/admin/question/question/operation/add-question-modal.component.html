@@ -1,0 +1,187 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" name="CommonForm" #NaireForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("AddQuestion")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
+                </div>
+                <div class="modal-body" style="padding-bottom:0;">
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="kt-form kt-form--label-align-right">
+                                <div class="row align-items-center m--margin-bottom-10">
+                                    <div class="col-3">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>{{l('title')}}</label>
+                                            <div class="input-group">
+                                                <input (keyup.enter)="getQuestions()" [(ngModel)]="filterText" name="filterText" autoFocus class="form-control kt-input"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                <!-- <span class="input-group-btn">
+                                                    <button (click)="getQuestions()" class="btn btn-primary" type="submit">
+                                                        <i class="icon-sousuo-sousuo"></i>
+                                                    </button>
+                                                </span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-2">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>{{l('type')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="type" name="type">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option value="0">{{l('oneChoose')}}</option>
+                                                    <option value="1">{{l('multiChoose')}}</option>
+                                                    <option value="2">{{l('text')}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-2">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>{{l('tags')}}</label>
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="tagFilter" name="type">
+                                                    <option value="">{{l('AllTags')}}</option>
+                                                    <option [value]="tag.id" *ngFor="let tag of tags">{{tag.value}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                                                    (click)="getQuestions()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <!-- resizableColumns="primengTableHelper.resizableColumns" -->
+                            <p-table #dataTable (onLazyLoad)="getQuestions($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [(selection)]="questionPublishList"
+                                [paginator]="false" [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 5.0em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('title')}}</th>
+                                        <th style="width:10%">{{l('type')}}</th>
+                                        <!-- <th style="width:10%">{{l('questionScoreType')}}</th> -->
+                                        <th style="width:10%" pSortableColumn="score">{{l('score')}}
+                                            <p-sortIcon field="score"></p-sortIcon>
+                                        </th>
+                                        <th>{{l('answer')}}</th>
+                                        <th>{{l('tags')}}</th>
+                                        <!-- <th pSortableColumn="endDate">{{l('createTime')}}
+                                                <p-sortIcon field="endDate"></p-sortIcon>
+                                            </th> -->
+                                        <!-- <th style="width:10%">{{l('Status')}}</th> -->
+                                    </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
+                                        <td> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.title}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.type==0">{{l('oneChoose')}}</span>
+                                            <span *ngIf="record.type==1">{{l('multiChoose')}}</span>
+                                            <span *ngIf="record.type==2">{{l('text')}}</span>
+                                        </td>
+                                        <!-- <td>
+                                                <span *ngIf="record.questionScoreType==0">{{l('PartialScore')}}</span>
+                                                <span *ngIf="record.questionScoreType==1">{{l('FullScore')}}</span>
+                                            </td> -->
+                                        <td>
+                                            <span>{{record.score}}</span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="record.type!=2" style="line-height:1rem;">
+                                                <span *ngFor="let item of record.questionItems">
+                                                    <span *ngIf="item.isAnswer">
+                                                        <b *ngIf="item.prefix">{{item.prefix}}:</b>
+                                                        {{item.content}}&nbsp;
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <span *ngIf="record.type==2">{{record.answer}}</span>
+                                        </td>
+                                        <td>
+                                            <!-- <span>{{record.tagIds}}</span> -->
+                                            <span *ngFor="let tag of record.tags" class="kt-badge  kt-badge--info kt-badge--inline">
+                                                {{tag.name}}
+                                            </span>
+                                            <span *ngIf="!record.tags||record.tags.length==0">
+                                                {{EmptyTdText}}
+                                            </span>
+                                        </td>
+                                        <!-- <td>{{record.endDate| date : "yyyy/MM/dd"}}</td> -->
+                                        <!-- <td>
+                                            <span *ngIf="record.enabled" class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
+                                            <span *ngIf="!record.enabled" class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                        </td> -->
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="7">
+                                            <img class="emptymessage" src="/assets/common/images/placeholder/productHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getQuestions($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="padding:15px;">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="questionPublishList.length==0"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("add")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

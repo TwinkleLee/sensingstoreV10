@@ -135,8 +135,8 @@ export class AppNavigationService {
 
             //问卷
             new AppMenuItem('AnswerQuestion', 'Pages.Tenant.Question', 'icon-nav-entry', '', [], [
-                new AppMenuItem('QuestionManage', 'Pages.Tenant.Question', 'icon-shitiku', '/app/question/question'),
-                new AppMenuItem('NaireManage', 'Pages.Tenant.Question', 'icon-shijuan', '/app/question/naire'),
+                new AppMenuItem('QuestionManage', 'Pages.Tenant.Question', 'icon-shitiku', '/app/admin/question/question'),
+                new AppMenuItem('NaireManage', 'Pages.Tenant.Question', 'icon-shijuan', '/app/admin/question/naire'),
             ]),
 
             //红包管理
