@@ -1,30 +1,21 @@
 <div>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <i class="icon-fanhui text-info" (click)="goBack()"></i>
-                        <span>{{l("DeviceEdit")}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{device?.id}} | <span *ngIf="device&&device.name">{{device?.name}}</span>
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
+    <div class="content d-flex flex-column flex-column-fluid">
 
-                    </div>
-                </div>
+        <sub-header [title]="'DeviceEdit' | localize" [description]="device?.id + '|' + device?.name">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions">
+                
             </div>
-        </div>
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
-                    <div class="kt-portlet__body">
+        </sub-header>
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
+
                         <tabset class="tab-container tabbable-line">
-                            <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item icon-artboard13"
+                            <tab heading="{{l('BaseMsg')}}" customClass="m-tabs__item icon-artboard13"
                                 style="position: relative;" *ngIf="checkAbility('BaseMsg')">
                                 <form style="width: 100%" novalidate="" #deviceInfooperationForm="ngForm">
                                     <div class="freeze-ui" style="position:absolute;" *ngIf="showFreezeUi"></div>
@@ -327,7 +318,7 @@
 
                                     <div class="form-row" *ngIf="!appSession.tenant">
                                         <div class="form-group col-12">
-                                            <label class="kt-checkbox kt-checkbox--success" for="isLocked">
+                                            <label class="m-checkbox checkbox-success" for="isLocked">
                                                 <input type="checkbox" [(ngModel)]="device.isLocked" id="isLocked"
                                                     name="isLocked">
                                                 {{l('isTest')}}
@@ -347,19 +338,19 @@
                                     </div>
                                 </form>
                             </tab>
-                            <tab heading="{{l('Advertisement')}}" customClass="kt-tabs__item icon-guanggao"
+                            <tab heading="{{l('Advertisement')}}" customClass="m-tabs__item icon-guanggao"
                                 *ngIf="checkAbility('Advertisement')&&isGranted('Pages.Tenant.Ads')&&appSession.tenant"
                                 (selectTab)="getAdsByDeviceId($event)">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
-                                            <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
                                                 <div class="col-4">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="adsFilterText" name="filterText"
                                                                 (keyup.enter)="getAdsByDeviceId()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getAdsByDeviceId()"
@@ -402,20 +393,20 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Apps')}}" customClass="kt-tabs__item icon-yingyong"
+                            <tab heading="{{l('Apps')}}" customClass="m-tabs__item icon-yingyong"
                                 *ngIf="checkAbility('Apps')&&isGranted('Pages.Softwares')&&appSession.tenant"
                                 (selectTab)="getSoftwareByDeviceId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
-                                            <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
                                                 <div class="col-4">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="softwareFilterText"
                                                                 name="softwareFilterText"
                                                                 (keyup.enter)="getSoftwareByDeviceId()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getSoftwareByDeviceId()"
@@ -460,20 +451,20 @@
                                 </div>
                             </tab>
                             <tab heading="{{l('Product')}}" [active]="initTab=='product'"
-                                customClass="kt-tabs__item icon-product"
+                                customClass="m-tabs__item icon-product"
                                 *ngIf="checkAbility('Product')&&isGranted('Pages.Tenant.Products')&&appSession.tenant"
                                 (selectTab)="getProductByDeviceId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
+                                        <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
                                                 <div class="col-4">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="productFilterText"
                                                                 name="productFilterText"
                                                                 (keyup.enter)="getProductByDeviceId()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getProductByDeviceId()"
@@ -517,20 +508,20 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Coupon')}}" customClass="kt-tabs__item icon-hongbao"
+                            <tab heading="{{l('Coupon')}}" customClass="m-tabs__item icon-hongbao"
                                 *ngIf="checkAbility('Coupon')&&isGranted('Pages.Tenant.Coupons')&&appSession.tenant"
                                 (selectTab)="getCouponByDeviceId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
-                                            <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
                                                 <div class="col-4">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="couponFilterText"
                                                                 name="couponFilterText"
                                                                 (keyup.enter)="getCouponByDeviceId()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getCouponByDeviceId()"
@@ -621,9 +612,9 @@
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['auditStatus']==1"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("Online")}}</span>
+                                                            class="label label-success label-inline">{{l("Online")}}</span>
                                                         <span *ngIf="record['auditStatus']==0"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Offline")}}</span>
+                                                            class="label label-dark label-inline">{{l("Offline")}}</span>
                                                     </td>
                                                     <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
                                                     <td>{{record.end_time| date : "yyyy/MM/dd"}}</td>
@@ -653,20 +644,20 @@
                                 </div>
                             </tab>
                             <tab heading="{{l('Activities')}}" [active]="initTab=='activity'"
-                                customClass="kt-tabs__item icon-huodong"
+                                customClass="m-tabs__item icon-huodong"
                                 *ngIf="checkAbility('Activities')&&isGranted('Pages.Tenant.Activities')"
                                 (selectTab)="getActivityByDeviceId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
+                                        <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
                                                 <div class="col-4">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="activityFilterText"
                                                                 name="activityFilterText"
                                                                 (keyup.enter)="getActivityByDeviceId()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getActivityByDeviceId()"
@@ -780,7 +771,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Control')}}" customClass="kt-tabs__item icon-kongzhi"
+                            <tab heading="{{l('Control')}}" customClass="m-tabs__item icon-kongzhi"
                                 *ngIf="checkAbility('Control')&&isGranted('Pages.Tenant.Devices.Control')"
                                 (selectTab)="selectControl()">
                                 <div class="row">
@@ -805,7 +796,7 @@
                                             <div class="panel-heading">{{l('AppPod')}}</div>
                                             <div class="panel-body">
                                                 <div class="row">
-                                                    <div class="form-group kt-form__group align-items-center col-6">
+                                                    <div class="form-group m-form__group align-items-center col-6">
                                                         <label>{{l('AppPodNowVersion')}}</label>
                                                         <span class="form-control"
                                                             *ngIf="targetAppPodVersion.currentVersion">{{targetAppPodVersion.currentAppPodName}}
@@ -815,7 +806,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="form-group kt-form__group align-items-center col-6">
+                                                    <div class="form-group m-form__group align-items-center col-6">
                                                         <label>{{l('AppPodTargetVersion')}}</label>
                                                         <select class="form-control"
                                                             [(ngModel)]="appPod.targetAppPodVersionId"
@@ -828,7 +819,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-6">
-                                                        <label class="kt-checkbox kt-checkbox--primary" for="isLock"
+                                                        <label class="checkbox checkbox-primary" for="isLock"
                                                             style="position:relative;top:40px;" (click)="changeClick()">
                                                             <input type="checkbox" [(ngModel)]="appPod.isLock"
                                                                 name="isLock">
@@ -839,7 +830,7 @@
                                                 </div>
 
 
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group m-form__group align-items-center">
                                                     <div class="form-group">
                                                         <label class="col-form-label">AppPod {{l('Set')}}</label>
                                                         <textarea rows="5" class="form-control"
@@ -861,7 +852,7 @@
                                             <div class="panel-heading">{{l('AppPod')}}</div>
                                             <div class="panel-body">
                                                 <div class="row">
-                                                    <div class="form-group kt-form__group align-items-center col-6">
+                                                    <div class="form-group m-form__group align-items-center col-6">
                                                         <label>{{l('AppPodNowVersion')}}</label>
                                                         <span class="form-control"
                                                             *ngIf="targetAppPodVersion.currentVersion">{{targetAppPodVersion.currentAppPodName}}
@@ -870,7 +861,7 @@
                                                             *ngIf="!targetAppPodVersion.currentVersion">{{l('noAppPodVersion')}}</span>
                                                     </div>
                                                     <div class="form-group col-6">
-                                                        <label class="kt-checkbox kt-checkbox--primary" for="isLocked"
+                                                        <label class="checkbox checkbox-primary" for="isLocked"
                                                             style="position:relative;top:40px;">
                                                             <input type="checkbox" [(ngModel)]="appPod.isLock"
                                                                 name="isLock" readonly>
@@ -881,7 +872,7 @@
                                                 </div>
 
 
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group m-form__group align-items-center">
                                                     <div class="form-group">
                                                         <label class="col-form-label">AppPod {{l('Set')}}</label>
                                                         <textarea rows="5" class="form-control"
@@ -1027,7 +1018,7 @@
                                 </div>
 
                             </tab>
-                            <tab heading="{{l('thirdPartyMsg')}}" customClass="kt-tabs__item icon-disanfangdanbao"
+                            <tab heading="{{l('thirdPartyMsg')}}" customClass="m-tabs__item icon-disanfangdanbao"
                                 *ngIf="checkAbility('thirdPartyMsg')" (selectTab)="getTokenIdList()">
                                 <div class="row" *ngIf="!device.extraDeviceId">
                                     <div class="col-12 text-right">
@@ -1075,10 +1066,10 @@
                                 </div>
                             </tab>
                             <tab *ngIf="checkAbility('Statistics')&&notHost" heading="{{l('Statistics')}}"
-                                customClass="kt-tabs__item icon-shuju" (selectTab)="draw()">
+                                customClass="m-tabs__item icon-shuju" (selectTab)="draw()">
 
-                                <div class="kt-portlet" origin [busyIf]="dashboardsCount!=5">
-                                    <div class="kt-portlet__body  kt-portlet__body--no-padding">
+                                <div class="m-portlet" origin [busyIf]="dashboardsCount!=5">
+                                    <div class="m-portlet__body  m-portlet__body--no-padding">
                                         <div class="row m-row--no-padding m-row--col-separator-xl">
                                             <div *ngFor="let stats of dashboards;let i = index">
 
@@ -1338,10 +1329,10 @@
                                 </div>
                             </tab>
                             <tab heading="{{l('cargoManagement')}}" (selectTab)="getSingleShelf()"
-                                customClass="kt-tabs__item icon-shangpinliebiao"
+                                customClass="m-tabs__item icon-shangpinliebiao"
                                 *ngIf="checkAbility('cargoManagement')">
                                 <tabset class="tab-container tabbable-line">
-                                    <tab heading="{{l('detailMessage')}}" customClass="kt-tabs__item">
+                                    <tab heading="{{l('detailMessage')}}" customClass="m-tabs__item">
                                         <div class="freeze-ui" *ngIf="ShelfInfoLoading"></div>
 
                                         <div class="row">
@@ -1413,7 +1404,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-12 text-center">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group m-form__group align-items-center">
                                                     <label style="display: block;">&nbsp;</label>
                                                     <button type="button" class="btn btn-primary"
                                                         (click)="singleShelfData.layers.unshift({})">
@@ -1460,7 +1451,7 @@
 
                                         <div class="row">
                                             <div class="col-12 text-right">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group m-form__group align-items-center">
                                                     <label style="display: block;">&nbsp;</label>
                                                     <button type="button" class="btn btn-primary"
                                                         [buttonBusy]="ShelfInfoLoading"
@@ -1475,7 +1466,7 @@
 
 
 
-                                    <tab heading="{{l('cargoLaneInfo')}}" customClass="kt-tabs__item">
+                                    <tab heading="{{l('cargoLaneInfo')}}" customClass="m-tabs__item">
 
                                         <div class="freeze-ui" *ngIf="ShelfInfoLoading"></div>
 
@@ -1544,7 +1535,7 @@
                                                                 <div class="input-group">
                                                                     <input [(ngModel)]="cargoFilterText"
                                                                         name="cargoFilterText"
-                                                                        class="form-control kt-input"
+                                                                        class="form-control m-input"
                                                                         (keyup.enter)="getCargoList($event)"
                                                                         [placeholder]="l('SearchWithThreeDot')"
                                                                         type="text">
@@ -1552,7 +1543,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-4">
-                                                            <div class="form-group kt-form__group align-items-center">
+                                                            <div class="form-group m-form__group align-items-center">
                                                                 <label>{{l('IsEnabled')}}</label>
                                                                 <div class="input-group">
                                                                     <select class="form-control"
@@ -1566,7 +1557,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-2">
-                                                            <div class="form-group kt-form__group align-items-center">
+                                                            <div class="form-group m-form__group align-items-center">
                                                                 <label style="display: block;">&nbsp;</label>
                                                                 <button type="button" class="btn btn-primary"
                                                                     [buttonBusy]="primengTableHelper.isLoading"
@@ -1702,9 +1693,9 @@
                                                         <td><span>{{record.stockCapacity}}</span></td>
                                                         <td>
                                                             <span *ngIf="record['isEnabled']"
-                                                                class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
+                                                                class="label label-success label-inline">{{l("On")}}</span>
                                                             <span *ngIf="!record['isEnabled']"
-                                                                class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                                                class="label label-dark label-inline">{{l("Off")}}</span>
                                                         </td>
                                                     </tr>
                                                 </ng-template>
@@ -1730,12 +1721,12 @@
                                         </div>
                                     </tab>
 
-                                    <tab heading="{{l('historyInfo')}}" customClass="kt-tabs__item"
+                                    <tab heading="{{l('historyInfo')}}" customClass="m-tabs__item"
                                         (selectTab)="showHistory()">
                                         <div class="m-subheader">
                                             <div class="d-flex align-items-center">
                                                 <div class="mr-auto col-6">
-                                                    <div class="row align-items-center kt--margin-bottom-10">
+                                                    <div class="row align-items-center mb-4">
                                                         <div class="col-6">
                                                             <div class="form-group m-form__group align-items-center">
                                                                 <label>{{l('name')}}</label>
@@ -1743,7 +1734,7 @@
                                                                     <input [(ngModel)]="historyFilterText"
                                                                         name="historyFilterText"
                                                                         (keyup.enter)="getHistoryList($event)"
-                                                                        class="form-control kt-input"
+                                                                        class="form-control m-input"
                                                                         [placeholder]="l('SearchWithThreeDot')"
                                                                         type="text">
                                                                     <!-- <span class="input-group-btn">
@@ -1756,7 +1747,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-2">
-                                                            <div class="form-group kt-form__group align-items-center">
+                                                            <div class="form-group m-form__group align-items-center">
                                                                 <label style="display: block;">&nbsp;</label>
                                                                 <button type="button" class="btn btn-primary"
                                                                     [buttonBusy]="primengTableHelper.isLoading"
@@ -1838,19 +1829,19 @@
                                 </tabset>
                             </tab>
                             <tab *ngIf="checkAbility('MaintainRecord')&&!notHost" heading="{{l('MaintainRecord')}}"
-                                customClass="kt-tabs__item icon-houtaiweihu" (selectTab)="getRecordList()">
+                                customClass="m-tabs__item icon-houtaiweihu" (selectTab)="getRecordList()">
 
                                 <div class="row">
                                     <form class="horizontal-form" autocomplete="off">
-                                        <div class="kt-form kt-form--label-align-right">
-                                            <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
                                                 <!-- 问题描述查询 -->
                                                 <div class="col-3">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <label>{{l('bugDescriptionSearch')}}</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="questionFilter" name="metaName"
-                                                                autoFocus class="form-control kt-input" type="text">
+                                                                autoFocus class="form-control m-input" type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getRecordList()"
                                                                     class="btn btn-primary" type="button">
@@ -1862,7 +1853,7 @@
                                                 </div>
                                                 <!-- 时间范围筛选 -->
                                                 <div class="col-3" style="position:relative;">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <label>{{l('DateRange')}}</label>
                                                         <date-range-picker name="SampleDateRangePicker"
                                                             needInitDate="true" [(startDate)]="StartTime"
@@ -1873,7 +1864,7 @@
                                                 </div>
                                                 <!-- 状态 -->
                                                 <div class="col-2">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <label>{{l('auditStatus')}}</label>
                                                         <div class="input-group">
                                                             <select #TypeCombobox class="form-control"
@@ -2015,14 +2006,14 @@
                                 </div>
 
                             </tab>
-                            <tab heading="{{l('FaceData')}}" customClass="kt-tabs__item icon-yonghu"
+                            <tab heading="{{l('FaceData')}}" customClass="m-tabs__item icon-yonghu"
                                 *ngIf="checkAbility('FaceData')&&hasCamera" (selectTab)="getFaceByDeviceId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
+                                        <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
                                                 <div class="col-3">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <label>{{l("updateDate")}}</label>
                                                         <div class="input-group">
                                                             <date-range-picker needInitDate="true"
@@ -2047,7 +2038,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <label style="display: block;">&nbsp;</label>
                                                         <button type="button" class="btn btn-primary"
                                                             [buttonBusy]="primengTableHelper.isLoading"
@@ -2140,13 +2131,13 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('childDevice')}}" customClass="kt-tabs__item icon-zuzhijigou"
+                            <tab heading="{{l('childDevice')}}" customClass="m-tabs__item icon-zuzhijigou"
                                 *ngIf="checkAbility('childDevice')" (selectTab)="GetDevicesByGatewayId()">
 
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
-                                            <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
                                                 <div class="col-12" style="text-align: right;"
                                                     *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
                                                     <div class="form-group">
@@ -2227,7 +2218,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('counter')}}" customClass="kt-tabs__item icon-shangpinliebiao"
+                            <tab heading="{{l('counter')}}" customClass="m-tabs__item icon-shangpinliebiao"
                                 *ngIf="checkAbility('counter')" (selectTab)="getCounterDate()">
                                 <div class="row align-items-center">
                                     <div class="col-12">
@@ -2341,9 +2332,9 @@
                                     </div>
 
                                     <div class="col-12 notNeedHourForIndexCss">
-                                        <div class="kt-portlet" origin>
-                                            <div class="kt-portlet__head">
-                                                <div class="kt-portlet__head-tools" style="width:100%">
+                                        <div class="m-portlet" origin>
+                                            <div class="m-portlet__head">
+                                                <div class="m-portlet__head-tools" style="width:100%">
                                                     <div class="form-group row"
                                                         style="margin-bottom: 0.4rem !important;width:100%;">
                                                         <div class="input-group col-8 margin-top-5">
@@ -2393,7 +2384,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="kt-portlet__body" [busyIf]="dataChartLoading">
+                                            <div class="m-portlet__body" [busyIf]="dataChartLoading">
                                                 <div class="row list-separated">
                                                     <div class="portlet-body-morris-fit morris-chart"
                                                         style="height: 600px;width: 100%;">
@@ -2414,20 +2405,20 @@
                                 </div>
                             </tab>
 
-                            <tab heading="{{l('Scheduling')}}" customClass="kt-tabs__item icon-yemian"
+                            <tab heading="{{l('Scheduling')}}" customClass="m-tabs__item icon-yemian"
                                 *ngIf="checkAbility('Scheduling')" (selectTab)="getDeviceSchedulings()">
 
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                        <div class="kt-form kt-form--label-align-right">
+                                        <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
                                                 <div class="col-4">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="ScheduleFilterText"
                                                                 name="ScheduleFilterText"
                                                                 (keyup.enter)="getDeviceSchedulings()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getDeviceSchedulings()"
@@ -2507,9 +2498,9 @@
                                                     </td>
                                                     <th>
                                                         <span *ngIf="record['isUse']"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
+                                                            class="label label-success label-inline">{{l("On")}}</span>
                                                         <span *ngIf="!record['isUse']"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                                            class="label label-dark label-inline">{{l("Off")}}</span>
                                                     </th>
                                                 </tr>
                                             </ng-template>
@@ -2538,8 +2529,9 @@
 
                             </tab>
                         </tabset>
-                    </div>
-                </form>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>

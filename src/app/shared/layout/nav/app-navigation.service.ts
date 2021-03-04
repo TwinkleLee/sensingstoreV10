@@ -186,7 +186,7 @@ export class AppNavigationService {
             ]),
 
             // IndependentDeployment
-            new AppMenuItem('Deployment', 'Pages.Administration.Host.MaintainRecord', 'icon-qiu', '/app/deployment/deployment'),
+            new AppMenuItem('Deployment', 'Pages.Administration.Host.MaintainRecord', 'icon-qiu', '/app/admin/deployment/deployment'),
 
             //系统管理
             new AppMenuItem('System', 'Pages.Administration', 'icon-jichushezhi', '', [], [
