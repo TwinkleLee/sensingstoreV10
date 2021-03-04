@@ -1,9 +1,9 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { CreateOrEditCouponModalComponent } from '@app/redpacket/red-packet/create-or-edit-coupon-modal.component';
+import { CreateOrEditCouponModalComponent } from '@app/admin/redpacket/red-packet/create-or-edit-coupon-modal.component';
 import { AppConsts } from '@shared/AppConsts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';

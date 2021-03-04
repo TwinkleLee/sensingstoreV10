@@ -1,15 +1,15 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 
 import { ActivityServiceProxy, AwardServiceProxy, AwardSettingsDto, HtmlTemplateServiceProxy, TemplateEnum } from '@shared/service-proxies/service-proxies5';
-import { CreateOrEditGameModalComponent } from '@app/activity/activity/game/operation/create-or-edit-game.component'
+import { CreateOrEditGameModalComponent } from '@app/admin/activity/activity/game/operation/create-or-edit-game.component'
 
 
 @Component({

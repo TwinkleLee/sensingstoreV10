@@ -1,8 +1,8 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,9 +11,9 @@ import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-p
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 import * as moment from 'moment';
 import { ActivityServiceProxy, ClearActivityUserDataInput, DoClearActivityDataInput, ReportServiceProxy as ActivityReportServiceProxy, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { PlayerDataDetailComponent } from '@app/activity/player-data/detail/player-data-detail.component';
-import { ChangeWhiteListModalComponent } from '@app/activity/activity/data/operation/change-white-list.component';
-import { ExpressDetailModalComponent } from '@app/activity/activity/data/operation/express-detail.component';
+import { PlayerDataDetailComponent } from '@app/admin/activity/player-data/detail/player-data-detail.component';
+import { ChangeWhiteListModalComponent } from '@app/admin/activity/activity/data/operation/change-white-list.component';
+import { ExpressDetailModalComponent } from '@app/admin/activity/activity/data/operation/express-detail.component';
 
 
 @Component({

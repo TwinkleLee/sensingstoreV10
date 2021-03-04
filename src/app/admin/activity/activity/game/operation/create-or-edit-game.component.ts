@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, AfterViewChecked } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { SnsMsgBeforeGameDto, SnsMsgAfterGameDto, ActionShareDto, ActivityServiceProxy, ActivityGameSettingsInput, HtmlTemplateServiceProxy, TemplateEnum, DeviceActivityServiceProxy, CreateDeviceActivityGameInput, UpdateDeviceActivityGameInput, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';

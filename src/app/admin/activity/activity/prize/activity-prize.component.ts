@@ -1,16 +1,16 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 
 import { ActivityServiceProxy, AwardMessageSettingsInput, AwardServiceProxy, SpecialUserServiceProxy, AwardSettingsDto, HtmlTemplateServiceProxy, AwardMessageSettingsDto, TemplateEnum } from '@shared/service-proxies/service-proxies5';
-import { CreateOrEditPrizeModalComponent } from '@app/activity/activity/prize/operation/create-or-edit-prize.component'
-import { CreateOrEditWhiteListModalComponent } from '@app/activity/activity/prize/operation/create-or-edit-white-list.component'
+import { CreateOrEditPrizeModalComponent } from '@app/admin/activity/activity/prize/operation/create-or-edit-prize.component'
+import { CreateOrEditWhiteListModalComponent } from '@app/admin/activity/activity/prize/operation/create-or-edit-white-list.component'
 import { finalize } from 'rxjs/operators';
 
 
