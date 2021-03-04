@@ -63,10 +63,10 @@ export class GameComponent extends AppComponentBase {
 
   //返回
   goBack() {
-    this.router.navigate(['app', 'activity', 'activity']);
+    this.router.navigate(['app', 'admin','activity', 'activity']);
   }
   changeSetup(e) {
-    this.router.navigate(['app', 'activity', 'activity', e], { queryParams: { id: this.activityId, name: this.activityName } });
+    this.router.navigate(['app', 'admin','activity', 'activity', e], { queryParams: { id: this.activityId, name: this.activityName } });
   }
 
   getGame(event?: LazyLoadEvent) {

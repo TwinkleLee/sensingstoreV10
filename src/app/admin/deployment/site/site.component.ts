@@ -97,11 +97,11 @@ export class SiteComponent extends AppComponentBase {
 
   // 查看租户列表
   goTenancy(record) {
-    this.router.navigate(['app', 'deployment', 'site', this.id, 'tenancy', record.id])
+    this.router.navigate(['app', 'admin','deployment', 'site', this.id, 'tenancy', record.id])
   }
 
   goBack() {
-    this.router.navigate(['app', 'deployment', 'deployment'])
+    this.router.navigate(['app', 'admin','deployment', 'deployment'])
   }
 
   // 添加

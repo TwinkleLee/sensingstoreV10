@@ -116,7 +116,7 @@ export class TenancyComponent extends AppComponentBase {
   }
 
   goBack () {
-    this.router.navigate(['app', 'deployment', 'site', this.id])
+    this.router.navigate(['app', 'admin','deployment', 'site', this.id])
   }
 
 }

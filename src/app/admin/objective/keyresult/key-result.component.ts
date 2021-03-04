@@ -123,6 +123,6 @@ export class KeyResultComponent extends AppComponentBase {
   }
 
   goExecute(record) {
-    this._router.navigate(['app/objective', 'execute', record.id], {queryParams: {objectiveId: this.objectiveId}})
+    this._router.navigate(['app','admin','objective', 'execute', record.id], {queryParams: {objectiveId: this.objectiveId}})
   }
 }

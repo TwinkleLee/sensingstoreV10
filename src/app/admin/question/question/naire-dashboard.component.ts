@@ -74,7 +74,7 @@ export class NaireDashboardComponent extends AppComponentBase {
 
 
   goBack() {
-    this.router.navigate(['app', 'question', 'naire']);
+    this.router.navigate(['app', 'admin','question', 'naire']);
   }
 
   GetUserPaperListToExcel() {

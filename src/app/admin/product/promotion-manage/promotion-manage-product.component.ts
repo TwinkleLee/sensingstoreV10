@@ -56,7 +56,7 @@ export class PromotionManageProductListComponent extends AppComponentBase {
   }
 
   goBack() {
-    this.router.navigate(['app', 'product', 'promotionManage']);
+    this.router.navigate(['app', 'admin','product', 'promotionManage']);
   }
 
   search() {

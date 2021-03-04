@@ -44,7 +44,7 @@ export class PageListComponent extends AppComponentBase {
   }
 
   goBack() {
-    this.router.navigate(['app', 'user', 'application']);
+    this.router.navigate(['app', 'admin','user', 'application']);
   }
 
   //创建

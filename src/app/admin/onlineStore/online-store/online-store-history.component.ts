@@ -68,7 +68,7 @@ export class OnlineStoreHistoryComponent extends AppComponentBase {
 
 
   goBack() {
-    this.router.navigate(['app', 'onlineStore', 'onlineStore']);
+    this.router.navigate(['app', 'admin','onlineStore', 'onlineStore']);
   }
 
   getPlanList(event?: LazyLoadEvent) {

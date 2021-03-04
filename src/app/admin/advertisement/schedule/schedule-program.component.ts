@@ -65,9 +65,9 @@ export class ScheduleProgram extends AppComponentBase {
 
   goBack() {
     if (this.from == 'ads') {
-      this.router.navigate(['app', 'advertisement', 'schedule']);
+      this.router.navigate(['app', 'admin','advertisement', 'schedule']);
     } else {
-      this.router.navigate(['app', 'device', 'deviceList', 'operation', this.deviceId]);
+      this.router.navigate(['app', 'admin','device', 'deviceList', 'operation', this.deviceId]);
     }
   }
 

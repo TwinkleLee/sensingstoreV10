@@ -61,7 +61,7 @@ export class DeviceGameComponent extends AppComponentBase {
 
   //返回
   goBack() {
-    this.router.navigate(['app', 'device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
+    this.router.navigate(['app', 'admin','device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
   }
 
   getGame(event?: LazyLoadEvent) {

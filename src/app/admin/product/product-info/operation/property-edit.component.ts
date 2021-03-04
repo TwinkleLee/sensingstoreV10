@@ -97,7 +97,7 @@ export class PropertyEditComponent extends AppComponentBase {
     }
     //返回
     goBack() {
-        this.router.navigate(['app', 'product', 'prodInfo']);
+        this.router.navigate(['app', 'admin','product', 'prodInfo']);
     }
     //提交
     save() {

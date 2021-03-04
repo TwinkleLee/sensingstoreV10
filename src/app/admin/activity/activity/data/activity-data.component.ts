@@ -387,13 +387,13 @@ export class ActivityDataComponent extends AppComponentBase {
   //返回
   goBack() {
     if (this.deviceId) {
-      this.router.navigate(['app', 'device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
+      this.router.navigate(['app', 'admin','device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
     } else {
-      this.router.navigate(['app', 'activity', 'activity']);
+      this.router.navigate(['app', 'admin','activity', 'activity']);
     }
   }
   changeSetup(e) {
-    this.router.navigate(['app', 'activity', 'activity', e]);
+    this.router.navigate(['app', 'admin','activity', 'activity', e]);
   }
 
   imageOnUpload(result): void {

@@ -128,7 +128,7 @@ export class ExecuteComponent extends AppComponentBase {
 
   goBack() {
     console.log(this.objectiveId)
-    this._router.navigate(['app/objective', 'keyresult', this.objectiveId])
+    this._router.navigate(['app','admin','objective', 'keyresult', this.objectiveId])
   }
 
 }

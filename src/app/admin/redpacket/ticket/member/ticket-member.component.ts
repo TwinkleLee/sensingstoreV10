@@ -60,7 +60,7 @@ export class TicketMemberComponent extends AppComponentBase {
   }
 
   goBack() {
-    this.router.navigate(['app', 'redpacket', 'ticket']);
+    this.router.navigate(['app', 'admin','redpacket', 'ticket']);
   }
 
 }

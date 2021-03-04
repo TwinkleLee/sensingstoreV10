@@ -2479,7 +2479,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     //返回
     goBack() {
-        this.router.navigate(['app', 'device', 'deviceList'], { queryParams: { useQuery: true } });
+        this.router.navigate(['app', 'admin','device', 'deviceList'], { queryParams: { useQuery: true } });
     }
     //提交
     save() {

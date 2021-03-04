@@ -91,7 +91,7 @@ export class WeShopComponent extends AppComponentBase {
 
   //返回
   goBack() {
-    this.router.navigate(['app', 'weshop', 'onlineStore']);
+    this.router.navigate(['app', 'admin','weshop', 'onlineStore']);
   }
   save() {
     this.showFreezeUi = true;
