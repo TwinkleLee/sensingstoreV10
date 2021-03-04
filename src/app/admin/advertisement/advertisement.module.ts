@@ -34,13 +34,13 @@ import { CreateOrEditAdsPackageModalComponent } from '@app/admin/advertisement/a
 import { AdsReviewComponent } from '@app/admin/advertisement/ads-review/ads-review.component';
 import { AdsDetailModalComponent } from '@app/admin/advertisement/ads-review/detail/ads-detail-modal.component';
 import { CreateOrEditAdResourceModalComponent } from '@app/admin/advertisement/advertisement/create-or-edit-ad-resource-modal.component';
-// import { Schedule } from '@app/advertisement/schedule/schedule.component';
-// import { ScheduleModalComponent } from '@app/advertisement/schedule/operation/create-or-edit-schedule-modal.component';
-// import { ScheduleProgram } from '@app/advertisement/schedule/schedule-program.component';
-// import { ProgramModalComponent } from '@app/advertisement/schedule/operation/program-modal.component';
-// import { CalendarModalComponent } from '@app/advertisement/schedule/operation/calendar-modal.component';
+import { Schedule } from '@app/admin/advertisement/schedule/schedule.component';
+import { ScheduleModalComponent } from '@app/admin/advertisement/schedule/operation/create-or-edit-schedule-modal.component';
+import { ScheduleProgram } from '@app/admin/advertisement/schedule/schedule-program.component';
+import { ProgramModalComponent } from '@app/admin/advertisement/schedule/operation/program-modal.component';
+import { CalendarModalComponent } from '@app/admin/advertisement/schedule/operation/calendar-modal.component';
 
-// import { ProductAlertModalComponent } from '@app/device/device-list/tabAlert/product-selection-modal.component';
+import { ProductAlertModalComponent } from '@app/admin/device/device-list/tabAlert/product-selection-modal.component';
 
 
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
@@ -78,20 +78,20 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         AdsReviewComponent,
         AdsDetailModalComponent,
         CreateOrEditAdResourceModalComponent,
-        // Schedule,
-        // ScheduleModalComponent,
-        // ScheduleProgram,
-        // ProgramModalComponent,
-        // CalendarModalComponent,
+        Schedule,
+        ScheduleModalComponent,
+        ScheduleProgram,
+        ProgramModalComponent,
+        CalendarModalComponent,
 
 
 
-        // ProductAlertModalComponent,
+        ProductAlertModalComponent,
 
     ],
     exports:[
-        // CalendarModalComponent,
-        // ProductAlertModalComponent,
+        CalendarModalComponent,
+        ProductAlertModalComponent,
 
     ],
     providers: [

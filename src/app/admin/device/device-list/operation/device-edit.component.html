@@ -391,7 +391,7 @@
                                             [imageList]="pAds.records"></app-image-grid>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pAds.defaultRecordsCountPerPage" #paginatorAds
-                                                (onPageChange)="getAdsByDeviceId($event)"
+                                                (onPageChange)="getAdsByDeviceId()"
                                                 [totalRecords]="pAds.totalRecordsCount"
                                                 [rowsPerPageOptions]="pAds.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -448,7 +448,7 @@
                                         </app-image-grid>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pApp.defaultRecordsCountPerPage" #paginatorSoftware
-                                                (onPageChange)="getSoftwareByDeviceId($event)"
+                                                (onPageChange)="getSoftwareByDeviceId()"
                                                 [totalRecords]="pApp.totalRecordsCount"
                                                 [rowsPerPageOptions]="pApp.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -506,7 +506,7 @@
                                         </app-image-grid>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pProduct.defaultRecordsCountPerPage" #paginatorProduct
-                                                (onPageChange)="getProductByDeviceId($event)"
+                                                (onPageChange)="getProductByDeviceId()"
                                                 [totalRecords]="pProduct.totalRecordsCount"
                                                 [rowsPerPageOptions]="pProduct.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -641,7 +641,7 @@
                                         </p-table>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pCoupon.defaultRecordsCountPerPage" #paginatorCoupon
-                                                (onPageChange)="getCouponByDeviceId($event)"
+                                                (onPageChange)="getCouponByDeviceId()"
                                                 [totalRecords]="pCoupon.totalRecordsCount"
                                                 [rowsPerPageOptions]="pCoupon.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -769,7 +769,7 @@
                                         </p-table>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pActivity.defaultRecordsCountPerPage"
-                                                #paginatorActivity (onPageChange)="getActivityByDeviceId($event)"
+                                                #paginatorActivity (onPageChange)="getActivityByDeviceId()"
                                                 [totalRecords]="pActivity.totalRecordsCount"
                                                 [rowsPerPageOptions]="pActivity.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -1719,7 +1719,7 @@
                                             </p-table>
                                             <div class="primeng-paging-container">
                                                 <p-paginator [rows]="pCargo.defaultRecordsCountPerPage" #paginatorCargo
-                                                    (onPageChange)="getCargoList($event)"
+                                                    (onPageChange)="getCargoList()"
                                                     [totalRecords]="pCargo.totalRecordsCount"
                                                     [rowsPerPageOptions]="pCargo.predefinedRecordsCountPerPage">
                                                 </p-paginator>
@@ -1825,7 +1825,7 @@
                                             </p-table>
                                             <div class="primeng-paging-container">
                                                 <p-paginator [rows]="pHistory.defaultRecordsCountPerPage"
-                                                    #paginatorHistory (onPageChange)="getHistoryList($event)"
+                                                    #paginatorHistory (onPageChange)="getHistoryList()"
                                                     [totalRecords]="pHistory.totalRecordsCount"
                                                     [rowsPerPageOptions]="pHistory.predefinedRecordsCountPerPage">
                                                 </p-paginator>
@@ -2002,7 +2002,7 @@
                                         </p-table>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
-                                                #paginator (onPageChange)="getRecordList($event)"
+                                                #paginator (onPageChange)="getRecordList()"
                                                 [totalRecords]="primengTableHelper.totalRecordsCount"
                                                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -2129,7 +2129,7 @@
                                         </p-table>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pFace.defaultRecordsCountPerPage" #paginatorFace
-                                                (onPageChange)="getFaceByDeviceId($event)"
+                                                (onPageChange)="getFaceByDeviceId()"
                                                 [totalRecords]="pFace.totalRecordsCount"
                                                 [rowsPerPageOptions]="pFace.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -2216,7 +2216,7 @@
                                         </p-table>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pChild.defaultRecordsCountPerPage" #paginatorChild
-                                                (onPageChange)="GetDevicesByGatewayId($event)"
+                                                (onPageChange)="GetDevicesByGatewayId()"
                                                 [totalRecords]="pChild.totalRecordsCount"
                                                 [rowsPerPageOptions]="pChild.predefinedRecordsCountPerPage">
                                             </p-paginator>
@@ -2228,7 +2228,7 @@
                                 </div>
                             </tab>
                             <tab heading="{{l('counter')}}" customClass="kt-tabs__item icon-shangpinliebiao"
-                                *ngIf="checkAbility('counter')" (selectTab)="getCounterDate($event)">
+                                *ngIf="checkAbility('counter')" (selectTab)="getCounterDate()">
                                 <div class="row align-items-center">
                                     <div class="col-12">
                                         <div class="col-2"
@@ -2329,7 +2329,7 @@
                                             </p-table>
                                             <div class="primeng-paging-container">
                                                 <p-paginator [rows]="pCounter.defaultRecordsCountPerPage"
-                                                    #paginatorCounter (onPageChange)="getDeviceCounters($event)"
+                                                    #paginatorCounter (onPageChange)="getDeviceCounters()"
                                                     [totalRecords]="pCounter.totalRecordsCount"
                                                     [rowsPerPageOptions]="pCounter.predefinedRecordsCountPerPage">
                                                 </p-paginator>
@@ -2524,7 +2524,7 @@
                                         </p-table>
                                         <div class="primeng-paging-container">
                                             <p-paginator [rows]="pSchedule.defaultRecordsCountPerPage"
-                                                #paginatorSchedule (onPageChange)="getDeviceSchedulings($event)"
+                                                #paginatorSchedule (onPageChange)="getDeviceSchedulings()"
                                                 [totalRecords]="pSchedule.totalRecordsCount"
                                                 [rowsPerPageOptions]="pSchedule.predefinedRecordsCountPerPage">
                                             </p-paginator>

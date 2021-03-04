@@ -1,9 +1,9 @@
 import { Component, ViewChild, Injector, Output, EventEmitter} from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import {  DeviceServiceProxy, AuditStatus as AuditStatus12, AuditStatus as AuditStatus13 } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
     selector: 'SkusSelectionModal',

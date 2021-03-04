@@ -1,26 +1,26 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import { DeviceServiceProxy, UpdateDeviceInput, DeviceTypeServiceProxy, DeviceActionInput, ProductServiceProxy, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, PublishEntiiesInput, IdTypeDto, PeripheralServiceProxy, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, UpdateThirdDeivceCodeInput, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, UpdateDeviceInput, DeviceTypeServiceProxy, DeviceActionInput, ProductServiceProxy,PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, PeripheralServiceProxy, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, UpdateThirdDeivceCodeInput, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
-import { AdsAlertModalComponent } from '@app/device/device-list/tabAlert/ads-selection-modal.component';
-import { AppAlertModalComponent } from '@app/device/device-list/tabAlert/app-selection-modal.component';
-import { ProductAlertModalComponent } from '@app/device/device-list/tabAlert/product-selection-modal.component';
-import { CouponAlertModalComponent } from '@app/device/device-list/tabAlert/coupon-selection-modal.component';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { AdsAlertModalComponent } from '@app/admin/device/device-list/tabAlert/ads-selection-modal.component';
+import { AppAlertModalComponent } from '@app/admin/device/device-list/tabAlert/app-selection-modal.component';
+import { ProductAlertModalComponent } from '@app/admin/device/device-list/tabAlert/product-selection-modal.component';
+import { CouponAlertModalComponent } from '@app/admin/device/device-list/tabAlert/coupon-selection-modal.component';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
-import { AppSettingModalComponent } from '@app/device/device-list/tabAlert/app-setting-modal.component';
+import { AppSettingModalComponent } from '@app/admin/device/device-list/tabAlert/app-setting-modal.component';
 import { Table } from 'primeng/table';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 import { ReportServiceProxy, DeviceOptServiceProxy, ChartReportInput, FaceRecordServiceProxy } from '@shared/service-proxies/service-proxies3';
 import { ConnectorService } from '@app/shared/services/connector.service';
-import { CreateOrEditDeviceRecordComponent } from '@app/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
+import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { ActivityServiceProxy, DeviceActivityServiceProxy, PublishEntitiesInput, ReportServiceProxy as ActivityReportServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { ActivityServiceProxy, DeviceActivityServiceProxy, ReportServiceProxy as ActivityReportServiceProxy, PublishEntitiesInput as PublishEntitiesInput2 } from '@shared/service-proxies/service-proxies5';
 import { CounterAnalysisServiceProxy, UpdateCounterTagInput, CargoRoadServiceProxy, UpdateCargoStatusInput, CargoStatus, SensingDeviceServiceProxy, DeviceAppPodVersionServiceProxy, ChangeDeviceAppPodVersionInput, AppPodServiceProxy, ShelfServiceProxy, AddOrUpdateShelfInfoInput, LayerInput, AddOrUpdateCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-cargo';
-import { CargoModalComponent } from '@app/device/cargo-lane/cargo-modal.component';
+import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
 import { ResourceLoader } from '@angular/compiler';
 import { FileServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, BindDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-cargo';
 import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies';
@@ -32,7 +32,7 @@ import { PublishAdScheduliingInput } from '@shared/service-proxies/service-proxi
 import * as _ from 'lodash';
 import { AppConsts } from '@shared/AppConsts';
 
-import { CalendarModalComponent } from '@app/advertisement/schedule/operation/calendar-modal.component';
+import { CalendarModalComponent } from '@app/admin/advertisement/schedule/operation/calendar-modal.component';
 
 
 @Component({
@@ -837,6 +837,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.ShelfInfoLoading = true;
         this._ShelfServiceProxy.getSingleShelf(
             this.device.id,
+            undefined
         ).pipe(finalize(() => {
             this.ShelfInfoLoading = false;
         })).subscribe(result => {
@@ -1172,13 +1173,17 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     deleteDeviceActivity(record) {
         this.message.confirm(this.l('deletethisactivity'), this.l('AreYouSure'), (r) => {
             if (r) {
-                var input = new PublishEntitiesInput({
+                var input = new PublishEntitiesInput2({
                     ouOrStoreOrDeviceList: [new IdTypeDto({
                         id: this.device.id,
                         type: 'device'
                     })],
                     entityIds: [record.activityId],
-                    action: 'delete'
+                    action: 'delete',
+                    // 'includeSku': undefined,
+                    // 'isCreateDefaultSchedule': undefined,
+                    // 'informDevice': undefined,
+                    // 'type': undefined
                 })
                 this._acitvityService.publishToOrganizationOrStoreOrDevices(input).subscribe(r => {
                     this.notify.info(this.l('success'));
@@ -1585,6 +1590,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     changeGateWay() {
         if (this.device.deviceTypeId == 23 || this.device.deviceTypeId == 20) {
             this._ShelfServiceProxy.getSingleShelf(
+                undefined,
                 this.belongGateWay
             ).subscribe(result => {
                 if (this.device.deviceTypeId == 23) {
@@ -1677,7 +1683,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 } else {
                     this.informDevice = false;
                 }
-                var input = new PublishEntiiesInput({
+                var input = new PublishEntitiesInput({
                     'entityIds': ids,
                     'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                     'action': "delete",
@@ -1716,7 +1722,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': list,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "delete",
@@ -1758,7 +1764,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "add",
@@ -1827,7 +1833,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 } else {
                     this.informDevice = false;
                 }
-                var input = new PublishEntiiesInput({
+                var input = new PublishEntitiesInput({
                     'entityIds': ids,
                     'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                     'action': "delete",
@@ -1870,7 +1876,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': list,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "delete",
@@ -1914,7 +1920,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "add",
@@ -1973,7 +1979,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 } else {
                     this.informDevice = false;
                 }
-                var input = new PublishEntiiesInput({
+                var input = new PublishEntitiesInput({
                     'entityIds': ids,
                     'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                     'action': "delete",
@@ -2020,7 +2026,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': list,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "delete",
@@ -2062,7 +2068,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "add",
@@ -2122,7 +2128,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "delete",
@@ -2163,7 +2169,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': list,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "delete",
@@ -2206,7 +2212,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': this.ouOrDeviceList,
                 'action': "add",

@@ -1,5 +1,5 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade" tabindex="-1"
-    role="dialog" aria-hidden="true">
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form #DevicesForm="ngForm" novalidate autocomplete="off">

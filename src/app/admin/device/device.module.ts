@@ -24,27 +24,27 @@ import { TreeModule } from 'primeng/tree';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 //设备
-// import { DeviceTypeComponent } from '@app/device/device-type/device-type.component';
-// import { CreateOrEditDevModalComponent } from '@app/device/device-type/create-or-edit-deviceType-modal.component';
+import { DeviceTypeComponent } from '@app/admin/device/device-type/device-type.component';
+import { CreateOrEditDevModalComponent } from '@app/admin/device/device-type/create-or-edit-deviceType-modal.component';
 import { DeviceListComponent } from '@app/admin/device/device-list/device-list.component';
 import { CreateOrEditDeviceModalComponent } from '@app/admin/device/device-list/create-or-edit-device-modal.component';
-// import { DeviceEditComponent } from '@app/admin/device/device-list/operation/device-edit.component';
+import { DeviceEditComponent } from '@app/admin/device/device-list/operation/device-edit.component';
 import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component';
 import { DeviceReviewComponent } from '@app/admin/device/device-review/device-review.component';
-// import { AdsAlertModalComponent } from '@app/device/device-list/tabAlert/ads-selection-modal.component';
-// import { CouponAlertModalComponent } from '@app/device/device-list/tabAlert/coupon-selection-modal.component';
-// import { AppAlertModalComponent } from '@app/device/device-list/tabAlert/app-selection-modal.component';
-// import { AppSettingModalComponent } from '@app/device/device-list/tabAlert/app-setting-modal.component';
+import { AdsAlertModalComponent } from '@app/admin/device/device-list/tabAlert/ads-selection-modal.component';
+import { CouponAlertModalComponent } from '@app/admin/device/device-list/tabAlert/coupon-selection-modal.component';
+import { AppAlertModalComponent } from '@app/admin/device/device-list/tabAlert/app-selection-modal.component';
+import { AppSettingModalComponent } from '@app/admin/device/device-list/tabAlert/app-setting-modal.component';
 import { DeviceDetailModalComponent } from '@app/admin/device/device-review/detail/device-detail-modal.component';
-// import { SkusSelectionModalComponent } from '@app/device/device-list/tabAlert/skus-selection-modal.component';
-// import { DeviceProductSkuComponent } from '@app/device/device-list/operation/device-product-skus.component';
-// import { DeviceGameComponent } from '@app/device/device-list/game.component'
-// import { PeripheralComponent } from '@app/device/peripheral/peripheral.component';
-// import { CreateOrEditPerModalComponent } from '@app/device/peripheral/create-or-edit-peri-modal.component'
-// import { CargoModalComponent } from '@app/device/cargo-lane/cargo-modal.component';
+import { SkusSelectionModalComponent } from '@app/admin/device/device-list/tabAlert/skus-selection-modal.component';
+import { DeviceProductSkuComponent } from '@app/admin/device/device-list/operation/device-product-skus.component';
+import { DeviceGameComponent } from '@app/admin/device/device-list/game.component'
+import { PeripheralComponent } from '@app/admin/device/peripheral/peripheral.component';
+import { CreateOrEditPerModalComponent } from '@app/admin/device/peripheral/create-or-edit-peri-modal.component'
+import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
 
-// import {AdvertisementModule} from '@app/advertisement/advertisement.module'
-// import {ActivityModule} from '@app/activity/activity.module'
+import {AdvertisementModule} from '@app/admin/advertisement/advertisement.module'
+import {ActivityModule} from '@app/admin/activity/activity.module'
 
 
 
@@ -77,29 +77,29 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         TreeModule,
         AutoCompleteModule,
 
-        // AdvertisementModule,
-        // ActivityModule
+        AdvertisementModule,
+        ActivityModule
     ],
     declarations: [
         //设备
-        // DeviceTypeComponent,
-        // CreateOrEditDevModalComponent,
+        DeviceTypeComponent,
+        CreateOrEditDevModalComponent,
         DeviceListComponent,
         CreateOrEditDeviceModalComponent,
-        // DeviceEditComponent,
+        DeviceEditComponent,
         CreateOrEditDeviceRecordComponent,
         DeviceReviewComponent,
-        // AdsAlertModalComponent,
-        // CouponAlertModalComponent,
-        // AppAlertModalComponent,
-        // AppSettingModalComponent,
+        AdsAlertModalComponent,
+        CouponAlertModalComponent,
+        AppAlertModalComponent,
+        AppSettingModalComponent,
         DeviceDetailModalComponent,
-        // SkusSelectionModalComponent,
-        // DeviceProductSkuComponent,
-        // DeviceGameComponent,
-        // PeripheralComponent,
-        // CreateOrEditPerModalComponent,
-        // CargoModalComponent,
+        SkusSelectionModalComponent,
+        DeviceProductSkuComponent,
+        DeviceGameComponent,
+        PeripheralComponent,
+        CreateOrEditPerModalComponent,
+        CargoModalComponent,
     ],
     exports: [
         CreateOrEditDeviceRecordComponent,

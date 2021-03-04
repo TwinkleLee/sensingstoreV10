@@ -1,15 +1,15 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { DeviceServiceProxy, AdServiceProxy, PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies';
-import { ScheduleModalComponent } from '@app/advertisement/schedule/operation/create-or-edit-schedule-modal.component';
-import { CalendarModalComponent } from '@app/advertisement/schedule/operation/calendar-modal.component';
+import { ScheduleModalComponent } from '@app/admin/advertisement/schedule/operation/create-or-edit-schedule-modal.component';
+import { CalendarModalComponent } from '@app/admin/advertisement/schedule/operation/calendar-modal.component';
 
 @Component({
   templateUrl: './schedule.component.html',

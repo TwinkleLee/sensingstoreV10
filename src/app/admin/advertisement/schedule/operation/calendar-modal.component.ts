@@ -1,12 +1,12 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { AdServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { ProgramModalComponent } from '@app/advertisement/schedule/operation/program-modal.component';
+import { ProgramModalComponent } from '@app/admin/advertisement/schedule/operation/program-modal.component';
 
 @Component({
     selector: 'calendarModal',
@@ -274,4 +274,5 @@ export class CalendarModalComponent extends AppComponentBase implements AfterVie
         this.saving = false;
         this.modal.hide();
     }
+    save () {}
 }

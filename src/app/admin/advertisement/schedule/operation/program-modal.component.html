@@ -13,8 +13,8 @@
                         <span *ngIf="isFromCalender">{{l("Edit")}}{{l("AdsSchedule")}}{{l("programList")}}:
                             {{calenderId}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -133,7 +133,7 @@
                                     (change)="startTimeChange($event)"
                                     style="width: 6rem;text-align: center;letter-spacing: 0.05rem;height:3rem;position:absolute;top:-75%;left:0;z-index:10;">
                                 <input id="endTime" name="endTime" type="text" [value]="Program.endTime"
-                                    (change)="endTimeChange($event,item)"
+                                    (change)="endTimeChange($event)"
                                     style="width: 6rem;text-align: center;letter-spacing: 0.05rem;height:3rem;position:absolute;top:-75%;right:-3rem;z-index:10;">
                                 <div *ngFor="let hour of hourList;"
                                     style="position: absolute;bottom:110%;transform: translateX(-50%);height:2.5rem;font-weight: bold;"

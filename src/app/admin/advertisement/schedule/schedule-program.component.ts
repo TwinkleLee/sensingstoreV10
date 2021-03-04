@@ -1,14 +1,14 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { AdServiceProxy, PublishContentToAdScheduling } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ProgramModalComponent } from '@app/advertisement/schedule/operation/program-modal.component';
+import { ProgramModalComponent } from '@app/admin/advertisement/schedule/operation/program-modal.component';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 
 @Component({

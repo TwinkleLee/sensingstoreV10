@@ -1,11 +1,11 @@
 import { Component, ViewChild, Injector, } from '@angular/core';
-import { DeviceServiceProxy, AuditStatus as AuditStatus8, ProductServiceProxy, PublishEntiiesInput, IdTypeDto, PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, AuditStatus as AuditStatus8, ProductServiceProxy, PublishEntitiesInput, IdTypeDto, PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router } from '@angular/router';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
 import { finalize } from 'rxjs/operators';
-import { SkusSelectionModalComponent } from '@app/device/device-list/tabAlert/skus-selection-modal.component';
+import { SkusSelectionModalComponent } from '@app/admin/device/device-list/tabAlert/skus-selection-modal.component';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { TableCheckbox } from 'primeng/table';
 
@@ -95,7 +95,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': [new IdTypeDto({
                     'id': this.deviceId,
@@ -140,7 +140,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
             var ids = this.deviceProductSkuSelection.map((item) => {
                 return item.id;
             })
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': ids,
                 'ouOrDeviceOrStoreList': [new IdTypeDto({
                     'id': this.deviceId,
@@ -176,7 +176,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
             } else {
                 this.informDevice = false;
             }
-            var input = new PublishEntiiesInput({
+            var input = new PublishEntitiesInput({
                 'entityIds': [record.id],
                 'ouOrDeviceOrStoreList': [new IdTypeDto({
                     'id': this.deviceId,

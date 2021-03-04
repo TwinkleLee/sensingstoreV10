@@ -93,8 +93,8 @@ export class AppNavigationService {
 
             //节目(AdPackage & App)排程
             new AppMenuItem('Scheduling', 'Pages.Tenant.Scheduling', 'icon-paiban', '', [], [
-                new AppMenuItem('24HTimeline', 'Pages.Tenant.Scheduling', 'icon-shijuan', '/app/advertisement/24htimeline'),
-                new AppMenuItem('DateScheduling', 'Pages.Tenant.Scheduling', 'icon-paiban', '/app/advertisement/schedule'),
+                new AppMenuItem('24HTimeline', 'Pages.Tenant.Scheduling', 'icon-shijuan', '/app/admin/advertisement/24htimeline'),
+                new AppMenuItem('DateScheduling', 'Pages.Tenant.Scheduling', 'icon-paiban', '/app/admin/advertisement/schedule'),
             ]),
 
             //Floor

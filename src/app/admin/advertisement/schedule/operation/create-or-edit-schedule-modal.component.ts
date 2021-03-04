@@ -1,12 +1,12 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { AdServiceProxy, AddOrUpdateAdSchedulingInput, PublishContentToAdScheduling } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 
 @Component({

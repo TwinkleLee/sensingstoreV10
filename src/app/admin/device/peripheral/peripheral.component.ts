@@ -1,10 +1,10 @@
 import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { Table } from 'primeng/components/table/table';
-import { Paginator } from 'primeng/components/paginator/paginator';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { CreateOrEditPerModalComponent } from '@app/device/peripheral/create-or-edit-peri-modal.component';
+import { CreateOrEditPerModalComponent } from '@app/admin/device/peripheral/create-or-edit-peri-modal.component';
 import { PeripheralServiceProxy,PeripheralDto} from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 
