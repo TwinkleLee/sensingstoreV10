@@ -1,0 +1,48 @@
+#TenantDashboard input[type="radio"] {
+  display: none;
+}
+#TenantDashboard div.input-group /deep/ span.clearSpan {
+  right: 80px !important;
+  top: 0rem !important;
+}
+#TenantDashboard .my-col-9 {
+  width: 60%;
+  float: left;
+  min-width: 252px;
+}
+#TenantDashboard .my-col-3 {
+  width: calc(34%);
+  float: left;
+  margin-right: 6px;
+}
+@media screen and (max-width: 1366px) {
+  #TenantDashboard .my-col-3 {
+    max-width: 130px;
+  }
+  #TenantDashboard .my-col-3 label {
+    padding: .75rem .35rem;
+  }
+  #TenantDashboard div.input-group /deep/ span.clearSpan {
+    right: 39px !important;
+  }
+}
+#TenantDashboard .row {
+  width: 100%;
+}
+#TenantDashboard .fixed-button {
+  height: 100%;
+  margin: 0 !important;
+}
+.row.kt-row--col-separator-xl > div {
+  border-bottom: 0;
+  border-right: 1px solid #ebedf2;
+}
+.row.kt-row--col-separator-xl > div:last-child {
+  border-right: 0;
+}
+.kt-widget24 {
+  padding: 15px 25px;
+}
+.kt-portlet__head-text {
+  line-height: 2.5;
+}

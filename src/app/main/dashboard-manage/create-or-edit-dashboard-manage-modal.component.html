@@ -1,0 +1,203 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('DashboardTemplate')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('DashboardTemplate')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label>{{l("Name")}} *</label>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required
+                                maxlength="32">
+                        </div>
+
+
+                        <div class="form-group col-4">
+                            <label>{{l("DashboardTemplate")}}</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="objItem.reportTemplateID" name="reportTemplateID"
+                                        (ngModelChange)="changeTemplate($event)" required>
+                                        <option [value]="template.id" *ngFor="let template of templateList">{{template.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-4">
+                            <label>{{l("type")}}</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="objItem.reportDataType" name="reportDataType">
+                                        <option value="0">{{l('Counter')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group col-4">
+                            <label>{{l("TenancyName")}}</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="objItem.tenantId" name="tenantId"
+                                        (ngModelChange)="changeTenant($event)" required>
+                                        <option [value]="tenant.id" *ngFor="let tenant of tenantList">{{tenant.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- <div class="col-2 form-group">
+                            <app-high-tree #highTree1 [treeList]="deviceTypeList" [selfConfig]="{labelName:l('DeviceTable')}"
+                                [config]="{name:'name'}" (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                        </div> -->
+
+
+                        <div class="form-group col-4" *ngIf="selectedTemplate&&selectedTemplate.canMultiToOne">
+                            <label>{{l("multiToOneName")}}</label>
+                            <input class="form-control" type="text" name="multiToOneName" [(ngModel)]="objItem.multiToOneName"
+                                required>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row" *ngIf="objItem.tenantId">
+                        <div class="col-12 text-center" style="margin-bottom:1rem;">
+                            <button type="button" class="btn btn-primary" (click)="addDataElement()">{{l("addDataElement")}}</button>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <label>{{l("Name")}} *</label>
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label>{{l("Device")}} *</label>
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label>{{l("Counter")}} *</label>
+                                </div>
+                                <div class="col-2 form-group" *ngIf="selectedTemplate&&selectedTemplate.canMultiToOne">
+                                    <label>{{l("calculateType")}}</label>
+                                </div>
+                                <div class="col-1 form-group">
+                                    <label>{{l("Actions")}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12" *ngFor="let data of dataElementList;let i = index;">
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <input class="form-control" type="text" [name]="'name'+i" [(ngModel)]="data.name"
+                                        required>
+                                </div>
+
+                                <div class="col-3 form-group">
+                                    <input class="form-control" type="text" [name]="'deviceNameList'+i" [(ngModel)]="data.deviceNameList"
+                                        required readonly (click)="selectDevice(data)">
+                                </div>
+
+
+                                <div class="col-3 form-group">
+                                    <input class="form-control" type="text" [name]="'counterNameList'+i" [(ngModel)]="data.counterNameList"
+                                        required readonly (click)="selectCounter(data)">
+                                </div>
+
+                                <div class="col-2 form-group" *ngIf="selectedTemplate&&selectedTemplate.canMultiToOne">
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="data.calculateType" [name]="'calculateType'+i">
+                                                <option value="0">+</option>
+                                                <option value="1">-</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-1" style="padding-left:0;" *ngIf="dataElementList.length>1">
+                                    <div style="position:relative;">
+                                        <button type="button" class="btn btn-primary" (click)="deleteData(i)">
+                                            <i class="caret"></i>
+                                            <span>{{l("Delete")}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label>{{l("description")}}</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="objItem.description" style="height:100px !important;"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div bsModal #createOrEditmodal1="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditmodal1" class="modal fade"
+        tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 form-group" *ngIf="showTree1">
+                            <app-high-tree #highTree1 [treeList]="deviceList" [selfConfig]="{labelName:l('Device')}"
+                                [config]="{name:'name'}" (onTreeUpdate)="onTreeUpdate1($event)" [initShowArray]="selectedData?selectedData.deviceIds:[]"></app-high-tree>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div bsModal #createOrEditmodal2="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditmodal2" class="modal fade"
+        tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 form-group" *ngIf="showTree2">
+                            <app-high-tree #highTree2 [treeList]="counterList" [selfConfig]="{labelName:l('Counter')}"
+                                [config]="{name:'value'}" (onTreeUpdate)="onTreeUpdate2($event)" [initShowArray]="selectedData?selectedData.deviceIds:[]"></app-high-tree>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

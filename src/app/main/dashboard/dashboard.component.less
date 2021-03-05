@@ -1,0 +1,81 @@
+// #TenantDashboard {
+
+//     input[type="radio"] {
+//         display: none;
+//     }
+
+// }
+
+// .sales-summary-chart {
+//     svg.ngx-charts {
+//         margin-left: -50px;
+//         margin-top: 0px;
+//     }
+// }
+.yayi {
+    position: relative;
+    width: 100%;
+    z-index: 2;
+}
+
+#TenantDashboard {
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    div.input-group /deep/ span.clearSpan {
+        right: 80px !important;
+        top: 0rem !important;
+    }
+
+    .my-col-9 {
+        width: 60%;
+        float: left;
+        min-width: 252px;
+    }
+
+    .my-col-3 {
+        width: calc(40% - 6px);
+        float: left;
+        margin-right: 6px;
+    }
+
+    @media screen and (max-width : 1366px) {
+        .my-col-3 {
+            max-width: 130px;
+        }
+
+        .my-col-3 label {
+            padding: .75rem .35rem;
+        }
+
+        div.input-group /deep/ span.clearSpan {
+            right: 39px !important;
+        }
+    }
+
+    .row {
+        width: 100%;
+    }
+
+    .fixed-button {
+        height: 100%;
+        margin: 0 !important;
+    }
+}
+
+.row.kt-row--col-separator-xl>div {
+    border-bottom: 0;
+    border-right: 1px solid #ebedf2;
+}
+
+.row.kt-row--col-separator-xl>div:last-child {
+    border-right: 0;
+}
+.kt-widget24{
+    padding:15px 25px;
+}
+.kt-portlet__head-text{
+    line-height:2.5;
+}

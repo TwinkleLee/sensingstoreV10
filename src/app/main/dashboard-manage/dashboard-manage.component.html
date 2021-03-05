@@ -1,0 +1,162 @@
+<div [@routerTransition]>
+
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'DashboardManage' | localize" [description]="'DashboardManage' | localize">
+            <div role="actions">
+                <button (click)="goTemplate()" class="btn btn-primary blue">
+                    {{l('DashboardTemplate')}}</button>
+                <button (click)="createItem()" class="btn btn-primary blue">
+                    <i class="fa fa-plus"></i> {{l("add")}}{{l('Dashboard')}}</button>
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <div class="kt-portlet m-portlet--mobile">
+                <div class="kt-portlet__body">
+
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="kt-form kt-form--label-align-right">
+                                <div class="row align-items-center m--margin-bottom-10">
+                                    <div class="col-2">
+                                        <div class="form-group kt-form__group align-items-center">
+                                            <label>{{l('name')}}</label>
+                                            <div class="input-group">
+                                                <input [(ngModel)]="filterText" name="filterText" autoFocus
+                                                    class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
+                                                    type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-2" style="position:relative;top:0.5rem;">
+                                        <label>{{l("TenancyName")}}</label>
+                                        <div class="form-group ">
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="tenantId" name="tenantId">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option [value]="tenant.id" *ngFor="let tenant of tenantList">
+                                                        {{tenant.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-2" style="position:relative;top:0.5rem;">
+                                        <label>{{l("DashboardTemplate")}}</label>
+                                        <div class="form-group ">
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="templateId" name="templateId">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option [value]="template.id" *ngFor="let template of templateList">
+                                                        {{template.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper.isLoading" (click)="getList()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                    <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                            <p-table #dataTable (onLazyLoad)="getList($event)" [value]="primengTableHelper.records"
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                [resizableColumns]="primengTableHelper.resizableColumns"
+                                [responsive]="primengTableHelper.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 15%">{{l('Actions')}}</th>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('name')}}</th>
+                                        <th>{{l('DashboardTemplate')}}</th>
+                                        <th>{{l('TenancyName')}}</th>
+                                        <th>{{l('description')}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                        <td>
+                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                                <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span class="caret"></span> {{l("Actions")}}
+                                                </button>
+                                                <ul class="dropdown-menu" *dropdownMenu>
+                                                    <li>
+                                                        <a class="icon-bianji"
+                                                            (click)="editItem(record)">{{l('Edit')}}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="icon-icon-test"
+                                                            (click)="deleteItem(record)">{{l('Delete')}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td style="width:5%"> {{transIndex(i)}}</td>
+                                        <td>
+                                            <span>{{record.name}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.reportTemplateName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.tenantName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.description}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper.records">
+                                        <td colspan="7">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/deviceHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                    (onPageChange)="getList($event)"
+                                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <dashboardManageModal #dashboardManageModal (modalSave)="getList()"></dashboardManageModal>
+    </div>
+
+</div>

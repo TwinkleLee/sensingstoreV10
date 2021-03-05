@@ -1,0 +1,259 @@
+<div id="productRank" (click)="clickContainer()">
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+        <div class="kt-subheader kt-grid__item">
+            <div [class]="containerClass">
+                <div class="kt-subheader__main">
+                    <a id="aaa" href=""> </a>
+                    <h3 class="kt-subheader__title">
+                        <span>{{"行为报表" | localize}}</span>
+                    </h3>
+                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+                        <div class="col-3 form-group"
+                            style="position:absolute;padding-bottom: 0;top:0.5rem;right:26%;display: none;">
+                            <app-high-tree #highTree [containerHeight]="'3rem'" [selfConfig]="{searchDepth:'store'}"
+                                (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                        </div>
+
+
+                        <div class="input-group  margin-top-5"
+                            style="justify-content: flex-end;position:absolute;width:40%;top:0.5rem;right:2rem;">
+                            <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true"
+                                #clickDateranger style="width: 60%;" name="clickDateranger"
+                                [(startDate)]="realStartTime" [(endDate)]="realEndTime" [allowFutureDate]="true"
+                                [cssStyle]="'dashboard'" [admitDelete]="false">
+                            </date-range-picker>
+
+                            <button class="btn btn-primary" (click)="refreshAll()"
+                                [buttonBusy]="productClickLoading||SkuSaleLoading||primengTableHelper.isLoading">
+                                <i class="la la-refresh"></i>
+                                {{l("search")}}
+                            </button>
+                            <button class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
+                                <i class="icon-excel"></i>
+                                {{l("export")}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <tabset class="tab-container tabbable-line">
+                <tab heading="{{l('感应信息排行')}}" customClass="m-tabs__item">
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-12" *ngIf="isGranted('Pages.Tenant.Dashboard.ProductRank')">
+                            <div class="kt-portlet" origin>
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-caption">
+                                        <div class="kt-portlet__head-title">
+                                            <h3 class="kt-portlet__head-text" style="position: relative;top:1rem;">
+                                                {{l('拿起排行前十')}}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="kt-portlet__head-tools width-percent-70">
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <div class="freeze-ui" style="position:absolute;" *ngIf="productClickLoading"></div>
+                                    <div class="row list-separated">
+                                        <div class="portlet-body-morris-fit morris-chart"
+                                            style="height: 600px;width: 100%;">
+                                            <div style="display:flex;text-align:center;">
+                                                <div style="width:10%;">{{l('orderNumber')}}</div>
+                                                <div style="width:80%;">{{l('product')}}</div>
+                                                <div style="width:10%;">{{l('拿起次数')}}</div>
+                                            </div>
+                                            <div style="display:flex;height: 50px;margin-bottom:5px;"
+                                                *ngFor="let item of productClickTopTen;let i = index">
+                                                <div style="width:10%;text-align:center;height:50px;line-height:50px;">
+                                                    {{i+1}}</div>
+                                                <div style="width:10%;">
+                                                    <img [src]="item.picUrl" style="height: 50px;"
+                                                        (error)="showEmpty($event)">
+                                                </div>
+                                                <div
+                                                    style="width:70%;height:50px;line-height:50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                                    {{item.date}}</div>
+                                                <div style="width:10%;text-align:center;height:50px;line-height:50px;">
+                                                    {{item.value}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12" *ngIf="isGranted('Pages.Tenant.Dashboard.ProductRank')">
+                            <div class="kt-portlet" origin>
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-caption">
+                                        <div class="kt-portlet__head-title">
+                                            <h3 class="kt-portlet__head-text" style="position: relative;top:1rem;">
+                                                {{l('试衣排行前十')}}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="kt-portlet__head-tools width-percent-70">
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <div class="freeze-ui" style="position:absolute;" *ngIf="SkuSaleLoading"></div>
+                                    <div class="row list-separated">
+                                        <div class="portlet-body-morris-fit morris-chart"
+                                            style="height: 600px;width: 100%;">
+                                            <div style="display:flex;text-align:center;">
+                                                <div style="width:10%;">{{l('orderNumber')}}</div>
+                                                <div style="width:80%;">{{l('product')}}</div>
+                                                <div style="width:10%;">{{l('试衣次数')}}</div>
+                                            </div>
+                                            <div style="display:flex;height: 50px;margin-bottom:5px;"
+                                                *ngFor="let item of skuSaleTopTen;let i = index">
+                                                <div style="width:10%;text-align:center;height:50px;line-height:50px;">
+                                                    {{i+1}}</div>
+                                                <div style="width:10%;">
+                                                    <img [src]="item.picUrl" style="height: 50px;"
+                                                        (error)="showEmpty($event)">
+                                                </div>
+                                                <div
+                                                    style="width:70%;height:50px;line-height:50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                                    {{item.date}}</div>
+                                                <div style="width:10%;text-align:center;height:50px;line-height:50px;">
+                                                    {{item.value}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </tab>
+                <tab heading="{{l('sku感应列表')}}" customClass="m-tabs__item">
+                    <div class="kt-portlet m-portlet--mobile">
+                        <div class="kt-portlet__body">
+
+                            <!-- <div class="row">
+                            <form class="horizontal-form" autocomplete="off">
+                                <div class="m-form m-form--label-align-right">
+                                    <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="col-3">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input"
+                                                        [placeholder]="l('SearchWithThreeDot')" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group m-form__group align-items-center">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                                                        (click)="getList()">
+                                                        <i class="la la-refresh"></i>
+                                                        {{l("search")}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> -->
+
+
+                            <div class="row align-items-center">
+                                <!--<Primeng-Datatable-Start>-->
+                                <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                    <p-table #dataTable (onLazyLoad)="getList($event)"
+                                        [value]="primengTableHelper.records"
+                                        [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
+                                        [lazy]="true" [resizableColumns]="primengTableHelper.resizableColumns"
+                                        [responsive]="primengTableHelper.isResponsive">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width:5%">{{l('RecordId')}}</th>
+                                                <th style="width:25%">{{l('name')}}</th>
+                                                <th style="width:15%">{{l('skuId')}}</th>
+                                                <th pSortableColumn="totalPickup">
+                                                    {{l('拿起次数')}}
+                                                    <p-sortIcon field="totalPickup"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="totalRfid">
+                                                    {{l('试衣次数')}}
+                                                    <p-sortIcon field="totalRfid"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="totalSaleNumber">
+                                                    {{l('购买次数')}}
+                                                    <p-sortIcon field="totalSaleNumber"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="totalSaleAmount">
+                                                    {{l('销售金额')}}
+                                                    <p-sortIcon field="totalSaleAmount"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+
+                                                <td style="width:5%"> {{transIndex(i)}}</td>
+                                                <td>
+                                                    <span>{{record.name}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.outerId}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.totalPickup}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.totalRfid}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.totalSaleNumber}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{record.totalSaleAmount}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-records>
+                                            <tr *ngIf="primengTableHelper.records">
+                                                <td colspan="7">
+                                                    <img class="emptymessage"
+                                                        src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    <div class="primeng-paging-container">
+                                        <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                                            (onPageChange)="getList($event)"
+                                            [totalRecords]="primengTableHelper.totalRecordsCount"
+                                            [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                        </p-paginator>
+                                        <span class="total-records-count">
+                                            {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--<Primeng-Datatable-End>-->
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>

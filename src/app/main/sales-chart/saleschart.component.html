@@ -1,0 +1,180 @@
+<div [@routerTransition] (click)="clickContainer()">
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'SalesChart' | localize" [description]="'SalesChart' | localize">
+            <div role="actions">
+                <button type="button" class="btn btn-primary" (click)="getDayExcel()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i>
+                    {{l('DayChart')}}{{l('export')}}</button>
+
+                <button type="button" class="btn btn-primary" (click)="getMonthExcel()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i>
+                    {{l('MonthChart')}}{{l('export')}}</button>
+
+                <button type="button" class="btn btn-primary" (click)="getCurrentExcel()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i>
+                    {{l('SpeedChart')}}{{l('export')}}</button>
+            </div>
+        </sub-header>
+
+
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="row">
+                        <form class="horizontal-form" autocomplete="off">
+                            <div class="m-form m-form--label-align-right">
+                                <div class="row align-items-center m--margin-bottom-10">
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('storeNumber')+' | '+l('storeName')+' | '+l('DeviceType')}}</label>
+                                            <div class="input-group">
+                                                <input [(ngModel)]="filterText1" name="filterText1" autoFocus
+                                                    (keyup.enter)="getDay()" class="form-control m-input"
+                                                    [placeholder]="l('SearchWithThreeDot')" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2" style="position:relative;">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>{{l('Date')}}</label>
+                                            <date-range-picker name="SampleDateRangePicker" [showButton]="false"
+                                                [dateRangePickerOptions]='{ "opens": "right","singleDatePicker":false}'
+                                                rangeMode="star" (buttonEmit)="getDay()" [(startDate)]="StartTime1"
+                                                [admitDelete]="false" [(endDate)]="EndTime1" [allowFutureDate]="false"
+                                                [needInitDate]="true">
+                                            </date-range-picker>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-2" style="position:relative;top:-0.5rem;">
+                                        <label
+                                            style="margin-bottom: 0rem; position: relative; top: 0.2rem;">{{l('daqu')}}</label>
+                                        <app-high-tree #highTree [containerHeight]="'3rem'" [config]="{name:'name'}"
+                                            [treeList]="ouTree" (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                                    </div>
+                                    <div class="col-2" *ngIf="showTree2" style="position:relative;top:-0.5rem;">
+                                        <label
+                                            style="margin-bottom: 0rem; position: relative; top: 0.2rem;">{{l('province')}}</label>
+                                        <app-high-tree #highTree2 [containerHeight]="'3rem'" [config]="{name:'name'}"
+                                            [treeList]="ouTree2" (onTreeUpdate)="onTreeUpdate2($event)"></app-high-tree>
+                                    </div>
+                                    <div class="col-2" *ngIf="showTree3" style="position:relative;top:-0.5rem;">
+                                        <label
+                                            style="margin-bottom: 0rem; position: relative; top: 0.2rem;">{{l('store')}}</label>
+                                        <app-high-tree #highTree3 [containerHeight]="'3rem'" [config]="{name:'name'}"
+                                            [treeList]="ouTree3" (onTreeUpdate)="onTreeUpdate3($event)"></app-high-tree>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="form-group m-form__group align-items-center">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    [buttonBusy]="primengTableHelper1.isLoading" (click)="getDay()">
+                                                    <i class="la la-refresh"></i>
+                                                    {{l("search")}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper1.isLoading">
+                            <p-table #dataTable1 (onLazyLoad)="getDay($event)" [value]="primengTableHelper1.records"
+                                [rows]="primengTableHelper1.defaultRecordsCountPerPage" [paginator]="false"
+                                [lazy]="true" [resizableColumns]="primengTableHelper1.resizableColumns"
+                                [responsive]="primengTableHelper1.isResponsive">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:5%">{{l('RecordId')}}</th>
+                                        <th>{{l('BusinessArea')}}</th>
+                                        <th>{{l('Province')}}</th>
+                                        <th>{{l('City')}}</th>
+                                        <th>{{l('storeNumber')}}</th>
+                                        <th><span>{{l('storeName')}}</span></th>
+                                        <th><span>{{l('Store')}}{{l('type')}}</span></th>
+                                        <th><span>{{l('Stores')}}{{l('status')}}</span></th>
+                                        <th><span>{{l('DeviceType')}}</span></th>
+                                        <th><span>{{l('loginMemberCount')}}</span></th>
+                                        <th><span>{{l('totalGuestCount')}}</span></th>
+                                        <th><span>{{l('salesItemCount')}}</span></th>
+                                        <th><span>{{l('TotalSales')}}</span></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr>
+                                        <td> {{transIndex1(i)}}</td>
+
+                                        <td>
+                                            <span>{{record.areaName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.provinceName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.cityName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.outerId}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.storeName}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.storeType}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.storeStatus}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.deviceType}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.registMemberCount}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.orderCount}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.orderItemsCount}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.sumPayment}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-records>
+                                    <tr *ngIf="primengTableHelper1.records">
+                                        <td colspan="13">
+                                            <img class="emptymessage"
+                                                src="/assets/common/images/placeholder/reviewHolder.png" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <div class="primeng-paging-container">
+                                <p-paginator [rows]="primengTableHelper1.defaultRecordsCountPerPage" #paginator1
+                                    (onPageChange)="getDay()" [totalRecords]="primengTableHelper1.totalRecordsCount"
+                                    [rowsPerPageOptions]="primengTableHelper1.predefinedRecordsCountPerPage">
+                                </p-paginator>
+                                <span class="total-records-count">
+                                    {{l('TotalRecordsCount', primengTableHelper1.totalRecordsCount)}}
+                                </span>
+                            </div>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

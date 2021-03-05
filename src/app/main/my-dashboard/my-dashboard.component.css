@@ -1,0 +1,60 @@
+#TenantDashboard input[type="radio"] {
+  display: none;
+}
+/* #TenantDashboard div.input-group /deep/ span.clearSpan { */
+#TenantDashboard div.input-group span.clearSpan {
+  right: 80px !important;
+  top: 0rem !important;
+}
+#TenantDashboard .my-col-9 {
+  width: 60%;
+  float: left;
+  min-width: 252px;
+}
+.yayi {
+  position: relative;
+  width: 100%;
+}
+#TenantDashboard .my-col-3 {
+  width: calc(34%);
+  float: left;
+  margin-right: 6px;
+}
+@media screen and (max-width: 1366px) {
+  #TenantDashboard .my-col-3 {
+    max-width: 130px;
+  }
+  #TenantDashboard .my-col-3 label {
+    padding: .75rem  .35rem;
+  }
+  #TenantDashboard div.input-group span.clearSpan {
+    right: 39px !important;
+  }
+}
+#TenantDashboard .row {
+  width: 100%;
+}
+#TenantDashboard .fixed-button {
+  height: 100%;
+  margin: 0 !important;
+}
+
+.zifengData{
+  /* border:1px solid #000; */
+  margin-left:3%;
+  margin-top:10px;
+  font-weight: bold;
+}
+.zifengData .data{
+  display: inline-block;
+  outline:2px solid #000;
+  padding:15px;
+}
+.zifengData .tip{
+  display: inline-block;
+  outline:2px solid #000;
+  padding:15px;
+}
+.zifengData .btn{
+  display: inline-block;
+}

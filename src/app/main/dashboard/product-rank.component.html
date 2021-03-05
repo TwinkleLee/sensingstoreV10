@@ -1,0 +1,175 @@
+<div id="productRank" (click)="clickContainer()">
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'productRank' | localize" [description]="'productRank' | localize">
+            <div role="actions">
+
+                <div class="btn-group">
+                    <div class="input-group">
+                        <select class="form-control" [(ngModel)]="BrandId" name="BrandId">
+                            <option value="">{{l("All")+l("Brand")}}</option>
+                            <option [value]="brand.id" *ngFor="let brand of BrandList">{{brand.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-bottom: 0.5rem;">
+                    <app-high-tree #highTree [containerHeight]="'3rem'"
+                        [selfConfig]="{searchDepth:'store',includeOfflineStore:true}"
+                        (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                </div>
+
+                <div class="btn-group">
+                    <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true"
+                        #clickDateranger name="clickDateranger" [(startDate)]="realStartTime"
+                        [(endDate)]="realEndTime" [allowFutureDate]="true" [cssStyle]="'dashboard'"
+                        [admitDelete]="false">
+                    </date-range-picker>
+                </div>
+
+                <button class="btn btn-primary" (click)="refreshAll()"
+                    [buttonBusy]="productClickLoading||SkuSaleLoading">
+                    <i class="la la-refresh"></i>
+                    {{l("search")}}
+                </button>
+            </div>
+        </sub-header>
+
+
+        <!-- <div class="m-subheader" style="background:#f9f9f9;position:relative;">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator">
+                    <span>{{l("productRank")}}</span>
+                </h3>
+            </div>
+
+        </div>
+
+
+
+        <div style="position:absolute;top:1.2rem;right:50%;width:20%;">
+            <div class="form-group m-form__group align-items-center">
+                <div class="input-group">
+                    <select class="form-control" [(ngModel)]="BrandId" name="BrandId">
+                        <option value="">{{l("All")+l("Brand")}}</option>
+                        <option [value]="brand.id" *ngFor="let brand of BrandList">{{brand.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group" style="position:absolute;padding-bottom: 0;top:0.5rem;right:26%;width:20%;">
+            <app-high-tree #highTree [containerHeight]="'3rem'" [selfConfig]="{searchDepth:'store'}" (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+        </div>
+
+
+        <div class="input-group  margin-top-5" style="justify-content: flex-end;position:absolute;width:25%;top:1rem;right:2rem;">
+            <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true" #clickDateranger style="width: 60%;"
+                name="clickDateranger" [(startDate)]="realStartTime" [(endDate)]="realEndTime" [allowFutureDate]="true"
+                [cssStyle]="'dashboard'" [admitDelete]="false">
+            </date-range-picker>
+
+            <button class="btn btn-primary" (click)="refreshAll()" [buttonBusy]="productClickLoading||SkuSaleLoading">
+                <i class="la la-refresh"></i>
+                {{l("search")}}
+            </button>
+        </div>
+
+    </div> -->
+
+
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <div style="height:2.2rem;"></div>
+            <div class="row">
+
+                <div class="col-md-6 col-sm-12" *ngIf="isGranted('Pages.Tenant.Dashboard.ProductRank')">
+                    <div class="card card-custom gutter-b">
+
+                        <div class="card-header align-items-center border-0">
+                            <h3 class="card-title align-items-start flex-column">
+                                    <span class="font-weight-bolder text-dark">
+                                         {{"productClickTopTen" | localize}}
+                                    </span>
+                            </h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="freeze-ui" style="position:absolute;" *ngIf="productClickLoading"></div>
+                            <div class="row list-separated">
+                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
+                                    <div style="display:flex;text-align:center;">
+                                        <div style="width:10%;">{{l('orderNumber')}}</div>
+                                        <div style="width:80%;">{{l('product')}}</div>
+                                        <div style="width:10%;">{{l('clickCount')}}</div>
+                                    </div>
+                                    <div style="display:flex;height: 50px;margin-bottom:5px;"
+                                        *ngFor="let item of productClickTopTen;let i = index">
+                                        <div style="width:10%;text-align:center;height:50px;line-height:50px;">{{i+1}}
+                                        </div>
+                                        <div style="width:10%;">
+                                            <img [src]="item.picUrl" style="height: 50px;" (error)="showEmpty($event)">
+                                        </div>
+                                        <div
+                                            style="width:70%;height:50px;line-height:50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            {{item.date}}</div>
+                                        <div style="width:10%;text-align:center;height:50px;line-height:50px;">
+                                            {{item.value}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12" *ngIf="isGranted('Pages.Tenant.Dashboard.ProductRank')">
+
+                    <div class="card card-custom gutter-b">
+
+                        <div class="card-header align-items-center border-0">
+                            <h3 class="card-title align-items-start flex-column">
+                                    <span class="font-weight-bolder text-dark">
+                                         {{"SkuSaleTopTen" | localize}}
+                                    </span>
+                            </h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="freeze-ui" style="position:absolute;" *ngIf="SkuSaleLoading"></div>
+                            <div class="row list-separated">
+                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
+                                    <div style="display:flex;text-align:center;">
+                                        <div style="width:10%;">{{l('orderNumber')}}</div>
+                                        <div style="width:80%;">{{l('product')}}</div>
+                                        <div style="width:10%;">{{l('TotalSales')}}</div>
+                                    </div>
+                                    <div style="display:flex;height: 50px;margin-bottom:5px;"
+                                        *ngFor="let item of skuSaleTopTen;let i = index">
+                                        <div style="width:10%;text-align:center;height:50px;line-height:50px;">{{i+1}}
+                                        </div>
+                                        <div style="width:10%;">
+                                            <img [src]="item.picUrl" style="height: 50px;" (error)="showEmpty($event)">
+                                        </div>
+                                        <div
+                                            style="width:70%;height:50px;line-height:50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                            {{item.title}}</div>
+                                        <div style="width:10%;text-align:center;height:50px;line-height:50px;">
+                                            {{item.saleAmout|currency:'￥'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

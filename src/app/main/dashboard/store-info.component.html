@@ -1,0 +1,125 @@
+<div [@routerTransition] id="TenantDashboard">
+
+    <div class="content d-flex flex-column flex-column-fluid">
+
+        <sub-header [title]="'storeDistributed' | localize" [description]="'DashboardHeaderInfo' | localize">
+            <div role="actions">
+            </div>
+        </sub-header>
+
+
+        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+            <div style="height:2.2rem;"></div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12"
+                    *ngIf="isGranted('Pages.Tenant.Dashboard.StoreInformation.Distributed')">
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header align-items-center border-0">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="font-weight-bolder text-dark">
+                                     {{"storeDistributed" | localize}}
+                                </span>
+                            </h3>
+                            <div class="kt-portlet__head-tools">
+                                <div class="form-group" style="margin-bottom: calc(0.4rem) !important;">
+                                    <div class="input-group margin-top-5">
+                                        <input [(ngModel)]="ouFilter" name="ouFilter" autoFocus
+                                            class="form-control m-input" [placeholder]="l('SearchWithThreeDot')"
+                                            type="text">
+                                        <span class="input-group-btn">
+                                            <button (click)="getOuLocaltion()" class="btn btn-primary fixed-button"
+                                                type="button">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-body" [busyIf]="ouLocaltionLoading">
+                            <div class="row list-separated">
+                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
+                                    <app-my-map *ngIf="MapNgIf" (markClick)="switchToOuView($event)" #ouLocaltion
+                                        [address]="positions" [labels]="labels"></app-my-map>
+                                    <!-- <div id="baiduMap" style="width:100%;height:100%;"></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12"
+                    *ngIf="isGranted('Pages.Tenant.Dashboard.SalesInformation.StatisticalData')">
+
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header align-items-center border-0">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="font-weight-bolder text-dark">
+                                     {{"Statistics" | localize}}
+                                </span>
+                            </h3>
+
+                    <!-- <div class="kt-portlet" origin>
+                        <div class="kt-portlet__head" style="padding-top: 0.7rem;">
+                            <div class="kt-portlet__head-caption">
+                                <div class="kt-portlet__head-title">
+                                    <h3 class="kt-portlet__head-text">
+                                        {{l('Statistics')}}
+                                    </h3>
+                                </div>
+                            </div> -->
+
+
+                            <div class="kt-portlet__head-tools width-percent-80" style="width:80%;">
+                                <div class="form-group width-percent-100" style="margin-bottom: 0.4rem !important;">
+                                    <div class="input-group my-col-9 margin-top-5">
+                                        <date-range-picker
+                                            [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":type=="hh"}'
+                                            needInitDate="true" #dateranger style="width: 80%;"
+                                            name="dataDateRangePicker" [(startDate)]="startTime" [(endDate)]="endTime"
+                                            [allowFutureDate]="true" [admitDelete]="false">
+                                        </date-range-picker>
+                                        <span class="input-group-btn">
+                                            <button (click)="getChartData()" class="btn btn-primary fixed-button"
+                                                type="button">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <!-- <div class="btn-group btn-group-devided my-col-3" data-toggle="buttons"> -->
+                                    <div class="btn-group btn-group-devided" data-toggle="buttons"
+                                        style="float:left;position:relative;top:0.5rem;">
+                                        <label class="btn m-btn--pill btn-secondary"
+                                            [ngClass]="{'active': type == 'mm'}" (click)="changeViewType('mm')">
+                                            <input type="radio" name="dataChartType" value="mm" class="toggle">
+                                            {{l("month")}}
+                                        </label>
+                                        <label class="btn m-btn--pill btn-secondary"
+                                            [ngClass]="{'active': type == 'dd'}" (click)="changeViewType('dd')">
+                                            <input type="radio" name="dataChartType" value="dd" class="toggle">
+                                            {{l("day")}}
+                                        </label>
+                                        <label class="btn m-btn--pill btn-secondary"
+                                            [ngClass]="{'active': type == 'hh'}" (click)="changeViewType('hh')">
+                                            <input type="radio" name="dataChartType" value="hh" class="toggle">
+                                            {{l("hour")}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body" [busyIf]="dataChartLoading">
+                            <div class="row list-separated">
+                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
+                                    <app-charts #dataChartDiv chartId="dataChartDiv" chartType="Line"></app-charts>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

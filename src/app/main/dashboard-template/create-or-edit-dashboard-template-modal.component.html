@@ -1,0 +1,62 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form *ngIf="active" #ObjForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="objItem?.id">{{l("Edit")}}{{l('DashboardTemplate')}}</span>
+                        <span *ngIf="!objItem.id">{{l("add")}}{{l('DashboardTemplate')}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>{{l("Name")}} *</label>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="objItem.name" required
+                                maxlength="32">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("type")}}</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="objItem.reportType" name="reportType"
+                                        required>
+                                        <option value="0">{{l('LinePicture')}}</option>
+                                        <option value="2">{{l('BarPicture')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6" style="position:relative;">
+                            <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
+                                <input class="form-control" [(ngModel)]="objItem.canMultiToOne" type="checkbox" name="isNeedRegister" />{{l("canMultiToOne")}}
+                                <span></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>{{l("multiToOneName")}}</label>
+                            <input class="form-control" type="text" name="multiToOneName" [(ngModel)]="objItem.multiToOneName"
+                                [readOnly]="!objItem.canMultiToOne">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>{{l("description")}}</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="objItem.description" style="height:100px !important;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ObjForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
