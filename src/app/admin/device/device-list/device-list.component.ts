@@ -6,6 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Injectable } from '@angular/core'
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DeviceServiceProxy as  NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Injectable()
 export class YourInterceptor implements HttpInterceptor {
@@ -117,7 +118,11 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     private _IndependentDeploymentServiceProxy: IndependentDeploymentServiceProxy,
     private _tokenService: TokenService,
     private route: ActivatedRoute,
-    private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy) {
+    private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
+    
+    
+    
+    private _NewDeviceServiceProxy:NewDeviceServiceProxy) {
     super(injector);
     this.apply.applyType = CreateApplyFormInputApplyType.Device;
     this.apply.itemids = [];
@@ -305,7 +310,8 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       //   console.log(this.storeTree.getchosen())
       // }
 
-      this._deviceService.getDevices(
+      this._NewDeviceServiceProxy.getDevices(
+        [],
         this.status,
         this.operationType,
         this.auditStatus,
