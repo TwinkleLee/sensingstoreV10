@@ -1,4 +1,4 @@
-<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+<div bsModal #createOrEditModal="bs-modal" [config]="{backdrop: 'static'}" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
     tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -9,8 +9,8 @@
                         <span *ngIf="!swiper.id">{{l("Edit")}}{{l("Swiper")}}</span>
                     </h4>
                     <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                      </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">

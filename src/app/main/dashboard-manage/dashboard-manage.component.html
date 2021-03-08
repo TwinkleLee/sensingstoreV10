@@ -11,16 +11,16 @@
             </div>
         </sub-header>
 
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet m-portlet--mobile">
-                <div class="kt-portlet__body">
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+              <div class="card-body">
 
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off">
-                            <div class="kt-form kt-form--label-align-right">
-                                <div class="row align-items-center m--margin-bottom-10">
+                            <div class="m-form">
+                                <div class="row align-items-center mb-4">
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group m-form__group align-items-center">
                                             <label>{{l('name')}}</label>
                                             <div class="input-group">
                                                 <input [(ngModel)]="filterText" name="filterText" autoFocus

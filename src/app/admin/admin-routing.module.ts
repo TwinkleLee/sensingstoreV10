@@ -237,6 +237,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         path: 'training',
                         loadChildren: () => import('./training/training.module').then(m => m.TrainingModule),
                     },
+                    {
+                        path: 'weshop',
+                        loadChildren: () => import('./weshop/weshop.module').then(m => m.WeshopModule),
+                    },
                     { path: '', redirectTo: 'hostDashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'hostDashboard' }
                 ]
