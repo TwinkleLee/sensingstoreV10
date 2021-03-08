@@ -9,7 +9,7 @@
         <div [class]="containerClass">
             <div class="card card-custom gutter-b">
                 <div class="card-body">
-                    <tabset class="fortuneTabset">
+                    <tabset class="fortuneTabset tab-container">
                         <!-- 默认tab 0 游戏pk 1 比赛 2 投票 3 调查 -->
                         <tab heading="{{l('UserData')}}" (selectTab)="getUserPapers($event)">
                             <div class="row">
@@ -145,7 +145,7 @@
                             </div>
                         </tab>
                         <!-- 答题成绩 //游戏pk/比赛  -->
-                        <tab heading="{{l('AnswerQuestion')}}{{l('Grades')}}" *ngIf="paperUsageType===0||paperUsageType==1" customClass="m-tabs__item" (selectTab)="getUserPapers($event)">
+                        <tab heading="{{l('CompetitionStatistic')}}" *ngIf="paperUsageType==0||paperUsageType==1" customClass="m-tabs__item" (selectTab)="getUserPapers($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form">
@@ -272,7 +272,7 @@
                             </div>
                         </tab>
                         <!-- 投票数据 // 投票  -->
-                        <tab heading="{{l('VoteStatistic')}}" *ngIf="paperUsageType==2" customClass="m-tabs__item" (selectTab)="getPaperAnswerReport($event)">
+                        <tab heading="{{l('proiority')}}" *ngIf="paperUsageType==0||paperUsageType==1" customClass="m-tabs__item" (selectTab)="getPaperAnswerReport($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form">
@@ -390,7 +390,7 @@
                             </div>
                         </tab>
                         <!-- 调查结果 // 调查  -->
-                        <tab *ngIf="paperUsageType==3" heading="{{l('CompetitionStatistic')}}" customClass="m-tabs__item" (selectTab)="getPaperAnswerCompetitionReport($event)">
+                        <tab heading="{{l('Statistics')}}" *ngIf="paperUsageType==2||paperUsageType==3" customClass="m-tabs__item" (selectTab)="getPaperAnswerCompetitionReport($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form">

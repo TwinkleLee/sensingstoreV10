@@ -11,11 +11,11 @@
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
                         <tab heading="{{l('SkuMsg')}}" *ngIf="isGranted('Pages.Tenant.Dashboard.SalesInformation.Sku')"
-                            customClass="m-tabs__item icon-dingdan1" active="true">
+                            customClass="m-tabs__item icon-dingdan1" class="pt-5" active="true">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form m-form--label-align-right">
-                                        <div class="row align-items-center m--margin-bottom-10">
+                                        <div class="row align-items-center mb-4">
                                             <div class="col-4">
                                                 <div class="form-group m-form__group align-items-center">
                                                     <label>{{l('name')}}</label>
@@ -48,7 +48,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-3 text-right">
+                                            <div class="col-2 text-right">
                                                 <div class="form-group m-form__group align-items-center">
                                                     <label style="display:block;">&nbsp;</label>
                                                     <button type="button" class="btn btn-primary" (click)="goExport()"
@@ -67,7 +67,7 @@
                                         [value]="primengTableHelper.records"
                                         [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
                                         [lazy]="false" [resizableColumns]="primengTableHelper.resizableColumns"
-                                        [responsive]="primengTableHelper.isResponsive">
+                                        [responsive]="primengTableHelper.isResponsive" ScrollWidth="100%">
                                         <ng-template pTemplate="header">
                                             <tr>
                                                 <th style="width: 15%">{{l('Actions')}}</th>
