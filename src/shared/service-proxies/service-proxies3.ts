@@ -1432,9 +1432,6 @@ export class OperationKnowledgeServiceProxy {
 
 @Injectable()
 export class ReportServiceProxy {
-    addDeviceOptRecord(arg0: any[]) {
-        throw new Error('Method not implemented.');
-    }
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -2297,10 +2294,10 @@ export class SensingDeviceServiceProxy {
 
     /**
      * 上传设备的截图图片
-     * @param cameraImage (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    postSnapShotImage(cameraImage: FileParameter | undefined): Observable<boolean> {
+    postSnapShotImage(cameraImage: FileParameter, body: PostCameraImageInput | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostSnapShotImage?";
         if (cameraImage === undefined || cameraImage === null)
             throw new Error("The parameter 'cameraImage' must be defined and cannot be null.");
@@ -2308,17 +2305,14 @@ export class SensingDeviceServiceProxy {
             url_ += "CameraImage=" + encodeURIComponent("" + cameraImage) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (cameraImage === null || cameraImage === undefined)
-            throw new Error("The parameter 'cameraImage' cannot be null.");
-        else
-            content_.append("CameraImage", cameraImage.data, cameraImage.fileName ? cameraImage.fileName : "CameraImage");
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -2361,10 +2355,10 @@ export class SensingDeviceServiceProxy {
 
     /**
      * 上传设备的热力图数据信息
-     * @param heatmapData (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    postHeatmapData(heatmapData: FileParameter | undefined): Observable<boolean> {
+    postHeatmapData(heatmapData: FileParameter, body: PostHeatmapDataInput | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostHeatmapData?";
         if (heatmapData === undefined || heatmapData === null)
             throw new Error("The parameter 'heatmapData' must be defined and cannot be null.");
@@ -2372,17 +2366,14 @@ export class SensingDeviceServiceProxy {
             url_ += "HeatmapData=" + encodeURIComponent("" + heatmapData) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (heatmapData === null || heatmapData === undefined)
-            throw new Error("The parameter 'heatmapData' cannot be null.");
-        else
-            content_.append("HeatmapData", heatmapData.data, heatmapData.fileName ? heatmapData.fileName : "HeatmapData");
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -4531,6 +4522,98 @@ export class PickAndRfidAndOrderDtoPagedResultDto implements IPickAndRfidAndOrde
 export interface IPickAndRfidAndOrderDtoPagedResultDto {
     totalCount: number;
     items: PickAndRfidAndOrderDto[] | undefined;
+}
+
+export class PostCameraImageInput implements IPostCameraImageInput {
+    subKey!: string | undefined;
+    mac!: string | undefined;
+    cameraImage!: string | undefined;
+
+    constructor(data?: IPostCameraImageInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.subKey = _data["subKey"];
+            this.mac = _data["mac"];
+            this.cameraImage = _data["cameraImage"];
+        }
+    }
+
+    static fromJS(data: any): PostCameraImageInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PostCameraImageInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["subKey"] = this.subKey;
+        data["mac"] = this.mac;
+        data["cameraImage"] = this.cameraImage;
+        return data; 
+    }
+}
+
+export interface IPostCameraImageInput {
+    subKey: string | undefined;
+    mac: string | undefined;
+    cameraImage: string | undefined;
+}
+
+export class PostHeatmapDataInput implements IPostHeatmapDataInput {
+    subKey!: string | undefined;
+    collectionTime!: moment.Moment;
+    mac!: string | undefined;
+    heatmapData!: string | undefined;
+
+    constructor(data?: IPostHeatmapDataInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.subKey = _data["subKey"];
+            this.collectionTime = _data["collectionTime"] ? moment(_data["collectionTime"].toString()) : <any>undefined;
+            this.mac = _data["mac"];
+            this.heatmapData = _data["heatmapData"];
+        }
+    }
+
+    static fromJS(data: any): PostHeatmapDataInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PostHeatmapDataInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["subKey"] = this.subKey;
+        data["collectionTime"] = this.collectionTime ? this.collectionTime.toISOString() : <any>undefined;
+        data["mac"] = this.mac;
+        data["heatmapData"] = this.heatmapData;
+        return data; 
+    }
+}
+
+export interface IPostHeatmapDataInput {
+    subKey: string | undefined;
+    collectionTime: moment.Moment;
+    mac: string | undefined;
+    heatmapData: string | undefined;
 }
 
 export class QuestionsCategoryDto implements IQuestionsCategoryDto {
