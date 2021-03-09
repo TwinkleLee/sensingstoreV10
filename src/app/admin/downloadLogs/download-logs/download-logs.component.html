@@ -69,11 +69,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="record.status==1">
-                                                        <a class="icon-icon" [buttonBusy]="disableExcel"
+                                                        <a class="icon-icon dropdown-item" [buttonBusy]="disableExcel"
                                                             (click)="downloadTask(record)">{{l('Download')}}</a>
                                                     </li>
                                                     <li>
-                                                        <a class="icon-icon-test"
+                                                        <a class="icon-icon-test dropdown-item"
                                                             (click)="deleteTask(record)">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>

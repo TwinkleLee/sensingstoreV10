@@ -8,10 +8,9 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { AppConsts } from '@shared/AppConsts';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { DeviceHeatmapDataServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { DeviceBehaviorServiceProxy } from '@shared/service-proxies/service-proxies3';
 
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
-
 
 @Component({
     templateUrl: './my-dashboard.component.html',
@@ -57,8 +56,8 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         injector: Injector,
         private _CustomizeReportServiceProxy: CustomizeReportServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
-        private _CounterReportServiceProxy: CounterReportServiceProxy,
-        private _DeviceHeatmapDataServiceProxy: DeviceHeatmapDataServiceProxy
+        private _DeviceBehaviorServiceProxy: DeviceBehaviorServiceProxy,
+        private _CounterReportServiceProxy:CounterReportServiceProxy
 
     ) {
         super(injector);
@@ -362,7 +361,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         })
     }
     makeHeatMap(startTime, endTime) {//h337
-        this._DeviceHeatmapDataServiceProxy.getDeviceHeatmapData(
+        this._DeviceBehaviorServiceProxy.getDeviceHeatmapData(
             startTime,
             endTime,
             this.nowDeviceId

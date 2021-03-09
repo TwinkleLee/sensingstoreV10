@@ -123,8 +123,8 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <div class="col m--align-left">
-                                                    <label class="kt-checkbox kt-checkbox--primary" *ngFor="let item of weekList">
-                                                        <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                                    <label class="checkbox checkbox-primary" *ngFor="let item of weekList">
+                                                        <input [(ngModel)]="item.result" type="checkbox"
                                                             [name]="item.name" [value]="item.value" />{{l(item.name)}}
                                                         <span></span>
                                                     </label>
@@ -189,7 +189,7 @@
 
                                                         <label style="width:25%;" class="kt-checkbox kt-checkbox--primary"
                                                             *ngFor="let item of syncFieldsList">
-                                                            <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                                            <input [(ngModel)]="item.result" type="checkbox"
                                                                 [name]="item.name" [value]="item.value" />{{l(item.name)}}
                                                             <span></span>
                                                         </label>
@@ -207,8 +207,8 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <label class="kt-checkbox kt-checkbox--primary">
-                                        <input class="form-control" [(ngModel)]="plan.isEnabled" type="checkbox" name="isEnabled"
+                                    <label class="checkbox checkbox-primary">
+                                        <input [(ngModel)]="plan.isEnabled" type="checkbox" name="isEnabled"
                                             value="true" />{{l("On")}}
                                         <span></span>
                                     </label>

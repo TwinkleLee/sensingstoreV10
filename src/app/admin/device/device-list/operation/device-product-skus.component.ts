@@ -83,8 +83,8 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         var id = Math.floor(Math.random() * 10000000);
         this.message.confirm(`
         <div class="form-group">
-            <label class="kt-checkbox">
-                <input id="device_product_skus_${id}" class="form-control" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
+            <label class="checkbox">
+                <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
                 <span></span>
             </label>
         </div>
@@ -125,8 +125,8 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         var id = Math.floor(Math.random() * 10000000);
         this.message.confirm(`
         <div class="form-group">
-            <label class="kt-checkbox">
-                <input id="device_product_skus_${id}" class="form-control" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
+            <label class="checkbox">
+                <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
                 <span></span>
             </label>
         </div>
@@ -164,8 +164,8 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         var id = Math.floor(Math.random() * 10000000);
         this.message.confirm(`
         <div class="form-group">
-            <label class="kt-checkbox">
-                <input id="device_product_skus_${id}" class="form-control" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
+            <label class="checkbox">
+                <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
                 <span></span>
             </label>
         </div>

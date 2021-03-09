@@ -278,8 +278,8 @@
                                                                     <p>{{l('isFilterSku')}}</p>
                                                                     <span></span>
                                                                 </label> -->
-                                                                <label class="kt-checkbox kt-checkbox--primary">
-                                                                    <input class="form-control"
+                                                                <label class="checkbox checkbox-primary">
+                                                                    <input
                                                                         [(ngModel)]="IsSearchSku" type="checkbox"
                                                                         name="IsSearchSku" />
                                                                     <b style="margin-left: 30px;line-height: 1.5rem;">
@@ -461,12 +461,12 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Products.Edit')">
                                                         <a (click)="productOperation(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li
                                                         *ngIf="isGranted('Pages.Tenant.Products.Delete')&&record.auditStatus=='Offline'&&record.isMine!==false">
                                                         <a (click)="deleteProduct(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -536,20 +536,20 @@
                                             {{l('append')}}
                                             <span></span>
                                         </label>
-                                        <label class="kt-radio">
+                                        <label class="radio">
                                             <input type="radio" name="publishType" [(ngModel)]="publishType"
                                                 value="update">
                                             {{l('update')}}
                                             <span></span>
                                         </label>
-                                        <label class="kt-radio">
+                                        <label class="radio">
                                             <input type="radio" name="publishType" [(ngModel)]="publishType"
                                                 value="delete">
                                             {{l('withdraw')}}
                                             <span></span>
                                         </label>
-                                        <label class="kt-checkbox kt-checkbox--primary">
-                                            <input class="form-control" [(ngModel)]="informDevice" type="checkbox"
+                                        <label class="checkbox checkbox-primary">
+                                            <input [(ngModel)]="informDevice" type="checkbox"
                                                 name="informDevice" />{{l("informDevice")}}
                                             <span></span>
                                         </label>

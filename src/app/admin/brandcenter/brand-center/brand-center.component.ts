@@ -79,7 +79,7 @@ export class BrandCenterComponent extends AppComponentBase {
   deleteBrand(record) {
     this.message.confirm(`
     <div class="form-group">
-        <label class="kt-checkbox">
+        <label class="checkbox">
             <input id="brand_center_isDeleteProductBelongBrand" class="form-control" type="checkbox" name="isDeleteProductBelongBrand" checked/>${this.l('isDeleteProductBelongBrand')}
             <span></span>
         </label>
@@ -126,7 +126,7 @@ export class BrandCenterComponent extends AppComponentBase {
     this.message.confirm(`
     <div class="form-group">
         <label class="kt-checkbox">
-            <input id="brand_center_isOnlineProductBelongBrand" class="form-control" type="checkbox" name="isOnlineProductBelongBrand" checked/>${this.l('isOnlineProductBelongBrand')}
+            <input id="brand_center_isOnlineProductBelongBrand" type="checkbox" name="isOnlineProductBelongBrand" checked/>${this.l('isOnlineProductBelongBrand')}
             <span></span>
         </label>
     </div>
@@ -165,8 +165,8 @@ export class BrandCenterComponent extends AppComponentBase {
     }
     this.message.confirm(`
     <div class="form-group">
-        <label class="kt-checkbox">
-            <input id="brand_center_isOfflineProductBelongBrand" class="form-control" type="checkbox" name="isOfflineProductBelongBrand" checked/>${this.l('isOfflineProductBelongBrand')}
+        <label class="checkbox">
+            <input id="brand_center_isOfflineProductBelongBrand"  type="checkbox" name="isOfflineProductBelongBrand" checked/>${this.l('isOfflineProductBelongBrand')}
             <span></span>
         </label>
     </div>

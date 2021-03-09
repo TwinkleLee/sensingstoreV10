@@ -188,12 +188,12 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Training.Edit')">
                                                         <a (click)="editTraining(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li
                                                         *ngIf="isGranted('Pages.Tenant.Training.Delete')&&record['auditStatus']==0">
                                                         <a (click)="deleteTraining(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>

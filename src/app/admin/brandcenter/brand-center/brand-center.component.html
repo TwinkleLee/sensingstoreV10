@@ -116,11 +116,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
-                                                        <a class="icon-bianji"
+                                                        <a class="icon-bianji dropdown-item"
                                                             (click)="editBrand(record)">{{l('Edit')}}</a>
                                                     </li>
                                                     <li>
-                                                        <a class="icon-icon-test" (click)="deleteBrand(record)"
+                                                        <a class="icon-icon-test dropdown-item" (click)="deleteBrand(record)"
                                                             *ngIf="record['auditStatus']==0">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>

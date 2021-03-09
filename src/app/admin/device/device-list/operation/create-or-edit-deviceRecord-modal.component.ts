@@ -4,9 +4,9 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 
-import { DeviceOptServiceProxy, AddDeviceOptRecordInput, UpdateDeviceOptRecordInput } from '@shared/service-proxies/service-proxies3';
+// import { DeviceOptServiceProxy, AddDeviceOptRecordInput, UpdateDeviceOptRecordInput } from '@shared/service-proxies/service-proxies3';
 import * as moment from 'moment';
-import { OperationsServiceProxy, QuestionCategoryServiceProxy, AddOperationInput, UpdateOperationRecordInput, KnowledgeCategoryServiceProxy } from '@shared/service-proxies/service-proxies3';
+import {AddDeviceOptRecordInput, DeviceOperationsServiceProxy, OperationKnowledgeServiceProxy, UpdateDeviceOptRecordInput } from '@shared/service-proxies/service-proxies3';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
@@ -49,12 +49,11 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _deRecordService: DeviceOptServiceProxy,
+        // private _deRecordService: DeviceOptServiceProxy,
         private _sessionService: AppSessionService,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
-        private _OperationsServiceProxy: OperationsServiceProxy,
-        private _QuestionCategoryServiceProxy: QuestionCategoryServiceProxy,
-        private _KnowledgeCategoryServiceProxy: KnowledgeCategoryServiceProxy
+        private _OperationsServiceProxy: DeviceOperationsServiceProxy,
+        private _KnowledgeCategoryServiceProxy: OperationKnowledgeServiceProxy,
 
     ) {
         super(injector);
@@ -76,7 +75,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         if (deviceRecord) {
             this.operation = "edit";
             // this.deviceRecord = new UpdateDeviceOptRecordInput(deviceRecord);
-            this.deviceRecord = new UpdateOperationRecordInput(deviceRecord);
+            this.deviceRecord = new UpdateDeviceOptRecordInput(deviceRecord);
 
             console.log(this.deviceRecord);
 
@@ -96,7 +95,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
             // this.initDate = moment().format('YYYY-MM-DD');
 
             // this.deviceRecord = new AddDeviceOptRecordInput(<any>{
-            this.deviceRecord = new AddOperationInput(<any>{
+            this.deviceRecord = new AddDeviceOptRecordInput(<any>{
                 // deviceId: this.device ? this.device.id : '',
                 // tenantId: this.device ? this.device.tenantId : '',
                 // deviceName: this.device ? this.device.name : '',
@@ -130,7 +129,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         this.getQuestionCategories(true);
     }
     getQuestionCategories(ifChangeKnowledge?) {
-        this._QuestionCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(r => {
+        this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(r => {
             this.categorys = r.items;
             if (this.deviceRecord.categoryId) {
                 this.categoryId = this.deviceRecord.categoryId;
@@ -148,7 +147,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         } else if (this.deviceRecord.categoryId) {
             categoryId = this.deviceRecord.categoryId
         }
-        this._KnowledgeCategoryServiceProxy.getKnowledgeCategories(this.tenantId, categoryId, undefined, undefined, 999, 0).subscribe(r => {
+        this._KnowledgeCategoryServiceProxy.getOptKnowledges(this.tenantId, categoryId, undefined, undefined, 999, 0).subscribe(r => {
             this.optKnowledges = r.items;
             if (this.deviceRecord.optKnowledgeId) {
                 this.optKnowledgeId = this.deviceRecord.optKnowledgeId;
@@ -239,7 +238,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
             this.deviceRecord.startTime = this.deviceRecord.startTime ? this.deviceRecord.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
             this.deviceRecord.endTime = this.deviceRecord.endTime ? this.deviceRecord.endTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
             if (this.tenants.length == 0) {
-                this._deRecordService.addDeviceOptRecord([this.deviceRecord])
+                this._OperationsServiceProxy.addOperationRecords([this.deviceRecord])
                     .pipe(finalize(() => { this.saving = false; }))
                     .subscribe(result => {
                         console.log(result)
@@ -248,7 +247,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
                         this.modalSave.emit(null);
                     })
             } else {
-                this._OperationsServiceProxy.addOperationRecord([this.deviceRecord])
+                this._OperationsServiceProxy.addOperationRecords([this.deviceRecord])
                     .pipe(finalize(() => { this.saving = false; }))
                     .subscribe(result => {
                         console.log(result)
@@ -262,7 +261,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
             this.deviceRecord.startTime = this.deviceRecord.startTime ? this.deviceRecord.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
             this.deviceRecord.endTime = this.deviceRecord.endTime ? this.deviceRecord.endTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
             if (this.tenants.length == 0) {
-                this._deRecordService.updateDeviceOptRecord(this.deviceRecord)
+                this._OperationsServiceProxy.updateOperationRecord(this.deviceRecord)
                     .pipe(finalize(() => { this.saving = false; }))
                     .subscribe(result => {
                         console.log(result)

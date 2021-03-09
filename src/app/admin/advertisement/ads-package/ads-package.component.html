@@ -98,11 +98,11 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Ads.AdsPackage')">
                                                         <a (click)="editAdsPackage(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li *ngIf="isGranted('Pages.Tenant.Ads.AdsPackage')">
                                                         <a (click)="deleteAdsPackage(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>

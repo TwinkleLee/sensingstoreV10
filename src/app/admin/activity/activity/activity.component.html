@@ -158,16 +158,16 @@
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.Activities.Edit')&&record.isMine!==false">
                                                             <a (click)="editActivity(record)"
-                                                                class="icon-bianji">{{l('Edit')}}</a>
+                                                                class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                         </li>
                                                         <li>
                                                             <a (click)="showActivityData(record)"
-                                                                class="icon-artboard13">{{l('Dashboard')}}</a>
+                                                                class="icon-artboard13 dropdown-item">{{l('Dashboard')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.Activities.Delete')&&record['auditStatus']==0&&record.isMine!==false">
                                                             <a (click)="deleteActivity(record)"
-                                                                class="icon-icon-test">{{l('Delete')}}</a>
+                                                                class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -262,8 +262,8 @@
                                             {{l('withdraw')}}
                                             <span></span>
                                         </label>
-                                        <label class="kt-checkbox kt-checkbox--primary">
-                                            <input class="form-control" [(ngModel)]="onlyPublishToDevice"
+                                        <label class="checkbox checkbox-primary">
+                                            <input [(ngModel)]="onlyPublishToDevice"
                                                 type="checkbox"
                                                 name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
                                             <span></span>
@@ -273,7 +273,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
-                                            class="form-control kt-input" (keydown.enter)="filterTree($event)"
+                                            class="form-control m-input" (keydown.enter)="filterTree($event)"
                                             [placeholder]="l('SearchWithThreeDot')" type="text">
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" type="button" (click)="filterTree()">

@@ -590,7 +590,7 @@
                                                             </button>
                                                             <ul class="dropdown-menu" *dropdownMenu>
                                                                 <li>
-                                                                    <a class="icon-icon-test"
+                                                                    <a class="icon-icon-test dropdown-item"
                                                                         (click)="deleteDeviceCoupon(record)">{{l('Delete')}}</a>
                                                                 </li>
                                                             </ul>
@@ -711,21 +711,21 @@
                                                             </button>
                                                             <ul class="dropdown-menu" *dropdownMenu>
                                                                 <li>
-                                                                    <a class="icon-yingyong"
+                                                                    <a class="icon-yingyong dropdown-item"
                                                                         (click)="gameSetup(record)">{{l('Game')}}</a>
                                                                 </li>
                                                                 <li
                                                                     *ngIf="isGranted('Pages.Tenant.Activities.Edit')&&record.isMine!==false">
                                                                     <a (click)="editActivity(record)"
-                                                                        class="icon-bianji">{{l('Activities')}}</a>
+                                                                        class="icon-bianji dropdown-item">{{l('Activities')}}</a>
                                                                 </li>
                                                                 <li>
                                                                     <a (click)="showActivityData(record)"
-                                                                        class="icon-artboard13">{{l('Dashboard')}}</a>
+                                                                        class="icon-artboard13 dropdown-item">{{l('Dashboard')}}</a>
                                                                 </li>
                                                                 <li
                                                                     *ngIf="isGranted('Pages.Tenant.Activities.Publish')&&record.isMine!==false">
-                                                                    <a class="icon-icon-test"
+                                                                    <a class="icon-icon-test dropdown-item"
                                                                         (click)="deleteDeviceActivity(record)">{{l('Delete')}}</a>
                                                                 </li>
                                                             </ul>
@@ -1657,12 +1657,12 @@
                                                                 </button>
                                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                                     <li>
-                                                                        <a class="icon-bianji"
+                                                                        <a class="icon-bianji dropdown-item"
                                                                             (click)="editCargoLane(record)">{{l('Edit')}}</a>
                                                                     </li>
                                                                     <li
                                                                         *ngIf="isGranted('Pages.Tenant.Activities.Publish')&&record.isMine!==false">
-                                                                        <a class="icon-icon-test"
+                                                                        <a class="icon-icon-test dropdown-item"
                                                                             (click)="deleteCargoLane(record)">{{l('Delete')}}</a>
                                                                     </li>
                                                                 </ul>
@@ -1938,11 +1938,11 @@
                                                             </button>
                                                             <ul class="dropdown-menu" *dropdownMenu>
                                                                 <li>
-                                                                    <a class="icon-bianji"
+                                                                    <a class="icon-bianji dropdown-item"
                                                                         (click)="editRecord(record)">{{l('Edit')}}</a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="icon-icon-test"
+                                                                    <a class="icon-icon-test dropdown-item"
                                                                         (click)="deleteRecord(record)">{{l('Delete')}}</a>
                                                                 </li>
                                                             </ul>
@@ -2467,18 +2467,18 @@
                                                             <ul class="dropdown-menu" *dropdownMenu>
                                                                 <li>
                                                                     <a (click)="scheduleDetail(record)"
-                                                                        class="icon-shangpinliebiao">{{l('detail')}}</a>
+                                                                        class="icon-shangpinliebiao dropdown-item">{{l('detail')}}</a>
                                                                 </li>
                                                                 <li>
                                                                     <!-- *ngIf="record['isUse']" -->
                                                                     <a (click)="scheduleOpenOrShut(record)"
-                                                                        class="icon-star">{{
+                                                                        class="icon-star dropdown-item">{{
                                                                             record['isUse'] ? l("Off") :
                                                                             l('On')}}</a>
                                                                 </li>
                                                                 <li>
                                                                     <a (click)="scheduleDelete(record.adSchedulingParentId)"
-                                                                        class="icon-icon-test">{{l('Delete')}}</a>
+                                                                        class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                                 </li>
                                                             </ul>
                                                         </div>

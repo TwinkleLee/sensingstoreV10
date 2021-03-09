@@ -5,7 +5,7 @@
   "remoteDeviceCenterUrl": "http://119.3.154.130:8001",
   "remoteSmartDeviceUrl": "http://119.3.154.130:8004",
   "//openServiceBaseUrl": "https://o.api.troncell.com:443",
-  "//remoteBigDataServiceUrl": "http://119.3.154.130:8002",
+  "remoteBigDataServiceUrl": "http://119.3.154.130:8002",
   "///remoteOnlineServiceUrl": "https://o.api.troncell.com",
   "///remoteMetaServiceUrl": "https://r.api.troncell.com",
   "///remoteActivityServiceUrl": "https://g.api.troncell.com",

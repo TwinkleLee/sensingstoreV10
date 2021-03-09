@@ -102,16 +102,16 @@
                                                     </button>
                                                     <ul class="dropdown-menu" *dropdownMenu>
                                                         <li *ngIf="record.isPurchased">
-                                                            <a (click)="recoverRfidCode(record)">{{l("Recover")}}</a>
+                                                            <a class="dropdown-item" (click)="recoverRfidCode(record)">{{l("Recover")}}</a>
                                                         </li>
                                                         <li *ngIf="!record.isPurchased">
-                                                            <a (click)="generateURL(record)">{{l("generateQrcode")}}</a>
+                                                            <a class="dropdown-item" (click)="generateURL(record)">{{l("generateQrcode")}}</a>
                                                         </li>
                                                         <li>
-                                                            <a (click)="edit(record)">{{l("Edit")}}</a>
+                                                            <a class="dropdown-item" (click)="edit(record)">{{l("Edit")}}</a>
                                                         </li>
                                                         <li>
-                                                            <a (click)="delete(record)">{{l("Delete")}}</a>
+                                                            <a class="dropdown-item" (click)="delete(record)">{{l("Delete")}}</a>
                                                         </li>
                                                     </ul>
                                                 </div>

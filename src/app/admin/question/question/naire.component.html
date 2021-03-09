@@ -129,15 +129,15 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Question.Edit')">
                                                         <a (click)="editNaire(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li *ngIf="isGranted('Pages.Tenant.Question.Delete')">
                                                         <a (click)="deleteNaire(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="goDashboard(record)"
-                                                            class="icon-baobiao">{{l('Dashboard')}}</a>
+                                                            class="icon-baobiao dropdown-item">{{l('Dashboard')}}</a>
                                                     </li>
 
                                                 </ul>

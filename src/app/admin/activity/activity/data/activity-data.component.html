@@ -12,22 +12,22 @@
             style="width:100%;position:absolute;z-index:10;background:#fff;box-shadow: -3px 4px 12px rgba(36, 41, 46, 0.05);">
             <div class="form-group belongToRestore" style="padding:1rem 1rem 0.5rem;margin-bottom:0 !important;">
               <label class="kt-checkbox belongToRestore">
-                <input class="form-control belongToRestore" [(ngModel)]="RestoreSet.isClearAction" type="checkbox"
+                <input class="belongToRestore" [(ngModel)]="RestoreSet.isClearAction" type="checkbox"
                   name="isClearAction" />{{l("isClearAction")}}
                 <span class="belongToRestore"></span>
               </label>
             </div>
             <div class="form-group belongToRestore" style="padding:1rem 1rem 0.5rem;margin-bottom:0 !important;">
               <label class="kt-checkbox belongToRestore">
-                <input class="form-control belongToRestore" [(ngModel)]="RestoreSet.isClearUserData" type="checkbox"
+                <input class="belongToRestore" [(ngModel)]="RestoreSet.isClearUserData" type="checkbox"
                   name="restart" />{{l("isClearUserData")}}
                 <span class="belongToRestore"></span>
               </label>
             </div>
             <div class="form-group belongToRestore"
               style="padding:1rem 1rem 0.5rem;margin-bottom:0 !important;border-bottom: 1px solid #e2e2e2;">
-              <label class="kt-checkbox belongToRestore">
-                <input class="form-control belongToRestore" [(ngModel)]="RestoreSet.isClearAward" type="checkbox"
+              <label class="checkbox belongToRestore">
+                <input class="belongToRestore" [(ngModel)]="RestoreSet.isClearAward" type="checkbox"
                   name="isClearAward" />{{l("isClearAward")}}
                 <span class="belongToRestore"></span>
               </label>
@@ -281,7 +281,7 @@
                                       </button>
                                       <ul class="dropdown-menu" *dropdownMenu>
                                         <li>
-                                          <a (click)="goDetail(record)" class="icon-bianji">{{l('detail')}}</a>
+                                          <a (click)="goDetail(record)" class="icon-bianji dropdown-item">{{l('detail')}}</a>
                                         </li>
                                       </ul>
                                     </div>
@@ -423,7 +423,7 @@
                                       </button>
                                       <ul class="dropdown-menu" *dropdownMenu>
                                         <li>
-                                          <a (click)="expressDetail(record)" class="icon-bianji">{{l('Edit')}}</a>
+                                          <a (click)="expressDetail(record)" class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                         </li>
                                         <li *ngIf="isGranted('Pages.Tenant.Activities.ClearData')">
                                           <a (click)="ClearUserAwardData(record)"
@@ -580,15 +580,15 @@
                                       <ul class="dropdown-menu" *dropdownMenu>
                                         <li>
                                           <a (click)="addToBlackList(record)"
-                                            class="icon-huojiang">{{l('addToBlackList')}}</a>
+                                            class="icon-huojiang dropdown-item">{{l('addToBlackList')}}</a>
                                         </li>
                                         <li>
                                           <a (click)="addToWhiteList(record)"
-                                            class="icon-huodong11">{{l('addToWhiteList')}}</a>
+                                            class="icon-huodong11 dropdown-item">{{l('addToWhiteList')}}</a>
                                         </li>
                                         <li *ngIf="isGranted('Pages.Tenant.Activities.ClearData')">
                                           <a (click)="ClearUserActivityData(record)"
-                                            class="icon-Clearsearch">{{l('ClearData')}}</a>
+                                            class="icon-Clearsearch dropdown-item">{{l('ClearData')}}</a>
                                         </li>
                                       </ul>
                                     </div>
@@ -733,19 +733,19 @@
                                       </button>
                                       <ul class="dropdown-menu" *dropdownMenu>
                                         <li *ngIf="!record.isValidated">
-                                          <a (click)="goValidate(record)" class="icon-shenhe1">{{l('goValidate')}}</a>
+                                          <a (click)="goValidate(record)" class="icon-shenhe1 dropdown-item">{{l('goValidate')}}</a>
                                         </li>
                                         <li *ngIf="record.isValidated">
                                           <a (click)="cancelValidate(record)"
-                                            class="icon-huodong11">{{l('cancelValidate')}}</a>
+                                            class="icon-huodong11 dropdown-item">{{l('cancelValidate')}}</a>
                                         </li>
                                         <li>
                                           <a (click)="addToBlackList(record.snsUserInfo)"
-                                            class="icon-huojiang">{{l('addToBlackList')}}</a>
+                                            class="icon-huojiang dropdown-item">{{l('addToBlackList')}}</a>
                                         </li>
                                         <li>
                                           <a (click)="addToWhiteList(record.snsUserInfo)"
-                                            class="icon-huodong11">{{l('addToWhiteList')}}</a>
+                                            class="icon-huodong11 dropdown-item">{{l('addToWhiteList')}}</a>
                                         </li>
                                       </ul>
                                     </div>

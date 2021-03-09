@@ -101,9 +101,9 @@
                             <div class="form-group" style="margin-bottom: 0 !important;">
                                 <label>{{l("executeDate")}}</label>
                                 <div class="col m--align-left mt-2">
-                                    <label class="kt-checkbox kt-checkbox--primary" style="margin-right:1rem;"
+                                    <label class="checkbox checkbox-primary" style="margin-right:1rem;"
                                         *ngFor="let item of weekList">
-                                        <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                        <input [(ngModel)]="item.result" type="checkbox"
                                             [name]="item.name" [value]="item.value" />{{l(item.name)}}
                                         <span></span>
                                     </label>
@@ -274,8 +274,8 @@
                                 <div class="form-group" style="margin-bottom: 0 !important;">
                                     <div class="col m--align-left mt-2"
                                         [title]="l('When there is a user action, it will not jump to the next ad / APP')">
-                                        <label class="kt-checkbox kt-checkbox--primary" style="margin-right:1rem;">
-                                            <input class="form-control" [(ngModel)]="item.unstoppable" type="checkbox"
+                                        <label class="checkbox checkbox-primary" style="margin-right:1rem;">
+                                            <input [(ngModel)]="item.unstoppable" type="checkbox"
                                                 [ngModelOptions]="{standalone: true}"
                                                 [value]="true" />{{l("unstoppable")}}
                                             <span></span>

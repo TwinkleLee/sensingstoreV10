@@ -298,11 +298,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editOnline(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li *ngIf="sku.isMine!==false">
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteOnline(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>

@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
-import { OperationsServiceProxy, QuestionCategoryServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { DeviceOperationsServiceProxy, OperationKnowledgeServiceProxy } from '@shared/service-proxies/service-proxies3';
 
 import * as moment from 'moment';
 import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
@@ -38,9 +38,9 @@ export class MaintainInfoComponent extends AppComponentBase {
 
   exportLoading = false;
   constructor(injector: Injector,
-    private _OperationsServiceProxy: OperationsServiceProxy,
+    private _OperationsServiceProxy: DeviceOperationsServiceProxy,
     private _tenantService: TenantServiceProxy,
-    private _QuestionCategoryServiceProxy: QuestionCategoryServiceProxy,
+    private _QuestionCategoryServiceProxy: OperationKnowledgeServiceProxy,
   ) {
     super(injector);
     if (!this.appSession.tenant) {
@@ -62,10 +62,10 @@ export class MaintainInfoComponent extends AppComponentBase {
     this.exportLoading = true;
     this._OperationsServiceProxy.getOperationRecordsToExcel(
       undefined,
-      this.tenantId,
       this.StartTime,
       this.EndTime,
       this.statusSelect,
+      this.tenantId,
       this.questionTypeId,
       undefined,
       this.filterText,
@@ -79,7 +79,7 @@ export class MaintainInfoComponent extends AppComponentBase {
       }, 2000)
       if(result){
         var link = document.getElementById('aaa');
-        $(link).attr("href", result);
+        $(link).attr("href", result.excelDataUrl);
         link.click();
       }
     });
@@ -134,10 +134,10 @@ export class MaintainInfoComponent extends AppComponentBase {
     console.log(this.primengTableHelper.getSorting(this.dataTable))
     this._OperationsServiceProxy.getOperationRecords(
       undefined,
-      this.tenantId,
       this.StartTime,
       this.EndTime,
       this.statusSelect,
+      this.tenantId,
       this.questionTypeId,
       undefined,
       this.filterText,

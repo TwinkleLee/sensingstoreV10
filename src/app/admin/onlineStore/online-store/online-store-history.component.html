@@ -49,22 +49,22 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
-                                                        <a *ngIf="record['isEnabled']" class="icon-xiaxian1"
+                                                        <a *ngIf="record['isEnabled']" class="icon-xiaxian1 dropdown-item"
                                                             (click)="offPlan(record)">{{l('Off')}}</a>
-                                                        <a *ngIf="!record['isEnabled']" class="icon-shangxian1"
+                                                        <a *ngIf="!record['isEnabled']" class="icon-shangxian1 dropdown-item"
                                                             (click)="onPlan(record)">{{l('On')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="editPlan(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="showHistory(record)"
-                                                            class="icon-shangpinliebiao">{{l('historyInfo')}}</a>
+                                                            class="icon-shangpinliebiao dropdown-item">{{l('historyInfo')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="deletePlan(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>

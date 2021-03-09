@@ -168,15 +168,15 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
                                                         <a (click)="editStore(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')">
                                                         <a (click)="deleteStore(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="goDetail(record)"
-                                                            class="icon-shop">{{l('detail')}}</a>
+                                                            class="icon-shop dropdown-item">{{l('detail')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>

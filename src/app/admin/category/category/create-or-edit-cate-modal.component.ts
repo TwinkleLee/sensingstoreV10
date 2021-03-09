@@ -5,7 +5,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 
 import { ProductCategoryServiceProxy, CreateProductCategoryInput, UpdateProductCategoryInput } from '@shared/service-proxies/service-proxies';
-import { QuestionCategoryServiceProxy, CreateQuestionCategoryInput, UpdateQuestionCategoryInput } from '@shared/service-proxies/service-proxies3';
+import { OperationKnowledgeServiceProxy, CreateQuestionCategoryInput, UpdateQuestionCategoryInput } from '@shared/service-proxies/service-proxies3';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -53,7 +53,7 @@ export class CreateOrEditCateModalComponent extends AppComponentBase implements 
     constructor(
         injector: Injector,
         private _cateService: ProductCategoryServiceProxy,
-        private _QuestionCategoryServiceProxy: QuestionCategoryServiceProxy,
+        private _OperationKnowledgeServiceProxy: OperationKnowledgeServiceProxy,
         private _tenantService: TenantServiceProxy,
         private _activatedRoute: ActivatedRoute,
         private _brandServiceProxy: BrandServiceProxy
@@ -93,7 +93,7 @@ export class CreateOrEditCateModalComponent extends AppComponentBase implements 
             } else if (this.type == 'questionType') {
                 // this.category = Object.assign({}, category);
                 // this.category.parentCategoryName = this.category.parentCategoryName || 'None';
-                this._QuestionCategoryServiceProxy.getSingleQuestionCategory(category.id).subscribe((result) => {
+                this._OperationKnowledgeServiceProxy.getSingleQuestionCategory(category.id).subscribe((result) => {
                     this.category = result;
                     this.category.parentCategoryName = this.category.parentCategoryName || 'None';
                 })
@@ -138,7 +138,7 @@ export class CreateOrEditCateModalComponent extends AppComponentBase implements 
                     });
             } else if (this.type == 'questionType') {
                 this.createQuestionCategoryInput = new CreateQuestionCategoryInput(this.category);
-                this._QuestionCategoryServiceProxy.createQuestionCategory(this.createQuestionCategoryInput)
+                this._OperationKnowledgeServiceProxy.createQuestionCategory(this.createQuestionCategoryInput)
                     .pipe(finalize(() => { this.saving = false; }))
                     .subscribe(() => {
                         this.notify.info(this.l('SavedSuccessfully'));
@@ -168,7 +168,7 @@ export class CreateOrEditCateModalComponent extends AppComponentBase implements 
                     });
             } else if (this.type == 'questionType') {
                 this.updateQuestionCategoryInput = new UpdateQuestionCategoryInput(this.category);
-                this._QuestionCategoryServiceProxy.updateQuestionCategory(this.updateQuestionCategoryInput)
+                this._OperationKnowledgeServiceProxy.updateQuestionCategory(this.updateQuestionCategoryInput)
                     .pipe(finalize(() => { this.saving = false; }))
                     .subscribe(() => {
                         this.notify.info(this.l('SavedSuccessfully'));

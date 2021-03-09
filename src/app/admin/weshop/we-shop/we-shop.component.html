@@ -49,9 +49,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-3" style="position:relative;">
-                                                <label class="kt-checkbox kt-checkbox--primary"
+                                                <label class="checkbox checkbox-primary"
                                                     style="position:absolute;top:50%;">
-                                                    <input class="form-control" [(ngModel)]="basic.needCertification"
+                                                    <input [(ngModel)]="basic.needCertification"
                                                         type="checkbox"
                                                         name="NeedCertification " />{{l("NeedCertification ")}}
                                                     <span></span>
@@ -214,11 +214,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editSwiper(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li>
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteSwiper(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>
@@ -343,11 +343,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editCategory(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li>
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteCategory(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>
@@ -471,11 +471,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editTag(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li>
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteTag(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>
@@ -611,11 +611,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editFreight(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li>
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteFreight(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>

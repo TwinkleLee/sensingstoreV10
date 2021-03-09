@@ -169,15 +169,15 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
                                                         <a (click)="editMember(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="deleteMember(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="PointInputModal.show();selectedMember=record;DispatchPoint.dispatchAmount=0;"
-                                                            class="icon-add">{{l('DispatchPointToMember')}}</a>
+                                                            class="icon-add dropdown-item">{{l('DispatchPointToMember')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>

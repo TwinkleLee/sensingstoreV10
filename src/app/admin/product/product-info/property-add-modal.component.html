@@ -27,13 +27,13 @@
                                         <validation-messages [formCtrl]="descriptionInput"></validation-messages>
                                     </div>
                                     <div class="form-group">
-                                            <div class="kt-checkbox-list form-group">
-                                                    <label class="kt-checkbox kt-checkbox--success">
+                                            <div class="checkbox-list form-group">
+                                                    <label class="checkbox checkbox-success">
                                                         <input type="checkbox" name="isForSale" [(ngModel)]="Property.isForSale">
                                                         {{l("isForSale")}}
                                                         <span></span>
                                                     </label>
-                                                    <label class="kt-checkbox kt-checkbox--success" *ngIf="Property?.isForSale">
+                                                    <label class="checkbox checkbox-success" *ngIf="Property?.isForSale">
                                                         <input type="checkbox"  name="isDefaultDecideImage" [(ngModel)]="Property.isDefaultDecideImage">
                                                         {{l("isDefaultDecideImage")}}
                                                         <span></span>

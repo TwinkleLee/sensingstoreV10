@@ -76,8 +76,8 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <div class="col m--align-left" style="margin-top:3rem;padding-left:0;">
-                                            <label class="kt-checkbox kt-checkbox--primary">
-                                                <input class="form-control" [(ngModel)]="content.isEnable" type="checkbox"
+                                            <label class="checkbox checkbox-primary">
+                                                <input [(ngModel)]="content.isEnable" type="checkbox"
                                                     name="isEnable"/>{{l('AdvancedSetup')}}
                                                 <span></span>
                                             </label>
@@ -129,8 +129,8 @@
                                 <div class="col-4" *ngIf="content.model=='2'">
                                     <div class="form-group">
                                         <div class="col m--align-left">
-                                            <label class="kt-checkbox kt-checkbox--primary" *ngFor="let item of weekList">
-                                                <input class="form-control" [(ngModel)]="item.result" type="checkbox"
+                                            <label class="checkbox checkbox-primary" *ngFor="let item of weekList">
+                                                <input [(ngModel)]="item.result" type="checkbox"
                                                     [name]="item.name" [value]="item.value" />{{l(item.name)}}
                                                 <span></span>
                                             </label>

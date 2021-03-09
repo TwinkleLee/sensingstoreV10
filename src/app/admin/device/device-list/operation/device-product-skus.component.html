@@ -115,11 +115,11 @@
                                                     <ul class="dropdown-menu" *dropdownMenu>
                                                         <li *ngIf="!record.isDefault">
                                                             <a (click)="setDefault(record)"
-                                                                class="icon-bianji">{{l('SaveAsSystemDefault')}}</a>
+                                                                class="icon-bianji dropdown-item">{{l('SaveAsSystemDefault')}}</a>
                                                         </li>
                                                         <li *ngIf="isGranted('Pages.Tenant.Products.Publish')">
                                                             <a (click)="withdrawSku(record)"
-                                                                class="icon-icon-test">{{l('Delete')}}</a>
+                                                                class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                         </li>
                                                     </ul>
                                                 </div>

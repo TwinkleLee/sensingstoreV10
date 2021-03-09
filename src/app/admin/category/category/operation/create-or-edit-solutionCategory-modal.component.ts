@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { KnowledgeCategoryServiceProxy, QuestionCategoryServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { OperationKnowledgeServiceProxy } from '@shared/service-proxies/service-proxies3';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -38,8 +38,7 @@ export class CreateOrEditSolCatModalComponent extends AppComponentBase implement
 
     constructor(
         injector: Injector,
-        private _KnowledgeCategoryServiceProxy: KnowledgeCategoryServiceProxy,
-        private _QuestionCategoryServiceProxy: QuestionCategoryServiceProxy,
+        private _KnowledgeCategoryServiceProxy: OperationKnowledgeServiceProxy,
         private _tenantService: TenantServiceProxy,
         private _activatedRoute: ActivatedRoute,
 
@@ -84,7 +83,7 @@ export class CreateOrEditSolCatModalComponent extends AppComponentBase implement
         }
     }
     getQuestionCategories() {
-        this._QuestionCategoryServiceProxy.getQuestionCategories(this.metaType.tenantId, undefined, undefined, 999, 0).subscribe(r => {
+        this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.metaType.tenantId, undefined, undefined, 999, 0).subscribe(r => {
             this.categorys = r.items;
             if (this.metaType.categoryId) {
                 this.categoryId = this.metaType.categoryId;
@@ -101,7 +100,7 @@ export class CreateOrEditSolCatModalComponent extends AppComponentBase implement
         this.metaType.categoryId = this.categoryId;
         if (this.operation == "add") {
             console.log(this.metaType);
-            this._KnowledgeCategoryServiceProxy.createKnowledgeCategory(this.metaType)
+            this._KnowledgeCategoryServiceProxy.createOptKnowledge(this.metaType)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(result => {
                     console.log(result)
@@ -111,7 +110,7 @@ export class CreateOrEditSolCatModalComponent extends AppComponentBase implement
                 })
         } else {
             console.log(this.metaType);
-            this._KnowledgeCategoryServiceProxy.updateKnowledgeCategory(this.metaType)
+            this._KnowledgeCategoryServiceProxy.updateOptKnowledge(this.metaType)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(result => {
                     console.log(result)

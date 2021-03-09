@@ -164,10 +164,11 @@ table tr th {
 }
 
 table tr td {
-    text-align: center;
+    text-align: center !important;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 
 table tr td:first-child span {
     overflow: visible;
