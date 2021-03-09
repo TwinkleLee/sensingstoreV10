@@ -5,7 +5,6 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { CommonServiceProxy, ReportServiceProxy, MemberCostInput } from '@shared/service-proxies/service-proxies2';
-// import { OrganizationUnitServiceProxy, StoreServiceProxy, GetStorseListInput } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { MemberInfoModalComponent } from '@app/main/sales-info/memberInfo-modal.component';
@@ -40,13 +39,11 @@ export class MemberInfoComponent extends AppComponentBase implements OnInit {
     private router: Router,
     private _ReportServiceProxy: ReportServiceProxy,
     private _commonService: CommonServiceProxy,
-    // private _StoreServiceProxy: StoreServiceProxy
   ) {
     super(injector);
     _commonService.memberType().subscribe((result) => {
       this.memberTypes = result;
     })
-    // this.getStores()
   }
 
   ngOnInit() {
@@ -57,24 +54,6 @@ export class MemberInfoComponent extends AppComponentBase implements OnInit {
   changePage() {
     this.router.navigate(['app', 'main', 'salesinfo']);
   }
-
-  // //所属店铺
-  // getStores() {
-  //   this._StoreServiceProxy.getStoresList(new GetStorseListInput({
-  //     storeStatus: null,
-  //     organizationUnitId: undefined,
-  //     areas: undefined,
-  //     filter: undefined,
-  //     sorting: undefined,
-  //     maxResultCount: 999,
-  //     skipCount: 0
-  //   }))
-  //     .subscribe((result) => {
-  //       this.stores = result.items;
-  //       console.log(result)
-  //     })
-  // }
-
 
   getSalesInfo(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {

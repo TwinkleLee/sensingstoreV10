@@ -3,13 +3,14 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
-import { OrganizationUnitServiceProxy, BrandServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CommonServiceProxy, OrderServiceProxy, GetSaleItemDetailInput, ReportServiceProxy } from '@shared/service-proxies/service-proxies2';
 import { AppConsts } from '@shared/AppConsts';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     templateUrl: './itemSale-dashboard.component.html',
@@ -97,7 +98,7 @@ export class ItemSaleDashboardComponent extends AppComponentBase {
             })
             this.getSecondTree();
         })
-        this._BrandServiceProxy.gets(
+        this._BrandServiceProxy.getBrands(
             undefined,
             undefined,
             undefined,

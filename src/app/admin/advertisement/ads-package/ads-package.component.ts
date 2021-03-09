@@ -5,8 +5,9 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditAdsPackageModalComponent } from '@app/admin/advertisement/ads-package/create-or-edit-ads-package-modal.component';
-import { AdsProgramDto, AdsPackageServiceProxy,AddOrUpdateAdsPackageInput, DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
+import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-ads-package',
@@ -33,7 +34,7 @@ export class AdsPackageComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private _adsPackageSvc:AdsPackageServiceProxy,
-    private _deviceServiceProxy: DeviceServiceProxy
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy
   ) {
     super(injector);
     this.setAdsTransitions();
@@ -74,7 +75,8 @@ export class AdsPackageComponent extends AppComponentBase {
   }
 
   getDeviceList () {
-    this._deviceServiceProxy.getDevices(
+    this._NewDeviceServiceProxy.getDevices(
+      [],
       undefined,
       undefined,
       undefined,

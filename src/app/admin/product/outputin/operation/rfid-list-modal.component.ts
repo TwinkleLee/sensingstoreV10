@@ -4,10 +4,8 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-
-import * as moment from 'moment';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { OutPutInStorageServiceProxy, SkuRfidServiceProxy, GetOutPutInStorageRecordInput, SensingDeviceServiceProxy, PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy, SkuRfidServiceProxy, SensingDeviceServiceProxy, PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditSkuRfidModalComponent } from '@app/admin/product/outputin/create-or-edit-skurfid-modal.component';
 
 

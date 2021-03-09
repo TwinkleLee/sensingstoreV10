@@ -3,14 +3,14 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, DeviceServiceProxy, IdNameDto, IdTypeDto, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, IdTypeDto, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditAdModalComponent } from './create-or-edit-ad-modal.component'
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { Table, TableCheckbox } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
-import { DeviceTypeServiceProxy } from '@shared/service-proxies/service-proxies';
 import { RobotServiceProxy } from '@shared/service-proxies/service-proxies-floor'
+import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-advertisement',
@@ -58,11 +58,10 @@ export class AdvertisementComponent extends AppComponentBase {
   informDevice = false;
 
   constructor(injector: Injector, private _adsService: AdServiceProxy,
-    private deviceService: DeviceServiceProxy,
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private router: Router,
     private applyService: ApplyServiceProxy,
     private tagService: TagServiceProxy,
-    private _deviceTypeService: DeviceTypeServiceProxy,
     private _RobotServiceProxy: RobotServiceProxy
   ) {
     super(injector);
@@ -71,7 +70,7 @@ export class AdvertisementComponent extends AppComponentBase {
     this.apply.options = 'all';
     this.getTags();
     this.getDeviceType();
-    this.deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
     })
     this.getMapList();
@@ -85,7 +84,7 @@ export class AdvertisementComponent extends AppComponentBase {
 
 
   getDeviceType() {
-    this._deviceTypeService.getDeviceTypes(
+    this._NewDeviceServiceProxy.getDeviceTypes(
       undefined,
       undefined,
       99,

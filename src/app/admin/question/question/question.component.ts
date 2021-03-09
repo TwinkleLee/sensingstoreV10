@@ -4,7 +4,6 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
@@ -12,6 +11,7 @@ import { QuestionModalComponent } from '@app/admin/question/question/operation/q
 import { UpdateQuestionStatusInput, PublishedQuestionDto, QuestionServiceProxy, PublishQuestionsToPapersInput, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 
@@ -48,7 +48,7 @@ export class QuestionComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private router: Router,
-    private deviceService: DeviceServiceProxy,
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private _PaperServiceProxy: PaperServiceProxy,
     private _TagServiceProxy: TagServiceProxy,
     private _QuestionServiceProxy: QuestionServiceProxy) {
@@ -207,7 +207,7 @@ export class QuestionComponent extends AppComponentBase {
   }
   getPaperTree(cb?) {
     //获取组织树
-    this.deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       // this.paperTree = [result];
       console.log([result], '获取组织树')
       // cb && cb();

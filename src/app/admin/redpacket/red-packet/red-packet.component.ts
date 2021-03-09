@@ -5,9 +5,11 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditCouponModalComponent } from '@app/admin/redpacket/red-packet/create-or-edit-coupon-modal.component';
-import { DeviceTypeServiceProxy, CouponDto, CouponServiceProxy, AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, PublishEntitiesInput, DeviceServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies';
+import { CouponDto, CouponServiceProxy, AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
+
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-red-packet',
@@ -49,16 +51,15 @@ export class RedPacketComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private applyService: ApplyServiceProxy,
-    private deviceService: DeviceServiceProxy,
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private _couponService: CouponServiceProxy,
-    private _deviceTypeService: DeviceTypeServiceProxy,
   ) {
     super(injector);
     this.apply.applyType = CreateApplyFormInputApplyType.Coupon;
     this.apply.itemids = [];
     this.apply.options = 'all';
     this.getDeviceType();
-    this.deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
       console.log('this.deviceTree',this.deviceTree)
     })
@@ -66,7 +67,7 @@ export class RedPacketComponent extends AppComponentBase {
 
 
   getDeviceType() {
-    this._deviceTypeService.getDeviceTypes(
+    this._NewDeviceServiceProxy.getDeviceTypes(
       undefined,
       undefined,
       99,

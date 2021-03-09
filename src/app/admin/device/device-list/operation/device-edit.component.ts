@@ -1,5 +1,7 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import { DeviceServiceProxy, UpdateDeviceInput, DeviceTypeServiceProxy, DeviceActionInput, ProductServiceProxy,PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, PeripheralServiceProxy, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, UpdateThirdDeivceCodeInput, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, PeripheralServiceProxy, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput} from '@shared/service-proxies/service-proxies-devicecenter';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
@@ -370,7 +372,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private _deviceService: DeviceServiceProxy,
-        private _deviceTypeService: DeviceTypeServiceProxy,
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy,
         private _deviceAction: DeviceActionServiceProxy,
         private _productService: ProductServiceProxy,
         private _adsService: AdServiceProxy,
@@ -970,7 +972,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     cargoGoImport() {
-        this.router.navigate(['app', 'admin','import', 'import', 'cargo'], { queryParams: { id: this.device.id } });
+        this.router.navigate(['app', 'admin', 'import', 'import', 'cargo'], { queryParams: { id: this.device.id } });
     }
     OnCargo() {
         if (this.CargoSelectionList.length === 0) {
@@ -1414,7 +1416,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     initMessage() {
         var urls = location.pathname.split('\/');
         this.device.id = urls[urls.length - 1];
-        this._deviceService.getDeviceById(this.device.id).pipe(finalize(() => {
+        this._NewDeviceServiceProxy.getDeviceById(this.device.id).pipe(finalize(() => {
             this.showFreezeUi = false;
         })).subscribe((result) => {
             this.device = result;
@@ -1461,7 +1463,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             //     this.isSupportRemoteControl = true
             // }
 
-            this._deviceService.getDevices(
+            this._NewDeviceServiceProxy.getDevices(
+                [],
                 undefined,
                 undefined,
                 undefined,
@@ -1477,7 +1480,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     return item.id != this.device.id
                 });
             })
-            this._deviceService.getDevices(
+            this._NewDeviceServiceProxy.getDevices(
+                [],
                 undefined,
                 undefined,
                 undefined,
@@ -1493,7 +1497,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     return item.id != this.device.id
                 });
             })
-            this._deviceService.getDevices(
+            this._NewDeviceServiceProxy.getDevices(
+                [],
                 undefined,
                 undefined,
                 undefined,
@@ -1579,7 +1584,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.devicePeriList = result;
         })
         //设备类型下拉
-        this._deviceTypeService.getDeviceTypeSelect().subscribe((result) => {
+        this._NewDeviceServiceProxy.getDeviceTypeSelect().subscribe((result) => {
             this.deviceTypeList = result.items;
         })
         //电商类型
@@ -2401,7 +2406,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     saveTaobaoDeviceId() {
-        this._deviceService.updateThirdDeviceCode(new UpdateThirdDeivceCodeInput({
+        this._NewDeviceServiceProxy.updateThirdDeviceCode(new UpdateThirdDeivceCodeInput({
             deviceId: this.device.id,
             platformType: UpdateThirdDeivceCodeInputPlatformType['Taobao'],
             code: this.taobaoDeviceId,
@@ -2482,7 +2487,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     //返回
     goBack() {
-        this.router.navigate(['app', 'admin','device', 'deviceList'], { queryParams: { useQuery: true } });
+        this.router.navigate(['app', 'admin', 'device', 'deviceList'], { queryParams: { useQuery: true } });
     }
     //提交
     save() {
@@ -2519,7 +2524,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 return item.name
             }));
 
-            this._deviceService.updateDevice(new UpdateDeviceInput(this.device))
+            this._NewDeviceServiceProxy.updateDevice(new UpdateDeviceInput(this.device))
                 .pipe(finalize(() => {
                     this.saving = false;
                     this.showFreezeUi = false;
@@ -2586,7 +2591,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         return item.name
                     }));
 
-                    this._deviceService.updateDevice(new UpdateDeviceInput(this.device))
+                    this._NewDeviceServiceProxy.updateDevice(new UpdateDeviceInput(this.device))
                         .pipe(finalize(() => {
                             this.saving = false;
                             this.showFreezeUi = false;

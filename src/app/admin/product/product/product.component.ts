@@ -4,17 +4,18 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 
-import { ProductServiceProxy, ProductDto, ApplyServiceProxy, CreateApplyFormInput, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, AuditStatus as AuditStatus3, DeviceServiceProxy, PublishDeviceInput, PublishEntitiesInput, TagServiceProxy, ProductCategoryServiceProxy, SetProductTagsDto, SetProductCategoryDto, IdTypeDto, TagType as Type, FileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, ProductDto, ApplyServiceProxy, CreateApplyFormInput, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, AuditStatus as AuditStatus3, PublishDeviceInput, PublishEntitiesInput, TagServiceProxy, ProductCategoryServiceProxy, SetProductTagsDto, SetProductCategoryDto, IdTypeDto, TagType as Type, FileServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { CreateOrEditProModalComponent } from '@app/admin/product/product/create-or-edit-prod-modal.component';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table, TableCheckbox } from 'primeng/table';
 import { finalize } from '@node_modules/rxjs/operators';
-import { BrandServiceProxy, PublishSearchedProductInput, GetProductsInput } from '@shared/service-proxies/service-proxies';
-import { DeviceTypeServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PublishSearchedProductInput, GetProductsInput } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-product',
@@ -136,14 +137,13 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
   constructor(injector: Injector, private _productsService: ProductServiceProxy,
     private router: Router, private route: ActivatedRoute,
     private connector: ConnectorService,
-    private deviceService: DeviceServiceProxy,
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private tagService: TagServiceProxy,
     private cateService: ProductCategoryServiceProxy,
     private applyService: ApplyServiceProxy,
     private changeDef: ChangeDetectorRef,
     private _FileServiceProxy: FileServiceProxy,
     private _BrandServiceProxy: BrandServiceProxy,
-    private _deviceTypeService: DeviceTypeServiceProxy,
   ) {
     super(injector);
     this.apply.applyType = CreateApplyFormInputApplyType.Product;
@@ -182,7 +182,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
     }
     $(document).on("click", this.dropDownBind);
     $(document).on("click", this.dropDownBind2);
-    this.deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
     })
     this.getTags();
@@ -203,7 +203,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
 
 
   getDeviceType() {
-    this._deviceTypeService.getDeviceTypes(
+    this._NewDeviceServiceProxy.getDeviceTypes(
       undefined,
       undefined,
       99,
@@ -261,7 +261,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
   }
   //获取品牌
   getBrand() {
-    this._BrandServiceProxy.gets(
+    this._BrandServiceProxy.getBrands(
       undefined,
       undefined,
       undefined,

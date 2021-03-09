@@ -6,8 +6,7 @@ import * as moment from 'moment';
 import { ReportInput, ReportServiceProxy as OrderReportServiceProxy, TopSkusInput, MembersCountInput, OrderCountAndSalesInput, BuyerCountInput, IdTypeDto } from '@shared/service-proxies/service-proxies2';
 import { ReportServiceProxy as ReportServiceProxy2, RankInput, ChartReportInput, DevieStatusChartReportInput } from '@shared/service-proxies/service-proxies3';
 import { AppConsts } from '@shared/AppConsts';
-import { BrandServiceProxy, OnlineOrOffLineBrandInput } from '@shared/service-proxies/service-proxies';
-
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     templateUrl: './product-rank.component.html',
@@ -39,7 +38,7 @@ export class ProductRankComponent extends AppComponentBase {
 
     ) {
         super(injector);
-        this._brandService.gets(
+        this._brandService.getBrands(
             undefined,
             undefined,
             undefined,

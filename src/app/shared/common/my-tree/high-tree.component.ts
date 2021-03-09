@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, Injector } from '@angular/core';
 import * as _ from 'lodash';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
-import { OrganizationUnitServiceProxy, StoreServiceProxy, DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'app-high-tree',
@@ -68,8 +70,8 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
     constructor(
         injector: Injector,
         private _ouService: OrganizationUnitServiceProxy,
-        private _StoreServiceProxy: StoreServiceProxy,
-        private _DeviceServiceProxy: DeviceServiceProxy) {
+        private _NewStoreServiceProxy: NewStoreServiceProxy,
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy) {
         super(injector)
     }
     ngDoCheck() {
@@ -143,12 +145,12 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
                 // this.storeTree.addShowChildren()
             })
         } else if (this.selfConfig.searchDepth == 'store') {
-            this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(this.selfConfig.includeOfflineStore).subscribe((result) => {
+            this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(this.selfConfig.includeOfflineStore).subscribe((result) => {
                 this.treeList = [result];
                 // this.storeTree.addShowChildren()
             })
         } else {//device
-            this._DeviceServiceProxy.getTreeDevices().subscribe((result) => {
+            this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
                 this.treeList = [result];
                 // this.storeTree.addShowChildren()
             })

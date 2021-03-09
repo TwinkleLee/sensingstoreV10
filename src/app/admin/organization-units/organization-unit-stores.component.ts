@@ -15,8 +15,8 @@ import { IUsersWithOrganizationUnit } from './users-with-organization-unit';
 import { finalize } from 'rxjs/operators';
 
 
-import { StoreServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Router } from '@angular/router';
+import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class OrganizationUnitStoresComponent extends AppComponentBase implements
     constructor(
         injector: Injector,
         private _organizationUnitService: OrganizationUnitServiceProxy,
-        private _StoreServiceProxy: StoreServiceProxy,
+        private _NewStoreServiceProxy: NewStoreServiceProxy,
         private _router: Router
 
 
@@ -74,7 +74,7 @@ export class OrganizationUnitStoresComponent extends AppComponentBase implements
         }
 
         this.primengTableHelper.showLoadingIndicator();
-        this._StoreServiceProxy.getStoresList(new GetStorseListInput({
+        this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
             storeStatus:null,
             organizationUnitId: [this._organizationUnit.id],
             areas: undefined,

@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { StoreServiceProxy, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Table } from 'primeng/table';
 import { MemberServiceProxy, CommonServiceProxy, ReportServiceProxy, SensingShopManageServiceProxy, DispatchPointToMemberInput, DispatchPointToMemberInputInOrOutType, DispatchPointToMemberInputPointFromType } from '@shared/service-proxies/service-proxies2';
 import { MemberShipModalComponent } from '@app/admin//memberShip/member-ship/member-ship-detail-modal.component';
@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import * as moment from 'moment';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
+import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-member-ship',
@@ -58,9 +59,8 @@ export class MemberShipComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private _memberService: MemberServiceProxy,
-    private _ouService: OrganizationUnitServiceProxy,
     private _commonService: CommonServiceProxy,
-    private _StoreServiceProxy: StoreServiceProxy,
+    private _NewStoreServiceProxy: NewStoreServiceProxy,
     private _SensingShopManageServiceProxy: SensingShopManageServiceProxy) {
     super(injector);
     _commonService.memberType().subscribe((result) => {
@@ -171,7 +171,7 @@ export class MemberShipComponent extends AppComponentBase {
     // this._ouService.getCurrentTenantOrganizationUnitsTree().subscribe((result) => {
     //   this.stores = [result];
     // })
-    this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(true).subscribe((result) => {
+    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(true).subscribe((result) => {
       this.stores = [result];
     })
   }

@@ -9,11 +9,12 @@ import { OutputinDetailModalComponent } from '@app/admin/product/outputin/operat
 import { AddOutputinComponent } from '@app/admin/product/outputin/operation/add-outputin-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { OutPutInStorageServiceProxy, GetOutPutInStorageBillInput, StoreServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy, GetOutPutInStorageBillInput } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
 
+import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   templateUrl: './outputin.component.html',
@@ -42,10 +43,10 @@ export class OutPutInComponent extends AppComponentBase {
   constructor(injector: Injector,
     private router: Router, private route: ActivatedRoute,
     private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy,
-    private _StoreServiceProxy: StoreServiceProxy
+    private _NewStoreServiceProxy: NewStoreServiceProxy
   ) {
     super(injector);
-    this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(false).subscribe((result) => {
+    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(false).subscribe((result) => {
       this.treeList = [result];
       if (this.treeList[0].type == 'tenant') {
         this.isTenant = true;

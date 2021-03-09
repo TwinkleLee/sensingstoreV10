@@ -6,8 +6,8 @@ import { AppSessionService } from '@shared/common/session/app-session.service';
 
 // import { DeviceOptServiceProxy, AddDeviceOptRecordInput, UpdateDeviceOptRecordInput } from '@shared/service-proxies/service-proxies3';
 import * as moment from 'moment';
-import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
-import { DeviceOperationsServiceProxy, AddDeviceOptRecordInput, UpdateDeviceOptRecordInput, OperationKnowledgeServiceProxy } from '@shared/service-proxies/service-proxies3';
+import {AddDeviceOptRecordInput, DeviceOperationsServiceProxy, OperationKnowledgeServiceProxy, UpdateDeviceOptRecordInput } from '@shared/service-proxies/service-proxies3';
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditDeviceRecordModal',
@@ -51,9 +51,9 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         injector: Injector,
         // private _deRecordService: DeviceOptServiceProxy,
         private _sessionService: AppSessionService,
-        private _deviceService: DeviceServiceProxy,
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy,
         private _OperationsServiceProxy: DeviceOperationsServiceProxy,
-        private _KnowledgeCategoryServiceProxy: OperationKnowledgeServiceProxy
+        private _KnowledgeCategoryServiceProxy: OperationKnowledgeServiceProxy,
 
     ) {
         super(injector);
@@ -177,7 +177,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
     getDevices(bol) {
         this.deviceId = "";
         this.device = {};
-        this._deviceService.getDevicesForHost(
+        this._NewDeviceServiceProxy.getDevicesForHost(
             this.tenantId,
             undefined,
             undefined,

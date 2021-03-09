@@ -7,10 +7,9 @@ import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 
-import { StoreServiceProxy, CreateStoreInput, UpdateStoreInput } from '@shared/service-proxies/service-proxies';
-
 import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/service-proxies/service-proxies-floor'
 
+import { StoreServiceProxy as NewStoreServiceProxy,  CreateStoreInput, UpdateStoreInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditStoreModal',
@@ -47,7 +46,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _StoreServiceProxy: StoreServiceProxy,
+        private _NewStoreServiceProxy: NewStoreServiceProxy,
         private _changeDetector: ChangeDetectorRef,
         private _roomServiceProxy: RoomServiceProxy
     ) {
@@ -103,7 +102,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
         this.rooms = [];
         if (organizationUnit) {
             this.showBusy = true;
-            this._StoreServiceProxy.getStoreById(organizationUnit.storeId).subscribe((r) => {
+            this._NewStoreServiceProxy.getStoreById(organizationUnit.storeId).subscribe((r) => {
                 this.organizationUnit = r;
                 this.organizationUnit.position = this.organizationUnit.position ? this.organizationUnit.position : {};
                 if (this.organizationUnit.closedTime) {
@@ -186,7 +185,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     this.organizationUnit.position.longitude = point.lng;
                     this.organizationUnit.position.latitude = point.lat;
                 }
-                this._StoreServiceProxy
+                this._NewStoreServiceProxy
                     .createStore(createInput)
                     .pipe(finalize(() => { this.saving = false }))
                     .subscribe((result) => {
@@ -200,7 +199,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     });
             }, this.organizationUnit.position.city);
         } else {
-            this._StoreServiceProxy
+            this._NewStoreServiceProxy
                 .createStore(createInput)
                 .pipe(finalize(() => { this.saving = false }))
                 .subscribe((result) => {
@@ -246,7 +245,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     this.organizationUnit.position.longitude = point.lng;
                     this.organizationUnit.position.latitude = point.lat;
                 }
-                this._StoreServiceProxy
+                this._NewStoreServiceProxy
                     .updateStore(updateInput)
                     .pipe(finalize(() => { this.saving = false }))
                     .subscribe((result) => {
@@ -258,7 +257,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     });
             }, this.organizationUnit.position.city);
         } else {
-            this._StoreServiceProxy
+            this._NewStoreServiceProxy
                 .updateStore(updateInput)
                 .pipe(finalize(() => { this.saving = false }))
                 .subscribe((result) => {

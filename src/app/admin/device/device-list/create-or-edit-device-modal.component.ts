@@ -1,11 +1,12 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { DeviceServiceProxy, CreateDeviceInput, UpdateDeviceInput, DeviceTypeServiceProxy, PeripheralServiceProxy } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, CreateDeviceInput, PeripheralServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { DeviceAppPodVersionServiceProxy, SetDefaultAppPodVersionInput, BindDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-cargo';
 import { CounterAnalysisServiceProxy, FileServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditDeviceModal',
@@ -108,17 +109,17 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
     constructor(
         injector: Injector,
         private _deviceService: DeviceServiceProxy,
-        private _deviceTypeServiceProxy: DeviceTypeServiceProxy,
         private _periService: PeripheralServiceProxy,
         private _DeviceAppPodVersionServiceProxy: DeviceAppPodVersionServiceProxy,
         private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
         private _FileServiceProxy: FileServiceProxy,
         private _ShelfServiceProxy: ShelfServiceProxy,
+        private _NewDeviceServiceProxy:NewDeviceServiceProxy
 
     ) {
         super(injector);
         //分类
-        _deviceTypeServiceProxy.getDeviceTypeSelect().subscribe((r) => {
+        _NewDeviceServiceProxy.getDeviceTypeSelect().subscribe((r) => {
             this.deviceTypeList = r.items;
         })
         _deviceService.onlineStoreInfoSelect().subscribe((result) => {
