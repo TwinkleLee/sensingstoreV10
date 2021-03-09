@@ -14,7 +14,7 @@ import { Table } from 'primeng/table';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
-import { ReportServiceProxy, DeviceOptServiceProxy, ChartReportInput, FaceRecordServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { ReportServiceProxy, DeviceOperationsServiceProxy, ChartReportInput, FaceRecordDto, GetFaceRecordsInput } from '@shared/service-proxies/service-proxies3';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
@@ -26,7 +26,7 @@ import { FileServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, Bind
 import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
-import { DeviceHeatmapDataServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { DeviceBehaviorServiceProxy } from '@shared/service-proxies/service-proxies3';
 import { ExternalAccessServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
@@ -379,7 +379,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private _periService: PeripheralServiceProxy,
         private _reportService: ReportServiceProxy,
         private _connector: ConnectorService,
-        private _deviceOpt: DeviceOptServiceProxy,
+        private _deviceOpt: DeviceOperationsServiceProxy,
         private _acitvityService: ActivityServiceProxy,
         private _deviceAcitvityService: DeviceActivityServiceProxy,
         private _ActivityReportServiceProxy: ActivityReportServiceProxy,
@@ -387,12 +387,11 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private _SensingDeviceServiceProxy: SensingDeviceServiceProxy,
         private _DeviceAppPodVersionServiceProxy: DeviceAppPodVersionServiceProxy,
         private _AppPodServiceProxy: AppPodServiceProxy,
-        private _FaceRecordServiceProxy: FaceRecordServiceProxy,
         private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
         private _FileServiceProxy: FileServiceProxy,
         private _PriceTagServiceProxy: PriceTagServiceProxy,
         private _TagService: TagServiceProxy,
-        private _DeviceHeatmapDataServiceProxy: DeviceHeatmapDataServiceProxy,
+        private _DeviceBehaviorServiceProxy: DeviceBehaviorServiceProxy,
         private _externalaccessService: ExternalAccessServiceProxy,
         private _ShelfServiceProxy: ShelfServiceProxy,
 
@@ -455,7 +454,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     // 计数器热力图
     makeHeatMap(startTime, endTime) {//h337
-        this._DeviceHeatmapDataServiceProxy.getDeviceHeatmapData(
+        this._DeviceBehaviorServiceProxy.getDeviceHeatmapData(
             startTime,
             endTime,
             this.device.id
@@ -1113,17 +1112,18 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         setTimeout(() => {
 
             this.pFace.showLoadingIndicator();
-            this._FaceRecordServiceProxy.getFaceRecords(
-                this.device.id,
+            
+            this._DeviceBehaviorServiceProxy.getFaceRecords(new GetFaceRecordsInput({
+                deviceId: this.device.id,
                 // 30353,
-                this.faceGender,
-                this.startDateFace,
-                this.endDateFace,
-                undefined,
-                this.pFace.getSorting(this.dataTableFace),
-                this.pFace.getMaxResultCount(this.paginatorFace, event),
-                this.pFace.getSkipCount(this.paginatorFace, event)
-            )
+                gender: this.faceGender,
+                collectionStartTime: this.startDateFace,
+                collectionEndTime: this.endDateFace,
+                filter: undefined,
+                sorting: this.pFace.getSorting(this.dataTableFace),
+                maxResultCount: this.pFace.getMaxResultCount(this.paginatorFace, event),
+                skipCount: this.pFace.getSkipCount(this.paginatorFace, event)
+            }) )
                 .pipe(this.myFinalize(() => { this.pFace.hideLoadingIndicator(); }))
                 .subscribe(result => {
                     this.pFace.totalRecordsCount = result.totalCount;
@@ -1210,11 +1210,14 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         setTimeout(() => {
 
             this.primengTableHelper.showLoadingIndicator();
-            this._deviceOpt.getDeviceOpt(
+            this._deviceOpt.getOperationRecords(
                 this.device.id,
                 this.StartTime,
                 this.EndTime,
                 this.statusSelect,
+                undefined,
+                undefined,
+                undefined,
                 this.questionFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -1242,7 +1245,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     deleteRecord(record) {
         this.message.confirm(this.l("DeleteThisDeviceRecord"), this.l('AreYouSure'), (r) => {
             if (r) {
-                this._deviceOpt.deleteOptRecord(record.id).subscribe(() => {
+                this._deviceOpt.deleteOperationRecord(record.id).subscribe(() => {
                     this.notify.info(this.l('success'));
                     this.getRecordList();
                 })

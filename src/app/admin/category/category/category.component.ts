@@ -9,7 +9,7 @@ import { ProductCategoryServiceProxy, UpdateProductCategoryInput, BrandServicePr
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { finalize } from 'rxjs/operators';
 import { CategoryTreeComponent } from './category-tree.component';
-import { QuestionCategoryServiceProxy, UpdateQuestionCategoryInput, KnowledgeCategoryServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { UpdateQuestionCategoryInput, OperationKnowledgeServiceProxy } from '@shared/service-proxies/service-proxies3';
 import { CreateOrEditSolCatModalComponent } from '@app/admin/category/category/operation/create-or-edit-solutionCategory-modal.component';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 
@@ -66,8 +66,7 @@ export class CategoryComponent extends AppComponentBase {
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _cateService: ProductCategoryServiceProxy,
-    private _QuestionCategoryServiceProxy: QuestionCategoryServiceProxy,
-    private _KnowledgeCategoryServiceProxy: KnowledgeCategoryServiceProxy,
+    private _KnowledgeCategoryServiceProxy: OperationKnowledgeServiceProxy,
     private _tenantService: TenantServiceProxy,
     private _brandServiceProxy: BrandServiceProxy
   ) {
@@ -111,7 +110,7 @@ export class CategoryComponent extends AppComponentBase {
 
   getCategories() {
     this.questionTypeId = undefined;
-    this._QuestionCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(result => {
+    this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(result => {
       this.questionTypeList = result.items;
     })
   }
@@ -130,7 +129,7 @@ export class CategoryComponent extends AppComponentBase {
   deleteSolutionType(record) {
     this.message.confirm(this.l('deletethiscategory'),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._KnowledgeCategoryServiceProxy.deleteKnowledgeCategory(record.id).subscribe(() => {
+        this._KnowledgeCategoryServiceProxy.deleteOptKnowledge(record.id).subscribe(() => {
           this.notify.info(this.l('success'));
           this.getKnowledgeCategories();
         })
@@ -147,7 +146,7 @@ export class CategoryComponent extends AppComponentBase {
     }
     this.message.confirm(this.l('deletethiscategory'),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._KnowledgeCategoryServiceProxy.deleteKnowledgeCategories(ids).subscribe(() => {
+        this._KnowledgeCategoryServiceProxy.deleteOptKnowledges(ids).subscribe(() => {
           this.notify.success(this.l('success'));
           this.selectedList = [];
           this.getKnowledgeCategories();
@@ -160,7 +159,7 @@ export class CategoryComponent extends AppComponentBase {
     setTimeout(() => {
       this.selectedList = [];
       this.primengTableHelper.showLoadingIndicator();
-      this._KnowledgeCategoryServiceProxy.getKnowledgeCategories(
+      this._KnowledgeCategoryServiceProxy.getOptKnowledges(
         this.tenantId,
         this.questionTypeId,
         this.filterText,
@@ -197,7 +196,7 @@ export class CategoryComponent extends AppComponentBase {
         console.log(this.categoryList)
       })
     } else if (this.type == 'questionType') {
-      this._QuestionCategoryServiceProxy.getCategoryTrees(this.tenantId).pipe(finalize(() => {
+      this._KnowledgeCategoryServiceProxy.getCategoryTrees(this.tenantId).pipe(finalize(() => {
         // abp.ui.clearBusy();
         this.treeBusy = false;
       })).subscribe((result) => {
@@ -257,11 +256,11 @@ export class CategoryComponent extends AppComponentBase {
           });
       })
     } else if (this.type == 'questionType') {
-      this._QuestionCategoryServiceProxy.getSingleQuestionCategory(emitData.itemId).subscribe((result) => {
+      this._KnowledgeCategoryServiceProxy.getSingleQuestionCategory(emitData.itemId).subscribe((result) => {
         console.log(result)
         var updateQuestionCategoryInput = new UpdateQuestionCategoryInput(result);
         updateQuestionCategoryInput.parentCategoryId = emitData.parentId;
-        this._QuestionCategoryServiceProxy.updateQuestionCategory(updateQuestionCategoryInput)
+        this._KnowledgeCategoryServiceProxy.updateQuestionCategory(updateQuestionCategoryInput)
           .subscribe(() => {
             this.notify.info(this.l('SavedSuccessfully'));
             this.getCateTree();
@@ -306,7 +305,7 @@ export class CategoryComponent extends AppComponentBase {
                 this.getCateTree();
               })
             } else if (this.type == 'questionType') {
-              this._QuestionCategoryServiceProxy.deleteQuestionCategory(data.id).subscribe(() => {
+              this._KnowledgeCategoryServiceProxy.deleteQuestionCategory(data.id).subscribe(() => {
                 this.notify.info(this.l('success'));
                 this.getCateTree();
               })

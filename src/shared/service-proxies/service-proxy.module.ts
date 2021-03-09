@@ -82,13 +82,12 @@ import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//d
 
 
 
+        BigDataApiServiceProxies.SensingDeviceServiceProxy,
+        BigDataApiServiceProxies.DeviceBehaviorServiceProxy,
+        BigDataApiServiceProxies.DeviceOperationsServiceProxy,
+        BigDataApiServiceProxies.IdentityServiceProxy,
+        BigDataApiServiceProxies.OperationKnowledgeServiceProxy,
         BigDataApiServiceProxies.ReportServiceProxy,
-        BigDataApiServiceProxies.QuestionCategoryServiceProxy,
-        BigDataApiServiceProxies.KnowledgeCategoryServiceProxy,
-        BigDataApiServiceProxies.DeviceOptServiceProxy,
-        BigDataApiServiceProxies.FaceRecordServiceProxy,
-        BigDataApiServiceProxies.OperationsServiceProxy,
-        BigDataApiServiceProxies.DeviceHeatmapDataServiceProxy,
 
 
 
