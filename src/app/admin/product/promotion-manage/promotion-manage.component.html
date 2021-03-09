@@ -97,15 +97,15 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
-                                                        <a (click)="edit(record)" class="icon-bianji">{{l('Edit')}}</a>
+                                                        <a (click)="edit(record)" class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li *ngIf="record.promotionType==2">
                                                         <a (click)="godetail(record)"
-                                                            class="icon-1311shangpinfenleipicishuxing">{{l('detail')}}</a>
+                                                            class="icon-1311shangpinfenleipicishuxing dropdown-item">{{l('detail')}}</a>
                                                     </li>
                                                     <li>
                                                         <a (click)="deleteSchedule(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>

@@ -389,11 +389,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editOnline(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li *ngIf="product.isMine!==false">
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteOnline(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>
@@ -564,12 +564,12 @@
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li *ngIf="isGranted('Pages.Tenant.Products.Edit')">
                                                                 <a (click)="editSku(record)"
-                                                                    class="icon-bianji">{{l('Edit')}}</a>
+                                                                    class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                             </li>
                                                             <li
                                                                 *ngIf="isGranted('Pages.Tenant.Products.Edit')&&record.auditStatus==0&&product.isMine!==false">
                                                                 <a (click)="deleteSku(record.id)"
-                                                                    class="icon-icon-test">{{l('Delete')}}</a>
+                                                                    class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -709,11 +709,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editComment(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li *ngIf="product.isMine!==false">
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteComment(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>

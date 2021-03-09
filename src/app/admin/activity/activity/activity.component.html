@@ -158,16 +158,16 @@
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.Activities.Edit')&&record.isMine!==false">
                                                             <a (click)="editActivity(record)"
-                                                                class="icon-bianji">{{l('Edit')}}</a>
+                                                                class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                         </li>
                                                         <li>
                                                             <a (click)="showActivityData(record)"
-                                                                class="icon-artboard13">{{l('Dashboard')}}</a>
+                                                                class="icon-artboard13 dropdown-item">{{l('Dashboard')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.Activities.Delete')&&record['auditStatus']==0&&record.isMine!==false">
                                                             <a (click)="deleteActivity(record)"
-                                                                class="icon-icon-test">{{l('Delete')}}</a>
+                                                                class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                         </li>
                                                     </ul>
                                                 </div>

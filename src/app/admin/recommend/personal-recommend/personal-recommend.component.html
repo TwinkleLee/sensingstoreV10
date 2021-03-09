@@ -11,7 +11,7 @@
                     </button>
                     <ul class="dropdown-menu" *dropdownMenu #TypeHostbox>
                         <li *ngFor="let type of HostCategories">
-                            <a (click)="synchronousData(type)">{{type.name}}</a>
+                            <a class="dropdown-item" (click)="synchronousData(type)">{{type.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -132,15 +132,15 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li>
-                                                                <a class="icon-jinriyunshi"
+                                                                <a class="icon-jinriyunshi dropdown-item"
                                                                     (click)="goFortune(record.name)">{{l('checkFortune')}}</a>
                                                             </li>
                                                             <li *ngIf="isGranted('Pages.Tenant.Recommends.Edit')">
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editPersonality(record)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li>
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deletePersonality(record)"
                                                                     *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">{{l('Delete')}}</a>
                                                             </li>
@@ -327,11 +327,11 @@
                                                         </button>
                                                         <ul class="dropdown-menu" *dropdownMenu>
                                                             <li *ngIf="isGranted('Pages.Tenant.Recommends.Edit')">
-                                                                <a class="icon-bianji"
+                                                                <a class="icon-bianji dropdown-item"
                                                                     (click)="editFortune(record.id)">{{l('Edit')}}</a>
                                                             </li>
                                                             <li *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">
-                                                                <a class="icon-icon-test"
+                                                                <a class="icon-icon-test dropdown-item"
                                                                     (click)="deleteFortune(record)">{{l('Delete')}}</a>
                                                             </li>
                                                         </ul>

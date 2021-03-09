@@ -194,12 +194,12 @@
                                                     </button>
                                                     <ul class="dropdown-menu" *dropdownMenu>
                                                         <li *ngIf="isGranted('Pages.Tenant.Ads.Edit')">
-                                                            <a class="icon-bianji"
+                                                            <a class="icon-bianji dropdown-item"
                                                                 (click)="editAds(record)">{{l('Edit')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="record.isMine!==false&&record.auditStatus==0&&isGranted('Pages.Tenant.Ads.Delete')">
-                                                            <a class="icon-icon-test"
+                                                            <a class="icon-icon-test dropdown-item"
                                                                 (click)="deleteAds(record)">{{l('Delete')}}</a>
                                                         </li>
                                                     </ul>

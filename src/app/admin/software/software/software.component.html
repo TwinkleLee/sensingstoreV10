@@ -142,15 +142,15 @@
                                                     </button>
                                                     <ul class="dropdown-menu" *dropdownMenu>
                                                         <li *ngIf="appSession.tenantId!=null">
-                                                            <a class="icon-jichushezhi"
+                                                            <a class="icon-jichushezhi dropdown-item"
                                                                 (click)="editAppSetting(record)">{{l('Settings')}}</a>
                                                         </li>
                                                         <li *ngIf="appSession.tenantId==null">
-                                                            <a class="icon-bianji"
+                                                            <a class="icon-bianji dropdown-item"
                                                                 (click)="editSoftware(record)">{{l('Edit')}}</a>
                                                         </li>
                                                         <li *ngIf="isGranted('Pages.Softwares.Delete')">
-                                                            <a class="icon-icon-test"
+                                                            <a class="icon-icon-test dropdown-item"
                                                                 (click)="deleteSoftware(record)">{{l('Delete')}}</a>
                                                         </li>
                                                     </ul>

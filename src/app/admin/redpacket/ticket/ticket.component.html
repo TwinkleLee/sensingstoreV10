@@ -151,19 +151,19 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
-                                                        <a class="icon-bianji"
+                                                        <a class="icon-bianji dropdown-item"
                                                             (click)="editItem(record)">{{l('Edit')}}</a>
                                                     </li>
                                                     <li>
-                                                        <a class="icon-icon-test"
+                                                        <a class="icon-icon-test dropdown-item"
                                                             (click)="deleteItem(record)">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>
-                                                        <a class="icon-huiyuanguanli"
+                                                        <a class="icon-huiyuanguanli dropdown-item"
                                                             (click)="goMember(record)">{{l('getTicketMember')}}</a>
                                                     </li>
                                                     <li *ngIf="record.takeType==3">
-                                                        <a class="icon-hongbao"
+                                                        <a class="icon-hongbao dropdown-item"
                                                             (click)="createCouponByTicket(record)">{{l('CreatingCoupon')}}</a>
                                                     </li>
                                                 </ul>

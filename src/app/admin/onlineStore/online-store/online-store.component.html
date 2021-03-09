@@ -92,27 +92,27 @@
                                                         <li
                                                             *ngIf="record.fromType=='Taobao'||record.fromType=='Weimob'||record.fromType=='Monecity'">
                                                             <a (click)="syncOnlineStore(record)"
-                                                                class="icon-tongbu4">{{l('Synchronize')}}</a>
+                                                                class="icon-tongbu4 dropdown-item">{{l('Synchronize')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="record.fromType=='Taobao'||record.fromType=='Weimob'||record.fromType=='Monecity'">
                                                             <a (click)="goHistory(record)"
-                                                                class="icon-artboard13">{{l('syncInfo')}}</a>
+                                                                class="icon-artboard13 dropdown-item">{{l('syncInfo')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.OnlineStores.Edit')&&record.fromType!='TroncellWeiShop'">
                                                             <a (click)="editOnlineStore(record)"
-                                                                class="icon-bianji">{{l('Edit')}}</a>
+                                                                class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.OnlineStores.Edit')&&record.fromType=='TroncellWeiShop'">
                                                             <a (click)="manageWeShop(record)"
-                                                                class="icon-bianji">{{l('Administration')}}</a>
+                                                                class="icon-bianji dropdown-item">{{l('Administration')}}</a>
                                                         </li>
                                                         <li
                                                             *ngIf="isGranted('Pages.Tenant.OnlineStores.Delete')&&record.fromType!='TroncellWeiShop'">
                                                             <a (click)="deleteOnlineStore(record)"
-                                                                class="icon-icon-test">{{l('Delete')}}</a>
+                                                                class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                         </li>
                                                     </ul>
                                                 </div>

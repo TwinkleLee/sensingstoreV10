@@ -79,11 +79,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Tags.Edit')">
-                                                        <a class="icon-bianji"
+                                                        <a class="icon-bianji dropdown-item"
                                                             (click)="editTag(record)">{{l('Edit')}}</a>
                                                     </li>
                                                     <li *ngIf="isGranted('Pages.Tenant.Tags.Delete')">
-                                                        <a class="icon-icon-test"
+                                                        <a class="icon-icon-test dropdown-item"
                                                             (click)="deleteTag(record)">{{l('Delete')}}</a>
                                                     </li>
 

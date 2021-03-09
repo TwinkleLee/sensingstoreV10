@@ -153,11 +153,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Resources.Edit')">
-                                                        <a class="icon-bianji"
+                                                        <a class="icon-bianji dropdown-item"
                                                             (click)="editResource(record)">{{l('Edit')}}</a>
                                                     </li>
                                                     <li *ngIf="isGranted('Pages.Tenant.Resources.Delete')">
-                                                        <a class="icon-icon-test"
+                                                        <a class="icon-icon-test dropdown-item"
                                                             (click)="deleteResource(record)">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>

@@ -71,10 +71,10 @@
                                   </button>
                                   <ul class="dropdown-menu" *dropdownMenu>
                                     <li *ngIf="isGranted('Pages.Tenant.Activities.Edit')">
-                                      <a (click)="editGame(record)" class="icon-bianji">{{l('Edit')}}</a>
+                                      <a (click)="editGame(record)" class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                     </li>
                                     <li *ngIf="isGranted('Pages.Tenant.Activities.Delete')">
-                                      <a (click)="deleteGame(record)" class="icon-icon-test">{{l('Delete')}}</a>
+                                      <a (click)="deleteGame(record)" class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                     </li>
                                   </ul>
                                 </div>
