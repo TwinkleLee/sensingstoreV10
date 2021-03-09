@@ -6,11 +6,10 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { AppConsts } from '@shared/AppConsts';
 
-import { MetaPhysicsServiceProxy } from '@shared/service-proxies/service-proxies4';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 
-import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { ApppodHistoryModalComponent } from '@app/admin/apppod/apppod/operation/apppod-history-modal.component';
 
 @Component({
@@ -37,7 +36,6 @@ export class AppPodComponent extends AppComponentBase {
   };
   treeFilter;
   constructor(injector: Injector,
-    private _metaPhysicsService: MetaPhysicsServiceProxy,
     private _tenantService: TenantServiceProxy,
     private _AppPodServiceProxy: AppPodServiceProxy
   ) {
@@ -110,18 +108,6 @@ export class AppPodComponent extends AppComponentBase {
     this.apppodHistoryModal.show(Object.assign({}, record))
   }
 
-
-  // //删除
-  // deleteMetaType(record) {
-  //   this.message.confirm(this.l('deletethisAppPod'), (r) => {
-  //     if (r) {
-  //       this._AppPodServiceProxy.delete(record.id).subscribe(result => {
-  //        this.notify.info(this.l('success'));
-  //         this.getMetaPhysicsTypeList();
-  //       })
-  //     }
-  //   })
-  // }
 
   //转换序列
   transIndex(i, event?: LazyLoadEvent) {

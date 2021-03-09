@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 
-import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 
 @Component({
     selector: 'createOrEditApppodModal',

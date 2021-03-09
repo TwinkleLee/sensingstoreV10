@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, Injector, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { ReportServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { CustomizeReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { AppConsts } from '@shared/AppConsts';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { CounterAnalysisServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
 import { DeviceHeatmapDataServiceProxy } from '@shared/service-proxies/service-proxies3';
 
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
@@ -55,9 +55,9 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
     constructor(
         injector: Injector,
-        private _ReportServiceProxy: ReportServiceProxy,
+        private _CustomizeReportServiceProxy: CustomizeReportServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
-        private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
+        private _CounterReportServiceProxy: CounterReportServiceProxy,
         private _DeviceHeatmapDataServiceProxy: DeviceHeatmapDataServiceProxy
 
     ) {
@@ -67,7 +67,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
     }
 
     ngOnInit() {
-        this._ReportServiceProxy.getReports(
+        this._CustomizeReportServiceProxy.getReports(
             undefined,
             undefined,
             undefined,
@@ -210,7 +210,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         }
         this.deviceChartLoading = true;
 
-        this._ReportServiceProxy.getReport(
+        this._CustomizeReportServiceProxy.getReport(
             StartTime,
             EndTime,
             this.dateType,
@@ -237,7 +237,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         }
         this.makeHeatMap(StartTime, EndTime);
         this.deviceChartLoading = true;
-        this._CounterAnalysisServiceProxy.getCountByDeviceIds(
+        this._CounterReportServiceProxy.getDeviceCounterChartByDeviceIds(
             StartTime,
             EndTime,
             this.dateType,
@@ -253,7 +253,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         })
 
         // if (abp.session.tenantId == 5129) {
-            this._CounterAnalysisServiceProxy.getDigitCountByDeviceIds(
+            this._CounterReportServiceProxy.getDigitDeviceCounterChartByDeviceIds(
                 StartTime,
                 EndTime,
                 this.dateType,
@@ -296,7 +296,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         if (this.realEndTime) {
             var EndTime = moment(this.realEndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's')
         }
-        this._CounterAnalysisServiceProxy.getDigitCountToExcel(
+        this._CounterReportServiceProxy.getDigitDeviceCounterChartDataToExcel(
             StartTime,
             EndTime,
             this.dateType,
@@ -320,7 +320,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             var EndTime = moment(this.realEndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's')
         }
 
-        this._ReportServiceProxy.getReportToExcel(
+        this._CustomizeReportServiceProxy.getReportToExcel(
             StartTime,
             EndTime,
             this.dateType,
@@ -345,7 +345,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             var EndTime = moment(this.realEndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's')
         }
         this.makeHeatMap(StartTime, EndTime);
-        this._CounterAnalysisServiceProxy.getCountToExcel(
+        this._CounterReportServiceProxy.getDeviceCounterChartDataToExcel(
             StartTime,
             EndTime,
             this.dateType,

@@ -45,6 +45,9 @@ import { API_USER_URL } from '@shared/service-proxies/service-proxies-user';
 import { API_FLOOR_URL } from '@shared/service-proxies/service-proxies-floor';
 import { API_OKR_URL } from '@shared/service-proxies/service-proxies-okr';
 import { API_DEVICECENTER_URL } from '@shared/service-proxies/service-proxies-devicecenter';
+import { API_SMARTDEVICE_URL } from '@shared/service-proxies/service-proxies-smartdevice';
+
+
 
 export function appInitializerFactory(
     injector: Injector,
@@ -264,6 +267,11 @@ export function getOKRServiceBaseUrl(): string {
 export function getDeviceCenterServiceBaseUrl(): string {
     return AppConsts.remoteDeviceCenterUrl;
 }
+
+export function getSmartDeviceServiceBaseUrl(): string {
+    return AppConsts.remoteSmartDeviceUrl;
+}
+
 // end
 
 export function getCurrentLanguage(): string {
@@ -320,6 +328,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         { provide: API_FLOOR_URL, useFactory: getFloorServiceBaseUrl },
         { provide: API_OKR_URL, useFactory: getOKRServiceBaseUrl },
         { provide: API_DEVICECENTER_URL, useFactory:getDeviceCenterServiceBaseUrl  },
+        { provide: API_SMARTDEVICE_URL, useFactory:getSmartDeviceServiceBaseUrl  },
         {
             provide: APP_INITIALIZER,
             useFactory: appInitializerFactory,

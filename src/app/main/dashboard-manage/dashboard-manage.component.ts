@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 import { CreateOrEditDashboardManageModalComponent } from '@app/main/dashboard-manage/create-or-edit-dashboard-manage-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ReportServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { CustomizeReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
 
@@ -28,7 +28,7 @@ export class DashboardManageComponent extends AppComponentBase {
   templateList: any = [];
   reportType: any = "";
   constructor(injector: Injector,
-    private _ReportServiceProxy: ReportServiceProxy,
+    private _CustomizeReportServiceProxy: CustomizeReportServiceProxy,
     private router: Router,
     private _TenantServiceProxy: TenantServiceProxy
   ) {
@@ -50,7 +50,7 @@ export class DashboardManageComponent extends AppComponentBase {
       this.getDashboardTanant();
     });
 
-    this._ReportServiceProxy.getReportTemplates(
+    this._CustomizeReportServiceProxy.getReportTemplates(
       undefined,
       undefined,
       999,
@@ -80,7 +80,7 @@ export class DashboardManageComponent extends AppComponentBase {
     }
 
     this.primengTableHelper.showLoadingIndicator();
-    this._ReportServiceProxy.getReports(
+    this._CustomizeReportServiceProxy.getReports(
       this.tenantId,
       this.templateId,
       this.filterText,
@@ -110,7 +110,7 @@ export class DashboardManageComponent extends AppComponentBase {
 
   //修改
   editItem(record) {
-    this._ReportServiceProxy.getReportDetailById(record.id).subscribe(r => {
+    this._CustomizeReportServiceProxy.getReportDetailById(record.id).subscribe(r => {
       this.dashboardManageModal.show(_.cloneDeep(r));
     })
   }
@@ -120,7 +120,7 @@ export class DashboardManageComponent extends AppComponentBase {
   deleteItem(record) {
     this.message.confirm(this.l('deletethisselected'),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._ReportServiceProxy.deleteReportByIds([record.id]).subscribe(result => {
+        this._CustomizeReportServiceProxy.deleteReportByIds([record.id]).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getList();
         })

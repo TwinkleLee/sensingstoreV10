@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://119.3.154.130:8004//swagger/v1/swagger.json",
+      "url": "http://119.3.154.130:8004/swagger/v1/swagger.json",
       "url?": "https://e.api.troncell.com/swagger/v1/swagger.json",
       "output": null
     }
@@ -53,7 +53,7 @@
       "convertConstructorInterfaceData": false,
       "importRequiredTypes": true,
       "useGetBaseUrlMethod": false,
-      "baseUrlTokenName": "API_CARGO_URL",
+      "baseUrlTokenName": "API_SMARTDEVICE_URL",
       "queryNullValue": "",
       "inlineNamedDictionaries": false,
       "inlineNamedAny": false,
@@ -63,7 +63,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../src/shared/service-proxies/service-proxies-cargo.ts"
+      "output": "../src/shared/service-proxies/service-proxies-smartdevice.ts"
     },
     "openApiToCSharpClient": {
       "clientBaseClass": null,

@@ -23,6 +23,7 @@ export class AppConsts {
     static remoteOKRServiceUrl: string;
 
     static remoteDeviceCenterUrl: string;
+    static remoteSmartDeviceUrl: string;
     // V3 for ecovacs
     static deploymentList: any;
     static customTheme: any;

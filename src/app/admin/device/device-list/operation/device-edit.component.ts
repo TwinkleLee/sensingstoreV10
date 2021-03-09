@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
 import { DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, PeripheralServiceProxy, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
-import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput} from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,10 +21,15 @@ import { ConnectorService } from '@app/shared/services/connector.service';
 import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, DeviceActivityServiceProxy, ReportServiceProxy as ActivityReportServiceProxy, PublishEntitiesInput as PublishEntitiesInput2 } from '@shared/service-proxies/service-proxies5';
-import { CounterAnalysisServiceProxy, UpdateCounterTagInput, CargoRoadServiceProxy, UpdateCargoStatusInput, CargoStatus, SensingDeviceServiceProxy, DeviceAppPodVersionServiceProxy, ChangeDeviceAppPodVersionInput, AppPodServiceProxy, ShelfServiceProxy, AddOrUpdateShelfInfoInput, LayerInput, AddOrUpdateCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-cargo';
+
+import { SensingDeviceServiceProxy,SensorAgreementServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+
+import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput,AddOrUpdateSensorInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+import { ShelfDeviceServiceProxy,UpdateCargoStatusInput, CargoStatus,ChangeDeviceAppPodVersionInput, AppPodServiceProxy, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput  } from '@shared/service-proxies/service-proxies-smartdevice';
+
+
 import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
-import { ResourceLoader } from '@angular/compiler';
-import { FileServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, BindDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-cargo';
 import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
@@ -385,18 +390,19 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private _acitvityService: ActivityServiceProxy,
         private _deviceAcitvityService: DeviceActivityServiceProxy,
         private _ActivityReportServiceProxy: ActivityReportServiceProxy,
-        private _CargoRoadServiceProxy: CargoRoadServiceProxy,
         private _SensingDeviceServiceProxy: SensingDeviceServiceProxy,
-        private _DeviceAppPodVersionServiceProxy: DeviceAppPodVersionServiceProxy,
         private _AppPodServiceProxy: AppPodServiceProxy,
         private _FaceRecordServiceProxy: FaceRecordServiceProxy,
-        private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
-        private _FileServiceProxy: FileServiceProxy,
+        private _SensorAgreementServiceProxy: SensorAgreementServiceProxy,
         private _PriceTagServiceProxy: PriceTagServiceProxy,
         private _TagService: TagServiceProxy,
         private _DeviceHeatmapDataServiceProxy: DeviceHeatmapDataServiceProxy,
         private _externalaccessService: ExternalAccessServiceProxy,
-        private _ShelfServiceProxy: ShelfServiceProxy,
+
+
+        private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
+        private _CounterReportServiceProxy: CounterReportServiceProxy,
+        private _ShelfDeviceServiceProxy:ShelfDeviceServiceProxy
 
     ) {
         super(injector);
@@ -432,10 +438,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             if (ids.length == 0) {
                 return this.notify.warn(this.l('atleastonetag'));
             }
-            this._CounterAnalysisServiceProxy.updateCounterTags({
+            this._CounterDeviceServiceProxy.updateDeviceCounterTags({
                 counterIds: ary,
                 tagIds: ids
-            } as UpdateCounterTagInput).subscribe(r => {
+            } as UpdateDeviceCounterTagInput).subscribe(r => {
                 this.notify.info(this.l('success'));
                 this.getDeviceCounters();
             })
@@ -514,8 +520,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.message.confirm(this.l("DeleteDeviceQuestion"), this.l('AreYouSure'), (r) => {
                 if (r) {
                     this.pChild.showLoadingIndicator();
-                    this._CounterAnalysisServiceProxy.bindDevicesToGateway(
-                        new BindDevicesToGatewayInput({
+                    this._CounterDeviceServiceProxy.bindChildDevicesToGateway(
+                        new BindChildDevicesToGatewayInput({
                             gatewayId: undefined,
                             deviceIds: this.ChildSelectionList.map(item => { return item.id }),
                             type: undefined,
@@ -538,7 +544,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     GetDevicesByGatewayId() {
         setTimeout(() => {
             this.pChild.showLoadingIndicator();
-            this._CounterAnalysisServiceProxy.getDevicesBygatewayId(
+            this._CounterDeviceServiceProxy.getChildDevicesByGatewayId(
                 this.device.id,
                 undefined,
                 this.pChild.getSorting(this.dataTableChild),
@@ -609,7 +615,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.dataChartLoading = true;
 
 
-        this._CounterAnalysisServiceProxy.getCountByDeviceIds(
+        this._CounterReportServiceProxy.getDeviceCounterChartByDeviceIds(
             // this.startTime,
             // this.endTime,
             startTime,
@@ -640,7 +646,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         setTimeout(() => {
             this.CounterSelectionList = [];
             this.pCounter.showLoadingIndicator();
-            this._CounterAnalysisServiceProxy.getCountersByDeviceId(
+            this._CounterDeviceServiceProxy.getDeviceCountersByDeviceId(
                 this.device.id,
                 undefined,
                 this.pCounter.getSorting(this.dataTableCounter),
@@ -684,7 +690,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
 
         if (this.appSession.tenant) {
-            this._DeviceAppPodVersionServiceProxy.getDeviceAppPodVersion(
+            this._AppPodServiceProxy.getDeviceAppPodVersion(
                 this.device.id,
                 this.device.osType
             ).subscribe((result) => {
@@ -710,7 +716,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         ).subscribe(result => {
             this.versionList = result.items;
 
-            this._DeviceAppPodVersionServiceProxy.getDeviceAppPodVersion(
+            this._AppPodServiceProxy.getDeviceAppPodVersion(
                 this.device.id,
                 this.device.osType
             ).subscribe((result) => {
@@ -732,7 +738,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             return
         }
 
-        this._DeviceAppPodVersionServiceProxy.changeDeviceApppodVersion(new ChangeDeviceAppPodVersionInput({
+        this._AppPodServiceProxy.changeDeviceApppodVersion(new ChangeDeviceAppPodVersionInput({
             deviceId: this.device.id,
             targetAppPodVersionId: this.appPod.targetAppPodVersionId ? Number(this.appPod.targetAppPodVersionId) : undefined,
             extensionData: this.appPod.extensionData,
@@ -837,9 +843,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     getSingleShelf() {
         this.ShelfInfoLoading = true;
-        this._ShelfServiceProxy.getSingleShelf(
-            this.device.id,
-            undefined
+        this._ShelfDeviceServiceProxy.getSingleShelf(
+            this.device.id
         ).pipe(finalize(() => {
             this.ShelfInfoLoading = false;
         })).subscribe(result => {
@@ -866,7 +871,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         inputItem = new AddOrUpdateShelfInfoInput(inputItem);
 
         this.ShelfInfoLoading = true;
-        this._ShelfServiceProxy.addOrUpdateShelfInfo(
+        this._ShelfDeviceServiceProxy.addOrUpdateShelfInfo(
             inputItem,
         ).pipe(finalize(() => {
             this.ShelfInfoLoading = false;
@@ -885,7 +890,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.message.confirm(`${this.l('exchangeCargoQuestion')} ${originCol.name} ${newCol.name}`, this.l('AreYouSure'), (r) => {
                 if (r) {
                     this.ShelfInfoLoading = true;
-                    this._ShelfServiceProxy.exchangeCargoRoadSku(new ExchangeCargoRoadSkuInput({
+                    this._ShelfDeviceServiceProxy.exchangeCargoRoadSku(new ExchangeCargoRoadSkuInput({
                         sourceCargoRoadId: originCol.id,
                         targetCargoRoadId: newCol.id
                     })).pipe(finalize(() => {
@@ -901,7 +906,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     this.ShelfInfoLoading = true;
                     var inputItem = Object.assign({}, originCol);
                     inputItem.cargoThings = [];
-                    this._CargoRoadServiceProxy.updateCargoRoad(inputItem)
+                    this._ShelfDeviceServiceProxy.updateCargoRoad(inputItem)
                         .pipe(finalize(() => {
                             this.ShelfInfoLoading = false;
                         }))
@@ -919,7 +924,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         setTimeout(() => {
 
             this.pCargo.showLoadingIndicator();
-            this._CargoRoadServiceProxy.getCargoRoadsByDevice(
+            this._ShelfDeviceServiceProxy.getCargoRoadsByDevice(
                 this.device.id,
                 this.cargoIsEnabled,
                 this.cargoFilterText,
@@ -990,7 +995,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         }));
                     }
                     var input = new UpdateCargoStatusInput({ cargoStatus: CargoSelectionList });
-                    this._CargoRoadServiceProxy.updateStatus(input)
+                    this._ShelfDeviceServiceProxy.updateCargoRoadStatus(input)
                         .pipe(this.myFinalize(() => { this.pCargo.hideLoadingIndicator(); }))
                         .subscribe(result => {
                             this.notify.info("success");
@@ -1017,7 +1022,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         }));
                     }
                     var input = new UpdateCargoStatusInput({ cargoStatus: CargoSelectionList });
-                    this._CargoRoadServiceProxy.updateStatus(input)
+                    this._ShelfDeviceServiceProxy.updateCargoRoadStatus(input)
                         .pipe(this.myFinalize(() => { this.pCargo.hideLoadingIndicator(); }))
                         .subscribe(result => {
                             this.notify.info("success");
@@ -1040,7 +1045,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     for (var value of this.CargoSelectionList) {
                         CargoSelectionList.push(value.id);
                     }
-                    this._CargoRoadServiceProxy.deleteMany(CargoSelectionList)
+                    this._ShelfDeviceServiceProxy.deleteManyCargoRoads(CargoSelectionList)
                         .pipe(this.myFinalize(() => { this.pCargo.hideLoadingIndicator(); }))
                         .subscribe(result => {
                             this.notify.info(this.l('success'));
@@ -1057,7 +1062,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.message.confirm(this.l('deleteCargoQuestion'), this.l('AreYouSure'), (r) => {
                 if (r) {
                     this.ShelfInfoLoading = true;
-                    this._ShelfServiceProxy.addOrDeleteCargoRoadByLayerId(new AddOrUpdateCargoRoadByLayerIdInput({
+                    this._ShelfDeviceServiceProxy.addOrDeleteCargoRoadByLayerId(new AddOrDeleteCargoRoadByLayerIdInput({
                         "layerId": layerId,
                         "cargoRoadId": record.cargoRoadId
                     })).pipe(finalize(() => {
@@ -1070,7 +1075,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             })
         } else {
             this.ShelfInfoLoading = true;
-            this._ShelfServiceProxy.addOrDeleteCargoRoadByLayerId(new AddOrUpdateCargoRoadByLayerIdInput({
+            this._ShelfDeviceServiceProxy.addOrDeleteCargoRoadByLayerId(new AddOrDeleteCargoRoadByLayerIdInput({
                 "layerId": layerId,
                 "cargoRoadId": undefined
             })).pipe(finalize(() => {
@@ -1084,7 +1089,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     deleteCargoLane(record) {
         this.message.confirm(this.l('deleteCargoQuestion'), this.l('AreYouSure'), (r) => {
             if (r) {
-                this._CargoRoadServiceProxy.delete(record.id).subscribe(r => {
+                this._ShelfDeviceServiceProxy.deleteCargoRoad(record.id).subscribe(r => {
                     this.notify.info(this.l('success'));
                     this.getCargoList();
                     this.getSingleShelf();
@@ -1513,7 +1518,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             })
 
             if (AppConsts.customTheme != 'kewosi') {
-                this._FileServiceProxy.getAgreements(
+                this._SensorAgreementServiceProxy.getAgreements(
                     undefined,
                     undefined,
                     999,
@@ -1525,7 +1530,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
             if (this.device.deviceTypeId == 4 || this.device.deviceTypeId == 23 || this.device.deviceTypeId == 20) {
                 this.showFreezeUi = true;
-                this._CounterAnalysisServiceProxy.getGatewayByDeviceId(this.device.id)
+                this._CounterDeviceServiceProxy.getGatewayByChildDeviceId(this.device.id)
                     .pipe(finalize(() => { this.showFreezeUi = false; }))
                     .subscribe(r => {
                         if (r.gatewayId) {
@@ -1537,8 +1542,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     })
             } else if (this.device.deviceTypeId == 18) {
                 this.showFreezeUi = true;
-                this._CounterAnalysisServiceProxy.getGatewayOrSensorInfo(
-                    undefined,
+                this._CounterDeviceServiceProxy.getGatewayOrSensorInfo(
                     this.device.id
                 ).pipe(finalize(() => { this.showFreezeUi = false; }))
                     .subscribe(r => {
@@ -1547,8 +1551,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         this.agreementId = r.agreementId
                     })
             } else if (this.device.deviceTypeId == 19) {
-                this._CounterAnalysisServiceProxy.getGatewayOrSensorInfo(
-                    undefined,
+                this._CounterDeviceServiceProxy.getGatewayOrSensorInfo(
                     this.device.id
                 ).pipe(finalize(() => { this.showFreezeUi = false; }))
                     .subscribe(r => {
@@ -1558,7 +1561,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         this.agreementId = r.agreementId;
                         if (this.belongGateWay2) {
                             this.saving = true;
-                            this._CounterAnalysisServiceProxy.getSensorAdd(this.belongGateWay2).subscribe(r => {
+                            this._CounterDeviceServiceProxy.getNextSensorAddress(this.belongGateWay2).subscribe(r => {
                                 this.saving = false;
                                 this.fromGatewayType = r.gatewayType;
                             })
@@ -1594,8 +1597,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     changeGateWay() {
         if (this.device.deviceTypeId == 23 || this.device.deviceTypeId == 20) {
-            this._ShelfServiceProxy.getSingleShelf(
-                undefined,
+            this._ShelfDeviceServiceProxy.getSingleShelf(
                 this.belongGateWay
             ).subscribe(result => {
                 if (this.device.deviceTypeId == 23) {
@@ -1618,7 +1620,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             return
         }
         this.saving = true;
-        this._CounterAnalysisServiceProxy.getSensorAdd(this.belongGateWay2).subscribe(r => {
+        this._CounterDeviceServiceProxy.getNextSensorAddress(this.belongGateWay2).subscribe(r => {
             this.saving = false;
             this.addressCode = r.address;
             this.fromGatewayType = r.gatewayType;
@@ -2265,7 +2267,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     getDeviceScreenshot() {
         this.screenLoading++;
-        this._DeviceAppPodVersionServiceProxy.getDeviceScreenshot(this.device.id).pipe(finalize(() => {
+        this._AppPodServiceProxy.getDeviceScreenshot(this.device.id).pipe(finalize(() => {
         })).subscribe(result => {
             if (typeof (result) == 'string') {
                 this.screenUrl = result;
@@ -2530,7 +2532,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     if (this.device.deviceTypeId == 18) {
                         this.saving = true;
                         this.showFreezeUi = true;
-                        this._CounterAnalysisServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
+                        this._CounterDeviceServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
                             // id: undefined,
                             deviceId: this.device.id,
                             agreementId: this.agreementId,
@@ -2546,7 +2548,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     } else if (this.device.deviceTypeId == 19) {
                         this.saving = true;
                         this.showFreezeUi = true;
-                        this._CounterAnalysisServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
+                        this._CounterDeviceServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
                             // id: undefined,
                             deviceId: this.device.id,
                             gatewayId: this.belongGateWay2,
@@ -2569,8 +2571,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 })
 
         } else {
-            this._CounterAnalysisServiceProxy.bindDevicesToGateway(
-                new BindDevicesToGatewayInput({
+            this._CounterDeviceServiceProxy.bindChildDevicesToGateway(
+                new BindChildDevicesToGatewayInput({
                     gatewayId: this.belongGateWay,
                     deviceIds: [this.device.id],
                     type: type,
@@ -2597,7 +2599,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                             if (this.device.deviceTypeId == 18) {
                                 this.saving = true;
                                 this.showFreezeUi = true;
-                                this._CounterAnalysisServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
+                                this._CounterDeviceServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
                                     // id: undefined,
                                     deviceId: this.device.id,
                                     agreementId: this.agreementId,
@@ -2613,7 +2615,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                             } else if (this.device.deviceTypeId == 19) {
                                 this.saving = true;
                                 this.showFreezeUi = true;
-                                this._CounterAnalysisServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
+                                this._CounterDeviceServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
                                     // id: undefined,
                                     deviceId: this.device.id,
                                     gatewayId: this.belongGateWay2,

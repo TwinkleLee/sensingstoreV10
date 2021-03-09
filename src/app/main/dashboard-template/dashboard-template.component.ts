@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 import { CreateOrEditDashboardTemplateModalComponent } from '@app/main/dashboard-template/create-or-edit-dashboard-template-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ReportServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { CustomizeReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 
 @Component({
   templateUrl: './dashboard-template.component.html',
@@ -21,7 +21,7 @@ export class DashboardTemplateComponent extends AppComponentBase {
 
   filterText = "";
   constructor(injector: Injector,
-    private _ReportServiceProxy: ReportServiceProxy,
+    private _CustomizeReportServiceProxy: CustomizeReportServiceProxy,
     private router: Router,
   ) {
     super(injector);
@@ -45,7 +45,7 @@ export class DashboardTemplateComponent extends AppComponentBase {
     }
 
     this.primengTableHelper.showLoadingIndicator();
-    this._ReportServiceProxy.getReportTemplates(
+    this._CustomizeReportServiceProxy.getReportTemplates(
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -68,7 +68,7 @@ export class DashboardTemplateComponent extends AppComponentBase {
   deleteItem(record) {
     this.message.confirm(this.l('deletethisselected'),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._ReportServiceProxy.deleteReportTemplateByIds([record.id]).subscribe(result => {
+        this._CustomizeReportServiceProxy.deleteReportTemplateByIds([record.id]).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getList();
         })

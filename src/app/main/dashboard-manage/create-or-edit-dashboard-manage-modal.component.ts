@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ReportServiceProxy, ReportDataInput, AddOrUpdateReportInput } from '@shared/service-proxies/service-proxies-cargo';
+import { CustomizeReportServiceProxy, ReportDataInput, AddOrUpdateReportInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
@@ -46,7 +46,7 @@ export class CreateOrEditDashboardManageModalComponent extends AppComponentBase 
 
     constructor(
         injector: Injector,
-        private _ReportServiceProxy: ReportServiceProxy,
+        private _CustomizeReportServiceProxy: CustomizeReportServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy
     ) {
         super(injector);
@@ -124,7 +124,7 @@ export class CreateOrEditDashboardManageModalComponent extends AppComponentBase 
 
 
         // this._ReportServiceProxy.addOrUpdateReport(this.objItem as AddOrUpdateReportInput)
-        this._ReportServiceProxy.addOrUpdateReport(obj3 as AddOrUpdateReportInput)
+        this._CustomizeReportServiceProxy.addOrUpdateReport(obj3 as AddOrUpdateReportInput)
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(result => {
                 console.log(result)
@@ -193,7 +193,7 @@ export class CreateOrEditDashboardManageModalComponent extends AppComponentBase 
     }
     selectCounter(data) {
         this.selectedData = data;
-        this._ReportServiceProxy.getCounterTagsByDeviceIds(data.deviceIds).subscribe(r => {
+        this._CustomizeReportServiceProxy.getCounterTagsByDeviceIds(data.deviceIds).subscribe(r => {
             console.log(r)
             this.counterList = r;
             this.modal2.show();

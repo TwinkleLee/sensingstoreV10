@@ -19,6 +19,7 @@ import * as OKRServiceProxies from './service-proxies-okr';//okr
 
 
 import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//device center
+import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对应原e站点(cargo)
 
 @NgModule({
     providers: [
@@ -229,8 +230,15 @@ import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//d
         DEVICECENTERServiceProxies.ApplyServiceProxy,
         DEVICECENTERServiceProxies.IdentityServiceProxy,
 
-        //
-
+        SMARTDEVICEServiceProxies.AppPodServiceProxy,
+        SMARTDEVICEServiceProxies.SensingDeviceServiceProxy,
+        SMARTDEVICEServiceProxies.ShelfDeviceServiceProxy,
+        SMARTDEVICEServiceProxies.CounterDeviceServiceProxy,
+        SMARTDEVICEServiceProxies.CounterReportServiceProxy,
+        SMARTDEVICEServiceProxies.CustomizeReportServiceProxy,
+        SMARTDEVICEServiceProxies.AppPodServiceProxy,
+        SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
+        SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: AbpHttpConfigurationService, useClass: ZeroTemplateHttpConfigurationService },

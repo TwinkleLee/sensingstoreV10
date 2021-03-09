@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { CargoRoadServiceProxy, CreateCargoRoadsInput, CreateCargoThingInput } from '@shared/service-proxies/service-proxies-cargo';
+import { ShelfDeviceServiceProxy, CreateCargoRoadsInput, CreateCargoThingInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { ProductAlertModalComponent } from '@app/admin/device/device-list/tabAlert/product-selection-modal.component';
 import * as _ from 'lodash';
 
@@ -34,7 +34,7 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
 
     constructor(
         injector: Injector,
-        private _CargoRoadServiceProxy: CargoRoadServiceProxy
+        private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy
     ) {
         super(injector);
     }
@@ -190,7 +190,7 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
 
         this.saving = true;
         if (this.operation == "add") {
-            this._CargoRoadServiceProxy.createCargoRoad(this.Personality)
+            this._ShelfDeviceServiceProxy.createCargoRoad(this.Personality)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.modalSave.emit(null);
@@ -198,7 +198,7 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
                     this.close();
                 });
         } else {
-            this._CargoRoadServiceProxy.updateCargoRoad(this.Personality)
+            this._ShelfDeviceServiceProxy.updateCargoRoad(this.Personality)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.modalSave.emit(null);

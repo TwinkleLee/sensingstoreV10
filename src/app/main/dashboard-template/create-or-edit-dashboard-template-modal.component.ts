@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ReportServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { CustomizeReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 
 @Component({
     selector: 'dashboardTemplateModal',
@@ -28,7 +28,7 @@ export class CreateOrEditDashboardTemplateModalComponent extends AppComponentBas
 
     constructor(
         injector: Injector,
-        private _ReportServiceProxy: ReportServiceProxy
+        private _CustomizeReportServiceProxy: CustomizeReportServiceProxy
     ) {
         super(injector);
     }
@@ -61,7 +61,7 @@ export class CreateOrEditDashboardTemplateModalComponent extends AppComponentBas
         this.saving = true;
         console.log(this.objItem);
         // this.objItem.id = 999;
-        this._ReportServiceProxy.addOrUpdateReportTemplate(this.objItem)
+        this._CustomizeReportServiceProxy.addOrUpdateReportTemplate(this.objItem)
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(result => {
                 console.log(result)

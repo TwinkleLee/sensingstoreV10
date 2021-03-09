@@ -4,8 +4,8 @@ import { DeviceServiceProxy, CreateDeviceInput, PeripheralServiceProxy } from '@
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { DeviceAppPodVersionServiceProxy, SetDefaultAppPodVersionInput, BindDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-cargo';
-import { CounterAnalysisServiceProxy, FileServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { AppPodServiceProxy, SetDefaultAppPodVersionInput, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
@@ -110,10 +110,10 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         injector: Injector,
         private _deviceService: DeviceServiceProxy,
         private _periService: PeripheralServiceProxy,
-        private _DeviceAppPodVersionServiceProxy: DeviceAppPodVersionServiceProxy,
-        private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
-        private _FileServiceProxy: FileServiceProxy,
-        private _ShelfServiceProxy: ShelfServiceProxy,
+        private _AppPodServiceProxy: AppPodServiceProxy,
+        private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
+        private _SensorAgreementServiceProxy: SensorAgreementServiceProxy,
+        private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy,
         private _NewDeviceServiceProxy:NewDeviceServiceProxy
 
     ) {
@@ -148,7 +148,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
             return
         }
         this.saving = true;
-        this._CounterAnalysisServiceProxy.getSensorAdd(this.belongGateWay2).subscribe(r => {
+        this._CounterDeviceServiceProxy.getNextSensorAddress(this.belongGateWay2).subscribe(r => {
             console.log(r)
             this.saving = false;
             this.addressCode = r.address;
@@ -158,9 +158,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
 
     changeGateWay3() {
 
-        this._ShelfServiceProxy.getSingleShelf(
+        this._ShelfDeviceServiceProxy.getSingleShelf(
             this.belongGateWay3,
-            undefined
         ).subscribe(result => {
             console.log("getSingleShelf", result)
             if (this.Device.deviceTypeId == 23) {
@@ -246,7 +245,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
             })
         }
         if ((this.Device.deviceTypeId == 18 || this.Device.deviceTypeId == 19) && AppConsts.customTheme != 'kewosi') {
-            this._FileServiceProxy.getAgreements(
+            this._SensorAgreementServiceProxy.getAgreements(
                 undefined,
                 undefined,
                 999,
@@ -301,7 +300,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
     save(needVerify?): void {
 
         if (!needVerify && this.Device.deviceTypeId == 19 && this.addressCode) {
-            this._CounterAnalysisServiceProxy.verifySensorAdd(
+            this._CounterDeviceServiceProxy.verifySensorAddress(
                 this.belongGateWay2,
                 this.addressCode
             ).subscribe(r => {
@@ -332,7 +331,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                 if (AppConsts.customTheme != 'kewosi') {
                     if (this.Device.deviceTypeId == 4 && this.belongGateWay) {
                         this.saving = true;
-                        this._CounterAnalysisServiceProxy.bindDevicesToGateway(new BindDevicesToGatewayInput({
+                        this._CounterDeviceServiceProxy.bindChildDevicesToGateway(new BindChildDevicesToGatewayInput({
                             gatewayId: this.belongGateWay,
                             deviceIds: [res.id],
                             type: undefined,
@@ -346,7 +345,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                             })
                     } else if (this.Device.deviceTypeId == 23 && this.belongGateWay3) {
                         this.saving = true;
-                        this._CounterAnalysisServiceProxy.bindDevicesToGateway(new BindDevicesToGatewayInput({
+                        this._CounterDeviceServiceProxy.bindChildDevicesToGateway(new BindChildDevicesToGatewayInput({
                             gatewayId: this.belongGateWay3,
                             deviceIds: [res.id],
                             type: "Layer",
@@ -358,7 +357,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                             })
                     } else if (this.Device.deviceTypeId == 20 && this.belongGateWay3) {
                         this.saving = true;
-                        this._CounterAnalysisServiceProxy.bindDevicesToGateway(new BindDevicesToGatewayInput({
+                        this._CounterDeviceServiceProxy.bindChildDevicesToGateway(new BindChildDevicesToGatewayInput({
                             gatewayId: this.belongGateWay3,
                             deviceIds: [res.id],
                             type: "CargoRoad",
@@ -370,7 +369,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                             })
                     } else if (this.Device.deviceTypeId == 18) {
                         this.saving = true;
-                        this._CounterAnalysisServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
+                        this._CounterDeviceServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
                             // id: undefined,
                             deviceId: res.id,
                             agreementId: this.agreementId,
@@ -382,7 +381,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                             })
                     } else if (this.Device.deviceTypeId == 19) {
                         this.saving = true;
-                        this._CounterAnalysisServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
+                        this._CounterDeviceServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
                             // id: undefined,
                             gatewayId: this.belongGateWay2,
                             deviceId: res.id,
@@ -407,7 +406,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
 
     setDefaultAppPod(res) {
         this.saving = true;
-        this._DeviceAppPodVersionServiceProxy.setDefaultAppPod(new SetDefaultAppPodVersionInput({
+        this._AppPodServiceProxy.setDefaultAppPodVersion4Device(new SetDefaultAppPodVersionInput({
             deviceId: res.id,
             osType: this.Device.osType
         })).pipe(finalize(() => { this.saving = false; }))

@@ -22,7 +22,7 @@ import { ConnectorService } from '@app/shared/services/connector.service';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
-import { CounterAnalysisServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { CounterDeviceServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';
 
@@ -113,7 +113,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     private _StoreServiceProxy: StoreServiceProxy,
     private _tokenService: TokenService,
     private route: ActivatedRoute,
-    private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
+    private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
 
 
 
@@ -337,7 +337,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
             })
         } else {
           this.primengTableHelper.showLoadingIndicator();
-          this._CounterAnalysisServiceProxy.deleteBindByDeleteDevices([record.id]).pipe(finalize(() => {
+          this._CounterDeviceServiceProxy.cancelBindAfterDeletingDevices([record.id]).pipe(finalize(() => {
             this.primengTableHelper.hideLoadingIndicator();
           }))
             .subscribe(() => {
@@ -369,7 +369,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
               })
           } else {
             this.primengTableHelper.showLoadingIndicator();
-            this._CounterAnalysisServiceProxy.deleteBindByDeleteDevices(ary).pipe(finalize(() => {
+            this._CounterDeviceServiceProxy.cancelBindAfterDeletingDevices(ary).pipe(finalize(() => {
               this.primengTableHelper.hideLoadingIndicator();
             })).subscribe(() => {
               this.primengTableHelper.showLoadingIndicator();

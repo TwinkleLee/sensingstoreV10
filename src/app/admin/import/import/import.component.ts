@@ -11,7 +11,7 @@ import { ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { FaceTagsServiceProxy } from '@shared/service-proxies/service-proxies4';
-import { ImportServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
+import { ImportCargoRoadsServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { ImportTrainingsServiceProxy, ImportQuestionsServiceProxy } from '@shared/service-proxies/service-proxies5';
 
 @Component({
@@ -86,7 +86,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _tokenService: TokenService,
     private _dateMetaService: DateMetaPhysicsServiceProxy,
-    private ImportServiceProxy: ImportServiceProxy,
+    private _ImportCargoRoadsServiceProxy: ImportCargoRoadsServiceProxy,
     private _FaceTagsServiceProxy: FaceTagsServiceProxy,
     private _ImportSkuRfidsServiceProxy: ImportSkuRfidsServiceProxy,
     private _ImportStorageCheckServiceProxy: ImportStorageCheckServiceProxy,
@@ -206,7 +206,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     }
     else if (this.target == "cargo") {
 
-      this.ImportServiceProxy.postImportFile(
+      this._ImportCargoRoadsServiceProxy.postCargoRoadsImportFile(
         this.deviceId,
         {
           data: this.model.file,
