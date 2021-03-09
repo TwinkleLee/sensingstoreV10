@@ -113,6 +113,7 @@ export class ApplyServiceProxy {
     }
 
     /**
+     * 新建审核表
      * @param body (optional) 
      * @return Success
      */
@@ -393,16 +394,16 @@ export class BrandServiceProxy {
 
     /**
      * 获取品牌的列表（支持分页）
-     * @param tagId (optional) 
-     * @param catetoryIds (optional) 分类
+     * @param tagId (optional) 品牌Tag的ID
+     * @param catetoryIds (optional) 品牌分类Id
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
      * @param skipCount (optional) 
      * @return Success
      */
-    gets(tagId: number | null | undefined, catetoryIds: number[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<BrandDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/Gets?";
+    getBrands(tagId: number | null | undefined, catetoryIds: number[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<BrandDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/GetBrands?";
         if (tagId !== undefined && tagId !== null)
             url_ += "TagId=" + encodeURIComponent("" + tagId) + "&";
         if (catetoryIds !== undefined && catetoryIds !== null)
@@ -430,11 +431,11 @@ export class BrandServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGets(response_);
+            return this.processGetBrands(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGets(<any>response_);
+                    return this.processGetBrands(<any>response_);
                 } catch (e) {
                     return <Observable<BrandDtoPagedResultDto>><any>_observableThrow(e);
                 }
@@ -443,7 +444,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processGets(response: HttpResponseBase): Observable<BrandDtoPagedResultDto> {
+    protected processGetBrands(response: HttpResponseBase): Observable<BrandDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -471,18 +472,15 @@ export class BrandServiceProxy {
 
     /**
      * 获取单个的品牌
-     * @param input (optional) 
-     * @param catetoryIds (optional) 
+     * @param brandId (optional) 
      * @return Success
      */
-    getSingle(input: number | undefined, catetoryIds: number[] | null | undefined): Observable<BrandDto> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/GetSingle?";
-        if (input === null)
-            throw new Error("The parameter 'input' cannot be null.");
-        else if (input !== undefined)
-            url_ += "input=" + encodeURIComponent("" + input) + "&";
-        if (catetoryIds !== undefined && catetoryIds !== null)
-            catetoryIds && catetoryIds.forEach(item => { url_ += "CatetoryIds=" + encodeURIComponent("" + item) + "&"; });
+    getSingleBrand(brandId: number | undefined): Observable<BrandDto> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/GetSingleBrand?";
+        if (brandId === null)
+            throw new Error("The parameter 'brandId' cannot be null.");
+        else if (brandId !== undefined)
+            url_ += "brandId=" + encodeURIComponent("" + brandId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -494,11 +492,11 @@ export class BrandServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetSingle(response_);
+            return this.processGetSingleBrand(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetSingle(<any>response_);
+                    return this.processGetSingleBrand(<any>response_);
                 } catch (e) {
                     return <Observable<BrandDto>><any>_observableThrow(e);
                 }
@@ -507,7 +505,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processGetSingle(response: HttpResponseBase): Observable<BrandDto> {
+    protected processGetSingleBrand(response: HttpResponseBase): Observable<BrandDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -538,8 +536,8 @@ export class BrandServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    update(body: UpdateBrandInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/Update";
+    updateBrand(body: UpdateBrandInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/UpdateBrand";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -554,11 +552,11 @@ export class BrandServiceProxy {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdate(response_);
+            return this.processUpdateBrand(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUpdate(<any>response_);
+                    return this.processUpdateBrand(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -567,7 +565,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processUpdate(response: HttpResponseBase): Observable<void> {
+    protected processUpdateBrand(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -595,8 +593,8 @@ export class BrandServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    create(body: CreateBrandInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/Create";
+    createBrand(body: CreateBrandInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/CreateBrand";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -611,11 +609,11 @@ export class BrandServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreate(response_);
+            return this.processCreateBrand(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreate(<any>response_);
+                    return this.processCreateBrand(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -624,7 +622,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<void> {
+    protected processCreateBrand(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -955,8 +953,8 @@ export class BrandServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    boundBrandTags(body: SetBrandTagsDto | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/BoundBrandTags";
+    bindTagsToBrands(body: SetBrandTagsDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/BindTagsToBrands";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -971,11 +969,11 @@ export class BrandServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBoundBrandTags(response_);
+            return this.processBindTagsToBrands(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processBoundBrandTags(<any>response_);
+                    return this.processBindTagsToBrands(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -984,7 +982,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processBoundBrandTags(response: HttpResponseBase): Observable<void> {
+    protected processBindTagsToBrands(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1012,8 +1010,8 @@ export class BrandServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    applyBrands(body: OnlineOrOffLineBrandInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/ApplyBrands";
+    auditBrands(body: OnlineOrOffLineBrandInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/AuditBrands";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1028,11 +1026,11 @@ export class BrandServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processApplyBrands(response_);
+            return this.processAuditBrands(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processApplyBrands(<any>response_);
+                    return this.processAuditBrands(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -1041,7 +1039,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processApplyBrands(response: HttpResponseBase): Observable<void> {
+    protected processAuditBrands(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1449,11 +1447,12 @@ export class BrandServiceProxy {
     }
 
     /**
+     * 获取品牌的前几个（下拉列表用）
      * @param count (optional) 
      * @return Success
      */
-    top(count: number | undefined): Observable<IdNameDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/Brand/Top?";
+    getBrandTopForSelect(count: number | undefined): Observable<IdNameDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/GetBrandTopForSelect?";
         if (count === null)
             throw new Error("The parameter 'count' cannot be null.");
         else if (count !== undefined)
@@ -1468,12 +1467,12 @@ export class BrandServiceProxy {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processTop(response_);
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBrandTopForSelect(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processTop(<any>response_);
+                    return this.processGetBrandTopForSelect(<any>response_);
                 } catch (e) {
                     return <Observable<IdNameDto[]>><any>_observableThrow(e);
                 }
@@ -1482,7 +1481,7 @@ export class BrandServiceProxy {
         }));
     }
 
-    protected processTop(response: HttpResponseBase): Observable<IdNameDto[]> {
+    protected processGetBrandTopForSelect(response: HttpResponseBase): Observable<IdNameDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1525,7 +1524,7 @@ export class DeviceServiceProxy {
     }
 
     /**
-     * 获取租户下所有设备的信息,可按照条件进行检索，结果支持分页
+     * Host账户获取所有租户的所有设备的信息,可按照条件进行检索，结果支持分页
      * @param tenantId (optional) 特定租户的Id
      * @param deviceTypeIds (optional) 按照设备的类型检索
      * @param status (optional) 设备的状态
@@ -1688,21 +1687,23 @@ export class DeviceServiceProxy {
 
     /**
      * 获取当前登陆用户所在租户的设备列表，支持多条件查询
-     * @param status (optional) 
-     * @param operatingType (optional) 
-     * @param auditStatus (optional) 
-     * @param isHaveChildDevices (optional) 
-     * @param deviceTypeIds (optional) 
-     * @param storesId (optional) 
+     * @param ouIds (optional) 组织架构的ID
+     * @param status (optional) 设备的状态（枚举）
+     * @param operatingType (optional) 设备操作类型
+     * @param auditStatus (optional) 审核状态
+     * @param isHaveChildDevices (optional) 是否有子设备
+     * @param deviceTypeIds (optional) 设备类型ID
+     * @param storesId (optional) 店铺ID
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
      * @param skipCount (optional) 
-     * @param ouIds (optional) 
      * @return Success
      */
-    getDevices(status: DeviceStatus | undefined, operatingType: OperatingType | undefined, auditStatus: AuditStatus | undefined, isHaveChildDevices: boolean | null | undefined, deviceTypeIds: number[] | null | undefined, storesId: number[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined, ouIds: number[] | null | undefined): Observable<DeviceDtoPagedResultDto> {
+    getDevices(ouIds: number[] | null | undefined, status: DeviceStatus | undefined, operatingType: OperatingType | undefined, auditStatus: AuditStatus | undefined, isHaveChildDevices: boolean | null | undefined, deviceTypeIds: number[] | null | undefined, storesId: number[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<DeviceDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/Device/GetDevices?";
+        if (ouIds !== undefined && ouIds !== null)
+            ouIds && ouIds.forEach(item => { url_ += "OuIds=" + encodeURIComponent("" + item) + "&"; });
         if (status === null)
             throw new Error("The parameter 'status' cannot be null.");
         else if (status !== undefined)
@@ -1733,8 +1734,6 @@ export class DeviceServiceProxy {
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (ouIds !== undefined && ouIds !== null)
-            ouIds && ouIds.forEach(item => { url_ += "ouIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2170,12 +2169,12 @@ export class DeviceServiceProxy {
     }
 
     /**
-     * 获取 设备和ou的树
+     * 获取组织架构下店铺下设备的树形结构
      * @param ouIds (optional) 
      * @return Success
      */
-    getTreeDevices(ouIds: number[] | null | undefined): Observable<TreeItemDto> {
-        let url_ = this.baseUrl + "/api/services/app/Device/GetTreeDevices?";
+    getOuStoreDeviceTree(ouIds: number[] | null | undefined): Observable<TreeItemDto> {
+        let url_ = this.baseUrl + "/api/services/app/Device/GetOuStoreDeviceTree?";
         if (ouIds !== undefined && ouIds !== null)
             ouIds && ouIds.forEach(item => { url_ += "ouIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
@@ -2189,11 +2188,11 @@ export class DeviceServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTreeDevices(response_);
+            return this.processGetOuStoreDeviceTree(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetTreeDevices(<any>response_);
+                    return this.processGetOuStoreDeviceTree(<any>response_);
                 } catch (e) {
                     return <Observable<TreeItemDto>><any>_observableThrow(e);
                 }
@@ -2202,7 +2201,7 @@ export class DeviceServiceProxy {
         }));
     }
 
-    protected processGetTreeDevices(response: HttpResponseBase): Observable<TreeItemDto> {
+    protected processGetOuStoreDeviceTree(response: HttpResponseBase): Observable<TreeItemDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2237,8 +2236,8 @@ export class DeviceServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    publishToStore(body: PublishDeviceInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Device/PublishToStore";
+    publishDeviceToStore(body: PublishDeviceInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Device/PublishDeviceToStore";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2253,11 +2252,11 @@ export class DeviceServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPublishToStore(response_);
+            return this.processPublishDeviceToStore(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPublishToStore(<any>response_);
+                    return this.processPublishDeviceToStore(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -2266,7 +2265,7 @@ export class DeviceServiceProxy {
         }));
     }
 
-    protected processPublishToStore(response: HttpResponseBase): Observable<void> {
+    protected processPublishDeviceToStore(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2298,8 +2297,8 @@ export class DeviceServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    recycleFromStore(body: RecycleDeviceInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Device/RecycleFromStore";
+    recycleDeviceFromStore(body: RecycleDeviceInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Device/RecycleDeviceFromStore";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2314,11 +2313,11 @@ export class DeviceServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRecycleFromStore(response_);
+            return this.processRecycleDeviceFromStore(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRecycleFromStore(<any>response_);
+                    return this.processRecycleDeviceFromStore(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -2327,7 +2326,7 @@ export class DeviceServiceProxy {
         }));
     }
 
-    protected processRecycleFromStore(response: HttpResponseBase): Observable<void> {
+    protected processRecycleDeviceFromStore(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2355,11 +2354,12 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 设备的镜像发布
      * @param body (optional) 
      * @return Success
      */
-    mirrorPublish(body: DeviceMirrorPublishInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Device/MirrorPublish";
+    publishDeviceMirror(body: DeviceMirrorPublishInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Device/PublishDeviceMirror";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2374,11 +2374,11 @@ export class DeviceServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processMirrorPublish(response_);
+            return this.processPublishDeviceMirror(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processMirrorPublish(<any>response_);
+                    return this.processPublishDeviceMirror(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -2387,7 +2387,7 @@ export class DeviceServiceProxy {
         }));
     }
 
-    protected processMirrorPublish(response: HttpResponseBase): Observable<void> {
+    protected processPublishDeviceMirror(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2477,20 +2477,23 @@ export class DeviceServiceProxy {
 
     /**
      * 导出设备信息的Excel（名称，OS，subkey等内容）
-     * @param status (optional) 
-     * @param operatingType (optional) 
-     * @param auditStatus (optional) 
-     * @param isHaveChildDevices (optional) 
-     * @param deviceTypeIds (optional) 
-     * @param storesId (optional) 
+     * @param ouIds (optional) 组织架构的ID
+     * @param status (optional) 设备的状态（枚举）
+     * @param operatingType (optional) 设备操作类型
+     * @param auditStatus (optional) 审核状态
+     * @param isHaveChildDevices (optional) 是否有子设备
+     * @param deviceTypeIds (optional) 设备类型ID
+     * @param storesId (optional) 店铺ID
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
      * @param skipCount (optional) 
      * @return Success
      */
-    getDeviceToExcel(status: DeviceStatus | undefined, operatingType: OperatingType | undefined, auditStatus: AuditStatus | undefined, isHaveChildDevices: boolean | null | undefined, deviceTypeIds: number[] | null | undefined, storesId: number[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FileDto> {
+    getDeviceToExcel(ouIds: number[] | null | undefined, status: DeviceStatus | undefined, operatingType: OperatingType | undefined, auditStatus: AuditStatus | undefined, isHaveChildDevices: boolean | null | undefined, deviceTypeIds: number[] | null | undefined, storesId: number[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/Device/GetDeviceToExcel?";
+        if (ouIds !== undefined && ouIds !== null)
+            ouIds && ouIds.forEach(item => { url_ += "OuIds=" + encodeURIComponent("" + item) + "&"; });
         if (status === null)
             throw new Error("The parameter 'status' cannot be null.");
         else if (status !== undefined)
@@ -3175,6 +3178,7 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 新建设备的额外信息
      * @param body (optional) 
      * @return Success
      */
@@ -3231,6 +3235,7 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 更新设备额外信息
      * @param body (optional) 
      * @return Success
      */
@@ -3287,6 +3292,7 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 删除设备的额外信息
      * @param id (optional) 
      * @return Success
      */
@@ -3339,6 +3345,7 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 获取设备额外信息列表，可以根据特定设备ID，可能需要合并到getdevices（支持分页）
      * @param externalEnum (optional) 
      * @param deviceId (optional) 
      * @param filter (optional) 
@@ -3412,83 +3419,6 @@ export class DeviceServiceProxy {
         }
         return _observableOf<DeviceExtraDtoPagedResultDto>(<any>null);
     }
-}
-
-@Injectable()
-export class DeviceActionServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_DEVICECENTER_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * 设备的控制(向设备发送命令),Host也是可以进行调用
-     * @param body (optional) 设备命令详细
-     * @return Success
-     */
-    publishEvent(body: DeviceActionInput | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/DeviceAction/PublishEvent";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPublishEvent(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processPublishEvent(<any>response_);
-                } catch (e) {
-                    return <Observable<boolean>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<boolean>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processPublishEvent(response: HttpResponseBase): Observable<boolean> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Forbidden", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<boolean>(<any>null);
-    }
 
     /**
      * 多个设备的远程控制(向设备发送命令),Host也是可以调用
@@ -3496,7 +3426,7 @@ export class DeviceActionServiceProxy {
      * @return Success
      */
     broadcastEvent(body: DevicesActionInput | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/DeviceAction/BroadcastEvent";
+        let url_ = this.baseUrl + "/api/services/app/Device/BroadcastEvent";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -3561,7 +3491,7 @@ export class DeviceActionServiceProxy {
      * @return Success
      */
     publishEventWithSubkey(body: DevicesActionInputWithSubkey | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/DeviceAction/PublishEventWithSubkey";
+        let url_ = this.baseUrl + "/api/services/app/Device/PublishEventWithSubkey";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -3617,7 +3547,7 @@ export class DeviceActionServiceProxy {
      * @return Success
      */
     publishEventTest(body: DeviceStatusEventInput | undefined): Observable<string> {
-        let url_ = this.baseUrl + "/api/services/app/DeviceAction/PublishEventTest";
+        let url_ = this.baseUrl + "/api/services/app/Device/PublishEventTest";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -3666,6 +3596,123 @@ export class DeviceActionServiceProxy {
             }));
         }
         return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * 设备的控制(向设备发送命令),Host也是可以进行调用
+     * @param body (optional) 设备命令详细
+     * @return Success
+     */
+    publishEvent(body: DeviceActionInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/Device/PublishEvent";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPublishEvent(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPublishEvent(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPublishEvent(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    postPlayerDataWithMessage(body: PostPlayerDataInfoInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Device/PostPlayerDataWithMessage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPostPlayerDataWithMessage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPostPlayerDataWithMessage(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPostPlayerDataWithMessage(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -4005,332 +4052,6 @@ export class DeviceCategoryServiceProxy {
 }
 
 @Injectable()
-export class GroupKPIServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_DEVICECENTER_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param organizationUnitId (optional) 
-     * @param storeId (optional) 
-     * @param scaleTimeStart (optional) 
-     * @param scaleTimeEnd (optional) 
-     * @param kPIScale (optional) 
-     * @param name (optional) 
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param maxResultCount (optional) 
-     * @param skipCount (optional) 
-     * @return Success
-     */
-    getGroupKPIs(organizationUnitId: number | null | undefined, storeId: number | null | undefined, scaleTimeStart: moment.Moment | null | undefined, scaleTimeEnd: moment.Moment | null | undefined, kPIScale: GroupKPIScaleEnum | undefined, name: string | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<GroupKPIDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/GroupKPI/GetGroupKPIs?";
-        if (organizationUnitId !== undefined && organizationUnitId !== null)
-            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&";
-        if (storeId !== undefined && storeId !== null)
-            url_ += "StoreId=" + encodeURIComponent("" + storeId) + "&";
-        if (scaleTimeStart !== undefined && scaleTimeStart !== null)
-            url_ += "ScaleTimeStart=" + encodeURIComponent(scaleTimeStart ? "" + scaleTimeStart.toJSON() : "") + "&";
-        if (scaleTimeEnd !== undefined && scaleTimeEnd !== null)
-            url_ += "ScaleTimeEnd=" + encodeURIComponent(scaleTimeEnd ? "" + scaleTimeEnd.toJSON() : "") + "&";
-        if (kPIScale === null)
-            throw new Error("The parameter 'kPIScale' cannot be null.");
-        else if (kPIScale !== undefined)
-            url_ += "KPIScale=" + encodeURIComponent("" + kPIScale) + "&";
-        if (name !== undefined && name !== null)
-            url_ += "Name=" + encodeURIComponent("" + name) + "&";
-        if (filter !== undefined && filter !== null)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetGroupKPIs(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetGroupKPIs(<any>response_);
-                } catch (e) {
-                    return <Observable<GroupKPIDtoPagedResultDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<GroupKPIDtoPagedResultDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetGroupKPIs(response: HttpResponseBase): Observable<GroupKPIDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GroupKPIDtoPagedResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<GroupKPIDtoPagedResultDto>(<any>null);
-    }
-
-    /**
-     * 创建kpi
-     * @param body (optional) 
-     * @return Success
-     */
-    createGroupKPI(body: CreateGroupKpiDtoInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/GroupKPI/CreateGroupKPI";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateGroupKPI(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreateGroupKPI(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processCreateGroupKPI(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    updateGroupKPI(body: UpdateGroupKpiDtoInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/GroupKPI/UpdateGroupKPI";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateGroupKPI(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateGroupKPI(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdateGroupKPI(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    deleteSingleGroupKPI(id: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/GroupKPI/DeleteSingleGroupKPI?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteSingleGroupKPI(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeleteSingleGroupKPI(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processDeleteSingleGroupKPI(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param ids (optional) 
-     * @return Success
-     */
-    deleteGroupKPIs(ids: number[] | null | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/GroupKPI/DeleteGroupKPIs?";
-        if (ids !== undefined && ids !== null)
-            ids && ids.forEach(item => { url_ += "Ids=" + encodeURIComponent("" + item) + "&"; });
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteGroupKPIs(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeleteGroupKPIs(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processDeleteGroupKPIs(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-}
-
-@Injectable()
 export class IdentityServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -4579,7 +4300,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * 获取store类型的ou
+     * 获取组织架构下的store的详细信息，支持分页
      * @param organizationUnitTypeName (optional) 
      * @param organizationUnitId (optional) 
      * @param areas (optional) 
@@ -4660,7 +4381,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * 获取ou下的店铺列表
+     * 获取组织架构下的店铺Id和Name的列表
      * @param daquIds (optional) 
      * @param provinceIds (optional) 
      * @return Success
@@ -4726,7 +4447,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * 获取租户下OU的Tree
+     * 获取当前登陆用户所在租户下组织架构的树形结构
      * @return Success
      */
     getCurrentTenantOrganizationUnitsTree(): Observable<Int64TreeDto> {
@@ -4782,11 +4503,12 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
+     * 获取特定组织架构的KPI的名称
      * @param organizationUnitId (optional) 
      * @return Success
      */
-    getGroupKpiNames(organizationUnitId: number | null | undefined): Observable<string[]> {
-        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetGroupKpiNames?";
+    getOrganizationUintKpiNames(organizationUnitId: number | null | undefined): Observable<string[]> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetOrganizationUintKpiNames?";
         if (organizationUnitId !== undefined && organizationUnitId !== null)
             url_ += "organizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&";
         url_ = url_.replace(/[?&]$/, "");
@@ -4800,11 +4522,11 @@ export class OrganizationUnitServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetGroupKpiNames(response_);
+            return this.processGetOrganizationUintKpiNames(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetGroupKpiNames(<any>response_);
+                    return this.processGetOrganizationUintKpiNames(<any>response_);
                 } catch (e) {
                     return <Observable<string[]>><any>_observableThrow(e);
                 }
@@ -4813,7 +4535,7 @@ export class OrganizationUnitServiceProxy {
         }));
     }
 
-    protected processGetGroupKpiNames(response: HttpResponseBase): Observable<string[]> {
+    protected processGetOrganizationUintKpiNames(response: HttpResponseBase): Observable<string[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4841,6 +4563,324 @@ export class OrganizationUnitServiceProxy {
             }));
         }
         return _observableOf<string[]>(<any>null);
+    }
+
+    /**
+     * 获取组织架构下的KPI信息列表，支持分页
+     * @param organizationUnitId (optional) 
+     * @param storeId (optional) 
+     * @param scaleTimeStart (optional) 
+     * @param scaleTimeEnd (optional) 
+     * @param kPIScale (optional) 
+     * @param name (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getOrganizationUnitKPIs(organizationUnitId: number | null | undefined, storeId: number | null | undefined, scaleTimeStart: moment.Moment | null | undefined, scaleTimeEnd: moment.Moment | null | undefined, kPIScale: GroupKPIScaleEnum | undefined, name: string | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<OrganizationUnitKPIDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetOrganizationUnitKPIs?";
+        if (organizationUnitId !== undefined && organizationUnitId !== null)
+            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&";
+        if (storeId !== undefined && storeId !== null)
+            url_ += "StoreId=" + encodeURIComponent("" + storeId) + "&";
+        if (scaleTimeStart !== undefined && scaleTimeStart !== null)
+            url_ += "ScaleTimeStart=" + encodeURIComponent(scaleTimeStart ? "" + scaleTimeStart.toJSON() : "") + "&";
+        if (scaleTimeEnd !== undefined && scaleTimeEnd !== null)
+            url_ += "ScaleTimeEnd=" + encodeURIComponent(scaleTimeEnd ? "" + scaleTimeEnd.toJSON() : "") + "&";
+        if (kPIScale === null)
+            throw new Error("The parameter 'kPIScale' cannot be null.");
+        else if (kPIScale !== undefined)
+            url_ += "KPIScale=" + encodeURIComponent("" + kPIScale) + "&";
+        if (name !== undefined && name !== null)
+            url_ += "Name=" + encodeURIComponent("" + name) + "&";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOrganizationUnitKPIs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOrganizationUnitKPIs(<any>response_);
+                } catch (e) {
+                    return <Observable<OrganizationUnitKPIDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OrganizationUnitKPIDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOrganizationUnitKPIs(response: HttpResponseBase): Observable<OrganizationUnitKPIDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OrganizationUnitKPIDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OrganizationUnitKPIDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 创建组织架构下的KPI
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrganizationUnitKPI(body: CreateOUKpiDtoInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/CreateOrganizationUnitKPI";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrganizationUnitKPI(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrganizationUnitKPI(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrganizationUnitKPI(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 更新组织架构下的KPI
+     * @param body (optional) 
+     * @return Success
+     */
+    updateOrganizationUnitKPI(body: UpdateOUKpiDtoInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/UpdateOrganizationUnitKPI";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateOrganizationUnitKPI(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateOrganizationUnitKPI(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateOrganizationUnitKPI(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 删除单个组织架构KPI信息
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteSingleOrganizationUnitKPI(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/DeleteSingleOrganizationUnitKPI?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteSingleOrganizationUnitKPI(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteSingleOrganizationUnitKPI(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteSingleOrganizationUnitKPI(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 批量删除组织架构KPI信息
+     * @param ids (optional) 
+     * @return Success
+     */
+    deleteOrganizationUnitKPIs(ids: number[] | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/DeleteOrganizationUnitKPIs?";
+        if (ids !== undefined && ids !== null)
+            ids && ids.forEach(item => { url_ += "Ids=" + encodeURIComponent("" + item) + "&"; });
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteOrganizationUnitKPIs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteOrganizationUnitKPIs(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteOrganizationUnitKPIs(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -4976,6 +5016,7 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
+     * 根据网关下的Subkey更新设备状态
      * @param subKey (optional) 
      * @param body (optional) 
      * @return Success
@@ -5034,6 +5075,7 @@ export class SensingDeviceServiceProxy {
      * 根据设备类型更新设备状态（传入设备状态）
      * @param body (optional) 
      * @return Success
+     * @deprecated
      */
     updateStatusByType(body: UpdateDeviceStatusInput | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdateStatusByType";
@@ -5084,7 +5126,7 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
-     * 设备心跳
+     * 智能设备心跳
      * @param subKey (optional) 
      * @param body (optional) 
      * @return Success
@@ -5202,6 +5244,7 @@ export class SensingDeviceServiceProxy {
      * 提供接口给外部调用, 回传设备信息到淘宝
      * @param deviceId (optional) 
      * @return Success
+     * @deprecated
      */
     smartstoreDeviceStatusFeedback(deviceId: number | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/services/app/SensingDevice/SmartstoreDeviceStatusFeedback?";
@@ -5259,6 +5302,7 @@ export class SensingDeviceServiceProxy {
      * 获取设备的详细基本信息
      * @param subKey (optional) 
      * @return Success
+     * @deprecated
      */
     getTenantAndOrganizationUnitInfo(subKey: string | null | undefined): Observable<TenantAndOrganizationUnitAndStoreOutput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetTenantAndOrganizationUnitInfo?";
@@ -5366,58 +5410,7 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
-     * @param subKey (optional) 
-     * @return Success
-     * @deprecated
-     */
-    deleteDeviceInfo(subKey: string | null | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/DeleteDeviceInfo?";
-        if (subKey !== undefined && subKey !== null)
-            url_ += "subKey=" + encodeURIComponent("" + subKey) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteDeviceInfo(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeleteDeviceInfo(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processDeleteDeviceInfo(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * 判断apppod是否需要更新
+     * 判断apppod是否需要更新，目前没有实现
      * @return Success
      */
     getAppPodUpdateStatus(versions: string, subKey: string): Observable<AppPodUpdateStatusDto> {
@@ -5588,63 +5581,12 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
-     * @return Success
-     */
-    postPlayerDataWithMessage(body: PostPlayerDataInfoInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostPlayerDataWithMessage";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostPlayerDataWithMessage(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processPostPlayerDataWithMessage(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processPostPlayerDataWithMessage(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
+     * 获取相同OuterId设备的描述信息列表
      * @param subKey (optional) 
      * @return Success
      */
-    getIntfaDeviceDescriptions(subKey: string | null | undefined): Observable<IntfaDeviceDescriptionWithId[]> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetIntfaDeviceDescriptions?";
+    getInfraredDeviceDescriptions(subKey: string | null | undefined): Observable<IntfaDeviceDescriptionWithId[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetInfraredDeviceDescriptions?";
         if (subKey !== undefined && subKey !== null)
             url_ += "subKey=" + encodeURIComponent("" + subKey) + "&";
         url_ = url_.replace(/[?&]$/, "");
@@ -5658,11 +5600,11 @@ export class SensingDeviceServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetIntfaDeviceDescriptions(response_);
+            return this.processGetInfraredDeviceDescriptions(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetIntfaDeviceDescriptions(<any>response_);
+                    return this.processGetInfraredDeviceDescriptions(<any>response_);
                 } catch (e) {
                     return <Observable<IntfaDeviceDescriptionWithId[]>><any>_observableThrow(e);
                 }
@@ -5671,7 +5613,7 @@ export class SensingDeviceServiceProxy {
         }));
     }
 
-    protected processGetIntfaDeviceDescriptions(response: HttpResponseBase): Observable<IntfaDeviceDescriptionWithId[]> {
+    protected processGetInfraredDeviceDescriptions(response: HttpResponseBase): Observable<IntfaDeviceDescriptionWithId[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5698,11 +5640,12 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
+     * 更新OuterId相同设备的描述信息
      * @param body (optional) 
      * @return Success
      */
-    updateIntfaDeviceDescriptions(body: UpdateIntfaDeviceDescriptionsInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdateIntfaDeviceDescriptions";
+    updateInfraredDeviceDescriptions(body: UpdateIntfaDeviceDescriptionsInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdateInfraredDeviceDescriptions";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -5717,11 +5660,11 @@ export class SensingDeviceServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateIntfaDeviceDescriptions(response_);
+            return this.processUpdateInfraredDeviceDescriptions(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUpdateIntfaDeviceDescriptions(<any>response_);
+                    return this.processUpdateInfraredDeviceDescriptions(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -5730,7 +5673,7 @@ export class SensingDeviceServiceProxy {
         }));
     }
 
-    protected processUpdateIntfaDeviceDescriptions(response: HttpResponseBase): Observable<void> {
+    protected processUpdateInfraredDeviceDescriptions(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5747,6 +5690,68 @@ export class SensingDeviceServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 存储过程减库存
+     * @param cargoRoadsId (optional) 
+     * @param thingId (optional) 
+     * @return Success
+     */
+    updateInventory(cargoRoadsId: number | undefined, thingId: number | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdateInventory?";
+        if (cargoRoadsId === null)
+            throw new Error("The parameter 'cargoRoadsId' cannot be null.");
+        else if (cargoRoadsId !== undefined)
+            url_ += "CargoRoadsId=" + encodeURIComponent("" + cargoRoadsId) + "&";
+        if (thingId === null)
+            throw new Error("The parameter 'thingId' cannot be null.");
+        else if (thingId !== undefined)
+            url_ += "ThingId=" + encodeURIComponent("" + thingId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateInventory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateInventory(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateInventory(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
     }
 
     /**
@@ -6071,68 +6076,6 @@ export class SensingDeviceServiceProxy {
         }
         return _observableOf<Int32SelectDto[]>(<any>null);
     }
-
-    /**
-     * 存储过程减库存
-     * @param cargoRoadsId (optional) 
-     * @param thingId (optional) 
-     * @return Success
-     */
-    updateInventory(cargoRoadsId: number | undefined, thingId: number | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdateInventory?";
-        if (cargoRoadsId === null)
-            throw new Error("The parameter 'cargoRoadsId' cannot be null.");
-        else if (cargoRoadsId !== undefined)
-            url_ += "CargoRoadsId=" + encodeURIComponent("" + cargoRoadsId) + "&";
-        if (thingId === null)
-            throw new Error("The parameter 'thingId' cannot be null.");
-        else if (thingId !== undefined)
-            url_ += "ThingId=" + encodeURIComponent("" + thingId) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateInventory(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateInventory(<any>response_);
-                } catch (e) {
-                    return <Observable<boolean>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<boolean>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdateInventory(response: HttpResponseBase): Observable<boolean> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<boolean>(<any>null);
-    }
 }
 
 @Injectable()
@@ -6147,7 +6090,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 获取所有店Id和它对应的地址
+     * 获取当前租户下的所有店Id和它对应的地址
      * @return Success
      */
     getSimpleStorePosition(): Observable<SimpleStorePositionDto[]> {
@@ -6211,7 +6154,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 只更新店的经纬度数据
+     * 批量更新店的经纬度数据
      * @param body (optional) 
      * @return Success
      */
@@ -6272,6 +6215,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 获取店铺信息的列表（支持分页）
      * @param body (optional) 
      * @return Success
      */
@@ -6336,6 +6280,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 店铺信息的Excel
      * @param body (optional) 
      * @return Success
      */
@@ -6400,8 +6345,8 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 根据Id获取Store
-     * @param storeId (optional) 
+     * 根据Id获取店铺的详细信息
+     * @param storeId (optional) 店铺Id
      * @return Success
      */
     getStoreById(storeId: number | undefined): Observable<StoresDto> {
@@ -6465,7 +6410,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 获取Store地址
+     * 获取店铺位置信息的列表（支持分页）
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -6541,8 +6486,8 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 设备下发到Store
-     * @param includeOfflineStore (optional) 
+     * 获取当前租户下组织架构和店铺关系的树形结构
+     * @param includeOfflineStore (optional) 上下线
      * @return Success
      */
     getCurrentTenantOrganizationUnitsAndStoresTree(includeOfflineStore: boolean | undefined): Observable<Int64TreeDto> {
@@ -6602,6 +6547,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 获取当前登录得租户下得组织架构和店铺得Tree
      * @return Success
      */
     getCurrentTenantSimpleOrganizationUnitsAndStoresTree(): Observable<Int64TreeDto> {
@@ -6657,7 +6603,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 新增Store
+     * 新增店铺
      * @param body (optional) 
      * @return Success
      */
@@ -6722,7 +6668,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 编辑Store
+     * 编辑店铺信息
      * @param body (optional) 
      * @return Success
      */
@@ -6787,8 +6733,8 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 删除Store
-     * @param id (optional) 
+     * 删除店铺
+     * @param id (optional) 单个删除店铺ID
      * @return Success
      */
     deleteStore(id: number | undefined): Observable<void> {
@@ -6848,8 +6794,8 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 批量删除Store
-     * @param ids (optional) 
+     * 批量删除店铺
+     * @param ids (optional) 多个选中的店铺ID
      * @return Success
      */
     deleteStores(ids: number[] | null | undefined): Observable<void> {
@@ -6907,6 +6853,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 根据传入的组织架构的ID获取店铺信息
      * @param ouId (optional) 
      * @return Success
      */
@@ -6971,12 +6918,12 @@ export class StoreServiceProxy {
     }
 
     /**
-     * Store发布至Ou
+     * 店铺发布至组织架构（绑定）
      * @param body (optional) 
      * @return Success
      */
-    publishToOrganization(body: PublishStoresInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Store/PublishToOrganization";
+    publishStoreToOrganization(body: PublishStoresInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Store/PublishStoreToOrganization";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -6991,11 +6938,11 @@ export class StoreServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPublishToOrganization(response_);
+            return this.processPublishStoreToOrganization(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPublishToOrganization(<any>response_);
+                    return this.processPublishStoreToOrganization(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -7004,7 +6951,7 @@ export class StoreServiceProxy {
         }));
     }
 
-    protected processPublishToOrganization(response: HttpResponseBase): Observable<void> {
+    protected processPublishStoreToOrganization(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -7032,11 +6979,12 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 将所有的店铺发送至组织架构下（登陆的租户）
      * @param body (optional) 
      * @return Success
      */
-    publishAllToOrganization(body: PublishStoresInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Store/PublishAllToOrganization";
+    publishAllStoreToOrganization(body: PublishStoresInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Store/PublishAllStoreToOrganization";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -7051,11 +6999,11 @@ export class StoreServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPublishAllToOrganization(response_);
+            return this.processPublishAllStoreToOrganization(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPublishAllToOrganization(<any>response_);
+                    return this.processPublishAllStoreToOrganization(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -7064,7 +7012,7 @@ export class StoreServiceProxy {
         }));
     }
 
-    protected processPublishAllToOrganization(response: HttpResponseBase): Observable<void> {
+    protected processPublishAllStoreToOrganization(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -7092,10 +7040,12 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 获取店铺下设备信息的公共字段列表
      * @return Success
+     * @deprecated
      */
-    getStoreDevicesInfos(): Observable<string[]> {
-        let url_ = this.baseUrl + "/api/services/app/Store/GetStoreDevicesInfos";
+    getStoreDevicesInfomation(): Observable<string[]> {
+        let url_ = this.baseUrl + "/api/services/app/Store/GetStoreDevicesInfomation";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7107,11 +7057,11 @@ export class StoreServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetStoreDevicesInfos(response_);
+            return this.processGetStoreDevicesInfomation(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetStoreDevicesInfos(<any>response_);
+                    return this.processGetStoreDevicesInfomation(<any>response_);
                 } catch (e) {
                     return <Observable<string[]>><any>_observableThrow(e);
                 }
@@ -7120,7 +7070,7 @@ export class StoreServiceProxy {
         }));
     }
 
-    protected processGetStoreDevicesInfos(response: HttpResponseBase): Observable<string[]> {
+    protected processGetStoreDevicesInfomation(response: HttpResponseBase): Observable<string[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -7151,7 +7101,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 店铺审核
+     * 店铺审核（上下线）
      * @param body (optional) 
      * @return Success
      */
@@ -7212,6 +7162,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 新建店铺额外信息
      * @param body (optional) 
      * @return Success
      */
@@ -7272,6 +7223,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 更新店铺额外信息
      * @param body (optional) 
      * @return Success
      */
@@ -7560,7 +7512,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 创建kpi
+     * 创建店铺KPI
      * @param body (optional) 
      * @return Success
      */
@@ -7682,7 +7634,7 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 删除店铺KPI
+     * 删除店铺KPI（单个）
      * @param id (optional) 
      * @return Success
      */
@@ -7743,6 +7695,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 批量删除店铺KPI
      * @param ids (optional) 
      * @return Success
      */
@@ -7801,6 +7754,7 @@ export class StoreServiceProxy {
     }
 
     /**
+     * 根据传入的店铺ID获取登录租户下的店铺KPI。（没传取租户下所有店铺KPI）
      * @param storeId (optional) 
      * @return Success
      */
@@ -7875,6 +7829,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 获取标签的列表，支持分页（无筛选条件）
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -7950,6 +7905,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 导出设备、品牌、店铺下的标签的Excel
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -8025,6 +7981,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 根据类型获取设备、品牌、店铺的标签
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -8097,7 +8054,7 @@ export class TagServiceProxy {
     }
 
     /**
-     * 新建tag
+     * 新建设备、品牌、店铺标签
      * @param body (optional) 
      * @return Success
      */
@@ -8162,7 +8119,7 @@ export class TagServiceProxy {
     }
 
     /**
-     * 修改tag
+     * 修改设备、品牌、店铺的标签
      * @param body (optional) 
      * @return Success
      */
@@ -8227,7 +8184,7 @@ export class TagServiceProxy {
     }
 
     /**
-     * 删除tag
+     * 删除设备、品牌、店铺的标签
      * @param id (optional) 
      * @return Success
      */
@@ -8288,12 +8245,12 @@ export class TagServiceProxy {
     }
 
     /**
-     * 查看前N个Tag（N为传入得参数）
+     * 查看前N个Tag（N为传入得参数,可能用于下拉列表）
      * @param count (optional) 
      * @return Success
      */
-    top(count: number | undefined): Observable<IdNameDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/Tag/Top?";
+    tagTopForSelect(count: number | undefined): Observable<IdNameDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Tag/TagTopForSelect?";
         if (count === null)
             throw new Error("The parameter 'count' cannot be null.");
         else if (count !== undefined)
@@ -8309,11 +8266,11 @@ export class TagServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processTop(response_);
+            return this.processTagTopForSelect(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processTop(<any>response_);
+                    return this.processTagTopForSelect(<any>response_);
                 } catch (e) {
                     return <Observable<IdNameDto[]>><any>_observableThrow(e);
                 }
@@ -8322,7 +8279,7 @@ export class TagServiceProxy {
         }));
     }
 
-    protected processTop(response: HttpResponseBase): Observable<IdNameDto[]> {
+    protected processTagTopForSelect(response: HttpResponseBase): Observable<IdNameDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -9421,9 +9378,13 @@ export interface IEntityFileDto {
     id: number;
 }
 
+/** 获取品牌的列表 */
 export class BrandDto implements IBrandDto {
+    /** 品牌的唯一标识 */
     code!: string | undefined;
+    /** 排序 */
     orderNumber!: number;
+    /** 品牌名字 */
     name!: string | undefined;
     /** 品牌 Logo */
     logoUrl!: string | undefined;
@@ -9434,13 +9395,18 @@ export class BrandDto implements IBrandDto {
     state!: string | undefined;
     /** 品牌主题色   16进制编码：#FFFFFF */
     mainColor!: string | undefined;
+    /** 品牌描述 */
     description!: string | undefined;
     /** 管理的外部资源 */
     itemImagesOrVideos!: EntityFileDto[] | undefined;
+    /** 口号 */
     slogan!: string | undefined;
+    /** 品牌的Tag */
     brandTags!: IdNameDto[] | undefined;
     auditStatus!: AuditStatus;
+    /** 主题 */
     theme!: string | undefined;
+    /** 额外的信息 */
     extensionData!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -9548,9 +9514,13 @@ export class BrandDto implements IBrandDto {
     }
 }
 
+/** 获取品牌的列表 */
 export interface IBrandDto {
+    /** 品牌的唯一标识 */
     code: string | undefined;
+    /** 排序 */
     orderNumber: number;
+    /** 品牌名字 */
     name: string | undefined;
     /** 品牌 Logo */
     logoUrl: string | undefined;
@@ -9561,13 +9531,18 @@ export interface IBrandDto {
     state: string | undefined;
     /** 品牌主题色   16进制编码：#FFFFFF */
     mainColor: string | undefined;
+    /** 品牌描述 */
     description: string | undefined;
     /** 管理的外部资源 */
     itemImagesOrVideos: EntityFileDto[] | undefined;
+    /** 口号 */
     slogan: string | undefined;
+    /** 品牌的Tag */
     brandTags: IdNameDto[] | undefined;
     auditStatus: AuditStatus;
+    /** 主题 */
     theme: string | undefined;
+    /** 额外的信息 */
     extensionData: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -9627,11 +9602,17 @@ export interface IBrandDtoPagedResultDto {
     items: BrandDto[] | undefined;
 }
 
+/** 更新品牌 */
 export class UpdateBrandInput implements IUpdateBrandInput {
+    /** 品牌Id */
     id!: number;
+    /** 品牌唯一标识 */
     code!: string;
+    /** 排序 */
     orderNumber!: number;
+    /** 品牌名字 */
     name!: string;
+    /** 主题 */
     theme!: string | undefined;
     extensionData!: string | undefined;
     /** 品牌 Logo */
@@ -9642,8 +9623,11 @@ export class UpdateBrandInput implements IUpdateBrandInput {
     state!: string | undefined;
     /** 品牌主题色   16进制编码：#FFFFFF */
     mainColor!: string | undefined;
+    /** 品牌描述 */
     description!: string | undefined;
+    /** 口号，主题 */
     slogan!: string | undefined;
+    /** 品牌Tag的ID */
     tagIds!: number[] | undefined;
     /** 品牌分类 */
     categorys!: number[] | undefined;
@@ -9719,11 +9703,17 @@ export class UpdateBrandInput implements IUpdateBrandInput {
     }
 }
 
+/** 更新品牌 */
 export interface IUpdateBrandInput {
+    /** 品牌Id */
     id: number;
+    /** 品牌唯一标识 */
     code: string;
+    /** 排序 */
     orderNumber: number;
+    /** 品牌名字 */
     name: string;
+    /** 主题 */
     theme: string | undefined;
     extensionData: string | undefined;
     /** 品牌 Logo */
@@ -9734,17 +9724,25 @@ export interface IUpdateBrandInput {
     state: string | undefined;
     /** 品牌主题色   16进制编码：#FFFFFF */
     mainColor: string | undefined;
+    /** 品牌描述 */
     description: string | undefined;
+    /** 口号，主题 */
     slogan: string | undefined;
+    /** 品牌Tag的ID */
     tagIds: number[] | undefined;
     /** 品牌分类 */
     categorys: number[] | undefined;
 }
 
+/** 新增品牌 */
 export class CreateBrandInput implements ICreateBrandInput {
+    /** 品牌唯一标识 */
     code!: string;
+    /** 排序 */
     orderNumber!: number;
+    /** 品牌名字 */
     name!: string;
+    /** 主题 */
     theme!: string | undefined;
     extensionData!: string | undefined;
     /** 品牌 Logo */
@@ -9755,8 +9753,11 @@ export class CreateBrandInput implements ICreateBrandInput {
     state!: string | undefined;
     /** 品牌主题色   16进制编码：#FFFFFF */
     mainColor!: string | undefined;
+    /** 品牌描述 */
     description!: string | undefined;
+    /** 口号，主题 */
     slogan!: string | undefined;
+    /** 品牌Tag的ID */
     tagIds!: number[] | undefined;
     /** 品牌分类 */
     categorys!: number[] | undefined;
@@ -9830,10 +9831,15 @@ export class CreateBrandInput implements ICreateBrandInput {
     }
 }
 
+/** 新增品牌 */
 export interface ICreateBrandInput {
+    /** 品牌唯一标识 */
     code: string;
+    /** 排序 */
     orderNumber: number;
+    /** 品牌名字 */
     name: string;
+    /** 主题 */
     theme: string | undefined;
     extensionData: string | undefined;
     /** 品牌 Logo */
@@ -9844,8 +9850,11 @@ export interface ICreateBrandInput {
     state: string | undefined;
     /** 品牌主题色   16进制编码：#FFFFFF */
     mainColor: string | undefined;
+    /** 品牌描述 */
     description: string | undefined;
+    /** 口号，主题 */
     slogan: string | undefined;
+    /** 品牌Tag的ID */
     tagIds: number[] | undefined;
     /** 品牌分类 */
     categorys: number[] | undefined;
@@ -10027,9 +10036,12 @@ export interface IUpdateEntityResourceInput {
     fromType: string | undefined;
 }
 
+/** 为品牌打Tag */
 export class SetBrandTagsDto implements ISetBrandTagsDto {
     tagIds!: number[] | undefined;
+    /** 品牌ID */
     brandIds!: number[] | undefined;
+    /** Tag行为默认新增 */
     action!: string | undefined;
 
     constructor(data?: ISetBrandTagsDto) {
@@ -10081,16 +10093,23 @@ export class SetBrandTagsDto implements ISetBrandTagsDto {
     }
 }
 
+/** 为品牌打Tag */
 export interface ISetBrandTagsDto {
     tagIds: number[] | undefined;
+    /** 品牌ID */
     brandIds: number[] | undefined;
+    /** Tag行为默认新增 */
     action: string | undefined;
 }
 
+/** 上下线品牌 */
 export class OnlineOrOffLineBrandInput implements IOnlineOrOffLineBrandInput {
+    /** 是否有商品 */
     isIncludeProduct!: boolean;
     wanted!: ApplyWanted;
+    /** 是否上下线所有品牌 */
     isAllBrands!: boolean;
+    /** 选中的品牌ID */
     brandIds!: number[] | undefined;
 
     constructor(data?: IOnlineOrOffLineBrandInput) {
@@ -10136,10 +10155,14 @@ export class OnlineOrOffLineBrandInput implements IOnlineOrOffLineBrandInput {
     }
 }
 
+/** 上下线品牌 */
 export interface IOnlineOrOffLineBrandInput {
+    /** 是否有商品 */
     isIncludeProduct: boolean;
     wanted: ApplyWanted;
+    /** 是否上下线所有品牌 */
     isAllBrands: boolean;
+    /** 选中的品牌ID */
     brandIds: number[] | undefined;
 }
 
@@ -10866,6 +10889,7 @@ export interface ITenantDeviceOutputPagedResultDto {
     items: TenantDeviceOutput[] | undefined;
 }
 
+/** 新建设备 */
 export class CreateDeviceInput implements ICreateDeviceInput {
     /** Customize name to understand well. */
     name!: string;
@@ -10905,6 +10929,7 @@ export class CreateDeviceInput implements ICreateDeviceInput {
     deviceTypeId!: number | undefined;
     peripheralIds!: number[] | undefined;
     categoryIds!: number[] | undefined;
+    /** 硬件编号 */
     hardwareCode!: string | undefined;
     osType!: OsTypeEnum;
     organizationUnitId!: number | undefined;
@@ -11006,6 +11031,7 @@ export class CreateDeviceInput implements ICreateDeviceInput {
     }
 }
 
+/** 新建设备 */
 export interface ICreateDeviceInput {
     /** Customize name to understand well. */
     name: string;
@@ -11045,6 +11071,7 @@ export interface ICreateDeviceInput {
     deviceTypeId: number | undefined;
     peripheralIds: number[] | undefined;
     categoryIds: number[] | undefined;
+    /** 硬件编号 */
     hardwareCode: string | undefined;
     osType: OsTypeEnum;
     organizationUnitId: number | undefined;
@@ -12228,68 +12255,6 @@ export interface IDeviceExtraDtoPagedResultDto {
     items: DeviceExtraDto[] | undefined;
 }
 
-/** 单个设备控制的数据结构 */
-export class DeviceActionInput implements IDeviceActionInput {
-    /** 被控制设备的Id编号 */
-    deviceId!: number;
-    /** 设备控制命令:
-shutdown-pc, restart-pc.
-close-container,update-resource,snapshot
-switch-app,restart-app,close-app. */
-    actionName!: string;
-    appId!: string | undefined;
-    /** 业务数据内容 */
-    actionContent!: string | undefined;
-
-    constructor(data?: IDeviceActionInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.deviceId = _data["deviceId"];
-            this.actionName = _data["actionName"];
-            this.appId = _data["appId"];
-            this.actionContent = _data["actionContent"];
-        }
-    }
-
-    static fromJS(data: any): DeviceActionInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new DeviceActionInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["deviceId"] = this.deviceId;
-        data["actionName"] = this.actionName;
-        data["appId"] = this.appId;
-        data["actionContent"] = this.actionContent;
-        return data; 
-    }
-}
-
-/** 单个设备控制的数据结构 */
-export interface IDeviceActionInput {
-    /** 被控制设备的Id编号 */
-    deviceId: number;
-    /** 设备控制命令:
-shutdown-pc, restart-pc.
-close-container,update-resource,snapshot
-switch-app,restart-app,close-app. */
-    actionName: string;
-    appId: string | undefined;
-    /** 业务数据内容 */
-    actionContent: string | undefined;
-}
-
 export class DevicesActionInput implements IDevicesActionInput {
     /** 被控制设备的Id编号数组 */
     deviceIds!: number[];
@@ -12453,6 +12418,216 @@ export interface IDeviceStatusEventInput {
     action: string | undefined;
     status: string | undefined;
     deviceId: string | undefined;
+}
+
+/** 单个设备控制的数据结构 */
+export class DeviceActionInput implements IDeviceActionInput {
+    /** 被控制设备的Id编号 */
+    deviceId!: number;
+    /** 设备控制命令:
+shutdown-pc, restart-pc.
+close-container,update-resource,snapshot
+switch-app,restart-app,close-app. */
+    actionName!: string;
+    appId!: string | undefined;
+    /** 业务数据内容 */
+    actionContent!: string | undefined;
+
+    constructor(data?: IDeviceActionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deviceId = _data["deviceId"];
+            this.actionName = _data["actionName"];
+            this.appId = _data["appId"];
+            this.actionContent = _data["actionContent"];
+        }
+    }
+
+    static fromJS(data: any): DeviceActionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeviceActionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deviceId"] = this.deviceId;
+        data["actionName"] = this.actionName;
+        data["appId"] = this.appId;
+        data["actionContent"] = this.actionContent;
+        return data; 
+    }
+}
+
+/** 单个设备控制的数据结构 */
+export interface IDeviceActionInput {
+    /** 被控制设备的Id编号 */
+    deviceId: number;
+    /** 设备控制命令:
+shutdown-pc, restart-pc.
+close-container,update-resource,snapshot
+switch-app,restart-app,close-app. */
+    actionName: string;
+    appId: string | undefined;
+    /** 业务数据内容 */
+    actionContent: string | undefined;
+}
+
+export class AddOrUpdateSnsUserInfoInput implements IAddOrUpdateSnsUserInfoInput {
+    subKey!: string | undefined;
+    snsAppID!: string | undefined;
+    subscribe!: number | undefined;
+    openid!: string | undefined;
+    nickname!: string | undefined;
+    sex!: number | undefined;
+    language!: string | undefined;
+    city!: string | undefined;
+    province!: string | undefined;
+    country!: string | undefined;
+    headimgurl!: string | undefined;
+    subscribeTime!: moment.Moment | undefined;
+    unSubScribeTime!: moment.Moment | undefined;
+    unionid!: string | undefined;
+    name!: string | undefined;
+    phone!: string | undefined;
+    identityID!: string | undefined;
+    gameName!: string | undefined;
+    score!: string | undefined;
+
+    constructor(data?: IAddOrUpdateSnsUserInfoInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.subKey = _data["subKey"];
+            this.snsAppID = _data["snsAppID"];
+            this.subscribe = _data["subscribe"];
+            this.openid = _data["openid"];
+            this.nickname = _data["nickname"];
+            this.sex = _data["sex"];
+            this.language = _data["language"];
+            this.city = _data["city"];
+            this.province = _data["province"];
+            this.country = _data["country"];
+            this.headimgurl = _data["headimgurl"];
+            this.subscribeTime = _data["subscribeTime"] ? moment(_data["subscribeTime"].toString()) : <any>undefined;
+            this.unSubScribeTime = _data["unSubScribeTime"] ? moment(_data["unSubScribeTime"].toString()) : <any>undefined;
+            this.unionid = _data["unionid"];
+            this.name = _data["name"];
+            this.phone = _data["phone"];
+            this.identityID = _data["identityID"];
+            this.gameName = _data["gameName"];
+            this.score = _data["score"];
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateSnsUserInfoInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateSnsUserInfoInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["subKey"] = this.subKey;
+        data["snsAppID"] = this.snsAppID;
+        data["subscribe"] = this.subscribe;
+        data["openid"] = this.openid;
+        data["nickname"] = this.nickname;
+        data["sex"] = this.sex;
+        data["language"] = this.language;
+        data["city"] = this.city;
+        data["province"] = this.province;
+        data["country"] = this.country;
+        data["headimgurl"] = this.headimgurl;
+        data["subscribeTime"] = this.subscribeTime ? this.subscribeTime.toISOString() : <any>undefined;
+        data["unSubScribeTime"] = this.unSubScribeTime ? this.unSubScribeTime.toISOString() : <any>undefined;
+        data["unionid"] = this.unionid;
+        data["name"] = this.name;
+        data["phone"] = this.phone;
+        data["identityID"] = this.identityID;
+        data["gameName"] = this.gameName;
+        data["score"] = this.score;
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateSnsUserInfoInput {
+    subKey: string | undefined;
+    snsAppID: string | undefined;
+    subscribe: number | undefined;
+    openid: string | undefined;
+    nickname: string | undefined;
+    sex: number | undefined;
+    language: string | undefined;
+    city: string | undefined;
+    province: string | undefined;
+    country: string | undefined;
+    headimgurl: string | undefined;
+    subscribeTime: moment.Moment | undefined;
+    unSubScribeTime: moment.Moment | undefined;
+    unionid: string | undefined;
+    name: string | undefined;
+    phone: string | undefined;
+    identityID: string | undefined;
+    gameName: string | undefined;
+    score: string | undefined;
+}
+
+export class PostPlayerDataInfoInput implements IPostPlayerDataInfoInput {
+    snsUserInfo!: AddOrUpdateSnsUserInfoInput;
+    message!: string | undefined;
+
+    constructor(data?: IPostPlayerDataInfoInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.snsUserInfo = _data["snsUserInfo"] ? AddOrUpdateSnsUserInfoInput.fromJS(_data["snsUserInfo"]) : <any>undefined;
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): PostPlayerDataInfoInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PostPlayerDataInfoInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["snsUserInfo"] = this.snsUserInfo ? this.snsUserInfo.toJSON() : <any>undefined;
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IPostPlayerDataInfoInput {
+    snsUserInfo: AddOrUpdateSnsUserInfoInput;
+    message: string | undefined;
 }
 
 export class DeviceCategoryDto implements IDeviceCategoryDto {
@@ -12713,283 +12888,6 @@ export class Int32SelectDto implements IInt32SelectDto {
 export interface IInt32SelectDto {
     selectKey: number;
     selectValue: string | undefined;
-}
-
-export enum GroupKPIScaleEnum {
-    Year = 0,
-    Month = 1,
-    Week = 2,
-    Day = 3,
-}
-
-export class GroupKPIDto implements IGroupKPIDto {
-    organizationUnitId!: number | undefined;
-    ouName!: string | undefined;
-    ouOuterId!: string | undefined;
-    scaleTime!: moment.Moment;
-    kpiScale!: GroupKPIScaleEnum;
-    /** 考核内容 :点击数，销售额 */
-    name!: string | undefined;
-    value!: number;
-    description!: string | undefined;
-    isDeleted!: boolean;
-    deleterUserId!: number | undefined;
-    deletionTime!: moment.Moment | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment;
-    creatorUserId!: number | undefined;
-    id!: number;
-
-    constructor(data?: IGroupKPIDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.organizationUnitId = _data["organizationUnitId"];
-            this.ouName = _data["ouName"];
-            this.ouOuterId = _data["ouOuterId"];
-            this.scaleTime = _data["scaleTime"] ? moment(_data["scaleTime"].toString()) : <any>undefined;
-            this.kpiScale = _data["kpiScale"];
-            this.name = _data["name"];
-            this.value = _data["value"];
-            this.description = _data["description"];
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): GroupKPIDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GroupKPIDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["organizationUnitId"] = this.organizationUnitId;
-        data["ouName"] = this.ouName;
-        data["ouOuterId"] = this.ouOuterId;
-        data["scaleTime"] = this.scaleTime ? this.scaleTime.toISOString() : <any>undefined;
-        data["kpiScale"] = this.kpiScale;
-        data["name"] = this.name;
-        data["value"] = this.value;
-        data["description"] = this.description;
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IGroupKPIDto {
-    organizationUnitId: number | undefined;
-    ouName: string | undefined;
-    ouOuterId: string | undefined;
-    scaleTime: moment.Moment;
-    kpiScale: GroupKPIScaleEnum;
-    /** 考核内容 :点击数，销售额 */
-    name: string | undefined;
-    value: number;
-    description: string | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-}
-
-export class GroupKPIDtoPagedResultDto implements IGroupKPIDtoPagedResultDto {
-    totalCount!: number;
-    items!: GroupKPIDto[] | undefined;
-
-    constructor(data?: IGroupKPIDtoPagedResultDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GroupKPIDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): GroupKPIDtoPagedResultDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GroupKPIDtoPagedResultDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IGroupKPIDtoPagedResultDto {
-    totalCount: number;
-    items: GroupKPIDto[] | undefined;
-}
-
-export class CreateGroupKpiDtoInput implements ICreateGroupKpiDtoInput {
-    /** 所属的组织 Id */
-    organizationUnitId!: number | undefined;
-    scaleTime!: string | undefined;
-    kpiScale!: GroupKPIScaleEnum;
-    /** 考核内容 :点击数，销售额 */
-    name!: string | undefined;
-    value!: number;
-    description!: string | undefined;
-
-    constructor(data?: ICreateGroupKpiDtoInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.organizationUnitId = _data["organizationUnitId"];
-            this.scaleTime = _data["scaleTime"];
-            this.kpiScale = _data["kpiScale"];
-            this.name = _data["name"];
-            this.value = _data["value"];
-            this.description = _data["description"];
-        }
-    }
-
-    static fromJS(data: any): CreateGroupKpiDtoInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateGroupKpiDtoInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["organizationUnitId"] = this.organizationUnitId;
-        data["scaleTime"] = this.scaleTime;
-        data["kpiScale"] = this.kpiScale;
-        data["name"] = this.name;
-        data["value"] = this.value;
-        data["description"] = this.description;
-        return data; 
-    }
-}
-
-export interface ICreateGroupKpiDtoInput {
-    /** 所属的组织 Id */
-    organizationUnitId: number | undefined;
-    scaleTime: string | undefined;
-    kpiScale: GroupKPIScaleEnum;
-    /** 考核内容 :点击数，销售额 */
-    name: string | undefined;
-    value: number;
-    description: string | undefined;
-}
-
-export class UpdateGroupKpiDtoInput implements IUpdateGroupKpiDtoInput {
-    id!: number;
-    /** 所属的组织 Id */
-    organizationUnitId!: number | undefined;
-    scaleTime!: string | undefined;
-    kpiScale!: GroupKPIScaleEnum;
-    /** 考核内容 :点击数，销售额 */
-    name!: string | undefined;
-    value!: number;
-    description!: string | undefined;
-
-    constructor(data?: IUpdateGroupKpiDtoInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.organizationUnitId = _data["organizationUnitId"];
-            this.scaleTime = _data["scaleTime"];
-            this.kpiScale = _data["kpiScale"];
-            this.name = _data["name"];
-            this.value = _data["value"];
-            this.description = _data["description"];
-        }
-    }
-
-    static fromJS(data: any): UpdateGroupKpiDtoInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdateGroupKpiDtoInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["organizationUnitId"] = this.organizationUnitId;
-        data["scaleTime"] = this.scaleTime;
-        data["kpiScale"] = this.kpiScale;
-        data["name"] = this.name;
-        data["value"] = this.value;
-        data["description"] = this.description;
-        return data; 
-    }
-}
-
-export interface IUpdateGroupKpiDtoInput {
-    id: number;
-    /** 所属的组织 Id */
-    organizationUnitId: number | undefined;
-    scaleTime: string | undefined;
-    kpiScale: GroupKPIScaleEnum;
-    /** 考核内容 :点击数，销售额 */
-    name: string | undefined;
-    value: number;
-    description: string | undefined;
 }
 
 export class PositionDto implements IPositionDto {
@@ -13254,17 +13152,309 @@ export interface IInt64TreeDto {
     outerId: string | undefined;
 }
 
-export class RegisterDeviceInput implements IRegisterDeviceInput {
+export enum GroupKPIScaleEnum {
+    Year = 0,
+    Month = 1,
+    Week = 2,
+    Day = 3,
+}
+
+export class OrganizationUnitKPIDto implements IOrganizationUnitKPIDto {
+    organizationUnitId!: number | undefined;
+    ouName!: string | undefined;
+    ouOuterId!: string | undefined;
+    scaleTime!: moment.Moment;
+    kpiScale!: GroupKPIScaleEnum;
+    /** 考核内容 :点击数，销售额 */
     name!: string | undefined;
+    value!: number;
+    description!: string | undefined;
+    isDeleted!: boolean;
+    deleterUserId!: number | undefined;
+    deletionTime!: moment.Moment | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IOrganizationUnitKPIDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.organizationUnitId = _data["organizationUnitId"];
+            this.ouName = _data["ouName"];
+            this.ouOuterId = _data["ouOuterId"];
+            this.scaleTime = _data["scaleTime"] ? moment(_data["scaleTime"].toString()) : <any>undefined;
+            this.kpiScale = _data["kpiScale"];
+            this.name = _data["name"];
+            this.value = _data["value"];
+            this.description = _data["description"];
+            this.isDeleted = _data["isDeleted"];
+            this.deleterUserId = _data["deleterUserId"];
+            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): OrganizationUnitKPIDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OrganizationUnitKPIDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["ouName"] = this.ouName;
+        data["ouOuterId"] = this.ouOuterId;
+        data["scaleTime"] = this.scaleTime ? this.scaleTime.toISOString() : <any>undefined;
+        data["kpiScale"] = this.kpiScale;
+        data["name"] = this.name;
+        data["value"] = this.value;
+        data["description"] = this.description;
+        data["isDeleted"] = this.isDeleted;
+        data["deleterUserId"] = this.deleterUserId;
+        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IOrganizationUnitKPIDto {
+    organizationUnitId: number | undefined;
+    ouName: string | undefined;
+    ouOuterId: string | undefined;
+    scaleTime: moment.Moment;
+    kpiScale: GroupKPIScaleEnum;
+    /** 考核内容 :点击数，销售额 */
+    name: string | undefined;
+    value: number;
+    description: string | undefined;
+    isDeleted: boolean;
+    deleterUserId: number | undefined;
+    deletionTime: moment.Moment | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class OrganizationUnitKPIDtoPagedResultDto implements IOrganizationUnitKPIDtoPagedResultDto {
+    totalCount!: number;
+    items!: OrganizationUnitKPIDto[] | undefined;
+
+    constructor(data?: IOrganizationUnitKPIDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(OrganizationUnitKPIDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): OrganizationUnitKPIDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OrganizationUnitKPIDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IOrganizationUnitKPIDtoPagedResultDto {
+    totalCount: number;
+    items: OrganizationUnitKPIDto[] | undefined;
+}
+
+export class CreateOUKpiDtoInput implements ICreateOUKpiDtoInput {
+    /** 所属的组织 Id */
+    organizationUnitId!: number | undefined;
+    scaleTime!: string | undefined;
+    kpiScale!: GroupKPIScaleEnum;
+    /** 考核内容 :点击数，销售额 */
+    name!: string | undefined;
+    value!: number;
+    description!: string | undefined;
+
+    constructor(data?: ICreateOUKpiDtoInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.organizationUnitId = _data["organizationUnitId"];
+            this.scaleTime = _data["scaleTime"];
+            this.kpiScale = _data["kpiScale"];
+            this.name = _data["name"];
+            this.value = _data["value"];
+            this.description = _data["description"];
+        }
+    }
+
+    static fromJS(data: any): CreateOUKpiDtoInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOUKpiDtoInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["scaleTime"] = this.scaleTime;
+        data["kpiScale"] = this.kpiScale;
+        data["name"] = this.name;
+        data["value"] = this.value;
+        data["description"] = this.description;
+        return data; 
+    }
+}
+
+export interface ICreateOUKpiDtoInput {
+    /** 所属的组织 Id */
+    organizationUnitId: number | undefined;
+    scaleTime: string | undefined;
+    kpiScale: GroupKPIScaleEnum;
+    /** 考核内容 :点击数，销售额 */
+    name: string | undefined;
+    value: number;
+    description: string | undefined;
+}
+
+/** 更新组织架构KPI的对象 */
+export class UpdateOUKpiDtoInput implements IUpdateOUKpiDtoInput {
+    /** 组织架构下KPI的唯一Id */
+    id!: number;
+    /** 所属的组织 Id */
+    organizationUnitId!: number | undefined;
+    scaleTime!: string | undefined;
+    kpiScale!: GroupKPIScaleEnum;
+    /** 考核内容 :点击数，销售额 */
+    name!: string | undefined;
+    value!: number;
+    description!: string | undefined;
+
+    constructor(data?: IUpdateOUKpiDtoInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.organizationUnitId = _data["organizationUnitId"];
+            this.scaleTime = _data["scaleTime"];
+            this.kpiScale = _data["kpiScale"];
+            this.name = _data["name"];
+            this.value = _data["value"];
+            this.description = _data["description"];
+        }
+    }
+
+    static fromJS(data: any): UpdateOUKpiDtoInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateOUKpiDtoInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["scaleTime"] = this.scaleTime;
+        data["kpiScale"] = this.kpiScale;
+        data["name"] = this.name;
+        data["value"] = this.value;
+        data["description"] = this.description;
+        return data; 
+    }
+}
+
+/** 更新组织架构KPI的对象 */
+export interface IUpdateOUKpiDtoInput {
+    /** 组织架构下KPI的唯一Id */
+    id: number;
+    /** 所属的组织 Id */
+    organizationUnitId: number | undefined;
+    scaleTime: string | undefined;
+    kpiScale: GroupKPIScaleEnum;
+    /** 考核内容 :点击数，销售额 */
+    name: string | undefined;
+    value: number;
+    description: string | undefined;
+}
+
+/** 注册设备 */
+export class RegisterDeviceInput implements IRegisterDeviceInput {
+    /** 设备名称 */
+    name!: string | undefined;
+    /** Ip */
     intranetIP!: string | undefined;
     internetIP!: string | undefined;
+    /** Mac地址 */
     mac!: string | undefined;
+    /** 地址 */
     address!: string | undefined;
+    /** 设备类型ID */
     deviceTypeId!: number;
+    /** License的信息 */
     licenseInfo!: string | undefined;
+    /** 硬件编号 */
     hardwareCode!: string | undefined;
+    /** 设备长度 */
     resolution_Width!: number;
+    /** 设备高度 */
     resolution_Height!: number;
+    /** 操作系统 */
     os!: string | undefined;
 
     constructor(data?: IRegisterDeviceInput) {
@@ -13316,17 +13506,28 @@ export class RegisterDeviceInput implements IRegisterDeviceInput {
     }
 }
 
+/** 注册设备 */
 export interface IRegisterDeviceInput {
+    /** 设备名称 */
     name: string | undefined;
+    /** Ip */
     intranetIP: string | undefined;
     internetIP: string | undefined;
+    /** Mac地址 */
     mac: string | undefined;
+    /** 地址 */
     address: string | undefined;
+    /** 设备类型ID */
     deviceTypeId: number;
+    /** License的信息 */
     licenseInfo: string | undefined;
+    /** 硬件编号 */
     hardwareCode: string | undefined;
+    /** 设备长度 */
     resolution_Width: number;
+    /** 设备高度 */
     resolution_Height: number;
+    /** 操作系统 */
     os: string | undefined;
 }
 
@@ -13544,9 +13745,13 @@ export interface IDeviceOutput {
     shopUrl: string | undefined;
 }
 
+/** 更新设备状态 */
 export class UpdateDeviceStatusInput implements IUpdateDeviceStatusInput {
+    /** 设备类型 */
     deviceTypes!: number[] | undefined;
+    /** 时间间隔 */
     timeSpan!: number;
+    /** 信号 */
     sign!: string | undefined;
     status!: DeviceStatus;
 
@@ -13593,9 +13798,13 @@ export class UpdateDeviceStatusInput implements IUpdateDeviceStatusInput {
     }
 }
 
+/** 更新设备状态 */
 export interface IUpdateDeviceStatusInput {
+    /** 设备类型 */
     deviceTypes: number[] | undefined;
+    /** 时间间隔 */
     timeSpan: number;
+    /** 信号 */
     sign: string | undefined;
     status: DeviceStatus;
 }
@@ -14074,154 +14283,6 @@ export interface IIndustryDeviceReportDto {
     deviceLocations: DeviceLocation[] | undefined;
 }
 
-export class AddOrUpdateSnsUserInfoInput implements IAddOrUpdateSnsUserInfoInput {
-    subKey!: string | undefined;
-    snsAppID!: string | undefined;
-    subscribe!: number | undefined;
-    openid!: string | undefined;
-    nickname!: string | undefined;
-    sex!: number | undefined;
-    language!: string | undefined;
-    city!: string | undefined;
-    province!: string | undefined;
-    country!: string | undefined;
-    headimgurl!: string | undefined;
-    subscribeTime!: moment.Moment | undefined;
-    unSubScribeTime!: moment.Moment | undefined;
-    unionid!: string | undefined;
-    name!: string | undefined;
-    phone!: string | undefined;
-    identityID!: string | undefined;
-    gameName!: string | undefined;
-    score!: string | undefined;
-
-    constructor(data?: IAddOrUpdateSnsUserInfoInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.subKey = _data["subKey"];
-            this.snsAppID = _data["snsAppID"];
-            this.subscribe = _data["subscribe"];
-            this.openid = _data["openid"];
-            this.nickname = _data["nickname"];
-            this.sex = _data["sex"];
-            this.language = _data["language"];
-            this.city = _data["city"];
-            this.province = _data["province"];
-            this.country = _data["country"];
-            this.headimgurl = _data["headimgurl"];
-            this.subscribeTime = _data["subscribeTime"] ? moment(_data["subscribeTime"].toString()) : <any>undefined;
-            this.unSubScribeTime = _data["unSubScribeTime"] ? moment(_data["unSubScribeTime"].toString()) : <any>undefined;
-            this.unionid = _data["unionid"];
-            this.name = _data["name"];
-            this.phone = _data["phone"];
-            this.identityID = _data["identityID"];
-            this.gameName = _data["gameName"];
-            this.score = _data["score"];
-        }
-    }
-
-    static fromJS(data: any): AddOrUpdateSnsUserInfoInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new AddOrUpdateSnsUserInfoInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["subKey"] = this.subKey;
-        data["snsAppID"] = this.snsAppID;
-        data["subscribe"] = this.subscribe;
-        data["openid"] = this.openid;
-        data["nickname"] = this.nickname;
-        data["sex"] = this.sex;
-        data["language"] = this.language;
-        data["city"] = this.city;
-        data["province"] = this.province;
-        data["country"] = this.country;
-        data["headimgurl"] = this.headimgurl;
-        data["subscribeTime"] = this.subscribeTime ? this.subscribeTime.toISOString() : <any>undefined;
-        data["unSubScribeTime"] = this.unSubScribeTime ? this.unSubScribeTime.toISOString() : <any>undefined;
-        data["unionid"] = this.unionid;
-        data["name"] = this.name;
-        data["phone"] = this.phone;
-        data["identityID"] = this.identityID;
-        data["gameName"] = this.gameName;
-        data["score"] = this.score;
-        return data; 
-    }
-}
-
-export interface IAddOrUpdateSnsUserInfoInput {
-    subKey: string | undefined;
-    snsAppID: string | undefined;
-    subscribe: number | undefined;
-    openid: string | undefined;
-    nickname: string | undefined;
-    sex: number | undefined;
-    language: string | undefined;
-    city: string | undefined;
-    province: string | undefined;
-    country: string | undefined;
-    headimgurl: string | undefined;
-    subscribeTime: moment.Moment | undefined;
-    unSubScribeTime: moment.Moment | undefined;
-    unionid: string | undefined;
-    name: string | undefined;
-    phone: string | undefined;
-    identityID: string | undefined;
-    gameName: string | undefined;
-    score: string | undefined;
-}
-
-export class PostPlayerDataInfoInput implements IPostPlayerDataInfoInput {
-    snsUserInfo!: AddOrUpdateSnsUserInfoInput;
-    message!: string | undefined;
-
-    constructor(data?: IPostPlayerDataInfoInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.snsUserInfo = _data["snsUserInfo"] ? AddOrUpdateSnsUserInfoInput.fromJS(_data["snsUserInfo"]) : <any>undefined;
-            this.message = _data["message"];
-        }
-    }
-
-    static fromJS(data: any): PostPlayerDataInfoInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new PostPlayerDataInfoInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["snsUserInfo"] = this.snsUserInfo ? this.snsUserInfo.toJSON() : <any>undefined;
-        data["message"] = this.message;
-        return data; 
-    }
-}
-
-export interface IPostPlayerDataInfoInput {
-    snsUserInfo: AddOrUpdateSnsUserInfoInput;
-    message: string | undefined;
-}
-
 export class IntfaDeviceDescriptionWithId implements IIntfaDeviceDescriptionWithId {
     id!: number;
     name!: string | undefined;
@@ -14506,9 +14567,13 @@ export interface IUpdatePeripheralInput {
     iconUrl: string | undefined;
 }
 
+/** 店铺的地址信息（精简） */
 export class SimpleStorePositionDto implements ISimpleStorePositionDto {
+    /** 店铺Id */
     storeId!: number;
+    /** 城市 */
     city!: string | undefined;
+    /** 详细位置 */
     location!: string | undefined;
 
     constructor(data?: ISimpleStorePositionDto) {
@@ -14544,15 +14609,23 @@ export class SimpleStorePositionDto implements ISimpleStorePositionDto {
     }
 }
 
+/** 店铺的地址信息（精简） */
 export interface ISimpleStorePositionDto {
+    /** 店铺Id */
     storeId: number;
+    /** 城市 */
     city: string | undefined;
+    /** 详细位置 */
     location: string | undefined;
 }
 
+/** 店铺经纬度信息 */
 export class SimpleStorePositionInput implements ISimpleStorePositionInput {
+    /** 纬度 */
     lng!: number | undefined;
+    /** 经度 */
     lat!: number | undefined;
+    /** 店铺ID */
     storeId!: number;
 
     constructor(data?: ISimpleStorePositionInput) {
@@ -14588,15 +14661,22 @@ export class SimpleStorePositionInput implements ISimpleStorePositionInput {
     }
 }
 
+/** 店铺经纬度信息 */
 export interface ISimpleStorePositionInput {
+    /** 纬度 */
     lng: number | undefined;
+    /** 经度 */
     lat: number | undefined;
+    /** 店铺ID */
     storeId: number;
 }
 
+/** 按条件获取店铺列表的条件（分页） */
 export class GetStorseListInput implements IGetStorseListInput {
+    /** 组织架构的ID */
     organizationUnitId!: number[] | undefined;
     storeStatus!: StoreStatus;
+    /** 区域 */
     areas!: string[] | undefined;
     filter!: string | undefined;
     sorting!: string | undefined;
@@ -14660,9 +14740,12 @@ export class GetStorseListInput implements IGetStorseListInput {
     }
 }
 
+/** 按条件获取店铺列表的条件（分页） */
 export interface IGetStorseListInput {
+    /** 组织架构的ID */
     organizationUnitId: number[] | undefined;
     storeStatus: StoreStatus;
+    /** 区域 */
     areas: string[] | undefined;
     filter: string | undefined;
     sorting: string | undefined;
@@ -14941,6 +15024,7 @@ export interface IStorePositionDtoPagedResultDto {
 export class CreateStoreInput implements ICreateStoreInput {
     /** 门店商家自用编码,T-6300182 */
     outerId!: string | undefined;
+    /** 二维码的额外信息 */
     qrCodeExtraInfo!: string | undefined;
     /** 店铺的Logo */
     logoUrl!: string | undefined;
@@ -14966,6 +15050,7 @@ export class CreateStoreInput implements ICreateStoreInput {
     isAdsAutoSendDown!: boolean;
     /** App是否下发 */
     isAppAutoSendDown!: boolean;
+    /** APP是否自动下发 */
     isProductAutoSendDown!: boolean;
     /** 红包是否下发 */
     isCouponAutoSendDown!: boolean;
@@ -14977,22 +15062,33 @@ export class CreateStoreInput implements ICreateStoreInput {
     canAcceptProductAutoSendDown!: boolean;
     /** 红包是否下发是否接受 */
     canAcceptCouponAutoSendDown!: boolean;
+    /** 店铺地址的ID */
     positionId!: number | undefined;
     position!: PositionDto;
     /** 详细地址 */
     addressDetail!: string | undefined;
+    /** 开店时间 */
     openingTime!: moment.Moment | undefined;
+    /** 关店时间 */
     closedTime!: moment.Moment | undefined;
     /** 自己电商的二维码规则. */
     qrcodeRules!: string | undefined;
+    /** 默认在线店铺名称 */
     defaultOnlineShopName!: string | undefined;
     type!: StoreType;
+    /** 店铺名称 */
     displayName!: string;
+    /** 组织架构的ID */
     organizationUnitId!: number | undefined;
+    /** 淘宝店铺的ID */
     taobaoStoreId!: string | undefined;
+    /** 店铺类型 */
     storeType!: string | undefined;
+    /** 店铺的设备信息 */
     storeDevicesInfo!: string | undefined;
+    /** 房间ID */
     roomIds!: string | undefined;
+    /** 品牌ID */
     brandId!: number | undefined;
 
     constructor(data?: ICreateStoreInput) {
@@ -15095,6 +15191,7 @@ export class CreateStoreInput implements ICreateStoreInput {
 export interface ICreateStoreInput {
     /** 门店商家自用编码,T-6300182 */
     outerId: string | undefined;
+    /** 二维码的额外信息 */
     qrCodeExtraInfo: string | undefined;
     /** 店铺的Logo */
     logoUrl: string | undefined;
@@ -15120,6 +15217,7 @@ export interface ICreateStoreInput {
     isAdsAutoSendDown: boolean;
     /** App是否下发 */
     isAppAutoSendDown: boolean;
+    /** APP是否自动下发 */
     isProductAutoSendDown: boolean;
     /** 红包是否下发 */
     isCouponAutoSendDown: boolean;
@@ -15131,29 +15229,42 @@ export interface ICreateStoreInput {
     canAcceptProductAutoSendDown: boolean;
     /** 红包是否下发是否接受 */
     canAcceptCouponAutoSendDown: boolean;
+    /** 店铺地址的ID */
     positionId: number | undefined;
     position: PositionDto;
     /** 详细地址 */
     addressDetail: string | undefined;
+    /** 开店时间 */
     openingTime: moment.Moment | undefined;
+    /** 关店时间 */
     closedTime: moment.Moment | undefined;
     /** 自己电商的二维码规则. */
     qrcodeRules: string | undefined;
+    /** 默认在线店铺名称 */
     defaultOnlineShopName: string | undefined;
     type: StoreType;
+    /** 店铺名称 */
     displayName: string;
+    /** 组织架构的ID */
     organizationUnitId: number | undefined;
+    /** 淘宝店铺的ID */
     taobaoStoreId: string | undefined;
+    /** 店铺类型 */
     storeType: string | undefined;
+    /** 店铺的设备信息 */
     storeDevicesInfo: string | undefined;
+    /** 房间ID */
     roomIds: string | undefined;
+    /** 品牌ID */
     brandId: number | undefined;
 }
 
 export class UpdateStoreInput implements IUpdateStoreInput {
+    /** 店铺ID */
     id!: number;
     /** 门店商家自用编码,T-6300182 */
     outerId!: string | undefined;
+    /** 二维码的额外信息 */
     qrCodeExtraInfo!: string | undefined;
     /** 店铺的Logo */
     logoUrl!: string | undefined;
@@ -15179,6 +15290,7 @@ export class UpdateStoreInput implements IUpdateStoreInput {
     isAdsAutoSendDown!: boolean;
     /** App是否下发 */
     isAppAutoSendDown!: boolean;
+    /** APP是否自动下发 */
     isProductAutoSendDown!: boolean;
     /** 红包是否下发 */
     isCouponAutoSendDown!: boolean;
@@ -15190,22 +15302,33 @@ export class UpdateStoreInput implements IUpdateStoreInput {
     canAcceptProductAutoSendDown!: boolean;
     /** 红包是否下发是否接受 */
     canAcceptCouponAutoSendDown!: boolean;
+    /** 店铺地址的ID */
     positionId!: number | undefined;
     position!: PositionDto;
     /** 详细地址 */
     addressDetail!: string | undefined;
+    /** 开店时间 */
     openingTime!: moment.Moment | undefined;
+    /** 关店时间 */
     closedTime!: moment.Moment | undefined;
     /** 自己电商的二维码规则. */
     qrcodeRules!: string | undefined;
+    /** 默认在线店铺名称 */
     defaultOnlineShopName!: string | undefined;
     type!: StoreType;
+    /** 店铺名称 */
     displayName!: string;
+    /** 组织架构的ID */
     organizationUnitId!: number | undefined;
+    /** 淘宝店铺的ID */
     taobaoStoreId!: string | undefined;
+    /** 店铺类型 */
     storeType!: string | undefined;
+    /** 店铺的设备信息 */
     storeDevicesInfo!: string | undefined;
+    /** 房间ID */
     roomIds!: string | undefined;
+    /** 品牌ID */
     brandId!: number | undefined;
 
     constructor(data?: IUpdateStoreInput) {
@@ -15308,9 +15431,11 @@ export class UpdateStoreInput implements IUpdateStoreInput {
 }
 
 export interface IUpdateStoreInput {
+    /** 店铺ID */
     id: number;
     /** 门店商家自用编码,T-6300182 */
     outerId: string | undefined;
+    /** 二维码的额外信息 */
     qrCodeExtraInfo: string | undefined;
     /** 店铺的Logo */
     logoUrl: string | undefined;
@@ -15336,6 +15461,7 @@ export interface IUpdateStoreInput {
     isAdsAutoSendDown: boolean;
     /** App是否下发 */
     isAppAutoSendDown: boolean;
+    /** APP是否自动下发 */
     isProductAutoSendDown: boolean;
     /** 红包是否下发 */
     isCouponAutoSendDown: boolean;
@@ -15347,22 +15473,33 @@ export interface IUpdateStoreInput {
     canAcceptProductAutoSendDown: boolean;
     /** 红包是否下发是否接受 */
     canAcceptCouponAutoSendDown: boolean;
+    /** 店铺地址的ID */
     positionId: number | undefined;
     position: PositionDto;
     /** 详细地址 */
     addressDetail: string | undefined;
+    /** 开店时间 */
     openingTime: moment.Moment | undefined;
+    /** 关店时间 */
     closedTime: moment.Moment | undefined;
     /** 自己电商的二维码规则. */
     qrcodeRules: string | undefined;
+    /** 默认在线店铺名称 */
     defaultOnlineShopName: string | undefined;
     type: StoreType;
+    /** 店铺名称 */
     displayName: string;
+    /** 组织架构的ID */
     organizationUnitId: number | undefined;
+    /** 淘宝店铺的ID */
     taobaoStoreId: string | undefined;
+    /** 店铺类型 */
     storeType: string | undefined;
+    /** 店铺的设备信息 */
     storeDevicesInfo: string | undefined;
+    /** 房间ID */
     roomIds: string | undefined;
+    /** 品牌ID */
     brandId: number | undefined;
 }
 
@@ -15718,6 +15855,7 @@ export interface IIdTypeDto {
     type: string | undefined;
 }
 
+/** 发布店铺 */
 export class PublishStoresInput implements IPublishStoresInput {
     entityIds!: number[] | undefined;
     ouList!: IdTypeDto[] | undefined;
@@ -15773,6 +15911,7 @@ export class PublishStoresInput implements IPublishStoresInput {
     }
 }
 
+/** 发布店铺 */
 export interface IPublishStoresInput {
     entityIds: number[] | undefined;
     ouList: IdTypeDto[] | undefined;
@@ -15832,13 +15971,19 @@ export interface IStoreAuditInput {
     targetAuditStatus: StoreStatus;
 }
 
+/** 新建店铺额外信息 */
 export class CreateStoreExtraInput implements ICreateStoreExtraInput {
+    /** 店铺ID */
     storeId!: number;
     platformType!: ExternalEnum;
+    /** 店铺额外信息的ID */
     extraStoreId!: string | undefined;
+    /** 额外信息内容 */
     contact!: string | undefined;
     bizType!: string | undefined;
+    /** 店铺分类的ID */
     categoryId!: string | undefined;
+    /** 二维码额外信息 */
     qrCodeExtraInfo!: string | undefined;
 
     constructor(data?: ICreateStoreExtraInput) {
@@ -15882,13 +16027,19 @@ export class CreateStoreExtraInput implements ICreateStoreExtraInput {
     }
 }
 
+/** 新建店铺额外信息 */
 export interface ICreateStoreExtraInput {
+    /** 店铺ID */
     storeId: number;
     platformType: ExternalEnum;
+    /** 店铺额外信息的ID */
     extraStoreId: string | undefined;
+    /** 额外信息内容 */
     contact: string | undefined;
     bizType: string | undefined;
+    /** 店铺分类的ID */
     categoryId: string | undefined;
+    /** 二维码额外信息 */
     qrCodeExtraInfo: string | undefined;
 }
 
@@ -15994,12 +16145,17 @@ export interface IStoreExtraDto {
 
 export class UpdateStoreExtraInput implements IUpdateStoreExtraInput {
     id!: number;
+    /** 店铺ID */
     storeId!: number;
     platformType!: ExternalEnum;
+    /** 店铺额外信息的ID */
     extraStoreId!: string | undefined;
+    /** 额外信息内容 */
     contact!: string | undefined;
     bizType!: string | undefined;
+    /** 店铺分类的ID */
     categoryId!: string | undefined;
+    /** 二维码额外信息 */
     qrCodeExtraInfo!: string | undefined;
 
     constructor(data?: IUpdateStoreExtraInput) {
@@ -16047,12 +16203,17 @@ export class UpdateStoreExtraInput implements IUpdateStoreExtraInput {
 
 export interface IUpdateStoreExtraInput {
     id: number;
+    /** 店铺ID */
     storeId: number;
     platformType: ExternalEnum;
+    /** 店铺额外信息的ID */
     extraStoreId: string | undefined;
+    /** 额外信息内容 */
     contact: string | undefined;
     bizType: string | undefined;
+    /** 店铺分类的ID */
     categoryId: string | undefined;
+    /** 二维码额外信息 */
     qrCodeExtraInfo: string | undefined;
 }
 
@@ -16246,13 +16407,18 @@ export interface IStoreKPIDtoPagedResultDto {
     items: StoreKPIDto[] | undefined;
 }
 
+/** 新建店铺KPI */
 export class CreateStoreKpiDtoInput implements ICreateStoreKpiDtoInput {
+    /** 店铺ID */
     storeId!: number;
+    /** 考核日期 */
     scaleTime!: string | undefined;
     kpiScale!: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name!: string | undefined;
+    /** 分值 */
     value!: number;
+    /** 描述 */
     description!: string | undefined;
 
     constructor(data?: ICreateStoreKpiDtoInput) {
@@ -16294,24 +16460,33 @@ export class CreateStoreKpiDtoInput implements ICreateStoreKpiDtoInput {
     }
 }
 
+/** 新建店铺KPI */
 export interface ICreateStoreKpiDtoInput {
+    /** 店铺ID */
     storeId: number;
+    /** 考核日期 */
     scaleTime: string | undefined;
     kpiScale: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name: string | undefined;
+    /** 分值 */
     value: number;
+    /** 描述 */
     description: string | undefined;
 }
 
 export class UpdateStoreKpiDtoInput implements IUpdateStoreKpiDtoInput {
     id!: number;
+    /** 店铺ID */
     storeId!: number;
+    /** 考核日期 */
     scaleTime!: string | undefined;
     kpiScale!: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name!: string | undefined;
+    /** 分值 */
     value!: number;
+    /** 描述 */
     description!: string | undefined;
 
     constructor(data?: IUpdateStoreKpiDtoInput) {
@@ -16357,12 +16532,16 @@ export class UpdateStoreKpiDtoInput implements IUpdateStoreKpiDtoInput {
 
 export interface IUpdateStoreKpiDtoInput {
     id: number;
+    /** 店铺ID */
     storeId: number;
+    /** 考核日期 */
     scaleTime: string | undefined;
     kpiScale: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name: string | undefined;
+    /** 分值 */
     value: number;
+    /** 描述 */
     description: string | undefined;
 }
 

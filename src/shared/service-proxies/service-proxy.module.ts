@@ -219,17 +219,15 @@ import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//d
 
 
         //2021 新版本 device center
+        DEVICECENTERServiceProxies.StoreServiceProxy,
         DEVICECENTERServiceProxies.OrganizationUnitServiceProxy,
-        DEVICECENTERServiceProxies.DeviceActionServiceProxy,
         DEVICECENTERServiceProxies.DeviceServiceProxy,
         DEVICECENTERServiceProxies.DeviceCategoryServiceProxy,
         DEVICECENTERServiceProxies.SensingDeviceServiceProxy,
+        DEVICECENTERServiceProxies.TagServiceProxy,
         DEVICECENTERServiceProxies.BrandServiceProxy,
         DEVICECENTERServiceProxies.ApplyServiceProxy,
-        DEVICECENTERServiceProxies.GroupKPIServiceProxy,
         DEVICECENTERServiceProxies.IdentityServiceProxy,
-        DEVICECENTERServiceProxies.StoreServiceProxy,
-        DEVICECENTERServiceProxies.TagServiceProxy,
 
         //
 

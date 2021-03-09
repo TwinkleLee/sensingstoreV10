@@ -201,10 +201,9 @@
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td>
-                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                            <div class="btn-group dropdown" dropdown  container="body">
                                                 <button class="dropdown-toggle btn btn-sm btn-primary"
-                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
-                                                    aria-expanded="false">
+                                                    dropdownToggle >
                                                     <i class="fa fa-cog"></i>
                                                     <span class="caret"></span> {{l("Actions")}}
                                                 </button>
