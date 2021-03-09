@@ -35,22 +35,22 @@
               </div>
               <div class="row">
                 <div class="form-group col-2">
-                  <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
-                    <input class="form-control" [(ngModel)]="WhiteList.forAward" type="checkbox"
+                  <label class="checkbox checkbox-primary" style="position:relative;top:0;">
+                    <input [(ngModel)]="WhiteList.forAward" type="checkbox"
                       [ngModelOptions]="{standalone: true}" />{{l("forAward")}}
                     <span></span>
                   </label>
                 </div>
                 <div class="form-group col-2">
-                  <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
-                    <input class="form-control" [(ngModel)]="WhiteList.forLottery" type="checkbox"
+                  <label class="checkbox checkbox-primary" style="position:relative;top:0;">
+                    <input [(ngModel)]="WhiteList.forLottery" type="checkbox"
                       [ngModelOptions]="{standalone: true}" />{{l("forLottery")}}
                     <span></span>
                   </label>
                 </div>
                 <div class="form-group col-2">
-                  <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
-                    <input class="form-control" [(ngModel)]="WhiteList.forUseTicket" type="checkbox"
+                  <label class="checkbox checkbox-primary" style="position:relative;top:0;">
+                    <input [(ngModel)]="WhiteList.forUseTicket" type="checkbox"
                       [ngModelOptions]="{standalone: true}" />{{l("forUseTicket")}}
                     <span></span>
                   </label>
@@ -61,8 +61,8 @@
                   <label>{{l("awardSeq")}}</label>
                 </div>
                 <div class="form-group col-1" *ngFor="let item of AwardList">
-                  <label class="kt-checkbox kt-checkbox--primary" style="position:relative;top:0;">
-                    <input class="form-control" [(ngModel)]="item.chosen" type="checkbox"
+                  <label class="checkbox checkbox-primary" style="position:relative;top:0;">
+                    <input [(ngModel)]="item.chosen" type="checkbox"
                       [ngModelOptions]="{standalone: true}" />{{item.seq}}
                     <span></span>
                   </label>

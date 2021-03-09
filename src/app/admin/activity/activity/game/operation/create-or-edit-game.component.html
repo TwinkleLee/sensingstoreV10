@@ -42,8 +42,8 @@
                         [(ngModel)]="Game.supportedPlayersCount">
                     </div>
                     <div class="form-group col-6" style="position:relative;">
-                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                        <input class="form-control" [(ngModel)]="Game.isNeedCheckBeforScanQRCode" type="checkbox"
+                      <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                        <input [(ngModel)]="Game.isNeedCheckBeforScanQRCode" type="checkbox"
                           name="isNeedCheckBeforScanQRCode" />{{l("isNeedCheckBeforScanQRCode")}}
                         <span></span>
                       </label>
@@ -113,8 +113,8 @@
                 <div class="col-8">
                   <div class="row">
                     <div class="form-group col-6" style="position:relative;">
-                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                        <input class="form-control" [(ngModel)]="Game.isSendSnsMsgBeforeGame" type="checkbox"
+                      <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                        <input [(ngModel)]="Game.isSendSnsMsgBeforeGame" type="checkbox"
                           name="isSendSnsMsgBeforeGame" />{{l("isSendSnsMsgBeforeGame")}}
                         <span></span>
                       </label>
@@ -142,8 +142,8 @@
 
 
                     <div class="form-group col-6" style="position:relative;">
-                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                        <input class="form-control" [(ngModel)]="BeforeNotUseTemplate" type="checkbox"
+                      <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                        <input [(ngModel)]="BeforeNotUseTemplate" type="checkbox"
                           name="BeforeNotUseTemplate" />{{l("notUseTemplate")}}
                         <span></span>
                       </label>
@@ -184,8 +184,8 @@
                 <div class="col-8">
                   <div class="row">
                     <div class="form-group col-6" style="position:relative;">
-                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                        <input class="form-control" [(ngModel)]="Game.isSendSnsMsgAfterGame" type="checkbox"
+                      <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                        <input [(ngModel)]="Game.isSendSnsMsgAfterGame" type="checkbox"
                           name="isSendSnsMsgAfterGame" />{{l("isSendSnsMsgAfterGame")}}
                         <span></span>
                       </label>
@@ -211,8 +211,8 @@
                   </div>
                   <div class="row" *ngIf="Game.afterGameMessage.weChatType==1">
                     <div class="form-group col-6" style="position:relative;">
-                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                        <input class="form-control" [(ngModel)]="AfterNotUseTemplate" type="checkbox"
+                      <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                        <input [(ngModel)]="AfterNotUseTemplate" type="checkbox"
                           name="AfterNotUseTemplate" />{{l("notUseTemplate")}}
                         <span></span>
                       </label>
@@ -253,8 +253,8 @@
                 <div class="col-8">
                   <div class="row">
                     <div class="form-group col-6" style="position:relative;">
-                      <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                        <input class="form-control" [(ngModel)]="Game.isShareAction" type="checkbox"
+                      <label class="checkbo checkbox-primary" style="position:absolute;top:50%;">
+                        <input [(ngModel)]="Game.isShareAction" type="checkbox"
                           name="isShareAction" />{{l("isShareAction")}}
                         <span></span>
                       </label>

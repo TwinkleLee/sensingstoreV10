@@ -167,11 +167,11 @@
         <select class="form-control" [(ngModel)]="_resourcetype" name="resourceType">
             <option [value]="type" *ngFor="let type of ResourceFileDtoTypes">{{type}}</option>
         </select>
-        <label class="kt-checkbox kt-checkbox--success" style="margin-top: 6px;">
+        <label class="checkbox checkbox-success" style="margin-top: 6px;">
             <input type="checkbox" [(ngModel)]="_toResource" name="_toResource"> {{l("SaveToResouce")}}
             <span></span>
         </label>
-        <label class="kt-checkbox kt-checkbox--success" style="margin-top: 6px;margin-left: 6px;">
+        <label class="checkbox checkbox-success" style="margin-top: 6px;margin-left: 6px;">
             <input type="checkbox" [(ngModel)]="CreateThumbnail" name="CreateThumbnail"> {{l("isCreateThumbnail")}}
             <span></span>
         </label>

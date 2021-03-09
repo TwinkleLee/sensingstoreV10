@@ -234,7 +234,7 @@
                                 <div class="form-group" (click)="$event.stopPropagation()"
                                     style="position:absolute;top:0;right:-10%;">
                                     <label class="m-checkbox">
-                                        <input class="form-control" [(ngModel)]="tenantAppPublish[software.id]"
+                                        <input [(ngModel)]="tenantAppPublish[software.id]"
                                             type="checkbox" [name]="software.id" />
                                         <span></span>
                                     </label>
@@ -302,13 +302,13 @@
                                             <span></span>
                                         </label>
                                         <label class="checkbox checkbox-primary">
-                                            <input class="form-control" [(ngModel)]="onlyPublishToDevice"
+                                            <input [(ngModel)]="onlyPublishToDevice"
                                                 type="checkbox"
                                                 name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
                                             <span></span>
                                         </label>
                                         <label class="checkbox checkbox-primary">
-                                            <input class="form-control" [(ngModel)]="informDevice" type="checkbox"
+                                            <input [(ngModel)]="informDevice" type="checkbox"
                                                 name="informDevice" />{{l("informDevice")}}
                                             <span></span>
                                         </label>

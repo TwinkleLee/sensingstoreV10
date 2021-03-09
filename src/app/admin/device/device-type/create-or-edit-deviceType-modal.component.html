@@ -38,10 +38,10 @@
 
 
                             <div class="row">
-                                <div class="form-group col-3" style="position:relative;margin:1rem 0;"
+                                <div class="form-group col-4" style="position:relative;margin:1rem 0;"
                                     *ngFor="let ability of abilities">
-                                    <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                                        <input class="form-control" [(ngModel)]="ability.active" type="checkbox"
+                                    <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                        <input [(ngModel)]="ability.active" type="checkbox"
                                             [name]="ability.name" />{{l(ability.name)}}
                                         <span></span>
                                     </label>
@@ -53,8 +53,8 @@
                             <div class="row" *ngIf="abilities[6].active">
                                 <div class="form-group col-3" style="position:relative;margin:1rem 0;"
                                     *ngFor="let controlItem of controlItems">
-                                    <label class="kt-checkbox kt-checkbox--primary" style="position:absolute;top:50%;">
-                                        <input class="form-control" [(ngModel)]="controlItem.active" type="checkbox"
+                                    <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                        <input [(ngModel)]="controlItem.active" type="checkbox"
                                             [name]="controlItem.name" />{{l(controlItem.name)}}
                                         <span></span>
                                     </label>
