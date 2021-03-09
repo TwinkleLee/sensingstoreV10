@@ -1,12 +1,12 @@
 import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { DeviceServiceProxy,TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, AuditStatus as AuditStatus2, PublishDeviceInput, OrganizationUnitServiceProxy, ApplyServiceProxy, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput, IndependentDeploymentServiceProxy } from '@shared/service-proxies/service-proxies';
+import { TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, AuditStatus as AuditStatus2, ApplyServiceProxy, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput } from '@shared/service-proxies/service-proxies';
 import { LazyLoadEvent } from 'primeng/api';
 import { Injectable } from '@angular/core'
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DeviceServiceProxy as  NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy, DeviceMirrorPublishInput, PublishDeviceInput,StoreServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Injectable()
 export class YourInterceptor implements HttpInterceptor {
@@ -21,8 +21,6 @@ import { ConnectorService } from '@app/shared/services/connector.service';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
-import { DeviceTypeServiceProxy, DeviceMirrorPublishInput } from '@shared/service-proxies/service-proxies';
-import { StoreServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CounterAnalysisServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';
@@ -107,22 +105,20 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   // @ViewChild('storeTree',{static:false}) storeTree: MyTreeComponent;
 
   constructor(injector: Injector,
-    private _deviceService: DeviceServiceProxy,
-    private _ouService: OrganizationUnitServiceProxy,
     private _tenantService: TenantServiceProxy,
     private router: Router,
     private connector: ConnectorService,
     private applyService: ApplyServiceProxy,
-    private _deviceTypeService: DeviceTypeServiceProxy,
     private _StoreServiceProxy: StoreServiceProxy,
-    private _IndependentDeploymentServiceProxy: IndependentDeploymentServiceProxy,
     private _tokenService: TokenService,
     private route: ActivatedRoute,
     private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
-    
-    
-    
-    private _NewDeviceServiceProxy:NewDeviceServiceProxy) {
+
+
+
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy
+
+  ) {
     super(injector);
     this.apply.applyType = CreateApplyFormInputApplyType.Device;
     this.apply.itemids = [];
@@ -192,7 +188,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     // $(document).on("click", this.dropDownBind3);
     // this.getStores();
 
-    this._deviceTypeService.getDeviceTypes(
+    this._NewDeviceServiceProxy.getDeviceTypes(
       undefined,
       'id ASC',
       99,
@@ -286,7 +282,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
 
     this.primengTableHelper.showLoadingIndicator();
     if (!this.appSession.tenant) {
-      this._deviceService.getDevicesForHost(
+      this._NewDeviceServiceProxy.getDevicesForHost(
         this.tenantId,
         this.chosenItem,
         this.status,
@@ -337,7 +333,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       if (r) {
 
         if (AppConsts.customTheme == 'kewosi') {
-          this._deviceService.deleteDevice(record.id)
+          this._NewDeviceServiceProxy.deleteDevice(record.id)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
               // this.primengTableHelper.hideLoadingIndicator();
@@ -351,7 +347,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
           }))
             .subscribe(() => {
               this.primengTableHelper.showLoadingIndicator();
-              this._deviceService.deleteDevice(record.id)
+              this._NewDeviceServiceProxy.deleteDevice(record.id)
                 .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
                 .subscribe(() => {
                   // this.primengTableHelper.hideLoadingIndicator();
@@ -369,7 +365,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       this.message.confirm(this.l("DeleteDeviceQuestion"), this.l('AreYouSure'), (r) => {
         if (r) {
           if (AppConsts.customTheme == 'kewosi') {
-            this._deviceService.deleteDevices(ary)
+            this._NewDeviceServiceProxy.deleteDevices(ary)
               .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
               .subscribe(() => {
                 // this.primengTableHelper.hideLoadingIndicator();
@@ -382,7 +378,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
               this.primengTableHelper.hideLoadingIndicator();
             })).subscribe(() => {
               this.primengTableHelper.showLoadingIndicator();
-              this._deviceService.deleteDevices(ary)
+              this._NewDeviceServiceProxy.deleteDevices(ary)
                 .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
                 .subscribe(() => {
                   // this.primengTableHelper.hideLoadingIndicator();
@@ -391,7 +387,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
                 })
             })
           }
-          
+
         }
       })
     })
@@ -410,19 +406,19 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       var host = AppConsts.deploymentList.ecovacs.host;
       var customer = AppConsts.deploymentList.ecovacs.customer;
       $.ajax({
-          'type': 'GET',
-          'url': url + `?customer=${customer}&checkaction=adddevice&host=${host}&tenantId=${abp.session.tenantId}`,
-          'contentType': false,
-          'beforeSend': function (request) {
-              request.setRequestHeader("Authorization", "Bearer " + token)
-          },
-          'success': function (res) {
-              if (!res.result.success) return _that.message.error(_that.l(res.result.errorMessage));
-              _that.createOrEditDeviceModal.show();
-          }
+        'type': 'GET',
+        'url': url + `?customer=${customer}&checkaction=adddevice&host=${host}&tenantId=${abp.session.tenantId}`,
+        'contentType': false,
+        'beforeSend': function (request) {
+          request.setRequestHeader("Authorization", "Bearer " + token)
+        },
+        'success': function (res) {
+          if (!res.result.success) return _that.message.error(_that.l(res.result.errorMessage));
+          _that.createOrEditDeviceModal.show();
+        }
       })
     } else {
-        this.createOrEditDeviceModal.show();
+      this.createOrEditDeviceModal.show();
     }
   }
   editDevice(record) {
@@ -522,9 +518,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   //显示镜像发布侧栏
   goPublishMirror() {
     this.ifMirror = true;
-
-
-    this._deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
       console.log(this.devicePublishList, 1)
       console.log(this.deviceTree, 2)
@@ -584,7 +578,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
         console.log(input)
         this.message.confirm(this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
           if (r) {
-            this._deviceService.mirrorPublish(input).subscribe((result) => {
+            this._NewDeviceServiceProxy.publishDeviceMirror(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;
@@ -621,7 +615,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
         });
         this.message.confirm(this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
           if (r) {
-            this._deviceService.publishToStore(input).subscribe((result) => {
+            this._NewDeviceServiceProxy.publishDeviceToStore(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;
@@ -690,7 +684,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
             'deviceIds': ary,
             'storeId': null
           });
-          this._deviceService.recycleFromStore(input).subscribe((result) => {
+          this._NewDeviceServiceProxy.recycleDeviceFromStore(input).subscribe((result) => {
             this.notify.info(this.l('success'));
             this.toPublish = false;
             this.operateAll = false;
@@ -709,7 +703,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
           'deviceIds': [],
           'storeId': null
         });
-        this._deviceService.recycleFromStore(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.recycleDeviceFromStore(input).subscribe((result) => {
           this.notify.info(this.l('success'));
           this.toPublish = false;
           this.operateAll = false;
@@ -721,7 +715,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   }
   //前往导入页面
   goImport() {
-    this.router.navigate(['app', 'admin','import', 'import', 'device']);
+    this.router.navigate(['app', 'admin', 'import', 'import', 'device']);
   }
 
   goExport() {
@@ -731,7 +725,8 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     //     return item.id
     //   })
     // }
-    this._deviceService.getDeviceToExcel(
+    this._NewDeviceServiceProxy.getDeviceToExcel(
+      [],
       this.status,
       this.operationType,
       this.auditStatus,

@@ -201,22 +201,21 @@
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td>
-                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                            <div class="btn-group dropdown" dropdown  container="body">
                                                 <button class="dropdown-toggle btn btn-sm btn-primary"
-                                                    data-toggle="dropdown" dropdownToggle aria-haspopup="true"
-                                                    aria-expanded="false">
+                                                    dropdownToggle >
                                                     <i class="fa fa-cog"></i>
                                                     <span class="caret"></span> {{l("Actions")}}
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Devices.Edit')">
                                                         <a (click)="editDevice(record)"
-                                                            class="icon-bianji">{{l('Edit')}}</a>
+                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li
                                                         *ngIf="isGranted('Pages.Tenant.Devices.Delete')&&record.auditStatus==0">
                                                         <a (click)="deleteDevice(record)"
-                                                            class="icon-icon-test">{{l('Delete')}}</a>
+                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>
