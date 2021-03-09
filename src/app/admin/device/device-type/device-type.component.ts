@@ -2,11 +2,12 @@ import { Component, Injector, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
-import { DeviceTypeDto, DeviceTypeServiceProxy } from '@shared/service-proxies/service-proxies';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { CreateOrEditDevModalComponent } from '@app/admin/device/device-type/create-or-edit-deviceType-modal.component';
 import { AppConsts } from '@shared/AppConsts';
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+
 
 @Component({
   selector: 'app-device-type',
@@ -21,7 +22,7 @@ export class DeviceTypeComponent extends AppComponentBase {
   @ViewChild('paginator',{static:true}) paginator: Paginator;
 
   filterText: string;
-  constructor(injector: Injector, private _deviceTypeService: DeviceTypeServiceProxy) {
+  constructor(injector: Injector, private _NewDeviceServiceProxy: NewDeviceServiceProxy) {
     super(injector);
   }
 
@@ -35,7 +36,7 @@ export class DeviceTypeComponent extends AppComponentBase {
       return;
     }
     this.primengTableHelper.showLoadingIndicator();
-    this._deviceTypeService.getDeviceTypes(
+    this._NewDeviceServiceProxy.getDeviceTypes(
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'name',
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -56,7 +57,7 @@ export class DeviceTypeComponent extends AppComponentBase {
   deleteDeviceType(record) {
     this.message.confirm(this.l('deletethisdevicetype'),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._deviceTypeService.deleteDeviceType(record.id).subscribe(result => {
+        this._NewDeviceServiceProxy.deleteDeviceType(record.id).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getDeviceType();
         })

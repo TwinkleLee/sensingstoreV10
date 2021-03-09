@@ -8,7 +8,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
-import { GetStorseListInput, StoreServiceProxy } from '@shared/service-proxies/service-proxies';
+import { StoreServiceProxy as NewStoreServiceProxy,GetStorseListInput} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -37,10 +37,10 @@ export class CreateOrEditSkuRfidModalComponent extends AppComponentBase implemen
     constructor(
         injector: Injector,
         private _skuRfidServiceProxy: SkuRfidServiceProxy,
-        private _StoreServiceProxy: StoreServiceProxy,
+        private _NewStoreServiceProxy: NewStoreServiceProxy,
     ) {
         super(injector);
-        this._StoreServiceProxy.getStoresList(new GetStorseListInput({
+        this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
             storeStatus: undefined,
             organizationUnitId: undefined,
             areas: undefined,

@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { SnsMsgBeforeGameDto, SnsMsgAfterGameDto, ActionShareDto, ActivityServiceProxy, ActivityGameSettingsInput, HtmlTemplateServiceProxy, TemplateEnum, DeviceActivityServiceProxy, CreateDeviceActivityGameInput, UpdateDeviceActivityGameInput, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
 
 import { ActivatedRoute } from '@angular/router';
-import { DeviceServiceProxy, SoftwareServiceProxy } from '@shared/service-proxies/service-proxies';
+import {  SoftwareServiceProxy } from '@shared/service-proxies/service-proxies';
 
 
 @Component({
@@ -43,7 +43,6 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
     private _activatedRoute: ActivatedRoute,
     private _softwareService: SoftwareServiceProxy,
     private _ActivityServiceProxy: ActivityServiceProxy,
-    private _deviceService: DeviceServiceProxy,
     private _HtmlTemplateServiceProxy: HtmlTemplateServiceProxy,
     private _DeviceActivityServiceProxy: DeviceActivityServiceProxy,
     private _UserActionServiceProxy: UserActionServiceProxy

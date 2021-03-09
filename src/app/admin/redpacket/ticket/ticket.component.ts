@@ -14,8 +14,8 @@ import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { GetStorseListInput, StoreServiceProxy  } from '@shared/service-proxies/service-proxies';
 
+import { StoreServiceProxy as NewStoreServiceProxy,GetStorseListInput} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   templateUrl: './ticket.component.html',
@@ -56,7 +56,7 @@ export class TicketComponent extends AppComponentBase {
     private _TagServiceProxy: TagServiceProxy,
     private router: Router, private route: ActivatedRoute,
     private _CouponServiceProxy: CouponServiceProxy,
-    private _StoreServiceProxy: StoreServiceProxy
+    private _NewStoreServiceProxy: NewStoreServiceProxy
 
   ) {
     super(injector);
@@ -279,7 +279,7 @@ export class TicketComponent extends AppComponentBase {
   }
 
   getStoreList () {
-    this._StoreServiceProxy.getStoresList(new GetStorseListInput({
+    this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
         organizationUnitId: undefined,
         storeStatus: undefined,
         areas: undefined,

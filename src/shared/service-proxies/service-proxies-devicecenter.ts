@@ -646,6 +646,70 @@ export class BrandServiceProxy {
     }
 
     /**
+     * @param isIncludeProduct (optional) 
+     * @param isAllBrands (optional) 
+     * @param brandIds (optional) 
+     * @return Success
+     */
+    deleteBrands(isIncludeProduct: boolean | undefined, isAllBrands: boolean | undefined, brandIds: number[] | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Brand/DeleteBrands?";
+        if (isIncludeProduct === null)
+            throw new Error("The parameter 'isIncludeProduct' cannot be null.");
+        else if (isIncludeProduct !== undefined)
+            url_ += "IsIncludeProduct=" + encodeURIComponent("" + isIncludeProduct) + "&";
+        if (isAllBrands === null)
+            throw new Error("The parameter 'isAllBrands' cannot be null.");
+        else if (isAllBrands !== undefined)
+            url_ += "IsAllBrands=" + encodeURIComponent("" + isAllBrands) + "&";
+        if (brandIds !== undefined && brandIds !== null)
+            brandIds && brandIds.forEach(item => { url_ += "BrandIds=" + encodeURIComponent("" + item) + "&"; });
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteBrands(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteBrands(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteBrands(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
      * 获取某个商品下所有的资源
      * @param entityId (optional) 
      * @param filter (optional) 
@@ -4301,9 +4365,9 @@ export class OrganizationUnitServiceProxy {
 
     /**
      * 获取组织架构下的store的详细信息，支持分页
-     * @param organizationUnitTypeName (optional) 
-     * @param organizationUnitId (optional) 
-     * @param areas (optional) 
+     * @param organizationUnitTypeName (optional) 组织架构类型名（默认店铺）
+     * @param organizationUnitId (optional) 组织架构ID
+     * @param areas (optional) 位置
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -4567,12 +4631,12 @@ export class OrganizationUnitServiceProxy {
 
     /**
      * 获取组织架构下的KPI信息列表，支持分页
-     * @param organizationUnitId (optional) 
-     * @param storeId (optional) 
-     * @param scaleTimeStart (optional) 
-     * @param scaleTimeEnd (optional) 
-     * @param kPIScale (optional) 
-     * @param name (optional) 
+     * @param organizationUnitId (optional) 组织架构Id
+     * @param storeId (optional) 店铺ID
+     * @param scaleTimeStart (optional) 考核开始时间
+     * @param scaleTimeEnd (optional) 考核结束时间
+     * @param kPIScale (optional) Kpi按（年、月、周、日）考核
+     * @param name (optional) 考核内容
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -5697,6 +5761,7 @@ export class SensingDeviceServiceProxy {
      * @param cargoRoadsId (optional) 
      * @param thingId (optional) 
      * @return Success
+     * @deprecated
      */
     updateInventory(cargoRoadsId: number | undefined, thingId: number | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdateInventory?";
@@ -6075,6 +6140,171 @@ export class SensingDeviceServiceProxy {
             }));
         }
         return _observableOf<Int32SelectDto[]>(<any>null);
+    }
+
+    /**
+     * 线下升级完成后，需要更新当前机器版本信息
+     * @param body (optional) 
+     * @return Success
+     */
+    changeDeviceApppodVersion(body: ChangeDeviceAppPodCurrentVersionInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/ChangeDeviceApppodVersion";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangeDeviceApppodVersion(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangeDeviceApppodVersion(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangeDeviceApppodVersion(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 获取设备下的appPod版本信息
+     * @param subkey (optional) 
+     * @return Success
+     */
+    getDeviceAppPodVersion(subkey: string | null | undefined): Observable<DeviceAppPodVersionDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetDeviceAppPodVersion?";
+        if (subkey !== undefined && subkey !== null)
+            url_ += "subkey=" + encodeURIComponent("" + subkey) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDeviceAppPodVersion(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDeviceAppPodVersion(<any>response_);
+                } catch (e) {
+                    return <Observable<DeviceAppPodVersionDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DeviceAppPodVersionDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDeviceAppPodVersion(response: HttpResponseBase): Observable<DeviceAppPodVersionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DeviceAppPodVersionDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DeviceAppPodVersionDto>(<any>null);
+    }
+
+    /**
+     * 更新截屏信息
+     * @param body (optional) 
+     * @return Success
+     */
+    uploadScreenShot(subKey: string, body: AppPodScreenInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/UploadScreenShot?";
+        if (subKey === undefined || subKey === null)
+            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
+        else
+            url_ += "subKey=" + encodeURIComponent("" + subKey) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUploadScreenShot(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUploadScreenShot(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUploadScreenShot(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -13305,14 +13535,18 @@ export interface IOrganizationUnitKPIDtoPagedResultDto {
     items: OrganizationUnitKPIDto[] | undefined;
 }
 
+/** 新增组织架构KPI */
 export class CreateOUKpiDtoInput implements ICreateOUKpiDtoInput {
     /** 所属的组织 Id */
     organizationUnitId!: number | undefined;
+    /** 考核时间 */
     scaleTime!: string | undefined;
     kpiScale!: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name!: string | undefined;
+    /** 考核结果 */
     value!: number;
+    /** 描述 */
     description!: string | undefined;
 
     constructor(data?: ICreateOUKpiDtoInput) {
@@ -13354,14 +13588,18 @@ export class CreateOUKpiDtoInput implements ICreateOUKpiDtoInput {
     }
 }
 
+/** 新增组织架构KPI */
 export interface ICreateOUKpiDtoInput {
     /** 所属的组织 Id */
     organizationUnitId: number | undefined;
+    /** 考核时间 */
     scaleTime: string | undefined;
     kpiScale: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name: string | undefined;
+    /** 考核结果 */
     value: number;
+    /** 描述 */
     description: string | undefined;
 }
 
@@ -13371,11 +13609,14 @@ export class UpdateOUKpiDtoInput implements IUpdateOUKpiDtoInput {
     id!: number;
     /** 所属的组织 Id */
     organizationUnitId!: number | undefined;
+    /** 考核时间 */
     scaleTime!: string | undefined;
     kpiScale!: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name!: string | undefined;
+    /** 考核结果 */
     value!: number;
+    /** 描述 */
     description!: string | undefined;
 
     constructor(data?: IUpdateOUKpiDtoInput) {
@@ -13425,11 +13666,14 @@ export interface IUpdateOUKpiDtoInput {
     id: number;
     /** 所属的组织 Id */
     organizationUnitId: number | undefined;
+    /** 考核时间 */
     scaleTime: string | undefined;
     kpiScale: GroupKPIScaleEnum;
     /** 考核内容 :点击数，销售额 */
     name: string | undefined;
+    /** 考核结果 */
     value: number;
+    /** 描述 */
     description: string | undefined;
 }
 
@@ -14565,6 +14809,178 @@ export interface IUpdatePeripheralInput {
     name: string | undefined;
     /** 外设的小图标 */
     iconUrl: string | undefined;
+}
+
+export class ChangeDeviceAppPodCurrentVersionInput implements IChangeDeviceAppPodCurrentVersionInput {
+    subkey!: string;
+    /** 当前最新AppPod版本ID */
+    currentAppPodVersionId!: number | undefined;
+
+    constructor(data?: IChangeDeviceAppPodCurrentVersionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.subkey = _data["subkey"];
+            this.currentAppPodVersionId = _data["currentAppPodVersionId"];
+        }
+    }
+
+    static fromJS(data: any): ChangeDeviceAppPodCurrentVersionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ChangeDeviceAppPodCurrentVersionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["subkey"] = this.subkey;
+        data["currentAppPodVersionId"] = this.currentAppPodVersionId;
+        return data; 
+    }
+}
+
+export interface IChangeDeviceAppPodCurrentVersionInput {
+    subkey: string;
+    /** 当前最新AppPod版本ID */
+    currentAppPodVersionId: number | undefined;
+}
+
+export class DeviceAppPodVersionDto implements IDeviceAppPodVersionDto {
+    currentAppPodVersionId!: number | undefined;
+    currentVersion!: string | undefined;
+    currentDownloadUrl!: string | undefined;
+    targetAppPodVersionId!: number | undefined;
+    targetVersion!: string | undefined;
+    targetDownloadUrl!: string | undefined;
+    currentAppPodName!: string | undefined;
+    targetAppPodName!: string | undefined;
+    os!: string | undefined;
+    targetVersionAppSetting!: string | undefined;
+    description!: string | undefined;
+    isLocked!: boolean;
+    extensionData!: string | undefined;
+    md5!: string | undefined;
+    isNeedRestart!: boolean;
+
+    constructor(data?: IDeviceAppPodVersionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentAppPodVersionId = _data["currentAppPodVersionId"];
+            this.currentVersion = _data["currentVersion"];
+            this.currentDownloadUrl = _data["currentDownloadUrl"];
+            this.targetAppPodVersionId = _data["targetAppPodVersionId"];
+            this.targetVersion = _data["targetVersion"];
+            this.targetDownloadUrl = _data["targetDownloadUrl"];
+            this.currentAppPodName = _data["currentAppPodName"];
+            this.targetAppPodName = _data["targetAppPodName"];
+            this.os = _data["os"];
+            this.targetVersionAppSetting = _data["targetVersionAppSetting"];
+            this.description = _data["description"];
+            this.isLocked = _data["isLocked"];
+            this.extensionData = _data["extensionData"];
+            this.md5 = _data["md5"];
+            this.isNeedRestart = _data["isNeedRestart"];
+        }
+    }
+
+    static fromJS(data: any): DeviceAppPodVersionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeviceAppPodVersionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentAppPodVersionId"] = this.currentAppPodVersionId;
+        data["currentVersion"] = this.currentVersion;
+        data["currentDownloadUrl"] = this.currentDownloadUrl;
+        data["targetAppPodVersionId"] = this.targetAppPodVersionId;
+        data["targetVersion"] = this.targetVersion;
+        data["targetDownloadUrl"] = this.targetDownloadUrl;
+        data["currentAppPodName"] = this.currentAppPodName;
+        data["targetAppPodName"] = this.targetAppPodName;
+        data["os"] = this.os;
+        data["targetVersionAppSetting"] = this.targetVersionAppSetting;
+        data["description"] = this.description;
+        data["isLocked"] = this.isLocked;
+        data["extensionData"] = this.extensionData;
+        data["md5"] = this.md5;
+        data["isNeedRestart"] = this.isNeedRestart;
+        return data; 
+    }
+}
+
+export interface IDeviceAppPodVersionDto {
+    currentAppPodVersionId: number | undefined;
+    currentVersion: string | undefined;
+    currentDownloadUrl: string | undefined;
+    targetAppPodVersionId: number | undefined;
+    targetVersion: string | undefined;
+    targetDownloadUrl: string | undefined;
+    currentAppPodName: string | undefined;
+    targetAppPodName: string | undefined;
+    os: string | undefined;
+    targetVersionAppSetting: string | undefined;
+    description: string | undefined;
+    isLocked: boolean;
+    extensionData: string | undefined;
+    md5: string | undefined;
+    isNeedRestart: boolean;
+}
+
+export class AppPodScreenInput implements IAppPodScreenInput {
+    /** 人脸照片的二进制图片. */
+    screenShot!: string | undefined;
+
+    constructor(data?: IAppPodScreenInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.screenShot = _data["screenShot"];
+        }
+    }
+
+    static fromJS(data: any): AppPodScreenInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AppPodScreenInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["screenShot"] = this.screenShot;
+        return data; 
+    }
+}
+
+export interface IAppPodScreenInput {
+    /** 人脸照片的二进制图片. */
+    screenShot: string | undefined;
 }
 
 /** 店铺的地址信息（精简） */

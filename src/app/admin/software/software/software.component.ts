@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput, OrganizationUnitServiceProxy, ApplyServiceProxy, PublishEntitiesInput, DeviceServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies';
+import { TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput, OrganizationUnitServiceProxy, ApplyServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies';
 import { SoftwareServiceProxy, SoftwareDto } from '@shared/service-proxies/service-proxies';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table,TableCheckbox } from 'primeng/table';
@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import { ConnectorService } from '@app/shared/services/connector.service';
 // import { SoftwareAuthComponent } from '@app/software/software/auth/software-auth.component';
 // import { SoftwareSettingModalComponent } from '@app/software/software/operation/software-setting-modal.component';
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -75,7 +76,7 @@ export class SoftwareComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private _softwareService: SoftwareServiceProxy,
-    private deviceService: DeviceServiceProxy,
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private applyService: ApplyServiceProxy,
     private router: Router,
     private route: ActivatedRoute,
@@ -88,7 +89,7 @@ export class SoftwareComponent extends AppComponentBase {
     this.apply.options = 'all';
 
     if (this.appSession.tenantId) {
-      this.deviceService.getTreeDevices().subscribe((result) => {
+      this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
         this.deviceTree = [result];
       })
     }

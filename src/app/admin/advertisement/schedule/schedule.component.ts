@@ -7,9 +7,10 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
-import { DeviceServiceProxy, AdServiceProxy, PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies';
 import { ScheduleModalComponent } from '@app/admin/advertisement/schedule/operation/create-or-edit-schedule-modal.component';
 import { CalendarModalComponent } from '@app/admin/advertisement/schedule/operation/calendar-modal.component';
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   templateUrl: './schedule.component.html',
@@ -37,10 +38,10 @@ export class Schedule extends AppComponentBase {
 
   constructor(injector: Injector,
     private router: Router,
-    private deviceService: DeviceServiceProxy,
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private _AdServiceProxy: AdServiceProxy) {
     super(injector);
-    this.deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
     })
   }

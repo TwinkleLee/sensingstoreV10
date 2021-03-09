@@ -5,10 +5,10 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 
-import { BrandServiceProxy, OnlineOrOffLineBrandInput, ApplyWanted as OnlineOrOffLineBrandInputWanted } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 
+import { BrandServiceProxy, OnlineOrOffLineBrandInput, ApplyWanted as OnlineOrOffLineBrandInputWanted } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-brand-center',
@@ -54,7 +54,7 @@ export class BrandCenterComponent extends AppComponentBase {
       return;
     }
     this.primengTableHelper.showLoadingIndicator();
-    this._brandService.gets(
+    this._brandService.getBrands(
       this.tagId,
       undefined,
       this.filterText,
@@ -143,7 +143,7 @@ export class BrandCenterComponent extends AppComponentBase {
       var brandIds = this.brandPublishList.map(item => {
         return item.id
       })
-      this._brandService.onlineOrOfflineBrand(new OnlineOrOffLineBrandInput({
+      this._brandService.auditBrands(new OnlineOrOffLineBrandInput({
         "isIncludeProduct": isIncludeProduct,
         "wanted": OnlineOrOffLineBrandInputWanted["Online"],
         "isAllBrands": false,
@@ -182,7 +182,7 @@ export class BrandCenterComponent extends AppComponentBase {
       var brandIds = this.brandPublishList.map(item => {
         return item.id
       })
-      this._brandService.onlineOrOfflineBrand(new OnlineOrOffLineBrandInput({
+      this._brandService.auditBrands(new OnlineOrOffLineBrandInput({
         "isIncludeProduct": isIncludeProduct,
         "wanted": OnlineOrOffLineBrandInputWanted["Offline"],
         "isAllBrands": false,
@@ -211,7 +211,7 @@ export class BrandCenterComponent extends AppComponentBase {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
 
-          this._brandService.onlineOrOfflineBrand(new OnlineOrOffLineBrandInput({
+          this._brandService.auditBrands(new OnlineOrOffLineBrandInput({
             "isIncludeProduct": isIncludeProduct,
             "wanted": OnlineOrOffLineBrandInputWanted["Online"],
             "isAllBrands": true,
@@ -243,7 +243,7 @@ export class BrandCenterComponent extends AppComponentBase {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
 
-          this._brandService.onlineOrOfflineBrand(new OnlineOrOffLineBrandInput({
+          this._brandService.auditBrands(new OnlineOrOffLineBrandInput({
             "isIncludeProduct": isIncludeProduct,
             "wanted": OnlineOrOffLineBrandInputWanted["Offline"],
             "isAllBrands": true,

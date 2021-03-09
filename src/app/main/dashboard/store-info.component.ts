@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, Injector, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { StoreServiceProxy, OrganizationUnitServiceProxy, PositionDto } from '@shared/service-proxies/service-proxies';
 import { ReportServiceProxy as ReportServiceProxy2, ChartReportInput } from '@shared/service-proxies/service-proxies3';
 import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
@@ -9,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 
+import { StoreServiceProxy as NewStoreServiceProxy,PositionDto} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     templateUrl: './store-info.component.html',
@@ -38,7 +38,7 @@ export class StoreInfoComponent extends AppComponentBase implements AfterViewIni
     constructor(
         injector: Injector,
         private _bigDataService: ReportServiceProxy2,
-        private _StoreServiceProxy: StoreServiceProxy
+        private _NewStoreServiceProxy: NewStoreServiceProxy
     ) {
         super(injector);
         this.getOuLocaltion();
@@ -65,7 +65,7 @@ export class StoreInfoComponent extends AppComponentBase implements AfterViewIni
 
             this.MapNgIf = true;
             this.ouLocaltionLoading = true;
-            this._StoreServiceProxy.getStorePosition(this.ouFilter, undefined, 1000, 0).pipe(finalize(() => {
+            this._NewStoreServiceProxy.getStorePosition(this.ouFilter, undefined, 1000, 0).pipe(finalize(() => {
                 // if (this.ouLocaltionLoading && this.positions.length == 0) {
                 //     setTimeout(() => {
                 //         this.ouLocaltion.render("100%", "600px");

@@ -1,9 +1,10 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { DeviceTypeServiceProxy, DeviceTypeDto, CreateDeviceTypeInput, UpdateDeviceTypeInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
+import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceTypeInput, UpdateDeviceTypeInput } from '@shared/service-proxies/service-proxies-devicecenter';
+
 
 @Component({
     selector: 'createOrEditDevModal',
@@ -97,7 +98,7 @@ export class CreateOrEditDevModalComponent extends AppComponentBase implements A
 
     constructor(
         injector: Injector,
-        private _detypeService: DeviceTypeServiceProxy
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy
     ) {
         super(injector);
         this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/DemoUiComponents/UploadFiles';
@@ -165,7 +166,7 @@ export class CreateOrEditDevModalComponent extends AppComponentBase implements A
 
         if (this.operation == "add") {
             this.createDeviceType = new CreateDeviceTypeInput(this.deviceType);
-            this._detypeService.createDeviceType(this.createDeviceType)
+            this._NewDeviceServiceProxy.createDeviceType(this.createDeviceType)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));
@@ -174,7 +175,7 @@ export class CreateOrEditDevModalComponent extends AppComponentBase implements A
                 });
         } else {
             this.updateDeviceType = new UpdateDeviceTypeInput(this.deviceType);
-            this._detypeService.updateDeviceType(this.updateDeviceType)
+            this._NewDeviceServiceProxy.updateDeviceType(this.updateDeviceType)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));

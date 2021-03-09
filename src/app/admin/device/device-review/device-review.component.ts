@@ -4,7 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import {ApplyServiceProxy, AuditApplyFormInput,ApplyStatus as AuditApplyFormInputApplyStatus} from '@shared/service-proxies/service-proxies';
+import {ApplyServiceProxy, AuditApplyFormInput,ApplyStatus as AuditApplyFormInputApplyStatus} from '@shared/service-proxies/service-proxies-devicecenter';
 import { AppConsts } from '@shared/AppConsts';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { DeviceDetailModalComponent } from '@app/admin/device/device-review/detail/device-detail-modal.component';

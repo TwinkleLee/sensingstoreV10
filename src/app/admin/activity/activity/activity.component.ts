@@ -4,14 +4,14 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { CouponDto, CouponServiceProxy, OrganizationUnitServiceProxy, AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, DeviceServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies';
+import {  AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { CreateActivityModalComponent } from '@app/admin/activity/activity/create-activity-modal.component';
 import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, ActivityAuditInputCurrentAuditStatus, ActivityAuditInputTargetAuditStatus } from '@shared/service-proxies/service-proxies5';
 
-
+import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-activity',
@@ -52,14 +52,13 @@ export class ActivityComponent extends AppComponentBase {
     private _acitvityService: ActivityServiceProxy,
 
     private applyService: ApplyServiceProxy,
-    private deviceService: DeviceServiceProxy,
-    private _couponService: CouponServiceProxy) {
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy) {
     super(injector);
     this.apply.applyType = CreateApplyFormInputApplyType.Coupon;
     this.apply.itemids = [];
     this.apply.options = 'all';
 
-    this.deviceService.getTreeDevices().subscribe((result) => {
+    this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
     })
   }

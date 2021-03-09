@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { DeviceServiceProxy, CreateDeviceInput, UpdateDeviceInput, DeviceTypeServiceProxy, DeviceCategoryServiceProxy, PeripheralServiceProxy, ApplyServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ApplyServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';

@@ -4,13 +4,14 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { BrandServiceProxy, GetStorseListInput, OrganizationUnitServiceProxy, StoreServiceProxy, PublishStoresInput, IdTypeDto, IdNameItemIdDto, StoreAuditInput, StoreStatus as StoreAuditInputCurrentAuditStatus, StoreStatus as StoreAuditInputTargetAuditStatus } from '@shared/service-proxies/service-proxies';
+import { OrganizationUnitServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies';
 import { CreateOrEditStoreModalComponent } from './operation/create-or-edit-store-modal.component';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { BuildingServiceProxy } from '@shared/service-proxies/service-proxies-floor'
-import { RoomServiceProxy } from '@shared/service-proxies/service-proxies-floor'
+import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput,StoreStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-entity-store-category',
@@ -26,7 +27,7 @@ export class EntityStoreComponent extends AppComponentBase {
   @ViewChild('highTree', { static: false }) highTree;
 
 
-  buildingList:any =[];
+  buildingList: any = [];
 
 
   filterText: string;
@@ -52,11 +53,10 @@ export class EntityStoreComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private _organizationUnitService: OrganizationUnitServiceProxy,
-    private _StoreServiceProxy: StoreServiceProxy,
+    private _NewStoreServiceProxy: NewStoreServiceProxy,
     private _router: Router,
     private _buildingServiceProxy: BuildingServiceProxy,
     private _BrandServiceProxy: BrandServiceProxy,
-    private _RoomServiceProxy: RoomServiceProxy,
   ) {
     super(injector);
     this._organizationUnitService.getAreas().subscribe(r => {
@@ -72,16 +72,16 @@ export class EntityStoreComponent extends AppComponentBase {
   }
 
   floorFilter() {
-      this._buildingServiceProxy.getBuildingsForSelect().subscribe((result) => {
-          this.buildingList = (result || []).map((item) => {
-              return {
-                  'id': item.id,
-                  'value': item.name
-              }
-            })
-        })
+    this._buildingServiceProxy.getBuildingsForSelect().subscribe((result) => {
+      this.buildingList = (result || []).map((item) => {
+        return {
+          'id': item.id,
+          'value': item.name
+        }
+      })
+    })
     if (this.isGranted("Pages.Tenant.Products")) {
-      this._BrandServiceProxy.gets(
+      this._BrandServiceProxy.getBrands(
         undefined,
         undefined,
         undefined,
@@ -125,7 +125,7 @@ export class EntityStoreComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     console.log(this.primengTableHelper.getSorting(this.dataTable))
-    this._StoreServiceProxy.getStoresList(new GetStorseListInput({
+    this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
       storeStatus: this.storeStatus,
       organizationUnitId: this.chosenItem,
       areas: this.areaFilter ? [this.areaFilter] : undefined,
@@ -146,7 +146,7 @@ export class EntityStoreComponent extends AppComponentBase {
 
   goExport() {
     this.exportLoading = true;
-    this._StoreServiceProxy.getStoresToExcel(
+    this._NewStoreServiceProxy.getStoresToExcel(
       new GetStorseListInput({
 
         storeStatus: this.storeStatus,
@@ -193,7 +193,7 @@ export class EntityStoreComponent extends AppComponentBase {
       isConfirmed => {
         if (isConfirmed) {
           this.primengTableHelper.showLoadingIndicator();
-          this._StoreServiceProxy
+          this._NewStoreServiceProxy
             .deleteStore(record.storeId)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
@@ -224,7 +224,7 @@ export class EntityStoreComponent extends AppComponentBase {
       isConfirmed => {
         if (isConfirmed) {
           this.primengTableHelper.showLoadingIndicator();
-          this._StoreServiceProxy
+          this._NewStoreServiceProxy
             .deleteStores(input)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
@@ -302,10 +302,10 @@ export class EntityStoreComponent extends AppComponentBase {
   offlineAll() {
     this.message.confirm(this.l('offlineBatch'), this.l('AreYouSure'), (r) => {
       if (r) {
-        this._StoreServiceProxy.storeAudit(new StoreAuditInput({
+        this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
           storeIds: [],
-          currentAuditStatus: StoreAuditInputCurrentAuditStatus["Running"],
-          targetAuditStatus: StoreAuditInputTargetAuditStatus["Stopped"]
+          currentAuditStatus: StoreStatus["Running"],
+          targetAuditStatus: StoreStatus["Stopped"]
         })).subscribe(r => {
           this.getStoreList()
         })
@@ -317,10 +317,10 @@ export class EntityStoreComponent extends AppComponentBase {
     this.checkSelection(false, (ary) => {
       this.message.confirm(this.l('offlineBatch'), this.l('AreYouSure'), (r) => {
         if (r) {
-          this._StoreServiceProxy.storeAudit(new StoreAuditInput({
+          this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
             storeIds: ary,
-            currentAuditStatus: StoreAuditInputCurrentAuditStatus["Running"],
-            targetAuditStatus: StoreAuditInputTargetAuditStatus["Stopped"]
+            currentAuditStatus: StoreStatus["Running"],
+            targetAuditStatus: StoreStatus["Stopped"]
           })).subscribe(r => {
             this.getStoreList()
           })
@@ -333,10 +333,10 @@ export class EntityStoreComponent extends AppComponentBase {
     this.checkSelection(true, (ary) => {
       this.message.confirm(this.l('onlineBatch'), this.l('AreYouSure'), (r) => {
         if (r) {
-          this._StoreServiceProxy.storeAudit(new StoreAuditInput({
+          this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
             storeIds: ary,
-            currentAuditStatus: StoreAuditInputCurrentAuditStatus["Stopped"],
-            targetAuditStatus: StoreAuditInputTargetAuditStatus["Running"]
+            currentAuditStatus: StoreStatus["Stopped"],
+            targetAuditStatus: StoreStatus["Running"]
           })).subscribe(r => {
             this.getStoreList()
           })
@@ -348,10 +348,10 @@ export class EntityStoreComponent extends AppComponentBase {
   onlineAll() {
     this.message.confirm(this.l('offlineBatch'), this.l('AreYouSure'), (r) => {
       if (r) {
-        this._StoreServiceProxy.storeAudit(new StoreAuditInput({
+        this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
           storeIds: [],
-          currentAuditStatus: StoreAuditInputCurrentAuditStatus["Stopped"],
-          targetAuditStatus: StoreAuditInputTargetAuditStatus["Running"]
+          currentAuditStatus: StoreStatus["Stopped"],
+          targetAuditStatus: StoreStatus["Running"]
         })).subscribe(r => {
           this.getStoreList()
         })
@@ -403,7 +403,7 @@ export class EntityStoreComponent extends AppComponentBase {
       this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
-          this._StoreServiceProxy.publishToOrganization(input)
+          this._NewStoreServiceProxy.publishStoreToOrganization(input)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
               // this.primengTableHelper.hideLoadingIndicator();
@@ -417,7 +417,7 @@ export class EntityStoreComponent extends AppComponentBase {
       this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
-          this._StoreServiceProxy.publishToOrganization(input)
+          this._NewStoreServiceProxy.publishStoreToOrganization(input)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
               // this.primengTableHelper.hideLoadingIndicator();

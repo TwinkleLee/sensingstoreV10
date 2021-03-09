@@ -1,12 +1,13 @@
 import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, AuditStatus as AuditStatus2, ApplyServiceProxy, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput } from '@shared/service-proxies/service-proxies';
 import { LazyLoadEvent } from 'primeng/api';
 import { Injectable } from '@angular/core'
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DeviceServiceProxy as NewDeviceServiceProxy, DeviceMirrorPublishInput, PublishDeviceInput,StoreServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy as NewDeviceServiceProxy, DeviceMirrorPublishInput, PublishDeviceInput, StoreServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { ApplyServiceProxy, ApplyWanted as CreateApplyFormInputWanted, AuditStatus as AuditStatus2, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Injectable()
 export class YourInterceptor implements HttpInterceptor {
@@ -181,12 +182,6 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       })
     }
 
-
-    // $(document).on("click", this.dropDownBind2);
-
-    // if (this.appSession.tenant) { this.getStores(); }
-    // $(document).on("click", this.dropDownBind3);
-    // this.getStores();
 
     this._NewDeviceServiceProxy.getDeviceTypes(
       undefined,

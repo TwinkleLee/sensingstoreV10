@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditCateModalComponent } from '@app/admin/category/category/create-or-edit-cate-modal.component';
-import { ProductCategoryServiceProxy, UpdateProductCategoryInput, BrandServiceProxy, UpdateBrandCategoryInput } from '@shared/service-proxies/service-proxies';
+import { ProductCategoryServiceProxy, UpdateProductCategoryInput } from '@shared/service-proxies/service-proxies';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { finalize } from 'rxjs/operators';
 import { CategoryTreeComponent } from './category-tree.component';
@@ -15,6 +15,7 @@ import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BrandServiceProxy,UpdateBrandCategoryInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-category',

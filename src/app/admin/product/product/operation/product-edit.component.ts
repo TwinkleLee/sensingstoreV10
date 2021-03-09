@@ -1,7 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ModalDirective,  } from '@node_modules/ngx-bootstrap/modal';
 import { TabsetComponent } from '@node_modules/ngx-bootstrap/tabs';
-import { ProductServiceProxy, ProductDto, AddOrUpdateProductInput, UpdateProductInput, TagServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, TokenAuthServiceProxy, ProductCategoryServiceProxy, IdNameDto, BrandServiceProxy, TagType as Type,ProductPointRule,RedeemRule,AwardRule } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, ProductDto, AddOrUpdateProductInput, UpdateProductInput, TagServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, ProductCategoryServiceProxy, TagType as Type,ProductPointRule,RedeemRule,AwardRule } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { ConnectorService } from '@app/shared/services/connector.service';
@@ -19,6 +19,7 @@ import { Table, TableCheckbox } from 'primeng/table';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { finalize } from 'rxjs/operators';
 import { ShopServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -240,7 +241,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
 
     //获取品牌
     getBrands() {
-        this._brandService.gets(undefined, undefined, undefined, undefined, 999, 0).subscribe((result) => {
+        this._brandService.getBrands(undefined, undefined, undefined, undefined, 999, 0).subscribe((result) => {
             this.brands = result.items;
         })
     }

@@ -7,10 +7,10 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { AppConsts } from '@shared/AppConsts';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CounterAnalysisServiceProxy } from '@shared/service-proxies/service-proxies-cargo';
 import { DeviceHeatmapDataServiceProxy } from '@shared/service-proxies/service-proxies3';
 
+import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -56,7 +56,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
     constructor(
         injector: Injector,
         private _ReportServiceProxy: ReportServiceProxy,
-        private _DeviceServiceProxy: DeviceServiceProxy,
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy,
         private _CounterAnalysisServiceProxy: CounterAnalysisServiceProxy,
         private _DeviceHeatmapDataServiceProxy: DeviceHeatmapDataServiceProxy
 
@@ -83,7 +83,8 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             // }
 
         })
-        this._DeviceServiceProxy.getDevices(
+        this._NewDeviceServiceProxy.getDevices(
+            [],
             undefined,
             undefined,
             undefined,

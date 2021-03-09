@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, EventEmitter, Output, ElementRef, ChangeDetectorRef, } from '@angular/core';
-import { UpdateBrandInput, CreateBrandInput, BrandServiceProxy } from '@shared/service-proxies/service-proxies';
+import { UpdateBrandInput, CreateBrandInput, BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -97,7 +97,7 @@ export class BrandOperationComponent extends AppComponentBase {
         this.brand.id = id;
         abp.ui.setBusy();
 
-        this._brandService.getSingle(id, undefined).pipe(finalize(() => {
+        this._brandService.getSingleBrand(id).pipe(finalize(() => {
             abp.ui.clearBusy();
         })).subscribe((result) => {
 
@@ -177,7 +177,7 @@ export class BrandOperationComponent extends AppComponentBase {
         this.saving = true;
         if (this.operation == "add") {
             this.CreateBrandInput = new CreateBrandInput(this.brand);
-            this._brandService.create(this.CreateBrandInput).pipe(finalize(() => {
+            this._brandService.createBrand(this.CreateBrandInput).pipe(finalize(() => {
                 this.saving = false;
             })).subscribe((result) => {
                 this.notify.info(this.l('success'));
@@ -185,7 +185,7 @@ export class BrandOperationComponent extends AppComponentBase {
             })
         } else {
             this.UpdateBrandInput = new UpdateBrandInput(this.brand);
-            this._brandService.update(this.UpdateBrandInput).pipe(finalize(() => {
+            this._brandService.updateBrand(this.UpdateBrandInput).pipe(finalize(() => {
                 this.saving = false;
             })).subscribe((result) => {
                 this.notify.info(this.l('success'));

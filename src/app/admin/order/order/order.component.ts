@@ -9,9 +9,11 @@ import { Table } from 'primeng/table';
 import { OrderServiceProxy, CommonServiceProxy } from '@shared/service-proxies/service-proxies2';
 import { OrderDetailModalComponent } from '@app/admin/order/order/order-detail-modal.component';
 import { finalize } from 'rxjs/operators';
-import { StoreServiceProxy, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 import { SensingShopManageServiceProxy } from '@shared/service-proxies/service-proxies2';
+
+import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-order',
@@ -59,7 +61,7 @@ export class OrderComponent extends AppComponentBase {
     private _orderService: OrderServiceProxy,
     private _ouService: OrganizationUnitServiceProxy,
     private _commonService: CommonServiceProxy,
-    private _StoreServiceProxy: StoreServiceProxy,
+    private _NewStoreServiceProxy: NewStoreServiceProxy,
     private _SensingShopManageServiceProxy: SensingShopManageServiceProxy,
     private router: Router) {
     super(injector);
@@ -109,7 +111,7 @@ export class OrderComponent extends AppComponentBase {
 
   //所属店铺
   getStores() {
-    this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(true).subscribe((result) => {
+    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(true).subscribe((result) => {
       this.stores = [result];
     })
   }

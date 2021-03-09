@@ -4,13 +4,14 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { StoreServiceProxy, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 
 
 import { OrderServiceProxy, SaleReportInput, ReportServiceProxy } from '@shared/service-proxies/service-proxies2';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
+import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-sales-chart',
@@ -45,10 +46,10 @@ export class SalesChartComponent extends AppComponentBase {
     private _ReportServiceProxy: ReportServiceProxy,
     private _OrderServiceProxy: OrderServiceProxy,
     private _OrganizationUnitServiceProxy: OrganizationUnitServiceProxy,
-    private _StoreServiceProxy: StoreServiceProxy) {
+    private _NewStoreServiceProxy: NewStoreServiceProxy) {
     super(injector);
 
-    this._StoreServiceProxy.getCurrentTenantSimpleOrganizationUnitsAndStoresTree().subscribe(r => {
+    this._NewStoreServiceProxy.getCurrentTenantSimpleOrganizationUnitsAndStoresTree().subscribe(r => {
       this.originTree = r.children;
       console.log('getCurrentTenantSimpleOrganizationUnitsAndStoresTree', this.originTree);
       this.ouTree = this.originTree.map(item => {

@@ -1,6 +1,8 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal'
-import { ProductServiceProxy, UpdateEntityResourceInput, CreateEntityResourceInput, BrandServiceProxy, FileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { UpdateEntityResourceInput, CreateEntityResourceInput, FileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';

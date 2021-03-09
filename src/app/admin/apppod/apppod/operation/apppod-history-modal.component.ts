@@ -1,6 +1,5 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-// import {DeviceTypeServiceProxy,DeviceTypeDto,CreateDeviceTypeInput,UpdateDeviceTypeInput} from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 
 import { appModuleAnimation } from '@shared/animations/routerTransition';
