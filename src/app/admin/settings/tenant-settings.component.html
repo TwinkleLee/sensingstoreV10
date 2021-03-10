@@ -199,7 +199,7 @@
                         </tab>
 
 
-                        <tab *ngIf="true" heading="{{l('cloudStorage')}}" customClass="m-tabs__item">
+                        <tab *ngIf="settings&&settings.oss" heading="{{l('cloudStorage')}}" customClass="m-tabs__item">
                             <div class="row" style="margin-left:0;">
                                 <div class="col-md-6">
                                     <div class="form-group">
