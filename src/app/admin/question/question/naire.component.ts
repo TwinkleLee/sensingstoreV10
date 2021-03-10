@@ -124,7 +124,7 @@ export class NaireComponent extends AppComponentBase {
     this.NaireModalComponent.show(record);
   }
   goDashboard(record) {
-    this.router.navigate(['app', 'question', 'naire', 'dashboard'], { queryParams: { id: record.id, name: record.name, paperUsageType: record.paperUsageType } });
+    this.router.navigate(['app', 'admin','question', 'naire', 'dashboard'], { queryParams: { id: record.id, name: record.name, paperUsageType: record.paperUsageType } });
   }
 
   //删除

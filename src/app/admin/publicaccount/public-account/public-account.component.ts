@@ -61,7 +61,7 @@ export class PublicAccountComponent extends AppComponentBase {
 
   goManage(record) {
     console.log(record);
-    this.router.navigate(['app', 'publicaccount', 'publicaccount', 'manage'], { queryParams: { weixinAppID: record.weixinAppID, nickName: record.nickName } });
+    this.router.navigate(['app', 'admin','publicaccount', 'publicaccount', 'manage'], { queryParams: { weixinAppID: record.weixinAppID, nickName: record.nickName } });
   }
 
 

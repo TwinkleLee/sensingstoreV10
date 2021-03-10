@@ -22,7 +22,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="fortuneTabset">
-                        <tab heading="{{l('PersonalityInformation')}}" customClass="m-tabs__item icon-gexing">
+                        <tab class="pt-5" heading="{{l('PersonalityInformation')}}" customClass="m-tabs__item icon-gexing">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form">
@@ -195,7 +195,7 @@
                             </div>
                         </tab>
                         <tab heading="{{l('FortuneInformation')}}" customClass="m-tabs__item icon-jinriyunshi"
-                            (selectTab)="getFortuneInformation($event)">
+                            (selectTab)="getFortuneInformation($event)" class="pt-5">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form m-form--label-align-right">

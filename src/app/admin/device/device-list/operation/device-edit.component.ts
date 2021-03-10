@@ -428,7 +428,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
     //前往管理标签
     goTag(f?) {
-        f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'tags', 'tags']);
+        f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
     }
     //选中或者取消选中标签
     setTag() {
@@ -748,7 +748,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     showActivityData(record) {
-        this.router.navigate(['app', 'activity', 'activity', 'data'], { queryParams: { id: record.activityId, deviceId: record.deviceId, name: record.activity.name } });
+        this.router.navigate(['app', 'admin','activity', 'activity', 'data'], { queryParams: { id: record.activityId, deviceId: record.deviceId, name: record.activity.name } });
     }
 
     getCountByDeviceId() {
@@ -1201,11 +1201,11 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     gameSetup(record) {
-        this.router.navigate(['app', 'device', 'deviceList', 'game'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
+        this.router.navigate(['app', 'admin','device', 'deviceList', 'game'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
     }
 
     editActivity(record) {
-        this.router.navigate(['app', 'activity', 'activity', 'basic'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
+        this.router.navigate(['app', 'admin','activity', 'activity', 'basic'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
     }
 
     //维护记录

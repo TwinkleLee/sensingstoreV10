@@ -129,7 +129,7 @@ export class AppNavigationService {
             new AppMenuItem('Recommend', 'Pages.Tenant.Recommends', 'icon-tuijian1', '', [], [
                 new AppMenuItem('PersonalRecommend', 'Pages.Tenant.Recommends', 'icon-tuijian', '/app/admin/recommend/recommend'),
                 new AppMenuItem('PersonalCategory', 'Pages.Tenant.Recommends', 'icon-fenlei1', '/app/admin/recommend/personalCategory'),
-                new AppMenuItem('FaceRecommend', 'Pages.Tenant.Recommends', 'icon-renlianshibie', '/app/admint/recommend/faceRecommend')
+                new AppMenuItem('FaceRecommend', 'Pages.Tenant.Recommends', 'icon-renlianshibie', '/app/admin/recommend/faceRecommend')
             ]),
 
 

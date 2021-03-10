@@ -291,7 +291,7 @@ export class TrainingListComponent extends AppComponentBase {
 
 
   goImport() {
-    this.router.navigate(['app', 'import', 'import', 'training']);
+    this.router.navigate(['app', 'admin','import', 'import', 'training']);
   }
 
 

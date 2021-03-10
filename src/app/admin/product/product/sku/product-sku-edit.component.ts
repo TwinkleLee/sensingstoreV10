@@ -231,7 +231,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     }
     //返回
     back() {
-        this.router.navigate(['app', 'product', 'product', 'operation', this.productId], { queryParams: { backFromSku: true } });
+        this.router.navigate(['app', 'admin','product', 'product', 'operation', this.productId], { queryParams: { backFromSku: true } });
     }
     //保存
     save(): void {
@@ -334,7 +334,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     }
     onOperateMatch(e) {
         if (e.action == 'info') {
-            this.router.navigate(['app', 'product', 'match', 'operation', e.image.id]);
+            this.router.navigate(['app', 'admin','product', 'match', 'operation', e.image.id]);
         }
     }
     /**
@@ -362,7 +362,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     }
     onOperateLikes(e) {
         if (e.action == 'info') {
-            this.router.navigate(['app', 'product', 'like', 'operation', e.image.id]);
+            this.router.navigate(['app', 'admin','product', 'like', 'operation', e.image.id]);
         }
     }
 

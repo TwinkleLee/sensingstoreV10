@@ -216,7 +216,7 @@ export class ResourceManagementComponent extends AppComponentBase {
   }
   //前往管理标签
   goTag(f?) {
-    f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'tags', 'tags']);
+    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
   }
 
 }

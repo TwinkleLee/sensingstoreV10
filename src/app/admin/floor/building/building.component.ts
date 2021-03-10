@@ -94,7 +94,7 @@ export class BuildingComponent extends AppComponentBase {
   }
 
   goFloor(record) {
-    this.router.navigate(['app', 'floor', 'floor'], { queryParams: { buildingId: record.id } });
+    this.router.navigate(['app', 'admin','floor', 'floor'], { queryParams: { buildingId: record.id } });
   }
 
 

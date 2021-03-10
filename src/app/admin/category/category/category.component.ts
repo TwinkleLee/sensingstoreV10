@@ -88,7 +88,7 @@ export class CategoryComponent extends AppComponentBase {
     console.log(this.type)
 
     if (this.type == 'transfer') {
-      this.router.navigate(['app', 'category', 'maintain', 'questionType'], { queryParams: { tenantId: this.tenantId } });
+      this.router.navigate(['app', 'admin','category', 'maintain', 'questionType'], { queryParams: { tenantId: this.tenantId } });
       return
     }
 
@@ -229,7 +229,7 @@ export class CategoryComponent extends AppComponentBase {
 
   changeTenant() {
     console.log(this.router)
-    this.router.navigate(['app', 'category', 'maintain', 'transfer'], { queryParams: { tenantId: this.tenantId } });
+    this.router.navigate(['app', 'admin','category', 'maintain', 'transfer'], { queryParams: { tenantId: this.tenantId } });
   }
 
   //添加根分类

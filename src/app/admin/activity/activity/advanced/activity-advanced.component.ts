@@ -136,11 +136,11 @@ export class ActivityAdvancedComponent extends AppComponentBase {
 
     changeSetup(e) {
         if (e == 'game' && this.deviceId) {
-            this.router.navigate(['app', 'device', 'deviceList', 'game'], { queryParams: { id: this.activityId, deviceId: this.deviceId,name:this.activityName } });
+            this.router.navigate(['app', 'admin','device', 'deviceList', 'game'], { queryParams: { id: this.activityId, deviceId: this.deviceId,name:this.activityName } });
         } else if (this.deviceId) {
-            this.router.navigate(['app', 'activity', 'activity', e], { queryParams: { id: this.activityId, deviceId: this.deviceId,name:this.activityName } });
+            this.router.navigate(['app', 'admin','activity', 'activity', e], { queryParams: { id: this.activityId, deviceId: this.deviceId,name:this.activityName } });
         } else {
-            this.router.navigate(['app', 'activity', 'activity', e], { queryParams: { id: this.activityId,name:this.activityName } });
+            this.router.navigate(['app', 'admin','activity', 'activity', e], { queryParams: { id: this.activityId,name:this.activityName } });
         }
     }
 

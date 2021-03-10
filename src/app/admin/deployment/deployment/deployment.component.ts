@@ -94,7 +94,7 @@ export class DeploymentComponent extends AppComponentBase {
 
   // 查看部署站点
   goAddress(record) {
-    this.router.navigate(['app', 'deployment', 'site', record.id])
+    this.router.navigate(['app', 'admin','deployment', 'site', record.id])
   }
 
   // 添加

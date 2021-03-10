@@ -322,7 +322,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
     }
     //返回
     back() {
-        this.router.navigate(['app', 'product', 'product'], { queryParams: { useQuery: true } });
+        this.router.navigate(['app', 'admin','product', 'product'], { queryParams: { useQuery: true } });
     }
     //选中文件
     uploadFile(e) {

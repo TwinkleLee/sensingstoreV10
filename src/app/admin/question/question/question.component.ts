@@ -120,7 +120,7 @@ export class QuestionComponent extends AppComponentBase {
     this.QuestionModalComponent.show(record);
   }
   showActivityData(record) {
-    this.router.navigate(['app', 'activity', 'activity', 'data'], { queryParams: { id: record.id, name: record.name } });
+    this.router.navigate(['app', 'admin','activity', 'activity', 'data'], { queryParams: { id: record.id, name: record.name } });
   }
   //删除
   deleteQuestion(record) {
