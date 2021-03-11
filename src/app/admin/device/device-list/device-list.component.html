@@ -140,7 +140,7 @@
                                         (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
                                 </div>
 
-                                <div class="col-3 form-group" *ngIf="appSession.tenant">
+                                <div class="col-2 form-group" *ngIf="appSession.tenant">
                                     <app-high-tree #highTree2 [treeList]="deviceTree"
                                         [selfConfig]="{labelName:l('belongStore')}"
                                         (onTreeUpdate)="onTreeUpdate2($event)"></app-high-tree>

@@ -172,7 +172,7 @@ export class OnlineStoreHistoryComponent extends AppComponentBase {
   }
 
   manageWeShop(record) {
-    this.router.navigate(['app', 'weshop', 'weshop'], { queryParams: { id: record.id } });
+    this.router.navigate(['app', 'admin','weshop', 'weshop'], { queryParams: { id: record.id } });
   }
   no() {
     $("#choseType").hide();

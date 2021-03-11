@@ -103,7 +103,7 @@ export class SoftwareEditComponent extends AppComponentBase {
     }
     //返回
     back() {
-        this.router.navigate(['app', 'software', 'software']);
+        this.router.navigate(['app', 'admin','software', 'software']);
     }
     //保存
     save(): void {

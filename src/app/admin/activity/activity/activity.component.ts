@@ -93,10 +93,10 @@ export class ActivityComponent extends AppComponentBase {
     this.CreateActivityModalComponent.show();
   }
   editActivity(record) {
-    this.router.navigate(['app', 'activity', 'activity', 'basic'], { queryParams: { id: record.id, name: record.name } });
+    this.router.navigate(['app', 'admin','activity', 'activity', 'basic'], { queryParams: { id: record.id, name: record.name } });
   }
   showActivityData(record) {
-    this.router.navigate(['app', 'activity', 'activity', 'data'], { queryParams: { id: record.id, name: record.name } });
+    this.router.navigate(['app', 'admin','activity', 'activity', 'data'], { queryParams: { id: record.id, name: record.name } });
   }
   //删除活动
   deleteActivity(record) {

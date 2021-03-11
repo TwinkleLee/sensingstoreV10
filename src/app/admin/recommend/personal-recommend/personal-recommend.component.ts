@@ -312,7 +312,7 @@ export class PersonalRecommendComponent extends AppComponentBase {
   }
 
   goImport() {
-    this.router.navigate(['app', 'import', 'import', 'recommend']);
+    this.router.navigate(['app', 'admin','import', 'import', 'recommend']);
   }
 
 

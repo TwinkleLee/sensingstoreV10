@@ -50,7 +50,7 @@ export class OnlineStoreComponent extends AppComponentBase {
 
 
   goHistory(record) {
-    this.router.navigate(['app', 'onlineStore', 'onlineStoreHistory'], { queryParams: { id: record.id, name: record.taobao_user_nick } });
+    this.router.navigate(['app', 'admin','onlineStore', 'onlineStoreHistory'], { queryParams: { id: record.id, name: record.taobao_user_nick } });
   }
 
 
@@ -106,7 +106,7 @@ export class OnlineStoreComponent extends AppComponentBase {
   }
 
   manageWeShop(record) {
-    this.router.navigate(['app', 'weshop', 'weshop'], { queryParams: { id: record.id } });
+    this.router.navigate(['app', 'admin','weshop', 'weshop'], { queryParams: { id: record.id } });
   }
   no() {
     $("#choseType").hide();

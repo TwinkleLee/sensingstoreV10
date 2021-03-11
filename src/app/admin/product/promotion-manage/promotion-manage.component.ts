@@ -67,7 +67,7 @@ export class PromotionManage extends AppComponentBase {
     this.promotionManageModal.show(record);
   }
   godetail(record) {
-    this.router.navigate(['app', 'product', 'promotionManage', 'productList'], { queryParams: { promotionId: record.id, name: record.name } });
+    this.router.navigate(['app', 'admin','product', 'promotionManage', 'productList'], { queryParams: { promotionId: record.id, name: record.name } });
   }
 
   //删除

@@ -7,7 +7,7 @@
   "//openServiceBaseUrl": "https://o.api.troncell.com:443",
   "remoteBigDataServiceUrl": "http://119.3.154.130:8002",
   "///remoteOnlineServiceUrl": "https://o.api.troncell.com",
-  "///remoteMetaServiceUrl": "https://r.api.troncell.com",
+  "remoteMetaServiceUrl": "http://119.3.154.130:8006",
   "///remoteActivityServiceUrl": "https://g.api.troncell.com",
   "///remoteCargoServiceUrl": "https://e.api.troncell.com",
   "//remoteSYNCServiceUrl": "https://sync.api.troncell.com",

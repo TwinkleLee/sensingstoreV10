@@ -275,7 +275,7 @@ export class TicketComponent extends AppComponentBase {
 
   goMember(record) {
     console.log(record);
-    this.router.navigate(['app', 'redpacket', 'ticketMember'], { queryParams: { ticketId: record.id } });
+    this.router.navigate(['app', 'admin','redpacket', 'ticketMember'], { queryParams: { ticketId: record.id } });
   }
 
   getStoreList () {

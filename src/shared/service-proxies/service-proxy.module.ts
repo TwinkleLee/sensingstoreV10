@@ -86,7 +86,6 @@ import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对
         BigDataApiServiceProxies.SensingDeviceServiceProxy,
         BigDataApiServiceProxies.DeviceBehaviorServiceProxy,
         BigDataApiServiceProxies.DeviceOperationsServiceProxy,
-        BigDataApiServiceProxies.IdentityServiceProxy,
         BigDataApiServiceProxies.OperationKnowledgeServiceProxy,
         BigDataApiServiceProxies.ReportServiceProxy,
 
@@ -94,7 +93,6 @@ import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对
 
         MetaApiServiceProxies.DateMetaPhysicsServiceProxy,
         MetaApiServiceProxies.MetaPhysicsServiceProxy,
-        MetaApiServiceProxies.IdentityServiceProxy,
         MetaApiServiceProxies.FaceTagsServiceProxy,
 
 

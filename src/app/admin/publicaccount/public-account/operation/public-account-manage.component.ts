@@ -106,7 +106,7 @@ export class PublicAccountManageComponent extends AppComponentBase {
   }
   //前往管理标签
   goTag(f?) {
-    f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'tags', 'tags']);
+    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
   }
   //选中或者取消选中标签
   setTag() {

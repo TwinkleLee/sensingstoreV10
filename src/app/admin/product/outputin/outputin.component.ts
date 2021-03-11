@@ -123,7 +123,7 @@ export class OutPutInComponent extends AppComponentBase {
     this.addOutputinModal.show(2, _.cloneDeep(this.treeList));
   }
   importQuantity(){
-    this.router.navigate(['app', 'import', 'import', 'storagecheck']);
+    this.router.navigate(['app', 'admin','import', 'import', 'storagecheck']);
   }
 
   //转换序列
