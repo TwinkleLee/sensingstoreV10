@@ -109,7 +109,7 @@ export class FaceRecommendComponent extends AppComponentBase {
       for (var value of this.activityPublishList) {
         personalCheckedIdList.push(value.id);
       }
-      this._FaceTagsServiceProxy.batchEnableTags(personalCheckedIdList).subscribe(result => {
+      this._FaceTagsServiceProxy.batchEnableFaceTags(personalCheckedIdList).subscribe(result => {
         this.notify.info("启用成功");
         this.getFaceTagList();
         this.activityPublishList = [];
@@ -140,7 +140,7 @@ export class FaceRecommendComponent extends AppComponentBase {
     this.message.confirm(this.l('IfSynchronousData'), this.l('AreYouSure'),(r) => {
       if (r) {
         this.busy = true;
-        this._FaceTagsServiceProxy.syncFromHost()
+        this._FaceTagsServiceProxy.syncFaceTagsFromHost()
           .pipe(finalize(() => { this.busy = false; }))
           .subscribe(r => {
             this.notify.info("同步成功");

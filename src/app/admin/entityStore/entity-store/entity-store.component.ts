@@ -22,7 +22,7 @@ export class EntityStoreComponent extends AppComponentBase {
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
-  @ViewChild('createOrEditStoreModal', { static: true }) createOrEditStoreModal: CreateOrEditStoreModalComponent;
+  @ViewChild('createOrEditStoreModal', { static: false }) createOrEditStoreModal: CreateOrEditStoreModalComponent;
   @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
   @ViewChild('highTree', { static: false }) highTree;
 

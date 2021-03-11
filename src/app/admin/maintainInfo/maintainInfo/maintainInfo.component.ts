@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
-import { DeviceOperationsServiceProxy, OperationKnowledgeServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { DeviceOperationsServiceProxy, GetDeviceOptInput, OperationKnowledgeServiceProxy } from '@shared/service-proxies/service-proxies3';
 
 import * as moment from 'moment';
 import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
@@ -133,17 +133,21 @@ export class MaintainInfoComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     console.log(this.primengTableHelper.getSorting(this.dataTable))
     this._OperationsServiceProxy.getOperationRecords(
-      undefined,
-      this.StartTime,
-      this.EndTime,
-      this.statusSelect,
-      this.tenantId,
-      this.questionTypeId,
-      undefined,
-      this.filterText,
-      this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getMaxResultCount(this.paginator, event),
-      this.primengTableHelper.getSkipCount(this.paginator, event)
+      new GetDeviceOptInput({
+        deviceId: undefined,
+        startTime: this.StartTime,
+        endTime: this.EndTime,
+        optStatus:  this.statusSelect,
+        tenantId:this.tenantId,
+        categoryId:this.questionTypeId,
+        optKnowledgeId:undefined,
+        filter:this.filterText,
+        sorting:this.primengTableHelper.getSorting(this.dataTable),
+        maxResultCount:this.primengTableHelper.getMaxResultCount(this.paginator, event),
+        skipCount:this.primengTableHelper.getSkipCount(this.paginator, event)
+      }
+      
+      )
     )
     .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
     .subscribe((result) => {

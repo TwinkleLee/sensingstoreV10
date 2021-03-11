@@ -29,22 +29,23 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * Host提起导入日期玄学的数据
+     * @param body (optional) 
      * @return Success
      */
-    importDateMetaphysics(input: GetImportDateMetaPhysicsInput | null | undefined): Observable<string> {
+    importDateMetaphysics(body: GetImportDateMetaPhysicsInput | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/ImportDateMetaphysics";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -89,6 +90,7 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
+     * 获取DateMetaphsics，根据条件， Filter可为Metaphysics的Name,日期区间,类型.
      * @param startTime (optional) 
      * @param endTime (optional) 
      * @param typeId (optional) 
@@ -99,23 +101,39 @@ export class DateMetaPhysicsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getDateMetaphysicsList(startTime: moment.Moment | null | undefined, endTime: moment.Moment | null | undefined, typeId: number | null | undefined, metaPhysicsId: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfDateMetaphysicsListDto> {
+    getDateMetaphysicsList(startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, typeId: number | undefined, metaPhysicsId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<DateMetaphysicsListDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/GetDateMetaphysicsList?";
-        if (startTime !== undefined && startTime !== null)
+        if (startTime === null)
+            throw new Error("The parameter 'startTime' cannot be null.");
+        else if (startTime !== undefined)
             url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
-        if (endTime !== undefined && endTime !== null)
+        if (endTime === null)
+            throw new Error("The parameter 'endTime' cannot be null.");
+        else if (endTime !== undefined)
             url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
-        if (typeId !== undefined && typeId !== null)
+        if (typeId === null)
+            throw new Error("The parameter 'typeId' cannot be null.");
+        else if (typeId !== undefined)
             url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
-        if (metaPhysicsId !== undefined && metaPhysicsId !== null)
+        if (metaPhysicsId === null)
+            throw new Error("The parameter 'metaPhysicsId' cannot be null.");
+        else if (metaPhysicsId !== undefined)
             url_ += "MetaPhysicsId=" + encodeURIComponent("" + metaPhysicsId) + "&";
-        if (filter !== undefined && filter !== null)
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -123,7 +141,7 @@ export class DateMetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -134,14 +152,14 @@ export class DateMetaPhysicsServiceProxy {
                 try {
                     return this.processGetDateMetaphysicsList(<any>response_);
                 } catch (e) {
-                    return <Observable<PagedResultDtoOfDateMetaphysicsListDto>><any>_observableThrow(e);
+                    return <Observable<DateMetaphysicsListDtoPagedResultDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PagedResultDtoOfDateMetaphysicsListDto>><any>_observableThrow(response_);
+                return <Observable<DateMetaphysicsListDtoPagedResultDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetDateMetaphysicsList(response: HttpResponseBase): Observable<PagedResultDtoOfDateMetaphysicsListDto> {
+    protected processGetDateMetaphysicsList(response: HttpResponseBase): Observable<DateMetaphysicsListDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -152,7 +170,7 @@ export class DateMetaPhysicsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfDateMetaphysicsListDto.fromJS(resultData200);
+            result200 = DateMetaphysicsListDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 401) {
@@ -164,16 +182,19 @@ export class DateMetaPhysicsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PagedResultDtoOfDateMetaphysicsListDto>(<any>null);
+        return _observableOf<DateMetaphysicsListDtoPagedResultDto>(<any>null);
     }
 
     /**
+     * 获取日期玄学的具体信息
      * @param id (optional) 
      * @return Success
      */
-    getDateMetaPhysics(id: number | null | undefined): Observable<DateMetaphysicsDto> {
+    getDateMetaPhysics(id: number | undefined): Observable<DateMetaphysicsDto> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/GetDateMetaPhysics?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -181,7 +202,7 @@ export class DateMetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -226,15 +247,18 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
+     * 导入Excel文件,生成日期玄学数据
      * @param input (optional) 
      * @return Success
      */
-    postImportFile(input: FileParameter | null | undefined): Observable<string> {
+    postImportFile(input: FileParameter | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/PostImportFile";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (input !== null && input !== undefined)
+        if (input === null || input === undefined)
+            throw new Error("The parameter 'input' cannot be null.");
+        else
             content_.append("input", input.data, input.fileName ? input.fileName : "input");
 
         let options_ : any = {
@@ -242,7 +266,7 @@ export class DateMetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -287,22 +311,23 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 创建日期玄学的单条数据
+     * @param body (optional) 
      * @return Success
      */
-    createDateMetaPhysics(input: CreateDateMetaPhysicsInput | null | undefined): Observable<DateMetaphysicsDto> {
+    createDateMetaPhysics(body: CreateDateMetaPhysicsInput | undefined): Observable<DateMetaphysicsDto> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/CreateDateMetaPhysics";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -347,22 +372,23 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 更新日期玄学的数据信息
+     * @param body (optional) 
      * @return Success
      */
-    updateDateMetaphysics(input: UpdateDateMetaPhysicsInput | null | undefined): Observable<DateMetaphysicsDto> {
+    updateDateMetaphysics(body: UpdateDateMetaPhysicsInput | undefined): Observable<DateMetaphysicsDto> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/UpdateDateMetaphysics";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -407,12 +433,15 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
+     * 删除日期玄学数据
      * @param id (optional) 
      * @return Success
      */
-    deleteDateMetaphysics(id: number | null | undefined): Observable<void> {
+    deleteDateMetaphysics(id: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/DeleteDateMetaphysics?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -461,12 +490,15 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
+     * 批量删除日期玄学数据
      * @param input (optional) 
      * @return Success
      */
-    deleteDateMetaphysicsList(input: number[] | null | undefined): Observable<void> {
+    deleteDateMetaphysicsList(input: number[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/DeleteDateMetaphysicsList?";
-        if (input !== undefined && input !== null)
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
             input && input.forEach(item => { url_ += "input=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -515,22 +547,23 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 给日期玄学创建对应的推荐，推荐可多条
+     * @param body (optional) 
      * @return Success
      */
-    createRecommend(input: CreateRecommendInput | null | undefined): Observable<RecommendDto> {
+    createRecommend(body: CreateRecommendInput | undefined): Observable<RecommendDto> {
         let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/CreateRecommend";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -575,85 +608,6 @@ export class DateMetaPhysicsServiceProxy {
     }
 
     /**
-     * @param startTime (optional) 
-     * @param endTime (optional) 
-     * @param typeId (optional) 
-     * @param metaPhysicsId (optional) 
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param maxResultCount (optional) 
-     * @param skipCount (optional) 
-     * @return Success
-     */
-    getDateMetaphysicsBySubkey(subKey: string, startTime: moment.Moment | null | undefined, endTime: moment.Moment | null | undefined, typeId: number | null | undefined, metaPhysicsId: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfDateMetaphysicsDto> {
-        let url_ = this.baseUrl + "/api/services/app/DateMetaPhysics/GetDateMetaphysicsBySubkey?";
-        if (subKey === undefined || subKey === null)
-            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
-        else
-            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
-        if (startTime !== undefined && startTime !== null)
-            url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
-        if (endTime !== undefined && endTime !== null)
-            url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
-        if (typeId !== undefined && typeId !== null)
-            url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
-        if (metaPhysicsId !== undefined && metaPhysicsId !== null)
-            url_ += "MetaPhysicsId=" + encodeURIComponent("" + metaPhysicsId) + "&";
-        if (filter !== undefined && filter !== null)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetDateMetaphysicsBySubkey(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetDateMetaphysicsBySubkey(<any>response_);
-                } catch (e) {
-                    return <Observable<PagedResultDtoOfDateMetaphysicsDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<PagedResultDtoOfDateMetaphysicsDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetDateMetaphysicsBySubkey(response: HttpResponseBase): Observable<PagedResultDtoOfDateMetaphysicsDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfDateMetaphysicsDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<PagedResultDtoOfDateMetaphysicsDto>(<any>null);
-    }
-
-    /**
      * @return Success
      */
     healthCheck(): Observable<string> {
@@ -664,7 +618,7 @@ export class DateMetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -717,15 +671,18 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * Host导入Excel文件,生成FaceTags标签
      * @param input (optional) 
      * @return Success
      */
-    postImportFile(input: FileParameter | null | undefined): Observable<string> {
-        let url_ = this.baseUrl + "/api/services/app/FaceTags/PostImportFile";
+    importFaceTagsExcelFile(input: FileParameter | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/ImportFaceTagsExcelFile";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (input !== null && input !== undefined)
+        if (input === null || input === undefined)
+            throw new Error("The parameter 'input' cannot be null.");
+        else
             content_.append("input", input.data, input.fileName ? input.fileName : "input");
 
         let options_ : any = {
@@ -733,16 +690,16 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostImportFile(response_);
+            return this.processImportFaceTagsExcelFile(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostImportFile(<any>response_);
+                    return this.processImportFaceTagsExcelFile(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -751,7 +708,7 @@ export class FaceTagsServiceProxy {
         }));
     }
 
-    protected processPostImportFile(response: HttpResponseBase): Observable<string> {
+    protected processImportFaceTagsExcelFile(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -778,26 +735,27 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * 从Host账号下同步FaceTags标签，包含其中的推荐
      * @return Success
      */
-    syncFromHost(): Observable<string> {
-        let url_ = this.baseUrl + "/api/services/app/FaceTags/SyncFromHost";
+    syncFaceTagsFromHost(): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/SyncFaceTagsFromHost";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSyncFromHost(response_);
+            return this.processSyncFaceTagsFromHost(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processSyncFromHost(<any>response_);
+                    return this.processSyncFaceTagsFromHost(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -806,7 +764,7 @@ export class FaceTagsServiceProxy {
         }));
     }
 
-    protected processSyncFromHost(response: HttpResponseBase): Observable<string> {
+    protected processSyncFaceTagsFromHost(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -833,101 +791,32 @@ export class FaceTagsServiceProxy {
     }
 
     /**
-     * @param gender (optional) 
-     * @param age (optional) 
-     * @param happiness (optional) 
-     * @param beautyScore (optional) 
-     * @param extensionData (optional) 
+     * 批量启用FaceTags
+     * @param body (optional) 
      * @return Success
      */
-    getTagRecommendsBySubkey(subKey: string, gender: string | null | undefined, age: number | null | undefined, happiness: number | null | undefined, beautyScore: number | null | undefined, extensionData: string | null | undefined): Observable<FaceTagsRecommendsDto> {
-        let url_ = this.baseUrl + "/api/services/app/FaceTags/GetTagRecommendsBySubkey?";
-        if (subKey === undefined || subKey === null)
-            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
-        else
-            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
-        if (gender !== undefined && gender !== null)
-            url_ += "Gender=" + encodeURIComponent("" + gender) + "&";
-        if (age !== undefined && age !== null)
-            url_ += "Age=" + encodeURIComponent("" + age) + "&";
-        if (happiness !== undefined && happiness !== null)
-            url_ += "Happiness=" + encodeURIComponent("" + happiness) + "&";
-        if (beautyScore !== undefined && beautyScore !== null)
-            url_ += "BeautyScore=" + encodeURIComponent("" + beautyScore) + "&";
-        if (extensionData !== undefined && extensionData !== null)
-            url_ += "ExtensionData=" + encodeURIComponent("" + extensionData) + "&";
+    batchEnableFaceTags(body: number[] | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/BatchEnableFaceTags";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTagRecommendsBySubkey(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTagRecommendsBySubkey(<any>response_);
-                } catch (e) {
-                    return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetTagRecommendsBySubkey(response: HttpResponseBase): Observable<FaceTagsRecommendsDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FaceTagsRecommendsDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<FaceTagsRecommendsDto>(<any>null);
-    }
-
-    /**
-     * @param input (optional) 
-     * @return Success
-     */
-    batchEnableTags(input: number[] | null | undefined): Observable<string> {
-        let url_ = this.baseUrl + "/api/services/app/FaceTags/BatchEnableTags";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBatchEnableTags(response_);
+            return this.processBatchEnableFaceTags(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processBatchEnableTags(<any>response_);
+                    return this.processBatchEnableFaceTags(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -936,7 +825,7 @@ export class FaceTagsServiceProxy {
         }));
     }
 
-    protected processBatchEnableTags(response: HttpResponseBase): Observable<string> {
+    protected processBatchEnableFaceTags(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -963,22 +852,23 @@ export class FaceTagsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 批量禁用FaceTags
+     * @param body (optional) 
      * @return Success
      */
-    batchDisableTags(input: number[] | null | undefined): Observable<string> {
+    batchDisableTags(body: number[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/BatchDisableTags";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -1023,62 +913,7 @@ export class FaceTagsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
-     * @return Success
-     */
-    getTagRecommendsByFace(input: GetTagRecommendsByFaceInput | null | undefined): Observable<FaceTagsRecommendsDto> {
-        let url_ = this.baseUrl + "/api/services/app/FaceTags/GetTagRecommendsByFace";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTagRecommendsByFace(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTagRecommendsByFace(<any>response_);
-                } catch (e) {
-                    return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetTagRecommendsByFace(response: HttpResponseBase): Observable<FaceTagsRecommendsDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FaceTagsRecommendsDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<FaceTagsRecommendsDto>(<any>null);
-    }
-
-    /**
+     * 获取DateMetaphsics，根据条件， Filter可为Metaphysics的Name,日期区间,类型.
      * @param gender (optional) 
      * @param priority (optional) 
      * @param isEnabled (optional) 
@@ -1089,23 +924,39 @@ export class FaceTagsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getFaceTagList(gender: string | null | undefined, priority: number | null | undefined, isEnabled: boolean | null | undefined, type: string | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfFaceTagDto> {
+    getFaceTagList(gender: string | undefined, priority: number | undefined, isEnabled: boolean | undefined, type: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FaceTagDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/GetFaceTagList?";
-        if (gender !== undefined && gender !== null)
+        if (gender === null)
+            throw new Error("The parameter 'gender' cannot be null.");
+        else if (gender !== undefined)
             url_ += "Gender=" + encodeURIComponent("" + gender) + "&";
-        if (priority !== undefined && priority !== null)
+        if (priority === null)
+            throw new Error("The parameter 'priority' cannot be null.");
+        else if (priority !== undefined)
             url_ += "Priority=" + encodeURIComponent("" + priority) + "&";
-        if (isEnabled !== undefined && isEnabled !== null)
+        if (isEnabled === null)
+            throw new Error("The parameter 'isEnabled' cannot be null.");
+        else if (isEnabled !== undefined)
             url_ += "IsEnabled=" + encodeURIComponent("" + isEnabled) + "&";
-        if (type !== undefined && type !== null)
+        if (type === null)
+            throw new Error("The parameter 'type' cannot be null.");
+        else if (type !== undefined)
             url_ += "Type=" + encodeURIComponent("" + type) + "&";
-        if (filter !== undefined && filter !== null)
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1113,7 +964,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1124,14 +975,14 @@ export class FaceTagsServiceProxy {
                 try {
                     return this.processGetFaceTagList(<any>response_);
                 } catch (e) {
-                    return <Observable<PagedResultDtoOfFaceTagDto>><any>_observableThrow(e);
+                    return <Observable<FaceTagDtoPagedResultDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PagedResultDtoOfFaceTagDto>><any>_observableThrow(response_);
+                return <Observable<FaceTagDtoPagedResultDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetFaceTagList(response: HttpResponseBase): Observable<PagedResultDtoOfFaceTagDto> {
+    protected processGetFaceTagList(response: HttpResponseBase): Observable<FaceTagDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1142,7 +993,7 @@ export class FaceTagsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfFaceTagDto.fromJS(resultData200);
+            result200 = FaceTagDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 401) {
@@ -1154,16 +1005,19 @@ export class FaceTagsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PagedResultDtoOfFaceTagDto>(<any>null);
+        return _observableOf<FaceTagDtoPagedResultDto>(<any>null);
     }
 
     /**
+     * 通过id获取FaceTag详细信息
      * @param id (optional) 
      * @return Success
      */
-    getFaceTagById(id: number | null | undefined): Observable<FaceTagDto> {
+    getFaceTagById(id: number | undefined): Observable<FaceTagDto> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/GetFaceTagById?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1171,7 +1025,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1216,22 +1070,23 @@ export class FaceTagsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 新增FaceTag信息
+     * @param body (optional) 
      * @return Success
      */
-    createFaceTag(input: CreateFaceTagInput | null | undefined): Observable<FaceTagDto> {
+    createFaceTag(body: CreateFaceTagInput | undefined): Observable<FaceTagDto> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/CreateFaceTag";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -1276,22 +1131,23 @@ export class FaceTagsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 更新FaceTag的信息
+     * @param body (optional) 
      * @return Success
      */
-    updateFaceTag(input: UpdateFaceTagInput | null | undefined): Observable<FaceTagDto> {
+    updateFaceTag(body: UpdateFaceTagInput | undefined): Observable<FaceTagDto> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/UpdateFaceTag";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -1336,12 +1192,15 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * 删除FaceTag信息
      * @param id (optional) 
      * @return Success
      */
-    deleteFaceTag(id: number | null | undefined): Observable<string> {
+    deleteFaceTag(id: number | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/DeleteFaceTag?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1349,7 +1208,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1394,12 +1253,15 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * 批量删除FaceTag的信息
      * @param input (optional) 
      * @return Success
      */
-    deleteFaceTagList(input: number[] | null | undefined): Observable<string> {
+    deleteFaceTagList(input: number[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/DeleteFaceTagList?";
-        if (input !== undefined && input !== null)
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
             input && input.forEach(item => { url_ += "input=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1407,7 +1269,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1452,12 +1314,15 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * 删除单个人脸推荐信息
      * @param id (optional) 
      * @return Success
      */
-    deleteFaceRecommend(id: number | null | undefined): Observable<string> {
+    deleteFaceRecommend(id: number | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/DeleteFaceRecommend?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1465,7 +1330,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1510,12 +1375,15 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * 批量删除人脸推进信息
      * @param input (optional) 
      * @return Success
      */
-    deleteFaceRecommendList(input: number[] | null | undefined): Observable<string> {
+    deleteFaceRecommendList(input: number[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/FaceTags/DeleteFaceRecommendList?";
-        if (input !== undefined && input !== null)
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
             input && input.forEach(item => { url_ += "input=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1523,7 +1391,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1568,32 +1436,154 @@ export class FaceTagsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * 新建单个人脸推荐信息
+     * @param body (optional) 
      * @return Success
      */
-    postGetTagByFace(input: FileParameter | null | undefined): Observable<FaceTagDto> {
-        let url_ = this.baseUrl + "/api/services/app/FaceTags/PostGetTagByFace";
+    createFaceRecommend(body: CeateFaceRecommendInput | undefined): Observable<FaceRecommendDto> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/CreateFaceRecommend";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (input !== null && input !== undefined)
-            content_.append("input", input.data, input.fileName ? input.fileName : "input");
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostGetTagByFace(response_);
+            return this.processCreateFaceRecommend(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostGetTagByFace(<any>response_);
+                    return this.processCreateFaceRecommend(<any>response_);
+                } catch (e) {
+                    return <Observable<FaceRecommendDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FaceRecommendDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateFaceRecommend(response: HttpResponseBase): Observable<FaceRecommendDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FaceRecommendDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FaceRecommendDto>(<any>null);
+    }
+
+    /**
+     * 更新人脸推进信息
+     * @param body (optional) 
+     * @return Success
+     */
+    updateFaceRecommend(body: UpdateFaceRecommendInput | undefined): Observable<FaceRecommendDto> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/UpdateFaceRecommend";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateFaceRecommend(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateFaceRecommend(<any>response_);
+                } catch (e) {
+                    return <Observable<FaceRecommendDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FaceRecommendDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateFaceRecommend(response: HttpResponseBase): Observable<FaceRecommendDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FaceRecommendDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FaceRecommendDto>(<any>null);
+    }
+
+    /**
+     * 获取人脸推进详细信息
+     * @param id (optional) 
+     * @return Success
+     */
+    getFaceRecommend(id: number | undefined): Observable<FaceTagDto> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/GetFaceRecommend?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFaceRecommend(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFaceRecommend(<any>response_);
                 } catch (e) {
                     return <Observable<FaceTagDto>><any>_observableThrow(e);
                 }
@@ -1602,7 +1592,7 @@ export class FaceTagsServiceProxy {
         }));
     }
 
-    protected processPostGetTagByFace(response: HttpResponseBase): Observable<FaceTagDto> {
+    protected processGetFaceRecommend(response: HttpResponseBase): Observable<FaceTagDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1629,6 +1619,66 @@ export class FaceTagsServiceProxy {
     }
 
     /**
+     * 通过人脸照片获取Tag信息
+     * @param input (optional) 
+     * @return Success
+     */
+    getTagByFaceImage(input: FileParameter | undefined): Observable<FaceTagDto> {
+        let url_ = this.baseUrl + "/api/services/app/FaceTags/GetTagByFaceImage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = new FormData();
+        if (input === null || input === undefined)
+            throw new Error("The parameter 'input' cannot be null.");
+        else
+            content_.append("input", input.data, input.fileName ? input.fileName : "input");
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTagByFaceImage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTagByFaceImage(<any>response_);
+                } catch (e) {
+                    return <Observable<FaceTagDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FaceTagDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTagByFaceImage(response: HttpResponseBase): Observable<FaceTagDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FaceTagDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FaceTagDto>(<any>null);
+    }
+
+    /**
      * @return Success
      */
     healthCheck(): Observable<string> {
@@ -1639,7 +1689,7 @@ export class FaceTagsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1702,7 +1752,7 @@ export class IdentityServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1734,12 +1784,137 @@ export class IdentityServiceProxy {
             result200 = resultData200 !== undefined ? resultData200 : <any>null;
             return _observableOf(result200);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param key (optional) 
+     * @return Success
+     */
+    getCacheString(key: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/Identity/GetCacheString?";
+        if (key === null)
+            throw new Error("The parameter 'key' cannot be null.");
+        else if (key !== undefined)
+            url_ += "key=" + encodeURIComponent("" + key) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCacheString(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCacheString(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCacheString(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param key (optional) 
+     * @param value (optional) 
+     * @return Success
+     */
+    setCacheString(key: string | undefined, value: string | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/Identity/SetCacheString?";
+        if (key === null)
+            throw new Error("The parameter 'key' cannot be null.");
+        else if (key !== undefined)
+            url_ += "key=" + encodeURIComponent("" + key) + "&";
+        if (value === null)
+            throw new Error("The parameter 'value' cannot be null.");
+        else if (value !== undefined)
+            url_ += "value=" + encodeURIComponent("" + value) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetCacheString(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetCacheString(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSetCacheString(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
     }
 }
 
@@ -1755,6 +1930,7 @@ export class MetaPhysicsServiceProxy {
     }
 
     /**
+     * Excel导入所支持的玄学信息
      * @return Success
      */
     importMetaphysics(): Observable<string> {
@@ -1765,7 +1941,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1810,6 +1986,7 @@ export class MetaPhysicsServiceProxy {
     }
 
     /**
+     * 把当前Host的玄学拷贝到您的租户下.
      * @param startTime (optional) 
      * @param endTime (optional) 
      * @param typeId (optional) 
@@ -1819,21 +1996,35 @@ export class MetaPhysicsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getCopyMetaPhysics(startTime: moment.Moment | null | undefined, endTime: moment.Moment | null | undefined, typeId: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<string> {
+    getCopyMetaPhysics(startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, typeId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetCopyMetaPhysics?";
-        if (startTime !== undefined && startTime !== null)
+        if (startTime === null)
+            throw new Error("The parameter 'startTime' cannot be null.");
+        else if (startTime !== undefined)
             url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
-        if (endTime !== undefined && endTime !== null)
+        if (endTime === null)
+            throw new Error("The parameter 'endTime' cannot be null.");
+        else if (endTime !== undefined)
             url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
-        if (typeId !== undefined && typeId !== null)
+        if (typeId === null)
+            throw new Error("The parameter 'typeId' cannot be null.");
+        else if (typeId !== undefined)
             url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
-        if (filter !== undefined && filter !== null)
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1841,7 +2032,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1893,17 +2084,27 @@ export class MetaPhysicsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getMetaPhysicsList(typeId: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfMetaPhysicsDto> {
+    getMetaPhysicsList(typeId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<MetaPhysicsDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetMetaPhysicsList?";
-        if (typeId !== undefined && typeId !== null)
+        if (typeId === null)
+            throw new Error("The parameter 'typeId' cannot be null.");
+        else if (typeId !== undefined)
             url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
-        if (filter !== undefined && filter !== null)
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1911,7 +2112,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -1922,14 +2123,14 @@ export class MetaPhysicsServiceProxy {
                 try {
                     return this.processGetMetaPhysicsList(<any>response_);
                 } catch (e) {
-                    return <Observable<PagedResultDtoOfMetaPhysicsDto>><any>_observableThrow(e);
+                    return <Observable<MetaPhysicsDtoPagedResultDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PagedResultDtoOfMetaPhysicsDto>><any>_observableThrow(response_);
+                return <Observable<MetaPhysicsDtoPagedResultDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetMetaPhysicsList(response: HttpResponseBase): Observable<PagedResultDtoOfMetaPhysicsDto> {
+    protected processGetMetaPhysicsList(response: HttpResponseBase): Observable<MetaPhysicsDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1940,7 +2141,7 @@ export class MetaPhysicsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfMetaPhysicsDto.fromJS(resultData200);
+            result200 = MetaPhysicsDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 401) {
@@ -1952,26 +2153,26 @@ export class MetaPhysicsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PagedResultDtoOfMetaPhysicsDto>(<any>null);
+        return _observableOf<MetaPhysicsDtoPagedResultDto>(<any>null);
     }
 
     /**
-     * @param input (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    createMetaPhysics(input: CreateMetaPhysicsInput | null | undefined): Observable<number> {
+    createMetaPhysics(body: CreateMetaPhysicsInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/CreateMetaPhysics";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -2016,22 +2217,22 @@ export class MetaPhysicsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    updateMetaphysics(input: UpdateMetaPhysicsInput | null | undefined): Observable<MetaPhysicsDto> {
+    updateMetaphysics(body: UpdateMetaPhysicsInput | undefined): Observable<MetaPhysicsDto> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/UpdateMetaphysics";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -2079,9 +2280,11 @@ export class MetaPhysicsServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    deleteMetaphysics(id: number | null | undefined): Observable<void> {
+    deleteMetaphysics(id: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/DeleteMetaphysics?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2133,9 +2336,11 @@ export class MetaPhysicsServiceProxy {
      * @param input (optional) 
      * @return Success
      */
-    deleteMetaphysicsList(input: number[] | null | undefined): Observable<void> {
+    deleteMetaphysicsList(input: number[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/DeleteMetaphysicsList?";
-        if (input !== undefined && input !== null)
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
             input && input.forEach(item => { url_ += "input=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2187,9 +2392,11 @@ export class MetaPhysicsServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getMetaPhysics(id: number | null | undefined): Observable<MetaPhysicsDto> {
+    getMetaPhysics(id: number | undefined): Observable<MetaPhysicsDto> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetMetaPhysics?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2197,7 +2404,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -2248,15 +2455,23 @@ export class MetaPhysicsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getHostMetaphysicsTypes(filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfMetaphysicsTypeDto> {
+    getHostMetaphysicsTypes(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<MetaphysicsTypeDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetHostMetaphysicsTypes?";
-        if (filter !== undefined && filter !== null)
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2264,7 +2479,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -2275,14 +2490,14 @@ export class MetaPhysicsServiceProxy {
                 try {
                     return this.processGetHostMetaphysicsTypes(<any>response_);
                 } catch (e) {
-                    return <Observable<PagedResultDtoOfMetaphysicsTypeDto>><any>_observableThrow(e);
+                    return <Observable<MetaphysicsTypeDtoPagedResultDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PagedResultDtoOfMetaphysicsTypeDto>><any>_observableThrow(response_);
+                return <Observable<MetaphysicsTypeDtoPagedResultDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetHostMetaphysicsTypes(response: HttpResponseBase): Observable<PagedResultDtoOfMetaphysicsTypeDto> {
+    protected processGetHostMetaphysicsTypes(response: HttpResponseBase): Observable<MetaphysicsTypeDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2293,7 +2508,7 @@ export class MetaPhysicsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfMetaphysicsTypeDto.fromJS(resultData200);
+            result200 = MetaphysicsTypeDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 401) {
@@ -2305,193 +2520,7 @@ export class MetaPhysicsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PagedResultDtoOfMetaphysicsTypeDto>(<any>null);
-    }
-
-    /**
-     * @param typeId (optional) 
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param maxResultCount (optional) 
-     * @param skipCount (optional) 
-     * @return Success
-     */
-    getMetaphysicsListBySubkey(subKey: string, typeId: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfMetaPhysicsDto> {
-        let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetMetaphysicsListBySubkey?";
-        if (subKey === undefined || subKey === null)
-            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
-        else
-            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
-        if (typeId !== undefined && typeId !== null)
-            url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
-        if (filter !== undefined && filter !== null)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetMetaphysicsListBySubkey(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetMetaphysicsListBySubkey(<any>response_);
-                } catch (e) {
-                    return <Observable<PagedResultDtoOfMetaPhysicsDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<PagedResultDtoOfMetaPhysicsDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetMetaphysicsListBySubkey(response: HttpResponseBase): Observable<PagedResultDtoOfMetaPhysicsDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfMetaPhysicsDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<PagedResultDtoOfMetaPhysicsDto>(<any>null);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getMetaphysicBySubkeyAndId(id: number | null | undefined, subKey: string): Observable<MetaPhysicsDto> {
-        let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetMetaphysicBySubkeyAndId?";
-        if (id !== undefined && id !== null)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        if (subKey === undefined || subKey === null)
-            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
-        else
-            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetMetaphysicBySubkeyAndId(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetMetaphysicBySubkeyAndId(<any>response_);
-                } catch (e) {
-                    return <Observable<MetaPhysicsDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<MetaPhysicsDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetMetaphysicBySubkeyAndId(response: HttpResponseBase): Observable<MetaPhysicsDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = MetaPhysicsDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<MetaPhysicsDto>(<any>null);
-    }
-
-    /**
-     * @param typeId (optional) 
-     * @return Success
-     */
-    getRandomMetaphysicBySubkeyAndTypeId(subKey: string, typeId: number | null | undefined): Observable<MetaPhysicsDto> {
-        let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetRandomMetaphysicBySubkeyAndTypeId?";
-        if (subKey === undefined || subKey === null)
-            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
-        else
-            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
-        if (typeId !== undefined && typeId !== null)
-            url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetRandomMetaphysicBySubkeyAndTypeId(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetRandomMetaphysicBySubkeyAndTypeId(<any>response_);
-                } catch (e) {
-                    return <Observable<MetaPhysicsDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<MetaPhysicsDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetRandomMetaphysicBySubkeyAndTypeId(response: HttpResponseBase): Observable<MetaPhysicsDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = MetaPhysicsDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<MetaPhysicsDto>(<any>null);
+        return _observableOf<MetaphysicsTypeDtoPagedResultDto>(<any>null);
     }
 
     /**
@@ -2501,15 +2530,23 @@ export class MetaPhysicsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getMetaPhysicsTypes(filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfMetaphysicsTypeDto> {
+    getMetaPhysicsTypes(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<MetaphysicsTypeDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/GetMetaPhysicsTypes?";
-        if (filter !== undefined && filter !== null)
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount !== undefined && maxResultCount !== null)
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
             url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount !== undefined && skipCount !== null)
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
             url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2517,7 +2554,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -2528,14 +2565,14 @@ export class MetaPhysicsServiceProxy {
                 try {
                     return this.processGetMetaPhysicsTypes(<any>response_);
                 } catch (e) {
-                    return <Observable<PagedResultDtoOfMetaphysicsTypeDto>><any>_observableThrow(e);
+                    return <Observable<MetaphysicsTypeDtoPagedResultDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PagedResultDtoOfMetaphysicsTypeDto>><any>_observableThrow(response_);
+                return <Observable<MetaphysicsTypeDtoPagedResultDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetMetaPhysicsTypes(response: HttpResponseBase): Observable<PagedResultDtoOfMetaphysicsTypeDto> {
+    protected processGetMetaPhysicsTypes(response: HttpResponseBase): Observable<MetaphysicsTypeDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2546,7 +2583,7 @@ export class MetaPhysicsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfMetaphysicsTypeDto.fromJS(resultData200);
+            result200 = MetaphysicsTypeDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 401) {
@@ -2558,26 +2595,26 @@ export class MetaPhysicsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PagedResultDtoOfMetaphysicsTypeDto>(<any>null);
+        return _observableOf<MetaphysicsTypeDtoPagedResultDto>(<any>null);
     }
 
     /**
-     * @param input (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    createMetaPhysicsType(input: CreateMetaphysicsTypeInput | null | undefined): Observable<number> {
+    createMetaPhysicsType(body: CreateMetaphysicsTypeInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/CreateMetaPhysicsType";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -2622,22 +2659,22 @@ export class MetaPhysicsServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    updateMetaphysicsType(input: UpdateMetaphysicsTypeInput | null | undefined): Observable<MetaphysicsTypeDto> {
+    updateMetaphysicsType(body: UpdateMetaphysicsTypeInput | undefined): Observable<MetaphysicsTypeDto> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/UpdateMetaphysicsType";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(input);
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -2685,9 +2722,11 @@ export class MetaPhysicsServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    deleteMetaphysicsType(id: number | null | undefined): Observable<void> {
+    deleteMetaphysicsType(id: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/DeleteMetaphysicsType?";
-        if (id !== undefined && id !== null)
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2739,9 +2778,11 @@ export class MetaPhysicsServiceProxy {
      * @param input (optional) 
      * @return Success
      */
-    deleteMetaphysicsTypeList(input: number[] | null | undefined): Observable<void> {
+    deleteMetaphysicsTypeList(input: number[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/MetaPhysics/DeleteMetaphysicsTypeList?";
-        if (input !== undefined && input !== null)
+        if (input === null)
+            throw new Error("The parameter 'input' cannot be null.");
+        else if (input !== undefined)
             input && input.forEach(item => { url_ += "input=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2800,7 +2841,7 @@ export class MetaPhysicsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Accept": "text/plain"
             })
         };
 
@@ -2841,17 +2882,462 @@ export class MetaPhysicsServiceProxy {
     }
 }
 
-export class GetImportDateMetaPhysicsInput implements IGetImportDateMetaPhysicsInput {
-    startTime!: moment.Moment | undefined;
-    endTime!: moment.Moment | undefined;
-    typeId!: number | undefined;
-    metaPhysicsId!: number | undefined;
-    filter!: string | undefined;
-    sorting!: string | undefined;
-    maxResultCount!: number | undefined;
-    skipCount!: number | undefined;
+@Injectable()
+export class SensingDeviceServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(data?: IGetImportDateMetaPhysicsInput) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_METAPHYSICS_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * 获取玄学的列表
+     * @param typeId (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getMetaphysicsListBySubkey(subKey: string, typeId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<MetaPhysicsDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetMetaphysicsListBySubkey?";
+        if (subKey === undefined || subKey === null)
+            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
+        else
+            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
+        if (typeId === null)
+            throw new Error("The parameter 'typeId' cannot be null.");
+        else if (typeId !== undefined)
+            url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMetaphysicsListBySubkey(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMetaphysicsListBySubkey(<any>response_);
+                } catch (e) {
+                    return <Observable<MetaPhysicsDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MetaPhysicsDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMetaphysicsListBySubkey(response: HttpResponseBase): Observable<MetaPhysicsDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MetaPhysicsDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MetaPhysicsDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 获取特定玄学的详细信息
+     * @param id (optional) 
+     * @return Success
+     */
+    getMetaphysicBySubkeyAndId(id: number | undefined, subKey: string): Observable<MetaPhysicsDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetMetaphysicBySubkeyAndId?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        if (subKey === undefined || subKey === null)
+            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
+        else
+            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMetaphysicBySubkeyAndId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMetaphysicBySubkeyAndId(<any>response_);
+                } catch (e) {
+                    return <Observable<MetaPhysicsDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MetaPhysicsDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMetaphysicBySubkeyAndId(response: HttpResponseBase): Observable<MetaPhysicsDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MetaPhysicsDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MetaPhysicsDto>(<any>null);
+    }
+
+    /**
+     * 随机获取特定玄学类型的玄学数据
+     * @param typeId (optional) 
+     * @return Success
+     */
+    getRandomMetaphysicBySubkeyAndTypeId(subKey: string, typeId: number | undefined): Observable<MetaPhysicsDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetRandomMetaphysicBySubkeyAndTypeId?";
+        if (subKey === undefined || subKey === null)
+            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
+        else
+            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
+        if (typeId === null)
+            throw new Error("The parameter 'typeId' cannot be null.");
+        else if (typeId !== undefined)
+            url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRandomMetaphysicBySubkeyAndTypeId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRandomMetaphysicBySubkeyAndTypeId(<any>response_);
+                } catch (e) {
+                    return <Observable<MetaPhysicsDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MetaPhysicsDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRandomMetaphysicBySubkeyAndTypeId(response: HttpResponseBase): Observable<MetaPhysicsDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MetaPhysicsDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MetaPhysicsDto>(<any>null);
+    }
+
+    /**
+     * 根据subkey和face的四个参数来获取推荐的Tag和商品
+     * @param gender (optional) 
+     * @param age (optional) 
+     * @param happiness (optional) 
+     * @param beautyScore (optional) 
+     * @param extensionData (optional) 
+     * @return Success
+     */
+    getTagRecommendsBySubkey(subKey: string, gender: string | undefined, age: number | undefined, happiness: number | undefined, beautyScore: number | undefined, extensionData: string | undefined): Observable<FaceTagsRecommendsDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetTagRecommendsBySubkey?";
+        if (subKey === undefined || subKey === null)
+            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
+        else
+            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
+        if (gender === null)
+            throw new Error("The parameter 'gender' cannot be null.");
+        else if (gender !== undefined)
+            url_ += "Gender=" + encodeURIComponent("" + gender) + "&";
+        if (age === null)
+            throw new Error("The parameter 'age' cannot be null.");
+        else if (age !== undefined)
+            url_ += "Age=" + encodeURIComponent("" + age) + "&";
+        if (happiness === null)
+            throw new Error("The parameter 'happiness' cannot be null.");
+        else if (happiness !== undefined)
+            url_ += "Happiness=" + encodeURIComponent("" + happiness) + "&";
+        if (beautyScore === null)
+            throw new Error("The parameter 'beautyScore' cannot be null.");
+        else if (beautyScore !== undefined)
+            url_ += "BeautyScore=" + encodeURIComponent("" + beautyScore) + "&";
+        if (extensionData === null)
+            throw new Error("The parameter 'extensionData' cannot be null.");
+        else if (extensionData !== undefined)
+            url_ += "ExtensionData=" + encodeURIComponent("" + extensionData) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTagRecommendsBySubkey(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTagRecommendsBySubkey(<any>response_);
+                } catch (e) {
+                    return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTagRecommendsBySubkey(response: HttpResponseBase): Observable<FaceTagsRecommendsDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FaceTagsRecommendsDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FaceTagsRecommendsDto>(<any>null);
+    }
+
+    /**
+     * 通过人脸获取推荐
+     * @param body (optional) 
+     * @return Success
+     */
+    getTagRecommendsByFace(body: GetTagRecommendsByFaceInput | undefined): Observable<FaceTagsRecommendsDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetTagRecommendsByFace";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTagRecommendsByFace(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTagRecommendsByFace(<any>response_);
+                } catch (e) {
+                    return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FaceTagsRecommendsDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTagRecommendsByFace(response: HttpResponseBase): Observable<FaceTagsRecommendsDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FaceTagsRecommendsDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FaceTagsRecommendsDto>(<any>null);
+    }
+
+    /**
+     * 获取一段时间内的日期运势
+     * @param startTime (optional) 
+     * @param endTime (optional) 
+     * @param typeId (optional) 
+     * @param metaPhysicsId (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getDateMetaphysicsBySubkey(subKey: string, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, typeId: number | undefined, metaPhysicsId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<DateMetaphysicsDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetDateMetaphysicsBySubkey?";
+        if (subKey === undefined || subKey === null)
+            throw new Error("The parameter 'subKey' must be defined and cannot be null.");
+        else
+            url_ += "SubKey=" + encodeURIComponent("" + subKey) + "&";
+        if (startTime === null)
+            throw new Error("The parameter 'startTime' cannot be null.");
+        else if (startTime !== undefined)
+            url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
+        if (endTime === null)
+            throw new Error("The parameter 'endTime' cannot be null.");
+        else if (endTime !== undefined)
+            url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
+        if (typeId === null)
+            throw new Error("The parameter 'typeId' cannot be null.");
+        else if (typeId !== undefined)
+            url_ += "TypeId=" + encodeURIComponent("" + typeId) + "&";
+        if (metaPhysicsId === null)
+            throw new Error("The parameter 'metaPhysicsId' cannot be null.");
+        else if (metaPhysicsId !== undefined)
+            url_ += "MetaPhysicsId=" + encodeURIComponent("" + metaPhysicsId) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDateMetaphysicsBySubkey(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDateMetaphysicsBySubkey(<any>response_);
+                } catch (e) {
+                    return <Observable<DateMetaphysicsDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DateMetaphysicsDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDateMetaphysicsBySubkey(response: HttpResponseBase): Observable<DateMetaphysicsDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DateMetaphysicsDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DateMetaphysicsDtoPagedResultDto>(<any>null);
+    }
+}
+
+export class CeateFaceRecommendInput implements ICeateFaceRecommendInput {
+    type!: string | undefined;
+    thingId!: string | undefined;
+    reason!: string | undefined;
+    tagId!: number;
+
+    constructor(data?: ICeateFaceRecommendInput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2862,54 +3348,650 @@ export class GetImportDateMetaPhysicsInput implements IGetImportDateMetaPhysicsI
 
     init(_data?: any) {
         if (_data) {
-            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
-            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
-            this.typeId = _data["typeId"];
-            this.metaPhysicsId = _data["metaPhysicsId"];
-            this.filter = _data["filter"];
-            this.sorting = _data["sorting"];
-            this.maxResultCount = _data["maxResultCount"];
-            this.skipCount = _data["skipCount"];
+            this.type = _data["type"];
+            this.thingId = _data["thingId"];
+            this.reason = _data["reason"];
+            this.tagId = _data["tagId"];
         }
     }
 
-    static fromJS(data: any): GetImportDateMetaPhysicsInput {
+    static fromJS(data: any): CeateFaceRecommendInput {
         data = typeof data === 'object' ? data : {};
-        let result = new GetImportDateMetaPhysicsInput();
+        let result = new CeateFaceRecommendInput();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
-        data["typeId"] = this.typeId;
-        data["metaPhysicsId"] = this.metaPhysicsId;
-        data["filter"] = this.filter;
-        data["sorting"] = this.sorting;
-        data["maxResultCount"] = this.maxResultCount;
-        data["skipCount"] = this.skipCount;
+        data["type"] = this.type;
+        data["thingId"] = this.thingId;
+        data["reason"] = this.reason;
+        data["tagId"] = this.tagId;
         return data; 
     }
 }
 
-export interface IGetImportDateMetaPhysicsInput {
-    startTime: moment.Moment | undefined;
-    endTime: moment.Moment | undefined;
-    typeId: number | undefined;
-    metaPhysicsId: number | undefined;
-    filter: string | undefined;
-    sorting: string | undefined;
-    maxResultCount: number | undefined;
-    skipCount: number | undefined;
+export interface ICeateFaceRecommendInput {
+    type: string | undefined;
+    thingId: string | undefined;
+    reason: string | undefined;
+    tagId: number;
 }
 
-export class PagedResultDtoOfDateMetaphysicsListDto implements IPagedResultDtoOfDateMetaphysicsListDto {
-    totalCount!: number | undefined;
-    items!: DateMetaphysicsListDto[] | undefined;
+export class CreateDateMetaPhysicsInput implements ICreateDateMetaPhysicsInput {
+    metaphysicsId!: number;
+    date!: moment.Moment;
+    lucks!: CreateLuckInput[] | undefined;
+    recommneds!: CreateRecommendInput[] | undefined;
+    /** 扩展字段，如黄历的数据. */
+    extensionData!: string | undefined;
+    /** 占星师 */
+    from!: string | undefined;
+    fromLogoUrl!: string | undefined;
 
-    constructor(data?: IPagedResultDtoOfDateMetaphysicsListDto) {
+    constructor(data?: ICreateDateMetaPhysicsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.metaphysicsId = _data["metaphysicsId"];
+            this.date = _data["date"] ? moment(_data["date"].toString()) : <any>undefined;
+            if (Array.isArray(_data["lucks"])) {
+                this.lucks = [] as any;
+                for (let item of _data["lucks"])
+                    this.lucks!.push(CreateLuckInput.fromJS(item));
+            }
+            if (Array.isArray(_data["recommneds"])) {
+                this.recommneds = [] as any;
+                for (let item of _data["recommneds"])
+                    this.recommneds!.push(CreateRecommendInput.fromJS(item));
+            }
+            this.extensionData = _data["extensionData"];
+            this.from = _data["from"];
+            this.fromLogoUrl = _data["fromLogoUrl"];
+        }
+    }
+
+    static fromJS(data: any): CreateDateMetaPhysicsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateDateMetaPhysicsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["metaphysicsId"] = this.metaphysicsId;
+        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
+        if (Array.isArray(this.lucks)) {
+            data["lucks"] = [];
+            for (let item of this.lucks)
+                data["lucks"].push(item.toJSON());
+        }
+        if (Array.isArray(this.recommneds)) {
+            data["recommneds"] = [];
+            for (let item of this.recommneds)
+                data["recommneds"].push(item.toJSON());
+        }
+        data["extensionData"] = this.extensionData;
+        data["from"] = this.from;
+        data["fromLogoUrl"] = this.fromLogoUrl;
+        return data; 
+    }
+}
+
+export interface ICreateDateMetaPhysicsInput {
+    metaphysicsId: number;
+    date: moment.Moment;
+    lucks: CreateLuckInput[] | undefined;
+    recommneds: CreateRecommendInput[] | undefined;
+    /** 扩展字段，如黄历的数据. */
+    extensionData: string | undefined;
+    /** 占星师 */
+    from: string | undefined;
+    fromLogoUrl: string | undefined;
+}
+
+export class CreateFaceTagInput implements ICreateFaceTagInput {
+    name!: string;
+    /** Tag's Icon Image Url. */
+    iconUrl!: string | undefined;
+    /** Face's Gender */
+    gender!: string | undefined;
+    /** Priority. */
+    priority!: number | undefined;
+    /** Format: 20-25
+Seperator: - */
+    ageRange!: string | undefined;
+    /** Format: 20-25
+Seperator: - */
+    happinessRange!: string | undefined;
+    /** face's beauty score range. */
+    beautyScoreRange!: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
+    extensionData!: string | undefined;
+    isEnabled!: boolean;
+    type!: string | undefined;
+    description!: string | undefined;
+    recommends!: CeateFaceRecommendInput[] | undefined;
+
+    constructor(data?: ICreateFaceTagInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.iconUrl = _data["iconUrl"];
+            this.gender = _data["gender"];
+            this.priority = _data["priority"];
+            this.ageRange = _data["ageRange"];
+            this.happinessRange = _data["happinessRange"];
+            this.beautyScoreRange = _data["beautyScoreRange"];
+            this.extensionData = _data["extensionData"];
+            this.isEnabled = _data["isEnabled"];
+            this.type = _data["type"];
+            this.description = _data["description"];
+            if (Array.isArray(_data["recommends"])) {
+                this.recommends = [] as any;
+                for (let item of _data["recommends"])
+                    this.recommends!.push(CeateFaceRecommendInput.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): CreateFaceTagInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateFaceTagInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["iconUrl"] = this.iconUrl;
+        data["gender"] = this.gender;
+        data["priority"] = this.priority;
+        data["ageRange"] = this.ageRange;
+        data["happinessRange"] = this.happinessRange;
+        data["beautyScoreRange"] = this.beautyScoreRange;
+        data["extensionData"] = this.extensionData;
+        data["isEnabled"] = this.isEnabled;
+        data["type"] = this.type;
+        data["description"] = this.description;
+        if (Array.isArray(this.recommends)) {
+            data["recommends"] = [];
+            for (let item of this.recommends)
+                data["recommends"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ICreateFaceTagInput {
+    name: string;
+    /** Tag's Icon Image Url. */
+    iconUrl: string | undefined;
+    /** Face's Gender */
+    gender: string | undefined;
+    /** Priority. */
+    priority: number | undefined;
+    /** Format: 20-25
+Seperator: - */
+    ageRange: string | undefined;
+    /** Format: 20-25
+Seperator: - */
+    happinessRange: string | undefined;
+    /** face's beauty score range. */
+    beautyScoreRange: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
+    extensionData: string | undefined;
+    isEnabled: boolean;
+    type: string | undefined;
+    description: string | undefined;
+    recommends: CeateFaceRecommendInput[] | undefined;
+}
+
+export class CreateLuckInput implements ICreateLuckInput {
+    dateMetaphysicsId!: number | undefined;
+    type!: string | undefined;
+    number!: string | undefined;
+    numberPresummary!: string | undefined;
+    color!: string | undefined;
+    colorPresummary!: string | undefined;
+    direction!: string | undefined;
+    directionPresummary!: string | undefined;
+    /** 整体运势 */
+    summary!: string | undefined;
+    summaryPresummary!: string | undefined;
+    love!: string | undefined;
+    lovePresummary!: string | undefined;
+    career!: string | undefined;
+    careerPresummary!: string | undefined;
+    fortune!: string | undefined;
+    fortunePresummary!: string | undefined;
+    health!: string | undefined;
+    healthPresummary!: string | undefined;
+    /** 最佳匹配星座 */
+    bestMatch!: string | undefined;
+    keyword!: string | undefined;
+
+    constructor(data?: ICreateLuckInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.dateMetaphysicsId = _data["dateMetaphysicsId"];
+            this.type = _data["type"];
+            this.number = _data["number"];
+            this.numberPresummary = _data["numberPresummary"];
+            this.color = _data["color"];
+            this.colorPresummary = _data["colorPresummary"];
+            this.direction = _data["direction"];
+            this.directionPresummary = _data["directionPresummary"];
+            this.summary = _data["summary"];
+            this.summaryPresummary = _data["summaryPresummary"];
+            this.love = _data["love"];
+            this.lovePresummary = _data["lovePresummary"];
+            this.career = _data["career"];
+            this.careerPresummary = _data["careerPresummary"];
+            this.fortune = _data["fortune"];
+            this.fortunePresummary = _data["fortunePresummary"];
+            this.health = _data["health"];
+            this.healthPresummary = _data["healthPresummary"];
+            this.bestMatch = _data["bestMatch"];
+            this.keyword = _data["keyword"];
+        }
+    }
+
+    static fromJS(data: any): CreateLuckInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateLuckInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dateMetaphysicsId"] = this.dateMetaphysicsId;
+        data["type"] = this.type;
+        data["number"] = this.number;
+        data["numberPresummary"] = this.numberPresummary;
+        data["color"] = this.color;
+        data["colorPresummary"] = this.colorPresummary;
+        data["direction"] = this.direction;
+        data["directionPresummary"] = this.directionPresummary;
+        data["summary"] = this.summary;
+        data["summaryPresummary"] = this.summaryPresummary;
+        data["love"] = this.love;
+        data["lovePresummary"] = this.lovePresummary;
+        data["career"] = this.career;
+        data["careerPresummary"] = this.careerPresummary;
+        data["fortune"] = this.fortune;
+        data["fortunePresummary"] = this.fortunePresummary;
+        data["health"] = this.health;
+        data["healthPresummary"] = this.healthPresummary;
+        data["bestMatch"] = this.bestMatch;
+        data["keyword"] = this.keyword;
+        return data; 
+    }
+}
+
+export interface ICreateLuckInput {
+    dateMetaphysicsId: number | undefined;
+    type: string | undefined;
+    number: string | undefined;
+    numberPresummary: string | undefined;
+    color: string | undefined;
+    colorPresummary: string | undefined;
+    direction: string | undefined;
+    directionPresummary: string | undefined;
+    /** 整体运势 */
+    summary: string | undefined;
+    summaryPresummary: string | undefined;
+    love: string | undefined;
+    lovePresummary: string | undefined;
+    career: string | undefined;
+    careerPresummary: string | undefined;
+    fortune: string | undefined;
+    fortunePresummary: string | undefined;
+    health: string | undefined;
+    healthPresummary: string | undefined;
+    /** 最佳匹配星座 */
+    bestMatch: string | undefined;
+    keyword: string | undefined;
+}
+
+export class CreateMetaPhysicsInput implements ICreateMetaPhysicsInput {
+    typeId!: number;
+    name!: string | undefined;
+    /** 别名 */
+    aliasName!: string | undefined;
+    startTime!: moment.Moment;
+    endTime!: moment.Moment;
+    logoUrl!: string | undefined;
+    picUrl!: string | undefined;
+    description!: string | undefined;
+    from!: string | undefined;
+    fromLogoUrl!: string | undefined;
+    themeColor!: string | undefined;
+    outerId!: string | undefined;
+    sort!: string | undefined;
+
+    constructor(data?: ICreateMetaPhysicsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.typeId = _data["typeId"];
+            this.name = _data["name"];
+            this.aliasName = _data["aliasName"];
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+            this.logoUrl = _data["logoUrl"];
+            this.picUrl = _data["picUrl"];
+            this.description = _data["description"];
+            this.from = _data["from"];
+            this.fromLogoUrl = _data["fromLogoUrl"];
+            this.themeColor = _data["themeColor"];
+            this.outerId = _data["outerId"];
+            this.sort = _data["sort"];
+        }
+    }
+
+    static fromJS(data: any): CreateMetaPhysicsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateMetaPhysicsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["typeId"] = this.typeId;
+        data["name"] = this.name;
+        data["aliasName"] = this.aliasName;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        data["logoUrl"] = this.logoUrl;
+        data["picUrl"] = this.picUrl;
+        data["description"] = this.description;
+        data["from"] = this.from;
+        data["fromLogoUrl"] = this.fromLogoUrl;
+        data["themeColor"] = this.themeColor;
+        data["outerId"] = this.outerId;
+        data["sort"] = this.sort;
+        return data; 
+    }
+}
+
+export interface ICreateMetaPhysicsInput {
+    typeId: number;
+    name: string | undefined;
+    /** 别名 */
+    aliasName: string | undefined;
+    startTime: moment.Moment;
+    endTime: moment.Moment;
+    logoUrl: string | undefined;
+    picUrl: string | undefined;
+    description: string | undefined;
+    from: string | undefined;
+    fromLogoUrl: string | undefined;
+    themeColor: string | undefined;
+    outerId: string | undefined;
+    sort: string | undefined;
+}
+
+export class CreateMetaphysicsTypeInput implements ICreateMetaphysicsTypeInput {
+    name!: string | undefined;
+    description!: string | undefined;
+
+    constructor(data?: ICreateMetaphysicsTypeInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.description = _data["description"];
+        }
+    }
+
+    static fromJS(data: any): CreateMetaphysicsTypeInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateMetaphysicsTypeInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["description"] = this.description;
+        return data; 
+    }
+}
+
+export interface ICreateMetaphysicsTypeInput {
+    name: string | undefined;
+    description: string | undefined;
+}
+
+export class CreateRecommendInput implements ICreateRecommendInput {
+    dateMetaphysicsId!: number | undefined;
+    type!: string | undefined;
+    thingId!: string | undefined;
+    reason!: string | undefined;
+
+    constructor(data?: ICreateRecommendInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.dateMetaphysicsId = _data["dateMetaphysicsId"];
+            this.type = _data["type"];
+            this.thingId = _data["thingId"];
+            this.reason = _data["reason"];
+        }
+    }
+
+    static fromJS(data: any): CreateRecommendInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateRecommendInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dateMetaphysicsId"] = this.dateMetaphysicsId;
+        data["type"] = this.type;
+        data["thingId"] = this.thingId;
+        data["reason"] = this.reason;
+        return data; 
+    }
+}
+
+export interface ICreateRecommendInput {
+    dateMetaphysicsId: number | undefined;
+    type: string | undefined;
+    thingId: string | undefined;
+    reason: string | undefined;
+}
+
+export class DateMetaphysicsDto implements IDateMetaphysicsDto {
+    tenantId!: number | undefined;
+    metaphysicsId!: number;
+    metaPhysics!: MetaPhysicsDto;
+    date!: moment.Moment;
+    lucks!: LuckDto[] | undefined;
+    recommneds!: RecommendDto[] | undefined;
+    /** 扩展字段，如黄历的数据. */
+    extensionData!: string | undefined;
+    /** 占星师 */
+    from!: string | undefined;
+    fromLogoUrl!: string | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IDateMetaphysicsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenantId = _data["tenantId"];
+            this.metaphysicsId = _data["metaphysicsId"];
+            this.metaPhysics = _data["metaPhysics"] ? MetaPhysicsDto.fromJS(_data["metaPhysics"]) : <any>undefined;
+            this.date = _data["date"] ? moment(_data["date"].toString()) : <any>undefined;
+            if (Array.isArray(_data["lucks"])) {
+                this.lucks = [] as any;
+                for (let item of _data["lucks"])
+                    this.lucks!.push(LuckDto.fromJS(item));
+            }
+            if (Array.isArray(_data["recommneds"])) {
+                this.recommneds = [] as any;
+                for (let item of _data["recommneds"])
+                    this.recommneds!.push(RecommendDto.fromJS(item));
+            }
+            this.extensionData = _data["extensionData"];
+            this.from = _data["from"];
+            this.fromLogoUrl = _data["fromLogoUrl"];
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): DateMetaphysicsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DateMetaphysicsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
+        data["metaphysicsId"] = this.metaphysicsId;
+        data["metaPhysics"] = this.metaPhysics ? this.metaPhysics.toJSON() : <any>undefined;
+        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
+        if (Array.isArray(this.lucks)) {
+            data["lucks"] = [];
+            for (let item of this.lucks)
+                data["lucks"].push(item.toJSON());
+        }
+        if (Array.isArray(this.recommneds)) {
+            data["recommneds"] = [];
+            for (let item of this.recommneds)
+                data["recommneds"].push(item.toJSON());
+        }
+        data["extensionData"] = this.extensionData;
+        data["from"] = this.from;
+        data["fromLogoUrl"] = this.fromLogoUrl;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IDateMetaphysicsDto {
+    tenantId: number | undefined;
+    metaphysicsId: number;
+    metaPhysics: MetaPhysicsDto;
+    date: moment.Moment;
+    lucks: LuckDto[] | undefined;
+    recommneds: RecommendDto[] | undefined;
+    /** 扩展字段，如黄历的数据. */
+    extensionData: string | undefined;
+    /** 占星师 */
+    from: string | undefined;
+    fromLogoUrl: string | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class DateMetaphysicsDtoPagedResultDto implements IDateMetaphysicsDtoPagedResultDto {
+    totalCount!: number;
+    items!: DateMetaphysicsDto[] | undefined;
+
+    constructor(data?: IDateMetaphysicsDtoPagedResultDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2924,14 +4006,14 @@ export class PagedResultDtoOfDateMetaphysicsListDto implements IPagedResultDtoOf
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(DateMetaphysicsListDto.fromJS(item));
+                    this.items!.push(DateMetaphysicsDto.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): PagedResultDtoOfDateMetaphysicsListDto {
+    static fromJS(data: any): DateMetaphysicsDtoPagedResultDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfDateMetaphysicsListDto();
+        let result = new DateMetaphysicsDtoPagedResultDto();
         result.init(data);
         return result;
     }
@@ -2948,25 +4030,27 @@ export class PagedResultDtoOfDateMetaphysicsListDto implements IPagedResultDtoOf
     }
 }
 
-export interface IPagedResultDtoOfDateMetaphysicsListDto {
-    totalCount: number | undefined;
-    items: DateMetaphysicsListDto[] | undefined;
+export interface IDateMetaphysicsDtoPagedResultDto {
+    totalCount: number;
+    items: DateMetaphysicsDto[] | undefined;
 }
 
 export class DateMetaphysicsListDto implements IDateMetaphysicsListDto {
-    metaphysicsId!: number | undefined;
+    metaphysicsId!: number;
     metaphysicsName!: string | undefined;
-    date!: moment.Moment | undefined;
+    date!: moment.Moment;
     lucks!: LuckDto[] | undefined;
     typeName!: string | undefined;
+    /** 扩展字段，如黄历的数据. */
     extensionData!: string | undefined;
+    /** 占星师 */
     from!: string | undefined;
     fromLogoUrl!: string | undefined;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
+    creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
-    id!: number | undefined;
+    id!: number;
 
     constructor(data?: IDateMetaphysicsListDto) {
         if (data) {
@@ -3030,23 +4114,657 @@ export class DateMetaphysicsListDto implements IDateMetaphysicsListDto {
 }
 
 export interface IDateMetaphysicsListDto {
-    metaphysicsId: number | undefined;
+    metaphysicsId: number;
     metaphysicsName: string | undefined;
-    date: moment.Moment | undefined;
+    date: moment.Moment;
     lucks: LuckDto[] | undefined;
     typeName: string | undefined;
+    /** 扩展字段，如黄历的数据. */
     extensionData: string | undefined;
+    /** 占星师 */
     from: string | undefined;
     fromLogoUrl: string | undefined;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
+    creationTime: moment.Moment;
     creatorUserId: number | undefined;
-    id: number | undefined;
+    id: number;
+}
+
+export class DateMetaphysicsListDtoPagedResultDto implements IDateMetaphysicsListDtoPagedResultDto {
+    totalCount!: number;
+    items!: DateMetaphysicsListDto[] | undefined;
+
+    constructor(data?: IDateMetaphysicsListDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(DateMetaphysicsListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): DateMetaphysicsListDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DateMetaphysicsListDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IDateMetaphysicsListDtoPagedResultDto {
+    totalCount: number;
+    items: DateMetaphysicsListDto[] | undefined;
+}
+
+export class FaceRecommendDto implements IFaceRecommendDto {
+    type!: string | undefined;
+    thingId!: string | undefined;
+    reason!: string | undefined;
+    tagId!: number;
+    tenantId!: number | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IFaceRecommendDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.type = _data["type"];
+            this.thingId = _data["thingId"];
+            this.reason = _data["reason"];
+            this.tagId = _data["tagId"];
+            this.tenantId = _data["tenantId"];
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): FaceRecommendDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FaceRecommendDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["type"] = this.type;
+        data["thingId"] = this.thingId;
+        data["reason"] = this.reason;
+        data["tagId"] = this.tagId;
+        data["tenantId"] = this.tenantId;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IFaceRecommendDto {
+    type: string | undefined;
+    thingId: string | undefined;
+    reason: string | undefined;
+    tagId: number;
+    tenantId: number | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class FaceTagDto implements IFaceTagDto {
+    recommends!: FaceRecommendDto[] | undefined;
+    tenantId!: number | undefined;
+    /** Face's Tag Name */
+    name!: string | undefined;
+    /** Tag's Icon Image Url. */
+    iconUrl!: string | undefined;
+    /** Face's Gender */
+    gender!: string | undefined;
+    /** Priority. */
+    priority!: number | undefined;
+    /** Format: 20-25
+Seperator: - */
+    ageRange!: string | undefined;
+    /** Format: 20-25
+Seperator: - */
+    happinessRange!: string | undefined;
+    /** face's beauty score range. */
+    beautyScoreRange!: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
+    extensionData!: string | undefined;
+    isEnabled!: boolean;
+    type!: string | undefined;
+    description!: string | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IFaceTagDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["recommends"])) {
+                this.recommends = [] as any;
+                for (let item of _data["recommends"])
+                    this.recommends!.push(FaceRecommendDto.fromJS(item));
+            }
+            this.tenantId = _data["tenantId"];
+            this.name = _data["name"];
+            this.iconUrl = _data["iconUrl"];
+            this.gender = _data["gender"];
+            this.priority = _data["priority"];
+            this.ageRange = _data["ageRange"];
+            this.happinessRange = _data["happinessRange"];
+            this.beautyScoreRange = _data["beautyScoreRange"];
+            this.extensionData = _data["extensionData"];
+            this.isEnabled = _data["isEnabled"];
+            this.type = _data["type"];
+            this.description = _data["description"];
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): FaceTagDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FaceTagDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.recommends)) {
+            data["recommends"] = [];
+            for (let item of this.recommends)
+                data["recommends"].push(item.toJSON());
+        }
+        data["tenantId"] = this.tenantId;
+        data["name"] = this.name;
+        data["iconUrl"] = this.iconUrl;
+        data["gender"] = this.gender;
+        data["priority"] = this.priority;
+        data["ageRange"] = this.ageRange;
+        data["happinessRange"] = this.happinessRange;
+        data["beautyScoreRange"] = this.beautyScoreRange;
+        data["extensionData"] = this.extensionData;
+        data["isEnabled"] = this.isEnabled;
+        data["type"] = this.type;
+        data["description"] = this.description;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IFaceTagDto {
+    recommends: FaceRecommendDto[] | undefined;
+    tenantId: number | undefined;
+    /** Face's Tag Name */
+    name: string | undefined;
+    /** Tag's Icon Image Url. */
+    iconUrl: string | undefined;
+    /** Face's Gender */
+    gender: string | undefined;
+    /** Priority. */
+    priority: number | undefined;
+    /** Format: 20-25
+Seperator: - */
+    ageRange: string | undefined;
+    /** Format: 20-25
+Seperator: - */
+    happinessRange: string | undefined;
+    /** face's beauty score range. */
+    beautyScoreRange: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
+    extensionData: string | undefined;
+    isEnabled: boolean;
+    type: string | undefined;
+    description: string | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class FaceTagDtoPagedResultDto implements IFaceTagDtoPagedResultDto {
+    totalCount!: number;
+    items!: FaceTagDto[] | undefined;
+
+    constructor(data?: IFaceTagDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(FaceTagDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): FaceTagDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FaceTagDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IFaceTagDtoPagedResultDto {
+    totalCount: number;
+    items: FaceTagDto[] | undefined;
+}
+
+export class FaceTagListDto implements IFaceTagListDto {
+    tenantId!: number | undefined;
+    /** Face's Tag Name */
+    name!: string | undefined;
+    /** Tag's Icon Image Url. */
+    iconUrl!: string | undefined;
+    /** Face's Gender */
+    gender!: string | undefined;
+    /** Priority. */
+    priority!: number | undefined;
+    /** Format: 20-25
+Seperator: - */
+    ageRange!: string | undefined;
+    /** Format: 20-25
+Seperator: - */
+    happinessRange!: string | undefined;
+    /** face's beauty score range. */
+    beautyScoreRange!: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
+    extensionData!: string | undefined;
+    isEnabled!: boolean;
+    type!: string | undefined;
+    description!: string | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IFaceTagListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenantId = _data["tenantId"];
+            this.name = _data["name"];
+            this.iconUrl = _data["iconUrl"];
+            this.gender = _data["gender"];
+            this.priority = _data["priority"];
+            this.ageRange = _data["ageRange"];
+            this.happinessRange = _data["happinessRange"];
+            this.beautyScoreRange = _data["beautyScoreRange"];
+            this.extensionData = _data["extensionData"];
+            this.isEnabled = _data["isEnabled"];
+            this.type = _data["type"];
+            this.description = _data["description"];
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): FaceTagListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FaceTagListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
+        data["name"] = this.name;
+        data["iconUrl"] = this.iconUrl;
+        data["gender"] = this.gender;
+        data["priority"] = this.priority;
+        data["ageRange"] = this.ageRange;
+        data["happinessRange"] = this.happinessRange;
+        data["beautyScoreRange"] = this.beautyScoreRange;
+        data["extensionData"] = this.extensionData;
+        data["isEnabled"] = this.isEnabled;
+        data["type"] = this.type;
+        data["description"] = this.description;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IFaceTagListDto {
+    tenantId: number | undefined;
+    /** Face's Tag Name */
+    name: string | undefined;
+    /** Tag's Icon Image Url. */
+    iconUrl: string | undefined;
+    /** Face's Gender */
+    gender: string | undefined;
+    /** Priority. */
+    priority: number | undefined;
+    /** Format: 20-25
+Seperator: - */
+    ageRange: string | undefined;
+    /** Format: 20-25
+Seperator: - */
+    happinessRange: string | undefined;
+    /** face's beauty score range. */
+    beautyScoreRange: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
+    extensionData: string | undefined;
+    isEnabled: boolean;
+    type: string | undefined;
+    description: string | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class FaceTagsRecommendsDto implements IFaceTagsRecommendsDto {
+    recommends!: FaceRecommendDto[] | undefined;
+    tags!: FaceTagListDto[] | undefined;
+
+    constructor(data?: IFaceTagsRecommendsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["recommends"])) {
+                this.recommends = [] as any;
+                for (let item of _data["recommends"])
+                    this.recommends!.push(FaceRecommendDto.fromJS(item));
+            }
+            if (Array.isArray(_data["tags"])) {
+                this.tags = [] as any;
+                for (let item of _data["tags"])
+                    this.tags!.push(FaceTagListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): FaceTagsRecommendsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FaceTagsRecommendsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.recommends)) {
+            data["recommends"] = [];
+            for (let item of this.recommends)
+                data["recommends"].push(item.toJSON());
+        }
+        if (Array.isArray(this.tags)) {
+            data["tags"] = [];
+            for (let item of this.tags)
+                data["tags"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IFaceTagsRecommendsDto {
+    recommends: FaceRecommendDto[] | undefined;
+    tags: FaceTagListDto[] | undefined;
+}
+
+export class GetImportDateMetaPhysicsInput implements IGetImportDateMetaPhysicsInput {
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
+    typeId!: number | undefined;
+    metaPhysicsId!: number | undefined;
+    filter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetImportDateMetaPhysicsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+            this.typeId = _data["typeId"];
+            this.metaPhysicsId = _data["metaPhysicsId"];
+            this.filter = _data["filter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetImportDateMetaPhysicsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetImportDateMetaPhysicsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        data["typeId"] = this.typeId;
+        data["metaPhysicsId"] = this.metaPhysicsId;
+        data["filter"] = this.filter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetImportDateMetaPhysicsInput {
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
+    typeId: number | undefined;
+    metaPhysicsId: number | undefined;
+    filter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
+}
+
+export class GetTagRecommendsByFaceInput implements IGetTagRecommendsByFaceInput {
+    subKey!: string;
+    headImage!: string | undefined;
+    extensionData!: string | undefined;
+
+    constructor(data?: IGetTagRecommendsByFaceInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.subKey = _data["subKey"];
+            this.headImage = _data["headImage"];
+            this.extensionData = _data["extensionData"];
+        }
+    }
+
+    static fromJS(data: any): GetTagRecommendsByFaceInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTagRecommendsByFaceInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["subKey"] = this.subKey;
+        data["headImage"] = this.headImage;
+        data["extensionData"] = this.extensionData;
+        return data; 
+    }
+}
+
+export interface IGetTagRecommendsByFaceInput {
+    subKey: string;
+    headImage: string | undefined;
+    extensionData: string | undefined;
 }
 
 export class LuckDto implements ILuckDto {
-    id!: number | undefined;
+    id!: number;
     tenantId!: number | undefined;
     type!: string | undefined;
     number!: string | undefined;
@@ -3055,6 +4773,7 @@ export class LuckDto implements ILuckDto {
     colorPresummary!: string | undefined;
     direction!: string | undefined;
     directionPresummary!: string | undefined;
+    /** 整体运势 */
     summary!: string | undefined;
     summaryPresummary!: string | undefined;
     love!: string | undefined;
@@ -3065,12 +4784,13 @@ export class LuckDto implements ILuckDto {
     fortunePresummary!: string | undefined;
     health!: string | undefined;
     healthPresummary!: string | undefined;
+    /** 最佳匹配星座 */
     bestMatch!: string | undefined;
     keyword!: string | undefined;
-    dateMetaphysicsId!: number | undefined;
+    dateMetaphysicsId!: number;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
+    creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
 
     constructor(data?: ILuckDto) {
@@ -3153,7 +4873,7 @@ export class LuckDto implements ILuckDto {
 }
 
 export interface ILuckDto {
-    id: number | undefined;
+    id: number;
     tenantId: number | undefined;
     type: string | undefined;
     number: string | undefined;
@@ -3162,6 +4882,7 @@ export interface ILuckDto {
     colorPresummary: string | undefined;
     direction: string | undefined;
     directionPresummary: string | undefined;
+    /** 整体运势 */
     summary: string | undefined;
     summaryPresummary: string | undefined;
     love: string | undefined;
@@ -3172,128 +4893,30 @@ export interface ILuckDto {
     fortunePresummary: string | undefined;
     health: string | undefined;
     healthPresummary: string | undefined;
+    /** 最佳匹配星座 */
     bestMatch: string | undefined;
     keyword: string | undefined;
-    dateMetaphysicsId: number | undefined;
+    dateMetaphysicsId: number;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
+    creationTime: moment.Moment;
     creatorUserId: number | undefined;
-}
-
-export class DateMetaphysicsDto implements IDateMetaphysicsDto {
-    tenantId!: number | undefined;
-    metaphysicsId!: number | undefined;
-    metaPhysics!: MetaPhysicsDto | undefined;
-    date!: moment.Moment | undefined;
-    lucks!: LuckDto[] | undefined;
-    recommneds!: RecommendDto[] | undefined;
-    extensionData!: string | undefined;
-    from!: string | undefined;
-    fromLogoUrl!: string | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
-    creatorUserId!: number | undefined;
-    id!: number | undefined;
-
-    constructor(data?: IDateMetaphysicsDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.tenantId = _data["tenantId"];
-            this.metaphysicsId = _data["metaphysicsId"];
-            this.metaPhysics = _data["metaPhysics"] ? MetaPhysicsDto.fromJS(_data["metaPhysics"]) : <any>undefined;
-            this.date = _data["date"] ? moment(_data["date"].toString()) : <any>undefined;
-            if (Array.isArray(_data["lucks"])) {
-                this.lucks = [] as any;
-                for (let item of _data["lucks"])
-                    this.lucks!.push(LuckDto.fromJS(item));
-            }
-            if (Array.isArray(_data["recommneds"])) {
-                this.recommneds = [] as any;
-                for (let item of _data["recommneds"])
-                    this.recommneds!.push(RecommendDto.fromJS(item));
-            }
-            this.extensionData = _data["extensionData"];
-            this.from = _data["from"];
-            this.fromLogoUrl = _data["fromLogoUrl"];
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): DateMetaphysicsDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new DateMetaphysicsDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["tenantId"] = this.tenantId;
-        data["metaphysicsId"] = this.metaphysicsId;
-        data["metaPhysics"] = this.metaPhysics ? this.metaPhysics.toJSON() : <any>undefined;
-        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
-        if (Array.isArray(this.lucks)) {
-            data["lucks"] = [];
-            for (let item of this.lucks)
-                data["lucks"].push(item.toJSON());
-        }
-        if (Array.isArray(this.recommneds)) {
-            data["recommneds"] = [];
-            for (let item of this.recommneds)
-                data["recommneds"].push(item.toJSON());
-        }
-        data["extensionData"] = this.extensionData;
-        data["from"] = this.from;
-        data["fromLogoUrl"] = this.fromLogoUrl;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IDateMetaphysicsDto {
-    tenantId: number | undefined;
-    metaphysicsId: number | undefined;
-    metaPhysics: MetaPhysicsDto | undefined;
-    date: moment.Moment | undefined;
-    lucks: LuckDto[] | undefined;
-    recommneds: RecommendDto[] | undefined;
-    extensionData: string | undefined;
-    from: string | undefined;
-    fromLogoUrl: string | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
-    creatorUserId: number | undefined;
-    id: number | undefined;
 }
 
 export class MetaPhysicsDto implements IMetaPhysicsDto {
     tenantId!: number | undefined;
-    typeId!: number | undefined;
-    type!: MetaphysicsTypeDto | undefined;
+    /** Zodiac,Astro */
+    typeId!: number;
+    type!: MetaphysicsTypeDto;
     name!: string | undefined;
+    /** 别名 */
     aliasName!: string | undefined;
+    /** Astro, 取月和日，年忽略.
+Zodiac,暂时忽略. */
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     logoUrl!: string | undefined;
+    /** 对应玄学的图片. */
     picUrl!: string | undefined;
     description!: string | undefined;
     from!: string | undefined;
@@ -3302,9 +4925,9 @@ export class MetaPhysicsDto implements IMetaPhysicsDto {
     outerId!: string | undefined;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
+    creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
-    id!: number | undefined;
+    id!: number;
 
     constructor(data?: IMetaPhysicsDto) {
         if (data) {
@@ -3373,13 +4996,18 @@ export class MetaPhysicsDto implements IMetaPhysicsDto {
 
 export interface IMetaPhysicsDto {
     tenantId: number | undefined;
-    typeId: number | undefined;
-    type: MetaphysicsTypeDto | undefined;
+    /** Zodiac,Astro */
+    typeId: number;
+    type: MetaphysicsTypeDto;
     name: string | undefined;
+    /** 别名 */
     aliasName: string | undefined;
+    /** Astro, 取月和日，年忽略.
+Zodiac,暂时忽略. */
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     logoUrl: string | undefined;
+    /** 对应玄学的图片. */
     picUrl: string | undefined;
     description: string | undefined;
     from: string | undefined;
@@ -3388,24 +5016,16 @@ export interface IMetaPhysicsDto {
     outerId: string | undefined;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
+    creationTime: moment.Moment;
     creatorUserId: number | undefined;
-    id: number | undefined;
+    id: number;
 }
 
-export class RecommendDto implements IRecommendDto {
-    id!: number | undefined;
-    type!: string | undefined;
-    thingId!: string | undefined;
-    reason!: string | undefined;
-    tenantId!: number | undefined;
-    dateMetaphysicsId!: number | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
-    creatorUserId!: number | undefined;
+export class MetaPhysicsDtoPagedResultDto implements IMetaPhysicsDtoPagedResultDto {
+    totalCount!: number;
+    items!: MetaPhysicsDto[] | undefined;
 
-    constructor(data?: IRecommendDto) {
+    constructor(data?: IMetaPhysicsDtoPagedResultDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -3416,67 +5036,51 @@ export class RecommendDto implements IRecommendDto {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
-            this.type = _data["type"];
-            this.thingId = _data["thingId"];
-            this.reason = _data["reason"];
-            this.tenantId = _data["tenantId"];
-            this.dateMetaphysicsId = _data["dateMetaphysicsId"];
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(MetaPhysicsDto.fromJS(item));
+            }
         }
     }
 
-    static fromJS(data: any): RecommendDto {
+    static fromJS(data: any): MetaPhysicsDtoPagedResultDto {
         data = typeof data === 'object' ? data : {};
-        let result = new RecommendDto();
+        let result = new MetaPhysicsDtoPagedResultDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["type"] = this.type;
-        data["thingId"] = this.thingId;
-        data["reason"] = this.reason;
-        data["tenantId"] = this.tenantId;
-        data["dateMetaphysicsId"] = this.dateMetaphysicsId;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
         return data; 
     }
 }
 
-export interface IRecommendDto {
-    id: number | undefined;
-    type: string | undefined;
-    thingId: string | undefined;
-    reason: string | undefined;
-    tenantId: number | undefined;
-    dateMetaphysicsId: number | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
-    creatorUserId: number | undefined;
+export interface IMetaPhysicsDtoPagedResultDto {
+    totalCount: number;
+    items: MetaPhysicsDto[] | undefined;
 }
 
 export class MetaphysicsTypeDto implements IMetaphysicsTypeDto {
     name!: string | undefined;
     tenantId!: number | undefined;
     description!: string | undefined;
-    isDeleted!: boolean | undefined;
+    isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: moment.Moment | undefined;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
+    creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
-    id!: number | undefined;
+    id!: number;
 
     constructor(data?: IMetaphysicsTypeDto) {
         if (data) {
@@ -3531,26 +5135,21 @@ export interface IMetaphysicsTypeDto {
     name: string | undefined;
     tenantId: number | undefined;
     description: string | undefined;
-    isDeleted: boolean | undefined;
+    isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: moment.Moment | undefined;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
+    creationTime: moment.Moment;
     creatorUserId: number | undefined;
-    id: number | undefined;
+    id: number;
 }
 
-export class CreateDateMetaPhysicsInput implements ICreateDateMetaPhysicsInput {
-    metaphysicsId!: number;
-    date!: moment.Moment;
-    lucks!: CreateLuckInput[] | undefined;
-    recommneds!: CreateRecommendInput[] | undefined;
-    extensionData!: string | undefined;
-    from!: string | undefined;
-    fromLogoUrl!: string | undefined;
+export class MetaphysicsTypeDtoPagedResultDto implements IMetaphysicsTypeDtoPagedResultDto {
+    totalCount!: number;
+    items!: MetaphysicsTypeDto[] | undefined;
 
-    constructor(data?: ICreateDateMetaPhysicsInput) {
+    constructor(data?: IMetaphysicsTypeDtoPagedResultDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -3561,181 +5160,52 @@ export class CreateDateMetaPhysicsInput implements ICreateDateMetaPhysicsInput {
 
     init(_data?: any) {
         if (_data) {
-            this.metaphysicsId = _data["metaphysicsId"];
-            this.date = _data["date"] ? moment(_data["date"].toString()) : <any>undefined;
-            if (Array.isArray(_data["lucks"])) {
-                this.lucks = [] as any;
-                for (let item of _data["lucks"])
-                    this.lucks!.push(CreateLuckInput.fromJS(item));
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(MetaphysicsTypeDto.fromJS(item));
             }
-            if (Array.isArray(_data["recommneds"])) {
-                this.recommneds = [] as any;
-                for (let item of _data["recommneds"])
-                    this.recommneds!.push(CreateRecommendInput.fromJS(item));
-            }
-            this.extensionData = _data["extensionData"];
-            this.from = _data["from"];
-            this.fromLogoUrl = _data["fromLogoUrl"];
         }
     }
 
-    static fromJS(data: any): CreateDateMetaPhysicsInput {
+    static fromJS(data: any): MetaphysicsTypeDtoPagedResultDto {
         data = typeof data === 'object' ? data : {};
-        let result = new CreateDateMetaPhysicsInput();
+        let result = new MetaphysicsTypeDtoPagedResultDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["metaphysicsId"] = this.metaphysicsId;
-        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
-        if (Array.isArray(this.lucks)) {
-            data["lucks"] = [];
-            for (let item of this.lucks)
-                data["lucks"].push(item.toJSON());
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
         }
-        if (Array.isArray(this.recommneds)) {
-            data["recommneds"] = [];
-            for (let item of this.recommneds)
-                data["recommneds"].push(item.toJSON());
-        }
-        data["extensionData"] = this.extensionData;
-        data["from"] = this.from;
-        data["fromLogoUrl"] = this.fromLogoUrl;
         return data; 
     }
 }
 
-export interface ICreateDateMetaPhysicsInput {
-    metaphysicsId: number;
-    date: moment.Moment;
-    lucks: CreateLuckInput[] | undefined;
-    recommneds: CreateRecommendInput[] | undefined;
-    extensionData: string | undefined;
-    from: string | undefined;
-    fromLogoUrl: string | undefined;
+export interface IMetaphysicsTypeDtoPagedResultDto {
+    totalCount: number;
+    items: MetaphysicsTypeDto[] | undefined;
 }
 
-export class CreateLuckInput implements ICreateLuckInput {
-    dateMetaphysicsId!: number | undefined;
-    type!: string | undefined;
-    number!: string | undefined;
-    numberPresummary!: string | undefined;
-    color!: string | undefined;
-    colorPresummary!: string | undefined;
-    direction!: string | undefined;
-    directionPresummary!: string | undefined;
-    summary!: string | undefined;
-    summaryPresummary!: string | undefined;
-    love!: string | undefined;
-    lovePresummary!: string | undefined;
-    career!: string | undefined;
-    careerPresummary!: string | undefined;
-    fortune!: string | undefined;
-    fortunePresummary!: string | undefined;
-    health!: string | undefined;
-    healthPresummary!: string | undefined;
-    bestMatch!: string | undefined;
-    keyword!: string | undefined;
-
-    constructor(data?: ICreateLuckInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.dateMetaphysicsId = _data["dateMetaphysicsId"];
-            this.type = _data["type"];
-            this.number = _data["number"];
-            this.numberPresummary = _data["numberPresummary"];
-            this.color = _data["color"];
-            this.colorPresummary = _data["colorPresummary"];
-            this.direction = _data["direction"];
-            this.directionPresummary = _data["directionPresummary"];
-            this.summary = _data["summary"];
-            this.summaryPresummary = _data["summaryPresummary"];
-            this.love = _data["love"];
-            this.lovePresummary = _data["lovePresummary"];
-            this.career = _data["career"];
-            this.careerPresummary = _data["careerPresummary"];
-            this.fortune = _data["fortune"];
-            this.fortunePresummary = _data["fortunePresummary"];
-            this.health = _data["health"];
-            this.healthPresummary = _data["healthPresummary"];
-            this.bestMatch = _data["bestMatch"];
-            this.keyword = _data["keyword"];
-        }
-    }
-
-    static fromJS(data: any): CreateLuckInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateLuckInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["dateMetaphysicsId"] = this.dateMetaphysicsId;
-        data["type"] = this.type;
-        data["number"] = this.number;
-        data["numberPresummary"] = this.numberPresummary;
-        data["color"] = this.color;
-        data["colorPresummary"] = this.colorPresummary;
-        data["direction"] = this.direction;
-        data["directionPresummary"] = this.directionPresummary;
-        data["summary"] = this.summary;
-        data["summaryPresummary"] = this.summaryPresummary;
-        data["love"] = this.love;
-        data["lovePresummary"] = this.lovePresummary;
-        data["career"] = this.career;
-        data["careerPresummary"] = this.careerPresummary;
-        data["fortune"] = this.fortune;
-        data["fortunePresummary"] = this.fortunePresummary;
-        data["health"] = this.health;
-        data["healthPresummary"] = this.healthPresummary;
-        data["bestMatch"] = this.bestMatch;
-        data["keyword"] = this.keyword;
-        return data; 
-    }
-}
-
-export interface ICreateLuckInput {
-    dateMetaphysicsId: number | undefined;
-    type: string | undefined;
-    number: string | undefined;
-    numberPresummary: string | undefined;
-    color: string | undefined;
-    colorPresummary: string | undefined;
-    direction: string | undefined;
-    directionPresummary: string | undefined;
-    summary: string | undefined;
-    summaryPresummary: string | undefined;
-    love: string | undefined;
-    lovePresummary: string | undefined;
-    career: string | undefined;
-    careerPresummary: string | undefined;
-    fortune: string | undefined;
-    fortunePresummary: string | undefined;
-    health: string | undefined;
-    healthPresummary: string | undefined;
-    bestMatch: string | undefined;
-    keyword: string | undefined;
-}
-
-export class CreateRecommendInput implements ICreateRecommendInput {
-    dateMetaphysicsId!: number | undefined;
+export class RecommendDto implements IRecommendDto {
+    id!: number;
     type!: string | undefined;
     thingId!: string | undefined;
     reason!: string | undefined;
+    tenantId!: number | undefined;
+    dateMetaphysicsId!: number;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
 
-    constructor(data?: ICreateRecommendInput) {
+    constructor(data?: IRecommendDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -3746,44 +5216,64 @@ export class CreateRecommendInput implements ICreateRecommendInput {
 
     init(_data?: any) {
         if (_data) {
-            this.dateMetaphysicsId = _data["dateMetaphysicsId"];
+            this.id = _data["id"];
             this.type = _data["type"];
             this.thingId = _data["thingId"];
             this.reason = _data["reason"];
+            this.tenantId = _data["tenantId"];
+            this.dateMetaphysicsId = _data["dateMetaphysicsId"];
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
         }
     }
 
-    static fromJS(data: any): CreateRecommendInput {
+    static fromJS(data: any): RecommendDto {
         data = typeof data === 'object' ? data : {};
-        let result = new CreateRecommendInput();
+        let result = new RecommendDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["dateMetaphysicsId"] = this.dateMetaphysicsId;
+        data["id"] = this.id;
         data["type"] = this.type;
         data["thingId"] = this.thingId;
         data["reason"] = this.reason;
+        data["tenantId"] = this.tenantId;
+        data["dateMetaphysicsId"] = this.dateMetaphysicsId;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
         return data; 
     }
 }
 
-export interface ICreateRecommendInput {
-    dateMetaphysicsId: number | undefined;
+export interface IRecommendDto {
+    id: number;
     type: string | undefined;
     thingId: string | undefined;
     reason: string | undefined;
+    tenantId: number | undefined;
+    dateMetaphysicsId: number;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
 }
 
 export class UpdateDateMetaPhysicsInput implements IUpdateDateMetaPhysicsInput {
-    id!: number | undefined;
+    id!: number;
     metaphysicsId!: number;
     date!: moment.Moment;
     lucks!: CreateLuckInput[] | undefined;
     recommneds!: CreateRecommendInput[] | undefined;
+    /** 扩展字段，如黄历的数据. */
     extensionData!: string | undefined;
+    /** 占星师 */
     from!: string | undefined;
     fromLogoUrl!: string | undefined;
 
@@ -3847,133 +5337,26 @@ export class UpdateDateMetaPhysicsInput implements IUpdateDateMetaPhysicsInput {
 }
 
 export interface IUpdateDateMetaPhysicsInput {
-    id: number | undefined;
+    id: number;
     metaphysicsId: number;
     date: moment.Moment;
     lucks: CreateLuckInput[] | undefined;
     recommneds: CreateRecommendInput[] | undefined;
+    /** 扩展字段，如黄历的数据. */
     extensionData: string | undefined;
+    /** 占星师 */
     from: string | undefined;
     fromLogoUrl: string | undefined;
 }
 
-export class PagedResultDtoOfDateMetaphysicsDto implements IPagedResultDtoOfDateMetaphysicsDto {
-    totalCount!: number | undefined;
-    items!: DateMetaphysicsDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfDateMetaphysicsDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(DateMetaphysicsDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfDateMetaphysicsDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfDateMetaphysicsDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPagedResultDtoOfDateMetaphysicsDto {
-    totalCount: number | undefined;
-    items: DateMetaphysicsDto[] | undefined;
-}
-
-export class FaceTagsRecommendsDto implements IFaceTagsRecommendsDto {
-    recommends!: FaceRecommendDto[] | undefined;
-    tags!: FaceTagListDto[] | undefined;
-
-    constructor(data?: IFaceTagsRecommendsDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["recommends"])) {
-                this.recommends = [] as any;
-                for (let item of _data["recommends"])
-                    this.recommends!.push(FaceRecommendDto.fromJS(item));
-            }
-            if (Array.isArray(_data["tags"])) {
-                this.tags = [] as any;
-                for (let item of _data["tags"])
-                    this.tags!.push(FaceTagListDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): FaceTagsRecommendsDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new FaceTagsRecommendsDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.recommends)) {
-            data["recommends"] = [];
-            for (let item of this.recommends)
-                data["recommends"].push(item.toJSON());
-        }
-        if (Array.isArray(this.tags)) {
-            data["tags"] = [];
-            for (let item of this.tags)
-                data["tags"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IFaceTagsRecommendsDto {
-    recommends: FaceRecommendDto[] | undefined;
-    tags: FaceTagListDto[] | undefined;
-}
-
-export class FaceRecommendDto implements IFaceRecommendDto {
+export class UpdateFaceRecommendInput implements IUpdateFaceRecommendInput {
+    id!: number;
     type!: string | undefined;
     thingId!: string | undefined;
     reason!: string | undefined;
-    tagId!: number | undefined;
-    tenantId!: number | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
-    creatorUserId!: number | undefined;
-    id!: number | undefined;
+    tagId!: number;
 
-    constructor(data?: IFaceRecommendDto) {
+    constructor(data?: IUpdateFaceRecommendInput) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -3984,464 +5367,7 @@ export class FaceRecommendDto implements IFaceRecommendDto {
 
     init(_data?: any) {
         if (_data) {
-            this.type = _data["type"];
-            this.thingId = _data["thingId"];
-            this.reason = _data["reason"];
-            this.tagId = _data["tagId"];
-            this.tenantId = _data["tenantId"];
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
             this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): FaceRecommendDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new FaceRecommendDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["thingId"] = this.thingId;
-        data["reason"] = this.reason;
-        data["tagId"] = this.tagId;
-        data["tenantId"] = this.tenantId;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IFaceRecommendDto {
-    type: string | undefined;
-    thingId: string | undefined;
-    reason: string | undefined;
-    tagId: number | undefined;
-    tenantId: number | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
-    creatorUserId: number | undefined;
-    id: number | undefined;
-}
-
-export class FaceTagListDto implements IFaceTagListDto {
-    tenantId!: number | undefined;
-    name!: string | undefined;
-    iconUrl!: string | undefined;
-    gender!: string | undefined;
-    priority!: number | undefined;
-    ageRange!: string | undefined;
-    happinessRange!: string | undefined;
-    beautyScoreRange!: string | undefined;
-    extensionData!: string | undefined;
-    isEnabled!: boolean | undefined;
-    type!: string | undefined;
-    description!: string | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
-    creatorUserId!: number | undefined;
-    id!: number | undefined;
-
-    constructor(data?: IFaceTagListDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.tenantId = _data["tenantId"];
-            this.name = _data["name"];
-            this.iconUrl = _data["iconUrl"];
-            this.gender = _data["gender"];
-            this.priority = _data["priority"];
-            this.ageRange = _data["ageRange"];
-            this.happinessRange = _data["happinessRange"];
-            this.beautyScoreRange = _data["beautyScoreRange"];
-            this.extensionData = _data["extensionData"];
-            this.isEnabled = _data["isEnabled"];
-            this.type = _data["type"];
-            this.description = _data["description"];
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): FaceTagListDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new FaceTagListDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["tenantId"] = this.tenantId;
-        data["name"] = this.name;
-        data["iconUrl"] = this.iconUrl;
-        data["gender"] = this.gender;
-        data["priority"] = this.priority;
-        data["ageRange"] = this.ageRange;
-        data["happinessRange"] = this.happinessRange;
-        data["beautyScoreRange"] = this.beautyScoreRange;
-        data["extensionData"] = this.extensionData;
-        data["isEnabled"] = this.isEnabled;
-        data["type"] = this.type;
-        data["description"] = this.description;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IFaceTagListDto {
-    tenantId: number | undefined;
-    name: string | undefined;
-    iconUrl: string | undefined;
-    gender: string | undefined;
-    priority: number | undefined;
-    ageRange: string | undefined;
-    happinessRange: string | undefined;
-    beautyScoreRange: string | undefined;
-    extensionData: string | undefined;
-    isEnabled: boolean | undefined;
-    type: string | undefined;
-    description: string | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
-    creatorUserId: number | undefined;
-    id: number | undefined;
-}
-
-export class GetTagRecommendsByFaceInput implements IGetTagRecommendsByFaceInput {
-    subKey!: string;
-    headImage!: string | undefined;
-    extensionData!: string | undefined;
-
-    constructor(data?: IGetTagRecommendsByFaceInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.subKey = _data["subKey"];
-            this.headImage = _data["headImage"];
-            this.extensionData = _data["extensionData"];
-        }
-    }
-
-    static fromJS(data: any): GetTagRecommendsByFaceInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetTagRecommendsByFaceInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["subKey"] = this.subKey;
-        data["headImage"] = this.headImage;
-        data["extensionData"] = this.extensionData;
-        return data; 
-    }
-}
-
-export interface IGetTagRecommendsByFaceInput {
-    subKey: string;
-    headImage: string | undefined;
-    extensionData: string | undefined;
-}
-
-export class PagedResultDtoOfFaceTagDto implements IPagedResultDtoOfFaceTagDto {
-    totalCount!: number | undefined;
-    items!: FaceTagDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfFaceTagDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(FaceTagDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfFaceTagDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfFaceTagDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPagedResultDtoOfFaceTagDto {
-    totalCount: number | undefined;
-    items: FaceTagDto[] | undefined;
-}
-
-export class FaceTagDto implements IFaceTagDto {
-    recommends!: FaceRecommendDto[] | undefined;
-    tenantId!: number | undefined;
-    name!: string | undefined;
-    iconUrl!: string | undefined;
-    gender!: string | undefined;
-    priority!: number | undefined;
-    ageRange!: string | undefined;
-    happinessRange!: string | undefined;
-    beautyScoreRange!: string | undefined;
-    extensionData!: string | undefined;
-    isEnabled!: boolean | undefined;
-    type!: string | undefined;
-    description!: string | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment | undefined;
-    creatorUserId!: number | undefined;
-    id!: number | undefined;
-
-    constructor(data?: IFaceTagDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["recommends"])) {
-                this.recommends = [] as any;
-                for (let item of _data["recommends"])
-                    this.recommends!.push(FaceRecommendDto.fromJS(item));
-            }
-            this.tenantId = _data["tenantId"];
-            this.name = _data["name"];
-            this.iconUrl = _data["iconUrl"];
-            this.gender = _data["gender"];
-            this.priority = _data["priority"];
-            this.ageRange = _data["ageRange"];
-            this.happinessRange = _data["happinessRange"];
-            this.beautyScoreRange = _data["beautyScoreRange"];
-            this.extensionData = _data["extensionData"];
-            this.isEnabled = _data["isEnabled"];
-            this.type = _data["type"];
-            this.description = _data["description"];
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): FaceTagDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new FaceTagDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.recommends)) {
-            data["recommends"] = [];
-            for (let item of this.recommends)
-                data["recommends"].push(item.toJSON());
-        }
-        data["tenantId"] = this.tenantId;
-        data["name"] = this.name;
-        data["iconUrl"] = this.iconUrl;
-        data["gender"] = this.gender;
-        data["priority"] = this.priority;
-        data["ageRange"] = this.ageRange;
-        data["happinessRange"] = this.happinessRange;
-        data["beautyScoreRange"] = this.beautyScoreRange;
-        data["extensionData"] = this.extensionData;
-        data["isEnabled"] = this.isEnabled;
-        data["type"] = this.type;
-        data["description"] = this.description;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IFaceTagDto {
-    recommends: FaceRecommendDto[] | undefined;
-    tenantId: number | undefined;
-    name: string | undefined;
-    iconUrl: string | undefined;
-    gender: string | undefined;
-    priority: number | undefined;
-    ageRange: string | undefined;
-    happinessRange: string | undefined;
-    beautyScoreRange: string | undefined;
-    extensionData: string | undefined;
-    isEnabled: boolean | undefined;
-    type: string | undefined;
-    description: string | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment | undefined;
-    creatorUserId: number | undefined;
-    id: number | undefined;
-}
-
-export class CreateFaceTagInput implements ICreateFaceTagInput {
-    name!: string;
-    iconUrl!: string | undefined;
-    gender!: string | undefined;
-    priority!: number | undefined;
-    ageRange!: string | undefined;
-    happinessRange!: string | undefined;
-    beautyScoreRange!: string | undefined;
-    extensionData!: string | undefined;
-    isEnabled!: boolean | undefined;
-    type!: string | undefined;
-    description!: string | undefined;
-    recommends!: CeateFaceRecommendInput[] | undefined;
-
-    constructor(data?: ICreateFaceTagInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"];
-            this.iconUrl = _data["iconUrl"];
-            this.gender = _data["gender"];
-            this.priority = _data["priority"];
-            this.ageRange = _data["ageRange"];
-            this.happinessRange = _data["happinessRange"];
-            this.beautyScoreRange = _data["beautyScoreRange"];
-            this.extensionData = _data["extensionData"];
-            this.isEnabled = _data["isEnabled"];
-            this.type = _data["type"];
-            this.description = _data["description"];
-            if (Array.isArray(_data["recommends"])) {
-                this.recommends = [] as any;
-                for (let item of _data["recommends"])
-                    this.recommends!.push(CeateFaceRecommendInput.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): CreateFaceTagInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateFaceTagInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        data["iconUrl"] = this.iconUrl;
-        data["gender"] = this.gender;
-        data["priority"] = this.priority;
-        data["ageRange"] = this.ageRange;
-        data["happinessRange"] = this.happinessRange;
-        data["beautyScoreRange"] = this.beautyScoreRange;
-        data["extensionData"] = this.extensionData;
-        data["isEnabled"] = this.isEnabled;
-        data["type"] = this.type;
-        data["description"] = this.description;
-        if (Array.isArray(this.recommends)) {
-            data["recommends"] = [];
-            for (let item of this.recommends)
-                data["recommends"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface ICreateFaceTagInput {
-    name: string;
-    iconUrl: string | undefined;
-    gender: string | undefined;
-    priority: number | undefined;
-    ageRange: string | undefined;
-    happinessRange: string | undefined;
-    beautyScoreRange: string | undefined;
-    extensionData: string | undefined;
-    isEnabled: boolean | undefined;
-    type: string | undefined;
-    description: string | undefined;
-    recommends: CeateFaceRecommendInput[] | undefined;
-}
-
-export class CeateFaceRecommendInput implements ICeateFaceRecommendInput {
-    type!: string | undefined;
-    thingId!: string | undefined;
-    reason!: string | undefined;
-    tagId!: number | undefined;
-
-    constructor(data?: ICeateFaceRecommendInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
             this.type = _data["type"];
             this.thingId = _data["thingId"];
             this.reason = _data["reason"];
@@ -4449,15 +5375,16 @@ export class CeateFaceRecommendInput implements ICeateFaceRecommendInput {
         }
     }
 
-    static fromJS(data: any): CeateFaceRecommendInput {
+    static fromJS(data: any): UpdateFaceRecommendInput {
         data = typeof data === 'object' ? data : {};
-        let result = new CeateFaceRecommendInput();
+        let result = new UpdateFaceRecommendInput();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["type"] = this.type;
         data["thingId"] = this.thingId;
         data["reason"] = this.reason;
@@ -4466,23 +5393,44 @@ export class CeateFaceRecommendInput implements ICeateFaceRecommendInput {
     }
 }
 
-export interface ICeateFaceRecommendInput {
+export interface IUpdateFaceRecommendInput {
+    id: number;
     type: string | undefined;
     thingId: string | undefined;
     reason: string | undefined;
-    tagId: number | undefined;
+    tagId: number;
 }
 
 export class UpdateFaceTagInput implements IUpdateFaceTagInput {
     id!: number;
     iconUrl!: string | undefined;
+    /** Face's Gender */
     gender!: string | undefined;
+    /** Priority. */
     priority!: number | undefined;
+    /** Format: 20-25
+Seperator: - */
     ageRange!: string | undefined;
+    /** Format: 20-25
+Seperator: - */
     happinessRange!: string | undefined;
+    /** face's beauty score range. */
     beautyScoreRange!: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
     extensionData!: string | undefined;
-    isEnabled!: boolean | undefined;
+    isEnabled!: boolean;
     type!: string | undefined;
     description!: string | undefined;
     recommends!: CeateFaceRecommendInput[] | undefined;
@@ -4549,154 +5497,43 @@ export class UpdateFaceTagInput implements IUpdateFaceTagInput {
 export interface IUpdateFaceTagInput {
     id: number;
     iconUrl: string | undefined;
+    /** Face's Gender */
     gender: string | undefined;
+    /** Priority. */
     priority: number | undefined;
+    /** Format: 20-25
+Seperator: - */
     ageRange: string | undefined;
+    /** Format: 20-25
+Seperator: - */
     happinessRange: string | undefined;
+    /** face's beauty score range. */
     beautyScoreRange: string | undefined;
+    /** Example:
+ {
+ "attributes": {
+   "emotion": {
+   "sadness": 0.273,
+   "neutral": 0,
+   "disgust": 0.005,
+   "anger": 0.341,
+   "surprise": 99.35,
+   "fear": 0.03,
+   "happiness": 0
+ }
+} */
     extensionData: string | undefined;
-    isEnabled: boolean | undefined;
+    isEnabled: boolean;
     type: string | undefined;
     description: string | undefined;
     recommends: CeateFaceRecommendInput[] | undefined;
 }
 
-export class PagedResultDtoOfMetaPhysicsDto implements IPagedResultDtoOfMetaPhysicsDto {
-    totalCount!: number | undefined;
-    items!: MetaPhysicsDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfMetaPhysicsDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(MetaPhysicsDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfMetaPhysicsDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfMetaPhysicsDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPagedResultDtoOfMetaPhysicsDto {
-    totalCount: number | undefined;
-    items: MetaPhysicsDto[] | undefined;
-}
-
-export class CreateMetaPhysicsInput implements ICreateMetaPhysicsInput {
-    typeId!: number | undefined;
-    name!: string | undefined;
-    aliasName!: string | undefined;
-    startTime!: moment.Moment;
-    endTime!: moment.Moment;
-    logoUrl!: string | undefined;
-    picUrl!: string | undefined;
-    description!: string | undefined;
-    from!: string | undefined;
-    fromLogoUrl!: string | undefined;
-    themeColor!: string | undefined;
-    outerId!: string | undefined;
-    sort!: string | undefined;
-
-    constructor(data?: ICreateMetaPhysicsInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.typeId = _data["typeId"];
-            this.name = _data["name"];
-            this.aliasName = _data["aliasName"];
-            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
-            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
-            this.logoUrl = _data["logoUrl"];
-            this.picUrl = _data["picUrl"];
-            this.description = _data["description"];
-            this.from = _data["from"];
-            this.fromLogoUrl = _data["fromLogoUrl"];
-            this.themeColor = _data["themeColor"];
-            this.outerId = _data["outerId"];
-            this.sort = _data["sort"];
-        }
-    }
-
-    static fromJS(data: any): CreateMetaPhysicsInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateMetaPhysicsInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["typeId"] = this.typeId;
-        data["name"] = this.name;
-        data["aliasName"] = this.aliasName;
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
-        data["logoUrl"] = this.logoUrl;
-        data["picUrl"] = this.picUrl;
-        data["description"] = this.description;
-        data["from"] = this.from;
-        data["fromLogoUrl"] = this.fromLogoUrl;
-        data["themeColor"] = this.themeColor;
-        data["outerId"] = this.outerId;
-        data["sort"] = this.sort;
-        return data; 
-    }
-}
-
-export interface ICreateMetaPhysicsInput {
-    typeId: number | undefined;
-    name: string | undefined;
-    aliasName: string | undefined;
-    startTime: moment.Moment;
-    endTime: moment.Moment;
-    logoUrl: string | undefined;
-    picUrl: string | undefined;
-    description: string | undefined;
-    from: string | undefined;
-    fromLogoUrl: string | undefined;
-    themeColor: string | undefined;
-    outerId: string | undefined;
-    sort: string | undefined;
-}
-
 export class UpdateMetaPhysicsInput implements IUpdateMetaPhysicsInput {
     id!: number;
-    typeId!: number | undefined;
+    typeId!: number;
     name!: string | undefined;
+    /** 别名 */
     aliasName!: string | undefined;
     startTime!: moment.Moment;
     endTime!: moment.Moment;
@@ -4766,8 +5603,9 @@ export class UpdateMetaPhysicsInput implements IUpdateMetaPhysicsInput {
 
 export interface IUpdateMetaPhysicsInput {
     id: number;
-    typeId: number | undefined;
+    typeId: number;
     name: string | undefined;
+    /** 别名 */
     aliasName: string | undefined;
     startTime: moment.Moment;
     endTime: moment.Moment;
@@ -4781,96 +5619,8 @@ export interface IUpdateMetaPhysicsInput {
     sort: string | undefined;
 }
 
-export class PagedResultDtoOfMetaphysicsTypeDto implements IPagedResultDtoOfMetaphysicsTypeDto {
-    totalCount!: number | undefined;
-    items!: MetaphysicsTypeDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfMetaphysicsTypeDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(MetaphysicsTypeDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfMetaphysicsTypeDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfMetaphysicsTypeDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPagedResultDtoOfMetaphysicsTypeDto {
-    totalCount: number | undefined;
-    items: MetaphysicsTypeDto[] | undefined;
-}
-
-export class CreateMetaphysicsTypeInput implements ICreateMetaphysicsTypeInput {
-    name!: string | undefined;
-    description!: string | undefined;
-
-    constructor(data?: ICreateMetaphysicsTypeInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"];
-            this.description = _data["description"];
-        }
-    }
-
-    static fromJS(data: any): CreateMetaphysicsTypeInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateMetaphysicsTypeInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        data["description"] = this.description;
-        return data; 
-    }
-}
-
-export interface ICreateMetaphysicsTypeInput {
-    name: string | undefined;
-    description: string | undefined;
-}
-
 export class UpdateMetaphysicsTypeInput implements IUpdateMetaphysicsTypeInput {
-    id!: number | undefined;
+    id!: number;
     name!: string | undefined;
     description!: string | undefined;
 
@@ -4908,7 +5658,7 @@ export class UpdateMetaphysicsTypeInput implements IUpdateMetaphysicsTypeInput {
 }
 
 export interface IUpdateMetaphysicsTypeInput {
-    id: number | undefined;
+    id: number;
     name: string | undefined;
     description: string | undefined;
 }

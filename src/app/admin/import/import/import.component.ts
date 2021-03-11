@@ -197,7 +197,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
       })
     }
     else if (this.target == "faceRecommend") {
-      this._FaceTagsServiceProxy.postImportFile({
+      this._FaceTagsServiceProxy.importFaceTagsExcelFile({
         data: this.model.file,
         fileName: this.fileName
       }).subscribe(result => {

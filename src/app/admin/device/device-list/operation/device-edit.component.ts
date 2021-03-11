@@ -16,17 +16,17 @@ import { Table } from 'primeng/table';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
-import { ReportServiceProxy, DeviceOperationsServiceProxy, ChartReportInput, FaceRecordDto, GetFaceRecordsInput } from '@shared/service-proxies/service-proxies3';
+import { ReportServiceProxy, DeviceOperationsServiceProxy, ChartReportInput, FaceRecordDto, GetFaceRecordsInput, GetDeviceOptInput } from '@shared/service-proxies/service-proxies3';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list/operation/create-or-edit-deviceRecord-modal.component'
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, DeviceActivityServiceProxy, ReportServiceProxy as ActivityReportServiceProxy, PublishEntitiesInput as PublishEntitiesInput2 } from '@shared/service-proxies/service-proxies5';
 
-import { SensingDeviceServiceProxy,SensorAgreementServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+import { SensingDeviceServiceProxy, SensorAgreementServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 
-import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput,AddOrUpdateSensorInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput, AddOrUpdateSensorInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
-import { ShelfDeviceServiceProxy,UpdateCargoStatusInput, CargoStatus,ChangeDeviceAppPodVersionInput, AppPodServiceProxy, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput  } from '@shared/service-proxies/service-proxies-smartdevice';
+import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, ChangeDeviceAppPodVersionInput, AppPodServiceProxy, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-smartdevice';
 
 
 import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
@@ -400,7 +400,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
         private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
         private _CounterReportServiceProxy: CounterReportServiceProxy,
-        private _ShelfDeviceServiceProxy:ShelfDeviceServiceProxy
+        private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy
 
     ) {
         super(injector);
@@ -427,7 +427,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
     //前往管理标签
     goTag(f?) {
-        f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
+        f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin', 'tags', 'tags']);
     }
     //选中或者取消选中标签
     setTag() {
@@ -747,7 +747,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     showActivityData(record) {
-        this.router.navigate(['app', 'admin','activity', 'activity', 'data'], { queryParams: { id: record.activityId, deviceId: record.deviceId, name: record.activity.name } });
+        this.router.navigate(['app', 'admin', 'activity', 'activity', 'data'], { queryParams: { id: record.activityId, deviceId: record.deviceId, name: record.activity.name } });
     }
 
     getCountByDeviceId() {
@@ -1118,7 +1118,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         setTimeout(() => {
 
             this.pFace.showLoadingIndicator();
-            
+
             this._DeviceBehaviorServiceProxy.getFaceRecords(new GetFaceRecordsInput({
                 deviceId: this.device.id,
                 // 30353,
@@ -1129,7 +1129,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 sorting: this.pFace.getSorting(this.dataTableFace),
                 maxResultCount: this.pFace.getMaxResultCount(this.paginatorFace, event),
                 skipCount: this.pFace.getSkipCount(this.paginatorFace, event)
-            }) )
+            }))
                 .pipe(this.myFinalize(() => { this.pFace.hideLoadingIndicator(); }))
                 .subscribe(result => {
                     this.pFace.totalRecordsCount = result.totalCount;
@@ -1200,11 +1200,11 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     gameSetup(record) {
-        this.router.navigate(['app', 'admin','device', 'deviceList', 'game'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
+        this.router.navigate(['app', 'admin', 'device', 'deviceList', 'game'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
     }
 
     editActivity(record) {
-        this.router.navigate(['app', 'admin','activity', 'activity', 'basic'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
+        this.router.navigate(['app', 'admin', 'activity', 'activity', 'basic'], { queryParams: { id: record.activityId, deviceId: this.device.id, name: record.activity.name } });
     }
 
     //维护记录
@@ -1216,19 +1216,21 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         setTimeout(() => {
 
             this.primengTableHelper.showLoadingIndicator();
-            this._deviceOpt.getOperationRecords(
-                this.device.id,
-                this.StartTime,
-                this.EndTime,
-                this.statusSelect,
-                undefined,
-                undefined,
-                undefined,
-                this.questionFilter,
-                this.primengTableHelper.getSorting(this.dataTable),
-                this.primengTableHelper.getMaxResultCount(this.paginator, event),
-                this.primengTableHelper.getSkipCount(this.paginator, event)
-            ).pipe(finalize(() => {
+            this._deviceOpt.getOperationRecords(new GetDeviceOptInput(
+                {
+                    deviceId: this.device.id,
+                    startTime: this.StartTime,
+                    endTime: this.EndTime,
+                    optStatus: this.statusSelect,
+                    tenantId: undefined,
+                    categoryId: undefined,
+                    optKnowledgeId: undefined,
+                    filter: this.questionFilter,
+                    sorting: this.primengTableHelper.getSorting(this.dataTable),
+                    maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                    skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)
+                }
+            )).pipe(finalize(() => {
                 this.primengTableHelper.hideLoadingIndicator();
             })).subscribe(result => {
                 this.primengTableHelper.totalRecordsCount = result.totalCount;
