@@ -1,12 +1,12 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { DeviceServiceProxy, CreateDeviceInput, PeripheralServiceProxy } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { AppPodServiceProxy, SetDefaultAppPodVersionInput, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
-import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditDeviceModal',
@@ -109,12 +109,11 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
     constructor(
         injector: Injector,
         private _deviceService: DeviceServiceProxy,
-        private _periService: PeripheralServiceProxy,
         private _AppPodServiceProxy: AppPodServiceProxy,
         private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
         private _SensorAgreementServiceProxy: SensorAgreementServiceProxy,
         private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy,
-        private _NewDeviceServiceProxy:NewDeviceServiceProxy
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy
 
     ) {
         super(injector);
@@ -126,7 +125,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
             this.onlineStoreInfo = result;
         })
         //外设
-        _periService.selectPeriperal().subscribe((result) => {
+        _NewDeviceServiceProxy.selectPeriperal().subscribe((result) => {
             this.devicePeriList = result;
         })
 
@@ -197,7 +196,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         //     this.Device.isSupportAccessToChildDevices = false
         // }
         if (this.Device.deviceTypeId == 4) {
-            this._deviceService.getDevices(
+            this._NewDeviceServiceProxy.getDevices(
+                [],
                 undefined,
                 undefined,
                 undefined,
@@ -213,7 +213,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
             })
         }
         if (this.Device.deviceTypeId == 19) {
-            this._deviceService.getDevices(
+            this._NewDeviceServiceProxy.getDevices(
+                [],
                 undefined,
                 undefined,
                 undefined,
@@ -229,7 +230,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
             })
         }
         if (this.Device.deviceTypeId == 23 || this.Device.deviceTypeId == 20) {
-            this._deviceService.getDevices(
+            this._NewDeviceServiceProxy.getDevices(
+                [],
                 undefined,
                 undefined,
                 undefined,
@@ -258,7 +260,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
     //筛选外设
     filterPeri(event) {
         var lower_value, lower_query = event.query.toLowerCase();
-        this._periService.selectPeriperal().subscribe((result) => {
+        this._NewDeviceServiceProxy.selectPeriperal().subscribe((result) => {
             this.devicePeriList = result.filter((item) => {
                 lower_value = item.selectValue.toLowerCase();
                 return lower_value.indexOf(lower_query) + 1 > 0;
@@ -322,11 +324,11 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
 
         this.CreateDeviceInput = new CreateDeviceInput(this.Device);
 
-        this._deviceService.createDevice(this.CreateDeviceInput)
+        this._NewDeviceServiceProxy.createDevice(this.CreateDeviceInput)
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe((res) => {
                 this.notify.info(this.l('SavedSuccessfully'));
-                
+
                 // V3
                 if (AppConsts.customTheme != 'kewosi') {
                     if (this.Device.deviceTypeId == 4 && this.belongGateWay) {
@@ -446,7 +448,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         this.modal.hide();
     }
     getPeri() {
-        this._periService.selectPeriperal().subscribe((result) => {
+        this._NewDeviceServiceProxy.selectPeriperal().subscribe((result) => {
             this.devicePeriList = result;
         })
     }

@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import { DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, PeripheralServiceProxy, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
 import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -383,7 +383,6 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private _adsService: AdServiceProxy,
         private _appService: SoftwareServiceProxy,
         private _couponService: CouponServiceProxy,
-        private _periService: PeripheralServiceProxy,
         private _reportService: ReportServiceProxy,
         private _connector: ConnectorService,
         private _deviceOpt: DeviceOperationsServiceProxy,
@@ -1583,7 +1582,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             'type': 'device'
         }));
         //外设
-        this._periService.selectPeriperal().subscribe((result) => {
+        this._NewDeviceServiceProxy.selectPeriperal().subscribe((result) => {
             this.devicePeriList = result;
         })
         //设备类型下拉
@@ -1637,7 +1636,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     //筛选外设
     filterPeri(event) {
         //外设
-        this._periService.selectPeriperal().subscribe((result) => {
+        this._NewDeviceServiceProxy.selectPeriperal().subscribe((result) => {
             this.devicePeriList = result.filter((item) => {
                 return item.selectValue.indexOf(event.query) + 1 > 0
             });

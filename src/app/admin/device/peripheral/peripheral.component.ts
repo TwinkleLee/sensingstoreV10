@@ -5,8 +5,8 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditPerModalComponent } from '@app/admin/device/peripheral/create-or-edit-peri-modal.component';
-import { PeripheralServiceProxy,PeripheralDto} from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
+import { DeviceServiceProxy as NewDeviceServiceProxy,PeripheralDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-peripheral',
@@ -25,7 +25,7 @@ export class PeripheralComponent extends AppComponentBase {
   filterText:string;
 
   constructor(injector: Injector,
-              private _peripheralService:PeripheralServiceProxy) {
+              private _NewDeviceServiceProxy:NewDeviceServiceProxy) {
       super(injector);
    }
 
@@ -36,7 +36,7 @@ export class PeripheralComponent extends AppComponentBase {
       return;
     }
     this.primengTableHelper.showLoadingIndicator();
-      this._peripheralService.getPeripherals(
+      this._NewDeviceServiceProxy.getPeripherals(
           this.filterText,
           this.primengTableHelper.getSorting(this.dataTable)||'name',
           this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -61,7 +61,7 @@ export class PeripheralComponent extends AppComponentBase {
   deletePeripheral(record: PeripheralDto){
     this.message.confirm(this.l("DeleteThisPeriQuestion"),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._peripheralService.deletePeripheral(record.id).subscribe(result=>{
+        this._NewDeviceServiceProxy.deletePeripheral(record.id).subscribe(result=>{
           this.notify.info(this.l('success'));
           this.getPeripherals();
         })

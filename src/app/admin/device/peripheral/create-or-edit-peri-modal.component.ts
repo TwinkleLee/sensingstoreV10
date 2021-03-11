@@ -1,12 +1,13 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { PeripheralDto,PeripheralServiceProxy,CreatePeripheralInput,UpdatePeripheralInput } from '@shared/service-proxies/service-proxies';
+import { PeripheralDto,CreatePeripheralInput,UpdatePeripheralInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 
 
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
+import { DeviceServiceProxy as NewDeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditPerModal',
@@ -39,7 +40,8 @@ export class CreateOrEditPerModalComponent extends AppComponentBase implements A
 
     constructor(
         injector: Injector,
-        private _periService: PeripheralServiceProxy
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy,
+
     ) {
         super(injector);
         this.uploadUrl = AppConsts.remoteServiceBaseUrl + '/DemoUiComponents/UploadFiles';
@@ -72,7 +74,7 @@ export class CreateOrEditPerModalComponent extends AppComponentBase implements A
     save(): void {
         if(this.operation=="add"){
             this.createPeripheral = this.peripheral as CreatePeripheralInput;
-            this._periService.createPeripheral(this.createPeripheral)
+            this._NewDeviceServiceProxy.createPeripheral(this.createPeripheral)
             .pipe(finalize(() => {this.saving = false; }))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
@@ -81,7 +83,7 @@ export class CreateOrEditPerModalComponent extends AppComponentBase implements A
             });
         }else{
             this.updatePeripheral = this.peripheral as UpdatePeripheralInput;
-            this._periService.updatePeripheral(this.updatePeripheral)
+            this._NewDeviceServiceProxy.updatePeripheral(this.updatePeripheral)
             .pipe(finalize(() => {this.saving = false; }))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

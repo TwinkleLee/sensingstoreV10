@@ -646,6 +646,7 @@ export class BrandServiceProxy {
     }
 
     /**
+     * 删除品牌（商品相关内容在gateway调删除）
      * @param isIncludeProduct (optional) 
      * @param isAllBrands (optional) 
      * @param brandIds (optional) 
@@ -3663,6 +3664,329 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 获取系统中外设列表, 支持分页。
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getPeripherals(filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PeripheralDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Device/GetPeripherals?";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPeripherals(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPeripherals(<any>response_);
+                } catch (e) {
+                    return <Observable<PeripheralDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PeripheralDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPeripherals(response: HttpResponseBase): Observable<PeripheralDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PeripheralDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PeripheralDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 创建新的外设，名称不能重复，返回被创建外设的Id编号
+     * @param body (optional) 
+     * @return Success
+     */
+    createPeripheral(body: CreatePeripheralInput | undefined): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/Device/CreatePeripheral";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreatePeripheral(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreatePeripheral(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreatePeripheral(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+
+    /**
+     * 更新外设数据，外设的名字不能重复
+     * @param body (optional) 
+     * @return Success
+     */
+    updatePeripheral(body: UpdatePeripheralInput | undefined): Observable<PeripheralDto> {
+        let url_ = this.baseUrl + "/api/services/app/Device/UpdatePeripheral";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdatePeripheral(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdatePeripheral(<any>response_);
+                } catch (e) {
+                    return <Observable<PeripheralDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PeripheralDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdatePeripheral(response: HttpResponseBase): Observable<PeripheralDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PeripheralDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PeripheralDto>(<any>null);
+    }
+
+    /**
+     * 删除系统中的外设,每次只能删除一个，逻辑删除
+     * @param id (optional) 
+     * @return Success
+     */
+    deletePeripheral(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Device/DeletePeripheral?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeletePeripheral(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeletePeripheral(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeletePeripheral(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 获取所有外设的Key和Value列表,用于用户为设备选取外设
+     * @return Success
+     */
+    selectPeriperal(): Observable<Int32SelectDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Device/SelectPeriperal";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSelectPeriperal(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSelectPeriperal(<any>response_);
+                } catch (e) {
+                    return <Observable<Int32SelectDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Int32SelectDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSelectPeriperal(response: HttpResponseBase): Observable<Int32SelectDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Int32SelectDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Int32SelectDto[]>(<any>null);
+    }
+
+    /**
      * 设备的控制(向设备发送命令),Host也是可以进行调用
      * @param body (optional) 设备命令详细
      * @return Success
@@ -5474,6 +5798,61 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
+     * 获取设备被缓存的信息
+     * @param subKey (optional) 
+     * @return Success
+     */
+    getDeviceCacheItem(subKey: string | null | undefined): Observable<DeviceCacheItem> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetDeviceCacheItem?";
+        if (subKey !== undefined && subKey !== null)
+            url_ += "subKey=" + encodeURIComponent("" + subKey) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDeviceCacheItem(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDeviceCacheItem(<any>response_);
+                } catch (e) {
+                    return <Observable<DeviceCacheItem>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DeviceCacheItem>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDeviceCacheItem(response: HttpResponseBase): Observable<DeviceCacheItem> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DeviceCacheItem.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DeviceCacheItem>(<any>null);
+    }
+
+    /**
      * 判断apppod是否需要更新，目前没有实现
      * @return Success
      */
@@ -5817,329 +6196,6 @@ export class SensingDeviceServiceProxy {
             }));
         }
         return _observableOf<boolean>(<any>null);
-    }
-
-    /**
-     * 获取系统中外设列表, 支持分页。
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param maxResultCount (optional) 
-     * @param skipCount (optional) 
-     * @return Success
-     */
-    getPeripherals(filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PeripheralDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetPeripherals?";
-        if (filter !== undefined && filter !== null)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting !== undefined && sorting !== null)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPeripherals(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetPeripherals(<any>response_);
-                } catch (e) {
-                    return <Observable<PeripheralDtoPagedResultDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<PeripheralDtoPagedResultDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetPeripherals(response: HttpResponseBase): Observable<PeripheralDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PeripheralDtoPagedResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Forbidden", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<PeripheralDtoPagedResultDto>(<any>null);
-    }
-
-    /**
-     * 创建新的外设，名称不能重复，返回被创建外设的Id编号
-     * @param body (optional) 
-     * @return Success
-     */
-    createPeripheral(body: CreatePeripheralInput | undefined): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/CreatePeripheral";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreatePeripheral(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreatePeripheral(<any>response_);
-                } catch (e) {
-                    return <Observable<number>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<number>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processCreatePeripheral(response: HttpResponseBase): Observable<number> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Forbidden", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<number>(<any>null);
-    }
-
-    /**
-     * 更新外设数据，外设的名字不能重复
-     * @param body (optional) 
-     * @return Success
-     */
-    updatePeripheral(body: UpdatePeripheralInput | undefined): Observable<PeripheralDto> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/UpdatePeripheral";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdatePeripheral(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdatePeripheral(<any>response_);
-                } catch (e) {
-                    return <Observable<PeripheralDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<PeripheralDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdatePeripheral(response: HttpResponseBase): Observable<PeripheralDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PeripheralDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Forbidden", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<PeripheralDto>(<any>null);
-    }
-
-    /**
-     * 删除系统中的外设,每次只能删除一个，逻辑删除
-     * @param id (optional) 
-     * @return Success
-     */
-    deletePeripheral(id: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/DeletePeripheral?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeletePeripheral(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDeletePeripheral(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processDeletePeripheral(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Forbidden", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * 获取所有外设的Key和Value列表,用于用户为设备选取外设
-     * @return Success
-     */
-    selectPeriperal(): Observable<Int32SelectDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/SelectPeriperal";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSelectPeriperal(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSelectPeriperal(<any>response_);
-                } catch (e) {
-                    return <Observable<Int32SelectDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Int32SelectDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSelectPeriperal(response: HttpResponseBase): Observable<Int32SelectDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(Int32SelectDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Int32SelectDto[]>(<any>null);
     }
 
     /**
@@ -12650,6 +12706,186 @@ export interface IDeviceStatusEventInput {
     deviceId: string | undefined;
 }
 
+export class PeripheralDtoPagedResultDto implements IPeripheralDtoPagedResultDto {
+    totalCount!: number;
+    items!: PeripheralDto[] | undefined;
+
+    constructor(data?: IPeripheralDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(PeripheralDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PeripheralDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PeripheralDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPeripheralDtoPagedResultDto {
+    totalCount: number;
+    items: PeripheralDto[] | undefined;
+}
+
+export class CreatePeripheralInput implements ICreatePeripheralInput {
+    /** 外设的名称 */
+    name!: string | undefined;
+    /** 外设的小图标 */
+    iconUrl!: string | undefined;
+
+    constructor(data?: ICreatePeripheralInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.iconUrl = _data["iconUrl"];
+        }
+    }
+
+    static fromJS(data: any): CreatePeripheralInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreatePeripheralInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["iconUrl"] = this.iconUrl;
+        return data; 
+    }
+}
+
+export interface ICreatePeripheralInput {
+    /** 外设的名称 */
+    name: string | undefined;
+    /** 外设的小图标 */
+    iconUrl: string | undefined;
+}
+
+export class UpdatePeripheralInput implements IUpdatePeripheralInput {
+    id!: number;
+    /** 外设的名称 */
+    name!: string | undefined;
+    /** 外设的小图标 */
+    iconUrl!: string | undefined;
+
+    constructor(data?: IUpdatePeripheralInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.iconUrl = _data["iconUrl"];
+        }
+    }
+
+    static fromJS(data: any): UpdatePeripheralInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdatePeripheralInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["iconUrl"] = this.iconUrl;
+        return data; 
+    }
+}
+
+export interface IUpdatePeripheralInput {
+    id: number;
+    /** 外设的名称 */
+    name: string | undefined;
+    /** 外设的小图标 */
+    iconUrl: string | undefined;
+}
+
+export class Int32SelectDto implements IInt32SelectDto {
+    selectKey!: number;
+    selectValue!: string | undefined;
+
+    constructor(data?: IInt32SelectDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.selectKey = _data["selectKey"];
+            this.selectValue = _data["selectValue"];
+        }
+    }
+
+    static fromJS(data: any): Int32SelectDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new Int32SelectDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["selectKey"] = this.selectKey;
+        data["selectValue"] = this.selectValue;
+        return data; 
+    }
+}
+
+export interface IInt32SelectDto {
+    selectKey: number;
+    selectValue: string | undefined;
+}
+
 /** 单个设备控制的数据结构 */
 export class DeviceActionInput implements IDeviceActionInput {
     /** 被控制设备的Id编号 */
@@ -13078,46 +13314,6 @@ export interface IUpdateDeviceCategoryInput {
     name: string | undefined;
     /** 外设的小图标 */
     iconUrl: string | undefined;
-}
-
-export class Int32SelectDto implements IInt32SelectDto {
-    selectKey!: number;
-    selectValue!: string | undefined;
-
-    constructor(data?: IInt32SelectDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.selectKey = _data["selectKey"];
-            this.selectValue = _data["selectValue"];
-        }
-    }
-
-    static fromJS(data: any): Int32SelectDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new Int32SelectDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["selectKey"] = this.selectKey;
-        data["selectValue"] = this.selectValue;
-        return data; 
-    }
-}
-
-export interface IInt32SelectDto {
-    selectKey: number;
-    selectValue: string | undefined;
 }
 
 export class PositionDto implements IPositionDto {
@@ -14149,6 +14345,74 @@ export interface ITenantAndOrganizationUnitAndStoreOutput {
     storeName: string | undefined;
 }
 
+export class DeviceCacheItem implements IDeviceCacheItem {
+    id!: number;
+    organizationUnitId!: number | undefined;
+    storeId!: number | undefined;
+    tenantId!: number;
+    subKey!: string | undefined;
+    auditStatus!: AuditStatus;
+    name!: string | undefined;
+    deviceTypeId!: number | undefined;
+    outerId!: string | undefined;
+
+    constructor(data?: IDeviceCacheItem) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.organizationUnitId = _data["organizationUnitId"];
+            this.storeId = _data["storeId"];
+            this.tenantId = _data["tenantId"];
+            this.subKey = _data["subKey"];
+            this.auditStatus = _data["auditStatus"];
+            this.name = _data["name"];
+            this.deviceTypeId = _data["deviceTypeId"];
+            this.outerId = _data["outerId"];
+        }
+    }
+
+    static fromJS(data: any): DeviceCacheItem {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeviceCacheItem();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["storeId"] = this.storeId;
+        data["tenantId"] = this.tenantId;
+        data["subKey"] = this.subKey;
+        data["auditStatus"] = this.auditStatus;
+        data["name"] = this.name;
+        data["deviceTypeId"] = this.deviceTypeId;
+        data["outerId"] = this.outerId;
+        return data; 
+    }
+}
+
+export interface IDeviceCacheItem {
+    id: number;
+    organizationUnitId: number | undefined;
+    storeId: number | undefined;
+    tenantId: number;
+    subKey: string | undefined;
+    auditStatus: AuditStatus;
+    name: string | undefined;
+    deviceTypeId: number | undefined;
+    outerId: string | undefined;
+}
+
 export class AppPodSettings implements IAppPodSettings {
     isLocalOnly!: boolean;
     backgroundUrl!: string | undefined;
@@ -14669,146 +14933,6 @@ export class UpdateIntfaDeviceDescriptionsInput implements IUpdateIntfaDeviceDes
 
 export interface IUpdateIntfaDeviceDescriptionsInput {
     devices: UpdateIntfaDeviceDescription[] | undefined;
-}
-
-export class PeripheralDtoPagedResultDto implements IPeripheralDtoPagedResultDto {
-    totalCount!: number;
-    items!: PeripheralDto[] | undefined;
-
-    constructor(data?: IPeripheralDtoPagedResultDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(PeripheralDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PeripheralDtoPagedResultDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PeripheralDtoPagedResultDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IPeripheralDtoPagedResultDto {
-    totalCount: number;
-    items: PeripheralDto[] | undefined;
-}
-
-export class CreatePeripheralInput implements ICreatePeripheralInput {
-    /** 外设的名称 */
-    name!: string | undefined;
-    /** 外设的小图标 */
-    iconUrl!: string | undefined;
-
-    constructor(data?: ICreatePeripheralInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"];
-            this.iconUrl = _data["iconUrl"];
-        }
-    }
-
-    static fromJS(data: any): CreatePeripheralInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreatePeripheralInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        data["iconUrl"] = this.iconUrl;
-        return data; 
-    }
-}
-
-export interface ICreatePeripheralInput {
-    /** 外设的名称 */
-    name: string | undefined;
-    /** 外设的小图标 */
-    iconUrl: string | undefined;
-}
-
-export class UpdatePeripheralInput implements IUpdatePeripheralInput {
-    id!: number;
-    /** 外设的名称 */
-    name!: string | undefined;
-    /** 外设的小图标 */
-    iconUrl!: string | undefined;
-
-    constructor(data?: IUpdatePeripheralInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.iconUrl = _data["iconUrl"];
-        }
-    }
-
-    static fromJS(data: any): UpdatePeripheralInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdatePeripheralInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["iconUrl"] = this.iconUrl;
-        return data; 
-    }
-}
-
-export interface IUpdatePeripheralInput {
-    id: number;
-    /** 外设的名称 */
-    name: string | undefined;
-    /** 外设的小图标 */
-    iconUrl: string | undefined;
 }
 
 export class ChangeDeviceAppPodCurrentVersionInput implements IChangeDeviceAppPodCurrentVersionInput {

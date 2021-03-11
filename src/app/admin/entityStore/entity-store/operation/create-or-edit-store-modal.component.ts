@@ -9,7 +9,7 @@ import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 
 import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/service-proxies/service-proxies-floor'
 
-import { StoreServiceProxy as NewStoreServiceProxy,  CreateStoreInput, UpdateStoreInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditStoreModal',
@@ -100,6 +100,11 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     show(organizationUnit?: any): void {
         this.rooms = [];
+        console.log("organizationUnit", organizationUnit, organizationUnit.storeId)
+
+        setTimeout(() => {
+            console.log("organizationUnit", organizationUnit, organizationUnit.storeId)
+        }, 2000)
         if (organizationUnit) {
             this.showBusy = true;
             this._NewStoreServiceProxy.getStoreById(organizationUnit.storeId).subscribe((r) => {

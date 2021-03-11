@@ -9,7 +9,7 @@ import { CreateOrEditStoreModalComponent } from './operation/create-or-edit-stor
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { BuildingServiceProxy } from '@shared/service-proxies/service-proxies-floor'
-import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput,StoreStatus } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput, StoreStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
@@ -184,6 +184,7 @@ export class EntityStoreComponent extends AppComponentBase {
   }
 
   editStore(record) {
+    console.log("record", record);
     this.createOrEditStoreModal.show(record)
   }
   deleteStore(record) {
