@@ -836,3 +836,8 @@ body .ui-table .ui-table-tbody > tr.ui-state-highlight .dropdown a {
 a:hover i {
     color: #0073e9;
 }
+
+div .row {
+    margin-right: 0;
+    margin-left: 0;
+}
