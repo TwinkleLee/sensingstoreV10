@@ -418,76 +418,26 @@ export class DeviceOperationsServiceProxy {
 
     /**
      * 获取设备的维护历史纪录,支持分页，目前仅限于Host用户,后期会完善
-     * @param deviceId (optional) 
-     * @param startTime (optional) 
-     * @param endTime (optional) 
-     * @param optStatus (optional) 
-     * @param tenantId (optional) 
-     * @param categoryId (optional) 
-     * @param optKnowledgeId (optional) 
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param maxResultCount (optional) 
-     * @param skipCount (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    getOperationRecords(deviceId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, optStatus: _definitions_EnumOptStatus | undefined, tenantId: number | undefined, categoryId: number | undefined, optKnowledgeId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<DeviceOptDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/DeviceOperations/GetOperationRecords?";
-        if (deviceId === null)
-            throw new Error("The parameter 'deviceId' cannot be null.");
-        else if (deviceId !== undefined)
-            url_ += "DeviceId=" + encodeURIComponent("" + deviceId) + "&";
-        if (startTime === null)
-            throw new Error("The parameter 'startTime' cannot be null.");
-        else if (startTime !== undefined)
-            url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
-        if (endTime === null)
-            throw new Error("The parameter 'endTime' cannot be null.");
-        else if (endTime !== undefined)
-            url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
-        if (optStatus === null)
-            throw new Error("The parameter 'optStatus' cannot be null.");
-        else if (optStatus !== undefined)
-            url_ += "OptStatus=" + encodeURIComponent("" + optStatus) + "&";
-        if (tenantId === null)
-            throw new Error("The parameter 'tenantId' cannot be null.");
-        else if (tenantId !== undefined)
-            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
-        if (categoryId === null)
-            throw new Error("The parameter 'categoryId' cannot be null.");
-        else if (categoryId !== undefined)
-            url_ += "CategoryId=" + encodeURIComponent("" + categoryId) + "&";
-        if (optKnowledgeId === null)
-            throw new Error("The parameter 'optKnowledgeId' cannot be null.");
-        else if (optKnowledgeId !== undefined)
-            url_ += "OptKnowledgeId=" + encodeURIComponent("" + optKnowledgeId) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+    getOperationRecords(body: GetDeviceOptInput | undefined): Observable<DeviceOptDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/DeviceOperations/GetOperationRecords";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processGetOperationRecords(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -542,7 +492,7 @@ export class DeviceOperationsServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getOperationRecordsToExcel(deviceId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, optStatus: _definitions_EnumOptStatus[] | undefined, tenantId: number | undefined, categoryId: number | undefined, optKnowledgeId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<DeviceOptExcelDto> {
+    getOperationRecordsToExcel(deviceId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, optStatus: EnumOptStatus[] | undefined, tenantId: number | undefined, categoryId: number | undefined, optKnowledgeId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<DeviceOptExcelDto> {
         let url_ = this.baseUrl + "/api/services/app/DeviceOperations/GetOperationRecordsToExcel?";
         if (deviceId === null)
             throw new Error("The parameter 'deviceId' cannot be null.");
@@ -1933,7 +1883,7 @@ export class ReportServiceProxy {
      * @param ouOrStoreList (optional) 
      * @return Success
      */
-    getDeviceRunTime(deviceId: number | undefined, startTime: moment.Moment, endTime: moment.Moment, ouOrStoreList: _definitions_IdTypeDto[] | undefined): Observable<string> {
+    getDeviceRunTime(deviceId: number | undefined, startTime: moment.Moment, endTime: moment.Moment, ouOrStoreList: IdTypeDto[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/Report/GetDeviceRunTime?";
         if (deviceId === null)
             throw new Error("The parameter 'deviceId' cannot be null.");
@@ -2012,7 +1962,7 @@ export class ReportServiceProxy {
      * @param ouOrStoreList (optional) 
      * @return Success
      */
-    getDeviceStatusChartReport(deviceId: number | undefined, startTime: moment.Moment, endTime: moment.Moment, ouOrStoreList: _definitions_IdTypeDto[] | undefined): Observable<ChartReportDto[]> {
+    getDeviceStatusChartReport(deviceId: number | undefined, startTime: moment.Moment, endTime: moment.Moment, ouOrStoreList: IdTypeDto[] | undefined): Observable<ChartReportDto[]> {
         let url_ = this.baseUrl + "/api/services/app/Report/GetDeviceStatusChartReport?";
         if (deviceId === null)
             throw new Error("The parameter 'deviceId' cannot be null.");
@@ -2297,12 +2247,8 @@ export class SensingDeviceServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    postSnapShotImage(cameraImage: FileParameter, body: PostCameraImageInput | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostSnapShotImage?";
-        if (cameraImage === undefined || cameraImage === null)
-            throw new Error("The parameter 'cameraImage' must be defined and cannot be null.");
-        else
-            url_ += "CameraImage=" + encodeURIComponent("" + cameraImage) + "&";
+    postSnapShotImage(body: PostCameraImageInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostSnapShotImage";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2358,12 +2304,8 @@ export class SensingDeviceServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    postHeatmapData(heatmapData: FileParameter, body: PostHeatmapDataInput | undefined): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostHeatmapData?";
-        if (heatmapData === undefined || heatmapData === null)
-            throw new Error("The parameter 'heatmapData' must be defined and cannot be null.");
-        else
-            url_ += "HeatmapData=" + encodeURIComponent("" + heatmapData) + "&";
+    postHeatmapData(body: PostHeatmapDataInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/PostHeatmapData";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2825,53 +2767,6 @@ export class SensingDeviceServiceProxy {
     }
 }
 
-export enum _definitions_EnumOptStatus {
-    Undo = 0,
-    Processing = 1,
-    Completed = 2,
-    InPlan = 3,
-}
-
-export class _definitions_IdTypeDto implements I_definitions_IdTypeDto {
-    id!: number;
-    type!: string | undefined;
-
-    constructor(data?: I_definitions_IdTypeDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.type = _data["type"];
-        }
-    }
-
-    static fromJS(data: any): _definitions_IdTypeDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new _definitions_IdTypeDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["type"] = this.type;
-        return data; 
-    }
-}
-
-export interface I_definitions_IdTypeDto {
-    id: number;
-    type: string | undefined;
-}
-
 export class AddDeviceOptRecordInput implements IAddDeviceOptRecordInput {
     deviceId!: number;
     deviceName!: string | undefined;
@@ -2882,7 +2777,7 @@ export class AddDeviceOptRecordInput implements IAddDeviceOptRecordInput {
     totalMinutes!: number;
     tenantId!: number;
     organizationUnitId!: number | undefined;
-    optStatus!: _definitions_EnumOptStatus;
+    optStatus!: EnumOptStatus;
     operator!: string;
 
     constructor(data?: IAddDeviceOptRecordInput) {
@@ -2944,7 +2839,7 @@ export interface IAddDeviceOptRecordInput {
     totalMinutes: number;
     tenantId: number;
     organizationUnitId: number | undefined;
-    optStatus: _definitions_EnumOptStatus;
+    optStatus: EnumOptStatus;
     operator: string;
 }
 
@@ -3560,7 +3455,7 @@ export class DeviceOptDto implements IDeviceOptDto {
     question!: string | undefined;
     action!: string | undefined;
     totalMinutes!: number;
-    optStatus!: _definitions_EnumOptStatus;
+    optStatus!: EnumOptStatus;
     operator!: string | undefined;
     creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
@@ -3649,7 +3544,7 @@ export interface IDeviceOptDto {
     question: string | undefined;
     action: string | undefined;
     totalMinutes: number;
-    optStatus: _definitions_EnumOptStatus;
+    optStatus: EnumOptStatus;
     operator: string | undefined;
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
@@ -3852,7 +3747,7 @@ export class DevieStatusChartReportInput implements IDevieStatusChartReportInput
     deviceId!: number | undefined;
     startTime!: moment.Moment;
     endTime!: moment.Moment;
-    ouOrStoreList!: _definitions_IdTypeDto[] | undefined;
+    ouOrStoreList!: IdTypeDto[] | undefined;
 
     constructor(data?: IDevieStatusChartReportInput) {
         if (data) {
@@ -3871,7 +3766,7 @@ export class DevieStatusChartReportInput implements IDevieStatusChartReportInput
             if (Array.isArray(_data["ouOrStoreList"])) {
                 this.ouOrStoreList = [] as any;
                 for (let item of _data["ouOrStoreList"])
-                    this.ouOrStoreList!.push(_definitions_IdTypeDto.fromJS(item));
+                    this.ouOrStoreList!.push(IdTypeDto.fromJS(item));
             }
         }
     }
@@ -3901,7 +3796,14 @@ export interface IDevieStatusChartReportInput {
     deviceId: number | undefined;
     startTime: moment.Moment;
     endTime: moment.Moment;
-    ouOrStoreList: _definitions_IdTypeDto[] | undefined;
+    ouOrStoreList: IdTypeDto[] | undefined;
+}
+
+export enum EnumOptStatus {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
 }
 
 export class FaceBehaviorInput implements IFaceBehaviorInput {
@@ -4104,7 +4006,7 @@ export class GetDeviceActionsChartReportInput implements IGetDeviceActionsChartR
     deviceId!: number | undefined;
     startTime!: moment.Moment;
     endTime!: moment.Moment;
-    ouOrStoreList!: _definitions_IdTypeDto[] | undefined;
+    ouOrStoreList!: IdTypeDto[] | undefined;
 
     constructor(data?: IGetDeviceActionsChartReportInput) {
         if (data) {
@@ -4123,7 +4025,7 @@ export class GetDeviceActionsChartReportInput implements IGetDeviceActionsChartR
             if (Array.isArray(_data["ouOrStoreList"])) {
                 this.ouOrStoreList = [] as any;
                 for (let item of _data["ouOrStoreList"])
-                    this.ouOrStoreList!.push(_definitions_IdTypeDto.fromJS(item));
+                    this.ouOrStoreList!.push(IdTypeDto.fromJS(item));
             }
         }
     }
@@ -4153,7 +4055,91 @@ export interface IGetDeviceActionsChartReportInput {
     deviceId: number | undefined;
     startTime: moment.Moment;
     endTime: moment.Moment;
-    ouOrStoreList: _definitions_IdTypeDto[] | undefined;
+    ouOrStoreList: IdTypeDto[] | undefined;
+}
+
+export class GetDeviceOptInput implements IGetDeviceOptInput {
+    deviceId!: number | undefined;
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
+    optStatus!: EnumOptStatus[] | undefined;
+    tenantId!: number | undefined;
+    categoryId!: number | undefined;
+    optKnowledgeId!: number | undefined;
+    filter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetDeviceOptInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deviceId = _data["deviceId"];
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+            if (Array.isArray(_data["optStatus"])) {
+                this.optStatus = [] as any;
+                for (let item of _data["optStatus"])
+                    this.optStatus!.push(item);
+            }
+            this.tenantId = _data["tenantId"];
+            this.categoryId = _data["categoryId"];
+            this.optKnowledgeId = _data["optKnowledgeId"];
+            this.filter = _data["filter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetDeviceOptInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDeviceOptInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deviceId"] = this.deviceId;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        if (Array.isArray(this.optStatus)) {
+            data["optStatus"] = [];
+            for (let item of this.optStatus)
+                data["optStatus"].push(item);
+        }
+        data["tenantId"] = this.tenantId;
+        data["categoryId"] = this.categoryId;
+        data["optKnowledgeId"] = this.optKnowledgeId;
+        data["filter"] = this.filter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetDeviceOptInput {
+    deviceId: number | undefined;
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
+    optStatus: EnumOptStatus[] | undefined;
+    tenantId: number | undefined;
+    categoryId: number | undefined;
+    optKnowledgeId: number | undefined;
+    filter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
 }
 
 export class GetFaceRecordsInput implements IGetFaceRecordsInput {
@@ -4218,6 +4204,46 @@ export interface IGetFaceRecordsInput {
     sorting: string | undefined;
     maxResultCount: number;
     skipCount: number;
+}
+
+export class IdTypeDto implements IIdTypeDto {
+    id!: number;
+    type!: string | undefined;
+
+    constructor(data?: IIdTypeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.type = _data["type"];
+        }
+    }
+
+    static fromJS(data: any): IdTypeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new IdTypeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["type"] = this.type;
+        return data; 
+    }
+}
+
+export interface IIdTypeDto {
+    id: number;
+    type: string | undefined;
 }
 
 export class Int64TreeDto implements IInt64TreeDto {
@@ -4757,7 +4783,7 @@ export class RankInput implements IRankInput {
     endTime!: moment.Moment;
     top!: number;
     action!: string | undefined;
-    ouOrStoreList!: _definitions_IdTypeDto[] | undefined;
+    ouOrStoreList!: IdTypeDto[] | undefined;
     category!: string[] | undefined;
     brandId!: number | undefined;
 
@@ -4779,7 +4805,7 @@ export class RankInput implements IRankInput {
             if (Array.isArray(_data["ouOrStoreList"])) {
                 this.ouOrStoreList = [] as any;
                 for (let item of _data["ouOrStoreList"])
-                    this.ouOrStoreList!.push(_definitions_IdTypeDto.fromJS(item));
+                    this.ouOrStoreList!.push(IdTypeDto.fromJS(item));
             }
             if (Array.isArray(_data["category"])) {
                 this.category = [] as any;
@@ -4823,7 +4849,7 @@ export interface IRankInput {
     endTime: moment.Moment;
     top: number;
     action: string | undefined;
-    ouOrStoreList: _definitions_IdTypeDto[] | undefined;
+    ouOrStoreList: IdTypeDto[] | undefined;
     category: string[] | undefined;
     brandId: number | undefined;
 }
@@ -4839,7 +4865,7 @@ export class UpdateDeviceOptRecordInput implements IUpdateDeviceOptRecordInput {
     totalMinutes!: number;
     tenantId!: number;
     organizationUnitId!: number | undefined;
-    optStatus!: _definitions_EnumOptStatus;
+    optStatus!: EnumOptStatus;
     operator!: string;
 
     constructor(data?: IUpdateDeviceOptRecordInput) {
@@ -4904,7 +4930,7 @@ export interface IUpdateDeviceOptRecordInput {
     totalMinutes: number;
     tenantId: number;
     organizationUnitId: number | undefined;
-    optStatus: _definitions_EnumOptStatus;
+    optStatus: EnumOptStatus;
     operator: string;
 }
 
@@ -5010,11 +5036,6 @@ export interface IUpdateQuestionCategoryInput {
     code: string | undefined;
     name: string;
     parentCategoryId: number | undefined;
-}
-
-export interface FileParameter {
-    data: any;
-    fileName: string;
 }
 
 export class ApiException extends Error {

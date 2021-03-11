@@ -19,11 +19,16 @@
                 <div class="col-6" style="position:relative;">
                     <div class="freeze-ui" style="position:absolute;" *ngIf="treeBusy"></div>
                     <div class="card card-custom gutter-b">
-                        <div class="card-body" style="padding-top: 1rem;">
-                            <div style="width:100%;">
-                                <button (click)="addRootCate()" class="btn btn-primary" style="float:right;">
+                        <div class="card-header">
+                            <h5 class="text-align-right mt-4">
+                                <button (click)="addRootCate()" class="btn btn-primary" >
                                     <i class="fa fa-plus"></i> {{l("AddRootCategory")}}
                                 </button>
+                            </h5>
+                        </div>
+                        <div class="card-body" style="padding-top: 1rem;">
+                            <div style="width:100%;">
+                                
                                 <div *ngIf="type=='questionType'" style="margin:0 1rem;float:right;">
                                     <div class="form-group m-form__group align-items-center">
                                         <div class="input-group">

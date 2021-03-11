@@ -181,8 +181,8 @@ export class AppNavigationService {
 
             //PageStatistics
             new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '', [], [
-                new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '/app/user/application'),
-                new AppMenuItem('MessageRecord', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/user/messageRecord'),
+                new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '/app/admin/user/application'),
+                new AppMenuItem('MessageRecord', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/messageRecord'),
             ]),
 
             // IndependentDeployment

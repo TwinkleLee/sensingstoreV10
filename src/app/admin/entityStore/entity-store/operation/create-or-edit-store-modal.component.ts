@@ -17,7 +17,7 @@ import { StoreServiceProxy as NewStoreServiceProxy,  CreateStoreInput, UpdateSto
 })
 export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
-    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
+    @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
     @ViewChild('organizationUnitDisplayName', { static: true }) organizationUnitDisplayNameInput: ElementRef;
     @ViewChild('map', { static: false }) map: MyMapComponent;
     @Output() modalSave: EventEmitter<any> = new EventEmitter();
@@ -32,7 +32,8 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
     openingTime: string = "07:00";
     closedTime: string = "23:00";
     organizationUnit: any = {
-        'position': {}
+        'position': {},
+        'storeId': ''
     };
     _oldPosition: string = "";
     TypeIdStore;
@@ -100,6 +101,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     show(organizationUnit?: any): void {
         this.rooms = [];
+
         if (organizationUnit) {
             this.showBusy = true;
             this._NewStoreServiceProxy.getStoreById(organizationUnit.storeId).subscribe((r) => {
