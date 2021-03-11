@@ -21,7 +21,6 @@ import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-prox
 export class MyDashboardComponent extends AppComponentBase implements AfterViewInit {
 
     @ViewChild("deviceChartDiv", { static: false }) deviceChartDiv: ChartsComponent;
-    // @ViewChild('highTree') highTree;
     @ViewChild("clickDateranger", { static: false }) dateranger: DateRangePickerComponent;
 
 
@@ -29,8 +28,6 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
     realStartTime: any = moment().utc().subtract(365, 'days').startOf('day');
     realEndTime: any = moment().utc().endOf('day');
 
-    // chosenItem = [];
-    // storeList = [];
     dashboardList = [];
     deviceList = [];
 
@@ -76,11 +73,6 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         ).subscribe(r => {
             console.log(r);
             this.dashboardList = r.items;
-            // if (this.dashboardList.length) {
-            //     this.nowDashboardId = this.dashboardList[0].id;
-            //     this.changeDashboard();
-            // }
-
         })
         this._NewDeviceServiceProxy.getDevices(
             [],
@@ -424,7 +416,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
 
     ngAfterViewInit(): void {
-        // this.refreshAll();
+        
     }
 
 
