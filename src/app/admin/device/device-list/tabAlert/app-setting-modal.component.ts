@@ -1,6 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { SoftwareServiceProxy, UpdateDeviceSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { SoftwareServiceProxy, UpdateDeviceSoftwareInput, DeviceSoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';
@@ -21,7 +22,8 @@ export class AppSettingModalComponent extends AppComponentBase {
     dispatchedId: any;
     name: any;
     constructor(injecor: Injector, private _appService:SoftwareServiceProxy,
-                private _tokenService:TokenService) {
+                private _tokenService:TokenService,
+                private _DeviceSoftwareServiceProxy: DeviceSoftwareServiceProxy) {
         super(injecor);
     }
 
@@ -30,7 +32,7 @@ export class AppSettingModalComponent extends AppComponentBase {
             return
         }
         this.saving = true;
-        this._appService.updateDeviceSoftware(this.settings).pipe(finalize(() => {
+        this._DeviceSoftwareServiceProxy.updateDeviceSoftware(this.settings).pipe(finalize(() => {
             this.saving = false;
         })).subscribe((result)=>{
             this.notify.info(this.l('success'));

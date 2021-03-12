@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { AdServiceProxy, AddOrUpdateAdSchedulingInput, PublishContentToAdScheduling } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, AddOrUpdateAdSchedulingInput, PublishContentToAdScheduling } from '@shared/service-proxies/service-proxies-ads';
 import * as moment from 'moment';
 
 import { Table } from 'primeng/table';

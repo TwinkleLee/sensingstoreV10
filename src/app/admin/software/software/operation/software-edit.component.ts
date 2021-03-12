@@ -6,7 +6,7 @@ import { Paginator } from 'primeng/paginator';
 import { AppConsts } from '@shared/AppConsts';
 import { Router } from '@angular/router';
 
-import { EnviormentEnum as CreateSoftwareInputEnvType, SoftwareType as CreateSoftwareInputType, SoftwareServiceProxy, UpdateSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { EnviormentEnum as CreateSoftwareInputEnvType, SoftwareType as CreateSoftwareInputType, SoftwareServiceProxy, UpdateSoftwareInput } from '@shared/service-proxies/service-proxies-ads';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { SoftwareAuthComponent } from '@app/admin/software/software/auth/software-auth.component';
 import { TokenService, RefreshTokenService } from 'abp-ng2-module';
@@ -66,7 +66,7 @@ export class SoftwareEditComponent extends AppComponentBase {
 
     //获取软件授权列表
     getAuthList(event?: LazyLoadEvent) {
-        this._appService.getSoftWareAuthList(
+        this._appService.getSoftwareAuthList(
             this.software.id,
             undefined,
             this.filterText,

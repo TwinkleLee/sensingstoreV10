@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { SoftwareServiceProxy, UpdateAuthorizeSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { SoftwareServiceProxy, UpdateAuthorizeSoftwareInput } from '@shared/service-proxies/service-proxies-ads';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';

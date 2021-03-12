@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, IdTypeDto, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, IdTypeDto, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies-ads';
 import { CreateOrEditAdModalComponent } from './create-or-edit-ad-modal.component'
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
@@ -11,6 +11,8 @@ import { Table, TableCheckbox } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { RobotServiceProxy } from '@shared/service-proxies/service-proxies-floor'
 import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+
+
 
 @Component({
   selector: 'app-advertisement',
@@ -347,7 +349,7 @@ export class AdvertisementComponent extends AppComponentBase {
         this.AdsPublishList = [];
         this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'), this.l('AreYouSure'),(r) => {
           if (r) {
-            this._adsService.publishAllToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._adsService.publishAdsToOrganizationOrDevicesOrStore(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;
@@ -357,7 +359,7 @@ export class AdvertisementComponent extends AppComponentBase {
       } else {
         this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'),this.l('AreYouSure'), (r) => {
           if (r) {
-            this._adsService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._adsService.publishAdsToOrganizationOrDevicesOrStore(input).subscribe((result) => {
               this.AdsPublishList = [];
               this.notify.info(this.l('success'));
               this.toPublish = false;

@@ -1,6 +1,10 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { MatchInfoDto,MatchInfoServiceProxy,CreateMatchInfoInput,UpdateMatchInfoInput, AdServiceProxy, AuditStatus, DeviceServiceProxy,AuditStatus as AuditStatus10 } from '@shared/service-proxies/service-proxies';
+import {  AdServiceProxy, AuditStatus, AuditStatus as AuditStatus10 } from '@shared/service-proxies/service-proxies-ads';
+
+// tag1
+import {MatchInfoDto,MatchInfoServiceProxy,CreateMatchInfoInput,UpdateMatchInfoInput, DeviceServiceProxy} from '@shared/service-proxies/service-proxies'
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';

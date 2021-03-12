@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { SoftwareServiceProxy, CreateSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { SoftwareServiceProxy, CreateSoftwareInput } from '@shared/service-proxies/service-proxies-ads';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';

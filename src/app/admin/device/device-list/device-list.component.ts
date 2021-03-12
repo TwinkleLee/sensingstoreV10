@@ -7,6 +7,7 @@ import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import { DeviceServiceProxy as NewDeviceServiceProxy, DeviceMirrorPublishInput, PublishDeviceInput, StoreServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+
 import { ApplyServiceProxy, ApplyWanted as CreateApplyFormInputWanted, AuditStatus as AuditStatus2, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Injectable()
@@ -647,6 +648,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     this.apply.itemids = ary ? ary : [];
     this.apply.reason = '';
     this.apply.wanted = f ? CreateApplyFormInputWanted.Online : CreateApplyFormInputWanted.Offline;
+    
     $("#review").show();
   }
 
@@ -663,6 +665,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   //上线设备
   online() {
     this.checkSelection(true, (ary) => {
+      console.log(ary);
       this.review(true, ary);
     })
   }

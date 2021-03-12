@@ -8,7 +8,11 @@ import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { NaireModalComponent } from '@app/admin/question/question/operation/naire-modal.component';
 import { PublishPapersToSoftwares, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { SoftwareServiceProxy, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+import { SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+
+import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+
+
 import { Router } from '@angular/router';
 
 @Component({

@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { ProductAlertModalComponent } from '@app/admin/device/device-list/tabAlert/product-selection-modal.component';
-import { AdServiceProxy, ProgramItem, AdOrAppItem, SchedulingContentInput, SchedulingContent, AddOrUpdateAdSchedulingInput, AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, ProgramItem, AdOrAppItem, SchedulingContentInput, SchedulingContent, AddOrUpdateAdSchedulingInput, AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 // 空 id0 type-1
@@ -451,7 +451,7 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
                     nowSelectedItem.children = result.items.reduce((total, currentValue) => {
                         total.push({
                             "id": currentValue.adId,
-                            "name": currentValue.ad.name,
+                            // "name": currentValue.ad.name,
                             "timeSpan": this.secondToTime(currentValue.playDuration),
                             "timeSpanNum": currentValue.playDuration,
                             "totalTimeSpanNum": currentValue.playDuration,

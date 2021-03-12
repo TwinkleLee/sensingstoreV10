@@ -1,6 +1,9 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { SoftwareServiceProxy, AuthorizeSoftwareInput, TenantServiceProxy, UpdateAuthorizeSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { SoftwareServiceProxy, AuthorizeSoftwareInput, UpdateAuthorizeSoftwareInput } from '@shared/service-proxies/service-proxies-ads';
+
+import { TenantServiceProxy } from '@shared/service-proxies/service-proxies'
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { Router } from '@angular/router';

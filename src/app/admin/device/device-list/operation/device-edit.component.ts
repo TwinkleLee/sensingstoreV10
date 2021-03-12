@@ -1,5 +1,8 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import { DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, IdTypeDto, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5, DeviceActionServiceProxy, AuditStatus as AuditStatus9, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies';
+import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5,  AuditStatus as AuditStatus9, DeviceAdsServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+
+import { ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType,DeviceActionServiceProxy,DeviceServiceProxy, ProductServiceProxy,CouponServiceProxy} from '@shared/service-proxies/service-proxies';
+
 import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -400,7 +403,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
         private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
         private _CounterReportServiceProxy: CounterReportServiceProxy,
-        private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy
+        private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy,
+        private _DeviceAdsServiceProxy: DeviceAdsServiceProxy,
 
     ) {
         super(injector);
@@ -1703,7 +1707,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     'informDevice': this.informDevice,
                     'type': 'publish'
                 });
-                this._adsService.publishToOrganizationOrDevicesOrStore(input)
+                // publishToOrganizationOrDevicesOrStore
+                this._adsService.publishAdsToOrganizationOrDevicesOrStore(input)
                     .subscribe((result) => {
                         this.notify.info(this.l('success'));
                         this.AdsSelectionList = [];
@@ -1742,7 +1747,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._adsService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._adsService.publishAdsToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.AdsSelectionList = [];
                 this.getAdsByDeviceId();
@@ -1784,7 +1789,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._adsService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._adsService.publishAdsToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.AdsSelectionList = [];
                 this.getAdsByDeviceId();
@@ -1853,7 +1858,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     'informDevice': this.informDevice,
                     'type': 'publish'
                 });
-                this._appService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+                this._appService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                     this.notify.info(this.l('success'));
                     this.SoftwareSelectionList = [];
                     this.getSoftwareByDeviceId();
@@ -1896,7 +1901,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._appService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._appService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.SoftwareSelectionList = [];
                 this.getSoftwareByDeviceId();
@@ -1940,7 +1945,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._appService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._appService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.SoftwareSelectionList = [];
                 this.getSoftwareByDeviceId();
@@ -2669,7 +2674,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     getDeviceSchedulings(event?) {
         this.pSchedule.showLoadingIndicator();
-        this._adsService.getDeviceSchedulings(
+        this._DeviceAdsServiceProxy.getDeviceSchedulings(
             this.device.id,
             this.ScheduleFilterText,
             this.pSchedule.getSorting(this.dataTableSchedule),
@@ -2691,7 +2696,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     scheduleOpenOrShut(record) {
         console.log(record);
-        this._adsService.openOrShutDeviceScheduling(
+        this._DeviceAdsServiceProxy.openOrShutDeviceScheduling(
             record.adSchedulingId,
             this.device.id,
             !record.isUse

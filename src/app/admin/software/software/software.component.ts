@@ -5,7 +5,8 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput, OrganizationUnitServiceProxy, ApplyServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies';
-import { SoftwareServiceProxy, SoftwareDto } from '@shared/service-proxies/service-proxies';
+
+import { SoftwareServiceProxy, SoftwareDto } from '@shared/service-proxies/service-proxies-ads';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table,TableCheckbox } from 'primeng/table';
 
@@ -155,9 +156,9 @@ export class SoftwareComponent extends AppComponentBase {
       this.AppPublishList = [];
 
       this.primengTableHelper.showLoadingIndicator();
-      this._softwareService.getSoftwares(
+      this._softwareService.getForTenantSoftwares(
         this.softwareType,
-        this.isShowToTenant,
+        // this.isShowToTenant,
         this.filterText,
         this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
         this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -271,7 +272,7 @@ export class SoftwareComponent extends AppComponentBase {
         'type':'publish'
       });
       if (this.operateAll) {
-        this._softwareService.publishAllToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+        this._softwareService.publishSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
           this.notify.info(this.l('success'));
           this.AppPublishList = [];
           this.tenantAppPublish = {};
@@ -279,7 +280,8 @@ export class SoftwareComponent extends AppComponentBase {
           this.operateAll = false;
         });
       } else {
-        this._softwareService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+        // publishToOrganizationOrDevicesOrStore
+        this._softwareService.publishSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
           this.notify.info(this.l('success'));
           this.AppPublishList = [];
           this.tenantAppPublish = {};

@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { SnsMsgBeforeGameDto, SnsMsgAfterGameDto, ActionShareDto, ActivityServiceProxy, ActivityGameSettingsInput, HtmlTemplateServiceProxy, TemplateEnum, DeviceActivityServiceProxy, CreateDeviceActivityGameInput, UpdateDeviceActivityGameInput, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
 
 import { ActivatedRoute } from '@angular/router';
-import {  SoftwareServiceProxy } from '@shared/service-proxies/service-proxies';
+import {  SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
 
 @Component({

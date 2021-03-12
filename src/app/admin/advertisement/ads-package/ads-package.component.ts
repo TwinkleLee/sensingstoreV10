@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditAdsPackageModalComponent } from '@app/admin/advertisement/ads-package/create-or-edit-ads-package-modal.component';
-import { AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 import { AppConsts } from '@shared/AppConsts';
 import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 

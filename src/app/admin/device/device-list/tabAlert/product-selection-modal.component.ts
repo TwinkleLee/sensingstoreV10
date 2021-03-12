@@ -6,8 +6,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { ActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { AdServiceProxy } from '@shared/service-proxies/service-proxies';
-import { AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
 @Component({
     selector: 'ProductAlertModal',

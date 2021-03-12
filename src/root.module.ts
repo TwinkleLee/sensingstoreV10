@@ -46,6 +46,7 @@ import { API_FLOOR_URL } from '@shared/service-proxies/service-proxies-floor';
 import { API_OKR_URL } from '@shared/service-proxies/service-proxies-okr';
 import { API_DEVICECENTER_URL } from '@shared/service-proxies/service-proxies-devicecenter';
 import { API_SMARTDEVICE_URL } from '@shared/service-proxies/service-proxies-smartdevice';
+import { API_ADS_URL } from '@shared/service-proxies/service-proxies-ads';
 
 
 
@@ -333,6 +334,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         { provide: API_OKR_URL, useFactory: getOKRServiceBaseUrl },
         { provide: API_DEVICECENTER_URL, useFactory:getDeviceCenterServiceBaseUrl  },
         { provide: API_SMARTDEVICE_URL, useFactory:getSmartDeviceServiceBaseUrl  },
+        { provide: API_ADS_URL, useFactory:getSmartDeviceServiceBaseUrl  },
         {
             provide: APP_INITIALIZER,
             useFactory: appInitializerFactory,

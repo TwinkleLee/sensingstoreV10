@@ -1,6 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, Input } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { AdServiceProxy, AddAdResourceFileInput, FileServiceProxy,} from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy, AddAdResourceFileInput} from '@shared/service-proxies/service-proxies-ads';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
@@ -28,7 +29,6 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
     constructor(
         injector: Injector,
         private _prodService: AdServiceProxy,
-        private _fileService: FileServiceProxy
     ) {
         super(injector);
     }

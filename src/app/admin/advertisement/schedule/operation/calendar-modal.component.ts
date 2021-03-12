@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { AdServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AdServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';

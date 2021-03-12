@@ -238,15 +238,18 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
 
+
+        
+        AdsServiceProxies.AdServiceProxy,
+        AdsServiceProxies.AdsPackageServiceProxy,
         AdsServiceProxies.SoftwareServiceProxy,
-        AdsServiceProxies.TagServiceProxy,
         AdsServiceProxies.DeviceAdsServiceProxy,
         AdsServiceProxies.DeviceSoftwareServiceProxy,
         AdsServiceProxies.ApplyServiceProxy,
         AdsServiceProxies.StoreAdsServiceProxy,
         AdsServiceProxies.StoreSoftwareServiceProxy,
-        AdsServiceProxies.AdsPackageServiceProxy,
-        AdsServiceProxies.AdServiceProxy,
+        AdsServiceProxies.TagServiceProxy,
+
 
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
