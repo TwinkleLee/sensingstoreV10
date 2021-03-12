@@ -55,11 +55,12 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
 
     show(objItem?: any): void {
         this.active = true;
+        console.log("objItem", objItem)
         if (objItem) {
             this.operation = "edit";
             this.objItem = objItem;
-            if (objItem.floor) {
-                this.buildingId = objItem.floor.buildingId;
+            if (objItem.buildingID) {
+                this.buildingId = objItem.buildingID;
             }
         } else {
             this.operation = "add";

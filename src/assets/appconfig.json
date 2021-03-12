@@ -13,7 +13,7 @@
   "//remoteSYNCServiceUrl": "https://sync.api.troncell.com",
   "//remotePaperServiceUrl": "https://p.api.troncell.com",
   "///remoteUserServiceUrl": "https://u.api.troncell.com",
-  "//remoteFloorServiceUrl": "https://floor.api.troncell.com",
+  "remoteFloorServiceUrl": "http://119.3.154.130:8007",
   "//remoteOKRServiceUrl": "https://okr.api.troncell.com",
   "remoteAdserviceUrl": "http://119.3.154.130:8003",
   "localeMappings": {
