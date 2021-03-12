@@ -411,6 +411,7 @@ export class EntityStoreComponent extends AppComponentBase {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;
+              this.getStoreList();
             });
         }
       });
@@ -426,6 +427,7 @@ export class EntityStoreComponent extends AppComponentBase {
               this.storeCheckedList = [];
               this.toPublish = false;
               this.operateAll = false;
+              this.getStoreList();
             });
         }
       });
