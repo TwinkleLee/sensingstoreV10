@@ -27,11 +27,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { from } from 'rxjs';
 // 软件
-// import { CreateAppModalComponent } from '@app/software/software/create-app-modal.component';
+import { CreateAppModalComponent } from '@app/admin/software/software/create-app-modal.component';
 import { SoftwareComponent } from '@app/admin/software/software/software.component';
-// import { SoftwareEditComponent } from '@app/software/software/operation/software-edit.component';
-// import { SoftwareSettingModalComponent } from '@app/software/software/operation/software-setting-modal.component';
-// import { SoftwareAuthComponent } from '@app/software/software/auth/software-auth.component';
+import { SoftwareEditComponent } from '@app/admin/software/software/operation/software-edit.component';
+import { SoftwareSettingModalComponent } from '@app/admin/software/software/operation/software-setting-modal.component';
+import { SoftwareAuthComponent } from '@app/admin/software/software/auth/software-auth.component';
 
 import { ConnectorService } from '@app/shared/services/connector.service';
 
@@ -64,10 +64,10 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
     ],
     declarations: [
         SoftwareComponent,
-        // CreateAppModalComponent,
-        // SoftwareEditComponent,
-        // SoftwareSettingModalComponent,
-        // SoftwareAuthComponent,
+        CreateAppModalComponent,
+        SoftwareEditComponent,
+        SoftwareSettingModalComponent,
+        SoftwareAuthComponent,
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

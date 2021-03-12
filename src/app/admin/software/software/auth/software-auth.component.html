@@ -1,5 +1,5 @@
 <div bsModal #createAppModal="bs-modal" (onShown)="onShown()" aria-labelledby="createAppModal" class="modal fade" tabindex="-1"
-    role="dialog" aria-hidden="true">
+    role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #softwareAuthForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
@@ -8,13 +8,13 @@
                         <span *ngIf="!isUpdate">{{l("addAppAuth")}}</span>
                         <span *ngIf="isUpdate">{{l("updateAppAuth")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close()">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
+                        <tab heading="{{l('BaseMsg')}}" class="pt-5" customClass="kt-tabs__item">
                             <div class="form-group">
                                 <label>{{l("authApp")}}*</label>
                                 <select #appInput="ngModel" [disabled]="isquick||isUpdate" class="form-control" type="text" name="softwareId" [(ngModel)]="auth.softwareId"

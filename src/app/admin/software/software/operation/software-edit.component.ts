@@ -1,16 +1,17 @@
-import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
-import { EnviormentEnum as CreateSoftwareInputEnvType, SoftwareType as CreateSoftwareInputType, SoftwareServiceProxy, UpdateSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { Component, OnInit, Injector, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { AppConsts } from '@shared/AppConsts';
-import { ConnectorService } from '@app/shared/services/connector.service';
 import { Router } from '@angular/router';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
-import { SoftwareAuthComponent } from '@app/software/software/auth/software-auth.component';
-import { Table } from 'primeng/components/table/table';
-import { TokenService } from '@abp/auth/token.service';
+
+import { EnviormentEnum as CreateSoftwareInputEnvType, SoftwareType as CreateSoftwareInputType, SoftwareServiceProxy, UpdateSoftwareInput } from '@shared/service-proxies/service-proxies';
+import { ConnectorService } from '@app/shared/services/connector.service';
+import { SoftwareAuthComponent } from '@app/admin/software/software/auth/software-auth.component';
+import { TokenService, RefreshTokenService } from 'abp-ng2-module';
 import { finalize } from 'rxjs/operators';
+
 
 @Component({
     selector: 'SoftwareEdit',

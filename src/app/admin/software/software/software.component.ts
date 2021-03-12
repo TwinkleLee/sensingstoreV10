@@ -12,10 +12,10 @@ import { Table,TableCheckbox } from 'primeng/table';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-// import { CreateAppModalComponent } from '@app/admin/software/software/create-app-modal.component';
-// import { ConnectorService } from '@app/shared/services/connector.service';
-// import { SoftwareAuthComponent } from '@app/software/software/auth/software-auth.component';
-// import { SoftwareSettingModalComponent } from '@app/software/software/operation/software-setting-modal.component';
+import { CreateAppModalComponent } from '@app/admin/software/software/create-app-modal.component';
+import { ConnectorService } from '@app/shared/services/connector.service';
+import { SoftwareAuthComponent } from '@app/admin/software/software/auth/software-auth.component';
+import { SoftwareSettingModalComponent } from '@app/admin/software/software/operation/software-setting-modal.component';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
@@ -27,8 +27,8 @@ import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-prox
   animations: [appModuleAnimation()]
 })
 export class SoftwareComponent extends AppComponentBase {
-  // @ViewChild('createAppModal', { static: true }) createAppModal: CreateAppModalComponent;
-  // @ViewChild('softwareSettingModal', { static: true }) softwareSettingModal: SoftwareSettingModalComponent;
+  @ViewChild('createAppModal', { static: true }) createAppModal: CreateAppModalComponent;
+  @ViewChild('softwareSettingModal', { static: true }) softwareSettingModal: SoftwareSettingModalComponent;
   // @ViewChild('editUserPermissionsModal') editPerPermissionsModal: EditPerPermissionsModalComponent;
   //host or tenant
   @ViewChild('dataTable', { static: false }) dataTable: Table;

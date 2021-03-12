@@ -272,6 +272,10 @@ export function getSmartDeviceServiceBaseUrl(): string {
     return AppConsts.remoteSmartDeviceUrl;
 }
 
+export function getAdsDeviceServiceBaseUrl(): string {
+    return AppConsts.remoteAdsDeviceUrl;
+}
+
 // end
 
 export function getCurrentLanguage(): string {

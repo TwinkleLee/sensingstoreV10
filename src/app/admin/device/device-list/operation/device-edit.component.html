@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
 
-                        <tabset class="tab-container tabbable-line">
+                        <tabset>
                             <tab heading="{{l('BaseMsg')}}" class="pt-5" customClass="m-tabs__item icon-artboard13"
                                 style="position: relative;" *ngIf="checkAbility('BaseMsg')">
                                 <form style="width: 100%" novalidate="" #deviceInfooperationForm="ngForm">
@@ -338,7 +338,7 @@
                                     </div>
                                 </form>
                             </tab>
-                            <tab heading="{{l('Advertisement')}}" customClass="m-tabs__item icon-guanggao"
+                            <tab heading="{{l('Advertisement')}}" class="pt-5" customClass="m-tabs__item icon-guanggao"
                                 *ngIf="checkAbility('Advertisement')&&isGranted('Pages.Tenant.Ads')&&appSession.tenant"
                                 (selectTab)="getAdsByDeviceId($event)">
                                 <div class="row align-items-center">
@@ -393,7 +393,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Apps')}}" customClass="m-tabs__item icon-yingyong"
+                            <tab heading="{{l('Apps')}}" class="pt-5" customClass="m-tabs__item icon-yingyong"
                                 *ngIf="checkAbility('Apps')&&isGranted('Pages.Softwares')&&appSession.tenant"
                                 (selectTab)="getSoftwareByDeviceId()">
                                 <div class="row align-items-center">
@@ -450,7 +450,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Product')}}" [active]="initTab=='product'"
+                            <tab heading="{{l('Product')}}" class="pt-5" [active]="initTab=='product'"
                                 customClass="m-tabs__item icon-product"
                                 *ngIf="checkAbility('Product')&&isGranted('Pages.Tenant.Products')&&appSession.tenant"
                                 (selectTab)="getProductByDeviceId()">
@@ -508,7 +508,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Coupon')}}" customClass="m-tabs__item icon-hongbao"
+                            <tab heading="{{l('Coupon')}}" class="pt-5" customClass="m-tabs__item icon-hongbao"
                                 *ngIf="checkAbility('Coupon')&&isGranted('Pages.Tenant.Coupons')&&appSession.tenant"
                                 (selectTab)="getCouponByDeviceId()">
                                 <div class="row align-items-center">
@@ -643,7 +643,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Activities')}}" [active]="initTab=='activity'"
+                            <tab heading="{{l('Activities')}}" class="pt-5" [active]="initTab=='activity'"
                                 customClass="m-tabs__item icon-huodong"
                                 *ngIf="checkAbility('Activities')&&isGranted('Pages.Tenant.Activities')"
                                 (selectTab)="getActivityByDeviceId()">
@@ -771,7 +771,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Control')}}" customClass="m-tabs__item icon-kongzhi"
+                            <tab heading="{{l('Control')}}" class="pt-5" customClass="m-tabs__item icon-kongzhi"
                                 *ngIf="checkAbility('Control')&&isGranted('Pages.Tenant.Devices.Control')"
                                 (selectTab)="selectControl()">
                                 <div class="row">
@@ -1018,7 +1018,7 @@
                                 </div>
 
                             </tab>
-                            <tab heading="{{l('thirdPartyMsg')}}" customClass="m-tabs__item icon-disanfangdanbao"
+                            <tab heading="{{l('thirdPartyMsg')}}" class="pt-5" customClass="m-tabs__item icon-disanfangdanbao"
                                 *ngIf="checkAbility('thirdPartyMsg')" (selectTab)="getTokenIdList()">
                                 <div class="row" *ngIf="!device.extraDeviceId">
                                     <div class="col-12 text-right">
@@ -1065,9 +1065,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab *ngIf="checkAbility('Statistics')&&notHost" heading="{{l('Statistics')}}"
-                                customClass="m-tabs__item icon-shuju" (selectTab)="draw()">
-
+                            <tab heading="{{l('Statistics')}}" *ngIf="checkAbility('Statistics')&&notHost" class="pt-5" customClass="m-tabs__item icon-shuju" (selectTab)="draw()">
                                 <div class="m-portlet" origin [busyIf]="dashboardsCount!=5">
                                     <div class="m-portlet__body  m-portlet__body--no-padding">
                                         <div class="row m-row--no-padding m-row--col-separator-xl">
@@ -1328,7 +1326,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('cargoManagement')}}" (selectTab)="getSingleShelf()"
+                            <tab heading="{{l('cargoManagement')}}" class="pt-5" (selectTab)="getSingleShelf()"
                                 customClass="m-tabs__item icon-shangpinliebiao"
                                 *ngIf="checkAbility('cargoManagement')">
                                 <tabset class="tab-container tabbable-line">
@@ -1828,7 +1826,7 @@
                                     </tab>
                                 </tabset>
                             </tab>
-                            <tab *ngIf="checkAbility('MaintainRecord')&&!notHost" heading="{{l('MaintainRecord')}}"
+                            <tab heading="{{l('MaintainRecord')}}" *ngIf="checkAbility('MaintainRecord')&&!notHost" class="pt-5" 
                                 customClass="m-tabs__item icon-houtaiweihu" (selectTab)="getRecordList()">
 
                                 <div class="row">
@@ -2006,7 +2004,7 @@
                                 </div>
 
                             </tab>
-                            <tab heading="{{l('FaceData')}}" customClass="m-tabs__item icon-yonghu"
+                            <tab heading="{{l('FaceData')}}" class="pt-5" customClass="m-tabs__item icon-yonghu"
                                 *ngIf="checkAbility('FaceData')&&hasCamera" (selectTab)="getFaceByDeviceId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -2131,7 +2129,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('childDevice')}}" customClass="m-tabs__item icon-zuzhijigou"
+                            <tab heading="{{l('childDevice')}}" class="pt-5" customClass="m-tabs__item icon-zuzhijigou"
                                 *ngIf="checkAbility('childDevice')" (selectTab)="GetDevicesByGatewayId()">
 
                                 <div class="row align-items-center">
@@ -2218,7 +2216,7 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('counter')}}" customClass="m-tabs__item icon-shangpinliebiao"
+                            <tab heading="{{l('counter')}}" class="pt-5" customClass="m-tabs__item icon-shangpinliebiao"
                                 *ngIf="checkAbility('counter')" (selectTab)="getCounterDate()">
                                 <div class="row align-items-center">
                                     <div class="col-12">
@@ -2404,8 +2402,7 @@
 
                                 </div>
                             </tab>
-
-                            <tab heading="{{l('Scheduling')}}" customClass="m-tabs__item icon-yemian"
+                            <tab heading="{{l('Scheduling')}}" class="pt-5" customClass="m-tabs__item icon-yemian"
                                 *ngIf="checkAbility('Scheduling')" (selectTab)="getDeviceSchedulings()">
 
                                 <div class="row align-items-center">

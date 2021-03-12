@@ -1,39 +1,25 @@
 <div>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <i class="icon-fanhui text-info" (click)="back()"></i>
-                    <h3 class="kt-subheader__title">
-                        <span>{{"SoftwareEdit" | localize}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{software?.id+' | '+software?.name}}
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'SoftwareEdit' | localize" [description]="software?.id+' | '+software?.name">
+            <div action="back"><i class="icon-fanhui text-info" (click)="back()"></i></div>
+            <div role="actions"></div>
+        </sub-header>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <div class="kt-portlet__body">
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null">
+                        <tab class="pt-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null">
                             <form #baseForm="ngForm" novalidate name="AppsForm" (ngSubmit)="save()" autocomplete="off">
                                 <div class="form-row">
                                     <div class="col-4">
-                                        <div class="form-group kt-form__group">
+                                        <div class="form-group m-form__group">
                                             <label class="control-label">{{l("Picture")}}</label>
                                             <app-fileupload [fileUrl]="software.largeImageUrl"
                                                 (onUpLoadEvent)="onUploadPic($event)"
                                                 (onBeforeSendEvent)="onBeforeSend($event)"></app-fileupload>
                                         </div>
-                                        <div class="form-group kt-form__group">
+                                        <div class="form-group m-form__group">
                                             <label class="control-label">{{l("icon")}}</label>
                                             <app-fileupload [fileUrl]="software.logoUrl"
                                                 (onUpLoadEvent)="onUploadIcon($event)"
@@ -187,18 +173,18 @@
                                 </div>
                             </form>
                         </tab>
-                        <tab heading="{{l('AuthList')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null"
+                        <tab class="pt-5" heading="{{l('AuthList')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null"
                             (selectTab)="getAuthList()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                    <div class="kt-form kt-form--label-align-right">
-                                        <div class="row align-items-center m--margin-bottom-10">
+                                    <div class="m-form">
+                                        <div class="row align-items-center mb-4">
                                             <div class="col-4">
-                                                <div class="form-group kt-form__group align-items-center">
+                                                <div class="form-group m-form__group align-items-center">
                                                     <div class="input-group">
                                                         <input [(ngModel)]="filterText" name="filterText"
                                                             (keyup.enter)="getAuthList()" autoFocus
-                                                            class="form-control kt-input" [placeholder]="l('name')"
+                                                            class="form-control m-input" [placeholder]="l('name')"
                                                             type="text">
                                                         <span class="input-group-btn">
                                                             <button (click)="getAuthList()" class="btn btn-primary"

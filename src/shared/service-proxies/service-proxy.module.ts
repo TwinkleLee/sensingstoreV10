@@ -20,6 +20,7 @@ import * as OKRServiceProxies from './service-proxies-okr';//okr
 
 import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//device center
 import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对应原e站点(cargo)
+import * as AdsServiceProxies from './service-proxies-ads';//ads
 
 @NgModule({
     providers: [
@@ -216,7 +217,7 @@ import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对
 
 
 
-        //2021 新版本 device center
+        //2021 新版本 device center ads
         DEVICECENTERServiceProxies.StoreServiceProxy,
         DEVICECENTERServiceProxies.OrganizationUnitServiceProxy,
         DEVICECENTERServiceProxies.DeviceServiceProxy,
@@ -236,6 +237,17 @@ import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对
         SMARTDEVICEServiceProxies.AppPodServiceProxy,
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
+
+        AdsServiceProxies.SoftwareServiceProxy,
+        AdsServiceProxies.TagServiceProxy,
+        AdsServiceProxies.DeviceAdsServiceProxy,
+        AdsServiceProxies.DeviceSoftwareServiceProxy,
+        AdsServiceProxies.ApplyServiceProxy,
+        AdsServiceProxies.StoreAdsServiceProxy,
+        AdsServiceProxies.StoreSoftwareServiceProxy,
+        AdsServiceProxies.AdsPackageServiceProxy,
+        AdsServiceProxies.AdServiceProxy,
+
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: AbpHttpConfigurationService, useClass: ZeroTemplateHttpConfigurationService },

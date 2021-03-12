@@ -1,13 +1,13 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { SoftwareServiceProxy, UpdateAuthorizeSoftwareInput } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
-import { LazyLoadEvent } from 'primeng/primeng';
-import { Paginator } from 'primeng/components/paginator/paginator';
-import { TokenService } from '@abp/auth/token.service';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { TokenService } from 'abp-ng2-module';
 import { finalize } from 'rxjs/operators';
-import { Table } from 'primeng/components/table/table';
+import { Table } from 'primeng/table';
 import { PaperServiceProxy, PublishPapersToSoftwares } from '@shared/service-proxies/service-proxies5';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
