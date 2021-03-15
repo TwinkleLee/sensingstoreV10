@@ -59,7 +59,8 @@ export class AdvertisementComponent extends AppComponentBase {
   isCreateDefaultSchedule = false;
   informDevice = false;
 
-  constructor(injector: Injector, private _adsService: AdServiceProxy,
+  constructor(injector: Injector, 
+    private _adsService: AdServiceProxy,
     private _NewDeviceServiceProxy: NewDeviceServiceProxy,
     private router: Router,
     private applyService: ApplyServiceProxy,

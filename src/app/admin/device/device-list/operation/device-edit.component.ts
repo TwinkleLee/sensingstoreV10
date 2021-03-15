@@ -409,6 +409,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     ) {
         super(injector);
         this.initMessage();
+    console.log("Statistics",this.l("Statistics"))
     }
 
     // 计数器标签设置

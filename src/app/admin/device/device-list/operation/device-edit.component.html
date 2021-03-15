@@ -1065,7 +1065,8 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="{{l('Statistics')}}" *ngIf="checkAbility('Statistics')&&notHost" class="pt-5" customClass="m-tabs__item icon-shuju" (selectTab)="draw()">
+                            <!-- *ngIf="checkAbility('Statistics')&&notHost" -->
+                            <tab heading="{{l('Statistics')}}" *ngIf="checkAbility('Statistics')&&notHost"  class="pt-5" customClass="m-tabs__item icon-shuju" (selectTab)="draw()">
                                 <div class="m-portlet" origin [busyIf]="dashboardsCount!=5">
                                     <div class="m-portlet__body  m-portlet__body--no-padding">
                                         <div class="row m-row--no-padding m-row--col-separator-xl">

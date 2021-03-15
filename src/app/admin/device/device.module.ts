@@ -49,6 +49,7 @@ import {ActivityModule} from '@app/admin/activity/activity.module'
 
 
 import { ConnectorService } from '@app/shared/services/connector.service';
+import { MachineService } from '@app/shared/services/machine.service';
 
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
 import {AppSharedModule} from '@app/shared/app-shared.module';
@@ -108,7 +109,8 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
         { provide: BsDaterangepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDaterangepickerConfig },
         { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale },
-        ConnectorService
+        ConnectorService,
+        MachineService
     ]
 })
 export class DeviceModule { }

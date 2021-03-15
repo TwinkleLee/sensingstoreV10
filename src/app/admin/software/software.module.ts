@@ -65,6 +65,7 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
     declarations: [
         SoftwareComponent,
         CreateAppModalComponent,
+        
         SoftwareEditComponent,
         SoftwareSettingModalComponent,
         SoftwareAuthComponent,
