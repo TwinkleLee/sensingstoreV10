@@ -117,7 +117,7 @@ export class AppPreBootstrap {
 
             AppConsts.remoteDeviceCenterUrl = result.remoteDeviceCenterUrl;
             AppConsts.remoteSmartDeviceUrl = result.remoteSmartDeviceUrl;
-            AppConsts.remoteAdsDeviceUrl = result.remoteAdsDeviceUrl;
+            AppConsts.remoteAdserviceUrl = result.remoteAdserviceUrl;
             // V3 for ecovacs or yayi
             AppConsts.deploymentList = result.deploymentList;
             AppConsts.customTheme = result.customTheme || '';

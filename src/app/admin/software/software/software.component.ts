@@ -4,9 +4,11 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { TenantServiceProxy, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput, OrganizationUnitServiceProxy, ApplyServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies';
+import { TenantServiceProxy,  OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 
-import { SoftwareServiceProxy, SoftwareDto } from '@shared/service-proxies/service-proxies-ads';
+import { SoftwareServiceProxy, SoftwareDto,ApplyServiceProxy,ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput,PublishEntitiesInput,IdTypeDto } from '@shared/service-proxies/service-proxies-ads';
+
+
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table,TableCheckbox } from 'primeng/table';
 
@@ -36,7 +38,7 @@ export class SoftwareComponent extends AppComponentBase {
   @ViewChild('paginator', { static: false }) paginator: Paginator;
 
   @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
-  // @ViewChild('SoftwareAuth', { static: true }) SoftwareAuth: SoftwareAuthComponent;
+  @ViewChild('SoftwareAuth', { static: true }) SoftwareAuth: SoftwareAuthComponent;
   @ViewChild('TableCheckbox', { static: true }) TableCheckbox: TableCheckbox;
 
   filterText: string = "";
@@ -81,7 +83,7 @@ export class SoftwareComponent extends AppComponentBase {
     private applyService: ApplyServiceProxy,
     private router: Router,
     private route: ActivatedRoute,
-    // private connector: ConnectorService
+    private connector: ConnectorService
   ) {
     super(injector);
 
@@ -176,11 +178,11 @@ export class SoftwareComponent extends AppComponentBase {
   }
   //添加软件授权
   addAppAuth() {
-    // this.SoftwareAuth.show();
+    this.SoftwareAuth.show();
   }
   //
   editAppSetting(record) {
-    // this.softwareSettingModal.show(record);
+    this.softwareSettingModal.show(record);
   }
   //切换显示模式
   toggle(f) {
@@ -293,7 +295,7 @@ export class SoftwareComponent extends AppComponentBase {
   }
   //新增软件
   createSoftware() {
-    // this.createAppModal.show();
+    this.createAppModal.show();
   }
   //创建软件授权
   createSoftwareAuth() {
@@ -301,7 +303,7 @@ export class SoftwareComponent extends AppComponentBase {
   }
   //编辑软件授权
   editSoftware(record) {
-    // this.connector.setCache('software', Object.assign({}, record));
+    this.connector.setCache('software', Object.assign({}, record));
     this.router.navigate(['operation', record.id], { relativeTo: this.route });
   }
   //删除软件

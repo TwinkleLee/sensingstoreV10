@@ -273,8 +273,8 @@ export function getSmartDeviceServiceBaseUrl(): string {
     return AppConsts.remoteSmartDeviceUrl;
 }
 
-export function getAdsDeviceServiceBaseUrl(): string {
-    return AppConsts.remoteAdsDeviceUrl;
+export function getAdsServiceBaseUrl(): string {
+    return AppConsts.remoteAdserviceUrl;
 }
 
 // end
@@ -334,7 +334,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         { provide: API_OKR_URL, useFactory: getOKRServiceBaseUrl },
         { provide: API_DEVICECENTER_URL, useFactory:getDeviceCenterServiceBaseUrl  },
         { provide: API_SMARTDEVICE_URL, useFactory:getSmartDeviceServiceBaseUrl  },
-        { provide: API_ADS_URL, useFactory:getSmartDeviceServiceBaseUrl  },
+        { provide: API_ADS_URL, useFactory:getAdsServiceBaseUrl  },
         {
             provide: APP_INITIALIZER,
             useFactory: appInitializerFactory,
