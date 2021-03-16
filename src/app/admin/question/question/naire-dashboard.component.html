@@ -325,9 +325,6 @@
                                                     {{l('bugDescription')}}
                                                 </th>
                                                 <th>
-                                                    {{l('Name')}}
-                                                </th>
-                                                <th>
                                                     {{l('prefix')}}
                                                 </th>
                                                 <th>
@@ -348,9 +345,6 @@
                                                     <span>{{ record.questionContent }}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{ record.username }}</span>
-                                                </td>
-                                                <td>
                                                     <span>{{record.prefix}}</span>
                                                 </td>
                                                 <td>
@@ -360,14 +354,14 @@
                                                     <span>{{record.count}}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{record.percentage}}</span>
+                                                    <span>{{record.percentage}}%</span>
                                                 </td>
 
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="emptymessage" let-records>
                                             <tr *ngIf="VotePrimeng.records">
-                                                <td colspan="5">
+                                                <td colspan="6">
                                                     <img class="emptymessage" src="/assets/common/images/placeholder/productinfoHolder.png" />
                                                 </td>
                                             </tr>

@@ -42,6 +42,8 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     'storagecheck': AppConsts.remoteServiceBaseUrl + '/ImportStorageCheck/ImportStoageCheckByExcel',
     'training': AppConsts.remoteActivityServiceUrl + '/ImportTrainings/ImportTrainingsByExcel',
     'room': AppConsts.remoteServiceBaseUrl + '/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel',
+    'sulwhasoo': AppConsts.remoteServiceBaseUrl + '/ImportDeviceSchedule/ImportDeviceStoreScheduleByExcel',
+
   }
   accept = {
     'match': 'zip',
@@ -58,7 +60,8 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     'rfid': 'excel',
     'storagecheck': 'excel',
     'training': 'excel',
-    'room': 'excel'
+    'room': 'excel',
+    'sulwhasoo': 'excel'
   }
   tempUrls: any = {
     'match': AppConsts.appBaseUrl + '/assets/common/batch_match.zip',
@@ -76,6 +79,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     'storagecheck': AppConsts.appBaseUrl + '/assets/common/storagecheck.xlsx',
     'training': AppConsts.appBaseUrl + '/assets/common/training.xlsx',
     'room': AppConsts.appBaseUrl + '/assets/common/room.xlsx',
+    'sulwhasoo': AppConsts.remoteDeviceCenterUrl + '/assets/common/sulwhasoo.xlsx'
 
   }
 
@@ -180,6 +184,9 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     }
     else if (this.target == 'training') {
       this.router.navigate(['app', 'admin', 'training', 'training']);
+    }
+    else if (this.target == 'sulwhasoo') {
+      this.router.navigate(['app', 'admin', 'entityStore', 'entityStore']);
     }
     else {
       this.router.navigate(['app', 'admin', this.target]);

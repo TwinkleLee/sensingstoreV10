@@ -20,6 +20,14 @@
 
                     </div>
                 </div>
+                <button *ngIf="appSession.tenant.id==5157" type="button" class="btn btn-primary" (click)="goImportSulwhasoo()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i>
+                    {{l('import')}}</button>
+
+                <button *ngIf="appSession.tenant.id==5157" type="button" class="btn btn-primary" (click)="goExportSulwhasoo()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i>
+                    {{l('Send')}}</button>
+
                 <button type="button" class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
                     <i class="icon-excel"></i>
                     {{l('export')}}</button>

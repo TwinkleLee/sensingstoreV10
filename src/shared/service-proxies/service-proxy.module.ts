@@ -81,7 +81,7 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
         OnlineApiServiceProxies.TicketServiceProxy,
         OnlineApiServiceProxies.SensingShopServiceProxy,
         OnlineApiServiceProxies.SensingShopManageServiceProxy,
-
+        OnlineApiServiceProxies.SensingTicketServiceProxy,
 
 
         BigDataApiServiceProxies.SensingDeviceServiceProxy,
@@ -214,7 +214,6 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
         ApiServiceProxies.SkuRfidServiceProxy,
         ApiServiceProxies.IndependentDeploymentServiceProxy,
         ApiServiceProxies.ImportFloorGuideRoomAndStoreServiceProxy,
-
 
 
         //2021 新版本 device center ads

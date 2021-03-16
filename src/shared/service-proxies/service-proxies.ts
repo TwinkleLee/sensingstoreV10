@@ -13967,6 +13967,7 @@ export class ExternalAccessServiceProxy {
     }
 }
 
+
 @Injectable()
 export class OrganizationServiceProxy {
     private http: HttpClient;
@@ -14097,6 +14098,7 @@ export class OrganizationServiceProxy {
         return _observableOf<void>(<any>null);
     }
 }
+
 
 @Injectable()
 export class FileServiceProxy {
@@ -36885,57 +36887,6 @@ export class SessionServiceProxy {
     /**
      * @return Success
      */
-    getCurrentLoginInformationsWithOrganizationUnits(): Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput> {
-        let url_ = this.baseUrl + "/api/services/app/Session/GetCurrentLoginInformationsWithOrganizationUnits";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetCurrentLoginInformationsWithOrganizationUnits(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetCurrentLoginInformationsWithOrganizationUnits(<any>response_);
-                } catch (e) {
-                    return <Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetCurrentLoginInformationsWithOrganizationUnits(response: HttpResponseBase): Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetCurrentLoginInformationsWithOrganizationUnitOutput.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<GetCurrentLoginInformationsWithOrganizationUnitOutput>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
     updateUserSignInToken(): Observable<UpdateUserSignInTokenOutput> {
         let url_ = this.baseUrl + "/api/services/app/Session/UpdateUserSignInToken";
         url_ = url_.replace(/[?&]$/, "");
@@ -36982,6 +36933,57 @@ export class SessionServiceProxy {
             }));
         }
         return _observableOf<UpdateUserSignInTokenOutput>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getCurrentLoginInformationsWithOrganizationUnits(): Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Session/GetCurrentLoginInformationsWithOrganizationUnits";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCurrentLoginInformationsWithOrganizationUnits(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCurrentLoginInformationsWithOrganizationUnits(<any>response_);
+                } catch (e) {
+                    return <Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCurrentLoginInformationsWithOrganizationUnits(response: HttpResponseBase): Observable<GetCurrentLoginInformationsWithOrganizationUnitOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCurrentLoginInformationsWithOrganizationUnitOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetCurrentLoginInformationsWithOrganizationUnitOutput>(<any>null);
     }
 }
 
@@ -91859,6 +91861,50 @@ export interface IGetCurrentLoginInformationsOutput {
     theme: UiCustomizationSettingsDto;
 }
 
+export class UpdateUserSignInTokenOutput implements IUpdateUserSignInTokenOutput {
+    signInToken!: string | undefined;
+    encodedUserId!: string | undefined;
+    encodedTenantId!: string | undefined;
+
+    constructor(data?: IUpdateUserSignInTokenOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.signInToken = _data["signInToken"];
+            this.encodedUserId = _data["encodedUserId"];
+            this.encodedTenantId = _data["encodedTenantId"];
+        }
+    }
+
+    static fromJS(data: any): UpdateUserSignInTokenOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateUserSignInTokenOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["signInToken"] = this.signInToken;
+        data["encodedUserId"] = this.encodedUserId;
+        data["encodedTenantId"] = this.encodedTenantId;
+        return data; 
+    }
+}
+
+export interface IUpdateUserSignInTokenOutput {
+    signInToken: string | undefined;
+    encodedUserId: string | undefined;
+    encodedTenantId: string | undefined;
+}
+
 export class OrganizationUnitLoginInfoDot implements IOrganizationUnitLoginInfoDot {
     organizationUnits!: NameValueDto[] | undefined;
 
@@ -91904,12 +91950,14 @@ export interface IOrganizationUnitLoginInfoDot {
 }
 
 export class GetCurrentLoginInformationsWithOrganizationUnitOutput implements IGetCurrentLoginInformationsWithOrganizationUnitOutput {
-    user!: UserLoginInfoDto;
-    tenant!: TenantLoginInfoDto;
-    application!: ApplicationInfoDto;
-    theme!: UiCustomizationSettingsDto;
     organization!: OrganizationUnitLoginInfoDot;
     isAdmin!: boolean;
+    user!: UserLoginInfoDto;
+    impersonatorUser!: UserLoginInfoDto;
+    tenant!: TenantLoginInfoDto;
+    impersonatorTenant!: TenantLoginInfoDto;
+    application!: ApplicationInfoDto;
+    theme!: UiCustomizationSettingsDto;
 
     constructor(data?: IGetCurrentLoginInformationsWithOrganizationUnitOutput) {
         if (data) {
@@ -91922,12 +91970,14 @@ export class GetCurrentLoginInformationsWithOrganizationUnitOutput implements IG
 
     init(_data?: any) {
         if (_data) {
-            this.user = _data["user"] ? UserLoginInfoDto.fromJS(_data["user"]) : <any>undefined;
-            this.tenant = _data["tenant"] ? TenantLoginInfoDto.fromJS(_data["tenant"]) : <any>undefined;
-            this.application = _data["application"] ? ApplicationInfoDto.fromJS(_data["application"]) : <any>undefined;
-            this.theme = _data["theme"] ? UiCustomizationSettingsDto.fromJS(_data["theme"]) : <any>undefined;
             this.organization = _data["organization"] ? OrganizationUnitLoginInfoDot.fromJS(_data["organization"]) : <any>undefined;
             this.isAdmin = _data["isAdmin"];
+            this.user = _data["user"] ? UserLoginInfoDto.fromJS(_data["user"]) : <any>undefined;
+            this.impersonatorUser = _data["impersonatorUser"] ? UserLoginInfoDto.fromJS(_data["impersonatorUser"]) : <any>undefined;
+            this.tenant = _data["tenant"] ? TenantLoginInfoDto.fromJS(_data["tenant"]) : <any>undefined;
+            this.impersonatorTenant = _data["impersonatorTenant"] ? TenantLoginInfoDto.fromJS(_data["impersonatorTenant"]) : <any>undefined;
+            this.application = _data["application"] ? ApplicationInfoDto.fromJS(_data["application"]) : <any>undefined;
+            this.theme = _data["theme"] ? UiCustomizationSettingsDto.fromJS(_data["theme"]) : <any>undefined;
         }
     }
 
@@ -91940,67 +91990,27 @@ export class GetCurrentLoginInformationsWithOrganizationUnitOutput implements IG
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
-        data["tenant"] = this.tenant ? this.tenant.toJSON() : <any>undefined;
-        data["application"] = this.application ? this.application.toJSON() : <any>undefined;
-        data["theme"] = this.theme ? this.theme.toJSON() : <any>undefined;
         data["organization"] = this.organization ? this.organization.toJSON() : <any>undefined;
         data["isAdmin"] = this.isAdmin;
+        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["impersonatorUser"] = this.impersonatorUser ? this.impersonatorUser.toJSON() : <any>undefined;
+        data["tenant"] = this.tenant ? this.tenant.toJSON() : <any>undefined;
+        data["impersonatorTenant"] = this.impersonatorTenant ? this.impersonatorTenant.toJSON() : <any>undefined;
+        data["application"] = this.application ? this.application.toJSON() : <any>undefined;
+        data["theme"] = this.theme ? this.theme.toJSON() : <any>undefined;
         return data; 
     }
 }
 
 export interface IGetCurrentLoginInformationsWithOrganizationUnitOutput {
-    user: UserLoginInfoDto;
-    tenant: TenantLoginInfoDto;
-    application: ApplicationInfoDto;
-    theme: UiCustomizationSettingsDto;
     organization: OrganizationUnitLoginInfoDot;
     isAdmin: boolean;
-}
-
-export class UpdateUserSignInTokenOutput implements IUpdateUserSignInTokenOutput {
-    signInToken!: string | undefined;
-    encodedUserId!: string | undefined;
-    encodedTenantId!: string | undefined;
-
-    constructor(data?: IUpdateUserSignInTokenOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.signInToken = _data["signInToken"];
-            this.encodedUserId = _data["encodedUserId"];
-            this.encodedTenantId = _data["encodedTenantId"];
-        }
-    }
-
-    static fromJS(data: any): UpdateUserSignInTokenOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdateUserSignInTokenOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["signInToken"] = this.signInToken;
-        data["encodedUserId"] = this.encodedUserId;
-        data["encodedTenantId"] = this.encodedTenantId;
-        return data; 
-    }
-}
-
-export interface IUpdateUserSignInTokenOutput {
-    signInToken: string | undefined;
-    encodedUserId: string | undefined;
-    encodedTenantId: string | undefined;
+    user: UserLoginInfoDto;
+    impersonatorUser: UserLoginInfoDto;
+    tenant: TenantLoginInfoDto;
+    impersonatorTenant: TenantLoginInfoDto;
+    application: ApplicationInfoDto;
+    theme: UiCustomizationSettingsDto;
 }
 
 export class SettingInfo implements ISettingInfo {
