@@ -7,7 +7,7 @@ import { AdsPackageServiceProxy, AddOrUpdateAdsPackageInput, AuditStatus, AdPack
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { LazyLoadEvent } from 'primeng/api';
-// import { ProductAlertModalComponent } from '@app/device/device-list/tabAlert/product-selection-modal.component';
+import { ProductAlertModalComponent } from '@app/admin/device/device-list/tabAlert/product-selection-modal.component';
 import * as moment from 'moment';
 import { RobotServiceProxy } from '@shared/service-proxies/service-proxies-floor';
 
@@ -27,7 +27,7 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
     @ViewChild('nameInput', { static: true }) nameInput: ElementRef;
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('dataTable', { static: false }) dataTable: Table;
-    // @ViewChild('ProductAlertModal', { static: true }) ProductAlertModal: ProductAlertModalComponent;
+    @ViewChild('ProductAlertModal', { static: true }) ProductAlertModal: ProductAlertModalComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -139,9 +139,9 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
     }
 
     showSelectMoreAds() {
-        // this.ProductAlertModal.AuditStatus = AuditStatus.Online;
-        // this.ProductAlertModal.cargoType = 'ads';
-        // this.ProductAlertModal.show();
+        this.ProductAlertModal.AuditStatus = AuditStatus.Online;
+        this.ProductAlertModal.cargoType = 'ads';
+        this.ProductAlertModal.show();
     }
 
     deleteRecord(i: number) {
