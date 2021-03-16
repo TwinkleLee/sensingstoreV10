@@ -4,7 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ExternalAccessServiceProxy, BatchTaskLogServiceProxy, AuditLogServiceProxy, TaobaoOpenPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
-import { TaobaoServiceProxy, SyncInput, SyncInputSyncType, MonecityServiceProxy } from '@shared/service-proxies/service-proxies-sync';
+import { TaobaoServiceProxy, SyncInput, SyncScopeEnum, MonecityServiceProxy } from '@shared/service-proxies/service-proxies-sync';
 import { CreateOrEditExternalAccessModalComponent } from '@app/admin/onlineStore/online-store/create-or-edit-online-modal.component';
 import { ChooseTaobaoModalComponent } from '@app/admin/onlineStore/online-store/choose-taobao-modal.component';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
@@ -29,8 +29,8 @@ export class OnlineStoreComponent extends AppComponentBase {
   @ViewChild('paginator', { static: true }) paginator: Paginator;
 
 
-  SyncInputSyncType = SyncInputSyncType;
-  syncType: SyncInputSyncType = SyncInputSyncType._0;
+  SyncInputSyncType = SyncScopeEnum;
+  syncType: SyncScopeEnum = SyncScopeEnum.Full;
   filterText;
   ignoreField1 = false;
   ignoreField2 = false;
@@ -50,7 +50,7 @@ export class OnlineStoreComponent extends AppComponentBase {
 
 
   goHistory(record) {
-    this.router.navigate(['app', 'admin','onlineStore', 'onlineStoreHistory'], { queryParams: { id: record.id, name: record.taobao_user_nick } });
+    this.router.navigate(['app', 'admin', 'onlineStore', 'onlineStoreHistory'], { queryParams: { id: record.id, name: record.taobao_user_nick } });
   }
 
 
@@ -106,7 +106,7 @@ export class OnlineStoreComponent extends AppComponentBase {
   }
 
   manageWeShop(record) {
-    this.router.navigate(['app', 'admin','weshop', 'weshop'], { queryParams: { id: record.id } });
+    this.router.navigate(['app', 'admin', 'weshop', 'weshop'], { queryParams: { id: record.id } });
   }
   no() {
     $("#choseType").hide();

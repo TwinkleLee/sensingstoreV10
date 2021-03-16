@@ -182,16 +182,16 @@
                                             </label>
                                             <label class="m-radio">
                                                 <input type="radio" name="options" [(ngModel)]="syncType"
-                                                    [value]="SyncInputSyncType._1">{{l('syncLabel2')}}
+                                                    [value]="SyncInputSyncType.LocalBasicAdd">{{l('syncLabel2')}}
                                                 <span></span>
                                             </label>
                                             <label class="m-radio">
                                                 <input type="radio" name="options" [(ngModel)]="syncType"
-                                                    [value]="SyncInputSyncType._2">{{l('syncLabel3')}}
+                                                    [value]="SyncInputSyncType.LocalBasicUpdate">{{l('syncLabel3')}}
                                                 <span></span>
                                             </label>
                                         </div>
-                                        <div class="form-group" *ngIf="syncType==SyncInputSyncType._2">
+                                        <div class="form-group" *ngIf="syncType==SyncInputSyncType.LocalBasicUpdate">
                                             <label>{{l('syncLabel4')}}</label>
                                             <div class="m-checkbox-list">
                                                 <label class="checkbox">
