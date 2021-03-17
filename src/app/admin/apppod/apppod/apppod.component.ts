@@ -9,7 +9,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 
-import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { ApppodHistoryModalComponent } from '@app/admin/apppod/apppod/operation/apppod-history-modal.component';
 
 @Component({

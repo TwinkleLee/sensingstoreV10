@@ -382,6 +382,649 @@ export class ApplyServiceProxy {
 }
 
 @Injectable()
+export class AppPodServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_DEVICECENTER_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * 获取AppPod列表信息，安卓、Windows
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getAppPods(filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<AppPodDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/GetAppPods?";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppPods(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppPods(<any>response_);
+                } catch (e) {
+                    return <Observable<AppPodDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<AppPodDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppPods(response: HttpResponseBase): Observable<AppPodDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AppPodDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<AppPodDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 获取所有AppPod版本信息
+     * @param appPodId (optional) 
+     * @param osType (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getAppPodVersions(appPodId: number | null | undefined, osType: OsTypeEnum | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<AppPodVersionDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/GetAppPodVersions?";
+        if (appPodId !== undefined && appPodId !== null)
+            url_ += "AppPodId=" + encodeURIComponent("" + appPodId) + "&";
+        if (osType === null)
+            throw new Error("The parameter 'osType' cannot be null.");
+        else if (osType !== undefined)
+            url_ += "OsType=" + encodeURIComponent("" + osType) + "&";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppPodVersions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppPodVersions(<any>response_);
+                } catch (e) {
+                    return <Observable<AppPodVersionDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<AppPodVersionDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppPodVersions(response: HttpResponseBase): Observable<AppPodVersionDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AppPodVersionDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<AppPodVersionDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 获取AppPod版本详细信息
+     * @param id (optional) AppPodVersionId
+     * @return Success
+     */
+    getAppPodVersionDetail(id: number | undefined): Observable<AppPodVersionDto> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/GetAppPodVersionDetail?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppPodVersionDetail(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppPodVersionDetail(<any>response_);
+                } catch (e) {
+                    return <Observable<AppPodVersionDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<AppPodVersionDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppPodVersionDetail(response: HttpResponseBase): Observable<AppPodVersionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AppPodVersionDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<AppPodVersionDto>(<any>null);
+    }
+
+    /**
+     * 获取某个产品的最新版本信息
+     * @param appPodId (optional) 
+     * @return Success
+     */
+    getAppPodLatestVersionDetail(appPodId: number | undefined): Observable<AppPodVersionDto> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/GetAppPodLatestVersionDetail?";
+        if (appPodId === null)
+            throw new Error("The parameter 'appPodId' cannot be null.");
+        else if (appPodId !== undefined)
+            url_ += "appPodId=" + encodeURIComponent("" + appPodId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAppPodLatestVersionDetail(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAppPodLatestVersionDetail(<any>response_);
+                } catch (e) {
+                    return <Observable<AppPodVersionDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<AppPodVersionDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAppPodLatestVersionDetail(response: HttpResponseBase): Observable<AppPodVersionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AppPodVersionDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<AppPodVersionDto>(<any>null);
+    }
+
+    /**
+     * 创建Apppod version
+     * @param body (optional) 
+     * @return Success
+     */
+    createAppPodVersion(body: CreateAppPodVersionInput | undefined): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/CreateAppPodVersion";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateAppPodVersion(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateAppPodVersion(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateAppPodVersion(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+
+    /**
+     * 更新appPod
+     * @param body (optional) 
+     * @return Success
+     */
+    updateAppPodVersion(body: UpdateAppPodVersionInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/UpdateAppPodVersion";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateAppPodVersion(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateAppPodVersion(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateAppPodVersion(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 新建设备后，调用接口绑定最新版本
+     * @param body (optional) 
+     * @return Success
+     */
+    setDefaultAppPodVersion4Device(body: SetDefaultAppPodVersionInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/SetDefaultAppPodVersion4Device";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSetDefaultAppPodVersion4Device(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSetDefaultAppPodVersion4Device(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSetDefaultAppPodVersion4Device(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 获取设备截屏图片url
+     * @param deviceId 目标设备ID
+     * @return Success
+     */
+    getDeviceScreenshot(deviceId: number): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/GetDeviceScreenshot?";
+        if (deviceId === undefined || deviceId === null)
+            throw new Error("The parameter 'deviceId' must be defined and cannot be null.");
+        else
+            url_ += "deviceId=" + encodeURIComponent("" + deviceId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDeviceScreenshot(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDeviceScreenshot(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDeviceScreenshot(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * 获取设备下的appPod版本信息
+     * @param deviceId (optional) 
+     * @return Success
+     */
+    getDeviceAppPodVersion4Device(deviceId: number | undefined, osType: OsTypeEnum): Observable<DeviceAppPodVersionDto> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/GetDeviceAppPodVersion4Device?";
+        if (deviceId === null)
+            throw new Error("The parameter 'deviceId' cannot be null.");
+        else if (deviceId !== undefined)
+            url_ += "deviceId=" + encodeURIComponent("" + deviceId) + "&";
+        if (osType === undefined || osType === null)
+            throw new Error("The parameter 'osType' must be defined and cannot be null.");
+        else
+            url_ += "OsType=" + encodeURIComponent("" + osType) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDeviceAppPodVersion4Device(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDeviceAppPodVersion4Device(<any>response_);
+                } catch (e) {
+                    return <Observable<DeviceAppPodVersionDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DeviceAppPodVersionDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDeviceAppPodVersion4Device(response: HttpResponseBase): Observable<DeviceAppPodVersionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DeviceAppPodVersionDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DeviceAppPodVersionDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    changeDeviceApppodVersion4Device(body: ChangeDeviceAppPodVersionInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/AppPod/ChangeDeviceApppodVersion4Device";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangeDeviceApppodVersion4Device(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangeDeviceApppodVersion4Device(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangeDeviceApppodVersion4Device(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class BrandServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -9534,6 +10177,566 @@ export interface IDeviceDtoPagedResultDto {
     items: DeviceDto[] | undefined;
 }
 
+export class AppPodDto implements IAppPodDto {
+    id!: number;
+    name!: string | undefined;
+    icon!: string | undefined;
+    os!: string | undefined;
+    isDefault!: boolean;
+    latestVersion!: string | undefined;
+    downloadUrl!: string | undefined;
+    latestDatetime!: moment.Moment;
+
+    constructor(data?: IAppPodDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.icon = _data["icon"];
+            this.os = _data["os"];
+            this.isDefault = _data["isDefault"];
+            this.latestVersion = _data["latestVersion"];
+            this.downloadUrl = _data["downloadUrl"];
+            this.latestDatetime = _data["latestDatetime"] ? moment(_data["latestDatetime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): AppPodDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AppPodDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["icon"] = this.icon;
+        data["os"] = this.os;
+        data["isDefault"] = this.isDefault;
+        data["latestVersion"] = this.latestVersion;
+        data["downloadUrl"] = this.downloadUrl;
+        data["latestDatetime"] = this.latestDatetime ? this.latestDatetime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IAppPodDto {
+    id: number;
+    name: string | undefined;
+    icon: string | undefined;
+    os: string | undefined;
+    isDefault: boolean;
+    latestVersion: string | undefined;
+    downloadUrl: string | undefined;
+    latestDatetime: moment.Moment;
+}
+
+export class AppPodDtoPagedResultDto implements IAppPodDtoPagedResultDto {
+    totalCount!: number;
+    items!: AppPodDto[] | undefined;
+
+    constructor(data?: IAppPodDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(AppPodDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): AppPodDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AppPodDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IAppPodDtoPagedResultDto {
+    totalCount: number;
+    items: AppPodDto[] | undefined;
+}
+
+export class AppPodVersionDto implements IAppPodVersionDto {
+    version!: string | undefined;
+    downloadUrl!: string | undefined;
+    appSetting!: string | undefined;
+    description!: string | undefined;
+    appPodName!: string | undefined;
+    os!: string | undefined;
+    md5!: string | undefined;
+    isNeedRestart!: boolean;
+    isDeleted!: boolean;
+    deleterUserId!: number | undefined;
+    deletionTime!: moment.Moment | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IAppPodVersionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.version = _data["version"];
+            this.downloadUrl = _data["downloadUrl"];
+            this.appSetting = _data["appSetting"];
+            this.description = _data["description"];
+            this.appPodName = _data["appPodName"];
+            this.os = _data["os"];
+            this.md5 = _data["md5"];
+            this.isNeedRestart = _data["isNeedRestart"];
+            this.isDeleted = _data["isDeleted"];
+            this.deleterUserId = _data["deleterUserId"];
+            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): AppPodVersionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AppPodVersionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["version"] = this.version;
+        data["downloadUrl"] = this.downloadUrl;
+        data["appSetting"] = this.appSetting;
+        data["description"] = this.description;
+        data["appPodName"] = this.appPodName;
+        data["os"] = this.os;
+        data["md5"] = this.md5;
+        data["isNeedRestart"] = this.isNeedRestart;
+        data["isDeleted"] = this.isDeleted;
+        data["deleterUserId"] = this.deleterUserId;
+        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IAppPodVersionDto {
+    version: string | undefined;
+    downloadUrl: string | undefined;
+    appSetting: string | undefined;
+    description: string | undefined;
+    appPodName: string | undefined;
+    os: string | undefined;
+    md5: string | undefined;
+    isNeedRestart: boolean;
+    isDeleted: boolean;
+    deleterUserId: number | undefined;
+    deletionTime: moment.Moment | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class AppPodVersionDtoPagedResultDto implements IAppPodVersionDtoPagedResultDto {
+    totalCount!: number;
+    items!: AppPodVersionDto[] | undefined;
+
+    constructor(data?: IAppPodVersionDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(AppPodVersionDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): AppPodVersionDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AppPodVersionDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IAppPodVersionDtoPagedResultDto {
+    totalCount: number;
+    items: AppPodVersionDto[] | undefined;
+}
+
+export class CreateAppPodVersionInput implements ICreateAppPodVersionInput {
+    appPodId!: number;
+    version!: string;
+    description!: string | undefined;
+    downloadUrl!: string;
+    appSetting!: string | undefined;
+    md5!: string | undefined;
+    isNeedRestart!: boolean;
+
+    constructor(data?: ICreateAppPodVersionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.appPodId = _data["appPodId"];
+            this.version = _data["version"];
+            this.description = _data["description"];
+            this.downloadUrl = _data["downloadUrl"];
+            this.appSetting = _data["appSetting"];
+            this.md5 = _data["md5"];
+            this.isNeedRestart = _data["isNeedRestart"];
+        }
+    }
+
+    static fromJS(data: any): CreateAppPodVersionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateAppPodVersionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["appPodId"] = this.appPodId;
+        data["version"] = this.version;
+        data["description"] = this.description;
+        data["downloadUrl"] = this.downloadUrl;
+        data["appSetting"] = this.appSetting;
+        data["md5"] = this.md5;
+        data["isNeedRestart"] = this.isNeedRestart;
+        return data; 
+    }
+}
+
+export interface ICreateAppPodVersionInput {
+    appPodId: number;
+    version: string;
+    description: string | undefined;
+    downloadUrl: string;
+    appSetting: string | undefined;
+    md5: string | undefined;
+    isNeedRestart: boolean;
+}
+
+export class UpdateAppPodVersionInput implements IUpdateAppPodVersionInput {
+    id!: number;
+    appPodId!: number;
+    version!: string;
+    description!: string | undefined;
+    downloadUrl!: string;
+    appSetting!: string | undefined;
+    md5!: string | undefined;
+    isNeedRestart!: boolean;
+
+    constructor(data?: IUpdateAppPodVersionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.appPodId = _data["appPodId"];
+            this.version = _data["version"];
+            this.description = _data["description"];
+            this.downloadUrl = _data["downloadUrl"];
+            this.appSetting = _data["appSetting"];
+            this.md5 = _data["md5"];
+            this.isNeedRestart = _data["isNeedRestart"];
+        }
+    }
+
+    static fromJS(data: any): UpdateAppPodVersionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateAppPodVersionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["appPodId"] = this.appPodId;
+        data["version"] = this.version;
+        data["description"] = this.description;
+        data["downloadUrl"] = this.downloadUrl;
+        data["appSetting"] = this.appSetting;
+        data["md5"] = this.md5;
+        data["isNeedRestart"] = this.isNeedRestart;
+        return data; 
+    }
+}
+
+export interface IUpdateAppPodVersionInput {
+    id: number;
+    appPodId: number;
+    version: string;
+    description: string | undefined;
+    downloadUrl: string;
+    appSetting: string | undefined;
+    md5: string | undefined;
+    isNeedRestart: boolean;
+}
+
+export class SetDefaultAppPodVersionInput implements ISetDefaultAppPodVersionInput {
+    deviceId!: number;
+    osType!: OsTypeEnum;
+
+    constructor(data?: ISetDefaultAppPodVersionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deviceId = _data["deviceId"];
+            this.osType = _data["osType"];
+        }
+    }
+
+    static fromJS(data: any): SetDefaultAppPodVersionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new SetDefaultAppPodVersionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deviceId"] = this.deviceId;
+        data["osType"] = this.osType;
+        return data; 
+    }
+}
+
+export interface ISetDefaultAppPodVersionInput {
+    deviceId: number;
+    osType: OsTypeEnum;
+}
+
+export class DeviceAppPodVersionDto implements IDeviceAppPodVersionDto {
+    currentAppPodVersionId!: number | undefined;
+    currentVersion!: string | undefined;
+    currentDownloadUrl!: string | undefined;
+    targetAppPodVersionId!: number | undefined;
+    targetVersion!: string | undefined;
+    targetDownloadUrl!: string | undefined;
+    currentAppPodName!: string | undefined;
+    targetAppPodName!: string | undefined;
+    os!: string | undefined;
+    targetVersionAppSetting!: string | undefined;
+    description!: string | undefined;
+    isLocked!: boolean;
+    extensionData!: string | undefined;
+    md5!: string | undefined;
+    isNeedRestart!: boolean;
+
+    constructor(data?: IDeviceAppPodVersionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentAppPodVersionId = _data["currentAppPodVersionId"];
+            this.currentVersion = _data["currentVersion"];
+            this.currentDownloadUrl = _data["currentDownloadUrl"];
+            this.targetAppPodVersionId = _data["targetAppPodVersionId"];
+            this.targetVersion = _data["targetVersion"];
+            this.targetDownloadUrl = _data["targetDownloadUrl"];
+            this.currentAppPodName = _data["currentAppPodName"];
+            this.targetAppPodName = _data["targetAppPodName"];
+            this.os = _data["os"];
+            this.targetVersionAppSetting = _data["targetVersionAppSetting"];
+            this.description = _data["description"];
+            this.isLocked = _data["isLocked"];
+            this.extensionData = _data["extensionData"];
+            this.md5 = _data["md5"];
+            this.isNeedRestart = _data["isNeedRestart"];
+        }
+    }
+
+    static fromJS(data: any): DeviceAppPodVersionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeviceAppPodVersionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentAppPodVersionId"] = this.currentAppPodVersionId;
+        data["currentVersion"] = this.currentVersion;
+        data["currentDownloadUrl"] = this.currentDownloadUrl;
+        data["targetAppPodVersionId"] = this.targetAppPodVersionId;
+        data["targetVersion"] = this.targetVersion;
+        data["targetDownloadUrl"] = this.targetDownloadUrl;
+        data["currentAppPodName"] = this.currentAppPodName;
+        data["targetAppPodName"] = this.targetAppPodName;
+        data["os"] = this.os;
+        data["targetVersionAppSetting"] = this.targetVersionAppSetting;
+        data["description"] = this.description;
+        data["isLocked"] = this.isLocked;
+        data["extensionData"] = this.extensionData;
+        data["md5"] = this.md5;
+        data["isNeedRestart"] = this.isNeedRestart;
+        return data; 
+    }
+}
+
+export interface IDeviceAppPodVersionDto {
+    currentAppPodVersionId: number | undefined;
+    currentVersion: string | undefined;
+    currentDownloadUrl: string | undefined;
+    targetAppPodVersionId: number | undefined;
+    targetVersion: string | undefined;
+    targetDownloadUrl: string | undefined;
+    currentAppPodName: string | undefined;
+    targetAppPodName: string | undefined;
+    os: string | undefined;
+    targetVersionAppSetting: string | undefined;
+    description: string | undefined;
+    isLocked: boolean;
+    extensionData: string | undefined;
+    md5: string | undefined;
+    isNeedRestart: boolean;
+}
+
+export class ChangeDeviceAppPodVersionInput implements IChangeDeviceAppPodVersionInput {
+    deviceId!: number;
+    targetAppPodVersionId!: number;
+    extensionData!: string | undefined;
+    isLock!: boolean;
+
+    constructor(data?: IChangeDeviceAppPodVersionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deviceId = _data["deviceId"];
+            this.targetAppPodVersionId = _data["targetAppPodVersionId"];
+            this.extensionData = _data["extensionData"];
+            this.isLock = _data["isLock"];
+        }
+    }
+
+    static fromJS(data: any): ChangeDeviceAppPodVersionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ChangeDeviceAppPodVersionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deviceId"] = this.deviceId;
+        data["targetAppPodVersionId"] = this.targetAppPodVersionId;
+        data["extensionData"] = this.extensionData;
+        data["isLock"] = this.isLock;
+        return data; 
+    }
+}
+
+export interface IChangeDeviceAppPodVersionInput {
+    deviceId: number;
+    targetAppPodVersionId: number;
+    extensionData: string | undefined;
+    isLock: boolean;
+}
+
 export class IdNameDto implements IIdNameDto {
     id!: number;
     name!: string | undefined;
@@ -14975,98 +16178,6 @@ export interface IChangeDeviceAppPodCurrentVersionInput {
     subkey: string;
     /** 当前最新AppPod版本ID */
     currentAppPodVersionId: number | undefined;
-}
-
-export class DeviceAppPodVersionDto implements IDeviceAppPodVersionDto {
-    currentAppPodVersionId!: number | undefined;
-    currentVersion!: string | undefined;
-    currentDownloadUrl!: string | undefined;
-    targetAppPodVersionId!: number | undefined;
-    targetVersion!: string | undefined;
-    targetDownloadUrl!: string | undefined;
-    currentAppPodName!: string | undefined;
-    targetAppPodName!: string | undefined;
-    os!: string | undefined;
-    targetVersionAppSetting!: string | undefined;
-    description!: string | undefined;
-    isLocked!: boolean;
-    extensionData!: string | undefined;
-    md5!: string | undefined;
-    isNeedRestart!: boolean;
-
-    constructor(data?: IDeviceAppPodVersionDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.currentAppPodVersionId = _data["currentAppPodVersionId"];
-            this.currentVersion = _data["currentVersion"];
-            this.currentDownloadUrl = _data["currentDownloadUrl"];
-            this.targetAppPodVersionId = _data["targetAppPodVersionId"];
-            this.targetVersion = _data["targetVersion"];
-            this.targetDownloadUrl = _data["targetDownloadUrl"];
-            this.currentAppPodName = _data["currentAppPodName"];
-            this.targetAppPodName = _data["targetAppPodName"];
-            this.os = _data["os"];
-            this.targetVersionAppSetting = _data["targetVersionAppSetting"];
-            this.description = _data["description"];
-            this.isLocked = _data["isLocked"];
-            this.extensionData = _data["extensionData"];
-            this.md5 = _data["md5"];
-            this.isNeedRestart = _data["isNeedRestart"];
-        }
-    }
-
-    static fromJS(data: any): DeviceAppPodVersionDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new DeviceAppPodVersionDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["currentAppPodVersionId"] = this.currentAppPodVersionId;
-        data["currentVersion"] = this.currentVersion;
-        data["currentDownloadUrl"] = this.currentDownloadUrl;
-        data["targetAppPodVersionId"] = this.targetAppPodVersionId;
-        data["targetVersion"] = this.targetVersion;
-        data["targetDownloadUrl"] = this.targetDownloadUrl;
-        data["currentAppPodName"] = this.currentAppPodName;
-        data["targetAppPodName"] = this.targetAppPodName;
-        data["os"] = this.os;
-        data["targetVersionAppSetting"] = this.targetVersionAppSetting;
-        data["description"] = this.description;
-        data["isLocked"] = this.isLocked;
-        data["extensionData"] = this.extensionData;
-        data["md5"] = this.md5;
-        data["isNeedRestart"] = this.isNeedRestart;
-        return data; 
-    }
-}
-
-export interface IDeviceAppPodVersionDto {
-    currentAppPodVersionId: number | undefined;
-    currentVersion: string | undefined;
-    currentDownloadUrl: string | undefined;
-    targetAppPodVersionId: number | undefined;
-    targetVersion: string | undefined;
-    targetDownloadUrl: string | undefined;
-    currentAppPodName: string | undefined;
-    targetAppPodName: string | undefined;
-    os: string | undefined;
-    targetVersionAppSetting: string | undefined;
-    description: string | undefined;
-    isLocked: boolean;
-    extensionData: string | undefined;
-    md5: string | undefined;
-    isNeedRestart: boolean;
 }
 
 export class AppPodScreenInput implements IAppPodScreenInput {

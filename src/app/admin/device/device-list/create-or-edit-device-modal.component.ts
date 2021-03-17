@@ -4,8 +4,8 @@ import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { AppPodServiceProxy, SetDefaultAppPodVersionInput, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
-import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+import { AppPodServiceProxy, SetDefaultAppPodVersionInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({

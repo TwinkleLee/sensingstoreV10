@@ -226,6 +226,7 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
         DEVICECENTERServiceProxies.BrandServiceProxy,
         DEVICECENTERServiceProxies.ApplyServiceProxy,
         DEVICECENTERServiceProxies.IdentityServiceProxy,
+        DEVICECENTERServiceProxies.AppPodServiceProxy,
 
         SMARTDEVICEServiceProxies.AppPodServiceProxy,
         SMARTDEVICEServiceProxies.SensingDeviceServiceProxy,
@@ -233,7 +234,6 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
         SMARTDEVICEServiceProxies.CounterDeviceServiceProxy,
         SMARTDEVICEServiceProxies.CounterReportServiceProxy,
         SMARTDEVICEServiceProxies.CustomizeReportServiceProxy,
-        SMARTDEVICEServiceProxies.AppPodServiceProxy,
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
 

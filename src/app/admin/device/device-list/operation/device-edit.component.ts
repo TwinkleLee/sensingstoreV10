@@ -29,7 +29,10 @@ import { SensingDeviceServiceProxy, SensorAgreementServiceProxy } from '@shared/
 
 import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput, AddOrUpdateSensorInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
-import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, ChangeDeviceAppPodVersionInput, AppPodServiceProxy, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-smartdevice';
+
+
+import { ChangeDeviceAppPodVersionInput, AppPodServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
@@ -693,7 +696,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
 
         if (this.appSession.tenant) {
-            this._AppPodServiceProxy.getDeviceAppPodVersion(
+            this._AppPodServiceProxy.getDeviceAppPodVersion4Device(
                 this.device.id,
                 this.device.osType
             ).subscribe((result) => {
@@ -719,7 +722,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         ).subscribe(result => {
             this.versionList = result.items;
 
-            this._AppPodServiceProxy.getDeviceAppPodVersion(
+            this._AppPodServiceProxy.getDeviceAppPodVersion4Device(
                 this.device.id,
                 this.device.osType
             ).subscribe((result) => {
@@ -741,7 +744,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             return
         }
 
-        this._AppPodServiceProxy.changeDeviceApppodVersion(new ChangeDeviceAppPodVersionInput({
+        this._AppPodServiceProxy.changeDeviceApppodVersion4Device(new ChangeDeviceAppPodVersionInput({
             deviceId: this.device.id,
             targetAppPodVersionId: this.appPod.targetAppPodVersionId ? Number(this.appPod.targetAppPodVersionId) : undefined,
             extensionData: this.appPod.extensionData,
