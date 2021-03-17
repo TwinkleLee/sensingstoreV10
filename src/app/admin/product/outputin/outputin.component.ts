@@ -9,7 +9,8 @@ import { OutputinDetailModalComponent } from '@app/admin/product/outputin/operat
 import { AddOutputinComponent } from '@app/admin/product/outputin/operation/add-outputin-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { OutPutInStorageServiceProxy, GetOutPutInStorageBillInput } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy, GetOutPutInStorageBillInput } from '@shared/service-proxies/service-proxies-product';
+
 import * as moment from 'moment';
 import * as _ from 'lodash';
 

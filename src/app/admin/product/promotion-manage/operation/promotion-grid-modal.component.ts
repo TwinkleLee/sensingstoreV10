@@ -6,7 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 
 import { finalize } from 'rxjs/operators';
-import { ProductServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
     selector: 'promotionGridModal',

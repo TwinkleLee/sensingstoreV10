@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { CouponServiceProxy, CreateCouponInput, UpdateCouponInput } from '@shared/service-proxies/service-proxies';
+import { CouponServiceProxy, CreateCouponInput, UpdateCouponInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 

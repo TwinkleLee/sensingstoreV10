@@ -1,6 +1,7 @@
 <div>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'ProductEdit' | localize" [description]="product?.id + ' | '+product?.title">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions">
                 <a [ngClass]="{'icon-shangyiye':true,'text-primary':product.preProductId,'text-secondary':!product.preProductId}"
                     (click)="switchProduct(false)"></a>

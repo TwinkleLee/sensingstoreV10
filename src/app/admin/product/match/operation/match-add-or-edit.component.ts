@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, OnInit } from '@angular/core';
-import { MatchInfoServiceProxy, CreateMatchInfoInput, UpdateMatchInfoInput, MainSku } from '@shared/service-proxies/service-proxies';
+import { MatchInfoServiceProxy, CreateMatchInfoInput, UpdateMatchInfoInput, MainSku } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditMatchModalComponent } from '@app/admin/product/match/operation/create-or-edit-match-modal.component';
 import { Router } from '@angular/router';

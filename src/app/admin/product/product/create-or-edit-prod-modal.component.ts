@@ -1,6 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, ProductDto, AddOrUpdateProductInput, TagServiceProxy, CreateProductInput, ProductCategoryServiceProxy, TagType as Type, ProductPointRule, RedeemRule, AwardRule } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, TagServiceProxy, CreateProductInput, ProductCategoryServiceProxy, TagType as Type, ProductPointRule, RedeemRule, AwardRule } from '@shared/service-proxies/service-proxies-product';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';

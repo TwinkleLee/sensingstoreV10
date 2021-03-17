@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { PropertyValueServiceProxy, CreatePropertyValueInput, UpdatePropertyValueInput } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, CreatePropertyInput, UpdatePropertyInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 
@@ -16,18 +16,18 @@ export class PropertyValueAlertModalComponent extends AppComponentBase {
     propertyValue: any = {};
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(injecor: Injector, private proValueService: PropertyValueServiceProxy) {
+    constructor(injecor: Injector, private _ProductServiceProxy: ProductServiceProxy) {
         super(injecor);
     }
 
     save() {
         if (this.operation == 'add') {
-            this.proValueService.create(new CreatePropertyValueInput(this.propertyValue)).subscribe((result) => {
+            this._ProductServiceProxy.createProperty(new CreatePropertyInput(this.propertyValue)).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.modalSave.emit(null);
             })
         } else {
-            this.proValueService.update(new UpdatePropertyValueInput(this.propertyValue)).subscribe((result) => {
+            this._ProductServiceProxy.updateProperty(new UpdatePropertyInput(this.propertyValue)).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.modalSave.emit(null);
             })
@@ -44,7 +44,7 @@ export class PropertyValueAlertModalComponent extends AppComponentBase {
             this.propertyValue = Object.assign({}, record);
         } else {
             this.operation = 'add';
-            this.propertyValue = new CreatePropertyValueInput();
+            this.propertyValue = new CreatePropertyInput();
             this.propertyValue.propertyId = id;
         }
         this.modal.show()

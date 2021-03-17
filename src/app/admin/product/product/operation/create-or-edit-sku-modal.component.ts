@@ -1,9 +1,11 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, ChangeDetectorRef, OnInit, Input } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, SkuDto, AddOrUpdateSkuInput, AddOrUpdateSkuByItemIdInput, TagServiceProxy, PropertyServiceProxy, CreateSkuInput } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy,TagServiceProxy, CreateSkuInput } from '@shared/service-proxies/service-proxies-product';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
+
 
 @Component({
     selector: 'createOrEditSkuModal',
@@ -45,7 +47,6 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         injector: Injector,
         private _prodService: ProductServiceProxy,
         private _tagService: TagServiceProxy,
-        private _propertyService: PropertyServiceProxy,
         private _ref: ChangeDetectorRef
 
     ) {
@@ -148,7 +149,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     }
     close(): void {
         this.active = false;
-        this.sku = new AddOrUpdateSkuInput();
+        this.sku = new CreateSkuInput();
         this.modal.hide();
     }
 

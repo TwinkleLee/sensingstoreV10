@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 
 import * as moment from 'moment';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { OutPutInStorageServiceProxy, GetOutPutInStorageRecordInput } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy, GetOutPutInStorageRecordInput } from '@shared/service-proxies/service-proxies-product';
 
 
 @Component({

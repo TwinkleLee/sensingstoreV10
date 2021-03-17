@@ -1,12 +1,13 @@
 import { Component, ViewChild, Injector, Input, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, SoftwareServiceProxy, DeviceServiceProxy, AuditStatus as AuditStatus12, AuditStatus as AuditStatus7 } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, AuditStatus  } from '@shared/service-proxies/service-proxies-product';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { ActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { AdServiceProxy, AdsPackageServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+import { AdServiceProxy, AdsPackageServiceProxy, SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
 @Component({
     selector: 'ProductAlertModal',
@@ -60,7 +61,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this._deviceService.getUnpublishedProductsByDeviceId(
                 this.deviceId,
                 undefined,
-                AuditStatus12.Online,
+                AuditStatus.Online,
                 this.filterText,
                 undefined,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -81,7 +82,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this._deviceService.getProductsByDeviceId(
                 this.deviceId,
                 undefined,
-                AuditStatus7.Online,
+                AuditStatus.Online,
                 this.filterText,
                 undefined,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -103,7 +104,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this._deviceService.getSkusByDeviceId(
                 this.deviceId,
                 undefined,
-                AuditStatus7.Online,
+                AuditStatus.Online,
                 this.filterText,
                 undefined,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),

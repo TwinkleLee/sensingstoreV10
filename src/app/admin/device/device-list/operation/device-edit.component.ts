@@ -1,7 +1,9 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus as AuditStatus7, AuditStatus as AuditStatus6, AuditStatus as AuditStatus5,  AuditStatus as AuditStatus9, DeviceAdsServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus, DeviceAdsServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
-import { ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType,DeviceActionServiceProxy,DeviceServiceProxy, ProductServiceProxy,CouponServiceProxy} from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy,CouponServiceProxy, DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
+
+import { DeviceActionServiceProxy, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType, DeviceServiceProxy } from '@shared/service-proxies/service-proxies'
 
 import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
@@ -379,6 +381,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         injector: Injector,
         private router: Router,
         private route: ActivatedRoute,
+        private _deviceProductService: DeviceProductServiceProxy,
         private _deviceService: DeviceServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
         private _deviceAction: DeviceActionServiceProxy,
@@ -758,10 +761,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     getCountByDeviceId() {
         if (this.isGranted("Pages.Tenant.Products")) {
 
-            this._deviceService.getProductsByDeviceId(
+            this._deviceProductService.getProductsByDeviceId(
                 this.device.id,
                 undefined,
-                AuditStatus7.Online,
+                AuditStatus.Online,
                 undefined,
                 undefined,
                 1,
@@ -779,7 +782,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this._deviceService.getAdsByDeviceId(
                 this.device.id,
                 undefined,
-                AuditStatus5.Online,
+                AuditStatus.Online,
                 undefined,
                 undefined,
                 1,
@@ -796,7 +799,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this._deviceService.getSoftwaresByDeviceId(
                 this.device.id,
                 undefined,
-                AuditStatus6.Online,
+                AuditStatus.Online,
                 undefined,
                 undefined,
                 1,
@@ -811,10 +814,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
 
         if (this.isGranted("Pages.Tenant.Coupons")) {
-            this._deviceService.getCouponsByDeviceId(
+            this._deviceProductService.getCouponsByDeviceId(
                 this.device.id,
                 undefined,
-                AuditStatus9.Online,
+                AuditStatus.Online,
                 undefined,
                 undefined,
                 1,
@@ -1664,7 +1667,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._deviceService.getAdsByDeviceId(
             this.device.id,
             undefined,
-            AuditStatus5.Online,
+            AuditStatus.Online,
             this.adsFilterText,
             undefined,
             this.pAds.getMaxResultCount(this.paginatorAds, event),
@@ -1804,7 +1807,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._deviceService.getSoftwaresByDeviceId(
             this.device.id,
             undefined,
-            AuditStatus6.Online,
+            AuditStatus.Online,
             this.softwareFilterText,
             undefined,
             this.pApp.getMaxResultCount(this.paginatorSoftware, event),
@@ -1820,7 +1823,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._deviceService.getSoftwaresByDeviceId(
             this.device.id,
             undefined,
-            AuditStatus6.Online,
+            AuditStatus.Online,
             undefined,
             undefined,
             99,
@@ -1959,10 +1962,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     //通过设备id获取商品列表
     getProductByDeviceId(event?: LazyLoadEvent) {
         this.pProduct.showLoadingIndicator();
-        this._deviceService.getProductsByDeviceId(
+        this._deviceProductService.getProductsByDeviceId(
             this.device.id,
             undefined,
-            AuditStatus7.Online,
+            AuditStatus.Online,
             this.productFilterText,
             undefined,
             this.paginatorProduct ? this.pProduct.getMaxResultCount(this.paginatorProduct, event) : 10,
@@ -2109,10 +2112,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     //通过设备id获取红包列表
     getCouponByDeviceId(event?: LazyLoadEvent) {
         this.pCoupon.showLoadingIndicator();
-        this._deviceService.getCouponsByDeviceId(
+        this._deviceProductService.getCouponsByDeviceId(
             this.device.id,
             undefined,
-            AuditStatus9.Online,
+            AuditStatus.Online,
             this.couponFilterText,
             undefined,
             this.pCoupon.getMaxResultCount(this.paginatorCoupon, event),
@@ -2154,7 +2157,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._couponService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._couponService.publishCouponToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.CouponSelectionList = [];
                 this.getCouponByDeviceId();
@@ -2195,7 +2198,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._couponService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._couponService.publishCouponToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.CouponSelectionList = [];
                 this.getCouponByDeviceId();
@@ -2238,7 +2241,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._couponService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._couponService.publishCouponToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.CouponSelectionList = [];
                 this.getCouponByDeviceId();

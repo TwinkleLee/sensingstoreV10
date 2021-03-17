@@ -1,33 +1,22 @@
 <div>
+
     <div class="content d-flex flex-column flex-column-fluid">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <i class="icon-fanhui text-info" (click)="back()"></i>
-                        <span>{{l("ProductSkuEdit")}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{sku?.id+' | '+ sku?.title}}
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
-                        <a [ngClass]="{'icon-shangyiye':true,'text-primary':sku.preSkuId,'text-secondary':!sku.preSkuId}"
-                            (click)="switchSku(false)"></a>
-                        <a [ngClass]="{'icon-xiayiye':true,'text-primary':sku.nextSkuId,'text-secondary':!sku.nextSkuId}"
-                            (click)="switchSku(true)"></a>
-                    </div>
-                </div>
+        <sub-header [title]="'ProductSkuEdit' | localize" [description]="sku?.id+' | '+ sku?.title">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions">
+                <a [ngClass]="{'icon-shangyiye':true,'text-primary':sku.preSkuId,'text-secondary':!sku.preSkuId}"
+                    (click)="switchSku(false)"></a>
+                <a [ngClass]="{'icon-xiayiye':true,'text-primary':sku.nextSkuId,'text-secondary':!sku.nextSkuId}"
+                    (click)="switchSku(true)"></a>
             </div>
-        </div>
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <div class="kt-portlet__body">
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
                     <tabset class="tab-container tabbable-line">
                         <!--  商品sku基础信息-->
-                        <tab heading="{{l('Sku')}}" customClass="kt-tabs__item icon-ccgl-xinghapweihu-4">
+                        <tab class="pt-5" heading="{{l('Sku')}}" customClass="kt-tabs__item icon-ccgl-xinghapweihu-4">
                             <form #skuOperationForm='ngForm' name="ProductsForm" (ngSubmit)="save()" novalidate="">
                                 <div class="row">
                                     <div class="col-8">
@@ -243,7 +232,7 @@
                                 </div>
                                 <div class="col-12 text-right">
                                     <button class="btn btn-primary" type="button"
-                                        (click)="back()">{{l('back')}}</button>
+                                        (click)="goBack()">{{l('back')}}</button>
                                     <button class="btn btn-primary" *ngIf="sku.isMine!==false"
                                         [disabled]="!skuOperationForm.form.valid" [buttonBusy]="saving"
                                         [busyText]="l('SavingWithThreeDot')" type="submit">
@@ -252,7 +241,7 @@
                             </form>
                         </tab>
                         <!--  电商平台信息-->
-                        <tab heading="{{l('onlineMsg')}}" customClass="kt-tabs__item icon-pingtai1"
+                        <tab class="pt-5" heading="{{l('onlineMsg')}}" customClass="kt-tabs__item icon-pingtai1"
                             (selectTab)="getOnlineBySkuId($event)">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -350,7 +339,7 @@
                             </div>
                         </tab>
                         <!--  搭配-->
-                        <tab heading="{{l('Match')}}" customClass="kt-tabs__item icon-dapei"
+                        <tab class="pt-5" heading="{{l('Match')}}" customClass="kt-tabs__item icon-dapei"
                             (selectTab)="getMatchBySkuId($event)">
                             <div class="row align-items-center">
                                 <app-image-grid style="width: 100%;" gridOwner="match"
@@ -373,7 +362,7 @@
                             </div>
                         </tab>
                         <!--  猜你喜欢-->
-                        <tab heading="{{l('Likes')}}" customClass="kt-tabs__item icon-xin"
+                        <tab class="pt-5" heading="{{l('Likes')}}" customClass="kt-tabs__item icon-xin"
                             (selectTab)="getLikesBySkuId($event)">
                             <div class="row align-items-center">
                                 <app-image-grid style="width: 100%;" gridOwner="guess"
@@ -396,11 +385,11 @@
                             </div>
                         </tab>
                         <!--  资源列表-->
-                        <tab heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
+                        <tab class="pt-5" heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
                             (selectTab)="getResBySkuId($event)">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                    <div class="kt-form kt-form--label-align-right" *ngIf="sku.isMine!==false">
+                                    <div class="m-form m-form--label-align-right" *ngIf="sku.isMine!==false">
                                         <div class="row align-items-center m--margin-bottom-10">
                                             <div class="offset-4 col-8">
                                                 <div class="form-group" style="text-align:right;">

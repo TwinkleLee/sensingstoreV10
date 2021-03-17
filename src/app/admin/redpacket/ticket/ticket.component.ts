@@ -8,7 +8,7 @@ import { CreateOrEditTicketModalComponent } from '@app/admin/redpacket/ticket/cr
 import { PublishTicketModalComponent } from '@app/admin/redpacket/ticket/publish-ticket-modal.component';
 
 import { CommonServiceProxy, TicketServiceProxy, TicketStatus, TicketType, TakeType, SetTicketStatusInput } from '@shared/service-proxies/service-proxies2';
-import { ProductCategoryServiceProxy, CouponServiceProxy, CreateCouponByTicketInput } from '@shared/service-proxies/service-proxies';
+import { ProductCategoryServiceProxy, CouponServiceProxy, CreateCouponByTicketInput } from '@shared/service-proxies/service-proxies-product';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';

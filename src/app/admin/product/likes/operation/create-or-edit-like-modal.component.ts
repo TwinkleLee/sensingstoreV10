@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { LikeInfoDto,LikeInfoServiceProxy,CreateLikeInfoInput,UpdateLikeInfoInput } from '@shared/service-proxies/service-proxies';
+import { LikeInfoServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';
@@ -44,7 +44,9 @@ export class CreateOrEditLikeModalComponent extends AppComponentBase {
         e&&e.preventDefault();
         this.primengTableHelper.showLoadingIndicator();
         this.likeService.getSkusForLikeInfo(
-            this.likeId,this.filterText,undefined,
+            this.likeId,
+            this.filterText,
+            undefined,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

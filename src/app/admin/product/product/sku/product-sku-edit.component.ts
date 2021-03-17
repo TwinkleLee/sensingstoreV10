@@ -1,6 +1,9 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, HostListener } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, ProductDto, AddOrUpdateProductInput, TagServiceProxy, UpdateSkuInput, PropertyServiceProxy, AuditStatus, MatchInfoServiceProxy, LikeInfoServiceProxy } from '@shared/service-proxies/service-proxies';
+
+import { ProductServiceProxy, TagServiceProxy, UpdateSkuInput, MatchInfoServiceProxy, LikeInfoServiceProxy } from '@shared/service-proxies/service-proxies-product';
+
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { Router } from '@angular/router';
@@ -71,7 +74,6 @@ export class ProductSkuEditComponent extends AppComponentBase {
         private router: Router,
         private _tagService: TagServiceProxy,
         private connector: ConnectorService,
-        private _propertyService: PropertyServiceProxy,
         private _matchInfoService: MatchInfoServiceProxy,
         private _likeInfoService: LikeInfoServiceProxy,
     ) {
@@ -230,7 +232,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         this.sku.tags = tagString;
     }
     //返回
-    back() {
+    goBack() {
         this.router.navigate(['app', 'admin','product', 'product', 'operation', this.productId], { queryParams: { backFromSku: true } });
     }
     //保存
@@ -252,7 +254,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
-                this.back();
+                this.goBack();
             });
     }
     // upload completed event

@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import {  AdServiceProxy, AuditStatus, AuditStatus as AuditStatus10 } from '@shared/service-proxies/service-proxies-ads';
 
 // tag1
-import {MatchInfoDto,MatchInfoServiceProxy,CreateMatchInfoInput,UpdateMatchInfoInput, DeviceServiceProxy} from '@shared/service-proxies/service-proxies'
+import { DeviceServiceProxy} from '@shared/service-proxies/service-proxies'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';

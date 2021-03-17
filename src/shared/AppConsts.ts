@@ -25,6 +25,7 @@ export class AppConsts {
     static remoteDeviceCenterUrl: string;
     static remoteSmartDeviceUrl: string;
     static remoteAdserviceUrl: string;
+    static remoteProductServiceUrl: string;
     // V3 for ecovacs
     static deploymentList: any;
     static customTheme: any;

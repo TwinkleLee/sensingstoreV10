@@ -19,7 +19,7 @@
                                 <div class="col-8">
                                     <div class="form-group">
                                         <label>{{l("name")}} *</label>
-                                        <input #valueInput="ngModel" class="form-control" type="text" name="value" [(ngModel)]="propertyValue.value" required maxlength="32">
+                                        <input #valueInput="ngModel" class="form-control" type="text" name="name" [(ngModel)]="propertyValue.name" required maxlength="32">
                                         <validation-messages [formCtrl]="valueInput"></validation-messages>
                                     </div>
                                     <div class="form-group">

@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import { AwardServiceProxy, CreateAwardInput, UpdateAwardInput } from '@shared/service-proxies/service-proxies5';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CouponServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CouponServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 
 @Component({

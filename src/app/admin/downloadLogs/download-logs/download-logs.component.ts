@@ -4,7 +4,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { BackendDownloadTaskServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BackendDownloadTaskServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
   templateUrl: './download-logs.component.html',

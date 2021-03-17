@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 // import { CreateOrEditProInfoModalComponent } from '@app/product/product-info/';
-import { PropertyServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { PropertyAddComponent } from '@app/admin/product/product-info/property-add-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConnectorService } from '@app/shared/services/connector.service';
@@ -30,7 +30,7 @@ export class ProductInfoComponent extends AppComponentBase {
     private router: Router,
     private route: ActivatedRoute,
     private connector: ConnectorService,
-    private _propertyService: PropertyServiceProxy) {
+    private _ProductServiceProxy: ProductServiceProxy) {
     super(injector);
   }
 
@@ -41,7 +41,7 @@ export class ProductInfoComponent extends AppComponentBase {
       return;
     }
     this.primengTableHelper.showLoadingIndicator();
-    this._propertyService.gets(
+    this._ProductServiceProxy.gets(
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'name',
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -67,7 +67,7 @@ export class ProductInfoComponent extends AppComponentBase {
   deleteProductInfo(record) {
     this.message.confirm(this.l("DeleteThisPropertyQuestion"), this.l('AreYouSure'), (r) => {
       if (r) {
-        this._propertyService.delete(record.id).subscribe(result => {
+        this._ProductServiceProxy.deleteProperty(record.id).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getProductInfos();
         })

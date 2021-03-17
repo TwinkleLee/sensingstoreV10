@@ -16,6 +16,7 @@
   "remoteFloorServiceUrl": "http://119.3.154.130:8007",
   "//remoteOKRServiceUrl": "https://okr.api.troncell.com",
   "remoteAdserviceUrl": "http://119.3.154.130:8003",
+  "remoteProductServiceUrl": "http://119.3.154.130:8005",
   "localeMappings": {
     "angular": [
       {

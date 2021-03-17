@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditCouponModalComponent } from '@app/admin/redpacket/red-packet/create-or-edit-coupon-modal.component';
-import { CouponDto, CouponServiceProxy, AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies';
+import { CouponDto, CouponServiceProxy, AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 
@@ -237,7 +237,7 @@ export class RedPacketComponent extends AppComponentBase {
         this.couponPublishList = [];
         this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'),this.l('AreYouSure'), (r) => {
           if (r) {
-            this._couponService.publishAllToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._couponService.publishCouponToOrganizationOrDevicesOrStore(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;
@@ -247,7 +247,7 @@ export class RedPacketComponent extends AppComponentBase {
       } else {
         this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'),this.l('AreYouSure'), (r) => {
           if (r) {
-            this._couponService.publishToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._couponService.publishCouponToOrganizationOrDevicesOrStore(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.couponPublishList = [];
               this.toPublish = false;

@@ -1,13 +1,13 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { MatchInfoDto, MatchInfoServiceProxy, CreateMatchInfoInput, UpdateMatchInfoInput } from '@shared/service-proxies/service-proxies';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 
 import { finalize } from 'rxjs/operators';
-import { OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
     selector: 'skuGridModal',

@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, Input } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, CreateProductCommentInput, UpdateProductCommentInput } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, CreateProductCommentInput, UpdateProductCommentInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 // import { moment } from 'ngx-bootstrap/chronos/test/chain';
@@ -74,7 +74,7 @@ export class CreateOrEditCommentsModalComponent extends AppComponentBase impleme
         this.comment.commentDateTime= this.comment.commentDateTime ? moment(this.comment.commentDateTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
         if (this.operationType == "add") {
             this.createInput = new CreateProductCommentInput(this.comment);
-            this._prodService.addComments(this.createInput).pipe(finalize(() => {
+            this._prodService.addProductComments(this.createInput).pipe(finalize(() => {
                 this.saving = false;
             })).subscribe((result) => {
                 this.modalSave.emit();
@@ -83,7 +83,7 @@ export class CreateOrEditCommentsModalComponent extends AppComponentBase impleme
             })
         } else if (this.operationType == "edit") {
             this.updateInput = new UpdateProductCommentInput(this.comment);
-            this._prodService.updateComments(this.updateInput).pipe(finalize(() => {
+            this._prodService.updateProductComment(this.updateInput).pipe(finalize(() => {
                 this.saving = false;
             })).subscribe((result) => {
                 this.modalSave.emit();

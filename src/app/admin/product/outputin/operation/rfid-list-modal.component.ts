@@ -5,7 +5,11 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { OutPutInStorageServiceProxy, SkuRfidServiceProxy, SensingDeviceServiceProxy, PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies-product';
+
+import { SkuRfidServiceProxy, PDFDto, TextForPDF, SensingDeviceServiceProxy } from '@shared/service-proxies/service-proxies'
+
+
 import { CreateOrEditSkuRfidModalComponent } from '@app/admin/product/outputin/create-or-edit-skurfid-modal.component';
 
 

@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { OutPutInStorageServiceProxy, AddOrUpdateOutPutInStorageBillInput, OutPutInStorageSku } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy  } from '@shared/service-proxies/service-proxies-product';
 import { SkuGridModalComponent } from '@app/admin/product/outputin/operation/sku-grid-modal.component';
 import * as _ from 'lodash';
 

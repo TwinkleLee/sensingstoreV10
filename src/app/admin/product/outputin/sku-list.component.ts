@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { OutputinDetailModalComponent } from '@app/admin/product/outputin/operation/outputin-detail-modal.component';
-import { OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies';
+import { OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RfidListModalComponent } from '@app/admin/product/outputin/operation/rfid-list-modal.component';

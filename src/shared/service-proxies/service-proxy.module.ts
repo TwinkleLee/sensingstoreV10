@@ -21,6 +21,7 @@ import * as OKRServiceProxies from './service-proxies-okr';//okr
 import * as DEVICECENTERServiceProxies from './service-proxies-devicecenter';//device center
 import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对应原e站点(cargo)
 import * as AdsServiceProxies from './service-proxies-ads';//ads
+import * as ProductServiceProxies from './service-proxies-product';// product
 
 @NgModule({
     providers: [
@@ -217,7 +218,7 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
 
 
 
-        //2021 新版本 device center ads
+        //2021 新版本 device center ads Product
         DEVICECENTERServiceProxies.StoreServiceProxy,
         DEVICECENTERServiceProxies.OrganizationUnitServiceProxy,
         DEVICECENTERServiceProxies.DeviceServiceProxy,
@@ -250,6 +251,22 @@ import * as AdsServiceProxies from './service-proxies-ads';//ads
         AdsServiceProxies.StoreSoftwareServiceProxy,
         AdsServiceProxies.TagServiceProxy,
 
+
+        ProductServiceProxies.DeviceServiceProxy,
+        ProductServiceProxies.StoreServiceProxy,
+        ProductServiceProxies.ProductCategoryServiceProxy,
+        ProductServiceProxies.OutPutInStorageServiceProxy,
+        ProductServiceProxies.CouponServiceProxy,
+        ProductServiceProxies.ProductServiceProxy,
+        ProductServiceProxies.ApplyServiceProxy,
+        ProductServiceProxies.LikeInfoServiceProxy,
+        ProductServiceProxies.LikeInfoExcelImporterServiceProxy,
+        ProductServiceProxies.MatchInfoServiceProxy,
+        ProductServiceProxies.ReportServiceProxy,
+        ProductServiceProxies.TagServiceProxy,
+        ProductServiceProxies.BackendDownloadTaskServiceProxy,
+        ProductServiceProxies.SensingDeviceServiceProxy,
+        ProductServiceProxies.SensingSkuRfidServiceProxy,
 
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },

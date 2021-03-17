@@ -4,14 +4,17 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 
-import { ProductServiceProxy, ProductDto, ApplyServiceProxy, CreateApplyFormInput, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, AuditStatus as AuditStatus3, PublishDeviceInput, PublishEntitiesInput, TagServiceProxy, ProductCategoryServiceProxy, SetProductTagsDto, SetProductCategoryDto, IdTypeDto, TagType as Type, FileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, ProductDto, ApplyServiceProxy, CreateApplyFormInput, ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, AuditStatus as AuditStatus3, PublishEntitiesInput, TagServiceProxy, ProductCategoryServiceProxy, SetProductTagsDto, SetProductCategoryDto, IdTypeDto, TagType as Type, PublishSearchedProductInput, GetProductsInput } from '@shared/service-proxies/service-proxies-product';
+
+
+import { FileServiceProxy } from '@shared/service-proxies/service-proxies'
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConnectorService } from '@app/shared/services/connector.service';
 import { CreateOrEditProModalComponent } from '@app/admin/product/product/create-or-edit-prod-modal.component';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table, TableCheckbox } from 'primeng/table';
 import { finalize } from '@node_modules/rxjs/operators';
-import { PublishSearchedProductInput, GetProductsInput } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
@@ -231,12 +234,14 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
     if (f) {
       $(".filterButton div.dropdown-menu").show();
 
-      this._productsService.getRegions().subscribe(r => {
-        this.regionList = r;
-      })
-      this._productsService.getLanguages().subscribe(r => {
-        this.languageList = r;
-      })
+      // 暂时注释->
+      
+      // this._productsService.getRegions().subscribe(r => {
+      //   this.regionList = r;
+      // })
+      // this._productsService.getLanguages().subscribe(r => {
+      //   this.languageList = r;
+      // })
     } else {
       $(".filterButton div.dropdown-menu").hide();
     }
@@ -278,7 +283,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
       return;
     }
     //获取分类下拉数据
-    this.cateService.getproductCategories(
+    this.cateService.getProductCategories(
       this.cateFilter,
       undefined,
       1000,
@@ -755,7 +760,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
         'productIds': ary,
         'action': 'add'
       });
-      this._productsService.setTags(input).subscribe((result) => {
+      this._productsService.setOrClearProductTags(input).subscribe((result) => {
         this.notify.info(this.l('success'));
       })
     })
@@ -772,7 +777,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
         'productIds': ary,
         'action': 'add'
       });
-      this._productsService.setCategories(input).subscribe((result) => {
+      this._productsService.setOrClearProductCategories(input).subscribe((result) => {
         this.notify.info(this.l('success'));
       })
     })
@@ -786,7 +791,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
         'productIds': ary,
         'action': 'delete'
       });
-      this._productsService.setTags(input).subscribe((result) => {
+      this._productsService.setOrClearProductTags(input).subscribe((result) => {
         this.notify.info(this.l('success'));
         this.getProducts();
       })
@@ -801,7 +806,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
         'productIds': ary,
         'action': 'delete'
       });
-      this._productsService.setCategories(input).subscribe((result) => {
+      this._productsService.setOrClearProductCategories(input).subscribe((result) => {
         this.notify.info(this.l('success'));
         this.getProducts();
       })

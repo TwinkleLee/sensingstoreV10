@@ -1,7 +1,11 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ModalDirective,  } from '@node_modules/ngx-bootstrap/modal';
 import { TabsetComponent } from '@node_modules/ngx-bootstrap/tabs';
-import { ProductServiceProxy, ProductDto, AddOrUpdateProductInput, UpdateProductInput, TagServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, ProductCategoryServiceProxy, TagType as Type,ProductPointRule,RedeemRule,AwardRule } from '@shared/service-proxies/service-proxies';
+
+
+import { ProductServiceProxy, UpdateProductInput, TagServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, ProductCategoryServiceProxy, TagType as Type,ProductPointRule,RedeemRule,AwardRule } from '@shared/service-proxies/service-proxies-product';
+
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { ConnectorService } from '@app/shared/services/connector.service';
@@ -708,6 +712,11 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
             }
         })
     }
+
+    //返回
+    goBack() {
+        this.router.navigate(['app', 'admin', 'product', 'product']);
+    }
     /**
      * 评价
      */
@@ -720,7 +729,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
     deleteComment(record) {
         this.message.confirm(this.l('deletethiscomment'), this.l('AreYouSure'),(r) => {
             if (r) {
-                this._productsService.deleteComments(record.id).subscribe((result) => {
+                this._productsService.deleteProductComment(record.id).subscribe((result) => {
                     this.notify.info(this.l('success'));
                     this.getCommentsByProductId();
                 })
@@ -736,7 +745,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         }
         this.message.confirm(this.l('deletethiscomments'),this.l('AreYouSure'), (r) => {
             if (r) {
-                this._productsService.deleteCommentByIds(ids).subscribe((result) => {
+                this._productsService.deleteProductCommentByIds(ids).subscribe((result) => {
                     this.notify.info(this.l('success'));
                     this.getCommentsByProductId();
                 })

@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { PropertyDto, PropertyServiceProxy, UpdatePropertyInput, PropertyValueServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PropertyDto, ProductServiceProxy, UpdatePropertyInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { Router } from '@angular/router';
@@ -35,8 +35,7 @@ export class PropertyEditComponent extends AppComponentBase {
         injector: Injector,
         private router: Router,
         private connector: ConnectorService,
-        private _propertyService: PropertyServiceProxy,
-        private _proValueService: PropertyValueServiceProxy
+        private _ProductServiceProxy: ProductServiceProxy,
     ) {
         super(injector);
         var property = this.connector.getCache('property');
@@ -47,7 +46,7 @@ export class PropertyEditComponent extends AppComponentBase {
         } else {
             var urls = location.pathname.split('\/');
             this.property.id = urls[urls.length - 1];
-            this._propertyService.getSignle(this.property.id).subscribe((result) => {
+            this._ProductServiceProxy.getSignleProperty(this.property.id).subscribe((result) => {
                 this.property = result;
             })
         }
@@ -55,7 +54,7 @@ export class PropertyEditComponent extends AppComponentBase {
     //获取商品属性值
     getPropertyValue(event?: LazyLoadEvent) {
         this.primengTableHelper.showLoadingIndicator();
-        this._proValueService.gets(
+        this._ProductServiceProxy.getPropertyValues(
             this.property.id,
             this.filterText,
             this.primengTableHelper.getSorting(this.dataTable),
@@ -70,7 +69,7 @@ export class PropertyEditComponent extends AppComponentBase {
     }
     //删除商品属性值
     deletePropertyValue(record) {
-        this._proValueService.delete(record.id).subscribe((result) => {
+        this._ProductServiceProxy.deleteProperty(record.id).subscribe((result) => {
             this.notify.info('success');
             this.getPropertyValue();
         })
@@ -101,7 +100,7 @@ export class PropertyEditComponent extends AppComponentBase {
     }
     //提交
     save() {
-        this._propertyService.update(new UpdatePropertyInput(this.property)).subscribe(() => {
+        this._ProductServiceProxy.updateProperty(new UpdatePropertyInput(this.property)).subscribe(() => {
             this.notify.success("sucess");
             var self = this;
             setTimeout(function () {

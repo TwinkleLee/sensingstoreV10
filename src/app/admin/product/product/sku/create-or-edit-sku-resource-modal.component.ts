@@ -1,6 +1,9 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, Input } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, CreateSkuResourceInput, UpdateEntityResourceInput, FileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, CreateSkuResourceInput, UpdateEntityResourceInput } from '@shared/service-proxies/service-proxies-product';
+
+import { FileServiceProxy } from '@shared/service-proxies/service-proxies'
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 

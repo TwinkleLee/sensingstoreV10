@@ -1,6 +1,10 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductCategoryServiceProxy, ShopServiceProxy, CreateShopCategoryInput, UpdateShopCategoryInput } from '@shared/service-proxies/service-proxies';
+import { ProductCategoryServiceProxy } from '@shared/service-proxies/service-proxies-product';
+
+import { ShopServiceProxy, CreateShopCategoryInput, UpdateShopCategoryInput } from '@shared/service-proxies/service-proxies'
+
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
@@ -31,7 +35,7 @@ export class SetCategoryModalComponent extends AppComponentBase implements After
         private _ProductCategoryServiceProxy: ProductCategoryServiceProxy
     ) {
         super(injector);
-        this._ProductCategoryServiceProxy.getproductCategories(
+        this._ProductCategoryServiceProxy.getProductCategories(
             undefined,
             undefined,
             999,

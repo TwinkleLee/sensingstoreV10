@@ -4,7 +4,8 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 
-import { ProductCategoryServiceProxy, CreateProductCategoryInput, UpdateProductCategoryInput } from '@shared/service-proxies/service-proxies';
+import { ProductCategoryServiceProxy, CreateProductCategoryInput, UpdateProductCategoryInput } from '@shared/service-proxies/service-proxies-product';
+
 import { OperationKnowledgeServiceProxy, CreateQuestionCategoryInput, UpdateQuestionCategoryInput } from '@shared/service-proxies/service-proxies3';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Router } from '@angular/router';

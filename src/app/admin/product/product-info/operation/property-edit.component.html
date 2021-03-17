@@ -1,30 +1,19 @@
 <div>
     <div class="content d-flex flex-column flex-column-fluid">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <span>{{l("PropertyEdit")}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{property?.id+' | '+property?.name}}
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
 
-                    </div>
-                </div>
+        <sub-header [title]="'PropertyEdit' | localize" [description]="property?.id+' | '+property?.name">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions">
             </div>
-        </div>
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <form #propertyInfooperationForm="ngForm" name="ProductCategoryForm" novalidate (ngSubmit)="save()"
-                    autocomplete="off">
-                    <div class="kt-portlet__body">
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form #propertyInfooperationForm="ngForm" name="ProductCategoryForm" novalidate (ngSubmit)="save()"
+                        autocomplete="off">
                         <tabset class="tab-container tabbable-line">
-                            <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
+                            <tab class="pt-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
                                 <form style="width: 100%" novalidate="" #propertyInfooperationForm="ngForm"
                                     (ngSubmit)="save()">
                                     <div class="form-row">
@@ -77,18 +66,18 @@
                                     </div>
                                 </form>
                             </tab>
-                            <tab heading="{{l('propertyValue')}}" customClass="kt-tabs__item"
+                            <tab class="pt-5" heading="{{l('propertyValue')}}" customClass="kt-tabs__item"
                                 (selectTab)="getPropertyValue($event)">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="propertysForm">
-                                        <div class="kt-form kt-form--label-align-right">
+                                        <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
                                                 <div class="col-6">
-                                                    <div class="form-group kt-form__group align-items-center">
+                                                    <div class="form-group m-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="filterText" name="filterText"
                                                                 (keyup.enter)="getPropertyValue()" autoFocus
-                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getPropertyValue()"
@@ -174,8 +163,8 @@
                                 </div>
                             </tab>
                         </tabset>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

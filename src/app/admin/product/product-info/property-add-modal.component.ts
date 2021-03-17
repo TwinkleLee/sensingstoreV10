@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import {PropertyServiceProxy,CreatePropertyInput} from '@shared/service-proxies/service-proxies';
+import {ProductServiceProxy,CreatePropertyInput} from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
@@ -34,7 +34,7 @@ export class PropertyAddComponent extends AppComponentBase implements AfterViewC
 
     constructor(
         injector: Injector,
-        private _propertyService: PropertyServiceProxy
+        private _ProductServiceProxy: ProductServiceProxy
     ) {
         super(injector);
     }
@@ -58,7 +58,7 @@ export class PropertyAddComponent extends AppComponentBase implements AfterViewC
     }
     save(): void {
             this.CreatePropertyInput = new CreatePropertyInput(this.Property);
-            this._propertyService.create(this.CreatePropertyInput)
+            this._ProductServiceProxy.createProperty(this.CreatePropertyInput)
             .pipe(finalize(() => {this.saving = false; }))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

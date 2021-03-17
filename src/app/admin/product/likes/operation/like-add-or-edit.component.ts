@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, OnInit } from '@angular/core';
-import { LikeInfoServiceProxy, CreateLikeInfoInput, UpdateLikeInfoInput } from '@shared/service-proxies/service-proxies';
+import { LikeInfoServiceProxy, CreateLikeInfoInput, UpdateLikeInfoInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrEditLikeModalComponent } from '@app/admin/product/likes/operation/create-or-edit-like-modal.component';
 import { Router } from '@angular/router';
@@ -100,7 +100,7 @@ export class LikeAddOrEditComponent extends AppComponentBase implements OnInit {
     }
     //提交
     save() {
-        if (this.like.skuIds.length < 1) {
+        if ( !this.like.skuIds || this.like.skuIds.length < 1) {
             return this.notify.info(this.l('atLeastOneSku'));
         }
         if (this.operation == 'add') {
