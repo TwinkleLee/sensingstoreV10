@@ -37,7 +37,6 @@ export class CustomComponentComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     this._ToolBoxServiceProxy.getToolBoxs(
       undefined,
-      undefined,
       this.filterText,
       // this.primengTableHelper.getSorting(this.dataTable),
       'orderNumber ASC',

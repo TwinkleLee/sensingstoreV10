@@ -82,7 +82,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         OnlineApiServiceProxies.TicketServiceProxy,
         OnlineApiServiceProxies.SensingShopServiceProxy,
         OnlineApiServiceProxies.SensingShopManageServiceProxy,
-
+        OnlineApiServiceProxies.SensingTicketServiceProxy,
 
 
         BigDataApiServiceProxies.SensingDeviceServiceProxy,
@@ -228,6 +228,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         DEVICECENTERServiceProxies.BrandServiceProxy,
         DEVICECENTERServiceProxies.ApplyServiceProxy,
         DEVICECENTERServiceProxies.IdentityServiceProxy,
+        DEVICECENTERServiceProxies.AppPodServiceProxy,
 
         SMARTDEVICEServiceProxies.AppPodServiceProxy,
         SMARTDEVICEServiceProxies.SensingDeviceServiceProxy,
@@ -235,7 +236,6 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         SMARTDEVICEServiceProxies.CounterDeviceServiceProxy,
         SMARTDEVICEServiceProxies.CounterReportServiceProxy,
         SMARTDEVICEServiceProxies.CustomizeReportServiceProxy,
-        SMARTDEVICEServiceProxies.AppPodServiceProxy,
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
 

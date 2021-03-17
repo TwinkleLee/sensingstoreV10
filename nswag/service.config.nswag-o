@@ -3,8 +3,8 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://139.196.240.230:208/swagger/v1/swagger.json",
-      "url?": "http://o.api.troncell.com/swagger/v1/swagger.json",
+      "url?": "http://139.196.240.230:208/swagger/v1/swagger.json",
+      "url": "https://o2.api.troncell.com/swagger/v1/swagger.json",
       "output": null
     }
   },

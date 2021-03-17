@@ -60,7 +60,7 @@ export class CreateOrEditCustomComponentModalComponent extends AppComponentBase 
     save(): void {
         this.saving = true;
         console.log(this.customItem);
-        this._ToolBoxServiceProxy.addOrUpdateTool(this.customItem.id, this.customItem)
+        this._ToolBoxServiceProxy.createOrUpdateTool(this.customItem.id, this.customItem)
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(result => {
                 console.log(result)

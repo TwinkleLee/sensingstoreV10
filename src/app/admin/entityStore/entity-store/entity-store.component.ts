@@ -13,6 +13,10 @@ import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStors
 
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
+
+
+import { SensingTicketServiceProxy } from '@shared/service-proxies/service-proxies2'
+
 @Component({
   selector: 'app-entity-store-category',
   templateUrl: './entity-store.component.html',
@@ -57,6 +61,7 @@ export class EntityStoreComponent extends AppComponentBase {
     private _router: Router,
     private _buildingServiceProxy: BuildingServiceProxy,
     private _BrandServiceProxy: BrandServiceProxy,
+    private _SensingTicketServiceProxy: SensingTicketServiceProxy
   ) {
     super(injector);
     this._organizationUnitService.getAreas().subscribe(r => {
@@ -142,6 +147,14 @@ export class EntityStoreComponent extends AppComponentBase {
         this.primengTableHelper.records = result.items;
         // this.primengTableHelper.hideLoadingIndicator();
       });
+  }
+
+  goImportSulwhasoo() {
+    this._router.navigate(['app', 'admin', 'import', 'import', 'sulwhasoo']);
+  }
+  goExportSulwhasoo() {
+    this.exportLoading = true;
+    this._SensingTicketServiceProxy.getTakeTicketListToExcel();
   }
 
   goExport() {
