@@ -1,6 +1,14 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
+
 import { TagServiceProxy, TagType as Type, TagDto, CreateTagInput, UpdateTagInput } from '@shared/service-proxies/service-proxies';
+
+import { TagServiceProxy as ProductTagServiceProxy } from '@shared/service-proxies/service-proxies-product'
+
+import { TagServiceProxy as AdsTagServiceProxy, TagType } from '@shared/service-proxies/service-proxies-ads'
+
+import { TagServiceProxy as DeviceTagServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter'
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
@@ -31,6 +39,8 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
     ToResource = true;
     createTag: CreateTagInput;
     updateTag: UpdateTagInput;
+
+    ServiceProxy: any = '';
 
 
     tagTypes = [{
@@ -66,7 +76,10 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
 
     constructor(
         injector: Injector,
-        private _tagService: TagServiceProxy
+        private _tagService: TagServiceProxy,
+        private _DeviceTagServiceProxy: DeviceTagServiceProxy,
+        private _AdsTagServiceProxy: AdsTagServiceProxy,
+        private _ProductTagServiceProxy: ProductTagServiceProxy,
     ) {
         super(injector);
     }
@@ -100,9 +113,28 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
     }
 
     save(): void {
+
+        console.log(this.tag)
+
+        if (this.tag.type == 0 || this.tag.type == 6 || this.tag.type == 8 || this.tag.type == 7 || this.tag.type == 4) {
+            this.ServiceProxy = this._tagService
+        }
+
+        if (this.tag.type == 1 || this.tag.type == 5) {
+            this.ServiceProxy = this._DeviceTagServiceProxy
+        }
+
+        if (this.tag.type == 2) {
+            this.ServiceProxy = this._ProductTagServiceProxy
+        }
+
+        if (this.tag.type == 3) {
+            this.ServiceProxy = this._AdsTagServiceProxy
+        }
+
         if (this.operation == "add") {
             this.createTag = this.tag as CreateTagInput;
-            this._tagService.createTag(this.createTag)
+            this.ServiceProxy.createTag(this.createTag)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));
@@ -111,7 +143,7 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
                 });
         } else {
             this.updateTag = this.tag as UpdateTagInput;
-            this._tagService.updateTag(this.updateTag)
+            this.ServiceProxy.updateTag(this.updateTag)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));

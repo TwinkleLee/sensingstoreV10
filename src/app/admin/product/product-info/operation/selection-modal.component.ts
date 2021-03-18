@@ -1,8 +1,9 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, CreatePropertyInput, UpdatePropertyInput } from '@shared/service-proxies/service-proxies-product';
+import { ProductServiceProxy, CreatePropertyInput, UpdatePropertyInput, CreatePropertyValueInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
+import { UpdatePropertyValueInput } from '@shared/service-proxies/service-proxies';
 
 @Component({
     selector: 'PropertyValueAlertModal',
@@ -22,12 +23,12 @@ export class PropertyValueAlertModalComponent extends AppComponentBase {
 
     save() {
         if (this.operation == 'add') {
-            this._ProductServiceProxy.createProperty(new CreatePropertyInput(this.propertyValue)).subscribe((result) => {
+            this._ProductServiceProxy.createPropertyValue(new CreatePropertyValueInput(this.propertyValue)).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.modalSave.emit(null);
             })
         } else {
-            this._ProductServiceProxy.updateProperty(new UpdatePropertyInput(this.propertyValue)).subscribe((result) => {
+            this._ProductServiceProxy.updatePropertyValue(new UpdatePropertyValueInput(this.propertyValue)).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.modalSave.emit(null);
             })
@@ -44,7 +45,7 @@ export class PropertyValueAlertModalComponent extends AppComponentBase {
             this.propertyValue = Object.assign({}, record);
         } else {
             this.operation = 'add';
-            this.propertyValue = new CreatePropertyInput();
+            this.propertyValue = new CreatePropertyValueInput();
             this.propertyValue.propertyId = id;
         }
         this.modal.show()

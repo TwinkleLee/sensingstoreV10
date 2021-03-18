@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { PropertyDto, ProductServiceProxy, UpdatePropertyInput } from '@shared/service-proxies/service-proxies-product';
+import { PropertyDto, ProductServiceProxy, UpdatePropertyInput, UpdatePropertyValueInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { Router } from '@angular/router';
@@ -69,7 +69,7 @@ export class PropertyEditComponent extends AppComponentBase {
     }
     //删除商品属性值
     deletePropertyValue(record) {
-        this._ProductServiceProxy.deleteProperty(record.id).subscribe((result) => {
+        this._ProductServiceProxy.deletePropertyValue(record.id).subscribe((result) => {
             this.notify.info('success');
             this.getPropertyValue();
         })
@@ -100,7 +100,7 @@ export class PropertyEditComponent extends AppComponentBase {
     }
     //提交
     save() {
-        this._ProductServiceProxy.updateProperty(new UpdatePropertyInput(this.property)).subscribe(() => {
+        this._ProductServiceProxy.updatePropertyValue(new UpdatePropertyValueInput(this.property)).subscribe(() => {
             this.notify.success("sucess");
             var self = this;
             setTimeout(function () {

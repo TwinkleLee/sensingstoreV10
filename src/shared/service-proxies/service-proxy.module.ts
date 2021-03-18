@@ -238,6 +238,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         SMARTDEVICEServiceProxies.CustomizeReportServiceProxy,
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
+        // SMARTDEVICEServiceProxies.TagServiceProxy,
 
 
         

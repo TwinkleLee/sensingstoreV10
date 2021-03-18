@@ -7,6 +7,7 @@ import { DeviceActionServiceProxy, ExternalEnum as AddSmartStoreDeviceToExtraPla
 
 import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
@@ -782,7 +783,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
         if (this.isGranted("Pages.Tenant.Ads")) {
 
-            this._deviceService.getAdsByDeviceId(
+            this._DeviceAdsServiceProxy.getAdsByDeviceId(
                 this.device.id,
                 undefined,
                 AuditStatus.Online,
