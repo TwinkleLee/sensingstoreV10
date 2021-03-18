@@ -1,0 +1,113 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form *ngIf="active" #MetaphysicsTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="metaType?.id">{{l("editKPI")}}: {{metaType?.id}}</span>
+                        <span *ngIf="!metaType.id">{{l("createKPI")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                    <!-- OUName -->
+                                <!-- <label>{{l("storeNumber")}}</label> -->
+                                <label>{{l("itemId")}}</label>
+                                <input *ngIf="!isStore" class="form-control" type="text" name="organizationUnitId" [(ngModel)]="metaType.organizationUnitId"
+                                    readonly="readonly" maxlength="32">
+                                <input *ngIf="isStore" class="form-control" type="text" name="storeId" [(ngModel)]="metaType.storeId"
+                                    readonly="readonly" maxlength="32">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label *ngIf="!isStore">{{l("OUName")}}</label>
+                                <label *ngIf="isStore">{{l("storeName")}}</label>
+                                <input class="form-control" type="text" name="storeName" [(ngModel)]="metaType.ouOrStoreName"
+                                    readonly="readonly" maxlength="32">
+                            </div>
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="form-group kt-form__group align-items-center">
+                                <label>{{l("CheckScale")}}</label>
+                                <div class="input-group">
+                                    <select class="form-control" [(ngModel)]="metaType.kpiScale" name="kpiScale"
+                                        required>
+                                        <option value="0">{{l("yearly")}}</option>
+                                        <option value="1">{{l("monthly")}}</option>
+                                        <option value="3">{{l("daily")}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group" *ngIf="metaType.kpiScale == 0">
+                                <label>{{l("CheckTime")}} ({{l("SuchAs")}}:2018)</label>
+                                <input class="form-control" type="text" name="scaleTime" [(ngModel)]="metaType.scaleTime"
+                                    maxlength="32" required pattern="^\d{4}$">
+                            </div>
+                            <div class="form-group" *ngIf="metaType.kpiScale == 1">
+                                <label>{{l("CheckTime")}} ({{l("SuchAs")}}:2018-06)</label>
+                                <input class="form-control" type="text" name="scaleTime" [(ngModel)]="metaType.scaleTime"
+                                    maxlength="32" required pattern="^\d{4}-\d{2}$">
+                            </div>
+                            <div class="form-group" *ngIf="metaType.kpiScale == 3">
+                                <label>{{l("CheckTime")}} ({{l("SuchAs")}}:2018-06-30)</label>
+                                <input class="form-control" type="text" name="scaleTime" [(ngModel)]="metaType.scaleTime"
+                                    maxlength="32" required pattern="^\d{4}-\d{2}-\d{2}$">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label>{{l('CheckType')}}</label>
+                            <input class="form-control" name="TypeCombobox" id="TypeCombobox" [(ngModel)]="metaType.name"
+                                list="typeList" />
+                            <datalist id="typeList">
+                                <option value="">{{l('All')}}</option>
+                                <option [value]="item" *ngFor="let item of typeList"></option>
+                            </datalist>
+                        </div>
+
+                        <!-- 
+                        <div class="col-6">
+                            <label>{{l('CheckType')}}</label>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <select #TypeCombobox class="form-control typeSelect" [(ngModel)]="metaType.name"
+                                        name="TypeSelectInput" (change)="typeChange()">
+                                        <option value="">{{l('All')}}</option>
+                                        <option [value]="item" *ngFor="let item of typeList">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{l("TargetValue")}}</label>
+                                <input class="form-control" type="number" name="value" [(ngModel)]="metaType.value"
+                                    maxlength="32" required>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

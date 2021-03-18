@@ -1,0 +1,1174 @@
+<div>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="OUId ? l('OuDetail') : l('StoreDetail')" [description]="OUId ? OUName + '|' + OUId:OUName + '|' + storeId">
+
+
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions"></div>
+        </sub-header>
+
+
+
+        <div [class]="containerClass ">
+            <div class="card card-custom gutter-b">
+                <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
+                    <div class="card-body">
+                        <tabset class="tab-container tabbable-line">
+                            <tab class="pt-5" *ngIf="OUId" heading="{{l('User')}}" customClass="kt-tabs__item icon-yonghu"
+                                (selectTab)="getUsers()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="userForm">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-4">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="UserFilterText" name="filterText"
+                                                                autoFocus class="form-control m-input" type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getUsers()" class="btn btn-primary"
+                                                                    type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="primeng-datatable-container" [busyIf]="pUser.isLoading">
+                                        <p-table #dataTableFace (onLazyLoad)="getUsers($event)" [value]="pUser.records"
+                                            [rows]="pUser.defaultRecordsCountPerPage" [(selection)]="FaceSelectionList"
+                                            [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pUser.resizableColumns"
+                                            [responsive]="pUser.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <th pSortableColumn="username">
+                                                        {{l('UserName')}}
+                                                    </th>
+                                                    <th pSortableColumn="name">
+                                                        {{l('Name')}}
+                                                    </th>
+                                                    <th pSortableColumn="surname">
+                                                        {{l('Surname')}}
+                                                    </th>
+                                                    <th pSortableColumn="roles">
+                                                        {{l('Roles')}}
+                                                    </th>
+                                                    <th pSortableColumn="emailAddress">
+                                                        {{l('EmailAddress')}}
+                                                    </th>
+                                                    <th pSortableColumn="isEmailConfirmed">
+                                                        {{l('EmailConfirm')}}
+                                                    </th>
+                                                    <th pSortableColumn="isActive">
+                                                        {{l('Active')}}
+                                                    </th>
+                                                    <th pSortableColumn="lastLoginTime">
+                                                        {{l('LastLoginTime')}}
+                                                    </th>
+                                                    <th pSortableColumn="creationTime">
+                                                        {{l('CreationTime')}}
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td> {{transUserIndex(i)}}</td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('UserName')}}</span>
+                                                        {{record.userName}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('Name')}}</span>
+                                                        {{record.name}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('Surname')}}</span>
+                                                        {{record.surname}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('Roles')}}</span>
+                                                        {{getRolesAsString(record.roles)}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('EmailAddress')}}</span>
+                                                        {{record.emailAddress}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('EmailConfirm')}}</span>
+                                                        <span class="label label-success"
+                                                            *ngIf="record.isEmailConfirmed">{{l('Yes')}}</span>
+                                                        <span class="label label-default"
+                                                            *ngIf="!record.isEmailConfirmed">{{l('No')}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('Active')}}</span>
+                                                        <span class="label label-success"
+                                                            *ngIf="record.isActive">{{l('Yes')}}</span>
+                                                        <span class="label label-default"
+                                                            *ngIf="!record.isActive">{{l('No')}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('LastLoginTime')}}</span>
+                                                        <span *ngIf="record.lastLoginTime">{{record.lastLoginTime |
+                                                        momentFormat:'L'}}</span>
+                                                        <span *ngIf="!record.lastLoginTime">-</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="ui-column-title"> {{l('CreationTime')}}</span>
+                                                        {{record.creationTime | momentFormat:'L'}}
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pUser.records">
+                                                    <td colspan="10">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pUser.defaultRecordsCountPerPage" #paginatorFace
+                                                (onPageChange)="getUsers($event)"
+                                                [totalRecords]="pUser.totalRecordsCount"
+                                                [rowsPerPageOptions]="pUser.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pUser.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab class="pt-5" *ngIf="OUId" heading="{{l('ElectronicCommerce')}}"
+                                customClass="kt-tabs__item icon-shop" (selectTab)="getStoreList()">
+                                <div class="row">
+                                    <form class="horizontal-form" autocomplete="off">
+                                        <div class="m-form m-form--label-align-right">
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-4">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="questionFilter" name="metaName"
+                                                                autoFocus class="form-control m-input" type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getStoreList()" class="btn btn-primary"
+                                                                    type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                        <p-table #dataTable (onLazyLoad)="getStoreList($event)"
+                                            [value]="primengTableHelper.records"
+                                            [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false"
+                                            [lazy]="false" [(selection)]="recordCheckedList"
+                                            [resizableColumns]="primengTableHelper.resizableColumns"
+                                            [responsive]="primengTableHelper.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <th>{{l('outerId')}}</th>
+                                                    <th>{{l('Name')}}</th>
+                                                    <th pSortableColumn="openingTime">
+                                                        {{l('openingTime')}}
+                                                    </th>
+                                                    <th pSortableColumn="closedTime">
+                                                        {{l('closedTime')}}
+                                                    </th>
+                                                    <th>{{l('qrCodeExtraInfo')}}</th>
+                                                    <th>{{l('taobaoStoreId')}}</th>
+
+                                                    <th style="width:20%">{{l('area')}}</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td style="width:5%"> {{transIndex(i)}}</td>
+                                                    <td>
+                                                        <span>{{record.outerId}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.displayName}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.openingTime | date : "yyyy/MM/dd hh:mm"|
+                                                        slice:11:20}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.closedTime | date : "yyyy/MM/dd hh:mm"|
+                                                        slice:11:20}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.qrCodeExtraInfo}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.taobaoStoreId}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record.position">{{record.position.province}}
+                                                            {{record.position.city}} {{record.position.county}}
+                                                            {{record.position.location}}</span>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="primengTableHelper.records">
+                                                    <td colspan="8">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                                #paginator (onPageChange)="getStoreList($event)"
+                                                [totalRecords]="primengTableHelper.totalRecordsCount"
+                                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!--<Primeng-Datatable-End>-->
+                                </div>
+
+                            </tab>
+
+                            <tab class="pt-5" heading="{{l('Device')}}" customClass="kt-tabs__item icon-devices"
+                                *ngIf="isGranted('Pages.Tenant.Devices')&&storeId" (selectTab)="getDeviceByOUId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="deviceForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="deviceFilterText"
+                                                                name="deviceFilterText" (keyup.enter)="getDeviceByOUId()"
+                                                                autoFocus class="form-control kt-input"
+                                                                [placeholder]="l('name')" type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getDeviceByOUId()"
+                                                                    class="btn btn-primary" type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 筛选在线/离线  -->
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="deviceAuditStatus"
+                                                                name="deviceAuditStatus" (change)="getDeviceByOUId()">
+                                                                <option value="">{{l("All")+' / '+l("online")+' /
+                                                                '+l("offline")}}</option>
+                                                                <option [value]="AuditStatus.Offline">{{l("offline")}}
+                                                                </option>
+                                                                <option [value]="AuditStatus.Online">{{l("online")}}
+                                                                </option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="primeng-datatable-container" [busyIf]="pDevice.isLoading">
+                                        <p-table #dataTableDevice (onLazyLoad)="getDeviceByOUId($event)"
+                                            [value]="pDevice.records" [rows]="pDevice.defaultRecordsCountPerPage"
+                                            [(selection)]="DeviceSelectionList" [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pDevice.resizableColumns"
+                                            [responsive]="pDevice.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:4%">{{l('RecordId')}}</th>
+                                                    <th style="width:25%">{{l('Name')}}</th>
+                                                    <th>{{l('type')}}</th>
+                                                    <th>{{l('Mac')}}</th>
+                                                    <th pSortableColumn="heartBeatTime" style="width:10%">
+                                                        {{l('HeartBeatTime')}}
+                                                        <!-- <p-sortIcon field="heartBeatTime"></p-sortIcon> -->
+                                                    </th>
+                                                    <th>{{l('belongStore')}}</th>
+                                                    <th pSortableColumn="auditStatus">{{l('reviewStatus')}}
+                                                        <!-- <p-sortIcon field="auditStatus"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="status">{{l('RunningStatus')}}
+                                                        <!-- <p-sortIcon field="status"></p-sortIcon> -->
+                                                    </th>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                    <td> {{transDeviceIndex(i)}}</td>
+                                                    <td>
+                                                        <span>{{record.name}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            *ngIf="record.deviceType">{{record.deviceType.name}}</span>
+                                                        <span *ngIf="!record.deviceType">-</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.mac}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.heartBeatTime | date : "yyyy/MM/dd HH:mm"}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="!record.storeId"
+                                                            class="text-warning">{{l('Unassigned')}}</span>
+                                                        <span *ngIf="record.storeId">{{record.storeName}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record['auditStatus']==1"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
+                                                        <span *ngIf="record['auditStatus']==0"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record['status']==1"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("Online")}}</span>
+                                                        <span *ngIf="record['status']==0"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Offline")}}</span>
+                                                    </td>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pDevice.records">
+                                                    <td colspan="8">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pDevice.defaultRecordsCountPerPage" #paginatorDevice
+                                                (onPageChange)="getDeviceByOUId($event)"
+                                                [totalRecords]="pDevice.totalRecordsCount"
+                                                [rowsPerPageOptions]="pDevice.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pDevice.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab class="pt-5" heading="{{l('Advertisement')}}" customClass="kt-tabs__item icon-guanggao"
+                                *ngIf="isGranted('Pages.Tenant.Ads')" (selectTab)="getAdsByOUId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="adsForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="adsFilterText" name="adsFilterText"
+                                                                (keyup.enter)="getAdsByOUId()" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getAdsByOUId()" class="btn btn-primary"
+                                                                    type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 筛选在线/离线  -->
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="adsAuditStatus"
+                                                                name="adsAuditStatus" (change)="getAdsByOUId()">
+                                                                <option value="">{{l("All")+' / '+l("online")+' /
+                                                                '+l("offline")}}</option>
+                                                                <option [value]="AuditStatus.Offline">{{l("offline")}}
+                                                                </option>
+                                                                <option [value]="AuditStatus.Online">{{l("online")}}
+                                                                </option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="primeng-datatable-container" [busyIf]="pAds.isLoading">
+                                        <p-table #dataTableAds (onLazyLoad)="getAdsByOUId($event)"
+                                            [value]="pAds.records" [rows]="pAds.defaultRecordsCountPerPage"
+                                            [(selection)]="AdsSelectionList" [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pAds.resizableColumns" [responsive]="pAds.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width: 5%">{{l('RecordId')}}</th>
+                                                    <th>{{l('name')}}</th>
+                                                    <th>{{l('type')}}</th>
+                                                    <th>{{l('age')}}</th>
+                                                    <th>{{l('gender')}}</th>
+                                                    <th pSortableColumn="lastModificationTime">{{l('updateTime')}}
+                                                        <!-- <p-sortIcon field="lastModificationTime"></p-sortIcon> -->
+                                                    </th>
+                                                    <th>{{l('tags')}}</th>
+                                                    <th pSortableColumn="auditStatus">{{l('Status')}}
+                                                        <!-- <p-sortIcon field="auditStatus"></p-sortIcon> -->
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                    <td> {{transAdsIndex(i)}}</td>
+                                                    <td>
+                                                        <span>{{record.name}}</span>
+                                                    </td>
+                                                    <td>{{record.resourceType}}</td>
+                                                    <td>{{record.ageScope||EmptyTdText}}</td>
+                                                    <td>
+                                                        <span *ngIf="record.gender==null">-</span>
+                                                        <span *ngIf="record.gender==''">{{l('unknown')}}</span>
+                                                        <span *ngIf="record.gender">{{l(record.gender)}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.lastModificationTime| date : "yyyy/MM/dd HH:mm"}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngFor="let tag of record.adsTags"
+                                                            class="kt-badge  kt-badge--info kt-badge--inline">
+                                                            {{tag.name}}
+                                                        </span>
+                                                        <span *ngIf="!record.adsTags||record.adsTags.length==0">
+                                                            {{EmptyTdText}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record['auditStatus']==1"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("online")}}</span>
+                                                        <span *ngIf="record['auditStatus']==0"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("offline")}}</span>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pAds.records">
+                                                    <td colspan="8">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/adsHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pAds.defaultRecordsCountPerPage" #paginatorAds
+                                                (onPageChange)="getAdsByOUId($event)"
+                                                [totalRecords]="pAds.totalRecordsCount"
+                                                [rowsPerPageOptions]="pAds.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pAds.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab class="pt-5" heading="{{l('Apps')}}" customClass="kt-tabs__item icon-yingyong"
+                                *ngIf="isGranted('Pages.Softwares')" (selectTab)="getAppByOUId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="appForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="appFilterText" name="appFilterText"
+                                                                (keyup.enter)="getAppByOUId()" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getAppByOUId()" class="btn btn-primary"
+                                                                    type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 筛选软件类型  -->
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="appType"
+                                                                name="appType" (change)="getAppByOUId()">
+                                                                <option value="">{{l("All")}}
+                                                                    ({{l("Apps")}}{{l("type")}})</option>
+                                                                <option value="None">None</option>
+                                                                <option value="Behavior">Behavior</option>
+                                                                <option value="Customerize">Customerize</option>
+                                                                <option value="GAME">GAME</option>
+                                                                <option value="Shopping">Shopping</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="primeng-datatable-container" [busyIf]="pApp.isLoading">
+                                        <p-table #dataTableApp (onLazyLoad)="getAppByOUId($event)"
+                                            [value]="pApp.records" [rows]="pApp.defaultRecordsCountPerPage"
+                                            [(selection)]="AppSelectionList" [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pApp.resizableColumns" [responsive]="pApp.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <th>{{l('Name')}}</th>
+                                                    <th>{{l('Alias')}}</th>
+                                                    <th>{{l('versionNumber')}}</th>
+                                                    <th>{{l('code')}}</th>
+                                                    <th>{{l('type')}}</th>
+                                                    <th>{{l('envType')}}</th>
+                                                    <th pSortableColumn="startTime">
+                                                        {{l('startTime')}}
+                                                        <!-- <p-sortIcon field="startTime"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="endTime">
+                                                        {{l('endTime')}}
+                                                        <!-- <p-sortIcon field="endTime"></p-sortIcon> -->
+                                                    </th>
+                                                    <th>{{l('isdefaultstart')}}</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td> {{transAppIndex(i)}}</td>
+                                                    <td>
+                                                        <span>{{record.software?.name}}</span>
+                                                    </td>
+                                                    <td>{{record.alias}}</td>
+                                                    <td>
+                                                        <span>{{record.software?.versionNumber}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.software?.code}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.software?.type}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.software?.envType}}</span>
+                                                    </td>
+                                                    <td>{{record.startTime | date:'yyyy-MM-dd
+                                                    HH:mm'}}</td>
+                                                    <td>{{record.endTime | date:'yyyy-MM-dd
+                                                    HH:mm'}}</td>
+                                                    <td>
+                                                        <span *ngIf="record.isDefault"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                        <span *ngIf="!record.isDefault"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pApp.records">
+                                                    <td colspan="10">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pApp.defaultRecordsCountPerPage" #paginatorApp
+                                                (onPageChange)="getAppByOUId($event)"
+                                                [totalRecords]="pApp.totalRecordsCount"
+                                                [rowsPerPageOptions]="pApp.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pApp.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab class="pt-5" heading="{{l('Product')}}" customClass="kt-tabs__item icon-product"
+                                *ngIf="isGranted('Pages.Tenant.Products')" (selectTab)="getProductByOUId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="productForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="productFilterText"
+                                                                name="productFilterText" (keyup.enter)="getProductByOUId()"
+                                                                autoFocus class="form-control kt-input"
+                                                                [placeholder]="l('name')" type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getProductByOUId()"
+                                                                    class="btn btn-primary" type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 筛选在线/离线  -->
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control"
+                                                                [(ngModel)]="productAuditStatus"
+                                                                name="productAuditStatus" (change)="getProductByOUId()">
+                                                                <option value="">{{l("All")+' / '+l("online")+' /
+                                                                '+l("offline")}}</option>
+                                                                <option [value]="AuditStatus.Offline">{{l("offline")}}
+                                                                </option>
+                                                                <option [value]="AuditStatus.Online">{{l("online")}}
+                                                                </option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="primeng-datatable-container" [busyIf]="pProduct.isLoading">
+                                        <p-table #dataTableProduct (onLazyLoad)="getProductByOUId($event)"
+                                            [value]="pProduct.records" [rows]="pProduct.defaultRecordsCountPerPage"
+                                            [(selection)]="ProductSelectionList" [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pProduct.resizableColumns"
+                                            [responsive]="pProduct.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th>ItemId</th>
+                                                    <th style="width:30%">{{l('name')}}</th>
+                                                    <th pSortableColumn="creationTime">
+                                                        {{l('createTime')}}
+                                                        <!-- <p-sortIcon field="creationTime"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="lastModificationTime">
+                                                        {{l('updateTime')}}
+                                                        <!-- <p-sortIcon field="lastModificationTime"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="quantity">{{l('stock')}}
+                                                        <!-- <p-sortIcon field="quantity"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="salesVolume">{{l('salesVolume')}}
+                                                        <!-- <p-sortIcon field="salesVolume"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="price">{{l('price')}}
+                                                        <!-- <p-sortIcon field="price"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="auditStatus">{{l('auditStatus')}}
+                                                        <!-- <p-sortIcon field="auditStatus"></p-sortIcon> -->
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                    <td>
+                                                        <span [title]="record.itemId"
+                                                            style="overflow:hidden;">{{record.itemId}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{record.title}}</span>
+                                                    </td>
+                                                    <td>{{record.creationTime | date:'yyyy/MM/dd'}}</td>
+                                                    <td>{{record.lastModificationTime | date:'yyyy/MM/dd'}}</td>
+                                                    <td>{{record.quantity}}</td>
+                                                    <td>{{record.salesVolume}}</td>
+                                                    <td>{{'￥'+record.price}}</td>
+                                                    <td>
+                                                        <span *ngIf="record['auditStatus']=='Online'"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("OnSale")}}</span>
+                                                        <span *ngIf="record['auditStatus']=='Offline'"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("OffSale")}}</span>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pProduct.records">
+                                                    <td colspan="8">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/productHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pProduct.defaultRecordsCountPerPage" #paginatorProduct
+                                                (onPageChange)="getProductByOUId($event)"
+                                                [totalRecords]="pProduct.totalRecordsCount"
+                                                [rowsPerPageOptions]="pProduct.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pProduct.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab class="pt-5" heading="{{l('Coupon')}}" customClass="kt-tabs__item icon-hongbao"
+                                *ngIf="isGranted('Pages.Tenant.Coupons')" (selectTab)="getCouponByOUId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="couponForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="couponFilterText"
+                                                                name="couponFilterText" (keyup.enter)="getCouponByOUId()"
+                                                                autoFocus class="form-control kt-input"
+                                                                [placeholder]="l('name')" type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getCouponByOUId()"
+                                                                    class="btn btn-primary" type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 筛选在线/离线  -->
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="couponAuditStatus"
+                                                                name="auditStatus" (change)="getCouponByOUId()">
+                                                                <option value="">{{l("All")+' / '+l("online")+' /
+                                                                '+l("offline")}}</option>
+                                                                <option [value]="AuditStatus.Offline">{{l("offline")}}
+                                                                </option>
+                                                                <option [value]="AuditStatus.Online">{{l("online")}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                    <div class="primeng-datatable-container" [busyIf]="pCoupon.isLoading">
+                                        <p-table #dataTableCoupon (onLazyLoad)="getCouponByOUId($event)"
+                                            [value]="pCoupon.records" [rows]="pCoupon.defaultRecordsCountPerPage"
+                                            [(selection)]="CouponSelectionList" [paginator]="false" [lazy]="true"
+                                            [resizableColumns]="pCoupon.resizableColumns"
+                                            [responsive]="pCoupon.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <th>
+                                                        <span>{{l('name')}} </span>
+                                                    </th>
+                                                    <th>{{l('Picture')}}</th>
+                                                    <th>
+                                                        <span>{{l('CouponUrl')}}</span>
+                                                    </th>
+                                                    <th>{{l('Status')}}</th>
+                                                    <th pSortableColumn="start_time">
+                                                        {{l('startTime')}}
+                                                        <!-- <p-sortIcon field="start_time"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="end_time">{{l('endTime')}}
+                                                        <!-- <p-sortIcon field="end_time"></p-sortIcon> -->
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td> {{transCouponIndex(i)}}</td>
+                                                    <td>{{record.title}}</td>
+                                                    <td>
+                                                        <img [src]="fixFileUrl(record.pictures)" style="width: 33px;"
+                                                            (error)="fixPic($event)" />
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{record.url}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record['auditStatus']==1"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("Online")}}</span>
+                                                        <span *ngIf="record['auditStatus']==0"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Offline")}}</span>
+                                                    </td>
+                                                    <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
+                                                    <td>{{record.end_time| date : "yyyy/MM/dd"}}</td>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pCoupon.records">
+                                                    <td colspan="7">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/couponHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pCoupon.defaultRecordsCountPerPage" #paginatorCoupon
+                                                (onPageChange)="getCouponByOUId($event)"
+                                                [totalRecords]="pCoupon.totalRecordsCount"
+                                                [rowsPerPageOptions]="pCoupon.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pCoupon.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab class="pt-5" heading="{{l('Activities')}}" customClass="kt-tabs__item icon-huodong"
+                                *ngIf="isGranted('Pages.Tenant.Activities')" (selectTab)="getActivityByOUId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="activityForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <input [(ngModel)]="activityFilterText"
+                                                                name="activityFilterText" (keyup.enter)="getActivityByOUId()"
+                                                                autoFocus class="form-control kt-input"
+                                                                [placeholder]="l('name')" type="text">
+                                                            <span class="input-group-btn">
+                                                                <button (click)="getActivityByOUId()"
+                                                                    class="btn btn-primary" type="submit">
+                                                                    <i class="icon-sousuo-sousuo"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 筛选在线/离线  -->
+                                                <div class="col-4">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control"
+                                                                [(ngModel)]="activityAuditStatus"
+                                                                name="activityAuditStatus"
+                                                                (change)="getActivityByOUId()">
+                                                                <option value="">{{l("All")+' / '+l("online")+' /
+                                                                '+l("offline")}}</option>
+                                                                <option value="Offline">{{l("offline")}}</option>
+                                                                <option value="Online">{{l("online")}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- <app-image-grid id="gridShow" style="width: 100%;" gridOwner="coupon" (onOperate)="onOperateCoupon($event)" (onLazyLoad)="getCouponByOUId($event)"
+                            [(selection)]="CouponSelectionList" [imageList]="pCoupon.records"></app-image-grid> -->
+
+                                    <div class="primeng-datatable-container" [busyIf]="pActivity.isLoading">
+                                        <p-table #dataTableActivity (onLazyLoad)="getActivityByOUId($event)"
+                                            [value]="pActivity.records" [rows]="pActivity.defaultRecordsCountPerPage"
+                                            [(selection)]="ActivitySelectionList" [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pActivity.resizableColumns"
+                                            [responsive]="pActivity.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <th>{{l('name')}}</th>
+                                                    <th>{{l('Logo')}}</th>
+                                                    <th pSortableColumn="ownerName">
+                                                        {{l('owner')}}
+                                                        <!-- <p-sortIcon field="ownerName"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="openDate">
+                                                        {{l('startDate')}}
+                                                        <!-- <p-sortIcon field="openDate"></p-sortIcon> -->
+                                                    </th>
+                                                    <th pSortableColumn="endDate">{{l('endDate')}}
+                                                        <!-- <p-sortIcon field="endDate"></p-sortIcon> -->
+                                                    </th>
+                                                    <th>{{l('ifFormalUse')}}</th>
+                                                    <th>{{l('isTemplate')}}</th>
+                                                    <th>{{l('Status')}}</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td> {{transActivityIndex(i)}}</td>
+                                                    <td>
+                                                        <span>{{record.name}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <img [src]="fixFileUrl(record.activityLogoPath)"
+                                                            (error)="showEmpty($event)" />
+                                                    </td>
+                                                    <td>{{record.ownerName}}</td>
+                                                    <td>{{record.openDate | date : "yyyy/MM/dd"}}</td>
+                                                    <td>{{record.endDate| date : "yyyy/MM/dd"}}</td>
+                                                    <td>
+                                                        <span *ngIf="record['isPublic']"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                        <span *ngIf="!record['isPublic']"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record['isTemplate']"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                        <span *ngIf="!record['isTemplate']"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="record['auditStatus']==1"
+                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("online")}}</span>
+                                                        <span *ngIf="record['auditStatus']==0"
+                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("offline")}}</span>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pActivity.records">
+                                                    <td colspan="8">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pActivity.defaultRecordsCountPerPage"
+                                                #paginatorActivity (onPageChange)="getActivityByOUId($event)"
+                                                [totalRecords]="pActivity.totalRecordsCount"
+                                                [rowsPerPageOptions]="pActivity.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pActivity.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+
+
+                            <tab class="pt-5" heading="{{l('KPI')}}" customClass="kt-tabs__item icon-huodongshuju1"
+                                (selectTab)="initKPITab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="kpiForm">
+                                        <div class="kt-form kt-form--label-align-right">
+
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="col-12 text-right">
+                                                    <div>
+                                                        <!-- <button class="btn btn-primary" (click)="goImportKPI()">
+                                                        <i class="icon-excel"></i> {{l('import')}} </button> -->
+                                                        <button (click)="deleteBatchKPI()" class="btn btn-primary blue"
+                                                            *ngIf="isGranted('Pages.Tenant.Recommends.Delete')">
+                                                            <i class="icon-piliangcaozuo"></i>
+                                                            {{l("deleteBatch")}}</button>
+                                                        <button (click)="createKPI()" class="btn btn-primary blue"
+                                                            *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
+                                                            <i class="fa fa-plus"></i> {{l("createKPI")}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row align-items-center m--margin-bottom-10"
+                                                style="padding-right:15px;">
+                                                <!-- 下拉选择  -->
+                                                <div class="col-3">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="checkScale"
+                                                                name="checkScale" (change)="getKPIByOUId()">
+                                                                <option value="">{{l("All")+l("CheckScale")}}</option>
+                                                                <option value="Year">{{l("yearly")}}</option>
+                                                                <option value="Month">{{l("monthly")}}</option>
+                                                                <option value="Day">{{l("daily")}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="checkType"
+                                                                name="checkType" (change)="getKPIByOUId()">
+                                                                <option value="">{{l("All")+l("CheckType")}}</option>
+                                                                <option *ngFor="let item of KPITypeList" [value]="item">
+                                                                    <span *ngIf="!item">{{l('None')}}</span>
+                                                                    <span *ngIf="item">{{item}}</span>
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 时间范围筛选 -->
+                                                <div class="col-3" style="position:relative;">
+                                                    <div class="form-group kt-form__group align-items-center">
+                                                        <date-range-picker name="SampleDateRangePicker"
+                                                            [showButton]="true" rangeMode="all"
+                                                            (buttonEmit)="getKPIByOUId()" [(startDate)]="StartTimeKPI"
+                                                            [(endDate)]="EndTimeKPI" [allowFutureDate]="true"
+                                                            [needInitDate]="true" [hasLabel]="false" #dateRangerKPI
+                                                            [admitDelete]="false">
+                                                        </date-range-picker>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="primeng-datatable-container" [busyIf]="pKPI.isLoading">
+                                        <p-table #dataTableKPI (onLazyLoad)="getKPIByOUId($event)"
+                                            [value]="pKPI.records" [rows]="pKPI.defaultRecordsCountPerPage"
+                                            [(selection)]="KPISelectionList" [paginator]="false" [lazy]="false"
+                                            [resizableColumns]="pKPI.resizableColumns" [responsive]="pKPI.isResponsive">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width: 15%">{{l('Actions')}}</th>
+                                                    <th style="width: 5.0em">
+                                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                    </th>
+                                                    <th style="width:5%">{{l('RecordId')}}</th>
+                                                    <!-- <th>{{l('storeNumber')}}</th> -->
+                                                    <th>{{l('ouOrStoreName')}}</th>
+                                                    <th>
+                                                        <span *ngIf="OUId">{{l('OUName')}}</span>
+                                                        <span *ngIf="storeId">{{l('storeName')}}</span>
+                                                    </th>
+                                                    <th>{{l('CheckScale')}}</th>
+                                                    <th>{{l('CheckTime')}}</th>
+                                                    <th>{{l('CheckType')}}</th>
+                                                    <th>{{l('TargetValue')}}</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                <tr [pSelectableRow]="record">
+                                                    <td>
+                                                        <div class="btn-group dropdown" dropdown normalizePosition>
+                                                            <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                                data-toggle="dropdown" dropdownToggle
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-cog"></i>
+                                                                <span class="caret"></span> {{l("Actions")}}
+                                                            </button>
+                                                            <ul class="dropdown-menu" *dropdownMenu>
+                                                                <li>
+                                                                    <a class="icon-bianji"
+                                                                        (click)="editKPI(record)">{{l('Edit')}}</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="icon-icon-test"
+                                                                        (click)="deleteKPI(record)">{{l('Delete')}}</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 5.0em">
+                                                        <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                                    </td>
+                                                    <td> {{transKPIIndex(i)}}</td>
+                                                    <td>
+                                                        <span *ngIf="OUId">{{record.ouOuterId}}</span>
+                                                        <span *ngIf="storeId">{{record.storeOuterId}}</span>
+                                                    </td>
+                                                    <td><span>{{record.ouName}}</span></td>
+                                                    <td>
+                                                        <span *ngIf="record.kpiScale==0">{{l('yearly')}}</span>
+                                                        <span *ngIf="record.kpiScale==1">{{l('monthly')}}</span>
+                                                        <span *ngIf="record.kpiScale==3">{{l('daily')}}</span>
+                                                    </td>
+                                                    <td *ngIf="record.kpiScale==0">{{record.scaleTime | date : "yyyy"}}
+                                                    </td>
+                                                    <td *ngIf="record.kpiScale==1">
+                                                        {{record.scaleTime | date : "yyyy/MM"}}</td>
+                                                    <td *ngIf="record.kpiScale==3">{{record.scaleTime | date :
+                                                    "yyyy/MM/dd"}}</td>
+                                                    <td><span>{{record.name}}</span></td>
+                                                    <td><span>{{record.value}}</span></td>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage" let-records>
+                                                <tr *ngIf="pKPI.records">
+                                                    <td colspan="9">
+                                                        <img class="emptymessage"
+                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="pKPI.defaultRecordsCountPerPage" #paginatorKPI
+                                                (onPageChange)="getKPIByOUId($event)"
+                                                [totalRecords]="pKPI.totalRecordsCount"
+                                                [rowsPerPageOptions]="pKPI.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', pKPI.totalRecordsCount)}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </tab>
+                            <kpiModal #kpiModal (modalSave)="getKPIByOUId()"></kpiModal>
+
+                        </tabset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
