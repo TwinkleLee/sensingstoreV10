@@ -268,6 +268,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ProductServiceProxies.BackendDownloadTaskServiceProxy,
         ProductServiceProxies.SensingDeviceServiceProxy,
         ProductServiceProxies.SensingSkuRfidServiceProxy,
+        ProductServiceProxies.SkuRfidServiceProxy,
 
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
