@@ -1,17 +1,16 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
-        <div class="content d-flex flex-column flex-column-fluid">
-            <sub-header [title]="'ProductInfo' | localize" [description]="'ProductInfoManage' | localize">
-                <div role="actions">
-                    <button (click)="createProductInfo()" class="btn btn-primary blue">
-                        <i class="fa fa-plus"></i> {{l("CreateNewProperty")}}</button>
-                </div>
-            </sub-header>
+        <sub-header [title]="'ProductInfo' | localize" [description]="'ProductInfoManage' | localize">
+            <div role="actions">
+                <button (click)="createProductInfo()" class="btn btn-primary blue">
+                    <i class="fa fa-plus"></i> {{l("CreateNewProperty")}}</button>
+            </div>
+        </sub-header>
 
-        
-            <div [class]="containerClass">
-                <div class="card card-custom gutter-b">
-                    <div class="card-body">
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off">
                             <div>
@@ -20,8 +19,7 @@
                                         <div class="form-group m-form__group align-items-center">
                                             <div class="input-group">
                                                 <input [(ngModel)]="filterText" name="filterText" autoFocus
-                                                    class="form-control m-input"
-                                                    (keyup.enter)="getProductInfos()"
+                                                    class="form-control m-input" (keyup.enter)="getProductInfos()"
                                                     [placeholder]="l('SearchWithThreeDot')" type="text">
                                                 <!-- <span class="input-group-btn">
                                                 <button (click)="getProductInfos()" class="btn btn-primary" type="submit">
@@ -153,6 +151,6 @@
             </div>
         </div>
         <propertyAddModal #propertyAddModal (modalSave)="getProductInfos()"></propertyAddModal>
-    </div>
 
+    </div>
 </div>

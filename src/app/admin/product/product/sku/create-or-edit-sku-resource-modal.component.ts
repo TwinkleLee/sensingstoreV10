@@ -84,5 +84,6 @@ export class CreateOrEditSkuResourceModalComponent extends AppComponentBase impl
     }
     onUpload(event): void {
         this.resource.fileUrl = event.fileUri;
+        this.resource.resourceItemId = Number(event.resourceId)
     }
 }
