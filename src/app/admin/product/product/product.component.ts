@@ -815,7 +815,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
 
   //前往管理标签
   goTag(f?) {
-    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'tags', 'tags']);
+    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
   }
   //前往管理分类
   goCate(f?) {
