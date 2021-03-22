@@ -5,9 +5,11 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { OutPutInStorageServiceProxy, SkuRfidServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
-import { SkuRfidServiceProxy, PDFDto, TextForPDF, SensingDeviceServiceProxy } from '@shared/service-proxies/service-proxies'
+import { SensingDeviceServiceProxy } from '@shared/service-proxies/service-proxies'
+
+import { PDFDto, TextForPDF,} from '@shared/service-proxies/service-proxies'
 
 
 import { CreateOrEditSkuRfidModalComponent } from '@app/admin/product/outputin/create-or-edit-skurfid-modal.component';
@@ -181,7 +183,7 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
     delete(record) {
         this.message.confirm(this.l('deletethisselected'), this.l('AreYouSure'), (r) => {
             if (r) {
-                this._skuRfidServiceProxy.delete(record.id).subscribe(result => {
+                this._skuRfidServiceProxy.deleteSkuRfid(record.id).subscribe(result => {
                     this.notify.info(this.l('success'));
                     this.getList();
                 })

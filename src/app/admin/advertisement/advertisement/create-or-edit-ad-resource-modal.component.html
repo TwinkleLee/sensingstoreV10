@@ -8,8 +8,8 @@
                         <span *ngIf="operationType=='add'">{{l("CreateNewResource")}}</span>
                         <span *ngIf="operationType=='edit'">{{l("EditResource")}}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">

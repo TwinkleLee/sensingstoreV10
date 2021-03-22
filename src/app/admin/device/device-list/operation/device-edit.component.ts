@@ -1,11 +1,12 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus, DeviceAdsServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus, DeviceAdsServiceProxy, DeviceSoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
 import { ProductServiceProxy,CouponServiceProxy, DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 import { DeviceActionServiceProxy, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType, DeviceServiceProxy } from '@shared/service-proxies/service-proxies'
 
 import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
+
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -405,7 +406,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private _TagService: TagServiceProxy,
         private _DeviceBehaviorServiceProxy: DeviceBehaviorServiceProxy,
         private _externalaccessService: ExternalAccessServiceProxy,
-
+        private _DeviceSoftwareServiceProxy: DeviceSoftwareServiceProxy,
 
         private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
         private _CounterReportServiceProxy: CounterReportServiceProxy,
@@ -782,7 +783,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
         if (this.isGranted("Pages.Tenant.Ads")) {
 
-            this._deviceService.getAdsByDeviceId(
+            this._DeviceAdsServiceProxy.getAdsByDeviceId(
                 this.device.id,
                 undefined,
                 AuditStatus.Online,
@@ -799,7 +800,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         }
 
         if (this.isGranted('Pages.Softwares')) {
-            this._deviceService.getSoftwaresByDeviceId(
+            this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
                 this.device.id,
                 undefined,
                 AuditStatus.Online,
@@ -1667,7 +1668,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     //通过设备id获取广告列表
     getAdsByDeviceId(event?: LazyLoadEvent) {
         this.pAds.showLoadingIndicator();
-        this._deviceService.getAdsByDeviceId(
+        this._DeviceAdsServiceProxy.getAdsByDeviceId(
             this.device.id,
             undefined,
             AuditStatus.Online,
@@ -1807,7 +1808,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     //通过设备id获取广告列表
     getSoftwareByDeviceId(event?: LazyLoadEvent) {
         this.pApp.showLoadingIndicator();
-        this._deviceService.getSoftwaresByDeviceId(
+        this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
             this.device.id,
             undefined,
             AuditStatus.Online,
@@ -1823,7 +1824,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             })
     }
     getSoftwareByDeviceId2(event?: LazyLoadEvent) {
-        this._deviceService.getSoftwaresByDeviceId(
+        this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
             this.device.id,
             undefined,
             AuditStatus.Online,

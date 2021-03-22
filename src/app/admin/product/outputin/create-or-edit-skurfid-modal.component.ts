@@ -1,6 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { SkuRfidServiceProxy, CreateSkuRfidInput, UpdateSkuRfidInput } from '@shared/service-proxies/service-proxies';
+import { SkuRfidServiceProxy, CreateSkuRfidInput, UpdateSkuRfidInput } from '@shared/service-proxies/service-proxies-product';
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
@@ -94,7 +95,7 @@ export class CreateOrEditSkuRfidModalComponent extends AppComponentBase implemen
     save(): void {
         if (this.operation == "add") {
             this.CreateSkuRfidInput =  new CreateSkuRfidInput(this.skuRfid);
-            this._skuRfidServiceProxy.create(this.CreateSkuRfidInput)
+            this._skuRfidServiceProxy.createSkuRfid(this.CreateSkuRfidInput)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));
@@ -104,7 +105,7 @@ export class CreateOrEditSkuRfidModalComponent extends AppComponentBase implemen
         } else {
             this.UpdateSkuRfidInput = new UpdateSkuRfidInput(this.skuRfid);
             console.log(this.UpdateSkuRfidInput);
-            this._skuRfidServiceProxy.update(this.UpdateSkuRfidInput)
+            this._skuRfidServiceProxy.updateSkuRfid(this.UpdateSkuRfidInput)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));

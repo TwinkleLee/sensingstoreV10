@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ToolBoxServiceProxy } from '@shared/service-proxies/service-proxies-pager';
+import { ToolBoxServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
 @Component({
     selector: 'createOrEditCustomComponentModal',

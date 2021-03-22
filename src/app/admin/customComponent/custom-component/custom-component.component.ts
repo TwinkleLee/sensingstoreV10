@@ -4,7 +4,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { ToolBoxServiceProxy } from '@shared/service-proxies/service-proxies-pager';
+import { ToolBoxServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 import { CreateOrEditCustomComponentModalComponent } from '@app/admin/customComponent/custom-component/create-or-edit-customComponent-modal.component';
 
 @Component({

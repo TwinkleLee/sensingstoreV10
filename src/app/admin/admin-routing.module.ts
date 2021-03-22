@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
+//系统
+import { OUDetailComponent } from '@app/admin/organization-units/organization-detail/organization-detail.component';
+
+
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -57,6 +61,8 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
                         loadChildren: () => import('./organization-units/organization-units.module').then(m => m.OrganizationUnitsModule),
                         data: { permission: 'Pages.Administration.OrganizationUnits' }
                     },
+                    //系统
+                    { path: 'organization-units/OUDetail/:id', component: OUDetailComponent, data: { permission: 'Pages.Administration.OrganizationUnits' } },
                     {
                         path: 'subscription-management',
                         loadChildren: () => import('./subscription-management/subscription-management.module').then(m => m.SubscriptionManagementModule),

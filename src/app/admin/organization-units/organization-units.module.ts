@@ -14,6 +14,9 @@ import {OrganizationUnitsComponent} from './organization-units.component';
 
 import {CreateOrEditUnitTypeModalComponent} from './create-or-edit-unitType-modal.component'
 import {OrganizationUnitStoresComponent} from './organization-unit-stores.component'
+import { OUDetailComponent } from '@app/admin/organization-units/organization-detail/organization-detail.component';
+import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
+
 
 @NgModule({
     declarations: [
@@ -27,7 +30,9 @@ import {OrganizationUnitStoresComponent} from './organization-unit-stores.compon
 
         //V3
         CreateOrEditUnitTypeModalComponent,
-        OrganizationUnitStoresComponent
+        OrganizationUnitStoresComponent,
+        OUDetailComponent,
+        KPIModalComponent,
     ],
     imports: [AppSharedModule, AdminSharedModule, OrganizationUnitsRoutingModule],
     exports: [AddMemberModalComponent, AddRoleModalComponent, OrganizationTreeComponent]

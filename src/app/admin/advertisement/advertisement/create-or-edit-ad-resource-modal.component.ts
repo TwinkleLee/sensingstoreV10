@@ -86,6 +86,7 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
     // upload completed event
     onUpload(event): void {
         this.resource.fileUrl = event.fileUri;
+        this.resource.resourceItemId = Number(event.resourceId);
     }
     onBeforeSend(event): void {
 

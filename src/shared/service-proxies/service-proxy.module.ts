@@ -12,7 +12,7 @@ import * as MetaApiServiceProxies from './service-proxies4';
 import * as ActivityServiceProxies from './service-proxies5';
 import * as CargoServiceProxies from './service-proxies-cargo';//e
 import * as SYNCServiceProxies from './service-proxies-sync';
-import * as PagerServiceProxies from './service-proxies-pager';
+// import * as PagerServiceProxies from './service-proxies-pager';
 import * as UserServiceProxies from './service-proxies-user';
 import * as FloorServiceProxies from './service-proxies-floor';//floor
 import * as OKRServiceProxies from './service-proxies-okr';//okr
@@ -146,7 +146,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         CargoServiceProxies.FileServiceProxy,
         CargoServiceProxies.ReportServiceProxy,
 
-        PagerServiceProxies.ToolBoxServiceProxy,
+        // PagerServiceProxies.ToolBoxServiceProxy,
 
 
         UserServiceProxies.ApplicationServiceProxy,
@@ -238,6 +238,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         SMARTDEVICEServiceProxies.CustomizeReportServiceProxy,
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
+        // SMARTDEVICEServiceProxies.TagServiceProxy,
 
 
         
@@ -250,6 +251,8 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         AdsServiceProxies.StoreAdsServiceProxy,
         AdsServiceProxies.StoreSoftwareServiceProxy,
         AdsServiceProxies.TagServiceProxy,
+        AdsServiceProxies.UXPageServiceProxy,
+        AdsServiceProxies.ToolBoxServiceProxy,
 
 
         ProductServiceProxies.DeviceServiceProxy,
@@ -267,6 +270,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ProductServiceProxies.BackendDownloadTaskServiceProxy,
         ProductServiceProxies.SensingDeviceServiceProxy,
         ProductServiceProxies.SensingSkuRfidServiceProxy,
+        ProductServiceProxies.SkuRfidServiceProxy,
 
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },

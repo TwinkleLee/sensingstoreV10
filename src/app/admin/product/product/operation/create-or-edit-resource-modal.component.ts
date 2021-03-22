@@ -90,6 +90,7 @@ export class CreateOrEditProductResourceModalComponent extends AppComponentBase 
     // upload completed event
     onUpload(event): void {
         this.resource.fileUrl = event.fileUri;
+        this.resource.resourceItemId = Number(event.resourceId)
     }
 
     onBeforeSend(event):void {}

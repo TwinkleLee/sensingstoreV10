@@ -263,20 +263,20 @@
                             <!-- <form (ngSubmit)="doPublishCoupon()" name="publishConForm"> -->
                             <form (ngSubmit)="doPublishQuestion()" name="publishConForm">
                                 <div class="form-group">
-                                    <div class="m-radio-inline">
-                                        <label class="m-radio">
+                                    <div class="radio-inline">
+                                        <label class="radio">
                                             <input type="radio" name="publishType" [(ngModel)]="publishType"
                                                 value="add">
                                             {{l('append')}}
                                             <span></span>
                                         </label>
-                                        <label class="m-radio">
+                                        <label class="radio">
                                             <input type="radio" name="publishType" [(ngModel)]="publishType"
                                                 value="update">
                                             {{l('update')}}
                                             <span></span>
                                         </label>
-                                        <label class="m-radio">
+                                        <label class="radio">
                                             <input type="radio" name="publishType" [(ngModel)]="publishType"
                                                 value="delete">
                                             {{l('withdraw')}}

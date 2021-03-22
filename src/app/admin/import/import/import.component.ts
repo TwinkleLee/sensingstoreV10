@@ -189,7 +189,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
       this.router.navigate(['app', 'admin', 'entityStore', 'entityStore']);
     }
     else {
-      this.router.navigate(['app', 'admin', this.target]);
+      this.router.navigate(['app', 'admin', this.target, this.target]);
     }
   }
   //两种上传文件方式

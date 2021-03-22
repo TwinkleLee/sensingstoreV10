@@ -132,18 +132,18 @@
 
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off" name="productsForm">
-                            <div class="kt-form kt-form--label-align-right">
+                            <div class="m-form">
                                 <div class="row align-items-center m--margin-bottom-10">
                                     <!-- 过滤字段 -->
                                     <div class="col-3">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group align-items-center">
                                             <label>&nbsp;</label>
                                             <div class="input-group">
                                                 <button class="form-control filterButton">
                                                     <input [(ngModel)]="filterText" name="filterText"
                                                         (keyup.enter)="getProducts()"
                                                         [placeholder]="l('productSearchPlaceholder')" autoFocus
-                                                        class="form-control kt-input" type="text"
+                                                        class="form-control m-input" type="text"
                                                         style="position:relative;top:-1px;">
                                                     <i class="icon-shaixuanxuanzhong filterIcon"
                                                         [attr.title]="l('ShowAdvancedFilters')"
@@ -312,7 +312,7 @@
                                     </div> -->
                                     <!-- 筛选在线/离线  -->
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group align-items-center">
                                             <label>&nbsp;</label>
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="AuditStatus"
@@ -328,7 +328,7 @@
 
                                     <!-- 按品牌筛选 -->
                                     <div class="col-2" style="position:relative;">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group align-items-center">
                                             <label>{{l("Brand")}}</label>
                                             <div class="input-group">
                                                 <input class="form-control belongToTree" name="brandControl" type="text"
@@ -371,7 +371,7 @@
                                     </div>
 
                                     <div class="col-2">
-                                        <div class="form-group kt-form__group align-items-center">
+                                        <div class="form-group align-items-center">
                                             <label>&nbsp;</label>
                                             <div class="input-group">
                                                 <button type="button" class="btn btn-primary"
@@ -488,9 +488,9 @@
                                         <td>{{'￥'+record.price}}</td>
                                         <td>
                                             <span *ngIf="record['auditStatus']=='Online'"
-                                                class="kt-badge  kt-badge--success kt-badge--inline">{{l("OnSale")}}</span>
+                                                class="label label-success label-inline">{{l("OnSale")}}</span>
                                             <span *ngIf="record['auditStatus']=='Offline'"
-                                                class="kt-badge  kt-badge--danger kt-badge--inline">{{l("OffSale")}}</span>
+                                                class="label label-dark label-inline">{{l("OffSale")}}</span>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -529,8 +529,8 @@
                         <div class="panel_body">
                             <form (ngSubmit)="doPublishproducts()" name="publishProForm">
                                 <div class="form-group">
-                                    <div class="kt-radio-inline">
-                                        <label class="kt-radio">
+                                    <div class="radio-inline">
+                                        <label class="radio">
                                             <input type="radio" name="publishType" [(ngModel)]="publishType"
                                                 value="add">
                                             {{l('append')}}
@@ -579,7 +579,7 @@
 
                                     <div class="input-group" style="width:50%;">
                                         <input [(ngModel)]="treeFilter" name="treeFilterText"
-                                            (keydown.enter)="filterTree($event)" autoFocus class="form-control kt-input"
+                                            (keydown.enter)="filterTree($event)" autoFocus class="form-control m-input"
                                             [placeholder]="l('SearchWithThreeDot')" type="text">
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" type="button" (click)="filterTree()">
