@@ -1,74 +1,62 @@
 <div id="ItemSaleDashboard" (click)="clickContainer()">
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <a id="aaa" href=""> </a>
 
-                    <h3 class="kt-subheader__title">
-                        <span>{{"ItemSaleDashboard" | localize}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <span class="kt-subheader__desc">
-                        {{"ItemSaleDashboard" | localize}}
-                    </span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group kt-form__group align-items-center">
-                                    <label>&nbsp;</label>
-                                    <div class="input-group" style="font-size: 1.2rem;">
-                                        <label
-                                            style="width: 100%;text-align: right;">{{l('statisticalCategories')}}</label>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="content d-flex flex-column flex-column-fluid">
 
-                            <div class="col-3" style="margin-top: 1rem;">
-                                <div class="form-group kt-form__group align-items-center">
-                                    <div class="input-group">
-                                        <select class="form-control" [(ngModel)]="groupByStore" name="groupByStore">
-                                            <option value="">{{l('daqu')}}/{{l('province')}}/{{l('store')}}</option>
-                                            <option value="AreaName">{{l('daqu')}}</option>
-                                            <option value="ProvinceName">{{l('province')}}</option>
-                                            <option value="OuterId">{{l('store')}}</option>
-                                        </select>
-                                    </div>
-                                </div>
+        <sub-header [title]="'ItemSaleDashboard' | localize" [description]="'ItemSaleDashboard' | localize">
+            <div role="actions">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group kt-form__group align-items-center">
+                            <label>&nbsp;</label>
+                            <div class="input-group" style="font-size: 1.2rem;">
+                                <label
+                                    style="width: 100%;text-align: right;">{{l('statisticalCategories')}}</label>
                             </div>
-                            <div class="col-3" style="margin-top: 1rem;">
-                                <div class="form-group kt-form__group align-items-center">
-                                    <div class="input-group">
-                                        <select class="form-control" [(ngModel)]="groupByProduct" name="groupByProduct">
-                                            <option value="">{{l('Brand')}}/{{l('Product')}}{{l('type')}}</option>
-                                            <option value="BrandName">{{l('Brand')}}</option>
-                                            <option value="SubCategory">{{l('Product')}}{{l('type')}}</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3" style="margin-top: 1rem;">
+                        <div class="form-group kt-form__group align-items-center">
+                            <div class="input-group">
+                                <select class="form-control" [(ngModel)]="groupByStore" name="groupByStore">
+                                    <option value="">{{l('daqu')}}/{{l('province')}}/{{l('store')}}</option>
+                                    <option value="AreaName">{{l('daqu')}}</option>
+                                    <option value="ProvinceName">{{l('province')}}</option>
+                                    <option value="OuterId">{{l('store')}}</option>
+                                </select>
                             </div>
-                            <div class="col-3" style="margin-top: 1rem;">
-                                <div class="form-group kt-form__group align-items-center">
-                                    <div class="input-group">
-                                        <select class="form-control" [(ngModel)]="groupByMember" name="groupByMember">
-                                            <option value="">{{l('Membership')}}/{{l('Activities')}}</option>
-                                            <option value="MemberLevel">{{l('Membership')}}</option>
-                                            <option value="ActivityTag">{{l('Activities')}}</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col-3" style="margin-top: 1rem;">
+                        <div class="form-group kt-form__group align-items-center">
+                            <div class="input-group">
+                                <select class="form-control" [(ngModel)]="groupByProduct" name="groupByProduct">
+                                    <option value="">{{l('Brand')}}/{{l('Product')}}{{l('type')}}</option>
+                                    <option value="BrandName">{{l('Brand')}}</option>
+                                    <option value="SubCategory">{{l('Product')}}{{l('type')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3" style="margin-top: 1rem;">
+                        <div class="form-group kt-form__group align-items-center">
+                            <div class="input-group">
+                                <select class="form-control" [(ngModel)]="groupByMember" name="groupByMember">
+                                    <option value="">{{l('Membership')}}/{{l('Activities')}}</option>
+                                    <option value="MemberLevel">{{l('Membership')}}</option>
+                                    <option value="ActivityTag">{{l('Activities')}}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </sub-header>
 
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <div class="kt-portlet__body">
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off">
                             <div class="m-form m-form--label-align-right">
