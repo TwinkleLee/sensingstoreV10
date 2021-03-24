@@ -11406,6 +11406,7 @@ export class CreateEntityResourceInput implements ICreateEntityResourceInput {
     entityId!: number;
     orderNumber!: number;
     fromType!: string | undefined;
+    resourceItemId!: number;
 
     constructor(data?: ICreateEntityResourceInput) {
         if (data) {
@@ -11426,6 +11427,7 @@ export class CreateEntityResourceInput implements ICreateEntityResourceInput {
             this.entityId = _data["entityId"];
             this.orderNumber = _data["orderNumber"];
             this.fromType = _data["fromType"];
+            this.resourceItemId = _data["resourceItemId"];
         }
     }
 
@@ -11446,6 +11448,7 @@ export class CreateEntityResourceInput implements ICreateEntityResourceInput {
         data["entityId"] = this.entityId;
         data["orderNumber"] = this.orderNumber;
         data["fromType"] = this.fromType;
+        data["resourceItemId"] = this.resourceItemId;
         return data; 
     }
 }
@@ -11459,6 +11462,7 @@ export interface ICreateEntityResourceInput {
     entityId: number;
     orderNumber: number;
     fromType: string | undefined;
+    resourceItemId: number;
 }
 
 export class UpdateEntityResourceInput implements IUpdateEntityResourceInput {

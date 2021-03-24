@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ExternalAccessServiceProxy, BatchTaskLogServiceProxy, AuditLogServiceProxy, TaobaoOpenPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ExternalAccessServiceProxy, TaobaoOpenPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
 import { TaobaoServiceProxy, SyncInput, SyncScopeEnum, MonecityServiceProxy } from '@shared/service-proxies/service-proxies-sync';
 import { CreateOrEditExternalAccessModalComponent } from '@app/admin/onlineStore/online-store/create-or-edit-online-modal.component';
 import { ChooseTaobaoModalComponent } from '@app/admin/onlineStore/online-store/choose-taobao-modal.component';

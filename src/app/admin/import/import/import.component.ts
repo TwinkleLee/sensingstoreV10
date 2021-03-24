@@ -5,14 +5,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'abp-ng2-module';
 import { DateMetaPhysicsServiceProxy } from '@shared/service-proxies/service-proxies4';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
-// import { BatchTaskLogServiceProxy, ImportSkuRfidsServiceProxy, FileParameter, ImportStorageCheckServiceProxy } from '@shared/service-proxies/service-proxies';
-import { BatchTaskLogServiceProxy, ImportSkuRfidsServiceProxy, ImportStorageCheckServiceProxy, ImportFloorGuideRoomAndStoreServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BatchTaskLogServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { FaceTagsServiceProxy } from '@shared/service-proxies/service-proxies4';
 import { ImportCargoRoadsServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
-import { ImportTrainingsServiceProxy, ImportQuestionsServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { ImportQuestionsServiceProxy } from '@shared/service-proxies/service-proxies5';
 
 @Component({
   selector: 'app-import',
@@ -92,9 +91,6 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     private _dateMetaService: DateMetaPhysicsServiceProxy,
     private _ImportCargoRoadsServiceProxy: ImportCargoRoadsServiceProxy,
     private _FaceTagsServiceProxy: FaceTagsServiceProxy,
-    private _ImportSkuRfidsServiceProxy: ImportSkuRfidsServiceProxy,
-    private _ImportStorageCheckServiceProxy: ImportStorageCheckServiceProxy,
-    private _ImportTrainingServiceProxy: ImportTrainingsServiceProxy,
     private _ImportQuestionsServiceProxy: ImportQuestionsServiceProxy,
   ) {
     super(injector);

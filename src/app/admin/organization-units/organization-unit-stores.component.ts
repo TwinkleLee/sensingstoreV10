@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, OnInit, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { OrganizationUnitServiceProxy, OrganizationUnitUserListDto,GetStorseListInput } from '@shared/service-proxies/service-proxies';
+import { GetStorseListInput } from '@shared/service-proxies/service-proxies';
 // import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 // import { Paginator } from 'primeng/components/paginator/paginator';
 // import { Table } from 'primeng/components/table/table';
@@ -35,7 +35,6 @@ export class OrganizationUnitStoresComponent extends AppComponentBase implements
 
     constructor(
         injector: Injector,
-        private _organizationUnitService: OrganizationUnitServiceProxy,
         private _NewStoreServiceProxy: NewStoreServiceProxy,
         private _router: Router
 

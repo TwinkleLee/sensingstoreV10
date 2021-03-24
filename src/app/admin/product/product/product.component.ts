@@ -16,6 +16,7 @@ import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Table, TableCheckbox } from 'primeng/table';
 import { finalize } from '@node_modules/rxjs/operators';
 import * as moment from 'moment';
+import { AppConsts } from '@shared/AppConsts';
 
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
@@ -722,18 +723,11 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
         this.exportLoading = false;
       }, 2000)
 
-      var href = `https://s.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
+      var href = AppConsts.remoteServiceBaseUrl+`/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
       // window.location.href = href;
       var link = document.getElementById('aaa');
       $(link).attr("href", href);
       link.click();
-      // this._FileServiceProxy.downloadTempFile(
-      //   r.fileName,
-      //   r.fileType,
-      //   r.fileToken
-      // ).subscribe(result => {
-      //   console.log(result)
-      // })
     })
   }
 

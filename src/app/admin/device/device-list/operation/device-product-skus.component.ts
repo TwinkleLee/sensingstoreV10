@@ -1,5 +1,6 @@
 import { Component, ViewChild, Injector, } from '@angular/core';
-import { DeviceServiceProxy, AuditStatus as AuditStatus8, ProductServiceProxy, PublishEntitiesInput, IdTypeDto, PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, PublishEntitiesInput, IdTypeDto, PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
+import { AuditStatus as AuditStatus8, DeviceServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
@@ -105,7 +106,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
                 'includeSku': false,
                 'isCreateDefaultSchedule': false,
                 'informDevice': this.informDevice,
-                'type':'publish'
+                'type': 'publish'
             });
             this._prodService.publishSkuToOrganizationOrDevicesOrStore(input).subscribe((r) => {
                 this.notify.success(this.l('success'));
@@ -150,7 +151,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
                 'includeSku': false,
                 'isCreateDefaultSchedule': false,
                 'informDevice': this.informDevice,
-                'type':'publish'
+                'type': 'publish'
             });
             this._prodService.publishSkuToOrganizationOrDevicesOrStore(input).subscribe((r) => {
                 this.notify.success(this.l('success'));
@@ -186,7 +187,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
                 'includeSku': false,
                 'isCreateDefaultSchedule': false,
                 'informDevice': this.informDevice,
-                'type':'publish'
+                'type': 'publish'
             });
             this._prodService.publishSkuToOrganizationOrDevicesOrStore(input).subscribe((r) => {
                 this.notify.success(this.l('success'));

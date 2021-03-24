@@ -163,7 +163,7 @@ export class TenantsComponent extends AppComponentBase implements OnInit {
     createTenant(): void {
         //V3 tocheck
         if (this.customTheme == 'kewosi') {// 科沃斯  
-            var url = 'https://s.api.troncell.com/api/services/app/IndependentDeployment/CheckIndependentDeployment'
+            var url = AppConsts.remoteServiceBaseUrl+'/api/services/app/IndependentDeployment/CheckIndependentDeployment'
             var token = this._tokenService.getToken();
             var host = AppConsts.deploymentList.ecovacs.host
             var customer = AppConsts.deploymentList.ecovacs.customer

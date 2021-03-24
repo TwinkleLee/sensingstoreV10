@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus, DeviceAdsServiceProxy, DeviceSoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
+import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus, DeviceAdsServiceProxy, DeviceSoftwareServiceProxy,PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies-ads';
 
 import { ProductServiceProxy,CouponServiceProxy, DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
@@ -44,7 +44,6 @@ import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/servic
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { DeviceBehaviorServiceProxy } from '@shared/service-proxies/service-proxies3';
 import { ExternalAccessServiceProxy } from '@shared/service-proxies/service-proxies';
-import { PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
 import { AppConsts } from '@shared/AppConsts';
 

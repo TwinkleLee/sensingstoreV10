@@ -324,7 +324,6 @@ export class ItemSaleDashboardComponent extends AppComponentBase {
         })).subscribe(r => {
             console.log('r', r);
             var link = document.getElementById('aaa');
-            // var href = `https://o.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
             var href = r;
             $(link).attr("href", href);
             link.click();

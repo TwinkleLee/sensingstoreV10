@@ -3,7 +3,6 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Table } from 'primeng/table';
 import { MemberServiceProxy, CommonServiceProxy, ReportServiceProxy, SensingShopManageServiceProxy, DispatchPointToMemberInput, DispatchPointToMemberInputInOrOutType, DispatchPointToMemberInputPointFromType } from '@shared/service-proxies/service-proxies2';
 import { MemberShipModalComponent } from '@app/admin//memberShip/member-ship/member-ship-detail-modal.component';

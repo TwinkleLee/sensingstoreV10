@@ -396,7 +396,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   createDevice() {
     //  V3 for ecovacs
     if (AppConsts.customTheme == 'kewosi') {
-      var url = 'https://s.api.troncell.com/api/services/app/IndependentDeployment/CheckIndependentDeployment';
+      var url = AppConsts.remoteServiceBaseUrl+'/api/services/app/IndependentDeployment/CheckIndependentDeployment';
       var token = this._tokenService.getToken();
       var _that = this;
       var host = AppConsts.deploymentList.ecovacs.host;
@@ -739,7 +739,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       setTimeout(() => {
         this.exportLoading = false;
       }, 2000)
-      var href = `https://s.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
+      var href = AppConsts.remoteServiceBaseUrl+`/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
       console.log(href)
 
       var link = document.getElementById('aaa');

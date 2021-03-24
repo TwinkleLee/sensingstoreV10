@@ -1,6 +1,5 @@
 import { Component, ViewChild, Injector, Output, Input, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { PositionDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 
 import * as moment from 'moment';
@@ -9,7 +8,7 @@ import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 
 import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/service-proxies/service-proxies-floor'
 
-import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput,PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditStoreModal',

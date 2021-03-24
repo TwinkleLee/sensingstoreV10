@@ -144,15 +144,6 @@ export class AdvertisementComponent extends AppComponentBase {
       $(link).attr("href", href);
       link.click();
     })
-    // this._ReportServiceProxy.getOrderListToExcel().subscribe(r => {
-    //   setTimeout(() => {
-    //     this.exportLoading = false;
-    //   }, 2000)
-    //   var href = `https://o.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
-    //   var link = document.getElementById('aaa');
-    //   $(link).attr("href", href);
-    //   link.click();
-    // })
   }
   //删除广告
   deleteAds(record) {

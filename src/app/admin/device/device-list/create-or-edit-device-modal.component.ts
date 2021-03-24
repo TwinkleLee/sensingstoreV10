@@ -1,12 +1,12 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { AppPodServiceProxy, SetDefaultAppPodVersionInput } from '@shared/service-proxies/service-proxies-devicecenter';
 import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
     selector: 'createOrEditDeviceModal',
@@ -108,12 +108,12 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
 
     constructor(
         injector: Injector,
-        private _deviceService: DeviceServiceProxy,
         private _AppPodServiceProxy: AppPodServiceProxy,
         private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
         private _SensorAgreementServiceProxy: SensorAgreementServiceProxy,
         private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy,
-        private _NewDeviceServiceProxy: NewDeviceServiceProxy
+        private _NewDeviceServiceProxy: NewDeviceServiceProxy,
+        private _DeviceServiceProxy:DeviceServiceProxy
 
     ) {
         super(injector);
@@ -121,7 +121,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         _NewDeviceServiceProxy.getDeviceTypeSelect().subscribe((r) => {
             this.deviceTypeList = r.items;
         })
-        _deviceService.onlineStoreInfoSelect().subscribe((result) => {
+        _DeviceServiceProxy.onlineStoreInfoSelect().subscribe((result) => {
             this.onlineStoreInfo = result;
         })
         //外设

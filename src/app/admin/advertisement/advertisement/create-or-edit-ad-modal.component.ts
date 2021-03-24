@@ -293,12 +293,6 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
                 s: AppConsts.remoteServiceBaseUrl,
                 g: AppConsts.remoteActivityServiceUrl,
                 p: AppConsts.remotePaperServiceUrl
-                // p:'http://139.196.240.230:268',
-                // 'https://p.api.troncell.com'
-                // s: 'https://s2.api.troncell.com',
-                // 'https://s.api.troncell.com'
-                // g: 'https://g2.api.troncell.com',
-                // 'https://g.api.troncell.com'
             },
             input = JSON.stringify(Object.assign(customContent, { token, tenantId, serverConfig, grantedActivity: this.isGranted('Pages.Tenant.Activities') }));
 

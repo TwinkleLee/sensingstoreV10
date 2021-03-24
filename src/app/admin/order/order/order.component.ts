@@ -9,7 +9,6 @@ import { Table } from 'primeng/table';
 import { OrderServiceProxy, CommonServiceProxy } from '@shared/service-proxies/service-proxies2';
 import { OrderDetailModalComponent } from '@app/admin/order/order/order-detail-modal.component';
 import { finalize } from 'rxjs/operators';
-import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as moment from 'moment';
 import { SensingShopManageServiceProxy } from '@shared/service-proxies/service-proxies2';
 
@@ -59,7 +58,6 @@ export class OrderComponent extends AppComponentBase {
   // stores;
   constructor(injector: Injector,
     private _orderService: OrderServiceProxy,
-    private _ouService: OrganizationUnitServiceProxy,
     private _commonService: CommonServiceProxy,
     private _NewStoreServiceProxy: NewStoreServiceProxy,
     private _SensingShopManageServiceProxy: SensingShopManageServiceProxy,

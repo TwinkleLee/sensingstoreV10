@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ExternalAccessServiceProxy, BatchTaskLogServiceProxy} from '@shared/service-proxies/service-proxies';
+import { BatchTaskLogServiceProxy} from '@shared/service-proxies/service-proxies';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
