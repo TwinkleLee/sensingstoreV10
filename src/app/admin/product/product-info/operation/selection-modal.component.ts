@@ -1,9 +1,8 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, CreatePropertyInput, UpdatePropertyInput, CreatePropertyValueInput } from '@shared/service-proxies/service-proxies-product';
+import { ProductServiceProxy, CreatePropertyValueInput, UpdatePropertyValueInput } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
-import { UpdatePropertyValueInput } from '@shared/service-proxies/service-proxies';
 
 @Component({
     selector: 'PropertyValueAlertModal',
@@ -22,6 +21,8 @@ export class PropertyValueAlertModalComponent extends AppComponentBase {
     }
 
     save() {
+        console.log(this.propertyValue)
+        
         if (this.operation == 'add') {
             this._ProductServiceProxy.createPropertyValue(new CreatePropertyValueInput(this.propertyValue)).subscribe((result) => {
                 this.notify.info(this.l('success'));

@@ -100,7 +100,7 @@ export class PropertyEditComponent extends AppComponentBase {
     }
     //提交
     save() {
-        this._ProductServiceProxy.updatePropertyValue(new UpdatePropertyValueInput(this.property)).subscribe(() => {
+        this._ProductServiceProxy.updateProperty(new UpdatePropertyInput(this.property)).subscribe(() => {
             this.notify.success("sucess");
             var self = this;
             setTimeout(function () {
