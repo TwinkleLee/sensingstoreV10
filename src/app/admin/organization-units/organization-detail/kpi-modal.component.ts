@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { GroupKPIServiceProxy, UpdateGroupKpiDtoInput, StoreKPIServiceProxy, UpdateStoreKpiDtoInput } from '@shared/service-proxies/service-proxies';
+import { StoreServiceProxy, UpdateStoreKpiDtoInput, OrganizationUnitServiceProxy,UpdateOUKpiDtoInput } from '@shared/service-proxies/service-proxies-devicecenter';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -17,8 +17,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class KPIModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('nameInput',{static:true}) nameInput: ElementRef;
-    @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+    @ViewChild('nameInput', { static: true }) nameInput: ElementRef;
+    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -38,8 +38,8 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
 
     constructor(
         injector: Injector,
-        private _GroupKPIServiceProxy: GroupKPIServiceProxy,
-        private _StoreKPIServiceProxy: StoreKPIServiceProxy,
+        private _StoreServiceProxy: StoreServiceProxy,
+        private _OrganizationUnitServiceProxy: OrganizationUnitServiceProxy,
         private router: Router,
         private route: ActivatedRoute
     ) {
@@ -57,9 +57,9 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
         console.log(metaType)
 
         this.route.queryParams.subscribe(queryParams => {
-            if(queryParams.isStore){
+            if (queryParams.isStore) {
                 this.isStore = true
-            }else{
+            } else {
                 this.isStore = false
             }
         })
@@ -80,9 +80,9 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
         } else {
             this.operation = "add";
             this.metaType = {};
-            if(this.isStore){
+            if (this.isStore) {
                 this.metaType.storeId = metaType.id;
-            }else{
+            } else {
                 this.metaType.organizationUnitId = metaType.id;
             }
             this.metaType.ouOrStoreName = metaType.name;
@@ -91,8 +91,8 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
 
 
 
-        if(this.isStore){
-            this._StoreKPIServiceProxy.getKpiNames(this.metaType.storeId).subscribe(r => {
+        if (this.isStore) {
+            this._StoreServiceProxy.getKpiNames(this.metaType.storeId).subscribe(r => {
                 this.typeList = r;
                 // this.interval = setInterval(() => {
                 //     if ($('.typeSelect .bs-searchbox input').val()) {
@@ -101,8 +101,8 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
                 //     }
                 // }, 500)
             })
-        }else{
-            this._GroupKPIServiceProxy.getKpiNames(this.metaType.organizationUnitId).subscribe(r => {
+        } else {
+            this._OrganizationUnitServiceProxy.getOrganizationUintKpiNames(this.metaType.organizationUnitId).subscribe(r => {
                 this.typeList = r;
                 // this.interval = setInterval(() => {
                 //     if ($('.typeSelect .bs-searchbox input').val()) {
@@ -128,29 +128,29 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
         this.saving = true;
         if (this.operation == "add") {
             console.log(this.metaType);
-            if(this.isStore){
-                this._StoreKPIServiceProxy.createStoreKPI(this.metaType)
-                .pipe(finalize(() => { this.saving = false; }))
-                .subscribe(result => {
-                    console.log(result)
-                    this.notify.info(this.l('SavedSuccessfully'));
-                    this.close();
-                    this.modalSave.emit(null);
-                })
-            }else{
-                this._GroupKPIServiceProxy.createGroupKPI(this.metaType)
-                .pipe(finalize(() => { this.saving = false; }))
-                .subscribe(result => {
-                    console.log(result)
-                    this.notify.info(this.l('SavedSuccessfully'));
-                    this.close();
-                    this.modalSave.emit(null);
-                })
+            if (this.isStore) {
+                this._StoreServiceProxy.createStoreKPI(this.metaType)
+                    .pipe(finalize(() => { this.saving = false; }))
+                    .subscribe(result => {
+                        console.log(result)
+                        this.notify.info(this.l('SavedSuccessfully'));
+                        this.close();
+                        this.modalSave.emit(null);
+                    })
+            } else {
+                this._OrganizationUnitServiceProxy.createOrganizationUnitKPI(this.metaType)
+                    .pipe(finalize(() => { this.saving = false; }))
+                    .subscribe(result => {
+                        console.log(result)
+                        this.notify.info(this.l('SavedSuccessfully'));
+                        this.close();
+                        this.modalSave.emit(null);
+                    })
             }
 
         } else {
-            if(this.isStore){
-                this._StoreKPIServiceProxy.updateStoreKPI(new UpdateStoreKpiDtoInput({
+            if (this.isStore) {
+                this._StoreServiceProxy.updateStoreKPI(new UpdateStoreKpiDtoInput({
                     id: this.metaType.id,
                     storeId: this.metaType.organizationUnitId,
                     scaleTime: this.metaType.scaleTime,
@@ -166,8 +166,8 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
                         this.close();
                         this.modalSave.emit(null);
                     })
-            }else{
-                this._GroupKPIServiceProxy.updateGroupKPI(new UpdateGroupKpiDtoInput({
+            } else {
+                this._OrganizationUnitServiceProxy.updateOrganizationUnitKPI(new UpdateOUKpiDtoInput({
                     id: this.metaType.id,
                     organizationUnitId: this.metaType.organizationUnitId,
                     scaleTime: this.metaType.scaleTime,

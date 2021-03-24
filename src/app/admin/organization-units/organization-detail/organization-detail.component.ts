@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import { DeviceServiceProxy, ProductServiceProxy, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, PeripheralServiceProxy, DeviceActionServiceProxy, SoftwareType, GroupKPIServiceProxy, StoreKPIServiceProxy } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy, ProductServiceProxy, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, PeripheralServiceProxy, DeviceActionServiceProxy, SoftwareType } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
@@ -11,9 +11,10 @@ import { finalize } from 'rxjs/operators';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, StoreActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { UserServiceProxy, AuditStatus } from '@shared/service-proxies/service-proxies';
-import { OrganizationUnitServiceProxy, StoreServiceProxy, StoreAdsServiceProxy, GetStorseListInput, StoreSoftwareServiceProxy, StoreCouponsServiceProxy, StoreProductServiceProxy } from '@shared/service-proxies/service-proxies';
+import {  StoreAdsServiceProxy, GetStorseListInput, StoreSoftwareServiceProxy, StoreCouponsServiceProxy, StoreProductServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
+import { StoreServiceProxy,OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -132,15 +133,13 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         private _couponService: CouponServiceProxy,
         private _acitvityService: ActivityServiceProxy,
         private _userServiceProxy: UserServiceProxy,
-        private _organizationUnitService: OrganizationUnitServiceProxy,
-        private _GroupKPIServiceProxy: GroupKPIServiceProxy,
         private _StoreServiceProxy: StoreServiceProxy,
         private _StoreActivityServiceProxy: StoreActivityServiceProxy,
         private _StoreAdsServiceProxy: StoreAdsServiceProxy,
         private _StoreCouponsServiceProxy: StoreCouponsServiceProxy,
         private _StoreProductServiceProxy: StoreProductServiceProxy,
         private _StoreSoftwareServiceProxy: StoreSoftwareServiceProxy,
-        private _StoreKPIServiceProxy: StoreKPIServiceProxy
+        private _OrganizationUnitServiceProxy:OrganizationUnitServiceProxy
     ) {
         super(injector);
         this.initMessage();
@@ -195,11 +194,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     getKPIByOUId(event?: LazyLoadEvent) {
         this.pKPI.showLoadingIndicator();
         if (this.OUId) {
-            this._GroupKPIServiceProxy.getKpiNames(this.OUId).subscribe(r => {
+            this._OrganizationUnitServiceProxy.getOrganizationUintKpiNames(this.OUId).subscribe(r => {
                 console.log(r, 'kpinames')
                 this.KPITypeList = r;
             })
-            this._GroupKPIServiceProxy.getGroupKPIs(
+            this._OrganizationUnitServiceProxy.getOrganizationUnitKPIs(
                 this.OUId,
                 undefined,// this.storeId,
                 this.StartTimeKPI,
@@ -218,11 +217,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                     // this.pKPI.hideLoadingIndicator();
                 });
         } else {
-            this._StoreKPIServiceProxy.getKpiNames(this.storeId).subscribe(r => {
+            this._StoreServiceProxy.getKpiNames(this.storeId).subscribe(r => {
                 console.log(r, 'kpinames')
                 this.KPITypeList = r;
             })
-            this._StoreKPIServiceProxy.getStoreKPIs(
+            this._StoreServiceProxy.getStoreKPIs(
                 this.storeId,
                 this.StartTimeKPI,
                 this.EndTimeKPI,
@@ -254,7 +253,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             if (r) {
                 this.pKPI.showLoadingIndicator();
                 if (this.OUId) {
-                    this._GroupKPIServiceProxy.deleteSingleGroupKPI(record.id)
+                    this._OrganizationUnitServiceProxy.deleteSingleOrganizationUnitKPI(record.id)
                         .pipe(this.myFinalize(() => { this.pKPI.hideLoadingIndicator(); }))
                         .subscribe(result => {
                             // this.pKPI.hideLoadingIndicator();
@@ -263,7 +262,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                             this.KPISelectionList = [];
                         })
                 } else {
-                    this._StoreKPIServiceProxy.deleteSingleGroupKPI(record.id)
+                    this._StoreServiceProxy.deleteSingleGroupKPI(record.id)
                         .pipe(this.myFinalize(() => { this.pKPI.hideLoadingIndicator(); }))
                         .subscribe(result => {
                             // this.pKPI.hideLoadingIndicator();
@@ -288,7 +287,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                     }
                     console.log(KPISelectionList);
                     if (this.OUId) {
-                        this._GroupKPIServiceProxy.deleteGroupKPIs(KPISelectionList)
+                        this._OrganizationUnitServiceProxy.deleteOrganizationUnitKPIs(KPISelectionList)
                             .pipe(this.myFinalize(() => { this.pKPI.hideLoadingIndicator(); }))
                             .subscribe(result => {
                                 this.notify.info(this.l('success'));
@@ -297,7 +296,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                                 // this.pKPI.hideLoadingIndicator();
                             })
                     } else {
-                        this._StoreKPIServiceProxy.deleteGroupKPIs(KPISelectionList)
+                        this._StoreServiceProxy.deleteGroupKPIs(KPISelectionList)
                             .pipe(this.myFinalize(() => { this.pKPI.hideLoadingIndicator(); }))
                             .subscribe(result => {
                                 this.notify.info(this.l('success'));
@@ -538,14 +537,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             return;
         }
         this.primengTableHelper.showLoadingIndicator();
-        // this._StoreServiceProxy.getStoresList(
-        //     [this.OUId],
-        //     undefined,
-        //     undefined,
-        //     this.primengTableHelper.getSorting(this.dataTable),
-        //     this.primengTableHelper.getMaxResultCount(this.paginator, event),
-        //     this.primengTableHelper.getSkipCount(this.paginator, event)
-        // )
         this._StoreServiceProxy.getStoresList(new GetStorseListInput({
             storeStatus: null,
             organizationUnitId: [this.OUId],
