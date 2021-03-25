@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrderInput, OrderServiceProxy, OrderItemDto } from '@shared/service-proxies/service-proxies2';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ProductServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { SensingShopManageServiceProxy, DeliverOrderInput,GetRefundDetailDtoRefundWay } from '@shared/service-proxies/service-proxies2';
 import * as moment from 'moment'
 

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Injector, OnInit, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { GetStorseListInput } from '@shared/service-proxies/service-proxies';
 // import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 // import { Paginator } from 'primeng/components/paginator/paginator';
 // import { Table } from 'primeng/components/table/table';
@@ -16,7 +15,7 @@ import { finalize } from 'rxjs/operators';
 
 
 import { Router } from '@angular/router';
-import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy,GetStorseListInput} from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({

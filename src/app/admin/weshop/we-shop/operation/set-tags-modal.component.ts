@@ -1,6 +1,11 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { TagServiceProxy, ShopServiceProxy, CreateShopTagInput, TagType as Type,UpdateShopTagInput } from '@shared/service-proxies/service-proxies';
+import { TagServiceProxy} from '@shared/service-proxies/service-proxies-product';
+
+//ooo
+import { ShopServiceProxy, CreateShopTagInput, TagType as Type,UpdateShopTagInput } from '@shared/service-proxies/service-proxies'
+
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';

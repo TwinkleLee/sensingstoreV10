@@ -4,7 +4,6 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { TenantServiceProxy,  OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { SoftwareServiceProxy, SoftwareDto,ApplyServiceProxy,ApplyWanted as CreateApplyFormInputWanted, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput,PublishEntitiesInput,IdTypeDto } from '@shared/service-proxies/service-proxies-ads';
 

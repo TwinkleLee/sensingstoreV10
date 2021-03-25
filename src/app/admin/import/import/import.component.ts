@@ -183,8 +183,9 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     }
     else if (this.target == 'sulwhasoo') {
       this.router.navigate(['app', 'admin', 'entityStore', 'entityStore']);
-    }
-    else {
+    } else if (this.target == 'ads') {
+      this.router.navigate(['app', 'admin', 'advertisement', 'adsList']);
+    } else {
       this.router.navigate(['app', 'admin', this.target, this.target]);
     }
   }

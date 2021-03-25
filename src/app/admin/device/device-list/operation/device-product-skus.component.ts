@@ -1,6 +1,7 @@
 import { Component, ViewChild, Injector, } from '@angular/core';
-import { ProductServiceProxy, PublishEntitiesInput, IdTypeDto, PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
-import { AuditStatus as AuditStatus8, DeviceServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
+
+import { AuditStatus as AuditStatus8, DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
