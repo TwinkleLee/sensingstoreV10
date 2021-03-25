@@ -14134,7 +14134,7 @@ export interface ICreateCouponInput {
 }
 
 export class CreateEntityResourceInput implements ICreateEntityResourceInput {
-    fileUrl!: string;
+    resouceId!: number;
     usage!: string | undefined;
     description!: string | undefined;
     content!: string | undefined;
@@ -14154,7 +14154,7 @@ export class CreateEntityResourceInput implements ICreateEntityResourceInput {
 
     init(_data?: any) {
         if (_data) {
-            this.fileUrl = _data["fileUrl"];
+            this.resouceId = _data["resouceId"];
             this.usage = _data["usage"];
             this.description = _data["description"];
             this.content = _data["content"];
@@ -14174,7 +14174,7 @@ export class CreateEntityResourceInput implements ICreateEntityResourceInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["fileUrl"] = this.fileUrl;
+        data["resouceId"] = this.resouceId;
         data["usage"] = this.usage;
         data["description"] = this.description;
         data["content"] = this.content;
@@ -14187,7 +14187,7 @@ export class CreateEntityResourceInput implements ICreateEntityResourceInput {
 }
 
 export interface ICreateEntityResourceInput {
-    fileUrl: string;
+    resouceId: number;
     usage: string | undefined;
     description: string | undefined;
     content: string | undefined;
@@ -15216,7 +15216,7 @@ export interface ICreateSkuOnlineInfoInput {
 }
 
 export class CreateSkuResourceInput implements ICreateSkuResourceInput {
-    fileUrl!: string;
+    resouceId!: number;
     usage!: string | undefined;
     description!: string | undefined;
     content!: string | undefined;
@@ -15235,7 +15235,7 @@ export class CreateSkuResourceInput implements ICreateSkuResourceInput {
 
     init(_data?: any) {
         if (_data) {
-            this.fileUrl = _data["fileUrl"];
+            this.resouceId = _data["resouceId"];
             this.usage = _data["usage"];
             this.description = _data["description"];
             this.content = _data["content"];
@@ -15254,7 +15254,7 @@ export class CreateSkuResourceInput implements ICreateSkuResourceInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["fileUrl"] = this.fileUrl;
+        data["resouceId"] = this.resouceId;
         data["usage"] = this.usage;
         data["description"] = this.description;
         data["content"] = this.content;
@@ -15266,7 +15266,7 @@ export class CreateSkuResourceInput implements ICreateSkuResourceInput {
 }
 
 export interface ICreateSkuResourceInput {
-    fileUrl: string;
+    resouceId: number;
     usage: string | undefined;
     description: string | undefined;
     content: string | undefined;

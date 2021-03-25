@@ -734,13 +734,13 @@ body
     padding: 0 1rem !important;
 }
 
-div.form-group {
+/* div.form-group {
     margin-bottom: 1rem !important;
-}
+} */
 
-.tab-content .form-group {
+/* .tab-content .form-group {
     margin-bottom: 1rem;
-}
+} */
 
 /* 用于primeng-datatable顶部title的居中 */
 
