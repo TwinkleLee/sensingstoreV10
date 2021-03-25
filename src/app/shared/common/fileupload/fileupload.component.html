@@ -6,7 +6,7 @@
             <div (drop)="fileGrop($event)" (dragover)="allowGrag($event)" class="dropArea" *ngIf="!multiple">
                 <div style="position:absolute;z-index: 2;">{{l("recommended that the file size should not exceed")}} 200M</div>
                 <a class="text-success" style="width:100%;top:auto;bottom:0;word-wrap:break-word;"
-                    *ngIf="_resourcetype!='Image'" download="" [title]="_fileUrl" target="view_window"
+                     download="" [title]="_fileUrl" target="view_window"
                     [href]="_fileUrl">
                     {{_fileUrl}}
                 </a>
