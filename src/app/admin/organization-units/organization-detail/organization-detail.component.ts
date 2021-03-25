@@ -1,5 +1,9 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import { DeviceServiceProxy, ProductServiceProxy, AdServiceProxy, SoftwareServiceProxy, CouponServiceProxy, PeripheralServiceProxy, DeviceActionServiceProxy, SoftwareType } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+
+import {CouponServiceProxy, ProductServiceProxy} from '@shared/service-proxies/service-proxies-product'
+import {AdServiceProxy,SoftwareServiceProxy,SoftwareType} from '@shared/service-proxies/service-proxies-ads'
+
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
@@ -315,6 +319,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         if (this.storeId) {
             this.pDevice.showLoadingIndicator();
             this._deviceService.getDevices(
+                undefined,
                 this.deviceStatus,
                 this.deviceOperationType,
                 this.deviceAuditStatus,

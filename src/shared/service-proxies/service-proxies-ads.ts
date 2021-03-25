@@ -1894,6 +1894,94 @@ export class AdServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param deviceId 设备ID
+     * @param id (optional) 广告或应用ID
+     * @param auditStatus (optional) 广告或应用上架状态
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getUnPublishedAdsByDeviceId(deviceId: number, id: number | null | undefined, auditStatus: AuditStatus | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<AdOutDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Ad/GetUnPublishedAdsByDeviceId?";
+        if (deviceId === undefined || deviceId === null)
+            throw new Error("The parameter 'deviceId' must be defined and cannot be null.");
+        else
+            url_ += "DeviceId=" + encodeURIComponent("" + deviceId) + "&";
+        if (id !== undefined && id !== null)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        if (auditStatus === null)
+            throw new Error("The parameter 'auditStatus' cannot be null.");
+        else if (auditStatus !== undefined)
+            url_ += "AuditStatus=" + encodeURIComponent("" + auditStatus) + "&";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUnPublishedAdsByDeviceId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUnPublishedAdsByDeviceId(<any>response_);
+                } catch (e) {
+                    return <Observable<AdOutDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<AdOutDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUnPublishedAdsByDeviceId(response: HttpResponseBase): Observable<AdOutDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AdOutDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<AdOutDtoPagedResultDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -9043,6 +9131,158 @@ export interface IUpdateProgramInput {
     adsPrograms: AdsProgramDto[] | undefined;
 }
 
+/** 通过设备ID获取广告信息时的返回对象 */
+export class AdOutDto implements IAdOutDto {
+    /** 广告ID */
+    id!: number;
+    /** 创建时间 */
+    creationTime!: moment.Moment;
+    /** 适用人群年龄区间 */
+    ageScope!: string | undefined;
+    auditStatus!: AuditStatus;
+    /** 资源文件地址 */
+    fileUrl!: string | undefined;
+    /** 广告名称 */
+    name!: string | undefined;
+    /** 广告标签列表 */
+    adsTags!: Int64IdNameDto[] | undefined;
+    /** 资源类型 jpg,mp4.... */
+    resourceType!: string | undefined;
+    organizationUnitId!: number | undefined;
+    /** 是否是当前账号创建的 */
+    isMine!: boolean;
+    /** 是否是自定义类型广告 */
+    isCustom!: boolean;
+
+    constructor(data?: IAdOutDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.ageScope = _data["ageScope"];
+            this.auditStatus = _data["auditStatus"];
+            this.fileUrl = _data["fileUrl"];
+            this.name = _data["name"];
+            if (Array.isArray(_data["adsTags"])) {
+                this.adsTags = [] as any;
+                for (let item of _data["adsTags"])
+                    this.adsTags!.push(Int64IdNameDto.fromJS(item));
+            }
+            this.resourceType = _data["resourceType"];
+            this.organizationUnitId = _data["organizationUnitId"];
+            this.isMine = _data["isMine"];
+            this.isCustom = _data["isCustom"];
+        }
+    }
+
+    static fromJS(data: any): AdOutDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AdOutDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["ageScope"] = this.ageScope;
+        data["auditStatus"] = this.auditStatus;
+        data["fileUrl"] = this.fileUrl;
+        data["name"] = this.name;
+        if (Array.isArray(this.adsTags)) {
+            data["adsTags"] = [];
+            for (let item of this.adsTags)
+                data["adsTags"].push(item.toJSON());
+        }
+        data["resourceType"] = this.resourceType;
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["isMine"] = this.isMine;
+        data["isCustom"] = this.isCustom;
+        return data; 
+    }
+}
+
+/** 通过设备ID获取广告信息时的返回对象 */
+export interface IAdOutDto {
+    /** 广告ID */
+    id: number;
+    /** 创建时间 */
+    creationTime: moment.Moment;
+    /** 适用人群年龄区间 */
+    ageScope: string | undefined;
+    auditStatus: AuditStatus;
+    /** 资源文件地址 */
+    fileUrl: string | undefined;
+    /** 广告名称 */
+    name: string | undefined;
+    /** 广告标签列表 */
+    adsTags: Int64IdNameDto[] | undefined;
+    /** 资源类型 jpg,mp4.... */
+    resourceType: string | undefined;
+    organizationUnitId: number | undefined;
+    /** 是否是当前账号创建的 */
+    isMine: boolean;
+    /** 是否是自定义类型广告 */
+    isCustom: boolean;
+}
+
+export class AdOutDtoPagedResultDto implements IAdOutDtoPagedResultDto {
+    totalCount!: number;
+    items!: AdOutDto[] | undefined;
+
+    constructor(data?: IAdOutDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(AdOutDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): AdOutDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AdOutDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IAdOutDtoPagedResultDto {
+    totalCount: number;
+    items: AdOutDto[] | undefined;
+}
+
 /** 广告套餐包绑定信息 */
 export class AdPackageBindingDto implements IAdPackageBindingDto {
     adId!: number;
@@ -11044,158 +11284,6 @@ export class GetDeviceSchedulingDtoPagedResultDto implements IGetDeviceSchedulin
 export interface IGetDeviceSchedulingDtoPagedResultDto {
     totalCount: number;
     items: GetDeviceSchedulingDto[] | undefined;
-}
-
-/** 通过设备ID获取广告信息时的返回对象 */
-export class AdOutDto implements IAdOutDto {
-    /** 广告ID */
-    id!: number;
-    /** 创建时间 */
-    creationTime!: moment.Moment;
-    /** 适用人群年龄区间 */
-    ageScope!: string | undefined;
-    auditStatus!: AuditStatus;
-    /** 资源文件地址 */
-    fileUrl!: string | undefined;
-    /** 广告名称 */
-    name!: string | undefined;
-    /** 广告标签列表 */
-    adsTags!: Int64IdNameDto[] | undefined;
-    /** 资源类型 jpg,mp4.... */
-    resourceType!: string | undefined;
-    organizationUnitId!: number | undefined;
-    /** 是否是当前账号创建的 */
-    isMine!: boolean;
-    /** 是否是自定义类型广告 */
-    isCustom!: boolean;
-
-    constructor(data?: IAdOutDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.ageScope = _data["ageScope"];
-            this.auditStatus = _data["auditStatus"];
-            this.fileUrl = _data["fileUrl"];
-            this.name = _data["name"];
-            if (Array.isArray(_data["adsTags"])) {
-                this.adsTags = [] as any;
-                for (let item of _data["adsTags"])
-                    this.adsTags!.push(Int64IdNameDto.fromJS(item));
-            }
-            this.resourceType = _data["resourceType"];
-            this.organizationUnitId = _data["organizationUnitId"];
-            this.isMine = _data["isMine"];
-            this.isCustom = _data["isCustom"];
-        }
-    }
-
-    static fromJS(data: any): AdOutDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new AdOutDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["ageScope"] = this.ageScope;
-        data["auditStatus"] = this.auditStatus;
-        data["fileUrl"] = this.fileUrl;
-        data["name"] = this.name;
-        if (Array.isArray(this.adsTags)) {
-            data["adsTags"] = [];
-            for (let item of this.adsTags)
-                data["adsTags"].push(item.toJSON());
-        }
-        data["resourceType"] = this.resourceType;
-        data["organizationUnitId"] = this.organizationUnitId;
-        data["isMine"] = this.isMine;
-        data["isCustom"] = this.isCustom;
-        return data; 
-    }
-}
-
-/** 通过设备ID获取广告信息时的返回对象 */
-export interface IAdOutDto {
-    /** 广告ID */
-    id: number;
-    /** 创建时间 */
-    creationTime: moment.Moment;
-    /** 适用人群年龄区间 */
-    ageScope: string | undefined;
-    auditStatus: AuditStatus;
-    /** 资源文件地址 */
-    fileUrl: string | undefined;
-    /** 广告名称 */
-    name: string | undefined;
-    /** 广告标签列表 */
-    adsTags: Int64IdNameDto[] | undefined;
-    /** 资源类型 jpg,mp4.... */
-    resourceType: string | undefined;
-    organizationUnitId: number | undefined;
-    /** 是否是当前账号创建的 */
-    isMine: boolean;
-    /** 是否是自定义类型广告 */
-    isCustom: boolean;
-}
-
-export class AdOutDtoPagedResultDto implements IAdOutDtoPagedResultDto {
-    totalCount!: number;
-    items!: AdOutDto[] | undefined;
-
-    constructor(data?: IAdOutDtoPagedResultDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(AdOutDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): AdOutDtoPagedResultDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new AdOutDtoPagedResultDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IAdOutDtoPagedResultDto {
-    totalCount: number;
-    items: AdOutDto[] | undefined;
 }
 
 /** 更新设备下的应用程序时的入参对象 */
