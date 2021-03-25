@@ -199,7 +199,7 @@
                         </tab>
 
 
-                        <tab *ngIf="settings&&settings.oss" heading="{{l('cloudStorage')}}" customClass="m-tabs__item">
+                        <tab  class="p-5" *ngIf="settings&&settings.oss" heading="{{l('cloudStorage')}}" customClass="m-tabs__item">
                             <div class="row" style="margin-left:0;">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -227,7 +227,7 @@
                                     <div class="form-group">
                                         <label for="accessKeySecret">{{l("accessKeySecret")}}</label>
                                         <input id="accessKeySecret" type="password" name="accessKeySecret" class="form-control"
-                                            [(ngModel)]="settings.oss.accessKeySecret">
+                                            [(ngModel)]="settings.oss.accessKeySecret" >
                                     </div>
                                 </div>
     
@@ -238,7 +238,7 @@
 
 
 
-                        <tab *ngIf="true" heading="{{'Security' | localize}}">
+                        <tab class="p-5" *ngIf="true" heading="{{'Security' | localize}}">
                             <!-- *ngIf="true" is a workaround for https://github.com/valor-software/ng2-bootstrap/issues/823 -->
                             <div>
                                 <h5>{{"PasswordComplexity" | localize}}</h5>
@@ -300,6 +300,7 @@
                                             {{"PasswordComplexity_RequireUppercase" | localize}}
                                         </label>
                                     </div>
+                                    <br>
                                     <div class="form-group">
                                         <label>{{"PasswordComplexity_RequiredLength" | localize}}</label>
                                         <input type="number" name="RequiredLength" class="form-control"
@@ -326,6 +327,7 @@
                                         </label>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="form-group" *ngIf="settings.security.userLockOut.isEnabled">
                                     <label
                                         for="MaxFailedAccessAttemptsBeforeLockout">{{"MaxFailedAccessAttemptsBeforeLockout" | localize}}</label>
