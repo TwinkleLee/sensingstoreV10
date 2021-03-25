@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, EventEmitter, Output, ElementRef, ChangeDetectorRef, } from '@angular/core';
-import { UpdateBrandInput, CreateBrandInput, BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { UpdateBrandInput, CreateBrandInput, BrandServiceProxy, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies-devicecenter';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -7,7 +7,6 @@ import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import { BrandResourceModalComponent } from '@app/admin/brandcenter/brand-center/operation/brand-res-modal.component';
 import { finalize } from 'rxjs/operators';
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 

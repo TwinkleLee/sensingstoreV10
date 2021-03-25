@@ -1,8 +1,8 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
-import {CouponServiceProxy, ProductServiceProxy} from '@shared/service-proxies/service-proxies-product'
-import {AdServiceProxy,SoftwareServiceProxy,SoftwareType} from '@shared/service-proxies/service-proxies-ads'
+import {CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy} from '@shared/service-proxies/service-proxies-product'
+import {AdServiceProxy,SoftwareServiceProxy,SoftwareType,StoreAdsServiceProxy, StoreSoftwareServiceProxy} from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,10 +15,10 @@ import { finalize } from 'rxjs/operators';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, StoreActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { UserServiceProxy, AuditStatus } from '@shared/service-proxies/service-proxies';
-import {  StoreAdsServiceProxy, GetStorseListInput, StoreSoftwareServiceProxy, StoreCouponsServiceProxy, StoreProductServiceProxy } from '@shared/service-proxies/service-proxies';
+
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
-import { StoreServiceProxy,OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy,OrganizationUnitServiceProxy, GetStorseListInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -140,10 +140,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         private _StoreServiceProxy: StoreServiceProxy,
         private _StoreActivityServiceProxy: StoreActivityServiceProxy,
         private _StoreAdsServiceProxy: StoreAdsServiceProxy,
-        private _StoreCouponsServiceProxy: StoreCouponsServiceProxy,
-        private _StoreProductServiceProxy: StoreProductServiceProxy,
+        // private _StoreCouponsServiceProxy: StoreCouponsServiceProxy,
+        // private _StoreProductServiceProxy: StoreProductServiceProxy,
         private _StoreSoftwareServiceProxy: StoreSoftwareServiceProxy,
-        private _OrganizationUnitServiceProxy:OrganizationUnitServiceProxy
+        private _OrganizationUnitServiceProxy:OrganizationUnitServiceProxy,
+        private _StoreProductServiceProxy: StoreProductServiceProxy,
     ) {
         super(injector);
         this.initMessage();
@@ -586,7 +587,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 })
         } else if (this.storeId) {
             this.pCoupon.showLoadingIndicator();
-            this._StoreCouponsServiceProxy.getCouponsByStoreId(
+            this._StoreProductServiceProxy.getCouponsByStoreId(
                 this.couponAuditStatus,
                 this.storeId,
                 this.couponFilterText,

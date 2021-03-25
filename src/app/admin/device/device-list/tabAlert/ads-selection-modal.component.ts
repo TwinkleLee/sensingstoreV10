@@ -2,9 +2,6 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import {  AdServiceProxy, AuditStatus, AuditStatus as AuditStatus10 } from '@shared/service-proxies/service-proxies-ads';
 
-// tag1
-import { DeviceServiceProxy} from '@shared/service-proxies/service-proxies'
-
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';
@@ -25,7 +22,6 @@ export class AdsAlertModalComponent extends AppComponentBase {
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(injecor:Injector,
-        private _deviceService:DeviceServiceProxy,
         private _adsService:AdServiceProxy){
         super(injecor);
     }
@@ -36,7 +32,7 @@ export class AdsAlertModalComponent extends AppComponentBase {
             return;
           }
           this.primengTableHelper.showLoadingIndicator();
-        this._deviceService.getUnPublishedAdsByDeviceId(
+        this._adsService.getUnPublishedAdsByDeviceId(
             this.deviceId,
             undefined,
             AuditStatus10.Online,

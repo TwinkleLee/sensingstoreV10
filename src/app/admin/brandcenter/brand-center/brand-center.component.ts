@@ -6,9 +6,8 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 
-import { BrandServiceProxy, OnlineOrOffLineBrandInput, ApplyWanted as OnlineOrOffLineBrandInputWanted } from '@shared/service-proxies/service-proxies-devicecenter';
+import { BrandServiceProxy, OnlineOrOffLineBrandInput, ApplyWanted as OnlineOrOffLineBrandInputWanted,TagServiceProxy, TagType as Type  } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
   selector: 'app-brand-center',

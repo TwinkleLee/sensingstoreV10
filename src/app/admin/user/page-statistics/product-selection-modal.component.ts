@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Input, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, AuditStatus as AuditStatus12, AuditStatus as AuditStatus7 } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, AuditStatus as AuditStatus12, AuditStatus as AuditStatus7 } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { LazyLoadEvent } from 'primeng/api';
