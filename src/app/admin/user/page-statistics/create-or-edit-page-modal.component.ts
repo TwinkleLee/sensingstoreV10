@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { ApplicationServiceProxy } from '@shared/service-proxies/service-proxies-user';
-import { ProductServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { ProductAlertModalComponent } from './product-selection-modal.component';
 
 @Component({
