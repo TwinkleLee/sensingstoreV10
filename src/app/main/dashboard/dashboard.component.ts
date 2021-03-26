@@ -292,6 +292,7 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
 
     getDashboardStatisticsData(datePeriod): void {
         this.headLoading1 = true;
+        return console.log("startTime", this.allStartTime,this.allStartTime.format())
         //店铺总数
         this._reportService.getCountReportPost(new GetCountReportInput({
             startTime: this.allStartTime,

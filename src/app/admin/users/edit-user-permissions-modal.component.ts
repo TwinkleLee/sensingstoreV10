@@ -19,7 +19,7 @@ export class EditUserPermissionsModalComponent extends AppComponentBase {
 
     userId: number;
     userName: string;
-
+    showBusy = true;
     constructor(
         injector: Injector,
         private _userService: UserServiceProxy
@@ -31,9 +31,12 @@ export class EditUserPermissionsModalComponent extends AppComponentBase {
         this.userId = userId;
         this.userName = userName;
 
+        this.modal.show();
+
         this._userService.getUserPermissionsForEdit(userId).subscribe(result => {
             this.permissionTree.editData = result;
-            this.modal.show();
+            // this.modal.show();
+            this.showBusy = false;
         });
     }
 

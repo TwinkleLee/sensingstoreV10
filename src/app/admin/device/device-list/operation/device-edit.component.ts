@@ -3,9 +3,9 @@ import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto
 
 import { ProductServiceProxy,CouponServiceProxy, DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
-import { DeviceActionServiceProxy, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType, DeviceServiceProxy } from '@shared/service-proxies/service-proxies'
+import {  ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType, DeviceServiceProxy } from '@shared/service-proxies/service-proxies'
 
-import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DeviceActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DevicesActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -389,7 +389,6 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private _deviceProductService: DeviceProductServiceProxy,
         private _deviceService: DeviceServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
-        private _deviceAction: DeviceActionServiceProxy,
         private _productService: ProductServiceProxy,
         private _adsService: AdServiceProxy,
         private _appService: SoftwareServiceProxy,
@@ -2262,14 +2261,14 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     /// close-container,update-resource,snapshot
     /// switch-app,restart-app,close-app.
     screenShot() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'snapshot',
             'appId': undefined,
             'actionContent': ''
         });
         this.screenLoading++;
-        this._deviceAction.publishEvent(input).pipe(finalize(() => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).pipe(finalize(() => {
             this.screenLoading = 0;
         })).subscribe(() => {
             this.notify.info(this.l('success'));
@@ -2304,90 +2303,90 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
 
     updateResource() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'update-resource',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     restart() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'restart-pc',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     shutdown() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'shutdown-pc',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     closeSoftware() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'close-app',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     restartSoftware() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'restart-app',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     closeAppPod() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'close-container',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     clearCache() {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'clear-cache',
             'appId': undefined,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }
     switchApp(record) {
-        var input = new DeviceActionInput({
-            'deviceId': this.device.id,
+        var input = new DevicesActionInput({
+            'deviceIds': [this.device.id],
             'actionName': 'switch-app',
             'appId': record.softwareId,
             'actionContent': ''
         });
-        this._deviceAction.publishEvent(input).subscribe((result) => {
+        this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
             this.notify.info(this.l('success'));
         })
     }

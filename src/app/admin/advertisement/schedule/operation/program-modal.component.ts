@@ -289,6 +289,10 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
                         } else if (newItem.type == 1) {
                             var child = Program.softwareList.find(ad => ad.id == initChild.Id);
                         }
+                        // console.log("Program.adList",Program.adList)
+                        // console.log("initChild",initChild)
+                        // console.log("child",child)
+
                         if (!child.timeSpan || child.timeSpan == "00:00:00") child.timeSpan = "00:00:01";
                         return {
                             id: initChild.Id,

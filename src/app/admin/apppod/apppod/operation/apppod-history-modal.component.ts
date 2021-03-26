@@ -8,8 +8,6 @@ import { Paginator } from 'primeng/paginator';
 import { LazyLoadEvent } from 'primeng/api';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 
-import { BatchTaskLogServiceProxy } from '@shared/service-proxies/service-proxies-sync';
-
 import { AppPodServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { CreateOrEditApppodModalComponent } from '@app/admin/apppod/apppod/create-or-edit-apppod-modal.component';
 
@@ -46,7 +44,6 @@ export class ApppodHistoryModalComponent extends AppComponentBase {
 
   constructor(
     injector: Injector,
-    private _BatchTaskLogServiceProxy: BatchTaskLogServiceProxy,
     private _AppPodServiceProxy: AppPodServiceProxy
   ) {
     super(injector);

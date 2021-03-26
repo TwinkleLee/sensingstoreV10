@@ -76,7 +76,6 @@ export class SalesInfoComponent extends AppComponentBase implements OnInit {
     })
   }
   getSalesInfo(event?: LazyLoadEvent) {
-    console.log('abcd tttt')
     // if (this.primengTableHelper.shouldResetPaging(event)) {
     //   this.paginator.changePage(0);
     //   return;
