@@ -13,9 +13,9 @@
                 <div class="input-group  margin-top-5"
                     style="justify-content: flex-end;position:absolute;width:25%;top:0.5rem;right:2rem;">
                     <date-range-picker [dateRangePickerOptions]='{ "opens": "left"}' needInitDate="true"
-                        #clickDateranger style="width: 60%;" name="clickDateranger"
-                        [(startDate)]="realStartTime" [(endDate)]="realEndTime" [allowFutureDate]="true"
-                        [cssStyle]="'dashboard'" [admitDelete]="false">
+                        #clickDateranger style="width: 60%;" name="clickDateranger" [(startDate)]="realStartTime"
+                        [(endDate)]="realEndTime" [allowFutureDate]="true" [cssStyle]="'dashboard'"
+                        [admitDelete]="false">
                     </date-range-picker>
 
                     <button class="btn btn-primary" (click)="refreshAll()"
@@ -27,11 +27,11 @@
             </div>
         </sub-header>
 
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet" origin style="position: relative;">
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b" style="position: relative;">
                 <div class="freeze-ui" style="position:absolute;"
                     *ngIf="headLoading1&&headLoading2&&headLoading3&&headLoading4"></div>
-                <div class="kt-portlet__body  kt-portlet__body--no-padding">
+                <div class="card-body">
                     <div class="row kt-row--no-padding kt-row--col-separator-xl">
                         <div style="max-width: 20%;" [ngStyle]="getCol"
                             *ngFor="let stats of dashboardHeaderStats.records;let i = index">
@@ -73,58 +73,56 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div style="height:2.2rem;"></div>
-
-
-            <div class="row">
-                <!-- 购买人数 -->
-                <div class="col-md-6 col-sm-12" *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.BuyerCount')">
-                    <div class="kt-portlet" origin>
-                        <div class="kt-portlet__head" style="position:relative;">
-                            <div class="kt-portlet__head-caption width-percent-30">
-                                <div class="kt-portlet__head-title">
-                                    <h3 class="kt-portlet__head-text">
-                                        {{l('buyerCount')}}
-                                    </h3>
+                    <div style="height:2.2rem;"></div>
+                    <div class="row">
+                        <!-- 购买人数 -->
+                        <div class="col-md-6 col-sm-12"
+                            *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.BuyerCount')">
+                            <div class="kt-portlet" origin>
+                                <div class="kt-portlet__head" style="position:relative;">
+                                    <div class="kt-portlet__head-caption width-percent-30">
+                                        <div class="kt-portlet__head-title">
+                                            <h3 class="kt-portlet__head-text">
+                                                {{l('buyerCount')}}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="kt-portlet__head-tools width-percent-10"
+                                        style="position:absolute;top:1rem;right:0;">
+                                        <span class="input-group-btn">
+                                            <button (click)="showOrderInformation()"
+                                                class="btn btn-primary fixed-button" type="button">
+                                                <i class="icon-chakan" style="font-size:22px;"></i>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="kt-portlet__head-tools width-percent-10"
-                                style="position:absolute;top:1rem;right:0;">
-                                <span class="input-group-btn">
-                                    <button (click)="showOrderInformation()" class="btn btn-primary fixed-button"
-                                        type="button">
-                                        <i class="icon-chakan" style="font-size:22px;"></i>
-                                    </button>
-                                </span>
+                                <div class="kt-portlet__body" [busyIf]="buyerChartLoading">
+                                    <div class="row list-separated">
+                                        <div class="portlet-body-morris-fit morris-chart"
+                                            style="height: 600px;width: 100%;">
+                                            <app-charts #buyerChartDiv chartId="buyerChartDiv" chartType="Line">
+                                            </app-charts>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="kt-portlet__body" [busyIf]="buyerChartLoading">
-                            <div class="row list-separated">
-                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
-                                    <app-charts #buyerChartDiv chartId="buyerChartDiv" chartType="Line"></app-charts>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- 设备在线情况 -->
+                        <div class="col-md-6 col-sm-12"
+                            *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration')">
+                            <div class="kt-portlet" origin>
+                                <div class="kt-portlet__head" style="position:relative;">
+                                    <div class="kt-portlet__head-caption width-percent-50">
+                                        <div class="kt-portlet__head-title">
+                                            <h3 class="kt-portlet__head-text">
+                                                {{l('deviceOnlineTime')}}
+                                            </h3>
+                                        </div>
+                                    </div>
 
-                    </div>
-                </div>
-                <!-- 设备在线情况 -->
-                <div class="col-md-6 col-sm-12"
-                    *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration')">
-                    <div class="kt-portlet" origin>
-                        <div class="kt-portlet__head" style="position:relative;">
-                            <div class="kt-portlet__head-caption width-percent-50">
-                                <div class="kt-portlet__head-title">
-                                    <h3 class="kt-portlet__head-text">
-                                        {{l('deviceOnlineTime')}}
-                                    </h3>
-                                </div>
-                            </div>
-
-                            <!-- <div *ngIf="isGranted('Pages.Administration')"
+                                    <!-- <div *ngIf="isGranted('Pages.Administration')"
                                 class="kt-portlet__head-tools width-percent-10"
                                 style="position:absolute;top:1rem;right:0;">
                                 <span class="input-group-btn">
@@ -137,59 +135,65 @@
                             </div>
 
                             <a id="aaa" href=""></a> -->
-                        </div>
+                                </div>
 
 
-                        <div class="kt-portlet__body" [busyIf]="deviceChartLoading">
-                            <div class="row list-separated">
-                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
-                                    <app-charts #deviceChartDiv chartId="deviceChartDiv" chartType="Line"></app-charts>
+                                <div class="kt-portlet__body" [busyIf]="deviceChartLoading">
+                                    <div class="row list-separated">
+                                        <div class="portlet-body-morris-fit morris-chart"
+                                            style="height: 600px;width: 100%;">
+                                            <app-charts #deviceChartDiv chartId="deviceChartDiv" chartType="Line">
+                                            </app-charts>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 设备点击次数 -->
+                        <div class="col-md-6 col-sm-12"
+                            *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration')">
+                            <div class="kt-portlet" origin>
+                                <div class="kt-portlet__head" style="position:relative;">
+                                    <div class="kt-portlet__head-caption width-percent-30">
+                                        <div class="kt-portlet__head-title">
+                                            <h3 class="kt-portlet__head-text">
+                                                {{l('clickCount')}}
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="isGranted('Pages.Administration')"
+                                        class="kt-portlet__head-tools width-percent-10"
+                                        style="position:absolute;top:1rem;right:0;">
+                                        <span class="input-group-btn">
+                                            <button (click)="getDeviceExcel()" class="btn btn-primary fixed-button"
+                                                type="button" style="padding:1rem 1.2rem 1rem 1.3rem"
+                                                [buttonBusy]="disableExcel">
+                                                <i class="icon-icon"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                    <a id="aaa" href=""></a>
+                                </div>
+
+
+                                <div class="kt-portlet__body" [busyIf]="deviceChartLoading">
+                                    <div class="row list-separated">
+                                        <div class="portlet-body-morris-fit morris-chart"
+                                            style="height: 600px;width: 100%;">
+                                            <app-charts #actionChartDiv chartId="actionChartDiv" chartType="Line">
+                                            </app-charts>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
-
-                <!-- 设备点击次数 -->
-                <div class="col-md-6 col-sm-12"
-                    *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration')">
-                    <div class="kt-portlet" origin>
-                        <div class="kt-portlet__head" style="position:relative;">
-                            <div class="kt-portlet__head-caption width-percent-30">
-                                <div class="kt-portlet__head-title">
-                                    <h3 class="kt-portlet__head-text">
-                                        {{l('clickCount')}}
-                                    </h3>
-                                </div>
-                            </div>
-
-                            <div *ngIf="isGranted('Pages.Administration')"
-                                class="kt-portlet__head-tools width-percent-10"
-                                style="position:absolute;top:1rem;right:0;">
-                                <span class="input-group-btn">
-                                    <button (click)="getDeviceExcel()" class="btn btn-primary fixed-button"
-                                        type="button" style="padding:1rem 1.2rem 1rem 1.3rem"
-                                        [buttonBusy]="disableExcel">
-                                        <i class="icon-icon"></i>
-                                    </button>
-                                </span>
-                            </div>
-
-                            <a id="aaa" href=""></a>
-                        </div>
-
-
-                        <div class="kt-portlet__body" [busyIf]="deviceChartLoading">
-                            <div class="row list-separated">
-                                <div class="portlet-body-morris-fit morris-chart" style="height: 600px;width: 100%;">
-                                    <app-charts #actionChartDiv chartId="actionChartDiv" chartType="Line"></app-charts>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>

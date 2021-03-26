@@ -9551,6 +9551,54 @@ export interface IGetPackageDtoPagedResultDto {
     items: GetPackageDto[] | undefined;
 }
 
+export class AdPlayInfoDto implements IAdPlayInfoDto {
+    id!: number;
+    name!: string | undefined;
+    fileUrl!: string | undefined;
+    resourceType!: string | undefined;
+
+    constructor(data?: IAdPlayInfoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.fileUrl = _data["fileUrl"];
+            this.resourceType = _data["resourceType"];
+        }
+    }
+
+    static fromJS(data: any): AdPlayInfoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AdPlayInfoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["fileUrl"] = this.fileUrl;
+        data["resourceType"] = this.resourceType;
+        return data; 
+    }
+}
+
+export interface IAdPlayInfoDto {
+    id: number;
+    name: string | undefined;
+    fileUrl: string | undefined;
+    resourceType: string | undefined;
+}
+
 /** 广告套餐包详细信息 */
 export class AdPackageDto implements IAdPackageDto {
     /** 套餐ID */
@@ -9562,6 +9610,7 @@ export class AdPackageDto implements IAdPackageDto {
     orderNumber!: number | undefined;
     startPointName!: string | undefined;
     stopPointName!: string | undefined;
+    ad!: AdPlayInfoDto;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: moment.Moment | undefined;
@@ -9589,6 +9638,7 @@ export class AdPackageDto implements IAdPackageDto {
             this.orderNumber = _data["orderNumber"];
             this.startPointName = _data["startPointName"];
             this.stopPointName = _data["stopPointName"];
+            this.ad = _data["ad"] ? AdPlayInfoDto.fromJS(_data["ad"]) : <any>undefined;
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
@@ -9616,6 +9666,7 @@ export class AdPackageDto implements IAdPackageDto {
         data["orderNumber"] = this.orderNumber;
         data["startPointName"] = this.startPointName;
         data["stopPointName"] = this.stopPointName;
+        data["ad"] = this.ad ? this.ad.toJSON() : <any>undefined;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
@@ -9639,6 +9690,7 @@ export interface IAdPackageDto {
     orderNumber: number | undefined;
     startPointName: string | undefined;
     stopPointName: string | undefined;
+    ad: AdPlayInfoDto;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: moment.Moment | undefined;

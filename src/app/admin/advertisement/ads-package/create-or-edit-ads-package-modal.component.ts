@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
-import { AdsPackageServiceProxy, AddOrUpdateAdsPackageInput, AuditStatus, AdPackageBindingDto, AdPackageDto, AdDto, GetPackageDto } from '@shared/service-proxies/service-proxies-ads';
+import { AdsPackageServiceProxy, AddOrUpdateAdsPackageInput, AuditStatus, AdPackageBindingDto, AdPackageDto, AdDto, GetPackageDto, AdPlayInfoDto } from '@shared/service-proxies/service-proxies-ads';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
@@ -182,10 +182,10 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
                 newItem.playDuration = this.getDurationByDefault(addAdItem.timeSpan);
                 newItem.playTransition = this.getTransitionByDefault(addAdItem.transition);
                 newItem.orderNumber = this.getOrderNumberByDefault();
-                // var ad = new AdPlayInfoDto();
-                // ad.name = addAdItem.name;
-                // ad.resourceType = addAdItem.resourceType;
-                // newItem.ad = ad;
+                var ad = new AdPlayInfoDto();
+                ad.name = addAdItem.name;
+                ad.resourceType = addAdItem.resourceType;
+                newItem.ad = ad;
                 this.adPackageList.push(newItem);
             });
 

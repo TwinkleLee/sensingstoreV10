@@ -44,6 +44,8 @@ import { CreateOrEditDashboardTemplateModalComponent } from './dashboard-templat
 import { DashboardManageComponent } from './dashboard-manage/dashboard-manage.component'
 import { CreateOrEditDashboardManageModalComponent } from './dashboard-manage/create-or-edit-dashboard-manage-modal.component'
 
+import { ConnectorService } from '@app/shared/services/connector.service';
+import { MachineService } from '@app/shared/services/machine.service';
 
 
 @NgModule({
@@ -89,7 +91,9 @@ import { CreateOrEditDashboardManageModalComponent } from './dashboard-manage/cr
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
         { provide: BsDaterangepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDaterangepickerConfig },
-        { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale }
+        { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale },
+        ConnectorService,
+        MachineService
     ]
 })
 export class MainModule { }
