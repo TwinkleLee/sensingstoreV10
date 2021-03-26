@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "publish": "gulp build && ng build --prod --source-map=false",
+    "dev": "ng serve --host 0.0.0.0 --port 4200",
     "start": "gulp buildDev && ng serve --host 0.0.0.0 --port 4200",
     "hmr": "gulp buildDev && ng serve --host 0.0.0.0 --port 4200 --hmr",
     "test": "gulp buildDev && ng test",
