@@ -47,7 +47,6 @@
                     </div>
                 </div>
 
-
                 <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Devices.Create')">
                     <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
                         data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
@@ -286,6 +285,59 @@
                                     {{'TotalRecordsCount' | localize:primengTableHelper.totalRecordsCount}}
                                 </span>
                             </div>
+                        </div>
+                    </div>
+
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}"
+                        [ngStyle]="{'height':avalibleHeight}"
+                        *ngIf="isGranted('Pages.Tenant.Devices.Publish')&&toPublish">
+                        <div class="panel_head">
+                            <h3 *ngIf="!ifMirror">{{l('devicesPublish')}}</h3>
+                            <h3 *ngIf="ifMirror">{{l('mirrorPublish')}}</h3>
+                            <div class="text-right x">
+                                <button (click)="toPublish=!toPublish">
+                                    <i class="icon-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel_body">
+                            <form (ngSubmit)="doPublishDevice()" name="publishAdsForm">
+
+                                <div class="m--align-left row" style="padding:0 16px;" *ngIf="ifMirror">
+
+                                    <label class="kt-checkbox kt-checkbox--primary col-4"
+                                        *ngFor="let item of mirrorList">
+                                        <input class="form-control" [(ngModel)]="item.selected" type="checkbox"
+                                            [name]="item.name" value="true" />{{l(item.name)}}
+                                        <span></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
+                                            (kewdown.enter)="filterTree($event)" class="form-control kt-input"
+                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" (click)="filterTree()">
+                                                <i class="icon-sousuo-sousuo"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group beautyScroll" style="max-height:100%;padding-left:20px;">
+                                    <app-my-tree #myTree *ngIf="!ifMirror" [needShowNoChildren]="false"
+                                        [config]="config" [(items)]="deviceTree"></app-my-tree>
+                                    <app-my-tree #myTree *ngIf="ifMirror" [config]="config2" [(items)]="deviceTree">
+                                    </app-my-tree>
+                                    <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit"
+                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 

@@ -396,7 +396,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   createDevice() {
     //  V3 for ecovacs
     if (AppConsts.customTheme == 'kewosi') {
-      var url = AppConsts.remoteServiceBaseUrl+'/api/services/app/IndependentDeployment/CheckIndependentDeployment';
+      var url = AppConsts.remoteServiceBaseUrl + '/api/services/app/IndependentDeployment/CheckIndependentDeployment';
       var token = this._tokenService.getToken();
       var _that = this;
       var host = AppConsts.deploymentList.ecovacs.host;
@@ -500,14 +500,12 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   goPublishDevice() {
     this.ifMirror = false;
 
-    // // this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree().subscribe((result) => {
-    // //   this.deviceTree = [result];
-    this.checkSelection(false, (ary) => {
-      this.toPublish = true;
-      //   // })
-    })
-
-
+    // this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree().subscribe((result) => {
+    //   this.deviceTree = [result];
+      this.checkSelection(false, (ary) => {
+        this.toPublish = true;
+      })
+    // })
 
   }
 
@@ -648,7 +646,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     this.apply.itemids = ary ? ary : [];
     this.apply.reason = '';
     this.apply.wanted = f ? CreateApplyFormInputWanted.Online : CreateApplyFormInputWanted.Offline;
-    
+
     $("#review").show();
   }
 
@@ -739,7 +737,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       setTimeout(() => {
         this.exportLoading = false;
       }, 2000)
-      var href = AppConsts.remoteServiceBaseUrl+`/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
+      var href = AppConsts.remoteServiceBaseUrl + `/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
       console.log(href)
 
       var link = document.getElementById('aaa');
