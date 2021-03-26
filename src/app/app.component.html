@@ -26,5 +26,6 @@
 
 <commonLookupModal #userLookupModal (itemSelected)="chatBarComponent.addFriendSelected($event)"></commonLookupModal>
 <chat-bar #chatBarComponent *ngIf="!installationMode" [userLookupModal]="userLookupModal"></chat-bar>
-<theme-selection-panel #themeSelectionPanelComponent *ngIf="!installationMode && isQuickThemeSelectEnabled"></theme-selection-panel> 
+<!-- <theme-selection-panel #themeSelectionPanelComponent *ngIf="!installationMode && isQuickThemeSelectEnabled"></theme-selection-panel>  -->
+<theme-selection-panel #themeSelectionPanelComponent></theme-selection-panel> 
 <session-timeout #sessionTimeout *ngIf="IsSessionTimeOutEnabled"></session-timeout>
