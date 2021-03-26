@@ -1,7 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 //ooo
-import { DeviceServiceProxy, AuditStatus as AuditStatus11 } from '@shared/service-proxies/service-proxies';
+import { SoftwareServiceProxy, AuditStatus as AuditStatus11 } from '@shared/service-proxies/service-proxies-ads';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
@@ -23,7 +23,7 @@ export class AppAlertModalComponent extends AppComponentBase {
     deviceId;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(injecor:Injector,private _deviceService:DeviceServiceProxy){
+    constructor(injecor:Injector,private _SoftwareServiceProxy:SoftwareServiceProxy){
         super(injecor);
     }
     //获取Coupon
@@ -33,7 +33,7 @@ export class AppAlertModalComponent extends AppComponentBase {
             return;
           }
           this.primengTableHelper.showLoadingIndicator();
-        this._deviceService.getUnpublishedSoftwaresByDeviceId(
+        this._SoftwareServiceProxy.getUnpublishedSoftwaresByDeviceId(
             this.deviceId,
             undefined,
             AuditStatus11.Online,
