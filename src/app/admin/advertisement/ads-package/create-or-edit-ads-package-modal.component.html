@@ -137,8 +137,8 @@
                     <td>
                       <select class="form-control" [ngModelOptions]="{standalone: true}"
                         [(ngModel)]="record.playTransition">
-                        <option *ngFor="let trans of _adsTransitionList" [ngValue]="trans" [selected]="trans==='None'">
-                          {{trans}}</option>
+                        <option *ngFor="let trans of _adsTransitionList" [ngValue]="trans" [selected]="trans===l('None')">
+                          {{l(trans)}}</option>
                       </select>
 
                     </td>

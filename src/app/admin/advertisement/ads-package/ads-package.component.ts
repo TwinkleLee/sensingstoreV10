@@ -67,7 +67,7 @@ export class AdsPackageComponent extends AppComponentBase {
   }
 
   createAdsPackage() {
-    this.createOrEditAdsPackageModal.show();
+    this.createOrEditAdsPackageModal.show(undefined, this._adsTransitionList);
   }
 
   editAdsPackage(record) {
@@ -99,7 +99,7 @@ export class AdsPackageComponent extends AppComponentBase {
 
   deleteAdsPackages(){
     var ids = this._selectedAdsPackageList.map(({ id }) => id);
-    this.message.confirm(this.l('deletethiscoupon'),this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('deletethisadpackage'),this.l('AreYouSure'), (r) => {
       if (r) {
         this._adsPackageSvc.deletePackageByIds(ids).subscribe(result => {
           this._selectedAdsPackageList = [];
@@ -111,7 +111,7 @@ export class AdsPackageComponent extends AppComponentBase {
   }
 
   deleteAdsPackage(record) {
-    this.message.confirm(this.l('deletethiscoupon'),this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('deletethisadpackage'),this.l('AreYouSure'), (r) => {
       if (r) {
         this._adsPackageSvc.deletePackageByIds([record.id]).subscribe(result => {
           this._selectedAdsPackageList = [];
