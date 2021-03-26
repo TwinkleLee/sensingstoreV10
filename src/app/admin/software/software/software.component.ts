@@ -157,9 +157,9 @@ export class SoftwareComponent extends AppComponentBase {
       this.AppPublishList = [];
 
       this.primengTableHelper.showLoadingIndicator();
-      this._softwareService.getForTenantSoftwares(
+      this._softwareService.getSoftwares4Host(
         this.softwareType,
-        // this.isShowToTenant,
+        this.isShowToTenant,
         this.filterText,
         this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
         this.primengTableHelper.getMaxResultCount(this.paginator, event),
