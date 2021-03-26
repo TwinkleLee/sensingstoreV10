@@ -1,8 +1,8 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
-import {CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy} from '@shared/service-proxies/service-proxies-product'
-import {AdServiceProxy,SoftwareServiceProxy,SoftwareType,StoreAdsServiceProxy, StoreSoftwareServiceProxy} from '@shared/service-proxies/service-proxies-ads'
+import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy } from '@shared/service-proxies/service-proxies-product'
+import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,11 +14,11 @@ import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, StoreActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { UserServiceProxy, AuditStatus } from '@shared/service-proxies/service-proxies';
+import { UserServiceProxy, AuditStatus, GetUsersInput } from '@shared/service-proxies/service-proxies';
 
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
-import { StoreServiceProxy,OrganizationUnitServiceProxy, GetStorseListInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({
@@ -143,7 +143,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         // private _StoreCouponsServiceProxy: StoreCouponsServiceProxy,
         // private _StoreProductServiceProxy: StoreProductServiceProxy,
         private _StoreSoftwareServiceProxy: StoreSoftwareServiceProxy,
-        private _OrganizationUnitServiceProxy:OrganizationUnitServiceProxy,
+        private _OrganizationUnitServiceProxy: OrganizationUnitServiceProxy,
         private _StoreProductServiceProxy: StoreProductServiceProxy,
     ) {
         super(injector);
@@ -503,16 +503,16 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     //用户
     getUsers(event?: LazyLoadEvent) {
         this.pUser.showLoadingIndicator();
-        this._userServiceProxy.getUsers(
-            this.UserFilterText,
-            // undefined,
-            // undefined,
-            // undefined,
-            // this.OUId,
-            // this.pUser.getSorting(this.dataTableFace),
-            // this.pUser.getMaxResultCount(this.paginatorFace, event),
-            // this.pUser.getSkipCount(this.paginatorFace, event)
-        )
+        this._userServiceProxy.getUsers(new GetUsersInput({
+            filter: this.UserFilterText,
+            permissions: undefined,
+            role: undefined,
+            onlyLockedUsers: undefined,
+            organizationUnitId: this.OUId,
+            sorting: this.pUser.getSorting(this.dataTableFace),
+            maxResultCount: this.pUser.getMaxResultCount(this.paginatorFace, event),
+            skipCount: this.pUser.getSkipCount(this.paginatorFace, event)
+        }))
             .pipe(this.myFinalize(() => { this.pUser.hideLoadingIndicator(); }))
             .subscribe(result => {
                 console.log(result, '用户');
@@ -623,13 +623,13 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 this.pActivity.getMaxResultCount(this.paginatorActivity, event),
                 this.pActivity.getSkipCount(this.paginatorActivity, event)
             )
-            .pipe(this.myFinalize(() => { this.pActivity.hideLoadingIndicator(); }))
-            .subscribe(result => {
-                console.log(result);
-                this.pActivity.totalRecordsCount = result.totalCount;
-                this.pActivity.records = result.items;
-                // this.pActivity.hideLoadingIndicator();
-            })
+                .pipe(this.myFinalize(() => { this.pActivity.hideLoadingIndicator(); }))
+                .subscribe(result => {
+                    console.log(result);
+                    this.pActivity.totalRecordsCount = result.totalCount;
+                    this.pActivity.records = result.items;
+                    // this.pActivity.hideLoadingIndicator();
+                })
         } else {
             this.pActivity.showLoadingIndicator();
             this._StoreActivityServiceProxy.getStoreActivitiesById(
@@ -639,13 +639,13 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 this.pActivity.getMaxResultCount(this.paginatorActivity, event),
                 this.pActivity.getSkipCount(this.paginatorActivity, event)
             )
-            .pipe(this.myFinalize(() => { this.pActivity.hideLoadingIndicator(); }))
-            .subscribe(result => {
-                console.log(result);
-                this.pActivity.totalRecordsCount = result.totalCount;
-                this.pActivity.records = result.items;
-                // this.pActivity.hideLoadingIndicator();
-            })
+                .pipe(this.myFinalize(() => { this.pActivity.hideLoadingIndicator(); }))
+                .subscribe(result => {
+                    console.log(result);
+                    this.pActivity.totalRecordsCount = result.totalCount;
+                    this.pActivity.records = result.items;
+                    // this.pActivity.hideLoadingIndicator();
+                })
         }
 
     }
@@ -664,7 +664,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     goBack() {
         this.route.queryParams.subscribe(queryParams => {
             if (queryParams.from && queryParams.from == 'entityStore') {
-                this.router.navigate(['app', 'admin','entityStore', 'entityStore']);
+                this.router.navigate(['app', 'admin', 'entityStore', 'entityStore']);
             } else {
                 this.router.navigate(['app', 'admin', 'organization-units']);
             }

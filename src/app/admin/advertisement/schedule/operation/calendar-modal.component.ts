@@ -262,6 +262,7 @@ export class CalendarModalComponent extends AppComponentBase implements AfterVie
     }
     editDate(date) {
         if (this.fromDevice) return;
+        console.log("data",date, this.adListForModal, this.softwaresForModal, this.calenderId)
         this.ProgramModalComponent.showFromCalender(date, this.adListForModal, this.softwaresForModal, this.calenderId);
     }
 
