@@ -292,7 +292,7 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
             serverConfig = {
                 s: AppConsts.remoteServiceBaseUrl,
                 g: AppConsts.remoteActivityServiceUrl,
-                p: AppConsts.remotePaperServiceUrl
+                p: AppConsts.remoteAdserviceUrl
             },
             input = JSON.stringify(Object.assign(customContent, { token, tenantId, serverConfig, grantedActivity: this.isGranted('Pages.Tenant.Activities') }));
 
