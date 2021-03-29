@@ -1,11 +1,10 @@
 <div [@routerTransition] (click)="clickContainer()">
+    <a id="aaa"></a>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'Device' | localize" [description]="'DeviceManage' | localize">
             <div role="actions">
-                <div class="btn-group dropdown" dropdown
-                    *ngIf="isGranted('Pages.Tenant.Devices.Apply')&&appSession.tenant">
-                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
-                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Devices.Apply')&&appSession.tenant">
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton" data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
                         {{l('batchOperation')}}
                     </button>
                     <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
@@ -28,10 +27,8 @@
                     </div>
                 </div>
 
-                <div class="btn-group dropdown" dropdown
-                    *ngIf="isGranted('Pages.Tenant.Devices.Publish')&&appSession.tenant">
-                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
-                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Devices.Publish')&&appSession.tenant">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton" data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
                         {{l('publishDevice')}}
                     </button>
                     <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
@@ -48,9 +45,7 @@
                 </div>
 
                 <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Devices.Create')">
-                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
-                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
-                        [buttonBusy]="exportLoading">
+                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port" data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false" [buttonBusy]="exportLoading">
                         {{l('ImportOrExport')}}
                     </button>
                     <div class="dropdown-menu" *dropdownMenu aria-labelledby="port" x-placement="bottom-start">
@@ -63,8 +58,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary" (click)="createDevice()"
-                    *ngIf="isGranted('Pages.Tenant.Devices.Create')&&appSession.tenant">
+                <button class="btn btn-primary" (click)="createDevice()" *ngIf="isGranted('Pages.Tenant.Devices.Create')&&appSession.tenant">
                     <i class="icon-add"></i>
                     {{l("CreateNewDevice")}}</button>
             </div>
@@ -80,9 +74,7 @@
                                     <div class="form-group align-items-center">
                                         <label>{{l('Mac')}} / {{l('Name')}} / {{l('outId')}}</label>
                                         <div class="input-group">
-                                            <input [(ngModel)]="filterText" name="filterText"
-                                                (keyup.enter)="getDevices()" autoFocus class="form-control m-input"
-                                                [placeholder]="l('SearchWithThreeDot')" type="text">
+                                            <input [(ngModel)]="filterText" name="filterText" (keyup.enter)="getDevices()" autoFocus class="form-control m-input" [placeholder]="l('SearchWithThreeDot')" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -106,8 +98,7 @@
                                         <label>&nbsp;</label>
 
                                         <div class="input-group">
-                                            <select class="form-control" [(ngModel)]="tenantId" name="tenantId"
-                                                [disabled]="!tenants">
+                                            <select class="form-control" [(ngModel)]="tenantId" name="tenantId" [disabled]="!tenants">
                                                 <option value="">{{l("AllTenants")}}</option>
                                                 <option *ngFor="let tenant of tenants" [value]="tenant.id">
                                                     {{tenant.name+'('+tenant.tenancyName+')'}}</option>
@@ -134,15 +125,11 @@
 
                                 <!-- 按设备类型筛选 -->
                                 <div class="col-2 form-group">
-                                    <app-high-tree #highTree1 [treeList]="deviceTypeList"
-                                        [selfConfig]="{labelName:l('DeviceType')}" [config]="{name:'name'}"
-                                        (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                                    <app-high-tree #highTree1 [treeList]="deviceTypeList" [selfConfig]="{labelName:l('DeviceType')}" [config]="{name:'name'}" (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
                                 </div>
 
                                 <div class="col-2 form-group" *ngIf="appSession.tenant">
-                                    <app-high-tree #highTree2 [treeList]="deviceTree"
-                                        [selfConfig]="{labelName:l('belongStore')}"
-                                        (onTreeUpdate)="onTreeUpdate2($event)"></app-high-tree>
+                                    <app-high-tree #highTree2 [treeList]="deviceTree" [selfConfig]="{labelName:l('belongStore')}" (onTreeUpdate)="onTreeUpdate2($event)"></app-high-tree>
                                 </div>
 
                                 <div class="col-2">
@@ -160,16 +147,12 @@
                         </div>
                     </form>
 
-                    
+
                     <div class="row align-items-center">
                         <!--<Primeng-Datatable-Start>-->
                         <div class="col-12 primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
-                            <p-table #dataTable (onLazyLoad)="getDevices($event)" [value]="primengTableHelper.records"
-                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
-                                [(selection)]="devicePublishList"
-                                [resizableColumns]="primengTableHelper.resizableColumns"
-                                [responsive]="primengTableHelper.isResponsive">
+                            <p-table #dataTable (onLazyLoad)="getDevices($event)" [value]="primengTableHelper.records" [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true" [(selection)]="devicePublishList" [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>{{l('Actions')}}</th>
@@ -200,21 +183,17 @@
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td>
-                                            <div class="btn-group dropdown" dropdown  container="body">
-                                                <button class="dropdown-toggle btn btn-sm btn-primary"
-                                                    dropdownToggle >
+                                            <div class="btn-group dropdown" dropdown container="body">
+                                                <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
                                                     <i class="fa fa-cog"></i>
                                                     <span class="caret"></span> {{l("Actions")}}
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li *ngIf="isGranted('Pages.Tenant.Devices.Edit')">
-                                                        <a (click)="editDevice(record)"
-                                                            class="icon-bianji dropdown-item">{{l('Edit')}}</a>
+                                                        <a (click)="editDevice(record)" class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li
-                                                        *ngIf="isGranted('Pages.Tenant.Devices.Delete')&&record.auditStatus==0">
-                                                        <a (click)="deleteDevice(record)"
-                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
+                                                    <li *ngIf="isGranted('Pages.Tenant.Devices.Delete')&&record.auditStatus==0">
+                                                        <a (click)="deleteDevice(record)" class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -238,35 +217,27 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span *ngIf="!record.storeId"
-                                                class="text-warning">{{l('Unassigned')}}</span>
+                                            <span *ngIf="!record.storeId" class="text-warning">{{l('Unassigned')}}</span>
                                             <span *ngIf="record.storeId">{{record.storeName}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']==1"
-                                                class="label label-success label-inline">{{l("On")}}</span>
-                                            <span *ngIf="record['auditStatus']==0"
-                                                class="label label-dark label-inline">{{l("Off")}}</span>
+                                            <span *ngIf="record['auditStatus']==1" class="label label-success label-inline">{{l("On")}}</span>
+                                            <span *ngIf="record['auditStatus']==0" class="label label-dark label-inline">{{l("Off")}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['status']==1"
-                                                class="label label-success label-inline">{{l("Online")}}</span>
-                                            <span *ngIf="record['status']==0"
-                                                class="label label-dark label-inline">{{l("Offline")}}</span>
+                                            <span *ngIf="record['status']==1" class="label label-success label-inline">{{l("Online")}}</span>
+                                            <span *ngIf="record['status']==0" class="label label-dark label-inline">{{l("Offline")}}</span>
                                         </td>
                                         <td *ngIf="!appSession.tenant">
-                                            <span *ngIf="record['operatingType']==0"
-                                                class="label label-success label-inline">{{l("Official")}}</span>
-                                            <span *ngIf="record['operatingType']==1"
-                                                class="label label-dark label-inline">{{l("Test")}}</span>
+                                            <span *ngIf="record['operatingType']==0" class="label label-success label-inline">{{l("Official")}}</span>
+                                            <span *ngIf="record['operatingType']==1" class="label label-dark label-inline">{{l("Test")}}</span>
                                         </td>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="emptymessage" let-records>
                                     <tr *ngIf="primengTableHelper.records">
                                         <td colspan="8" class="text-center">
-                                            <img class="emptymessage"
-                                                src="/assets/common/images/placeholder/deviceHolder.png" />
+                                            <img class="emptymessage" src="/assets/common/images/placeholder/deviceHolder.png" />
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -275,10 +246,7 @@
                                 {{'NoData' | localize}}
                             </div> -->
                             <div class="primeng-paging-container">
-                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                    (onPageChange)="getDevices($event)"
-                                    [totalRecords]="primengTableHelper.totalRecordsCount"
-                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator (onPageChange)="getDevices($event)" [totalRecords]="primengTableHelper.totalRecordsCount" [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
 
                                 </p-paginator>
                                 <span class="total-records-count">
@@ -288,9 +256,7 @@
                         </div>
                     </div>
 
-                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}"
-                        [ngStyle]="{'height':avalibleHeight}"
-                        *ngIf="isGranted('Pages.Tenant.Devices.Publish')&&toPublish">
+                    <div [ngClass]="{'hide':!toPublish,'float_panel':true,'beautyScroll':true}" [ngStyle]="{'height':avalibleHeight}" *ngIf="isGranted('Pages.Tenant.Devices.Publish')&&toPublish">
                         <div class="panel_head">
                             <h3 *ngIf="!ifMirror">{{l('devicesPublish')}}</h3>
                             <h3 *ngIf="ifMirror">{{l('mirrorPublish')}}</h3>
@@ -305,10 +271,8 @@
 
                                 <div class="m--align-left row" style="padding:0 16px;" *ngIf="ifMirror">
 
-                                    <label class="kt-checkbox kt-checkbox--primary col-4"
-                                        *ngFor="let item of mirrorList">
-                                        <input class="form-control" [(ngModel)]="item.selected" type="checkbox"
-                                            [name]="item.name" value="true" />{{l(item.name)}}
+                                    <label class="kt-checkbox kt-checkbox--primary col-4" *ngFor="let item of mirrorList">
+                                        <input class="form-control" [(ngModel)]="item.selected" type="checkbox" [name]="item.name" value="true" />{{l(item.name)}}
                                         <span></span>
                                     </label>
 
@@ -316,9 +280,7 @@
 
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus
-                                            (kewdown.enter)="filterTree($event)" class="form-control kt-input"
-                                            [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <input [(ngModel)]="treeFilter" name="treeFilterText" autoFocus (kewdown.enter)="filterTree($event)" class="form-control kt-input" [placeholder]="l('SearchWithThreeDot')" type="text">
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" type="button" (click)="filterTree()">
                                                 <i class="icon-sousuo-sousuo"></i>
@@ -327,15 +289,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group beautyScroll" style="max-height:100%;padding-left:20px;">
-                                    <app-my-tree #myTree *ngIf="!ifMirror" [needShowNoChildren]="false"
-                                        [config]="config" [(items)]="deviceTree"></app-my-tree>
+                                    <app-my-tree #myTree *ngIf="!ifMirror" [needShowNoChildren]="false" [config]="config" [(items)]="deviceTree"></app-my-tree>
                                     <app-my-tree #myTree *ngIf="ifMirror" [config]="config2" [(items)]="deviceTree">
                                     </app-my-tree>
                                     <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
                                 </div>
                                 <div class="form-group text-right">
-                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit"
-                                        class="btn btn-primary">{{l('Publish')}}</button>
+                                    <button *ngIf="deviceTree&&deviceTree.length" type="submit" class="btn btn-primary">{{l('Publish')}}</button>
                                 </div>
                             </form>
                         </div>
@@ -344,14 +304,12 @@
                 </div>
             </div>
             <div *ngIf="isGranted('Pages.Tenant.Devices.Apply')">
-                <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                    (click)="no()">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="no()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -359,16 +317,13 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="reason" class="col-form-label">{{l('Message')}}:</label>
-                                        <textarea class="form-control" id="reason" name="reason"
-                                            [(ngModel)]="apply.reason"></textarea>
+                                        <textarea class="form-control" id="reason" name="reason" [(ngModel)]="apply.reason"></textarea>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="no()"
-                                    data-dismiss="modal">{{l('Close')}}</button>
-                                <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy"
-                                    [busyText]="l('SavingWithThreeDot')" [disabled]="busy"><i></i>{{l('Send')}}</button>
+                                <button type="button" class="btn btn-secondary" (click)="no()" data-dismiss="modal">{{l('Close')}}</button>
+                                <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy" [busyText]="l('SavingWithThreeDot')" [disabled]="busy"><i></i>{{l('Send')}}</button>
                             </div>
                         </div>
                     </div>
