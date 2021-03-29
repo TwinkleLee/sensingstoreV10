@@ -60,7 +60,7 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
         this.saving = true;
         if (this.operationType == "edit") {
             this.updateInput = new AddAdResourceFileInput(this.resource);
-            this._prodService.updateAdResource(this.updateInput).pipe(finalize(() => {
+            this._prodService.addorUpdateAdResource(this.updateInput).pipe(finalize(() => {
                 this.saving = false;
             })).subscribe((result) => {
                 this.modalSave.emit();
@@ -70,7 +70,7 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
         }
         else {
             this.createInput = new AddAdResourceFileInput(this.resource);
-            this._prodService.addAdResource(this.createInput).pipe(finalize(() => {
+            this._prodService.addorUpdateAdResource(this.createInput).pipe(finalize(() => {
                 this.saving = false;
             })).subscribe((result) => {
                 this.modalSave.emit();

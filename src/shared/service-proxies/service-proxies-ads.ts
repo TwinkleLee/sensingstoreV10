@@ -424,8 +424,8 @@ export class AdServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    addAdResource(body: AddAdResourceFileInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Ad/AddAdResource";
+    addorUpdateAdResource(body: AddAdResourceFileInput | undefined): Observable<AdResourcesFileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Ad/AddorUpdateAdResource";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -436,24 +436,25 @@ export class AdServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAddAdResource(response_);
+            return this.processAddorUpdateAdResource(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAddAdResource(<any>response_);
+                    return this.processAddorUpdateAdResource(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<AdResourcesFileDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<AdResourcesFileDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processAddAdResource(response: HttpResponseBase): Observable<void> {
+    protected processAddorUpdateAdResource(response: HttpResponseBase): Observable<AdResourcesFileDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -462,7 +463,10 @@ export class AdServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AdResourcesFileDto.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -477,68 +481,7 @@ export class AdServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * 为某个广告更改资源
-     * @param body (optional) 
-     * @return Success
-     */
-    updateAdResource(body: AddAdResourceFileInput | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Ad/UpdateAdResource";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateAdResource(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateAdResource(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdateAdResource(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Forbidden", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
+        return _observableOf<AdResourcesFileDto>(<any>null);
     }
 
     /**
@@ -7309,8 +7252,6 @@ export class AddAdResourceFileInput implements IAddAdResourceFileInput {
     id!: number | undefined;
     /** 资源ID */
     resourceItemId!: number;
-    /** 资源地址 */
-    fileUrl!: string;
     /** 资源用途 */
     usage!: string | undefined;
     /** 描述信息 */
@@ -7339,7 +7280,6 @@ export class AddAdResourceFileInput implements IAddAdResourceFileInput {
         if (_data) {
             this.id = _data["id"];
             this.resourceItemId = _data["resourceItemId"];
-            this.fileUrl = _data["fileUrl"];
             this.usage = _data["usage"];
             this.description = _data["description"];
             this.content = _data["content"];
@@ -7361,7 +7301,6 @@ export class AddAdResourceFileInput implements IAddAdResourceFileInput {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["resourceItemId"] = this.resourceItemId;
-        data["fileUrl"] = this.fileUrl;
         data["usage"] = this.usage;
         data["description"] = this.description;
         data["content"] = this.content;
@@ -7379,8 +7318,6 @@ export interface IAddAdResourceFileInput {
     id: number | undefined;
     /** 资源ID */
     resourceItemId: number;
-    /** 资源地址 */
-    fileUrl: string;
     /** 资源用途 */
     usage: string | undefined;
     /** 描述信息 */
