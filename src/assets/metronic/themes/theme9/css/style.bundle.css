@@ -60626,6 +60626,7 @@ body {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      flex-wrap: wrap;
       -webkit-box-align: stretch;
       -ms-flex-align: stretch;
       align-items: stretch; }
@@ -61288,7 +61289,7 @@ body {
     .header-menu .menu-nav > .menu-item > .menu-link .menu-bullet.menu-bullet-line > span {
       background-color: #B5B5C3; }
     .header-menu .menu-nav > .menu-item > .menu-link .menu-text {
-      color: #3F4254; }
+      color: #3F4254;display:none; }
     .header-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
       color: #B5B5C3; }
   .header-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
