@@ -1593,6 +1593,61 @@ export class DeviceServiceProxy {
         }
         return _observableOf<CouponOutDtoPagedResultDto>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    onlineStoreInfoSelect(): Observable<NameValueDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Device/OnlineStoreInfoSelect";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processOnlineStoreInfoSelect(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processOnlineStoreInfoSelect(<any>response_);
+                } catch (e) {
+                    return <Observable<NameValueDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<NameValueDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processOnlineStoreInfoSelect(response: HttpResponseBase): Observable<NameValueDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(NameValueDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<NameValueDto[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -4232,6 +4287,331 @@ export class OutPutInStorageServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class PriceTagServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8005";
+    }
+
+    /**
+     * 更新默认价签
+     * @param body (optional) 
+     * @return Success
+     */
+    updateDefaultPriceTag(body: UpdateDefaultPriceTagInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PriceTag/UpdateDefaultPriceTag";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateDefaultPriceTag(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateDefaultPriceTag(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateDefaultPriceTag(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    priceTagIntegration(body: PriceTagPriceTagIntegrationInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/PriceTag/PriceTagIntegration";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPriceTagIntegration(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPriceTagIntegration(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPriceTagIntegration(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    syncProduct(body: PriceTagSyncProductInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/PriceTag/SyncProduct";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSyncProduct(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSyncProduct(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSyncProduct(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param deviceId (optional) 
+     * @return Success
+     */
+    getDefaultAndBindSkusByPriceTagId(deviceId: number | undefined): Observable<PriceDefaultDto> {
+        let url_ = this.baseUrl + "/api/services/app/PriceTag/GetDefaultAndBindSkusByPriceTagId?";
+        if (deviceId === null)
+            throw new Error("The parameter 'deviceId' cannot be null.");
+        else if (deviceId !== undefined)
+            url_ += "deviceId=" + encodeURIComponent("" + deviceId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDefaultAndBindSkusByPriceTagId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDefaultAndBindSkusByPriceTagId(<any>response_);
+                } catch (e) {
+                    return <Observable<PriceDefaultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PriceDefaultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDefaultAndBindSkusByPriceTagId(response: HttpResponseBase): Observable<PriceDefaultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PriceDefaultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PriceDefaultDto>(<any>null);
+    }
+
+    /**
+     * @param productId (optional) 
+     * @return Success
+     */
+    getProductPriceTags(productId: number | undefined): Observable<IdNameDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/PriceTag/GetProductPriceTags?";
+        if (productId === null)
+            throw new Error("The parameter 'productId' cannot be null.");
+        else if (productId !== undefined)
+            url_ += "productId=" + encodeURIComponent("" + productId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProductPriceTags(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProductPriceTags(<any>response_);
+                } catch (e) {
+                    return <Observable<IdNameDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IdNameDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProductPriceTags(response: HttpResponseBase): Observable<IdNameDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(IdNameDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IdNameDto[]>(<any>null);
     }
 }
 
@@ -10073,118 +10453,6 @@ export class ReportServiceProxy {
         }
         return _observableOf<Int64IdNameDto[]>(<any>null);
     }
-
-    /**
-     * 登录账号的门店数
-     * @return Success
-     */
-    getStoresCount(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Report/GetStoresCount";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetStoresCount(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetStoresCount(<any>response_);
-                } catch (e) {
-                    return <Observable<number>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<number>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetStoresCount(response: HttpResponseBase): Observable<number> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<number>(<any>null);
-    }
-
-    /**
-     * 登录账号的商品数
-     * @return Success
-     */
-    getProductsCount(): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Report/GetProductsCount";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetProductsCount(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetProductsCount(<any>response_);
-                } catch (e) {
-                    return <Observable<number>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<number>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetProductsCount(response: HttpResponseBase): Observable<number> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<number>(<any>null);
-    }
 }
 
 @Injectable()
@@ -11561,6 +11829,135 @@ export class SensingDeviceServiceProxy {
             }));
         }
         return _observableOf<ProductSdkModel[]>(<any>null);
+    }
+
+    /**
+     * 批量生成二维码
+     * @param body (optional) 
+     * @return Success
+     */
+    getWeishopProductBySkuID(body: PDFDto | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetWeishopProductBySkuID";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetWeishopProductBySkuID(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetWeishopProductBySkuID(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetWeishopProductBySkuID(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * 打印
+     * @param title (optional) 
+     * @param isTop (optional) 
+     * @param column (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    outputfile(title: string | undefined, isTop: number | undefined, column: number | undefined, body: string[] | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/Outputfile?";
+        if (title === null)
+            throw new Error("The parameter 'title' cannot be null.");
+        else if (title !== undefined)
+            url_ += "Title=" + encodeURIComponent("" + title) + "&";
+        if (isTop === null)
+            throw new Error("The parameter 'isTop' cannot be null.");
+        else if (isTop !== undefined)
+            url_ += "IsTop=" + encodeURIComponent("" + isTop) + "&";
+        if (column === null)
+            throw new Error("The parameter 'column' cannot be null.");
+        else if (column !== undefined)
+            url_ += "Column=" + encodeURIComponent("" + column) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processOutputfile(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processOutputfile(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processOutputfile(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
     }
 }
 
@@ -16182,6 +16579,8 @@ export class GetCountReportInput implements IGetCountReportInput {
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     storeOrOuList!: IdTypeDto[] | undefined;
+    /** coupon,product,sku */
+    filter!: string | undefined;
 
     constructor(data?: IGetCountReportInput) {
         if (data) {
@@ -16201,6 +16600,7 @@ export class GetCountReportInput implements IGetCountReportInput {
                 for (let item of _data["storeOrOuList"])
                     this.storeOrOuList!.push(IdTypeDto.fromJS(item));
             }
+            this.filter = _data["filter"];
         }
     }
 
@@ -16220,6 +16620,7 @@ export class GetCountReportInput implements IGetCountReportInput {
             for (let item of this.storeOrOuList)
                 data["storeOrOuList"].push(item.toJSON());
         }
+        data["filter"] = this.filter;
         return data; 
     }
 }
@@ -16228,6 +16629,8 @@ export interface IGetCountReportInput {
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     storeOrOuList: IdTypeDto[] | undefined;
+    /** coupon,product,sku */
+    filter: string | undefined;
 }
 
 export class GetOutPutInStorageBillDto implements IGetOutPutInStorageBillDto {
@@ -17928,6 +18331,46 @@ export interface IIdAndTotalCount {
     totalCount: number;
 }
 
+export class IdNameDto implements IIdNameDto {
+    id!: number;
+    name!: string | undefined;
+
+    constructor(data?: IIdNameDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): IdNameDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new IdNameDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+}
+
+export interface IIdNameDto {
+    id: number;
+    name: string | undefined;
+}
+
 export class IdNameItemIdDto implements IIdNameItemIdDto {
     id!: number;
     name!: string | undefined;
@@ -18952,6 +19395,46 @@ export interface IMatchItemDtoPagedResultDto {
     items: MatchItemDto[] | undefined;
 }
 
+export class NameValueDto implements INameValueDto {
+    name!: string | undefined;
+    value!: string | undefined;
+
+    constructor(data?: INameValueDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.value = _data["value"];
+        }
+    }
+
+    static fromJS(data: any): NameValueDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new NameValueDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["value"] = this.value;
+        return data; 
+    }
+}
+
+export interface INameValueDto {
+    name: string | undefined;
+    value: string | undefined;
+}
+
 export enum OnlineStore {
     MyStore = 0,
     Taobao = 1,
@@ -19164,6 +19647,78 @@ export enum OutPutInStorageType {
     Check = 2,
 }
 
+export class PDFDto implements IPDFDto {
+    tenantId!: number;
+    skuId!: number;
+    ids!: number[] | undefined;
+    isTop!: number;
+    textForPDF!: TextForPDF[] | undefined;
+    column!: number;
+
+    constructor(data?: IPDFDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenantId = _data["tenantId"];
+            this.skuId = _data["skuId"];
+            if (Array.isArray(_data["ids"])) {
+                this.ids = [] as any;
+                for (let item of _data["ids"])
+                    this.ids!.push(item);
+            }
+            this.isTop = _data["isTop"];
+            if (Array.isArray(_data["textForPDF"])) {
+                this.textForPDF = [] as any;
+                for (let item of _data["textForPDF"])
+                    this.textForPDF!.push(TextForPDF.fromJS(item));
+            }
+            this.column = _data["column"];
+        }
+    }
+
+    static fromJS(data: any): PDFDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PDFDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
+        data["skuId"] = this.skuId;
+        if (Array.isArray(this.ids)) {
+            data["ids"] = [];
+            for (let item of this.ids)
+                data["ids"].push(item);
+        }
+        data["isTop"] = this.isTop;
+        if (Array.isArray(this.textForPDF)) {
+            data["textForPDF"] = [];
+            for (let item of this.textForPDF)
+                data["textForPDF"].push(item.toJSON());
+        }
+        data["column"] = this.column;
+        return data; 
+    }
+}
+
+export interface IPDFDto {
+    tenantId: number;
+    skuId: number;
+    ids: number[] | undefined;
+    isTop: number;
+    textForPDF: TextForPDF[] | undefined;
+    column: number;
+}
+
 export class PositionDto implements IPositionDto {
     id!: number | undefined;
     state!: string | undefined;
@@ -19248,6 +19803,154 @@ export interface IPositionDto {
     latitude: number | undefined;
     code: string | undefined;
     zipCode: string | undefined;
+}
+
+export class PriceDefaultDto implements IPriceDefaultDto {
+    defaultSku!: SkuDto;
+    bindSku!: SkuDto;
+
+    constructor(data?: IPriceDefaultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.defaultSku = _data["defaultSku"] ? SkuDto.fromJS(_data["defaultSku"]) : <any>undefined;
+            this.bindSku = _data["bindSku"] ? SkuDto.fromJS(_data["bindSku"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PriceDefaultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PriceDefaultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["defaultSku"] = this.defaultSku ? this.defaultSku.toJSON() : <any>undefined;
+        data["bindSku"] = this.bindSku ? this.bindSku.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPriceDefaultDto {
+    defaultSku: SkuDto;
+    bindSku: SkuDto;
+}
+
+export class PriceTagPriceTagIntegrationInput implements IPriceTagPriceTagIntegrationInput {
+    deviceIds!: number[] | undefined;
+    command!: string | undefined;
+
+    constructor(data?: IPriceTagPriceTagIntegrationInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["deviceIds"])) {
+                this.deviceIds = [] as any;
+                for (let item of _data["deviceIds"])
+                    this.deviceIds!.push(item);
+            }
+            this.command = _data["command"];
+        }
+    }
+
+    static fromJS(data: any): PriceTagPriceTagIntegrationInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PriceTagPriceTagIntegrationInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.deviceIds)) {
+            data["deviceIds"] = [];
+            for (let item of this.deviceIds)
+                data["deviceIds"].push(item);
+        }
+        data["command"] = this.command;
+        return data; 
+    }
+}
+
+export interface IPriceTagPriceTagIntegrationInput {
+    deviceIds: number[] | undefined;
+    command: string | undefined;
+}
+
+export class PriceTagSyncProductInput implements IPriceTagSyncProductInput {
+    customerStoreCode!: string | undefined;
+    storeCode!: string | undefined;
+    batchSize!: number;
+    batchNo!: string | undefined;
+    items!: SyncItem[] | undefined;
+
+    constructor(data?: IPriceTagSyncProductInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.customerStoreCode = _data["customerStoreCode"];
+            this.storeCode = _data["storeCode"];
+            this.batchSize = _data["batchSize"];
+            this.batchNo = _data["batchNo"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(SyncItem.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PriceTagSyncProductInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new PriceTagSyncProductInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["customerStoreCode"] = this.customerStoreCode;
+        data["storeCode"] = this.storeCode;
+        data["batchSize"] = this.batchSize;
+        data["batchNo"] = this.batchNo;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPriceTagSyncProductInput {
+    customerStoreCode: string | undefined;
+    storeCode: string | undefined;
+    batchSize: number;
+    batchNo: string | undefined;
+    items: SyncItem[] | undefined;
 }
 
 export class ProductCategoryDto implements IProductCategoryDto {
@@ -23145,6 +23848,90 @@ export interface ISkuSimpleDtoPagedResultDto {
     items: SkuSimpleDto[] | undefined;
 }
 
+export class SyncItem implements ISyncItem {
+    sku!: string | undefined;
+    customerStoreCode!: string | undefined;
+    itemName!: string | undefined;
+    price1!: string | undefined;
+    /** 条形码 */
+    ean!: string | undefined;
+    /** 二维码 */
+    qrCode!: string | undefined;
+    /** 分类 */
+    level1CategoryName!: string | undefined;
+    /** 销量 */
+    rsrvTxt1!: string | undefined;
+    /** 语言 */
+    rsrvTxt2!: string | undefined;
+    /** 资源图 */
+    rsrvBlob!: string | undefined;
+
+    constructor(data?: ISyncItem) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.sku = _data["sku"];
+            this.customerStoreCode = _data["customerStoreCode"];
+            this.itemName = _data["itemName"];
+            this.price1 = _data["price1"];
+            this.ean = _data["ean"];
+            this.qrCode = _data["qrCode"];
+            this.level1CategoryName = _data["level1CategoryName"];
+            this.rsrvTxt1 = _data["rsrvTxt1"];
+            this.rsrvTxt2 = _data["rsrvTxt2"];
+            this.rsrvBlob = _data["rsrvBlob"];
+        }
+    }
+
+    static fromJS(data: any): SyncItem {
+        data = typeof data === 'object' ? data : {};
+        let result = new SyncItem();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["sku"] = this.sku;
+        data["customerStoreCode"] = this.customerStoreCode;
+        data["itemName"] = this.itemName;
+        data["price1"] = this.price1;
+        data["ean"] = this.ean;
+        data["qrCode"] = this.qrCode;
+        data["level1CategoryName"] = this.level1CategoryName;
+        data["rsrvTxt1"] = this.rsrvTxt1;
+        data["rsrvTxt2"] = this.rsrvTxt2;
+        data["rsrvBlob"] = this.rsrvBlob;
+        return data; 
+    }
+}
+
+export interface ISyncItem {
+    sku: string | undefined;
+    customerStoreCode: string | undefined;
+    itemName: string | undefined;
+    price1: string | undefined;
+    /** 条形码 */
+    ean: string | undefined;
+    /** 二维码 */
+    qrCode: string | undefined;
+    /** 分类 */
+    level1CategoryName: string | undefined;
+    /** 销量 */
+    rsrvTxt1: string | undefined;
+    /** 语言 */
+    rsrvTxt2: string | undefined;
+    /** 资源图 */
+    rsrvBlob: string | undefined;
+}
+
 export class TableNeedUpdateDto implements ITableNeedUpdateDto {
     ads!: boolean;
     apps!: boolean;
@@ -23498,6 +24285,52 @@ export enum TakeType {
     GameAutoGrant = 3,
 }
 
+/** 输入字段 */
+export class TextForPDF implements ITextForPDF {
+    content!: string | undefined;
+    bold!: boolean;
+    fontSize!: number;
+
+    constructor(data?: ITextForPDF) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.content = _data["content"];
+            this.bold = _data["bold"];
+            this.fontSize = _data["fontSize"];
+        }
+    }
+
+    static fromJS(data: any): TextForPDF {
+        data = typeof data === 'object' ? data : {};
+        let result = new TextForPDF();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["content"] = this.content;
+        data["bold"] = this.bold;
+        data["fontSize"] = this.fontSize;
+        return data; 
+    }
+}
+
+/** 输入字段 */
+export interface ITextForPDF {
+    content: string | undefined;
+    bold: boolean;
+    fontSize: number;
+}
+
 export class ThingDto implements IThingDto {
     thingId!: number;
     type!: CargoType;
@@ -23699,6 +24532,46 @@ export interface IUpdateCouponInput {
     /** 外部定义的 */
     code: string | undefined;
     organizationUnitId: number | undefined;
+}
+
+export class UpdateDefaultPriceTagInput implements IUpdateDefaultPriceTagInput {
+    deviceId!: number;
+    targetSkuId!: number;
+
+    constructor(data?: IUpdateDefaultPriceTagInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deviceId = _data["deviceId"];
+            this.targetSkuId = _data["targetSkuId"];
+        }
+    }
+
+    static fromJS(data: any): UpdateDefaultPriceTagInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateDefaultPriceTagInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deviceId"] = this.deviceId;
+        data["targetSkuId"] = this.targetSkuId;
+        return data; 
+    }
+}
+
+export interface IUpdateDefaultPriceTagInput {
+    deviceId: number;
+    targetSkuId: number;
 }
 
 export class UpdateEntityResourceInput implements IUpdateEntityResourceInput {
