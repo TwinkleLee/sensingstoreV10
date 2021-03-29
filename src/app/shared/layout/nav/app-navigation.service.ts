@@ -104,8 +104,8 @@ export class AppNavigationService {
                 new AppMenuItem('Room', 'Pages.Tenant.FloorGuide', 'icon-fangjianshu', '/app/admin/floor/room'),
             ]),
 
-            // 品牌中心 
-            new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '', [], [
+            // 品牌
+            new AppMenuItem('Brand', 'Pages.Tenant.Products', 'icon-brand', '', [], [
                 new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/brandcenter'),
                 new AppMenuItem('BrandCategory', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/category/brandCate'),
             ]),
