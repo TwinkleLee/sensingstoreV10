@@ -1397,8 +1397,11 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             undefined,
             undefined,
             undefined
-        ).subscribe(r => {
+        )
+        .pipe(finalize(() => {
             this.activityLoading = false;
+        }))
+        .subscribe(r => {
             this.activityChart.draw(r, undefined);
         })
     }
