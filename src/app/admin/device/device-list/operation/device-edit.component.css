@@ -475,3 +475,7 @@ div.input-group /deep/ span.clearSpan{
 .form-group label {
     text-transform: none;
 }
+
+table.abcd tr td div img{
+    display: block;
+}
