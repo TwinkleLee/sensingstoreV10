@@ -1,11 +1,9 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
-import {  PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy,  IdTypeDto, AuditStatus, DeviceAdsServiceProxy, DeviceSoftwareServiceProxy,PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies-ads';
+import { PublishEntitiesInput, AdServiceProxy, SoftwareServiceProxy, IdTypeDto, AuditStatus, DeviceAdsServiceProxy, DeviceSoftwareServiceProxy, PublishAdScheduliingInput } from '@shared/service-proxies/service-proxies-ads';
 
-import { ProductServiceProxy,CouponServiceProxy, DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { ProductServiceProxy, CouponServiceProxy, DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
-import {  ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType, DeviceServiceProxy } from '@shared/service-proxies/service-proxies'
-
-import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DevicesActionInput, UpdateThirdDeivceCodeInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy, UpdateDeviceInput, DevicesActionInput, UpdateThirdDeivceCodeInput, AddSmartStoreDeviceToExtraPlatformInput, ExternalEnum as AddSmartStoreDeviceToExtraPlatformInputPlatformType, ExternalEnum as UpdateThirdDeivceCodeInputPlatformType } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -35,11 +33,11 @@ import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxi
 import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-smartdevice';
 
 
-import { ChangeDeviceAppPodVersionInput, AppPodServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { ChangeDeviceAppPodVersionInput, AppPodServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
-import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies';
+import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies-product';
 //ooo
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 
@@ -387,7 +385,6 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private _deviceProductService: DeviceProductServiceProxy,
-        private _deviceService: DeviceServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
         private _productService: ProductServiceProxy,
         private _adsService: AdServiceProxy,
@@ -416,7 +413,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     ) {
         super(injector);
         this.initMessage();
-    console.log("Statistics",this.l("Statistics"))
+        console.log("Statistics", this.l("Statistics"))
     }
 
     // 计数器标签设置
@@ -1398,12 +1395,12 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             undefined,
             undefined
         )
-        .pipe(finalize(() => {
-            this.activityLoading = false;
-        }))
-        .subscribe(r => {
-            this.activityChart.draw(r, undefined);
-        })
+            .pipe(finalize(() => {
+                this.activityLoading = false;
+            }))
+            .subscribe(r => {
+                this.activityChart.draw(r, undefined);
+            })
     }
 
     changeViewType(type) {
@@ -1607,7 +1604,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.deviceTypeList = result.items;
         })
         //电商类型
-        this._deviceService.onlineStoreInfoSelect().subscribe((result) => {
+        this._deviceProductService.onlineStoreInfoSelect().subscribe((result) => {
             this.onlineStoreInfo = result;
         })
     }
@@ -2410,7 +2407,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
 
     registerDeviceToTaobao() {
-        this._deviceService.addSmartStoreDeviceToExtraPlatform(new AddSmartStoreDeviceToExtraPlatformInput({
+        this._NewDeviceServiceProxy.addSmartStoreDeviceToExtraPlatform(new AddSmartStoreDeviceToExtraPlatformInput({
             deviceId: this.device.id,
             platformType: AddSmartStoreDeviceToExtraPlatformInputPlatformType['Taobao'],
             contact: undefined,

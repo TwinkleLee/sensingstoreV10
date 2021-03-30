@@ -203,7 +203,6 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ApiServiceProxies.ShopServiceProxy,
         ApiServiceProxies.SensingShopServiceProxy,
         ApiServiceProxies.BackendDownloadTaskServiceProxy,
-        ApiServiceProxies.PriceTagServiceProxy,
         ApiServiceProxies.OutPutInStorageServiceProxy,
         ApiServiceProxies.ImportSkuRfidsServiceProxy,
         ApiServiceProxies.PromotionServiceProxy,
@@ -271,6 +270,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ProductServiceProxies.SensingDeviceServiceProxy,
         ProductServiceProxies.SensingSkuRfidServiceProxy,
         ProductServiceProxies.SkuRfidServiceProxy,
+        ProductServiceProxies.PriceTagServiceProxy,
 
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },

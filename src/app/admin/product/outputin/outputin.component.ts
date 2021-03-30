@@ -47,7 +47,7 @@ export class OutPutInComponent extends AppComponentBase {
     private _NewStoreServiceProxy: NewStoreServiceProxy
   ) {
     super(injector);
-    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(false).subscribe((result) => {
+    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([],false).subscribe((result) => {
       this.treeList = [result];
       if (this.treeList[0].type == 'tenant') {
         this.isTenant = true;

@@ -170,7 +170,7 @@ export class MemberShipComponent extends AppComponentBase {
     // this._ouService.getCurrentTenantOrganizationUnitsTree().subscribe((result) => {
     //   this.stores = [result];
     // })
-    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(true).subscribe((result) => {
+    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([],true).subscribe((result) => {
       this.stores = [result];
     })
   }
