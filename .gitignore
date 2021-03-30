@@ -54,7 +54,7 @@ src/assets/metronic/themes/**/css/*.min.css
 
 src/assets/primeng/datatable/css/*.min.css
 
-src/assets/metronic/themes/**/css/*.min.css
+#src/assets/metronic/themes/**/css/*.min.css
 !src/assets/metronic/themes/**/css/pages/
 
 src/assets/fonts/*min.css
