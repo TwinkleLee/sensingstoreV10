@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injector, } from '@angular/core';
-import { PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies';
+import { PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies-product';
 
 import { AuditStatus as AuditStatus8, DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
 import { AppComponentBase } from '@shared/common/app-component-base';

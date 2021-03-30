@@ -109,7 +109,7 @@ export class OrderComponent extends AppComponentBase {
 
   //所属店铺
   getStores() {
-    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(true).subscribe((result) => {
+    this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([],true).subscribe((result) => {
       this.stores = [result];
     })
   }

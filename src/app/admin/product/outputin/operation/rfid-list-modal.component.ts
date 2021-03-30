@@ -5,9 +5,9 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
-import { OutPutInStorageServiceProxy, SkuRfidServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { OutPutInStorageServiceProxy, SkuRfidServiceProxy, SensingDeviceServiceProxy as SensingProductDeviceServiceProxy, PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies-product';
 //ooo
-import { SensingDeviceServiceProxy,PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies'
+import { SensingDeviceServiceProxy } from '@shared/service-proxies/service-proxies'
 
 
 import { CreateOrEditSkuRfidModalComponent } from '@app/admin/product/outputin/create-or-edit-skurfid-modal.component';
@@ -30,13 +30,14 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
 
     active = false;
     skuId;
-    rfidList: any =[];
+    rfidList: any = [];
     filter = '';
     constructor(
         injector: Injector,
         private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy,
         private _SensingDeviceServiceProxy: SensingDeviceServiceProxy,
         private _skuRfidServiceProxy: SkuRfidServiceProxy,
+        private _SensingProductDeviceServiceProxy: SensingProductDeviceServiceProxy
 
     ) {
         super(injector);
@@ -85,10 +86,10 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
         }));
         if (promptMsg) {
             try {
-                console.log("promptMsg",promptMsg);
+                console.log("promptMsg", promptMsg);
                 var obj = JSON.parse(promptMsg);
                 obj.Content = JSON.parse(obj.Content);
-                console.log("obj",obj);
+                console.log("obj", obj);
 
                 var input = new PDFDto({
                     "tenantId": this.appSession.tenantId,
@@ -96,13 +97,13 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
                     "isTop": obj.IsTop,
                     "textForPDF": obj.Content.map(item => new TextForPDF(item)),
                     "column": obj.Column,
-                    // "ids": this.rfidList.map(i => {
-                    //     return i.id
-                    // })
+                    "ids": this.rfidList.map(i => {
+                        return i.id
+                    })
                 });
-                console.log("input",input);
+                console.log("input", input);
                 this.primengTableHelper.showLoadingIndicator();
-                this._SensingDeviceServiceProxy.getWeishopProductBySkuID(input)
+                this._SensingProductDeviceServiceProxy.getWeishopProductBySkuID(input)
                     .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
                     .subscribe(result => {
                         console.log(result)

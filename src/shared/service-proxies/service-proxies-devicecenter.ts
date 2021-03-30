@@ -4630,6 +4630,71 @@ export class DeviceServiceProxy {
     }
 
     /**
+     * 注册设备信息到淘宝
+     * @param body (optional) 
+     * @return Success
+     */
+    addSmartStoreDeviceToExtraPlatform(body: AddSmartStoreDeviceToExtraPlatformInput | undefined): Observable<ExtraPlatformDeviceDto> {
+        let url_ = this.baseUrl + "/api/services/app/Device/AddSmartStoreDeviceToExtraPlatform";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddSmartStoreDeviceToExtraPlatform(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddSmartStoreDeviceToExtraPlatform(<any>response_);
+                } catch (e) {
+                    return <Observable<ExtraPlatformDeviceDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ExtraPlatformDeviceDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddSmartStoreDeviceToExtraPlatform(response: HttpResponseBase): Observable<ExtraPlatformDeviceDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ExtraPlatformDeviceDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ExtraPlatformDeviceDto>(<any>null);
+    }
+
+    /**
      * 设备的控制(向设备发送命令),Host也是可以进行调用
      * @param body (optional) 设备命令详细
      * @return Success
@@ -7071,6 +7136,233 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
+     * @param subkey (optional) 
+     * @param pointRedeemType (optional) 
+     * @param tagNames (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getBrands(subkey: string | null | undefined, pointRedeemType: RedeemType | undefined, tagNames: string[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<BrandSdkDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetBrands?";
+        if (subkey !== undefined && subkey !== null)
+            url_ += "Subkey=" + encodeURIComponent("" + subkey) + "&";
+        if (pointRedeemType === null)
+            throw new Error("The parameter 'pointRedeemType' cannot be null.");
+        else if (pointRedeemType !== undefined)
+            url_ += "PointRedeemType=" + encodeURIComponent("" + pointRedeemType) + "&";
+        if (tagNames !== undefined && tagNames !== null)
+            tagNames && tagNames.forEach(item => { url_ += "TagNames=" + encodeURIComponent("" + item) + "&"; });
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBrands(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBrands(<any>response_);
+                } catch (e) {
+                    return <Observable<BrandSdkDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BrandSdkDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBrands(response: HttpResponseBase): Observable<BrandSdkDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BrandSdkDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BrandSdkDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param subkey (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getAllStoreBrandBindings(subkey: string | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<StoreBrandBindingDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetAllStoreBrandBindings?";
+        if (subkey !== undefined && subkey !== null)
+            url_ += "Subkey=" + encodeURIComponent("" + subkey) + "&";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllStoreBrandBindings(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllStoreBrandBindings(<any>response_);
+                } catch (e) {
+                    return <Observable<StoreBrandBindingDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<StoreBrandBindingDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllStoreBrandBindings(response: HttpResponseBase): Observable<StoreBrandBindingDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = StoreBrandBindingDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<StoreBrandBindingDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 获取所有的tag
+     * @param subkey (optional) 
+     * @param pointRedeemType (optional) 
+     * @param tagNames (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getTags(subkey: string | null | undefined, pointRedeemType: RedeemType | undefined, tagNames: string[] | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<TagSdkModelPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetTags?";
+        if (subkey !== undefined && subkey !== null)
+            url_ += "Subkey=" + encodeURIComponent("" + subkey) + "&";
+        if (pointRedeemType === null)
+            throw new Error("The parameter 'pointRedeemType' cannot be null.");
+        else if (pointRedeemType !== undefined)
+            url_ += "PointRedeemType=" + encodeURIComponent("" + pointRedeemType) + "&";
+        if (tagNames !== undefined && tagNames !== null)
+            tagNames && tagNames.forEach(item => { url_ += "TagNames=" + encodeURIComponent("" + item) + "&"; });
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTags(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTags(<any>response_);
+                } catch (e) {
+                    return <Observable<TagSdkModelPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TagSdkModelPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTags(response: HttpResponseBase): Observable<TagSdkModelPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TagSdkModelPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TagSdkModelPagedResultDto>(<any>null);
+    }
+
+    /**
      * 线下升级完成后，需要更新当前机器版本信息
      * @param body (optional) 
      * @return Success
@@ -7645,11 +7937,14 @@ export class StoreServiceProxy {
 
     /**
      * 获取当前租户下组织架构和店铺关系的树形结构
+     * @param ouids (optional) 
      * @param includeOfflineStore (optional) 上下线
      * @return Success
      */
-    getCurrentTenantOrganizationUnitsAndStoresTree(includeOfflineStore: boolean | undefined): Observable<Int64TreeDto> {
+    getCurrentTenantOrganizationUnitsAndStoresTree(ouids: number[] | null | undefined, includeOfflineStore: boolean | undefined): Observable<Int64TreeDto> {
         let url_ = this.baseUrl + "/api/services/app/Store/GetCurrentTenantOrganizationUnitsAndStoresTree?";
+        if (ouids !== undefined && ouids !== null)
+            ouids && ouids.forEach(item => { url_ += "ouids=" + encodeURIComponent("" + item) + "&"; });
         if (includeOfflineStore === null)
             throw new Error("The parameter 'includeOfflineStore' cannot be null.");
         else if (includeOfflineStore !== undefined)
@@ -14322,6 +14617,130 @@ export interface IInt32SelectDto {
     selectValue: string | undefined;
 }
 
+export class AddSmartStoreDeviceToExtraPlatformInput implements IAddSmartStoreDeviceToExtraPlatformInput {
+    deviceId!: number;
+    platformType!: ExternalEnum;
+    contact!: string | undefined;
+    bizType!: string | undefined;
+    categoryId!: string | undefined;
+    qrCodeExtraInfo!: string | undefined;
+    externalAccessTokenInfoId!: number | undefined;
+
+    constructor(data?: IAddSmartStoreDeviceToExtraPlatformInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deviceId = _data["deviceId"];
+            this.platformType = _data["platformType"];
+            this.contact = _data["contact"];
+            this.bizType = _data["bizType"];
+            this.categoryId = _data["categoryId"];
+            this.qrCodeExtraInfo = _data["qrCodeExtraInfo"];
+            this.externalAccessTokenInfoId = _data["externalAccessTokenInfoId"];
+        }
+    }
+
+    static fromJS(data: any): AddSmartStoreDeviceToExtraPlatformInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddSmartStoreDeviceToExtraPlatformInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deviceId"] = this.deviceId;
+        data["platformType"] = this.platformType;
+        data["contact"] = this.contact;
+        data["bizType"] = this.bizType;
+        data["categoryId"] = this.categoryId;
+        data["qrCodeExtraInfo"] = this.qrCodeExtraInfo;
+        data["externalAccessTokenInfoId"] = this.externalAccessTokenInfoId;
+        return data; 
+    }
+}
+
+export interface IAddSmartStoreDeviceToExtraPlatformInput {
+    deviceId: number;
+    platformType: ExternalEnum;
+    contact: string | undefined;
+    bizType: string | undefined;
+    categoryId: string | undefined;
+    qrCodeExtraInfo: string | undefined;
+    externalAccessTokenInfoId: number | undefined;
+}
+
+export class ExtraPlatformDeviceDto implements IExtraPlatformDeviceDto {
+    platformType!: ExternalEnum;
+    extraStoreId!: string | undefined;
+    contact!: string | undefined;
+    bizType!: string | undefined;
+    categoryId!: string | undefined;
+    qrCodeExtraInfo!: string | undefined;
+    extraDeviceId!: string | undefined;
+    extraRegistTime!: moment.Moment;
+
+    constructor(data?: IExtraPlatformDeviceDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.platformType = _data["platformType"];
+            this.extraStoreId = _data["extraStoreId"];
+            this.contact = _data["contact"];
+            this.bizType = _data["bizType"];
+            this.categoryId = _data["categoryId"];
+            this.qrCodeExtraInfo = _data["qrCodeExtraInfo"];
+            this.extraDeviceId = _data["extraDeviceId"];
+            this.extraRegistTime = _data["extraRegistTime"] ? moment(_data["extraRegistTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ExtraPlatformDeviceDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExtraPlatformDeviceDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["platformType"] = this.platformType;
+        data["extraStoreId"] = this.extraStoreId;
+        data["contact"] = this.contact;
+        data["bizType"] = this.bizType;
+        data["categoryId"] = this.categoryId;
+        data["qrCodeExtraInfo"] = this.qrCodeExtraInfo;
+        data["extraDeviceId"] = this.extraDeviceId;
+        data["extraRegistTime"] = this.extraRegistTime ? this.extraRegistTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IExtraPlatformDeviceDto {
+    platformType: ExternalEnum;
+    extraStoreId: string | undefined;
+    contact: string | undefined;
+    bizType: string | undefined;
+    categoryId: string | undefined;
+    qrCodeExtraInfo: string | undefined;
+    extraDeviceId: string | undefined;
+    extraRegistTime: moment.Moment;
+}
+
 /** 单个设备控制的数据结构 */
 export class DeviceActionInput implements IDeviceActionInput {
     /** 被控制设备的Id编号 */
@@ -16507,6 +16926,450 @@ export class UpdateIntfaDeviceDescriptionsInput implements IUpdateIntfaDeviceDes
 
 export interface IUpdateIntfaDeviceDescriptionsInput {
     devices: UpdateIntfaDeviceDescription[] | undefined;
+}
+
+export enum RedeemType {
+    None = 0,
+    Full = 1,
+    Partial = 2,
+}
+
+export class EntityFileSdkModel implements IEntityFileSdkModel {
+    id!: number;
+    name!: string | undefined;
+    fileUrl!: string | undefined;
+    fromType!: string | undefined;
+    type!: string | undefined;
+    content!: string | undefined;
+    usage!: string | undefined;
+    description!: string | undefined;
+    orderNumber!: number;
+    md5!: string | undefined;
+
+    constructor(data?: IEntityFileSdkModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.fileUrl = _data["fileUrl"];
+            this.fromType = _data["fromType"];
+            this.type = _data["type"];
+            this.content = _data["content"];
+            this.usage = _data["usage"];
+            this.description = _data["description"];
+            this.orderNumber = _data["orderNumber"];
+            this.md5 = _data["md5"];
+        }
+    }
+
+    static fromJS(data: any): EntityFileSdkModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new EntityFileSdkModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["fileUrl"] = this.fileUrl;
+        data["fromType"] = this.fromType;
+        data["type"] = this.type;
+        data["content"] = this.content;
+        data["usage"] = this.usage;
+        data["description"] = this.description;
+        data["orderNumber"] = this.orderNumber;
+        data["md5"] = this.md5;
+        return data; 
+    }
+}
+
+export interface IEntityFileSdkModel {
+    id: number;
+    name: string | undefined;
+    fileUrl: string | undefined;
+    fromType: string | undefined;
+    type: string | undefined;
+    content: string | undefined;
+    usage: string | undefined;
+    description: string | undefined;
+    orderNumber: number;
+    md5: string | undefined;
+}
+
+export class BrandSdkDto implements IBrandSdkDto {
+    id!: number;
+    code!: string | undefined;
+    orderNumber!: number;
+    name!: string | undefined;
+    /** 品牌 Logo */
+    logoUrl!: string | undefined;
+    /** 品牌大图 */
+    imageUrl!: string | undefined;
+    /** 状态 */
+    state!: string | undefined;
+    /** 品牌主题色   16进制编码：#FFFFFF */
+    mainColor!: string | undefined;
+    description!: string | undefined;
+    b_BrandCategories!: IdNameDto[] | undefined;
+    /** 管理的外部资源 */
+    itemImagesOrVideos!: EntityFileSdkModel[] | undefined;
+    slogan!: string | undefined;
+    theme!: string | undefined;
+    extensionData!: string | undefined;
+    tagIds!: number[] | undefined;
+
+    constructor(data?: IBrandSdkDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.code = _data["code"];
+            this.orderNumber = _data["orderNumber"];
+            this.name = _data["name"];
+            this.logoUrl = _data["logoUrl"];
+            this.imageUrl = _data["imageUrl"];
+            this.state = _data["state"];
+            this.mainColor = _data["mainColor"];
+            this.description = _data["description"];
+            if (Array.isArray(_data["b_BrandCategories"])) {
+                this.b_BrandCategories = [] as any;
+                for (let item of _data["b_BrandCategories"])
+                    this.b_BrandCategories!.push(IdNameDto.fromJS(item));
+            }
+            if (Array.isArray(_data["itemImagesOrVideos"])) {
+                this.itemImagesOrVideos = [] as any;
+                for (let item of _data["itemImagesOrVideos"])
+                    this.itemImagesOrVideos!.push(EntityFileSdkModel.fromJS(item));
+            }
+            this.slogan = _data["slogan"];
+            this.theme = _data["theme"];
+            this.extensionData = _data["extensionData"];
+            if (Array.isArray(_data["tagIds"])) {
+                this.tagIds = [] as any;
+                for (let item of _data["tagIds"])
+                    this.tagIds!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): BrandSdkDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BrandSdkDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["code"] = this.code;
+        data["orderNumber"] = this.orderNumber;
+        data["name"] = this.name;
+        data["logoUrl"] = this.logoUrl;
+        data["imageUrl"] = this.imageUrl;
+        data["state"] = this.state;
+        data["mainColor"] = this.mainColor;
+        data["description"] = this.description;
+        if (Array.isArray(this.b_BrandCategories)) {
+            data["b_BrandCategories"] = [];
+            for (let item of this.b_BrandCategories)
+                data["b_BrandCategories"].push(item.toJSON());
+        }
+        if (Array.isArray(this.itemImagesOrVideos)) {
+            data["itemImagesOrVideos"] = [];
+            for (let item of this.itemImagesOrVideos)
+                data["itemImagesOrVideos"].push(item.toJSON());
+        }
+        data["slogan"] = this.slogan;
+        data["theme"] = this.theme;
+        data["extensionData"] = this.extensionData;
+        if (Array.isArray(this.tagIds)) {
+            data["tagIds"] = [];
+            for (let item of this.tagIds)
+                data["tagIds"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IBrandSdkDto {
+    id: number;
+    code: string | undefined;
+    orderNumber: number;
+    name: string | undefined;
+    /** 品牌 Logo */
+    logoUrl: string | undefined;
+    /** 品牌大图 */
+    imageUrl: string | undefined;
+    /** 状态 */
+    state: string | undefined;
+    /** 品牌主题色   16进制编码：#FFFFFF */
+    mainColor: string | undefined;
+    description: string | undefined;
+    b_BrandCategories: IdNameDto[] | undefined;
+    /** 管理的外部资源 */
+    itemImagesOrVideos: EntityFileSdkModel[] | undefined;
+    slogan: string | undefined;
+    theme: string | undefined;
+    extensionData: string | undefined;
+    tagIds: number[] | undefined;
+}
+
+export class BrandSdkDtoPagedResultDto implements IBrandSdkDtoPagedResultDto {
+    totalCount!: number;
+    items!: BrandSdkDto[] | undefined;
+
+    constructor(data?: IBrandSdkDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(BrandSdkDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): BrandSdkDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BrandSdkDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IBrandSdkDtoPagedResultDto {
+    totalCount: number;
+    items: BrandSdkDto[] | undefined;
+}
+
+export class StoreBrandBindingDto implements IStoreBrandBindingDto {
+    storeId!: number;
+    brandId!: number | undefined;
+    roomIds!: string | undefined;
+
+    constructor(data?: IStoreBrandBindingDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.storeId = _data["storeId"];
+            this.brandId = _data["brandId"];
+            this.roomIds = _data["roomIds"];
+        }
+    }
+
+    static fromJS(data: any): StoreBrandBindingDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new StoreBrandBindingDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["storeId"] = this.storeId;
+        data["brandId"] = this.brandId;
+        data["roomIds"] = this.roomIds;
+        return data; 
+    }
+}
+
+export interface IStoreBrandBindingDto {
+    storeId: number;
+    brandId: number | undefined;
+    roomIds: string | undefined;
+}
+
+export class StoreBrandBindingDtoPagedResultDto implements IStoreBrandBindingDtoPagedResultDto {
+    totalCount!: number;
+    items!: StoreBrandBindingDto[] | undefined;
+
+    constructor(data?: IStoreBrandBindingDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(StoreBrandBindingDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): StoreBrandBindingDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new StoreBrandBindingDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IStoreBrandBindingDtoPagedResultDto {
+    totalCount: number;
+    items: StoreBrandBindingDto[] | undefined;
+}
+
+export class TagSdkModel implements ITagSdkModel {
+    id!: number;
+    value!: string | undefined;
+    type!: string | undefined;
+    isSpecial!: boolean;
+    iconUrl!: string | undefined;
+
+    constructor(data?: ITagSdkModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.value = _data["value"];
+            this.type = _data["type"];
+            this.isSpecial = _data["isSpecial"];
+            this.iconUrl = _data["iconUrl"];
+        }
+    }
+
+    static fromJS(data: any): TagSdkModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new TagSdkModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["value"] = this.value;
+        data["type"] = this.type;
+        data["isSpecial"] = this.isSpecial;
+        data["iconUrl"] = this.iconUrl;
+        return data; 
+    }
+}
+
+export interface ITagSdkModel {
+    id: number;
+    value: string | undefined;
+    type: string | undefined;
+    isSpecial: boolean;
+    iconUrl: string | undefined;
+}
+
+export class TagSdkModelPagedResultDto implements ITagSdkModelPagedResultDto {
+    totalCount!: number;
+    items!: TagSdkModel[] | undefined;
+
+    constructor(data?: ITagSdkModelPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(TagSdkModel.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): TagSdkModelPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TagSdkModelPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ITagSdkModelPagedResultDto {
+    totalCount: number;
+    items: TagSdkModel[] | undefined;
 }
 
 export class ChangeDeviceAppPodCurrentVersionInput implements IChangeDeviceAppPodCurrentVersionInput {

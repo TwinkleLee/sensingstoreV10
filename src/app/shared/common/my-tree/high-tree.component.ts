@@ -145,7 +145,7 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
                 // this.storeTree.addShowChildren()
             })
         } else if (this.selfConfig.searchDepth == 'store') {
-            this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(this.selfConfig.includeOfflineStore).subscribe((result) => {
+            this._NewStoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([],this.selfConfig.includeOfflineStore).subscribe((result) => {
                 this.treeList = [result];
                 // this.storeTree.addShowChildren()
             })

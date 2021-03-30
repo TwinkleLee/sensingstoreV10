@@ -1,6 +1,5 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-//ooo
 import { SoftwareServiceProxy, AuditStatus as AuditStatus11 } from '@shared/service-proxies/service-proxies-ads';
 
 import { AppComponentBase } from '@shared/common/app-component-base';

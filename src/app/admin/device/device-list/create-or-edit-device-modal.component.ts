@@ -7,6 +7,7 @@ import { AppPodServiceProxy, SetDefaultAppPodVersionInput } from '@shared/servic
 import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceInput } from '@shared/service-proxies/service-proxies-devicecenter';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
     selector: 'createOrEditDeviceModal',
@@ -113,7 +114,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         private _SensorAgreementServiceProxy: SensorAgreementServiceProxy,
         private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
-        private _DeviceServiceProxy:DeviceServiceProxy
+        private _DeviceServiceProxy:DeviceServiceProxy,
+        private _DeviceProductServiceProxy:DeviceProductServiceProxy
 
     ) {
         super(injector);
@@ -121,7 +123,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         _NewDeviceServiceProxy.getDeviceTypeSelect().subscribe((r) => {
             this.deviceTypeList = r.items;
         })
-        _DeviceServiceProxy.onlineStoreInfoSelect().subscribe((result) => {
+        _DeviceProductServiceProxy.onlineStoreInfoSelect().subscribe((result) => {
             this.onlineStoreInfo = result;
         })
         //外设
