@@ -79,48 +79,48 @@
                                                 <tr [pSelectableRow]="record">
                                                     <td> {{transUserIndex(i)}}</td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('UserName')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('UserName')}}</span> -->
                                                         {{record.userName}}
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('Name')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('Name')}}</span> -->
                                                         {{record.name}}
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('Surname')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('Surname')}}</span> -->
                                                         {{record.surname}}
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('Roles')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('Roles')}}</span> -->
                                                         {{getRolesAsString(record.roles)}}
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('EmailAddress')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('EmailAddress')}}</span> -->
                                                         {{record.emailAddress}}
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('EmailConfirm')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('EmailConfirm')}}</span> -->
                                                         <span class="label label-success"
                                                             *ngIf="record.isEmailConfirmed">{{l('Yes')}}</span>
                                                         <span class="label label-default"
                                                             *ngIf="!record.isEmailConfirmed">{{l('No')}}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('Active')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('Active')}}</span> -->
                                                         <span class="label label-success"
                                                             *ngIf="record.isActive">{{l('Yes')}}</span>
                                                         <span class="label label-default"
                                                             *ngIf="!record.isActive">{{l('No')}}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('LastLoginTime')}}</span>
+                                                        <!-- <span class="ui-column-title"> {{l('LastLoginTime')}}</span> -->
                                                         <span *ngIf="record.lastLoginTime">{{record.lastLoginTime |
-                                                        momentFormat:'L'}}</span>
+                                                            date:'yyyy-MM-dd'}}</span>
                                                         <span *ngIf="!record.lastLoginTime">-</span>
                                                     </td>
                                                     <td>
-                                                        <span class="ui-column-title"> {{l('CreationTime')}}</span>
-                                                        {{record.creationTime | momentFormat:'L'}}
+                                                        <!-- <span class="ui-column-title"> {{l('CreationTime')}}</span> -->
+                                                        {{record.creationTime | date:'yyyy-MM-dd'}}
                                                     </td>
                                                 </tr>
                                             </ng-template>

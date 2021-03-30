@@ -149,19 +149,21 @@ export class ImportComponent extends AppComponentBase implements OnInit {
   goBack() {
     if (this.target == 'whiteuser') {
       this.router.navigate(['app', 'admin', 'activity', 'activity', 'prize']);
-    } else if (this.target == 'cargo') {
+    } 
+    else if (this.target == 'cargo') {
       this.router.navigate(['app', 'admin', 'device', 'deviceList', 'operation', this.deviceId]);
-    } else if (this.target == 'rfid') {
+    } 
+    else if (this.target == 'rfid') {
       this.router.navigate(['app', 'admin', 'product', 'skuList']);
-    } else if (this.target == 'storagecheck') {
+    } 
+    else if (this.target == 'storagecheck') {
       this.router.navigate(['app', 'admin', 'product', 'outputin']);
     }
-
     else if (this.target == 'advertisement') {
       this.router.navigate(['app', 'admin', 'advertisement', 'advertisement']);
     }
     else if (this.target == 'device') {
-      this.router.navigate(['app', 'admin', 'device', 'device']);
+      this.router.navigate(['app', 'admin', 'device', 'deviceList']);
     }
     else if (this.target == 'room') {
       this.router.navigate(['app', 'admin', 'floor', 'room']);
@@ -180,12 +182,17 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     }
     else if (this.target == 'training') {
       this.router.navigate(['app', 'admin', 'training', 'training']);
-    }
+    } 
     else if (this.target == 'sulwhasoo') {
       this.router.navigate(['app', 'admin', 'entityStore', 'entityStore']);
-    } else if (this.target == 'ads') {
+    } 
+    else if (this.target == 'ads') {
       this.router.navigate(['app', 'admin', 'advertisement', 'adsList']);
-    } else {
+    } 
+    else if (this.target == 'organization-units') {
+      this.router.navigate(['app', 'admin', 'organization-units']);
+    } 
+    else {
       this.router.navigate(['app', 'admin', this.target, this.target]);
     }
   }
