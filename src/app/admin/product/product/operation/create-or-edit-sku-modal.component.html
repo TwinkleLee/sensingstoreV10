@@ -192,7 +192,7 @@
                                 <div class="col-12" *ngFor="let addProperty of addPropertyList;let i = index;">
                                     <div class="form-group row">
                                         <div class="col-1" style="line-height: 43px">
-                                            <label>{{addProperty.name}}</label>
+                                            <label>{{addProperty.propertyName}}</label>
                                         </div>
                                         <div class="col-8">
                                             <select [(ngModel)]="mainPropertyIds[i+1]" [name]="'mainPropertyId'+(i+1)"
