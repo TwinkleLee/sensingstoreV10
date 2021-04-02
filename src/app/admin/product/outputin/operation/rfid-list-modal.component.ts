@@ -6,8 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { OutPutInStorageServiceProxy, SkuRfidServiceProxy, SensingDeviceServiceProxy as SensingProductDeviceServiceProxy, PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies-product';
-//ooo
-import { SensingDeviceServiceProxy } from '@shared/service-proxies/service-proxies'
+
 
 
 import { CreateOrEditSkuRfidModalComponent } from '@app/admin/product/outputin/create-or-edit-skurfid-modal.component';
@@ -35,7 +34,6 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
     constructor(
         injector: Injector,
         private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy,
-        private _SensingDeviceServiceProxy: SensingDeviceServiceProxy,
         private _skuRfidServiceProxy: SkuRfidServiceProxy,
         private _SensingProductDeviceServiceProxy: SensingProductDeviceServiceProxy
 
@@ -120,7 +118,7 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
     }
     generateURL(record) {
         this.primengTableHelper.showLoadingIndicator();
-        this._SensingDeviceServiceProxy.getWeishopProductRfidQrcode(
+        this._SensingProductDeviceServiceProxy.getWeishopProductRfidQrcode(
             this.appSession.tenantId,
             record.rfidCode
         )

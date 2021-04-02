@@ -271,7 +271,8 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ProductServiceProxies.SensingSkuRfidServiceProxy,
         ProductServiceProxies.SkuRfidServiceProxy,
         ProductServiceProxies.PriceTagServiceProxy,
-
+        ProductServiceProxies.BatchTaskLogServiceProxy,
+        
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
         { provide: AbpHttpConfigurationService, useClass: ZeroTemplateHttpConfigurationService },

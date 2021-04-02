@@ -273,7 +273,7 @@ export class SoftwareComponent extends AppComponentBase {
         'type':'publish'
       });
       if (this.operateAll) {
-        this._softwareService.publishSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+        this._softwareService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
           this.notify.info(this.l('success'));
           this.AppPublishList = [];
           this.tenantAppPublish = {};

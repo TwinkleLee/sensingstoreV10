@@ -1866,7 +1866,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     'informDevice': this.informDevice,
                     'type': 'publish'
                 });
-                this._appService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+                this._appService.publishSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                     this.notify.info(this.l('success'));
                     this.SoftwareSelectionList = [];
                     this.getSoftwareByDeviceId();
@@ -1909,7 +1909,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._appService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._appService.publishSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.SoftwareSelectionList = [];
                 this.getSoftwareByDeviceId();
@@ -1953,7 +1953,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 'informDevice': this.informDevice,
                 'type': 'publish'
             });
-            this._appService.publishAllSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._appService.publishSoftwaresToOrganizationOrDevicesOrStore(input).subscribe((result) => {
                 this.notify.info(this.l('success'));
                 this.SoftwareSelectionList = [];
                 this.getSoftwareByDeviceId();

@@ -341,7 +341,7 @@ export class AdvertisementComponent extends AppComponentBase {
         this.AdsPublishList = [];
         this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'), this.l('AreYouSure'),(r) => {
           if (r) {
-            this._adsService.publishAdsToOrganizationOrDevicesOrStore(input).subscribe((result) => {
+            this._adsService.publishAllAdsToOrganizationOrDevicesOrStore(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;

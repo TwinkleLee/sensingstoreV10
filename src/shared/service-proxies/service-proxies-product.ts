@@ -544,6 +544,103 @@ export class BackendDownloadTaskServiceProxy {
 }
 
 @Injectable()
+export class BatchTaskLogServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8005";
+    }
+
+    /**
+     * @param batchType (optional) 
+     * @param onlineStoreId (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getBatchTaskLogs(batchType: string | undefined, onlineStoreId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<BatchTaskLogDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/BatchTaskLog/GetBatchTaskLogs?";
+        if (batchType === null)
+            throw new Error("The parameter 'batchType' cannot be null.");
+        else if (batchType !== undefined)
+            url_ += "BatchType=" + encodeURIComponent("" + batchType) + "&";
+        if (onlineStoreId === null)
+            throw new Error("The parameter 'onlineStoreId' cannot be null.");
+        else if (onlineStoreId !== undefined)
+            url_ += "OnlineStoreId=" + encodeURIComponent("" + onlineStoreId) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBatchTaskLogs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBatchTaskLogs(<any>response_);
+                } catch (e) {
+                    return <Observable<BatchTaskLogDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BatchTaskLogDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBatchTaskLogs(response: HttpResponseBase): Observable<BatchTaskLogDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BatchTaskLogDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BatchTaskLogDtoPagedResultDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class CouponServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -11832,6 +11929,67 @@ export class SensingDeviceServiceProxy {
     }
 
     /**
+     * @param tenantId (optional) 
+     * @param rfideCode (optional) 
+     * @return Success
+     */
+    getWeishopProductRfidQrcode(tenantId: number | undefined, rfideCode: string | undefined): Observable<RfidQrcodeDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingDevice/GetWeishopProductRfidQrcode?";
+        if (tenantId === null)
+            throw new Error("The parameter 'tenantId' cannot be null.");
+        else if (tenantId !== undefined)
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+        if (rfideCode === null)
+            throw new Error("The parameter 'rfideCode' cannot be null.");
+        else if (rfideCode !== undefined)
+            url_ += "rfideCode=" + encodeURIComponent("" + rfideCode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetWeishopProductRfidQrcode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetWeishopProductRfidQrcode(<any>response_);
+                } catch (e) {
+                    return <Observable<RfidQrcodeDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RfidQrcodeDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetWeishopProductRfidQrcode(response: HttpResponseBase): Observable<RfidQrcodeDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RfidQrcodeDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RfidQrcodeDto>(<any>null);
+    }
+
+    /**
      * 批量生成二维码
      * @param body (optional) 
      * @return Success
@@ -13652,6 +13810,122 @@ export class AwardRule implements IAwardRule {
 export interface IAwardRule {
     pointAwardable: boolean;
     awardAmount: number;
+}
+
+export class BatchTaskLogDto implements IBatchTaskLogDto {
+    name!: string | undefined;
+    batchType!: string | undefined;
+    completedCount!: number;
+    totalCount!: number;
+    status!: string | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IBatchTaskLogDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.batchType = _data["batchType"];
+            this.completedCount = _data["completedCount"];
+            this.totalCount = _data["totalCount"];
+            this.status = _data["status"];
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): BatchTaskLogDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BatchTaskLogDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["batchType"] = this.batchType;
+        data["completedCount"] = this.completedCount;
+        data["totalCount"] = this.totalCount;
+        data["status"] = this.status;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBatchTaskLogDto {
+    name: string | undefined;
+    batchType: string | undefined;
+    completedCount: number;
+    totalCount: number;
+    status: string | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
+}
+
+export class BatchTaskLogDtoPagedResultDto implements IBatchTaskLogDtoPagedResultDto {
+    totalCount!: number;
+    items!: BatchTaskLogDto[] | undefined;
+
+    constructor(data?: IBatchTaskLogDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(BatchTaskLogDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): BatchTaskLogDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BatchTaskLogDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IBatchTaskLogDtoPagedResultDto {
+    totalCount: number;
+    items: BatchTaskLogDto[] | undefined;
 }
 
 export class BrandIdAndProductIdsDto implements IBrandIdAndProductIdsDto {
@@ -22083,6 +22357,46 @@ export enum RedeemType {
     None = 0,
     Full = 1,
     Partial = 2,
+}
+
+export class RfidQrcodeDto implements IRfidQrcodeDto {
+    qrcodeUrl!: string | undefined;
+    qrcodeImageUrl!: string | undefined;
+
+    constructor(data?: IRfidQrcodeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.qrcodeUrl = _data["qrcodeUrl"];
+            this.qrcodeImageUrl = _data["qrcodeImageUrl"];
+        }
+    }
+
+    static fromJS(data: any): RfidQrcodeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RfidQrcodeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["qrcodeUrl"] = this.qrcodeUrl;
+        data["qrcodeImageUrl"] = this.qrcodeImageUrl;
+        return data; 
+    }
+}
+
+export interface IRfidQrcodeDto {
+    qrcodeUrl: string | undefined;
+    qrcodeImageUrl: string | undefined;
 }
 
 export class SensingDeviceProductCommentModel implements ISensingDeviceProductCommentModel {

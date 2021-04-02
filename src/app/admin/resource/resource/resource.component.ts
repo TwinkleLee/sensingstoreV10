@@ -50,7 +50,7 @@ export class ResourceManagementComponent extends AppComponentBase {
   @ViewChild('createOrEditResourceModal', { static: true }) createOrEditResourceModal: CreateOrEditResourceModalComponent;
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
-  @ViewChild('tagTree', { static: true }) tagTree: MyTreeComponent;
+  @ViewChild('tagTree', { static: false }) tagTree: MyTreeComponent;
   @ViewChild('TableCheckbox', { static: true }) TableCheckbox: TableCheckbox;
 
 

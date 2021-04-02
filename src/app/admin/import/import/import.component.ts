@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'abp-ng2-module';
 import { DateMetaPhysicsServiceProxy } from '@shared/service-proxies/service-proxies4';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
-import { BatchTaskLogServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BatchTaskLogServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
