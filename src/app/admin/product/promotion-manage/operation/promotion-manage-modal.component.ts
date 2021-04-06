@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { PromotionServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import * as moment from 'moment';
 
 @Component({
@@ -33,7 +33,7 @@ export class PromotionManageModalComponent extends AppComponentBase implements A
     ]
     constructor(
         injector: Injector,
-        private _PromotionServiceProxy: PromotionServiceProxy
+        private _ProductServiceProxy: ProductServiceProxy
     ) {
         super(injector);
     }
@@ -109,7 +109,7 @@ export class PromotionManageModalComponent extends AppComponentBase implements A
 
         this.saving = true;
 
-        this._PromotionServiceProxy.addOrUpdatePromotion(this.Program)
+        this._ProductServiceProxy.addOrUpdatePromotion(this.Program)
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(() => {
                 this.modalSave.emit(null);

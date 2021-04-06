@@ -22,8 +22,8 @@ import { TokenService } from 'abp-ng2-module';
 import { Table, TableCheckbox } from 'primeng/table';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { finalize } from 'rxjs/operators';
-//ooo
-import { ShopServiceProxy } from '@shared/service-proxies/service-proxies';
+
+import { ShopServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 

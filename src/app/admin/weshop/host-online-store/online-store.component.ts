@@ -6,7 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { HostOnlineStoreModalComponent } from './create-or-edit-onlineStore-modal.component';
 
-import { ShopServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ShopServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
   templateUrl: './online-store.component.html',

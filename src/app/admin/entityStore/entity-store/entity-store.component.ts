@@ -4,12 +4,12 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { OrganizationUnitServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies';
+import {  OrganizationUnitServiceProxy} from '@shared/service-proxies/service-proxies';
 import { CreateOrEditStoreModalComponent } from './operation/create-or-edit-store-modal.component';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { BuildingServiceProxy } from '@shared/service-proxies/service-proxies-floor'
-import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput, StoreStatus } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput, StoreStatus,OrganizationUnitServiceProxy as DeviceOrganizationUnitServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
@@ -61,10 +61,11 @@ export class EntityStoreComponent extends AppComponentBase {
     private _router: Router,
     private _buildingServiceProxy: BuildingServiceProxy,
     private _BrandServiceProxy: BrandServiceProxy,
-    private _SensingTicketServiceProxy: SensingTicketServiceProxy
+    private _SensingTicketServiceProxy: SensingTicketServiceProxy,
+    private _DeviceOrganizationUnitServiceProxy:DeviceOrganizationUnitServiceProxy
   ) {
     super(injector);
-    this._organizationUnitService.getAreas().subscribe(r => {
+    this._DeviceOrganizationUnitServiceProxy.getAreas().subscribe(r => {
       this.areaList = r;
     })
     this._organizationUnitService.getOrganizationUnits().subscribe(r => {

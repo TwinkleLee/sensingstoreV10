@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ShopServiceProxy, CreateShopFreightInput, UpdateShopFreightInput } from '@shared/service-proxies/service-proxies';
+import { ShopServiceProxy, CreateShopFreightInput, UpdateShopFreightInput } from '@shared/service-proxies/service-proxies-product';
 // import districts from './districts';
 import districts from '@app/admin/weshop/we-shop/operation/districts';
 

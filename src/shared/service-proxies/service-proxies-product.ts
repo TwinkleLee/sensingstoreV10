@@ -1114,6 +1114,127 @@ export class CouponServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    externalAddOrUpdateCoupon(body: ExternalAddOrUpdateCoupon | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Coupon/ExternalAddOrUpdateCoupon";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processExternalAddOrUpdateCoupon(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processExternalAddOrUpdateCoupon(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processExternalAddOrUpdateCoupon(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 根据code删除 红包
+     * @param body (optional) 
+     * @return Success
+     */
+    externalDeleteCoupon(body: ExternalDeleteCouponsInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Coupon/ExternalDeleteCoupon";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processExternalDeleteCoupon(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processExternalDeleteCoupon(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processExternalDeleteCoupon(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -9458,6 +9579,132 @@ export class ProductServiceProxy {
     }
 
     /**
+     * 更新或新建product
+     * @param body (optional) 
+     * @return Success
+     */
+    addOrUpdateProduct(body: AddOrUpdateProductInput | undefined): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/Product/AddOrUpdateProduct";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddOrUpdateProduct(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddOrUpdateProduct(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddOrUpdateProduct(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+
+    /**
+     * 根据商品的ItemId 批量更新或新增商品下面的sku
+     * @param body (optional) 
+     * @return Success
+     */
+    addOrUpdateSku(body: AddOrUpdateSkuByItemIdInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Product/AddOrUpdateSku";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddOrUpdateSku(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddOrUpdateSku(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddOrUpdateSku(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
      * 创建或者便跟促销
      * @param body (optional) 
      * @return Success
@@ -12120,6 +12367,1154 @@ export class SensingDeviceServiceProxy {
 }
 
 @Injectable()
+export class SensingShopServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8005";
+    }
+
+    /**
+     * 获取商品
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getProducts(tenantId: number | undefined, memberId: number | undefined, body: GetSensingSdkShopInput | undefined): Observable<ProuctListOutPutShopPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetProducts";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProducts(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProducts(<any>response_);
+                } catch (e) {
+                    return <Observable<ProuctListOutPutShopPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProuctListOutPutShopPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProducts(response: HttpResponseBase): Observable<ProuctListOutPutShopPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ProuctListOutPutShopPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProuctListOutPutShopPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 获取单个商品
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getSingleProduct(tenantId: number | undefined, memberId: number | undefined, body: GetSingleShopProductInput | undefined): Observable<SingleShopProductDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetSingleProduct";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSingleProduct(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSingleProduct(<any>response_);
+                } catch (e) {
+                    return <Observable<SingleShopProductDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SingleShopProductDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSingleProduct(response: HttpResponseBase): Observable<SingleShopProductDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SingleShopProductDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SingleShopProductDto>(<any>null);
+    }
+
+    /**
+     * 获取商品分类
+     * @param tenantId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getproductCategories(tenantId: number | undefined, body: GetShopProductCategoriesInput | undefined): Observable<ProductCategoryDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetproductCategories";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetproductCategories(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetproductCategories(<any>response_);
+                } catch (e) {
+                    return <Observable<ProductCategoryDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProductCategoryDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetproductCategories(response: HttpResponseBase): Observable<ProductCategoryDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ProductCategoryDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProductCategoryDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * 获取商品分类树
+     * @param tenantId (optional) 
+     * @return Success
+     */
+    getShopCategoryTrees(tenantId: number | undefined): Observable<ProductCategoryTreeItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopCategoryTrees";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopCategoryTrees(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopCategoryTrees(<any>response_);
+                } catch (e) {
+                    return <Observable<ProductCategoryTreeItemDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProductCategoryTreeItemDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopCategoryTrees(response: HttpResponseBase): Observable<ProductCategoryTreeItemDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProductCategoryTreeItemDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProductCategoryTreeItemDto[]>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getShopSkus(tenantId: number | undefined, body: number[] | undefined): Observable<ShopProductSkuDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopSkus";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopSkus(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopSkus(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopProductSkuDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopProductSkuDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopSkus(response: HttpResponseBase): Observable<ShopProductSkuDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ShopProductSkuDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopProductSkuDto[]>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param productId (optional) 
+     * @return Success
+     */
+    getShopProduct(tenantId: number | undefined, productId: number | undefined): Observable<ProductTagAndCategoryDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopProduct?";
+        if (productId === null)
+            throw new Error("The parameter 'productId' cannot be null.");
+        else if (productId !== undefined)
+            url_ += "ProductId=" + encodeURIComponent("" + productId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopProduct(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopProduct(<any>response_);
+                } catch (e) {
+                    return <Observable<ProductTagAndCategoryDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProductTagAndCategoryDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopProduct(response: HttpResponseBase): Observable<ProductTagAndCategoryDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ProductTagAndCategoryDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProductTagAndCategoryDto>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @return Success
+     */
+    getShopSetting(tenantId: number | undefined): Observable<ShopSettingDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopSetting?";
+        if (tenantId === null)
+            throw new Error("The parameter 'tenantId' cannot be null.");
+        else if (tenantId !== undefined)
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopSetting(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopSetting(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopSettingDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopSettingDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopSetting(response: HttpResponseBase): Observable<ShopSettingDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ShopSettingDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopSettingDto[]>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param storeId (optional) 
+     * @return Success
+     */
+    getShopBasicInformations(tenantId: number | undefined, memberId: number | undefined, storeId: number | undefined): Observable<BasicShopDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopBasicInformations";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "StoreId": storeId !== undefined && storeId !== null ? "" + storeId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopBasicInformations(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopBasicInformations(<any>response_);
+                } catch (e) {
+                    return <Observable<BasicShopDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BasicShopDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopBasicInformations(response: HttpResponseBase): Observable<BasicShopDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BasicShopDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BasicShopDto>(<any>null);
+    }
+
+    /**
+     * 获取猜你喜欢
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getShopLikeInfos(tenantId: number | undefined, memberId: number | undefined, body: GetShopLikeInfosInput | undefined): Observable<ShopLikeInfosDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopLikeInfos";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopLikeInfos(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopLikeInfos(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopLikeInfosDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopLikeInfosDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopLikeInfos(response: HttpResponseBase): Observable<ShopLikeInfosDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ShopLikeInfosDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopLikeInfosDto[]>(<any>null);
+    }
+
+    /**
+     * 获取购物车
+     * @param tenantId (optional) 
+     * @param storeId (optional) 
+     * @param memberId (optional) 
+     * @return Success
+     */
+    getShopCarInfos(tenantId: number | undefined, storeId: number | undefined, memberId: number | undefined): Observable<ShopCarDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopCarInfos";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "storeId": storeId !== undefined && storeId !== null ? "" + storeId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopCarInfos(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopCarInfos(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopCarDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopCarDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopCarInfos(response: HttpResponseBase): Observable<ShopCarDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ShopCarDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopCarDto[]>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    addOrDeleteShopCars(tenantId: number | undefined, memberId: number | undefined, body: AddOrUpdateShopCarsInput | undefined): Observable<ShopCarDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/AddOrDeleteShopCars";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddOrDeleteShopCars(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddOrDeleteShopCars(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopCarDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopCarDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddOrDeleteShopCars(response: HttpResponseBase): Observable<ShopCarDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ShopCarDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopCarDto[]>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    deleteShopCars(tenantId: number | undefined, memberId: number | undefined, body: DeleteShopCarsInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/DeleteShopCars";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteShopCars(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteShopCars(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteShopCars(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @return Success
+     */
+    getShopCollections(tenantId: number | undefined, memberId: number | undefined): Observable<ShopCollectionDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopCollections";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopCollections(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopCollections(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopCollectionDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopCollectionDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopCollections(response: HttpResponseBase): Observable<ShopCollectionDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopCollectionDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopCollectionDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    addOrDeleteCollections(tenantId: number | undefined, memberId: number | undefined, body: AddOrDeleteCollectionsInput | undefined): Observable<ShopCollectionDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/AddOrDeleteCollections";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddOrDeleteCollections(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddOrDeleteCollections(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopCollectionDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopCollectionDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddOrDeleteCollections(response: HttpResponseBase): Observable<ShopCollectionDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ShopCollectionDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopCollectionDto[]>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getShopRecommendProducts(tenantId: number | undefined, body: GetShopRecommendProductsInput | undefined): Observable<SingleShopProductDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopRecommendProducts";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopRecommendProducts(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopRecommendProducts(<any>response_);
+                } catch (e) {
+                    return <Observable<SingleShopProductDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SingleShopProductDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopRecommendProducts(response: HttpResponseBase): Observable<SingleShopProductDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SingleShopProductDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SingleShopProductDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    getShopFreight(tenantId: number | undefined, memberId: number | undefined, body: GetShopFreightInput | undefined): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopFreight";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopFreight(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopFreight(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopFreight(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param storeId (optional) 
+     * @param memberId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    createShopComment(tenantId: number | undefined, storeId: number | undefined, memberId: number | undefined, body: CreateShopCommentInput | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/CreateShopComment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "storeId": storeId !== undefined && storeId !== null ? "" + storeId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateShopComment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateShopComment(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateShopComment(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param rfidCode (optional) 
+     * @return Success
+     */
+    updateSkuRfid(tenantId: number | undefined, rfidCode: string | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/UpdateSkuRfid?";
+        if (rfidCode === null)
+            throw new Error("The parameter 'rfidCode' cannot be null.");
+        else if (rfidCode !== undefined)
+            url_ += "RfidCode=" + encodeURIComponent("" + rfidCode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateSkuRfid(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateSkuRfid(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateSkuRfid(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param rfidCodes (optional) 
+     * @return Success
+     */
+    getRfidCodeState(rfidCodes: string[] | undefined): Observable<RfidCodeStateDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetRfidCodeState?";
+        if (rfidCodes === null)
+            throw new Error("The parameter 'rfidCodes' cannot be null.");
+        else if (rfidCodes !== undefined)
+            rfidCodes && rfidCodes.forEach(item => { url_ += "rfidCodes=" + encodeURIComponent("" + item) + "&"; });
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRfidCodeState(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRfidCodeState(<any>response_);
+                } catch (e) {
+                    return <Observable<RfidCodeStateDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RfidCodeStateDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRfidCodeState(response: HttpResponseBase): Observable<RfidCodeStateDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RfidCodeStateDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RfidCodeStateDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class SensingSkuRfidServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -12248,6 +13643,1430 @@ export class SensingSkuRfidServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class ShopServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8005";
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateShopSetting(body: UpdateShopSettingInput | undefined): Observable<ShopSettingDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/UpdateShopSetting";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateShopSetting(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateShopSetting(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopSettingDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopSettingDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateShopSetting(response: HttpResponseBase): Observable<ShopSettingDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopSettingDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopSettingDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getShopSettings(): Observable<ShopSettingDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/GetShopSettings";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopSettings(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopSettings(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopSettingDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopSettingDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopSettings(response: HttpResponseBase): Observable<ShopSettingDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopSettingDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopSettingDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createShopSlider(body: CreateShopSliderInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/CreateShopSlider";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateShopSlider(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateShopSlider(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateShopSlider(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteShopSlider(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/DeleteShopSlider?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteShopSlider(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteShopSlider(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteShopSlider(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateShopSlider(body: UpdateShopSliderInput | undefined): Observable<ShopSliderDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/UpdateShopSlider";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateShopSlider(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateShopSlider(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopSliderDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopSliderDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateShopSlider(response: HttpResponseBase): Observable<ShopSliderDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopSliderDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopSliderDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getShopSliders(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<ShopSliderDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/GetShopSliders?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopSliders(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopSliders(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopSliderDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopSliderDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopSliders(response: HttpResponseBase): Observable<ShopSliderDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopSliderDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopSliderDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createShopTag(body: CreateShopTagInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/CreateShopTag";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateShopTag(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateShopTag(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateShopTag(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteShopTag(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/DeleteShopTag?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteShopTag(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteShopTag(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteShopTag(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateShopTag(body: UpdateShopTagInput | undefined): Observable<ShopTagDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/UpdateShopTag";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateShopTag(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateShopTag(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopTagDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopTagDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateShopTag(response: HttpResponseBase): Observable<ShopTagDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopTagDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopTagDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getShopTags(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<ShopTagDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/GetShopTags?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopTags(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopTags(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopTagDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopTagDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopTags(response: HttpResponseBase): Observable<ShopTagDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopTagDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopTagDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createShopCategory(body: CreateShopCategoryInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/CreateShopCategory";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateShopCategory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateShopCategory(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateShopCategory(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteShopCategory(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/DeleteShopCategory?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteShopCategory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteShopCategory(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteShopCategory(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateShopCategory(body: UpdateShopCategoryInput | undefined): Observable<ShopCategoryDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/UpdateShopCategory";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateShopCategory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateShopCategory(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopCategoryDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopCategoryDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateShopCategory(response: HttpResponseBase): Observable<ShopCategoryDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopCategoryDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopCategoryDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getShopCategories(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<ShopCategoryDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/GetShopCategories?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopCategories(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopCategories(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopCategoryDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopCategoryDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopCategories(response: HttpResponseBase): Observable<ShopCategoryDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopCategoryDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopCategoryDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createShopFreight(body: CreateShopFreightInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/CreateShopFreight";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateShopFreight(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateShopFreight(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateShopFreight(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteShopFreight(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/DeleteShopFreight?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteShopFreight(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteShopFreight(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteShopFreight(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateShopFreight(body: UpdateShopFreightInput | undefined): Observable<ShopFreightDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/UpdateShopFreight";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateShopFreight(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateShopFreight(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopFreightDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopFreightDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateShopFreight(response: HttpResponseBase): Observable<ShopFreightDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopFreightDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopFreightDto>(<any>null);
+    }
+
+    /**
+     * @param status (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getShopFreights(status: ShopFreightStatus | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<ShopFreightDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/GetShopFreights?";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "Status=" + encodeURIComponent("" + status) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopFreights(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopFreights(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopFreightDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopFreightDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopFreights(response: HttpResponseBase): Observable<ShopFreightDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopFreightDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopFreightDtoPagedResultDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    bindProductWithShopFreight(body: BindProductWithShopFreightInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/BindProductWithShopFreight";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBindProductWithShopFreight(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBindProductWithShopFreight(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processBindProductWithShopFreight(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createShopForHost(body: CreateShopForHostInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/CreateShopForHost";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateShopForHost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateShopForHost(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateShopForHost(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param tenantId (optional) 
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteShopForHost(tenantId: number | undefined, id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/DeleteShopForHost?";
+        if (tenantId === null)
+            throw new Error("The parameter 'tenantId' cannot be null.");
+        else if (tenantId !== undefined)
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteShopForHost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteShopForHost(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteShopForHost(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getShopsForHost(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<ShopDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Shop/GetShopsForHost?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetShopsForHost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetShopsForHost(<any>response_);
+                } catch (e) {
+                    return <Observable<ShopDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ShopDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetShopsForHost(response: HttpResponseBase): Observable<ShopDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ShopDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ShopDtoPagedResultDto>(<any>null);
     }
 }
 
@@ -13245,6 +16064,112 @@ export interface IActivePromotionInput {
     deletePromotion: boolean | undefined;
 }
 
+export class AddOrDeleteCollectionsInput implements IAddOrDeleteCollectionsInput {
+    thingId!: number;
+    type!: string | undefined;
+    action!: string | undefined;
+
+    constructor(data?: IAddOrDeleteCollectionsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.thingId = _data["thingId"];
+            this.type = _data["type"];
+            this.action = _data["action"];
+        }
+    }
+
+    static fromJS(data: any): AddOrDeleteCollectionsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrDeleteCollectionsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["thingId"] = this.thingId;
+        data["type"] = this.type;
+        data["action"] = this.action;
+        return data; 
+    }
+}
+
+export interface IAddOrDeleteCollectionsInput {
+    thingId: number;
+    type: string | undefined;
+    action: string | undefined;
+}
+
+export class AddOrUpdateOnlineInfosInput implements IAddOrUpdateOnlineInfosInput {
+    /** 线上商城的类型. 比如天猫，京东 */
+    onlineStoreName!: string | undefined;
+    /** 在线电商类型 0=官方电商，1=淘宝，2=京东，3=唯品会，99=其他 */
+    onlineType!: number | undefined;
+    /** 购物二维码 */
+    qrcode!: string | undefined;
+    onlinePrice!: number | undefined;
+    onlineQuantity!: number | undefined;
+    onlineThingId!: string | undefined;
+
+    constructor(data?: IAddOrUpdateOnlineInfosInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.onlineStoreName = _data["onlineStoreName"];
+            this.onlineType = _data["onlineType"];
+            this.qrcode = _data["qrcode"];
+            this.onlinePrice = _data["onlinePrice"];
+            this.onlineQuantity = _data["onlineQuantity"];
+            this.onlineThingId = _data["onlineThingId"];
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateOnlineInfosInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateOnlineInfosInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["onlineStoreName"] = this.onlineStoreName;
+        data["onlineType"] = this.onlineType;
+        data["qrcode"] = this.qrcode;
+        data["onlinePrice"] = this.onlinePrice;
+        data["onlineQuantity"] = this.onlineQuantity;
+        data["onlineThingId"] = this.onlineThingId;
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateOnlineInfosInput {
+    /** 线上商城的类型. 比如天猫，京东 */
+    onlineStoreName: string | undefined;
+    /** 在线电商类型 0=官方电商，1=淘宝，2=京东，3=唯品会，99=其他 */
+    onlineType: number | undefined;
+    /** 购物二维码 */
+    qrcode: string | undefined;
+    onlinePrice: number | undefined;
+    onlineQuantity: number | undefined;
+    onlineThingId: string | undefined;
+}
+
 export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutInStorageBillInput {
     id!: number | undefined;
     /** orderNo */
@@ -13381,6 +16306,210 @@ export interface IAddOrUpdateProductCategoryInput {
     fromType: string | undefined;
 }
 
+export class AddOrUpdateProductInput implements IAddOrUpdateProductInput {
+    /** 商品 Id */
+    itemId!: string;
+    rfidCode!: string | undefined;
+    outerId!: string | undefined;
+    /** 商品名称 */
+    title!: string | undefined;
+    /** 二级标题 */
+    subTitle!: string | undefined;
+    /** 商品主图 */
+    picUrl!: string | undefined;
+    onlineInfos!: AddOrUpdateOnlineInfosInput[] | undefined;
+    /** 资源列表 */
+    resUrlList!: ResViewModel[] | undefined;
+    /** 商品分类 */
+    categorys!: string | undefined;
+    /** 商品关键字 */
+    keywords!: string | undefined;
+    /** 商品的标签 */
+    tags!: string | undefined;
+    /** 商品库存 */
+    quantity!: number | undefined;
+    /** 数据来源 */
+    fromType!: string | undefined;
+    /** 价格 */
+    price!: number | undefined;
+    /** 价格 */
+    price2!: number | undefined;
+    /** 优惠价 */
+    promPrice!: number | undefined;
+    /** 总销量 */
+    salesVolume!: number | undefined;
+    orderNumber!: number;
+    barcode!: string | undefined;
+    /** 状态 */
+    auditStatus!: number;
+    skuList!: AddOrUpdateSkuInput[] | undefined;
+    /** 商品备注信息 */
+    description!: string | undefined;
+    ageScope!: string | undefined;
+    gender!: string | undefined;
+    starLevel!: number | undefined;
+    brandCode!: string | undefined;
+    language!: string | undefined;
+    region!: string | undefined;
+    pointRule!: ProductPointRule;
+
+    constructor(data?: IAddOrUpdateProductInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.itemId = _data["itemId"];
+            this.rfidCode = _data["rfidCode"];
+            this.outerId = _data["outerId"];
+            this.title = _data["title"];
+            this.subTitle = _data["subTitle"];
+            this.picUrl = _data["picUrl"];
+            if (Array.isArray(_data["onlineInfos"])) {
+                this.onlineInfos = [] as any;
+                for (let item of _data["onlineInfos"])
+                    this.onlineInfos!.push(AddOrUpdateOnlineInfosInput.fromJS(item));
+            }
+            if (Array.isArray(_data["resUrlList"])) {
+                this.resUrlList = [] as any;
+                for (let item of _data["resUrlList"])
+                    this.resUrlList!.push(ResViewModel.fromJS(item));
+            }
+            this.categorys = _data["categorys"];
+            this.keywords = _data["keywords"];
+            this.tags = _data["tags"];
+            this.quantity = _data["quantity"];
+            this.fromType = _data["fromType"];
+            this.price = _data["price"];
+            this.price2 = _data["price2"];
+            this.promPrice = _data["promPrice"];
+            this.salesVolume = _data["salesVolume"];
+            this.orderNumber = _data["orderNumber"];
+            this.barcode = _data["barcode"];
+            this.auditStatus = _data["auditStatus"];
+            if (Array.isArray(_data["skuList"])) {
+                this.skuList = [] as any;
+                for (let item of _data["skuList"])
+                    this.skuList!.push(AddOrUpdateSkuInput.fromJS(item));
+            }
+            this.description = _data["description"];
+            this.ageScope = _data["ageScope"];
+            this.gender = _data["gender"];
+            this.starLevel = _data["starLevel"];
+            this.brandCode = _data["brandCode"];
+            this.language = _data["language"];
+            this.region = _data["region"];
+            this.pointRule = _data["pointRule"] ? ProductPointRule.fromJS(_data["pointRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateProductInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateProductInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["itemId"] = this.itemId;
+        data["rfidCode"] = this.rfidCode;
+        data["outerId"] = this.outerId;
+        data["title"] = this.title;
+        data["subTitle"] = this.subTitle;
+        data["picUrl"] = this.picUrl;
+        if (Array.isArray(this.onlineInfos)) {
+            data["onlineInfos"] = [];
+            for (let item of this.onlineInfos)
+                data["onlineInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.resUrlList)) {
+            data["resUrlList"] = [];
+            for (let item of this.resUrlList)
+                data["resUrlList"].push(item.toJSON());
+        }
+        data["categorys"] = this.categorys;
+        data["keywords"] = this.keywords;
+        data["tags"] = this.tags;
+        data["quantity"] = this.quantity;
+        data["fromType"] = this.fromType;
+        data["price"] = this.price;
+        data["price2"] = this.price2;
+        data["promPrice"] = this.promPrice;
+        data["salesVolume"] = this.salesVolume;
+        data["orderNumber"] = this.orderNumber;
+        data["barcode"] = this.barcode;
+        data["auditStatus"] = this.auditStatus;
+        if (Array.isArray(this.skuList)) {
+            data["skuList"] = [];
+            for (let item of this.skuList)
+                data["skuList"].push(item.toJSON());
+        }
+        data["description"] = this.description;
+        data["ageScope"] = this.ageScope;
+        data["gender"] = this.gender;
+        data["starLevel"] = this.starLevel;
+        data["brandCode"] = this.brandCode;
+        data["language"] = this.language;
+        data["region"] = this.region;
+        data["pointRule"] = this.pointRule ? this.pointRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateProductInput {
+    /** 商品 Id */
+    itemId: string;
+    rfidCode: string | undefined;
+    outerId: string | undefined;
+    /** 商品名称 */
+    title: string | undefined;
+    /** 二级标题 */
+    subTitle: string | undefined;
+    /** 商品主图 */
+    picUrl: string | undefined;
+    onlineInfos: AddOrUpdateOnlineInfosInput[] | undefined;
+    /** 资源列表 */
+    resUrlList: ResViewModel[] | undefined;
+    /** 商品分类 */
+    categorys: string | undefined;
+    /** 商品关键字 */
+    keywords: string | undefined;
+    /** 商品的标签 */
+    tags: string | undefined;
+    /** 商品库存 */
+    quantity: number | undefined;
+    /** 数据来源 */
+    fromType: string | undefined;
+    /** 价格 */
+    price: number | undefined;
+    /** 价格 */
+    price2: number | undefined;
+    /** 优惠价 */
+    promPrice: number | undefined;
+    /** 总销量 */
+    salesVolume: number | undefined;
+    orderNumber: number;
+    barcode: string | undefined;
+    /** 状态 */
+    auditStatus: number;
+    skuList: AddOrUpdateSkuInput[] | undefined;
+    /** 商品备注信息 */
+    description: string | undefined;
+    ageScope: string | undefined;
+    gender: string | undefined;
+    starLevel: number | undefined;
+    brandCode: string | undefined;
+    language: string | undefined;
+    region: string | undefined;
+    pointRule: ProductPointRule;
+}
+
 export class AddOrUpdateProductsToPromotionInput implements IAddOrUpdateProductsToPromotionInput {
     promotionId!: number;
     productPromotionInputs!: ProductPromotionInput[] | undefined;
@@ -13507,6 +16636,276 @@ export interface IAddOrUpdatePromotionInput {
     promotionType: PromotionTypeEnum;
     discountType: DiscountType;
     discountAmount: number | undefined;
+}
+
+export class AddOrUpdateShopCarsInput implements IAddOrUpdateShopCarsInput {
+    skuId!: number;
+    action!: string | undefined;
+    number!: number;
+
+    constructor(data?: IAddOrUpdateShopCarsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.skuId = _data["skuId"];
+            this.action = _data["action"];
+            this.number = _data["number"];
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateShopCarsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateShopCarsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["skuId"] = this.skuId;
+        data["action"] = this.action;
+        data["number"] = this.number;
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateShopCarsInput {
+    skuId: number;
+    action: string | undefined;
+    number: number;
+}
+
+export class AddOrUpdateSkuByItemIdInput implements IAddOrUpdateSkuByItemIdInput {
+    itemId!: string | undefined;
+    skus!: AddOrUpdateSkuInput[] | undefined;
+
+    constructor(data?: IAddOrUpdateSkuByItemIdInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.itemId = _data["itemId"];
+            if (Array.isArray(_data["skus"])) {
+                this.skus = [] as any;
+                for (let item of _data["skus"])
+                    this.skus!.push(AddOrUpdateSkuInput.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateSkuByItemIdInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateSkuByItemIdInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["itemId"] = this.itemId;
+        if (Array.isArray(this.skus)) {
+            data["skus"] = [];
+            for (let item of this.skus)
+                data["skus"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateSkuByItemIdInput {
+    itemId: string | undefined;
+    skus: AddOrUpdateSkuInput[] | undefined;
+}
+
+export class AddOrUpdateSkuInput implements IAddOrUpdateSkuInput {
+    /** Sku Id */
+    skuId!: string;
+    rfidCode!: string | undefined;
+    outerId!: string | undefined;
+    /** Sku 名称 */
+    title!: string | undefined;
+    /** Sku 价格 */
+    price!: number | undefined;
+    /** 价格 */
+    price2!: number | undefined;
+    /** Sku 促销价 */
+    promPrice!: number | undefined;
+    /** 总销量 */
+    salesVolume!: number | undefined;
+    /** Sku 库存 */
+    quantity!: number | undefined;
+    /** 规格 2 180 cm */
+    properties!: SkuPropertyInput[] | undefined;
+    /** Sku的标签 */
+    tags!: string | undefined;
+    /** Sku 主图 */
+    picUrl!: string | undefined;
+    onlineInfos!: AddOrUpdateOnlineInfosInput[] | undefined;
+    /** 资源列表 */
+    resUrlList!: ResViewModel[] | undefined;
+    /** Sku 针对年龄段 */
+    ageScope!: string | undefined;
+    /** Sku 针对性别 */
+    gender!: string | undefined;
+    auditStatus!: number;
+    description!: string | undefined;
+    orderNumber!: number;
+    barcode!: string | undefined;
+    starLevel!: number | undefined;
+    language!: string | undefined;
+    region!: string | undefined;
+    pointRule!: ProductPointRule;
+
+    constructor(data?: IAddOrUpdateSkuInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.skuId = _data["skuId"];
+            this.rfidCode = _data["rfidCode"];
+            this.outerId = _data["outerId"];
+            this.title = _data["title"];
+            this.price = _data["price"];
+            this.price2 = _data["price2"];
+            this.promPrice = _data["promPrice"];
+            this.salesVolume = _data["salesVolume"];
+            this.quantity = _data["quantity"];
+            if (Array.isArray(_data["properties"])) {
+                this.properties = [] as any;
+                for (let item of _data["properties"])
+                    this.properties!.push(SkuPropertyInput.fromJS(item));
+            }
+            this.tags = _data["tags"];
+            this.picUrl = _data["picUrl"];
+            if (Array.isArray(_data["onlineInfos"])) {
+                this.onlineInfos = [] as any;
+                for (let item of _data["onlineInfos"])
+                    this.onlineInfos!.push(AddOrUpdateOnlineInfosInput.fromJS(item));
+            }
+            if (Array.isArray(_data["resUrlList"])) {
+                this.resUrlList = [] as any;
+                for (let item of _data["resUrlList"])
+                    this.resUrlList!.push(ResViewModel.fromJS(item));
+            }
+            this.ageScope = _data["ageScope"];
+            this.gender = _data["gender"];
+            this.auditStatus = _data["auditStatus"];
+            this.description = _data["description"];
+            this.orderNumber = _data["orderNumber"];
+            this.barcode = _data["barcode"];
+            this.starLevel = _data["starLevel"];
+            this.language = _data["language"];
+            this.region = _data["region"];
+            this.pointRule = _data["pointRule"] ? ProductPointRule.fromJS(_data["pointRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateSkuInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateSkuInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["skuId"] = this.skuId;
+        data["rfidCode"] = this.rfidCode;
+        data["outerId"] = this.outerId;
+        data["title"] = this.title;
+        data["price"] = this.price;
+        data["price2"] = this.price2;
+        data["promPrice"] = this.promPrice;
+        data["salesVolume"] = this.salesVolume;
+        data["quantity"] = this.quantity;
+        if (Array.isArray(this.properties)) {
+            data["properties"] = [];
+            for (let item of this.properties)
+                data["properties"].push(item.toJSON());
+        }
+        data["tags"] = this.tags;
+        data["picUrl"] = this.picUrl;
+        if (Array.isArray(this.onlineInfos)) {
+            data["onlineInfos"] = [];
+            for (let item of this.onlineInfos)
+                data["onlineInfos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.resUrlList)) {
+            data["resUrlList"] = [];
+            for (let item of this.resUrlList)
+                data["resUrlList"].push(item.toJSON());
+        }
+        data["ageScope"] = this.ageScope;
+        data["gender"] = this.gender;
+        data["auditStatus"] = this.auditStatus;
+        data["description"] = this.description;
+        data["orderNumber"] = this.orderNumber;
+        data["barcode"] = this.barcode;
+        data["starLevel"] = this.starLevel;
+        data["language"] = this.language;
+        data["region"] = this.region;
+        data["pointRule"] = this.pointRule ? this.pointRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateSkuInput {
+    /** Sku Id */
+    skuId: string;
+    rfidCode: string | undefined;
+    outerId: string | undefined;
+    /** Sku 名称 */
+    title: string | undefined;
+    /** Sku 价格 */
+    price: number | undefined;
+    /** 价格 */
+    price2: number | undefined;
+    /** Sku 促销价 */
+    promPrice: number | undefined;
+    /** 总销量 */
+    salesVolume: number | undefined;
+    /** Sku 库存 */
+    quantity: number | undefined;
+    /** 规格 2 180 cm */
+    properties: SkuPropertyInput[] | undefined;
+    /** Sku的标签 */
+    tags: string | undefined;
+    /** Sku 主图 */
+    picUrl: string | undefined;
+    onlineInfos: AddOrUpdateOnlineInfosInput[] | undefined;
+    /** 资源列表 */
+    resUrlList: ResViewModel[] | undefined;
+    /** Sku 针对年龄段 */
+    ageScope: string | undefined;
+    /** Sku 针对性别 */
+    gender: string | undefined;
+    auditStatus: number;
+    description: string | undefined;
+    orderNumber: number;
+    barcode: string | undefined;
+    starLevel: number | undefined;
+    language: string | undefined;
+    region: string | undefined;
+    pointRule: ProductPointRule;
 }
 
 export class AddStorageCheckInput implements IAddStorageCheckInput {
@@ -13723,6 +17122,66 @@ export enum ApplyWanted {
     Offline = 1,
 }
 
+export class AreaModel implements IAreaModel {
+    city!: string | undefined;
+    firstNumber!: number | undefined;
+    secondNumber!: number | undefined;
+    firstWeight!: number | undefined;
+    secondWeight!: number | undefined;
+    firstPrice!: number;
+    secondPrice!: number;
+
+    constructor(data?: IAreaModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.city = _data["city"];
+            this.firstNumber = _data["firstNumber"];
+            this.secondNumber = _data["secondNumber"];
+            this.firstWeight = _data["firstWeight"];
+            this.secondWeight = _data["secondWeight"];
+            this.firstPrice = _data["firstPrice"];
+            this.secondPrice = _data["secondPrice"];
+        }
+    }
+
+    static fromJS(data: any): AreaModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new AreaModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["city"] = this.city;
+        data["firstNumber"] = this.firstNumber;
+        data["secondNumber"] = this.secondNumber;
+        data["firstWeight"] = this.firstWeight;
+        data["secondWeight"] = this.secondWeight;
+        data["firstPrice"] = this.firstPrice;
+        data["secondPrice"] = this.secondPrice;
+        return data; 
+    }
+}
+
+export interface IAreaModel {
+    city: string | undefined;
+    firstNumber: number | undefined;
+    secondNumber: number | undefined;
+    firstWeight: number | undefined;
+    secondWeight: number | undefined;
+    firstPrice: number;
+    secondPrice: number;
+}
+
 export class AuditApplyFormInput implements IAuditApplyFormInput {
     applyFormId!: number;
     applyStatus!: ApplyStatus;
@@ -13810,6 +17269,82 @@ export class AwardRule implements IAwardRule {
 export interface IAwardRule {
     pointAwardable: boolean;
     awardAmount: number;
+}
+
+export class BasicShopDto implements IBasicShopDto {
+    shopSettingDto!: ShopSettingDto;
+    shopSliderDtos!: ShopSliderDto[] | undefined;
+    shopCategoryDtos!: ShopCategoryDto[] | undefined;
+    shopTagDtos!: ShopTagDto[] | undefined;
+    shopCarThings!: number | undefined;
+
+    constructor(data?: IBasicShopDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.shopSettingDto = _data["shopSettingDto"] ? ShopSettingDto.fromJS(_data["shopSettingDto"]) : <any>undefined;
+            if (Array.isArray(_data["shopSliderDtos"])) {
+                this.shopSliderDtos = [] as any;
+                for (let item of _data["shopSliderDtos"])
+                    this.shopSliderDtos!.push(ShopSliderDto.fromJS(item));
+            }
+            if (Array.isArray(_data["shopCategoryDtos"])) {
+                this.shopCategoryDtos = [] as any;
+                for (let item of _data["shopCategoryDtos"])
+                    this.shopCategoryDtos!.push(ShopCategoryDto.fromJS(item));
+            }
+            if (Array.isArray(_data["shopTagDtos"])) {
+                this.shopTagDtos = [] as any;
+                for (let item of _data["shopTagDtos"])
+                    this.shopTagDtos!.push(ShopTagDto.fromJS(item));
+            }
+            this.shopCarThings = _data["shopCarThings"];
+        }
+    }
+
+    static fromJS(data: any): BasicShopDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BasicShopDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["shopSettingDto"] = this.shopSettingDto ? this.shopSettingDto.toJSON() : <any>undefined;
+        if (Array.isArray(this.shopSliderDtos)) {
+            data["shopSliderDtos"] = [];
+            for (let item of this.shopSliderDtos)
+                data["shopSliderDtos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.shopCategoryDtos)) {
+            data["shopCategoryDtos"] = [];
+            for (let item of this.shopCategoryDtos)
+                data["shopCategoryDtos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.shopTagDtos)) {
+            data["shopTagDtos"] = [];
+            for (let item of this.shopTagDtos)
+                data["shopTagDtos"].push(item.toJSON());
+        }
+        data["shopCarThings"] = this.shopCarThings;
+        return data; 
+    }
+}
+
+export interface IBasicShopDto {
+    shopSettingDto: ShopSettingDto;
+    shopSliderDtos: ShopSliderDto[] | undefined;
+    shopCategoryDtos: ShopCategoryDto[] | undefined;
+    shopTagDtos: ShopTagDto[] | undefined;
+    shopCarThings: number | undefined;
 }
 
 export class BatchTaskLogDto implements IBatchTaskLogDto {
@@ -13926,6 +17461,54 @@ export class BatchTaskLogDtoPagedResultDto implements IBatchTaskLogDtoPagedResul
 export interface IBatchTaskLogDtoPagedResultDto {
     totalCount: number;
     items: BatchTaskLogDto[] | undefined;
+}
+
+export class BindProductWithShopFreightInput implements IBindProductWithShopFreightInput {
+    productId!: number;
+    shopFreightId!: number;
+    freightType!: ShopFreightBindingType;
+    fixedPrice!: number | undefined;
+
+    constructor(data?: IBindProductWithShopFreightInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.productId = _data["productId"];
+            this.shopFreightId = _data["shopFreightId"];
+            this.freightType = _data["freightType"];
+            this.fixedPrice = _data["fixedPrice"];
+        }
+    }
+
+    static fromJS(data: any): BindProductWithShopFreightInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new BindProductWithShopFreightInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["productId"] = this.productId;
+        data["shopFreightId"] = this.shopFreightId;
+        data["freightType"] = this.freightType;
+        data["fixedPrice"] = this.fixedPrice;
+        return data; 
+    }
+}
+
+export interface IBindProductWithShopFreightInput {
+    productId: number;
+    shopFreightId: number;
+    freightType: ShopFreightBindingType;
+    fixedPrice: number | undefined;
 }
 
 export class BrandIdAndProductIdsDto implements IBrandIdAndProductIdsDto {
@@ -15648,6 +19231,372 @@ export interface ICreatePropertyValueInput {
     iconUrl: string | undefined;
 }
 
+export class CreateShopCategoryInput implements ICreateShopCategoryInput {
+    categoryId!: number;
+    /** 自定义的分类名称 */
+    categoryName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl!: string | undefined;
+    /** 排序编号 */
+    orderNumber!: string | undefined;
+
+    constructor(data?: ICreateShopCategoryInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.categoryId = _data["categoryId"];
+            this.categoryName = _data["categoryName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): CreateShopCategoryInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateShopCategoryInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["categoryId"] = this.categoryId;
+        data["categoryName"] = this.categoryName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface ICreateShopCategoryInput {
+    categoryId: number;
+    /** 自定义的分类名称 */
+    categoryName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl: string | undefined;
+    /** 排序编号 */
+    orderNumber: string | undefined;
+}
+
+export class CreateShopCommentInput implements ICreateShopCommentInput {
+    mediaIds!: string[] | undefined;
+    userName!: string | undefined;
+    avatorUrl!: string | undefined;
+    content!: string | undefined;
+    orderId!: number | undefined;
+    starLevel!: number | undefined;
+    from!: string | undefined;
+
+    constructor(data?: ICreateShopCommentInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["mediaIds"])) {
+                this.mediaIds = [] as any;
+                for (let item of _data["mediaIds"])
+                    this.mediaIds!.push(item);
+            }
+            this.userName = _data["userName"];
+            this.avatorUrl = _data["avatorUrl"];
+            this.content = _data["content"];
+            this.orderId = _data["orderId"];
+            this.starLevel = _data["starLevel"];
+            this.from = _data["from"];
+        }
+    }
+
+    static fromJS(data: any): CreateShopCommentInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateShopCommentInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.mediaIds)) {
+            data["mediaIds"] = [];
+            for (let item of this.mediaIds)
+                data["mediaIds"].push(item);
+        }
+        data["userName"] = this.userName;
+        data["avatorUrl"] = this.avatorUrl;
+        data["content"] = this.content;
+        data["orderId"] = this.orderId;
+        data["starLevel"] = this.starLevel;
+        data["from"] = this.from;
+        return data; 
+    }
+}
+
+export interface ICreateShopCommentInput {
+    mediaIds: string[] | undefined;
+    userName: string | undefined;
+    avatorUrl: string | undefined;
+    content: string | undefined;
+    orderId: number | undefined;
+    starLevel: number | undefined;
+    from: string | undefined;
+}
+
+export class CreateShopForHostInput implements ICreateShopForHostInput {
+    displayName!: string | undefined;
+    shopUrl!: string | undefined;
+    tenantId!: number;
+
+    constructor(data?: ICreateShopForHostInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.displayName = _data["displayName"];
+            this.shopUrl = _data["shopUrl"];
+            this.tenantId = _data["tenantId"];
+        }
+    }
+
+    static fromJS(data: any): CreateShopForHostInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateShopForHostInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["displayName"] = this.displayName;
+        data["shopUrl"] = this.shopUrl;
+        data["tenantId"] = this.tenantId;
+        return data; 
+    }
+}
+
+export interface ICreateShopForHostInput {
+    displayName: string | undefined;
+    shopUrl: string | undefined;
+    tenantId: number;
+}
+
+export class CreateShopFreightInput implements ICreateShopFreightInput {
+    displayName!: string | undefined;
+    orderNumber!: number;
+    shopShopFreightType!: ShopFreightType;
+    firstPrice!: number;
+    secondPrice!: number;
+    firstNumber!: number | undefined;
+    secondNumber!: number | undefined;
+    firstWeight!: number | undefined;
+    secondWeight!: number | undefined;
+    areas!: AreaModel[] | undefined;
+    status!: ShopFreightStatus;
+    isDefault!: boolean;
+
+    constructor(data?: ICreateShopFreightInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.displayName = _data["displayName"];
+            this.orderNumber = _data["orderNumber"];
+            this.shopShopFreightType = _data["shopShopFreightType"];
+            this.firstPrice = _data["firstPrice"];
+            this.secondPrice = _data["secondPrice"];
+            this.firstNumber = _data["firstNumber"];
+            this.secondNumber = _data["secondNumber"];
+            this.firstWeight = _data["firstWeight"];
+            this.secondWeight = _data["secondWeight"];
+            if (Array.isArray(_data["areas"])) {
+                this.areas = [] as any;
+                for (let item of _data["areas"])
+                    this.areas!.push(AreaModel.fromJS(item));
+            }
+            this.status = _data["status"];
+            this.isDefault = _data["isDefault"];
+        }
+    }
+
+    static fromJS(data: any): CreateShopFreightInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateShopFreightInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["displayName"] = this.displayName;
+        data["orderNumber"] = this.orderNumber;
+        data["shopShopFreightType"] = this.shopShopFreightType;
+        data["firstPrice"] = this.firstPrice;
+        data["secondPrice"] = this.secondPrice;
+        data["firstNumber"] = this.firstNumber;
+        data["secondNumber"] = this.secondNumber;
+        data["firstWeight"] = this.firstWeight;
+        data["secondWeight"] = this.secondWeight;
+        if (Array.isArray(this.areas)) {
+            data["areas"] = [];
+            for (let item of this.areas)
+                data["areas"].push(item.toJSON());
+        }
+        data["status"] = this.status;
+        data["isDefault"] = this.isDefault;
+        return data; 
+    }
+}
+
+export interface ICreateShopFreightInput {
+    displayName: string | undefined;
+    orderNumber: number;
+    shopShopFreightType: ShopFreightType;
+    firstPrice: number;
+    secondPrice: number;
+    firstNumber: number | undefined;
+    secondNumber: number | undefined;
+    firstWeight: number | undefined;
+    secondWeight: number | undefined;
+    areas: AreaModel[] | undefined;
+    status: ShopFreightStatus;
+    isDefault: boolean;
+}
+
+export class CreateShopSliderInput implements ICreateShopSliderInput {
+    displayName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl!: string | undefined;
+    /** 排序编号 */
+    orderNumber!: string | undefined;
+
+    constructor(data?: ICreateShopSliderInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.displayName = _data["displayName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): CreateShopSliderInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateShopSliderInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["displayName"] = this.displayName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface ICreateShopSliderInput {
+    displayName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl: string | undefined;
+    /** 排序编号 */
+    orderNumber: string | undefined;
+}
+
+export class CreateShopTagInput implements ICreateShopTagInput {
+    tagId!: number;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 跳转地址 */
+    turnUrl!: string | undefined;
+    shopTag!: ShopTag;
+
+    constructor(data?: ICreateShopTagInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tagId = _data["tagId"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.shopTag = _data["shopTag"];
+        }
+    }
+
+    static fromJS(data: any): CreateShopTagInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateShopTagInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tagId"] = this.tagId;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["shopTag"] = this.shopTag;
+        return data; 
+    }
+}
+
+export interface ICreateShopTagInput {
+    tagId: number;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 跳转地址 */
+    turnUrl: string | undefined;
+    shopTag: ShopTag;
+}
+
 export class CreateSkuInput implements ICreateSkuInput {
     productId!: number;
     /** Sku Id */
@@ -15894,6 +19843,7 @@ export class CreateSkuResourceInput implements ICreateSkuResourceInput {
     name!: string | undefined;
     skuId!: number;
     fromType!: string | undefined;
+    orderNumber!: number;
 
     constructor(data?: ICreateSkuResourceInput) {
         if (data) {
@@ -15913,6 +19863,7 @@ export class CreateSkuResourceInput implements ICreateSkuResourceInput {
             this.name = _data["name"];
             this.skuId = _data["skuId"];
             this.fromType = _data["fromType"];
+            this.orderNumber = _data["orderNumber"];
         }
     }
 
@@ -15932,6 +19883,7 @@ export class CreateSkuResourceInput implements ICreateSkuResourceInput {
         data["name"] = this.name;
         data["skuId"] = this.skuId;
         data["fromType"] = this.fromType;
+        data["orderNumber"] = this.orderNumber;
         return data; 
     }
 }
@@ -15944,6 +19896,7 @@ export interface ICreateSkuResourceInput {
     name: string | undefined;
     skuId: number;
     fromType: string | undefined;
+    orderNumber: number;
 }
 
 export class CreateSkuRfidInput implements ICreateSkuRfidInput {
@@ -16050,6 +20003,90 @@ export interface ICreateTagInput {
     /** 显示 Entity 的排序顺序. */
     orderNumber: number;
     description: string | undefined;
+}
+
+export class DeductionRule implements IDeductionRule {
+    deductionPointAmount!: number;
+    payCashAmount!: number;
+
+    constructor(data?: IDeductionRule) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.deductionPointAmount = _data["deductionPointAmount"];
+            this.payCashAmount = _data["payCashAmount"];
+        }
+    }
+
+    static fromJS(data: any): DeductionRule {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeductionRule();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["deductionPointAmount"] = this.deductionPointAmount;
+        data["payCashAmount"] = this.payCashAmount;
+        return data; 
+    }
+}
+
+export interface IDeductionRule {
+    deductionPointAmount: number;
+    payCashAmount: number;
+}
+
+export class DeleteShopCarsInput implements IDeleteShopCarsInput {
+    skuIds!: number[] | undefined;
+
+    constructor(data?: IDeleteShopCarsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["skuIds"])) {
+                this.skuIds = [] as any;
+                for (let item of _data["skuIds"])
+                    this.skuIds!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): DeleteShopCarsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeleteShopCarsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.skuIds)) {
+            data["skuIds"] = [];
+            for (let item of this.skuIds)
+                data["skuIds"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IDeleteShopCarsInput {
+    skuIds: number[] | undefined;
 }
 
 export class DeviceSkusDto implements IDeviceSkusDto {
@@ -16611,6 +20648,118 @@ export class ExportTaskDtoPagedResultDto implements IExportTaskDtoPagedResultDto
 export interface IExportTaskDtoPagedResultDto {
     totalCount: number;
     items: ExportTaskDto[] | undefined;
+}
+
+export class ExternalAddOrUpdateCoupon implements IExternalAddOrUpdateCoupon {
+    code!: string;
+    title!: string;
+    pictures!: string;
+    start_Time!: moment.Moment;
+    end_Time!: moment.Moment;
+    url!: string;
+    auditStatus!: number;
+    description!: string | undefined;
+    amount!: number;
+
+    constructor(data?: IExternalAddOrUpdateCoupon) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.code = _data["code"];
+            this.title = _data["title"];
+            this.pictures = _data["pictures"];
+            this.start_Time = _data["start_Time"] ? moment(_data["start_Time"].toString()) : <any>undefined;
+            this.end_Time = _data["end_Time"] ? moment(_data["end_Time"].toString()) : <any>undefined;
+            this.url = _data["url"];
+            this.auditStatus = _data["auditStatus"];
+            this.description = _data["description"];
+            this.amount = _data["amount"];
+        }
+    }
+
+    static fromJS(data: any): ExternalAddOrUpdateCoupon {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExternalAddOrUpdateCoupon();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["title"] = this.title;
+        data["pictures"] = this.pictures;
+        data["start_Time"] = this.start_Time ? this.start_Time.toISOString() : <any>undefined;
+        data["end_Time"] = this.end_Time ? this.end_Time.toISOString() : <any>undefined;
+        data["url"] = this.url;
+        data["auditStatus"] = this.auditStatus;
+        data["description"] = this.description;
+        data["amount"] = this.amount;
+        return data; 
+    }
+}
+
+export interface IExternalAddOrUpdateCoupon {
+    code: string;
+    title: string;
+    pictures: string;
+    start_Time: moment.Moment;
+    end_Time: moment.Moment;
+    url: string;
+    auditStatus: number;
+    description: string | undefined;
+    amount: number;
+}
+
+export class ExternalDeleteCouponsInput implements IExternalDeleteCouponsInput {
+    codes!: string[] | undefined;
+
+    constructor(data?: IExternalDeleteCouponsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["codes"])) {
+                this.codes = [] as any;
+                for (let item of _data["codes"])
+                    this.codes!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): ExternalDeleteCouponsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExternalDeleteCouponsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.codes)) {
+            data["codes"] = [];
+            for (let item of this.codes)
+                data["codes"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IExternalDeleteCouponsInput {
+    codes: string[] | undefined;
 }
 
 export class ExternalSkuDto implements IExternalSkuDto {
@@ -18129,6 +22278,328 @@ export interface IGetPromotioDtoPagedResultDto {
     items: GetPromotioDto[] | undefined;
 }
 
+export class GetSensingSdkShopInput implements IGetSensingSdkShopInput {
+    currentProductId!: number;
+    auditStatus!: AuditStatus;
+    pointRedeemType!: RedeemType;
+    /** 标签 */
+    tagId!: number | undefined;
+    /** 分类 */
+    categoryId!: number | undefined;
+    /** asc , desc */
+    sortStatus!: string | undefined;
+    isSearchSku!: boolean | undefined;
+    ticketId!: number | undefined;
+    filter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetSensingSdkShopInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentProductId = _data["currentProductId"];
+            this.auditStatus = _data["auditStatus"];
+            this.pointRedeemType = _data["pointRedeemType"];
+            this.tagId = _data["tagId"];
+            this.categoryId = _data["categoryId"];
+            this.sortStatus = _data["sortStatus"];
+            this.isSearchSku = _data["isSearchSku"];
+            this.ticketId = _data["ticketId"];
+            this.filter = _data["filter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetSensingSdkShopInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetSensingSdkShopInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentProductId"] = this.currentProductId;
+        data["auditStatus"] = this.auditStatus;
+        data["pointRedeemType"] = this.pointRedeemType;
+        data["tagId"] = this.tagId;
+        data["categoryId"] = this.categoryId;
+        data["sortStatus"] = this.sortStatus;
+        data["isSearchSku"] = this.isSearchSku;
+        data["ticketId"] = this.ticketId;
+        data["filter"] = this.filter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetSensingSdkShopInput {
+    currentProductId: number;
+    auditStatus: AuditStatus;
+    pointRedeemType: RedeemType;
+    /** 标签 */
+    tagId: number | undefined;
+    /** 分类 */
+    categoryId: number | undefined;
+    /** asc , desc */
+    sortStatus: string | undefined;
+    isSearchSku: boolean | undefined;
+    ticketId: number | undefined;
+    filter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
+}
+
+export class GetShopFreightInput implements IGetShopFreightInput {
+    items!: IdAndNumberDto[] | undefined;
+    city!: string | undefined;
+
+    constructor(data?: IGetShopFreightInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(IdAndNumberDto.fromJS(item));
+            }
+            this.city = _data["city"];
+        }
+    }
+
+    static fromJS(data: any): GetShopFreightInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetShopFreightInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["city"] = this.city;
+        return data; 
+    }
+}
+
+export interface IGetShopFreightInput {
+    items: IdAndNumberDto[] | undefined;
+    city: string | undefined;
+}
+
+export class GetShopLikeInfosInput implements IGetShopLikeInfosInput {
+    filter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetShopLikeInfosInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.filter = _data["filter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetShopLikeInfosInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetShopLikeInfosInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filter"] = this.filter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetShopLikeInfosInput {
+    filter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
+}
+
+export class GetShopProductCategoriesInput implements IGetShopProductCategoriesInput {
+    filter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetShopProductCategoriesInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.filter = _data["filter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetShopProductCategoriesInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetShopProductCategoriesInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["filter"] = this.filter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetShopProductCategoriesInput {
+    filter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
+}
+
+export class GetShopRecommendProductsInput implements IGetShopRecommendProductsInput {
+    tagName!: string | undefined;
+    needFill!: boolean;
+    filter!: string | undefined;
+    sorting!: string | undefined;
+    maxResultCount!: number;
+    skipCount!: number;
+
+    constructor(data?: IGetShopRecommendProductsInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tagName = _data["tagName"];
+            this.needFill = _data["needFill"];
+            this.filter = _data["filter"];
+            this.sorting = _data["sorting"];
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+        }
+    }
+
+    static fromJS(data: any): GetShopRecommendProductsInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetShopRecommendProductsInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tagName"] = this.tagName;
+        data["needFill"] = this.needFill;
+        data["filter"] = this.filter;
+        data["sorting"] = this.sorting;
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        return data; 
+    }
+}
+
+export interface IGetShopRecommendProductsInput {
+    tagName: string | undefined;
+    needFill: boolean;
+    filter: string | undefined;
+    sorting: string | undefined;
+    maxResultCount: number;
+    skipCount: number;
+}
+
+export class GetSingleShopProductInput implements IGetSingleShopProductInput {
+    currentProductId!: number;
+
+    constructor(data?: IGetSingleShopProductInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentProductId = _data["currentProductId"];
+        }
+    }
+
+    static fromJS(data: any): GetSingleShopProductInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetSingleShopProductInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentProductId"] = this.currentProductId;
+        return data; 
+    }
+}
+
+export interface IGetSingleShopProductInput {
+    currentProductId: number;
+}
+
 export class GetSkuByCodeDto implements IGetSkuByCodeDto {
     id!: number;
     code!: string | undefined;
@@ -18303,6 +22774,118 @@ export class GetSkuRfidDtoPagedResultDto implements IGetSkuRfidDtoPagedResultDto
 export interface IGetSkuRfidDtoPagedResultDto {
     totalCount: number;
     items: GetSkuRfidDto[] | undefined;
+}
+
+export class GetTicketDto implements IGetTicketDto {
+    id!: number;
+    creationTime!: moment.Moment;
+    displayName!: string | undefined;
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
+    avaliableDays!: number | undefined;
+    expireTime!: moment.Moment | undefined;
+    isTaked!: boolean;
+    description!: string | undefined;
+    value!: number;
+    takeCondition!: string[] | undefined;
+    usage!: string | undefined;
+    picUrl!: string | undefined;
+    color!: string | undefined;
+    limitTimes!: number | undefined;
+    takeTimes!: number | undefined;
+    repeatTakeTimes!: number;
+    mergeUse!: boolean;
+
+    constructor(data?: IGetTicketDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.displayName = _data["displayName"];
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+            this.avaliableDays = _data["avaliableDays"];
+            this.expireTime = _data["expireTime"] ? moment(_data["expireTime"].toString()) : <any>undefined;
+            this.isTaked = _data["isTaked"];
+            this.description = _data["description"];
+            this.value = _data["value"];
+            if (Array.isArray(_data["takeCondition"])) {
+                this.takeCondition = [] as any;
+                for (let item of _data["takeCondition"])
+                    this.takeCondition!.push(item);
+            }
+            this.usage = _data["usage"];
+            this.picUrl = _data["picUrl"];
+            this.color = _data["color"];
+            this.limitTimes = _data["limitTimes"];
+            this.takeTimes = _data["takeTimes"];
+            this.repeatTakeTimes = _data["repeatTakeTimes"];
+            this.mergeUse = _data["mergeUse"];
+        }
+    }
+
+    static fromJS(data: any): GetTicketDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTicketDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["displayName"] = this.displayName;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        data["avaliableDays"] = this.avaliableDays;
+        data["expireTime"] = this.expireTime ? this.expireTime.toISOString() : <any>undefined;
+        data["isTaked"] = this.isTaked;
+        data["description"] = this.description;
+        data["value"] = this.value;
+        if (Array.isArray(this.takeCondition)) {
+            data["takeCondition"] = [];
+            for (let item of this.takeCondition)
+                data["takeCondition"].push(item);
+        }
+        data["usage"] = this.usage;
+        data["picUrl"] = this.picUrl;
+        data["color"] = this.color;
+        data["limitTimes"] = this.limitTimes;
+        data["takeTimes"] = this.takeTimes;
+        data["repeatTakeTimes"] = this.repeatTakeTimes;
+        data["mergeUse"] = this.mergeUse;
+        return data; 
+    }
+}
+
+export interface IGetTicketDto {
+    id: number;
+    creationTime: moment.Moment;
+    displayName: string | undefined;
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
+    avaliableDays: number | undefined;
+    expireTime: moment.Moment | undefined;
+    isTaked: boolean;
+    description: string | undefined;
+    value: number;
+    takeCondition: string[] | undefined;
+    usage: string | undefined;
+    picUrl: string | undefined;
+    color: string | undefined;
+    limitTimes: number | undefined;
+    takeTimes: number | undefined;
+    repeatTakeTimes: number;
+    mergeUse: boolean;
 }
 
 export class GroupDto implements IGroupDto {
@@ -18563,6 +23146,46 @@ export interface IGroupDto {
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
+}
+
+export class IdAndNumberDto implements IIdAndNumberDto {
+    skuId!: number;
+    number!: number;
+
+    constructor(data?: IIdAndNumberDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.skuId = _data["skuId"];
+            this.number = _data["number"];
+        }
+    }
+
+    static fromJS(data: any): IdAndNumberDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new IdAndNumberDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["skuId"] = this.skuId;
+        data["number"] = this.number;
+        return data; 
+    }
+}
+
+export interface IIdAndNumberDto {
+    skuId: number;
+    number: number;
 }
 
 export class IdAndTotalCount implements IIdAndTotalCount {
@@ -19669,6 +24292,46 @@ export interface IMatchItemDtoPagedResultDto {
     items: MatchItemDto[] | undefined;
 }
 
+export class NameBoolDto implements INameBoolDto {
+    name!: string | undefined;
+    isPurchased!: boolean;
+
+    constructor(data?: INameBoolDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.isPurchased = _data["isPurchased"];
+        }
+    }
+
+    static fromJS(data: any): NameBoolDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new NameBoolDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["isPurchased"] = this.isPurchased;
+        return data; 
+    }
+}
+
+export interface INameBoolDto {
+    name: string | undefined;
+    isPurchased: boolean;
+}
+
 export class NameValueDto implements INameValueDto {
     name!: string | undefined;
     value!: string | undefined;
@@ -19921,6 +24584,86 @@ export enum OutPutInStorageType {
     Check = 2,
 }
 
+export class PayCashPointRule implements IPayCashPointRule {
+    payCashAmount!: number;
+    awardPointAmount!: number;
+
+    constructor(data?: IPayCashPointRule) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.payCashAmount = _data["payCashAmount"];
+            this.awardPointAmount = _data["awardPointAmount"];
+        }
+    }
+
+    static fromJS(data: any): PayCashPointRule {
+        data = typeof data === 'object' ? data : {};
+        let result = new PayCashPointRule();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["payCashAmount"] = this.payCashAmount;
+        data["awardPointAmount"] = this.awardPointAmount;
+        return data; 
+    }
+}
+
+export interface IPayCashPointRule {
+    payCashAmount: number;
+    awardPointAmount: number;
+}
+
+export class PayPointRule implements IPayPointRule {
+    shopPointRule!: PayCashPointRule;
+    devicePointRule!: PayCashPointRule;
+
+    constructor(data?: IPayPointRule) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.shopPointRule = _data["shopPointRule"] ? PayCashPointRule.fromJS(_data["shopPointRule"]) : <any>undefined;
+            this.devicePointRule = _data["devicePointRule"] ? PayCashPointRule.fromJS(_data["devicePointRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PayPointRule {
+        data = typeof data === 'object' ? data : {};
+        let result = new PayPointRule();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["shopPointRule"] = this.shopPointRule ? this.shopPointRule.toJSON() : <any>undefined;
+        data["devicePointRule"] = this.devicePointRule ? this.devicePointRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPayPointRule {
+    shopPointRule: PayCashPointRule;
+    devicePointRule: PayCashPointRule;
+}
+
 export class PDFDto implements IPDFDto {
     tenantId!: number;
     skuId!: number;
@@ -19991,6 +24734,46 @@ export interface IPDFDto {
     isTop: number;
     textForPDF: TextForPDF[] | undefined;
     column: number;
+}
+
+export class PointDeductionRule implements IPointDeductionRule {
+    shopDeductionRule!: DeductionRule;
+    deviceDeductionRule!: DeductionRule;
+
+    constructor(data?: IPointDeductionRule) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.shopDeductionRule = _data["shopDeductionRule"] ? DeductionRule.fromJS(_data["shopDeductionRule"]) : <any>undefined;
+            this.deviceDeductionRule = _data["deviceDeductionRule"] ? DeductionRule.fromJS(_data["deviceDeductionRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PointDeductionRule {
+        data = typeof data === 'object' ? data : {};
+        let result = new PointDeductionRule();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["shopDeductionRule"] = this.shopDeductionRule ? this.shopDeductionRule.toJSON() : <any>undefined;
+        data["deviceDeductionRule"] = this.deviceDeductionRule ? this.deviceDeductionRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IPointDeductionRule {
+    shopDeductionRule: DeductionRule;
+    deviceDeductionRule: DeductionRule;
 }
 
 export class PositionDto implements IPositionDto {
@@ -21669,6 +26452,62 @@ export interface IProductSdkModelPagedResultDto {
     items: ProductSdkModel[] | undefined;
 }
 
+export class ProductTagAndCategoryDto implements IProductTagAndCategoryDto {
+    tagIds!: number[] | undefined;
+    categoryIds!: number[] | undefined;
+
+    constructor(data?: IProductTagAndCategoryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["tagIds"])) {
+                this.tagIds = [] as any;
+                for (let item of _data["tagIds"])
+                    this.tagIds!.push(item);
+            }
+            if (Array.isArray(_data["categoryIds"])) {
+                this.categoryIds = [] as any;
+                for (let item of _data["categoryIds"])
+                    this.categoryIds!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): ProductTagAndCategoryDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProductTagAndCategoryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.tagIds)) {
+            data["tagIds"] = [];
+            for (let item of this.tagIds)
+                data["tagIds"].push(item);
+        }
+        if (Array.isArray(this.categoryIds)) {
+            data["categoryIds"] = [];
+            for (let item of this.categoryIds)
+                data["categoryIds"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IProductTagAndCategoryDto {
+    tagIds: number[] | undefined;
+    categoryIds: number[] | undefined;
+}
+
 export enum PromotionTypeEnum {
     InShop = 0,
     InGroup = 1,
@@ -22119,6 +26958,78 @@ export interface IProuctListOutPutPagedResultDto {
     items: ProuctListOutPut[] | undefined;
 }
 
+export class ProuctListOutPutShopPagedResultDto implements IProuctListOutPutShopPagedResultDto {
+    categories!: IdNameDto[] | undefined;
+    tags!: IdNameDto[] | undefined;
+    totalCount!: number;
+    items!: ProuctListOutPut[] | undefined;
+
+    constructor(data?: IProuctListOutPutShopPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["categories"])) {
+                this.categories = [] as any;
+                for (let item of _data["categories"])
+                    this.categories!.push(IdNameDto.fromJS(item));
+            }
+            if (Array.isArray(_data["tags"])) {
+                this.tags = [] as any;
+                for (let item of _data["tags"])
+                    this.tags!.push(IdNameDto.fromJS(item));
+            }
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ProuctListOutPut.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ProuctListOutPutShopPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProuctListOutPutShopPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.categories)) {
+            data["categories"] = [];
+            for (let item of this.categories)
+                data["categories"].push(item.toJSON());
+        }
+        if (Array.isArray(this.tags)) {
+            data["tags"] = [];
+            for (let item of this.tags)
+                data["tags"].push(item.toJSON());
+        }
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IProuctListOutPutShopPagedResultDto {
+    categories: IdNameDto[] | undefined;
+    tags: IdNameDto[] | undefined;
+    totalCount: number;
+    items: ProuctListOutPut[] | undefined;
+}
+
 export class PublishEntitiesInput implements IPublishEntitiesInput {
     entityIds!: number[] | undefined;
     ouOrDeviceOrStoreList!: IdTypeDto[] | undefined;
@@ -22357,6 +27268,106 @@ export enum RedeemType {
     None = 0,
     Full = 1,
     Partial = 2,
+}
+
+export class ResViewModel implements IResViewModel {
+    /** 资源名称 */
+    name!: string | undefined;
+    /** 资源url */
+    resUrl!: string | undefined;
+    usage!: string | undefined;
+    orderNumber!: number;
+
+    constructor(data?: IResViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.resUrl = _data["resUrl"];
+            this.usage = _data["usage"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): ResViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["resUrl"] = this.resUrl;
+        data["usage"] = this.usage;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface IResViewModel {
+    /** 资源名称 */
+    name: string | undefined;
+    /** 资源url */
+    resUrl: string | undefined;
+    usage: string | undefined;
+    orderNumber: number;
+}
+
+export class RfidCodeStateDto implements IRfidCodeStateDto {
+    rfidStates!: NameBoolDto[] | undefined;
+    allPurchased!: boolean;
+
+    constructor(data?: IRfidCodeStateDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["rfidStates"])) {
+                this.rfidStates = [] as any;
+                for (let item of _data["rfidStates"])
+                    this.rfidStates!.push(NameBoolDto.fromJS(item));
+            }
+            this.allPurchased = _data["allPurchased"];
+        }
+    }
+
+    static fromJS(data: any): RfidCodeStateDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RfidCodeStateDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.rfidStates)) {
+            data["rfidStates"] = [];
+            for (let item of this.rfidStates)
+                data["rfidStates"].push(item.toJSON());
+        }
+        data["allPurchased"] = this.allPurchased;
+        return data; 
+    }
+}
+
+export interface IRfidCodeStateDto {
+    rfidStates: NameBoolDto[] | undefined;
+    allPurchased: boolean;
 }
 
 export class RfidQrcodeDto implements IRfidQrcodeDto {
@@ -22787,9 +27798,1250 @@ export interface ISetProductTagsDto {
     action: string | undefined;
 }
 
+export class ShopCarDto implements IShopCarDto {
+    skuDto!: ShopSkuDto;
+    number!: number;
+
+    constructor(data?: IShopCarDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.skuDto = _data["skuDto"] ? ShopSkuDto.fromJS(_data["skuDto"]) : <any>undefined;
+            this.number = _data["number"];
+        }
+    }
+
+    static fromJS(data: any): ShopCarDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopCarDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["skuDto"] = this.skuDto ? this.skuDto.toJSON() : <any>undefined;
+        data["number"] = this.number;
+        return data; 
+    }
+}
+
+export interface IShopCarDto {
+    skuDto: ShopSkuDto;
+    number: number;
+}
+
+export class ShopCategoryDto implements IShopCategoryDto {
+    id!: number;
+    /** 租户 */
+    tenantId!: number;
+    categoryId!: number;
+    categoryName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl!: string | undefined;
+    /** 排序编号 */
+    orderNumber!: string | undefined;
+
+    constructor(data?: IShopCategoryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.tenantId = _data["tenantId"];
+            this.categoryId = _data["categoryId"];
+            this.categoryName = _data["categoryName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): ShopCategoryDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopCategoryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["tenantId"] = this.tenantId;
+        data["categoryId"] = this.categoryId;
+        data["categoryName"] = this.categoryName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface IShopCategoryDto {
+    id: number;
+    /** 租户 */
+    tenantId: number;
+    categoryId: number;
+    categoryName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl: string | undefined;
+    /** 排序编号 */
+    orderNumber: string | undefined;
+}
+
+export class ShopCategoryDtoPagedResultDto implements IShopCategoryDtoPagedResultDto {
+    totalCount!: number;
+    items!: ShopCategoryDto[] | undefined;
+
+    constructor(data?: IShopCategoryDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ShopCategoryDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ShopCategoryDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopCategoryDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IShopCategoryDtoPagedResultDto {
+    totalCount: number;
+    items: ShopCategoryDto[] | undefined;
+}
+
+export class ShopCollectionDto implements IShopCollectionDto {
+    id!: number;
+    price!: number | undefined;
+    /** 事物都该有个名字来表示 */
+    title!: string | undefined;
+    picUrl!: string | undefined;
+    promPrice!: number;
+    price2!: number | undefined;
+    salesVolume!: number;
+    isCollection!: boolean;
+
+    constructor(data?: IShopCollectionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.price = _data["price"];
+            this.title = _data["title"];
+            this.picUrl = _data["picUrl"];
+            this.promPrice = _data["promPrice"];
+            this.price2 = _data["price2"];
+            this.salesVolume = _data["salesVolume"];
+            this.isCollection = _data["isCollection"];
+        }
+    }
+
+    static fromJS(data: any): ShopCollectionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopCollectionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["price"] = this.price;
+        data["title"] = this.title;
+        data["picUrl"] = this.picUrl;
+        data["promPrice"] = this.promPrice;
+        data["price2"] = this.price2;
+        data["salesVolume"] = this.salesVolume;
+        data["isCollection"] = this.isCollection;
+        return data; 
+    }
+}
+
+export interface IShopCollectionDto {
+    id: number;
+    price: number | undefined;
+    /** 事物都该有个名字来表示 */
+    title: string | undefined;
+    picUrl: string | undefined;
+    promPrice: number;
+    price2: number | undefined;
+    salesVolume: number;
+    isCollection: boolean;
+}
+
+export class ShopCollectionDtoPagedResultDto implements IShopCollectionDtoPagedResultDto {
+    totalCount!: number;
+    items!: ShopCollectionDto[] | undefined;
+
+    constructor(data?: IShopCollectionDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ShopCollectionDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ShopCollectionDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopCollectionDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IShopCollectionDtoPagedResultDto {
+    totalCount: number;
+    items: ShopCollectionDto[] | undefined;
+}
+
+export class ShopDto implements IShopDto {
+    id!: number;
+    displayName!: string | undefined;
+    shopUrl!: string | undefined;
+    tenantId!: number;
+    tenantName!: string | undefined;
+
+    constructor(data?: IShopDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+            this.shopUrl = _data["shopUrl"];
+            this.tenantId = _data["tenantId"];
+            this.tenantName = _data["tenantName"];
+        }
+    }
+
+    static fromJS(data: any): ShopDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        data["shopUrl"] = this.shopUrl;
+        data["tenantId"] = this.tenantId;
+        data["tenantName"] = this.tenantName;
+        return data; 
+    }
+}
+
+export interface IShopDto {
+    id: number;
+    displayName: string | undefined;
+    shopUrl: string | undefined;
+    tenantId: number;
+    tenantName: string | undefined;
+}
+
+export class ShopDtoPagedResultDto implements IShopDtoPagedResultDto {
+    totalCount!: number;
+    items!: ShopDto[] | undefined;
+
+    constructor(data?: IShopDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ShopDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ShopDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IShopDtoPagedResultDto {
+    totalCount: number;
+    items: ShopDto[] | undefined;
+}
+
 export enum ShopFreightBindingType {
     Calculate = 0,
     Fixed = 1,
+}
+
+export class ShopFreightDto implements IShopFreightDto {
+    id!: number;
+    tenantId!: number;
+    displayName!: string | undefined;
+    orderNumber!: number;
+    shopShopFreightType!: ShopFreightType;
+    firstPrice!: number;
+    secondPrice!: number;
+    firstNumber!: number | undefined;
+    secondNumber!: number | undefined;
+    firstWeight!: number | undefined;
+    secondWeight!: number | undefined;
+    areas!: AreaModel[] | undefined;
+    status!: ShopFreightStatus;
+    isDefault!: boolean;
+
+    constructor(data?: IShopFreightDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.tenantId = _data["tenantId"];
+            this.displayName = _data["displayName"];
+            this.orderNumber = _data["orderNumber"];
+            this.shopShopFreightType = _data["shopShopFreightType"];
+            this.firstPrice = _data["firstPrice"];
+            this.secondPrice = _data["secondPrice"];
+            this.firstNumber = _data["firstNumber"];
+            this.secondNumber = _data["secondNumber"];
+            this.firstWeight = _data["firstWeight"];
+            this.secondWeight = _data["secondWeight"];
+            if (Array.isArray(_data["areas"])) {
+                this.areas = [] as any;
+                for (let item of _data["areas"])
+                    this.areas!.push(AreaModel.fromJS(item));
+            }
+            this.status = _data["status"];
+            this.isDefault = _data["isDefault"];
+        }
+    }
+
+    static fromJS(data: any): ShopFreightDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopFreightDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["tenantId"] = this.tenantId;
+        data["displayName"] = this.displayName;
+        data["orderNumber"] = this.orderNumber;
+        data["shopShopFreightType"] = this.shopShopFreightType;
+        data["firstPrice"] = this.firstPrice;
+        data["secondPrice"] = this.secondPrice;
+        data["firstNumber"] = this.firstNumber;
+        data["secondNumber"] = this.secondNumber;
+        data["firstWeight"] = this.firstWeight;
+        data["secondWeight"] = this.secondWeight;
+        if (Array.isArray(this.areas)) {
+            data["areas"] = [];
+            for (let item of this.areas)
+                data["areas"].push(item.toJSON());
+        }
+        data["status"] = this.status;
+        data["isDefault"] = this.isDefault;
+        return data; 
+    }
+}
+
+export interface IShopFreightDto {
+    id: number;
+    tenantId: number;
+    displayName: string | undefined;
+    orderNumber: number;
+    shopShopFreightType: ShopFreightType;
+    firstPrice: number;
+    secondPrice: number;
+    firstNumber: number | undefined;
+    secondNumber: number | undefined;
+    firstWeight: number | undefined;
+    secondWeight: number | undefined;
+    areas: AreaModel[] | undefined;
+    status: ShopFreightStatus;
+    isDefault: boolean;
+}
+
+export class ShopFreightDtoPagedResultDto implements IShopFreightDtoPagedResultDto {
+    totalCount!: number;
+    items!: ShopFreightDto[] | undefined;
+
+    constructor(data?: IShopFreightDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ShopFreightDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ShopFreightDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopFreightDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IShopFreightDtoPagedResultDto {
+    totalCount: number;
+    items: ShopFreightDto[] | undefined;
+}
+
+export enum ShopFreightStatus {
+    Offline = 0,
+    Online = 1,
+}
+
+export enum ShopFreightType {
+    ByNumber = 0,
+    ByWeight = 1,
+}
+
+export class ShopLikeInfosDto implements IShopLikeInfosDto {
+    tenantId!: number;
+    memberId!: number;
+    productId!: number;
+    viewTimes!: number;
+    displayName!: string | undefined;
+    image!: string | undefined;
+    price!: number;
+    description!: string | undefined;
+
+    constructor(data?: IShopLikeInfosDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenantId = _data["tenantId"];
+            this.memberId = _data["memberId"];
+            this.productId = _data["productId"];
+            this.viewTimes = _data["viewTimes"];
+            this.displayName = _data["displayName"];
+            this.image = _data["image"];
+            this.price = _data["price"];
+            this.description = _data["description"];
+        }
+    }
+
+    static fromJS(data: any): ShopLikeInfosDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopLikeInfosDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
+        data["memberId"] = this.memberId;
+        data["productId"] = this.productId;
+        data["viewTimes"] = this.viewTimes;
+        data["displayName"] = this.displayName;
+        data["image"] = this.image;
+        data["price"] = this.price;
+        data["description"] = this.description;
+        return data; 
+    }
+}
+
+export interface IShopLikeInfosDto {
+    tenantId: number;
+    memberId: number;
+    productId: number;
+    viewTimes: number;
+    displayName: string | undefined;
+    image: string | undefined;
+    price: number;
+    description: string | undefined;
+}
+
+export class ShopProductSkuDto implements IShopProductSkuDto {
+    id!: number;
+    sku_id!: string | undefined;
+    productId!: number;
+    productName!: string | undefined;
+    productPointRedeemType!: RedeemType;
+    productPointRule!: ProductPointRule;
+    quantity!: number;
+    auditStatus!: AuditStatus;
+    propsName!: string | undefined;
+    /** 事物都该有个名字来表示 */
+    title!: string | undefined;
+    /** 在当今社会,任何事物都是可以明码标价的,难道不是! */
+    price!: string | undefined;
+    picUrl!: string | undefined;
+    description!: string | undefined;
+    currentSkuPropertyValues!: Sku_PropertyValueDto[] | undefined;
+    promPrice!: string | undefined;
+    price2!: number | undefined;
+    salesVolume!: number;
+    tagIds!: number[] | undefined;
+    tagNames!: string[] | undefined;
+    categoryIds!: number[] | undefined;
+    categoryNames!: string[] | undefined;
+    pointRedeemType!: RedeemType;
+    pointRule!: ProductPointRule;
+    storeId!: number | undefined;
+    storeOuterId!: string | undefined;
+
+    constructor(data?: IShopProductSkuDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.sku_id = _data["sku_id"];
+            this.productId = _data["productId"];
+            this.productName = _data["productName"];
+            this.productPointRedeemType = _data["productPointRedeemType"];
+            this.productPointRule = _data["productPointRule"] ? ProductPointRule.fromJS(_data["productPointRule"]) : <any>undefined;
+            this.quantity = _data["quantity"];
+            this.auditStatus = _data["auditStatus"];
+            this.propsName = _data["propsName"];
+            this.title = _data["title"];
+            this.price = _data["price"];
+            this.picUrl = _data["picUrl"];
+            this.description = _data["description"];
+            if (Array.isArray(_data["currentSkuPropertyValues"])) {
+                this.currentSkuPropertyValues = [] as any;
+                for (let item of _data["currentSkuPropertyValues"])
+                    this.currentSkuPropertyValues!.push(Sku_PropertyValueDto.fromJS(item));
+            }
+            this.promPrice = _data["promPrice"];
+            this.price2 = _data["price2"];
+            this.salesVolume = _data["salesVolume"];
+            if (Array.isArray(_data["tagIds"])) {
+                this.tagIds = [] as any;
+                for (let item of _data["tagIds"])
+                    this.tagIds!.push(item);
+            }
+            if (Array.isArray(_data["tagNames"])) {
+                this.tagNames = [] as any;
+                for (let item of _data["tagNames"])
+                    this.tagNames!.push(item);
+            }
+            if (Array.isArray(_data["categoryIds"])) {
+                this.categoryIds = [] as any;
+                for (let item of _data["categoryIds"])
+                    this.categoryIds!.push(item);
+            }
+            if (Array.isArray(_data["categoryNames"])) {
+                this.categoryNames = [] as any;
+                for (let item of _data["categoryNames"])
+                    this.categoryNames!.push(item);
+            }
+            this.pointRedeemType = _data["pointRedeemType"];
+            this.pointRule = _data["pointRule"] ? ProductPointRule.fromJS(_data["pointRule"]) : <any>undefined;
+            this.storeId = _data["storeId"];
+            this.storeOuterId = _data["storeOuterId"];
+        }
+    }
+
+    static fromJS(data: any): ShopProductSkuDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopProductSkuDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["sku_id"] = this.sku_id;
+        data["productId"] = this.productId;
+        data["productName"] = this.productName;
+        data["productPointRedeemType"] = this.productPointRedeemType;
+        data["productPointRule"] = this.productPointRule ? this.productPointRule.toJSON() : <any>undefined;
+        data["quantity"] = this.quantity;
+        data["auditStatus"] = this.auditStatus;
+        data["propsName"] = this.propsName;
+        data["title"] = this.title;
+        data["price"] = this.price;
+        data["picUrl"] = this.picUrl;
+        data["description"] = this.description;
+        if (Array.isArray(this.currentSkuPropertyValues)) {
+            data["currentSkuPropertyValues"] = [];
+            for (let item of this.currentSkuPropertyValues)
+                data["currentSkuPropertyValues"].push(item.toJSON());
+        }
+        data["promPrice"] = this.promPrice;
+        data["price2"] = this.price2;
+        data["salesVolume"] = this.salesVolume;
+        if (Array.isArray(this.tagIds)) {
+            data["tagIds"] = [];
+            for (let item of this.tagIds)
+                data["tagIds"].push(item);
+        }
+        if (Array.isArray(this.tagNames)) {
+            data["tagNames"] = [];
+            for (let item of this.tagNames)
+                data["tagNames"].push(item);
+        }
+        if (Array.isArray(this.categoryIds)) {
+            data["categoryIds"] = [];
+            for (let item of this.categoryIds)
+                data["categoryIds"].push(item);
+        }
+        if (Array.isArray(this.categoryNames)) {
+            data["categoryNames"] = [];
+            for (let item of this.categoryNames)
+                data["categoryNames"].push(item);
+        }
+        data["pointRedeemType"] = this.pointRedeemType;
+        data["pointRule"] = this.pointRule ? this.pointRule.toJSON() : <any>undefined;
+        data["storeId"] = this.storeId;
+        data["storeOuterId"] = this.storeOuterId;
+        return data; 
+    }
+}
+
+export interface IShopProductSkuDto {
+    id: number;
+    sku_id: string | undefined;
+    productId: number;
+    productName: string | undefined;
+    productPointRedeemType: RedeemType;
+    productPointRule: ProductPointRule;
+    quantity: number;
+    auditStatus: AuditStatus;
+    propsName: string | undefined;
+    /** 事物都该有个名字来表示 */
+    title: string | undefined;
+    /** 在当今社会,任何事物都是可以明码标价的,难道不是! */
+    price: string | undefined;
+    picUrl: string | undefined;
+    description: string | undefined;
+    currentSkuPropertyValues: Sku_PropertyValueDto[] | undefined;
+    promPrice: string | undefined;
+    price2: number | undefined;
+    salesVolume: number;
+    tagIds: number[] | undefined;
+    tagNames: string[] | undefined;
+    categoryIds: number[] | undefined;
+    categoryNames: string[] | undefined;
+    pointRedeemType: RedeemType;
+    pointRule: ProductPointRule;
+    storeId: number | undefined;
+    storeOuterId: string | undefined;
+}
+
+export class ShopSettingDto implements IShopSettingDto {
+    id!: number;
+    /** 租户 */
+    tenantId!: number;
+    /** 商城对外Id */
+    outerId!: string | undefined;
+    /** 商城名称 */
+    displayName!: string | undefined;
+    /** 商城Logo */
+    logoUrl!: string | undefined;
+    /** 商城客服电话 */
+    phoneNumber!: string | undefined;
+    /** 商城地址 */
+    address!: string | undefined;
+    /** 退货地址 */
+    refundAddress!: string | undefined;
+    /** 商城简介 */
+    description!: string | undefined;
+    status!: ShopStatus;
+    /** 下单未付款自动关闭天数 */
+    orderAutoCloseDays!: number;
+    /** 订单发货后自动收货天数 */
+    orderAutoSignDays!: number;
+    /** 订单确认收获后可申请退货天数 */
+    orderAllowRefundDays!: number;
+    shopUrl!: string | undefined;
+    publicAccountId!: number | undefined;
+    isEnablePointRule!: boolean;
+    needCertification!: boolean | undefined;
+    certificationUrl!: string | undefined;
+    payPointRule!: PayPointRule;
+    pointDeductionRule!: PointDeductionRule;
+
+    constructor(data?: IShopSettingDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.tenantId = _data["tenantId"];
+            this.outerId = _data["outerId"];
+            this.displayName = _data["displayName"];
+            this.logoUrl = _data["logoUrl"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.address = _data["address"];
+            this.refundAddress = _data["refundAddress"];
+            this.description = _data["description"];
+            this.status = _data["status"];
+            this.orderAutoCloseDays = _data["orderAutoCloseDays"];
+            this.orderAutoSignDays = _data["orderAutoSignDays"];
+            this.orderAllowRefundDays = _data["orderAllowRefundDays"];
+            this.shopUrl = _data["shopUrl"];
+            this.publicAccountId = _data["publicAccountId"];
+            this.isEnablePointRule = _data["isEnablePointRule"];
+            this.needCertification = _data["needCertification"];
+            this.certificationUrl = _data["certificationUrl"];
+            this.payPointRule = _data["payPointRule"] ? PayPointRule.fromJS(_data["payPointRule"]) : <any>undefined;
+            this.pointDeductionRule = _data["pointDeductionRule"] ? PointDeductionRule.fromJS(_data["pointDeductionRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ShopSettingDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopSettingDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["tenantId"] = this.tenantId;
+        data["outerId"] = this.outerId;
+        data["displayName"] = this.displayName;
+        data["logoUrl"] = this.logoUrl;
+        data["phoneNumber"] = this.phoneNumber;
+        data["address"] = this.address;
+        data["refundAddress"] = this.refundAddress;
+        data["description"] = this.description;
+        data["status"] = this.status;
+        data["orderAutoCloseDays"] = this.orderAutoCloseDays;
+        data["orderAutoSignDays"] = this.orderAutoSignDays;
+        data["orderAllowRefundDays"] = this.orderAllowRefundDays;
+        data["shopUrl"] = this.shopUrl;
+        data["publicAccountId"] = this.publicAccountId;
+        data["isEnablePointRule"] = this.isEnablePointRule;
+        data["needCertification"] = this.needCertification;
+        data["certificationUrl"] = this.certificationUrl;
+        data["payPointRule"] = this.payPointRule ? this.payPointRule.toJSON() : <any>undefined;
+        data["pointDeductionRule"] = this.pointDeductionRule ? this.pointDeductionRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IShopSettingDto {
+    id: number;
+    /** 租户 */
+    tenantId: number;
+    /** 商城对外Id */
+    outerId: string | undefined;
+    /** 商城名称 */
+    displayName: string | undefined;
+    /** 商城Logo */
+    logoUrl: string | undefined;
+    /** 商城客服电话 */
+    phoneNumber: string | undefined;
+    /** 商城地址 */
+    address: string | undefined;
+    /** 退货地址 */
+    refundAddress: string | undefined;
+    /** 商城简介 */
+    description: string | undefined;
+    status: ShopStatus;
+    /** 下单未付款自动关闭天数 */
+    orderAutoCloseDays: number;
+    /** 订单发货后自动收货天数 */
+    orderAutoSignDays: number;
+    /** 订单确认收获后可申请退货天数 */
+    orderAllowRefundDays: number;
+    shopUrl: string | undefined;
+    publicAccountId: number | undefined;
+    isEnablePointRule: boolean;
+    needCertification: boolean | undefined;
+    certificationUrl: string | undefined;
+    payPointRule: PayPointRule;
+    pointDeductionRule: PointDeductionRule;
+}
+
+export class ShopSkuDto implements IShopSkuDto {
+    id!: number;
+    sku_id!: string | undefined;
+    productId!: number;
+    quantity!: number;
+    auditStatus!: AuditStatus;
+    propsName!: string | undefined;
+    /** 事物都该有个名字来表示 */
+    title!: string | undefined;
+    /** 在当今社会,任何事物都是可以明码标价的,难道不是! */
+    price!: string | undefined;
+    picUrl!: string | undefined;
+    description!: string | undefined;
+    currentSkuPropertyValues!: Sku_PropertyValueDto[] | undefined;
+    promPrice!: string | undefined;
+    price2!: number | undefined;
+    salesVolume!: number;
+    status!: string | undefined;
+
+    constructor(data?: IShopSkuDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.sku_id = _data["sku_id"];
+            this.productId = _data["productId"];
+            this.quantity = _data["quantity"];
+            this.auditStatus = _data["auditStatus"];
+            this.propsName = _data["propsName"];
+            this.title = _data["title"];
+            this.price = _data["price"];
+            this.picUrl = _data["picUrl"];
+            this.description = _data["description"];
+            if (Array.isArray(_data["currentSkuPropertyValues"])) {
+                this.currentSkuPropertyValues = [] as any;
+                for (let item of _data["currentSkuPropertyValues"])
+                    this.currentSkuPropertyValues!.push(Sku_PropertyValueDto.fromJS(item));
+            }
+            this.promPrice = _data["promPrice"];
+            this.price2 = _data["price2"];
+            this.salesVolume = _data["salesVolume"];
+            this.status = _data["status"];
+        }
+    }
+
+    static fromJS(data: any): ShopSkuDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopSkuDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["sku_id"] = this.sku_id;
+        data["productId"] = this.productId;
+        data["quantity"] = this.quantity;
+        data["auditStatus"] = this.auditStatus;
+        data["propsName"] = this.propsName;
+        data["title"] = this.title;
+        data["price"] = this.price;
+        data["picUrl"] = this.picUrl;
+        data["description"] = this.description;
+        if (Array.isArray(this.currentSkuPropertyValues)) {
+            data["currentSkuPropertyValues"] = [];
+            for (let item of this.currentSkuPropertyValues)
+                data["currentSkuPropertyValues"].push(item.toJSON());
+        }
+        data["promPrice"] = this.promPrice;
+        data["price2"] = this.price2;
+        data["salesVolume"] = this.salesVolume;
+        data["status"] = this.status;
+        return data; 
+    }
+}
+
+export interface IShopSkuDto {
+    id: number;
+    sku_id: string | undefined;
+    productId: number;
+    quantity: number;
+    auditStatus: AuditStatus;
+    propsName: string | undefined;
+    /** 事物都该有个名字来表示 */
+    title: string | undefined;
+    /** 在当今社会,任何事物都是可以明码标价的,难道不是! */
+    price: string | undefined;
+    picUrl: string | undefined;
+    description: string | undefined;
+    currentSkuPropertyValues: Sku_PropertyValueDto[] | undefined;
+    promPrice: string | undefined;
+    price2: number | undefined;
+    salesVolume: number;
+    status: string | undefined;
+}
+
+export class ShopSliderDto implements IShopSliderDto {
+    id!: number;
+    /** 租户 */
+    tenantId!: number;
+    /** 名称 */
+    displayName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl!: string | undefined;
+    /** 排序编号 */
+    orderNumber!: string | undefined;
+
+    constructor(data?: IShopSliderDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.tenantId = _data["tenantId"];
+            this.displayName = _data["displayName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): ShopSliderDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopSliderDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["tenantId"] = this.tenantId;
+        data["displayName"] = this.displayName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface IShopSliderDto {
+    id: number;
+    /** 租户 */
+    tenantId: number;
+    /** 名称 */
+    displayName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl: string | undefined;
+    /** 排序编号 */
+    orderNumber: string | undefined;
+}
+
+export class ShopSliderDtoPagedResultDto implements IShopSliderDtoPagedResultDto {
+    totalCount!: number;
+    items!: ShopSliderDto[] | undefined;
+
+    constructor(data?: IShopSliderDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ShopSliderDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ShopSliderDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopSliderDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IShopSliderDtoPagedResultDto {
+    totalCount: number;
+    items: ShopSliderDto[] | undefined;
+}
+
+export enum ShopStatus {
+    Stopped = 0,
+    Running = 1,
+}
+
+export enum ShopTag {
+    Left = 0,
+    Top = 1,
+    Bottom = 2,
+}
+
+export class ShopTagDto implements IShopTagDto {
+    id!: number;
+    /** 租户 */
+    tenantId!: number;
+    tagId!: number;
+    tagName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 跳转地址 */
+    turnUrl!: string | undefined;
+    shopTag!: ShopTag;
+
+    constructor(data?: IShopTagDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.tenantId = _data["tenantId"];
+            this.tagId = _data["tagId"];
+            this.tagName = _data["tagName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.shopTag = _data["shopTag"];
+        }
+    }
+
+    static fromJS(data: any): ShopTagDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopTagDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["tenantId"] = this.tenantId;
+        data["tagId"] = this.tagId;
+        data["tagName"] = this.tagName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["shopTag"] = this.shopTag;
+        return data; 
+    }
+}
+
+export interface IShopTagDto {
+    id: number;
+    /** 租户 */
+    tenantId: number;
+    tagId: number;
+    tagName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 跳转地址 */
+    turnUrl: string | undefined;
+    shopTag: ShopTag;
+}
+
+export class ShopTagDtoPagedResultDto implements IShopTagDtoPagedResultDto {
+    totalCount!: number;
+    items!: ShopTagDto[] | undefined;
+
+    constructor(data?: IShopTagDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ShopTagDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ShopTagDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShopTagDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IShopTagDtoPagedResultDto {
+    totalCount: number;
+    items: ShopTagDto[] | undefined;
 }
 
 export class SimpleFileDto implements ISimpleFileDto {
@@ -22914,6 +29166,226 @@ export interface ISimpleProductOrSkuDto {
     quantity: number;
     description: string | undefined;
     imagesOrVideos: SimpleFileDto[] | undefined;
+}
+
+export class SingleShopProductDto implements ISingleShopProductDto {
+    id!: number;
+    itemId!: string | undefined;
+    quantity!: number;
+    /** 事物都该有个名字来表示 */
+    title!: string | undefined;
+    /** 在当今社会,任何事物都是可以明码标价的,难道不是! */
+    price!: number;
+    picUrl!: string | undefined;
+    description!: string | undefined;
+    skus!: SkuDto[] | undefined;
+    itemImagesOrVideos!: EntityFileDto[] | undefined;
+    skuProperties!: PropertyDto[] | undefined;
+    descriptionItemImagesOrVideos!: EntityFileDto[] | undefined;
+    productCommentDto!: ProductCommentDto[] | undefined;
+    tickets!: GetTicketDto[] | undefined;
+    visualImagePropertyId!: number | undefined;
+    promPrice!: string | undefined;
+    price2!: number | undefined;
+    salesVolume!: number;
+    isCollection!: boolean;
+    status!: string | undefined;
+    haveOtherTickets!: boolean;
+    pointRedeemType!: RedeemType;
+    pointRule!: ProductPointRule;
+
+    constructor(data?: ISingleShopProductDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.itemId = _data["itemId"];
+            this.quantity = _data["quantity"];
+            this.title = _data["title"];
+            this.price = _data["price"];
+            this.picUrl = _data["picUrl"];
+            this.description = _data["description"];
+            if (Array.isArray(_data["skus"])) {
+                this.skus = [] as any;
+                for (let item of _data["skus"])
+                    this.skus!.push(SkuDto.fromJS(item));
+            }
+            if (Array.isArray(_data["itemImagesOrVideos"])) {
+                this.itemImagesOrVideos = [] as any;
+                for (let item of _data["itemImagesOrVideos"])
+                    this.itemImagesOrVideos!.push(EntityFileDto.fromJS(item));
+            }
+            if (Array.isArray(_data["skuProperties"])) {
+                this.skuProperties = [] as any;
+                for (let item of _data["skuProperties"])
+                    this.skuProperties!.push(PropertyDto.fromJS(item));
+            }
+            if (Array.isArray(_data["descriptionItemImagesOrVideos"])) {
+                this.descriptionItemImagesOrVideos = [] as any;
+                for (let item of _data["descriptionItemImagesOrVideos"])
+                    this.descriptionItemImagesOrVideos!.push(EntityFileDto.fromJS(item));
+            }
+            if (Array.isArray(_data["productCommentDto"])) {
+                this.productCommentDto = [] as any;
+                for (let item of _data["productCommentDto"])
+                    this.productCommentDto!.push(ProductCommentDto.fromJS(item));
+            }
+            if (Array.isArray(_data["tickets"])) {
+                this.tickets = [] as any;
+                for (let item of _data["tickets"])
+                    this.tickets!.push(GetTicketDto.fromJS(item));
+            }
+            this.visualImagePropertyId = _data["visualImagePropertyId"];
+            this.promPrice = _data["promPrice"];
+            this.price2 = _data["price2"];
+            this.salesVolume = _data["salesVolume"];
+            this.isCollection = _data["isCollection"];
+            this.status = _data["status"];
+            this.haveOtherTickets = _data["haveOtherTickets"];
+            this.pointRedeemType = _data["pointRedeemType"];
+            this.pointRule = _data["pointRule"] ? ProductPointRule.fromJS(_data["pointRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SingleShopProductDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SingleShopProductDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["itemId"] = this.itemId;
+        data["quantity"] = this.quantity;
+        data["title"] = this.title;
+        data["price"] = this.price;
+        data["picUrl"] = this.picUrl;
+        data["description"] = this.description;
+        if (Array.isArray(this.skus)) {
+            data["skus"] = [];
+            for (let item of this.skus)
+                data["skus"].push(item.toJSON());
+        }
+        if (Array.isArray(this.itemImagesOrVideos)) {
+            data["itemImagesOrVideos"] = [];
+            for (let item of this.itemImagesOrVideos)
+                data["itemImagesOrVideos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.skuProperties)) {
+            data["skuProperties"] = [];
+            for (let item of this.skuProperties)
+                data["skuProperties"].push(item.toJSON());
+        }
+        if (Array.isArray(this.descriptionItemImagesOrVideos)) {
+            data["descriptionItemImagesOrVideos"] = [];
+            for (let item of this.descriptionItemImagesOrVideos)
+                data["descriptionItemImagesOrVideos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.productCommentDto)) {
+            data["productCommentDto"] = [];
+            for (let item of this.productCommentDto)
+                data["productCommentDto"].push(item.toJSON());
+        }
+        if (Array.isArray(this.tickets)) {
+            data["tickets"] = [];
+            for (let item of this.tickets)
+                data["tickets"].push(item.toJSON());
+        }
+        data["visualImagePropertyId"] = this.visualImagePropertyId;
+        data["promPrice"] = this.promPrice;
+        data["price2"] = this.price2;
+        data["salesVolume"] = this.salesVolume;
+        data["isCollection"] = this.isCollection;
+        data["status"] = this.status;
+        data["haveOtherTickets"] = this.haveOtherTickets;
+        data["pointRedeemType"] = this.pointRedeemType;
+        data["pointRule"] = this.pointRule ? this.pointRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ISingleShopProductDto {
+    id: number;
+    itemId: string | undefined;
+    quantity: number;
+    /** 事物都该有个名字来表示 */
+    title: string | undefined;
+    /** 在当今社会,任何事物都是可以明码标价的,难道不是! */
+    price: number;
+    picUrl: string | undefined;
+    description: string | undefined;
+    skus: SkuDto[] | undefined;
+    itemImagesOrVideos: EntityFileDto[] | undefined;
+    skuProperties: PropertyDto[] | undefined;
+    descriptionItemImagesOrVideos: EntityFileDto[] | undefined;
+    productCommentDto: ProductCommentDto[] | undefined;
+    tickets: GetTicketDto[] | undefined;
+    visualImagePropertyId: number | undefined;
+    promPrice: string | undefined;
+    price2: number | undefined;
+    salesVolume: number;
+    isCollection: boolean;
+    status: string | undefined;
+    haveOtherTickets: boolean;
+    pointRedeemType: RedeemType;
+    pointRule: ProductPointRule;
+}
+
+export class SingleShopProductDtoPagedResultDto implements ISingleShopProductDtoPagedResultDto {
+    totalCount!: number;
+    items!: SingleShopProductDto[] | undefined;
+
+    constructor(data?: ISingleShopProductDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(SingleShopProductDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): SingleShopProductDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SingleShopProductDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ISingleShopProductDtoPagedResultDto {
+    totalCount: number;
+    items: SingleShopProductDto[] | undefined;
 }
 
 export class Sku_PropertyValueDto implements ISku_PropertyValueDto {
@@ -23441,6 +29913,7 @@ export class SkuFileDto implements ISkuFileDto {
     description!: string | undefined;
     type!: string | undefined;
     created!: moment.Moment | undefined;
+    orderNumber!: number;
 
     constructor(data?: ISkuFileDto) {
         if (data) {
@@ -23464,6 +29937,7 @@ export class SkuFileDto implements ISkuFileDto {
             this.description = _data["description"];
             this.type = _data["type"];
             this.created = _data["created"] ? moment(_data["created"].toString()) : <any>undefined;
+            this.orderNumber = _data["orderNumber"];
         }
     }
 
@@ -23487,6 +29961,7 @@ export class SkuFileDto implements ISkuFileDto {
         data["description"] = this.description;
         data["type"] = this.type;
         data["created"] = this.created ? this.created.toISOString() : <any>undefined;
+        data["orderNumber"] = this.orderNumber;
         return data; 
     }
 }
@@ -23504,6 +29979,7 @@ export interface ISkuFileDto {
     description: string | undefined;
     type: string | undefined;
     created: moment.Moment | undefined;
+    orderNumber: number;
 }
 
 export class SkuFileDtoPagedResultDto implements ISkuFileDtoPagedResultDto {
@@ -23726,6 +30202,58 @@ export class SkuOnlineStoreInfoDtoPagedResultDto implements ISkuOnlineStoreInfoD
 export interface ISkuOnlineStoreInfoDtoPagedResultDto {
     totalCount: number;
     items: SkuOnlineStoreInfoDto[] | undefined;
+}
+
+export class SkuPropertyInput implements ISkuPropertyInput {
+    name!: string | undefined;
+    nameIcon!: string | undefined;
+    value!: string | undefined;
+    valueIcon!: string | undefined;
+    type!: number;
+
+    constructor(data?: ISkuPropertyInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.nameIcon = _data["nameIcon"];
+            this.value = _data["value"];
+            this.valueIcon = _data["valueIcon"];
+            this.type = _data["type"];
+        }
+    }
+
+    static fromJS(data: any): SkuPropertyInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new SkuPropertyInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["nameIcon"] = this.nameIcon;
+        data["value"] = this.value;
+        data["valueIcon"] = this.valueIcon;
+        data["type"] = this.type;
+        return data; 
+    }
+}
+
+export interface ISkuPropertyInput {
+    name: string | undefined;
+    nameIcon: string | undefined;
+    value: string | undefined;
+    valueIcon: string | undefined;
+    type: number;
 }
 
 export class SkuQuantity implements ISkuQuantity {
@@ -25770,6 +32298,404 @@ export interface IUpdatePropertyValueInput {
     value: string | undefined;
     description: string | undefined;
     iconUrl: string | undefined;
+}
+
+export class UpdateShopCategoryInput implements IUpdateShopCategoryInput {
+    id!: number;
+    categoryId!: number;
+    /** 自定义的分类名称 */
+    categoryName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl!: string | undefined;
+    /** 排序编号 */
+    orderNumber!: string | undefined;
+
+    constructor(data?: IUpdateShopCategoryInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.categoryId = _data["categoryId"];
+            this.categoryName = _data["categoryName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): UpdateShopCategoryInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateShopCategoryInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["categoryId"] = this.categoryId;
+        data["categoryName"] = this.categoryName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface IUpdateShopCategoryInput {
+    id: number;
+    categoryId: number;
+    /** 自定义的分类名称 */
+    categoryName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl: string | undefined;
+    /** 排序编号 */
+    orderNumber: string | undefined;
+}
+
+export class UpdateShopFreightInput implements IUpdateShopFreightInput {
+    id!: number;
+    displayName!: string | undefined;
+    orderNumber!: number;
+    shopShopFreightType!: ShopFreightType;
+    firstPrice!: number;
+    secondPrice!: number;
+    firstNumber!: number | undefined;
+    secondNumber!: number | undefined;
+    firstWeight!: number | undefined;
+    secondWeight!: number | undefined;
+    areas!: AreaModel[] | undefined;
+    status!: ShopFreightStatus;
+    isDefault!: boolean;
+
+    constructor(data?: IUpdateShopFreightInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+            this.orderNumber = _data["orderNumber"];
+            this.shopShopFreightType = _data["shopShopFreightType"];
+            this.firstPrice = _data["firstPrice"];
+            this.secondPrice = _data["secondPrice"];
+            this.firstNumber = _data["firstNumber"];
+            this.secondNumber = _data["secondNumber"];
+            this.firstWeight = _data["firstWeight"];
+            this.secondWeight = _data["secondWeight"];
+            if (Array.isArray(_data["areas"])) {
+                this.areas = [] as any;
+                for (let item of _data["areas"])
+                    this.areas!.push(AreaModel.fromJS(item));
+            }
+            this.status = _data["status"];
+            this.isDefault = _data["isDefault"];
+        }
+    }
+
+    static fromJS(data: any): UpdateShopFreightInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateShopFreightInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        data["orderNumber"] = this.orderNumber;
+        data["shopShopFreightType"] = this.shopShopFreightType;
+        data["firstPrice"] = this.firstPrice;
+        data["secondPrice"] = this.secondPrice;
+        data["firstNumber"] = this.firstNumber;
+        data["secondNumber"] = this.secondNumber;
+        data["firstWeight"] = this.firstWeight;
+        data["secondWeight"] = this.secondWeight;
+        if (Array.isArray(this.areas)) {
+            data["areas"] = [];
+            for (let item of this.areas)
+                data["areas"].push(item.toJSON());
+        }
+        data["status"] = this.status;
+        data["isDefault"] = this.isDefault;
+        return data; 
+    }
+}
+
+export interface IUpdateShopFreightInput {
+    id: number;
+    displayName: string | undefined;
+    orderNumber: number;
+    shopShopFreightType: ShopFreightType;
+    firstPrice: number;
+    secondPrice: number;
+    firstNumber: number | undefined;
+    secondNumber: number | undefined;
+    firstWeight: number | undefined;
+    secondWeight: number | undefined;
+    areas: AreaModel[] | undefined;
+    status: ShopFreightStatus;
+    isDefault: boolean;
+}
+
+export class UpdateShopSettingInput implements IUpdateShopSettingInput {
+    id!: number;
+    publicAccountId!: number | undefined;
+    /** 商城对外Id */
+    outerId!: string | undefined;
+    /** 商城名称 */
+    displayName!: string | undefined;
+    /** 商城Logo */
+    logoUrl!: string | undefined;
+    /** 商城客服电话 */
+    phoneNumber!: string | undefined;
+    /** 商城地址 */
+    address!: string | undefined;
+    /** 退货地址 */
+    refundAddress!: string | undefined;
+    /** 商城简介 */
+    description!: string | undefined;
+    status!: ShopStatus;
+    /** 下单未付款自动关闭天数 */
+    orderAutoCloseDays!: number;
+    /** 订单发货后自动收货天数 */
+    orderAutoSignDays!: number;
+    /** 订单确认收获后可申请退货天数 */
+    orderAllowRefundDays!: number;
+    shopUrl!: string | undefined;
+    isEnablePointRule!: boolean;
+    needCertification!: boolean | undefined;
+    certificationUrl!: string | undefined;
+    payPointRule!: PayPointRule;
+    pointDeductionRule!: PointDeductionRule;
+
+    constructor(data?: IUpdateShopSettingInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.publicAccountId = _data["publicAccountId"];
+            this.outerId = _data["outerId"];
+            this.displayName = _data["displayName"];
+            this.logoUrl = _data["logoUrl"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.address = _data["address"];
+            this.refundAddress = _data["refundAddress"];
+            this.description = _data["description"];
+            this.status = _data["status"];
+            this.orderAutoCloseDays = _data["orderAutoCloseDays"];
+            this.orderAutoSignDays = _data["orderAutoSignDays"];
+            this.orderAllowRefundDays = _data["orderAllowRefundDays"];
+            this.shopUrl = _data["shopUrl"];
+            this.isEnablePointRule = _data["isEnablePointRule"];
+            this.needCertification = _data["needCertification"];
+            this.certificationUrl = _data["certificationUrl"];
+            this.payPointRule = _data["payPointRule"] ? PayPointRule.fromJS(_data["payPointRule"]) : <any>undefined;
+            this.pointDeductionRule = _data["pointDeductionRule"] ? PointDeductionRule.fromJS(_data["pointDeductionRule"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): UpdateShopSettingInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateShopSettingInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["publicAccountId"] = this.publicAccountId;
+        data["outerId"] = this.outerId;
+        data["displayName"] = this.displayName;
+        data["logoUrl"] = this.logoUrl;
+        data["phoneNumber"] = this.phoneNumber;
+        data["address"] = this.address;
+        data["refundAddress"] = this.refundAddress;
+        data["description"] = this.description;
+        data["status"] = this.status;
+        data["orderAutoCloseDays"] = this.orderAutoCloseDays;
+        data["orderAutoSignDays"] = this.orderAutoSignDays;
+        data["orderAllowRefundDays"] = this.orderAllowRefundDays;
+        data["shopUrl"] = this.shopUrl;
+        data["isEnablePointRule"] = this.isEnablePointRule;
+        data["needCertification"] = this.needCertification;
+        data["certificationUrl"] = this.certificationUrl;
+        data["payPointRule"] = this.payPointRule ? this.payPointRule.toJSON() : <any>undefined;
+        data["pointDeductionRule"] = this.pointDeductionRule ? this.pointDeductionRule.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IUpdateShopSettingInput {
+    id: number;
+    publicAccountId: number | undefined;
+    /** 商城对外Id */
+    outerId: string | undefined;
+    /** 商城名称 */
+    displayName: string | undefined;
+    /** 商城Logo */
+    logoUrl: string | undefined;
+    /** 商城客服电话 */
+    phoneNumber: string | undefined;
+    /** 商城地址 */
+    address: string | undefined;
+    /** 退货地址 */
+    refundAddress: string | undefined;
+    /** 商城简介 */
+    description: string | undefined;
+    status: ShopStatus;
+    /** 下单未付款自动关闭天数 */
+    orderAutoCloseDays: number;
+    /** 订单发货后自动收货天数 */
+    orderAutoSignDays: number;
+    /** 订单确认收获后可申请退货天数 */
+    orderAllowRefundDays: number;
+    shopUrl: string | undefined;
+    isEnablePointRule: boolean;
+    needCertification: boolean | undefined;
+    certificationUrl: string | undefined;
+    payPointRule: PayPointRule;
+    pointDeductionRule: PointDeductionRule;
+}
+
+export class UpdateShopSliderInput implements IUpdateShopSliderInput {
+    id!: number;
+    displayName!: string | undefined;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl!: string | undefined;
+    /** 排序编号 */
+    orderNumber!: string | undefined;
+
+    constructor(data?: IUpdateShopSliderInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.orderNumber = _data["orderNumber"];
+        }
+    }
+
+    static fromJS(data: any): UpdateShopSliderInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateShopSliderInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["orderNumber"] = this.orderNumber;
+        return data; 
+    }
+}
+
+export interface IUpdateShopSliderInput {
+    id: number;
+    displayName: string | undefined;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 点击图片跳转地址 */
+    turnUrl: string | undefined;
+    /** 排序编号 */
+    orderNumber: string | undefined;
+}
+
+export class UpdateShopTagInput implements IUpdateShopTagInput {
+    id!: number;
+    tagId!: number;
+    /** 图片地址 */
+    pictureUrl!: string | undefined;
+    /** 跳转地址 */
+    turnUrl!: string | undefined;
+    shopTag!: ShopTag;
+
+    constructor(data?: IUpdateShopTagInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.tagId = _data["tagId"];
+            this.pictureUrl = _data["pictureUrl"];
+            this.turnUrl = _data["turnUrl"];
+            this.shopTag = _data["shopTag"];
+        }
+    }
+
+    static fromJS(data: any): UpdateShopTagInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateShopTagInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["tagId"] = this.tagId;
+        data["pictureUrl"] = this.pictureUrl;
+        data["turnUrl"] = this.turnUrl;
+        data["shopTag"] = this.shopTag;
+        return data; 
+    }
+}
+
+export interface IUpdateShopTagInput {
+    id: number;
+    tagId: number;
+    /** 图片地址 */
+    pictureUrl: string | undefined;
+    /** 跳转地址 */
+    turnUrl: string | undefined;
+    shopTag: ShopTag;
 }
 
 export class UpdateSkuInput implements IUpdateSkuInput {

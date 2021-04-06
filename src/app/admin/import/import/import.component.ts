@@ -40,7 +40,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     'rfid': AppConsts.remoteServiceBaseUrl + '/ImportSkuRfids/ImportSkuRfidByExcel',
     'storagecheck': AppConsts.remoteServiceBaseUrl + '/ImportStorageCheck/ImportStoageCheckByExcel',
     'training': AppConsts.remoteActivityServiceUrl + '/ImportTrainings/ImportTrainingsByExcel',
-    'room': AppConsts.remoteServiceBaseUrl + '/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel',
+    'room': AppConsts.remoteFloorServiceUrl + '/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel',
     'sulwhasoo': AppConsts.remoteServiceBaseUrl + '/ImportDeviceSchedule/ImportDeviceStoreScheduleByExcel',
 
   }

@@ -6,7 +6,6 @@ import { finalize } from 'rxjs/operators';
 import { AppPodServiceProxy, SetDefaultAppPodVersionInput } from '@shared/service-proxies/service-proxies-devicecenter';
 import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceInput } from '@shared/service-proxies/service-proxies-devicecenter';
-import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
@@ -114,7 +113,6 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         private _SensorAgreementServiceProxy: SensorAgreementServiceProxy,
         private _ShelfDeviceServiceProxy: ShelfDeviceServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
-        private _DeviceServiceProxy:DeviceServiceProxy,
         private _DeviceProductServiceProxy:DeviceProductServiceProxy
 
     ) {

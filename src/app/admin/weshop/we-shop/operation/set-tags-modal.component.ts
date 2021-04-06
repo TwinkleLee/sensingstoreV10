@@ -2,8 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { TagServiceProxy} from '@shared/service-proxies/service-proxies-product';
 
-//ooo
-import { ShopServiceProxy, CreateShopTagInput, TagType as Type,UpdateShopTagInput } from '@shared/service-proxies/service-proxies'
+import { ShopServiceProxy, CreateShopTagInput, TagType as Type,UpdateShopTagInput } from '@shared/service-proxies/service-proxies-product'
 
 
 import { AppComponentBase } from '@shared/common/app-component-base';

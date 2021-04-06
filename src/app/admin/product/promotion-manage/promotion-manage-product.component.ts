@@ -6,7 +6,7 @@ import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PromotionServiceProxy, AddOrUpdateProductsToPromotionInput } from '@shared/service-proxies/service-proxies';
+import { ProductServiceProxy, AddOrUpdateProductsToPromotionInput } from '@shared/service-proxies/service-proxies-product';
 import * as moment from 'moment';
 import { PromotionGridModalComponent } from '@app/admin/product/promotion-manage/operation/promotion-grid-modal.component';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
@@ -45,7 +45,7 @@ export class PromotionManageProductListComponent extends AppComponentBase {
 
   constructor(injector: Injector,
     private router: Router,
-    private _PromotionServiceProxy: PromotionServiceProxy,
+    private _ProductServiceProxy: ProductServiceProxy,
     private _ActivatedRoute: ActivatedRoute) {
     super(injector);
     this._ActivatedRoute.queryParams.subscribe(params => {
@@ -69,7 +69,7 @@ export class PromotionManageProductListComponent extends AppComponentBase {
   getProductPromotions(event?: LazyLoadEvent) {
     this.selectedList = [];
     this.primengTableHelper.showLoadingIndicator();
-    this._PromotionServiceProxy.getProductPromotions(
+    this._ProductServiceProxy.getProductPromotions(
       this.promotionId,
       undefined,
       this.primengTableHelper.getSorting(this.dataTable),
@@ -185,7 +185,7 @@ export class PromotionManageProductListComponent extends AppComponentBase {
     console.log(this.productList)
     this.primengTableHelper.showLoadingIndicator();
 
-    this._PromotionServiceProxy.addOrUpdateProductsToPromotion({
+    this._ProductServiceProxy.addOrUpdateProductsToPromotion({
       "promotionId": this.promotionId,
       "productPromotionInputs": this.productList.map(item => {
         return {
