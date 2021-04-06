@@ -152,7 +152,14 @@
                         <!--<Primeng-Datatable-Start>-->
                         <div class="col-12 primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
-                            <p-table #dataTable (onLazyLoad)="getDevices($event)" [value]="primengTableHelper.records" [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true" [(selection)]="devicePublishList" [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
+                            <p-table #dataTable (onLazyLoad)="getDevices($event)"
+                             [value]="primengTableHelper.records"
+                              [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                               [paginator]="false"
+                                [lazy]="true" 
+                                [(selection)]="devicePublishList"
+                                 [resizableColumns]="primengTableHelper.resizableColumns" 
+                                 [responsive]="primengTableHelper.isResponsive">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>{{l('Actions')}}</th>
