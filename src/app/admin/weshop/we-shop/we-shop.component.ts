@@ -8,7 +8,7 @@ import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { ShopServiceProxy, UpdateShopSettingInput, PayPointRule, PointDeductionRule, DeductionRule, PayCashPointRule } from '@shared/service-proxies/service-proxies';
+import { ShopServiceProxy, UpdateShopSettingInput, PayPointRule, PointDeductionRule, DeductionRule, PayCashPointRule } from '@shared/service-proxies/service-proxies-product';
 import { SwiperModalComponent } from '@app/admin/weshop/we-shop/operation/set-swiper-modal.component';
 import { SetTagModalComponent } from './operation/set-tags-modal.component';
 import { SetCategoryModalComponent } from './operation/set-category-modal.component';

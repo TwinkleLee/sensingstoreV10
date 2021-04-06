@@ -292,36 +292,37 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
 
     getDashboardStatisticsData(datePeriod): void {
         this.headLoading1 = true;
-        return console.log("startTime", this.allStartTime,this.allStartTime.format())
+        return console.log("todo","startTime", this.allStartTime,this.allStartTime.format())
+        //TODO 拆分接口
         //店铺总数
-        this._reportService.getCountReportPost(new GetCountReportInput({
-            startTime: this.allStartTime,
-            endTime: this.allEndTime,
-            storeOrOuList: this.chosenItem
-        })).pipe(finalize(() => {
-            this.headLoading1 = false;
-            this.checkHeadLoad()
-        })).subscribe((result) => {
-            var newList = result.map(item => {
+        // this._reportService.getCountReportPost(new GetCountReportInput({
+        //     startTime: this.allStartTime,
+        //     endTime: this.allEndTime,
+        //     storeOrOuList: this.chosenItem
+        // })).pipe(finalize(() => {
+        //     this.headLoading1 = false;
+        //     this.checkHeadLoad()
+        // })).subscribe((result) => {
+        //     var newList = result.map(item => {
 
-                var newItem = {
-                    name: item.name,
-                    totalProfitCounter: item.id.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                return newItem
-            })
+        //         var newItem = {
+        //             name: item.name,
+        //             totalProfitCounter: item.id.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        //         }
+        //         return newItem
+        //     })
 
-            var newNewList = newList.filter(item => {
-                return (item.name == "store" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Store"))
-                    || (item.name == "product" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Product"))
-                    || (item.name == "ads" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Ad"))
-                    || (item.name == "device" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Device"))
-                    || (item.name == "software" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Software"))
-                    || (item.name == "coupon" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Coupon"))
-                    || (item.name == "specialDevice" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Device"))
-            })
-            this.dashboardHeaderStats.init(newNewList);
-        })
+        //     var newNewList = newList.filter(item => {
+        //         return (item.name == "store" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Store"))
+        //             || (item.name == "product" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Product"))
+        //             || (item.name == "ads" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Ad"))
+        //             || (item.name == "device" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Device"))
+        //             || (item.name == "software" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Software"))
+        //             || (item.name == "coupon" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Coupon"))
+        //             || (item.name == "specialDevice" && this.isGranted("Pages.Tenant.Dashboard.Dashboard.Device"))
+        //     })
+        //     this.dashboardHeaderStats.init(newNewList);
+        // })
     }
 
     checkHeadLoad() {
