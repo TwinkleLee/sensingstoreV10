@@ -5232,6 +5232,297 @@ export class EditionServiceProxy {
 }
 
 @Injectable()
+export class ExternalAccessServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfExternalAccessDto> {
+        let url_ = this.baseUrl + "/api/services/app/ExternalAccess/GetAll?";
+        if (filter !== undefined && filter !== null)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting !== undefined && sorting !== null)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfExternalAccessDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfExternalAccessDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfExternalAccessDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfExternalAccessDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfExternalAccessDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addExternalAccess(body: CreateExternalAccessInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ExternalAccess/AddExternalAccess";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddExternalAccess(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddExternalAccess(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddExternalAccess(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateExternalAccess(body: UpdateExternalAccessInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ExternalAccess/UpdateExternalAccess";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateExternalAccess(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateExternalAccess(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateExternalAccess(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addOrUpdateAccessToken(body: AddOrUpdateAccessTokenInput | undefined): Observable<number> {
+        let url_ = this.baseUrl + "/api/services/app/ExternalAccess/AddOrUpdateAccessToken";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddOrUpdateAccessToken(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddOrUpdateAccessToken(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddOrUpdateAccessToken(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ExternalAccess/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class FileServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -24398,6 +24689,346 @@ export class MoveTenantsToAnotherEditionDto implements IMoveTenantsToAnotherEdit
 export interface IMoveTenantsToAnotherEditionDto {
     sourceEditionId: number;
     targetEditionId: number;
+}
+
+export class ExternalAccessDto implements IExternalAccessDto {
+    id!: number;
+    taobao_user_id!: string | undefined;
+    taobao_user_nick!: string | undefined;
+    access_token!: string | undefined;
+    expires_in!: DateTime;
+    lastModificationTime!: DateTime | undefined;
+    creationTime!: DateTime;
+    userName!: string | undefined;
+    password!: string | undefined;
+    url!: string | undefined;
+    fromType!: string | undefined;
+    openPlatfromName!: string | undefined;
+
+    constructor(data?: IExternalAccessDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.taobao_user_id = _data["taobao_user_id"];
+            this.taobao_user_nick = _data["taobao_user_nick"];
+            this.access_token = _data["access_token"];
+            this.expires_in = _data["expires_in"] ? DateTime.fromISO(_data["expires_in"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? DateTime.fromISO(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.creationTime = _data["creationTime"] ? DateTime.fromISO(_data["creationTime"].toString()) : <any>undefined;
+            this.userName = _data["userName"];
+            this.password = _data["password"];
+            this.url = _data["url"];
+            this.fromType = _data["fromType"];
+            this.openPlatfromName = _data["openPlatfromName"];
+        }
+    }
+
+    static fromJS(data: any): ExternalAccessDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExternalAccessDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["taobao_user_id"] = this.taobao_user_id;
+        data["taobao_user_nick"] = this.taobao_user_nick;
+        data["access_token"] = this.access_token;
+        data["expires_in"] = this.expires_in ? this.expires_in.toString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toString() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toString() : <any>undefined;
+        data["userName"] = this.userName;
+        data["password"] = this.password;
+        data["url"] = this.url;
+        data["fromType"] = this.fromType;
+        data["openPlatfromName"] = this.openPlatfromName;
+        return data; 
+    }
+}
+
+export interface IExternalAccessDto {
+    id: number;
+    taobao_user_id: string | undefined;
+    taobao_user_nick: string | undefined;
+    access_token: string | undefined;
+    expires_in: DateTime;
+    lastModificationTime: DateTime | undefined;
+    creationTime: DateTime;
+    userName: string | undefined;
+    password: string | undefined;
+    url: string | undefined;
+    fromType: string | undefined;
+    openPlatfromName: string | undefined;
+}
+
+export class PagedResultDtoOfExternalAccessDto implements IPagedResultDtoOfExternalAccessDto {
+    totalCount!: number;
+    items!: ExternalAccessDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfExternalAccessDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(ExternalAccessDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfExternalAccessDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfExternalAccessDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfExternalAccessDto {
+    totalCount: number;
+    items: ExternalAccessDto[] | undefined;
+}
+
+export class CreateExternalAccessInput implements ICreateExternalAccessInput {
+    taobao_user_nick!: string | undefined;
+    access_token!: string | undefined;
+    userName!: string | undefined;
+    password!: string | undefined;
+    url!: string | undefined;
+    fromType!: string | undefined;
+    taobao_user_id!: string | undefined;
+    taobaoCredentialUrl!: string | undefined;
+
+    constructor(data?: ICreateExternalAccessInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.taobao_user_nick = _data["taobao_user_nick"];
+            this.access_token = _data["access_token"];
+            this.userName = _data["userName"];
+            this.password = _data["password"];
+            this.url = _data["url"];
+            this.fromType = _data["fromType"];
+            this.taobao_user_id = _data["taobao_user_id"];
+            this.taobaoCredentialUrl = _data["taobaoCredentialUrl"];
+        }
+    }
+
+    static fromJS(data: any): CreateExternalAccessInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateExternalAccessInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["taobao_user_nick"] = this.taobao_user_nick;
+        data["access_token"] = this.access_token;
+        data["userName"] = this.userName;
+        data["password"] = this.password;
+        data["url"] = this.url;
+        data["fromType"] = this.fromType;
+        data["taobao_user_id"] = this.taobao_user_id;
+        data["taobaoCredentialUrl"] = this.taobaoCredentialUrl;
+        return data; 
+    }
+}
+
+export interface ICreateExternalAccessInput {
+    taobao_user_nick: string | undefined;
+    access_token: string | undefined;
+    userName: string | undefined;
+    password: string | undefined;
+    url: string | undefined;
+    fromType: string | undefined;
+    taobao_user_id: string | undefined;
+    taobaoCredentialUrl: string | undefined;
+}
+
+export class UpdateExternalAccessInput implements IUpdateExternalAccessInput {
+    id!: number;
+    taobao_user_nick!: string | undefined;
+    access_token!: string | undefined;
+    userName!: string | undefined;
+    password!: string | undefined;
+    url!: string | undefined;
+    fromType!: string | undefined;
+    taobao_user_id!: string | undefined;
+    taobaoCredentialUrl!: string | undefined;
+
+    constructor(data?: IUpdateExternalAccessInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.taobao_user_nick = _data["taobao_user_nick"];
+            this.access_token = _data["access_token"];
+            this.userName = _data["userName"];
+            this.password = _data["password"];
+            this.url = _data["url"];
+            this.fromType = _data["fromType"];
+            this.taobao_user_id = _data["taobao_user_id"];
+            this.taobaoCredentialUrl = _data["taobaoCredentialUrl"];
+        }
+    }
+
+    static fromJS(data: any): UpdateExternalAccessInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateExternalAccessInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["taobao_user_nick"] = this.taobao_user_nick;
+        data["access_token"] = this.access_token;
+        data["userName"] = this.userName;
+        data["password"] = this.password;
+        data["url"] = this.url;
+        data["fromType"] = this.fromType;
+        data["taobao_user_id"] = this.taobao_user_id;
+        data["taobaoCredentialUrl"] = this.taobaoCredentialUrl;
+        return data; 
+    }
+}
+
+export interface IUpdateExternalAccessInput {
+    id: number;
+    taobao_user_nick: string | undefined;
+    access_token: string | undefined;
+    userName: string | undefined;
+    password: string | undefined;
+    url: string | undefined;
+    fromType: string | undefined;
+    taobao_user_id: string | undefined;
+    taobaoCredentialUrl: string | undefined;
+}
+
+export class AddOrUpdateAccessTokenInput implements IAddOrUpdateAccessTokenInput {
+    id!: number | undefined;
+    access_token!: string | undefined;
+    fromType!: string | undefined;
+    refresh_token!: string | undefined;
+    token_type!: string | undefined;
+    taobaoOpenPlatformId!: number | undefined;
+    tenantId!: number;
+    business_id!: string | undefined;
+    public_account_id!: string | undefined;
+    onlineStoreUrl!: string | undefined;
+    name!: string | undefined;
+    avatarUrl!: string | undefined;
+
+    constructor(data?: IAddOrUpdateAccessTokenInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.access_token = _data["access_token"];
+            this.fromType = _data["fromType"];
+            this.refresh_token = _data["refresh_token"];
+            this.token_type = _data["token_type"];
+            this.taobaoOpenPlatformId = _data["taobaoOpenPlatformId"];
+            this.tenantId = _data["tenantId"];
+            this.business_id = _data["business_id"];
+            this.public_account_id = _data["public_account_id"];
+            this.onlineStoreUrl = _data["onlineStoreUrl"];
+            this.name = _data["name"];
+            this.avatarUrl = _data["avatarUrl"];
+        }
+    }
+
+    static fromJS(data: any): AddOrUpdateAccessTokenInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddOrUpdateAccessTokenInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["access_token"] = this.access_token;
+        data["fromType"] = this.fromType;
+        data["refresh_token"] = this.refresh_token;
+        data["token_type"] = this.token_type;
+        data["taobaoOpenPlatformId"] = this.taobaoOpenPlatformId;
+        data["tenantId"] = this.tenantId;
+        data["business_id"] = this.business_id;
+        data["public_account_id"] = this.public_account_id;
+        data["onlineStoreUrl"] = this.onlineStoreUrl;
+        data["name"] = this.name;
+        data["avatarUrl"] = this.avatarUrl;
+        return data; 
+    }
+}
+
+export interface IAddOrUpdateAccessTokenInput {
+    id: number | undefined;
+    access_token: string | undefined;
+    fromType: string | undefined;
+    refresh_token: string | undefined;
+    token_type: string | undefined;
+    taobaoOpenPlatformId: number | undefined;
+    tenantId: number;
+    business_id: string | undefined;
+    public_account_id: string | undefined;
+    onlineStoreUrl: string | undefined;
+    name: string | undefined;
+    avatarUrl: string | undefined;
 }
 
 export enum FileArea {

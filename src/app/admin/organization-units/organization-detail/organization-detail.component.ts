@@ -14,11 +14,11 @@ import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, StoreActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { UserServiceProxy, AuditStatus, GetUsersInput } from '@shared/service-proxies/service-proxies';
+import { UserServiceProxy, GetUsersInput } from '@shared/service-proxies/service-proxies';
 
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
-import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput,AuditStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 
 
 @Component({

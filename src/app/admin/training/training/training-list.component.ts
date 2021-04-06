@@ -4,7 +4,9 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import {  AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, LoginServiceProxy } from '@shared/service-proxies/service-proxies';
+import { LoginServiceProxy } from '@shared/service-proxies/service-proxies';
+//ooo
+import {  AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { from } from 'rxjs';

@@ -161,6 +161,8 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         FloorServiceProxies.IdentityServiceProxy,
         FloorServiceProxies.RoomServiceProxy,
         FloorServiceProxies.RobotServiceProxy,
+        // FloorServiceProxies.ImportFloorGuideRoomAndStoreServiceProxy,
+        
 
         OKRServiceProxies.OKRServiceProxy,
 
