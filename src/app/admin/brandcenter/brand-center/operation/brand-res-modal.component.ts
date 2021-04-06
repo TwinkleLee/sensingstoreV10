@@ -85,6 +85,7 @@ export class BrandResourceModalComponent extends AppComponentBase implements Aft
     // upload completed event
     onUpload(event): void {
         this.resource.fileUrl = event.fileUri;
+        this.resource.resourceItemId = Number(event.resourceId);
     }
     onBeforeSend(event): void {
 

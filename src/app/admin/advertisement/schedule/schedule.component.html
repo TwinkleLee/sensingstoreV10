@@ -4,24 +4,28 @@
 
         <sub-header [title]="'Scheduling' | localize" [description]="'Scheduling' | localize">
             <div role="actions">
-                <div class="btn-group dropdown" dropdown>
+                <!-- <div class="btn-group dropdown" dropdown>
                     <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
                         data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
                         {{l('publishSchedule')}}
                     </button>
+                    
                     <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
-                        <!-- *ngIf="schedulePublishList.length>0" -->
-                        <a class="dropdown-item icon-fabu1" *ngIf="schedulePublishList" (click)="goPublish()">
+                        *ngIf="schedulePublishList.length>0"
+                         <a class="dropdown-item icon-fabu1" *ngIf="schedulePublishList" (click)="goPublish()">
                             {{l('publishSchedule')}}
                         </a>
-                        <!-- <a class="dropdown-item icon-select" (click)="publishAll()">
+                         <a class="dropdown-item icon-select" (click)="publishAll()">
                             {{l('publishAll')}}
-                        </a> -->
+                        </a> 
                         <a class="dropdown-item icon-chehui1" (click)="withdrawAll()">
                             {{l('withdrawAll')}}
                         </a>
                     </div>
-                </div>
+                </div> -->
+                <button class="btn btn-primary" (click)="goPublish()">
+                    <i class="icon-fabu"></i>
+                    {{l("publishSchedule")}}</button>
                 <button class="btn btn-primary" (click)="createSchedule()">
                     <i class="fa fa-plus"></i>
                     {{l("CreateSchedule")}}</button>

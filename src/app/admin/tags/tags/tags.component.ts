@@ -37,7 +37,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
 
   filterText: string;
   constructor(
-    injector: Injector, 
+    injector: Injector,
     private _TagService: TagServiceProxy,
     private _DeviceTagServiceProxy: DeviceTagServiceProxy,
     private _AdsTagServiceProxy: AdsTagServiceProxy,
@@ -60,7 +60,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
 
   getTags(event?: LazyLoadEvent) {
     // if (this.primengTableHelper.shouldResetPaging(event)) {
-    //   this.paginator.changePage(0);
+    //   // this.paginator.changePage(0);
     //   return;
     // }
     // this.primengTableHelper.showLoadingIndicator();
@@ -70,7 +70,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
         this.primengTableHelper.getSorting(this.dataTable),
         this.primengTableHelper.getMaxResultCount(this.paginator, event),
         this.primengTableHelper.getSkipCount(this.paginator, event),
-        this.tagType || undefined
+        this.tagType
       )
         .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
         .subscribe(result => {
@@ -79,7 +79,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
           // this.primengTableHelper.hideLoadingIndicator();
         });
     }, 500)
-    
+
   }
   //编辑标签
   editTag(record) {
@@ -105,11 +105,11 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
   tabChange(tagType?) {
     this.tagType = tagType;
 
-    if (this.tagType == 0  || this.tagType == 6 || this.tagType == 8 || this.tagType == 7 || this.tagType == 4) {
+    if (this.tagType == 0 || this.tagType == 6 || this.tagType == 8 || this.tagType == 7 || this.tagType == 4) {
       this.ServiceProxy = this._TagService
     }
 
-    if (this.tagType == 1 || this.tagType == 5) { 
+    if (this.tagType == 1 || this.tagType == 5) {
       this.ServiceProxy = this._DeviceTagServiceProxy
     }
 
@@ -121,7 +121,6 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
       this.ServiceProxy = this._AdsTagServiceProxy
     }
 
-    this.getTags();
-
+    this.getTags()
   }
 }

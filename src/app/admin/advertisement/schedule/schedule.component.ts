@@ -108,10 +108,14 @@ export class Schedule extends AppComponentBase {
 
   // 显示发布侧栏
   goPublish() {
+    if (!this.schedulePublishList) {
+      return this.notify.info(this.l('noselectschedule'));
+    }
     this.toPublish = true;
   }
 
   doPublishSchedule() {
+    
     var deviceIds = this.myTree.getchosen()
       .filter(item => {
         return item.type == 'device'
