@@ -36,7 +36,7 @@
                                             <select class="form-control" [(ngModel)]="objItem.roomType" name="roomType"
                                                 required>
                                                 <option *ngFor="let type of roomTypeList" [value]="type">
-                                                    {{type}}</option>
+                                                    {{l(type)}}</option>
                                             </select>
                                         </div>
                                     </div>

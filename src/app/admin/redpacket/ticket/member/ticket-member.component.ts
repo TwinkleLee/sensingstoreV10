@@ -4,7 +4,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table, TableCheckbox } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { CommonServiceProxy, TicketServiceProxy, TicketStatus, TicketType, TakeType, SetTicketStatusInput } from '@shared/service-proxies/service-proxies2';
+import { CommonServiceProxy, TicketServiceProxy, TicketType, TakeType, SetTicketStatusInput } from '@shared/service-proxies/service-proxies2';
 import * as _ from 'lodash';
 import { finalize } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';

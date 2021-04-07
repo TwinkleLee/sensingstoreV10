@@ -6,7 +6,7 @@
   "remoteSmartDeviceUrl": "https://smartdevice5.sensingstore.com",
   "//openServiceBaseUrl": "https://o.api.troncell.com:443",
   "remoteBigDataServiceUrl": "https://devicebigdata5.sensingstore.com",
-  "///remoteOnlineServiceUrl": "https://o.api.troncell.com",
+  "remoteOnlineServiceUrl": "https://o5.sensingstore.com",
   "remoteMetaServiceUrl": "https://recommend5.sensingstore.com",
   "///remoteActivityServiceUrl": "https://g.api.troncell.com",
   "///remoteCargoServiceUrl": "https://e.api.troncell.com",
