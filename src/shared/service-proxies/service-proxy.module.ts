@@ -230,6 +230,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         DEVICECENTERServiceProxies.ApplyServiceProxy,
         DEVICECENTERServiceProxies.IdentityServiceProxy,
         DEVICECENTERServiceProxies.AppPodServiceProxy,
+        DEVICECENTERServiceProxies.ReportServiceProxy,
 
         SMARTDEVICEServiceProxies.AppPodServiceProxy,
         SMARTDEVICEServiceProxies.SensingDeviceServiceProxy,
@@ -276,6 +277,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ProductServiceProxies.BatchTaskLogServiceProxy,
         ProductServiceProxies.ShopServiceProxy,
         ProductServiceProxies.SensingShopServiceProxy,
+        ProductServiceProxies.ReportServiceProxy,
         
 
         { provide: RefreshTokenService, useClass: ZeroRefreshTokenService },
