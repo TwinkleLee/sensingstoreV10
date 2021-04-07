@@ -2,7 +2,6 @@ import { AfterViewInit, Component, Injector, ViewEncapsulation, ViewChild, Chang
 // import { AppSalesSummaryDatePeriod } from '@shared/AppEnums';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { ReportServiceProxy, OrganizationUnitServiceProxy, PositionDto, GetCountReportInput, } from '@shared/service-proxies/service-proxies';
 import { ReportServiceProxy as ReportServiceProxy2, RankInput, ChartReportInput, DevieStatusChartReportInput, DevieOnlineReportInput, GetDeviceActionsChartReportInput } from '@shared/service-proxies/service-proxies3';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 import { finalize } from 'rxjs/operators';
@@ -14,6 +13,11 @@ import { OrderInfoModalComponent } from '@app/main/dashboard/order-information-m
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 
 import { SalesSummaryDatePeriod } from '@shared/service-proxies/service-proxies';
+
+import { ReportServiceProxy as DeviceReportServiceProxy, GetCountReportInput } from '@shared/service-proxies/service-proxies-devicecenter';
+import { ReportServiceProxy as ProductReportServiceProxy, GetCountReportInput as GetCountReportInput2 } from '@shared/service-proxies/service-proxies-product';
+
+
 export class AppSalesSummaryDatePeriod {
     static Daily: any = SalesSummaryDatePeriod.Daily;
     static Weekly: any = SalesSummaryDatePeriod.Weekly;
@@ -45,7 +49,6 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
 
     customTheme = AppConsts.customTheme;
 
-    positions: PositionDto[] = [];
     labels: any[] = [];
     ouLocaltionLoading: boolean = false;
     ouFilter: string = "";
@@ -98,9 +101,10 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
 
     constructor(
         injector: Injector,
-        private _reportService: ReportServiceProxy,
+        private _DeviceReportServiceProxy: DeviceReportServiceProxy,
         private _bigDataService: ReportServiceProxy2,
-        private _orderService: OrderReportServiceProxy
+        private _orderService: OrderReportServiceProxy,
+        private _ProductReportServiceProxy:ProductReportServiceProxy
     ) {
         super(injector);
         this.dashboardHeaderStats = new DashboardHeaderStats();
@@ -292,7 +296,103 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
 
     getDashboardStatisticsData(datePeriod): void {
         this.headLoading1 = true;
-        return console.log("todo","startTime", this.allStartTime,this.allStartTime.format())
+        var newList = [];
+
+        Promise.all([
+            // new Promise((resolve, reject) => {
+            //     if (this.isGranted("Pages.Tenant.Dashboard.Dashboard.Device")) {
+            //         this._DeviceReportServiceProxy.getDevicesCount()
+            //             .pipe(finalize(() => {
+            //                 this.checkHeadLoad();
+            //                 resolve(null);
+            //             })).subscribe((result) => {
+            //                 newList.push({
+            //                     name: "device",
+            //                     totalProfitCounter: result
+            //                 })
+            //             })
+            //     } else {
+            //         resolve(null);
+            //     }
+            // }),
+            // new Promise((resolve, reject) => {
+            //     if (this.isGranted("Pages.Tenant.Dashboard.Dashboard.Store")) {
+            //         this._DeviceReportServiceProxy.getStoresCount()
+            //             .pipe(finalize(() => {
+            //                 this.checkHeadLoad();
+            //                 resolve(null);
+            //             })).subscribe((result) => {
+            //                 newList.push({
+            //                     name: "store",
+            //                     totalProfitCounter: result
+            //                 })
+            //             })
+            //     } else {
+            //         resolve(null);
+            //     }
+            // }),
+            // new Promise((resolve, reject) => {
+            //     if (this.isGranted("Pages.Tenant.Dashboard.Dashboard.Device")) {
+
+            //         this._DeviceReportServiceProxy.getOnlineDevicesCount()
+            //             .pipe(finalize(() => {
+            //                 this.checkHeadLoad();
+            //                 resolve(null);
+            //             })).subscribe((result) => {
+            //                 newList.push({
+            //                     name: "specialDevice",
+            //                     totalProfitCounter: result
+            //                 })
+            //             })
+            //     } else {
+            //         resolve(null);
+            //     }
+            // }),
+            new Promise((resolve, reject) => {
+                this._DeviceReportServiceProxy.getCountReport(new GetCountReportInput({
+                    startTime: this.allStartTime,
+                    endTime: this.allEndTime,//.format()
+                    storeOrOuList: this.chosenItem,
+                    filter: ""
+                })).pipe(finalize(() => {
+                    this.checkHeadLoad();
+                    resolve(null);
+                })).subscribe((result) => {
+                    console.log("result", result)
+                    newList.push(...result)
+                })
+
+            }),
+            new Promise((resolve, reject) => {
+                this._ProductReportServiceProxy.getCountReportPost(new GetCountReportInput({
+                    startTime: this.allStartTime,
+                    endTime: this.allEndTime,//.format()
+                    storeOrOuList: this.chosenItem,
+                    filter: ""
+                })).pipe(finalize(() => {
+                    this.checkHeadLoad();
+                    resolve(null);
+                })).subscribe((result) => {
+                    console.log("result", result)
+                    newList.push(...result)
+                })
+
+            })
+        ])
+            .then(() => {
+                console.log("newList", newList);
+                var newNewList = newList.map(item => {
+                    var newItem = {
+                        name: item.name,
+                        totalProfitCounter: item.count
+                    }
+                    return newItem
+                })
+                this.dashboardHeaderStats.init(newNewList);
+            })
+
+
+
         //TODO 拆分接口
         //店铺总数
         // this._reportService.getCountReportPost(new GetCountReportInput({
