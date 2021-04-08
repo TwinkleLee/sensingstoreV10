@@ -137,6 +137,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ActivityServiceProxies.ImportTrainingsServiceProxy,
         ActivityServiceProxies.CourseServiceProxy,
         ActivityServiceProxies.ImportQuestionsServiceProxy,
+        ActivityServiceProxies.TagServiceProxy,
 
         SYNCServiceProxies.PlanServiceProxy,
         SYNCServiceProxies.BatchTaskLogServiceProxy,

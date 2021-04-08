@@ -171,6 +171,7 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
 
     doSearch(e, record, index) {
         this.nowIndex = index;
+        this.primengTableHelper.showLoadingIndicator();
         record.loading = true;
         this._OutPutInStorageServiceProxy.getSkus(
             undefined,
@@ -182,8 +183,12 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
             undefined,
             10,
             0
-        ).pipe(finalize(() => { record.loading = false; }))
+        ).pipe(finalize(() => { 
+            this.primengTableHelper.hideLoadingIndicator();
+            record.loading = false;
+         }))
             .subscribe(r => {
+                this.primengTableHelper.hideLoadingIndicator();
                 if (r.items.length == 1) {
                     record.title = r.items[0].title;
                     record.sku_id = r.items[0].sku_id;
