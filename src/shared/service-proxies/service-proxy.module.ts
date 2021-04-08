@@ -73,8 +73,9 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ApiServiceProxies.TwitterServiceProxy,
 
         //V3
-        OnlineApiServiceProxies.OrderServiceProxy,
         OnlineApiServiceProxies.CommonServiceProxy,
+        OnlineApiServiceProxies.OrderServiceProxy,
+        OnlineApiServiceProxies.OrderExtensionServiceProxy,
         OnlineApiServiceProxies.ReportServiceProxy,
         OnlineApiServiceProxies.MemberServiceProxy,
         OnlineApiServiceProxies.SensingShopManageServiceProxy,
@@ -83,6 +84,12 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         OnlineApiServiceProxies.SensingShopServiceProxy,
         OnlineApiServiceProxies.SensingShopManageServiceProxy,
         OnlineApiServiceProxies.SensingTicketServiceProxy,
+        OnlineApiServiceProxies.DataTransferServiceProxy,
+        OnlineApiServiceProxies.FileServiceProxy,
+        OnlineApiServiceProxies.MemberPointOperatorServiceProxy,
+        OnlineApiServiceProxies.TagServiceProxy,
+        OnlineApiServiceProxies.SensingOrderServiceProxy,
+        OnlineApiServiceProxies.ReleaseApiTestServiceProxy,
 
 
         BigDataApiServiceProxies.SensingDeviceServiceProxy,

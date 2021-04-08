@@ -4,7 +4,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { MemberServiceProxy, CommonServiceProxy, ReportServiceProxy, SensingShopManageServiceProxy, DispatchPointToMemberInput, DispatchPointToMemberInputInOrOutType, DispatchPointToMemberInputPointFromType } from '@shared/service-proxies/service-proxies2';
+import { MemberServiceProxy, CommonServiceProxy, ReportServiceProxy, SensingShopManageServiceProxy, DispatchPointToMemberInput, EnumInOrOutType, EnumPointFromType } from '@shared/service-proxies/service-proxies2';
 import { MemberShipModalComponent } from '@app/admin//memberShip/member-ship/member-ship-detail-modal.component';
 import { finalize } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -52,9 +52,9 @@ export class MemberShipComponent extends AppComponentBase {
   selectedMember: any = {};
   DispatchPoint = {
     dispatchAmount: 0,
-    inOrOutType: DispatchPointToMemberInputInOrOutType["In"]
+    inOrOutType: EnumInOrOutType["In"]
   };
-  DispatchPointToMemberInputInOrOutType = DispatchPointToMemberInputInOrOutType;
+  DispatchPointToMemberInputInOrOutType = EnumInOrOutType;
 
   constructor(injector: Injector,
     private _memberService: MemberServiceProxy,
@@ -73,8 +73,7 @@ export class MemberShipComponent extends AppComponentBase {
       memberIds: [this.selectedMember.id],
       openIds: undefined,
       dispatchAmount: this.DispatchPoint.dispatchAmount,
-      pointFromType: DispatchPointToMemberInputPointFromType["Dispatch"],
-      // inOrOutType: DispatchPointToMemberInputInOrOutType["In"],
+      pointFromType: EnumPointFromType["Dispatch"],
       inOrOutType: this.DispatchPoint.inOrOutType,
       thingId: undefined,
       from: undefined,

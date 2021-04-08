@@ -5,7 +5,7 @@ import { CreateOrderInput, OrderServiceProxy, OrderItemDto } from '@shared/servi
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
-import { SensingShopManageServiceProxy, DeliverOrderInput,GetRefundDetailDtoRefundWay } from '@shared/service-proxies/service-proxies2';
+import { SensingShopManageServiceProxy, DeliverOrderInput } from '@shared/service-proxies/service-proxies2';
 import * as moment from 'moment'
 
 

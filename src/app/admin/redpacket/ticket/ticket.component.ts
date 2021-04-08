@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 import { CreateOrEditTicketModalComponent } from '@app/admin/redpacket/ticket/create-or-edit-ticket-modal.component';
 import { PublishTicketModalComponent } from '@app/admin/redpacket/ticket/publish-ticket-modal.component';
 
-import { CommonServiceProxy, TicketServiceProxy, TicketStatus, TicketType, TakeType, SetTicketStatusInput } from '@shared/service-proxies/service-proxies2';
+import { CommonServiceProxy, TicketServiceProxy, AuditStatus, TicketType, TakeType, SetTicketStatusInput } from '@shared/service-proxies/service-proxies2';
 import { ProductCategoryServiceProxy, CouponServiceProxy, CreateCouponByTicketInput } from '@shared/service-proxies/service-proxies-product';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
@@ -36,7 +36,7 @@ export class TicketComponent extends AppComponentBase {
   takeType: any = '';
   filter = '';
 
-  TicketStatus = TicketStatus;
+  TicketStatus = AuditStatus;
   TicketType = TicketType;
   TakeType = TakeType;
 
@@ -243,10 +243,10 @@ export class TicketComponent extends AppComponentBase {
     this.checkSelection(true, (ary) => {
       this.primengTableHelper.showLoadingIndicator();
 
-      this._TicketServiceProxy.setTicketStatus({
+      this._TicketServiceProxy.setTicketStatus(new SetTicketStatusInput({
         ticketIds: ary,
-        ticketStatus: "Online"
-      } as SetTicketStatusInput)
+        ticketStatus: 1
+      }))
         .pipe(finalize(() => { this.primengTableHelper.hideLoadingIndicator() }))
         .subscribe(r => {
           this.publishList = [];
@@ -260,10 +260,10 @@ export class TicketComponent extends AppComponentBase {
     this.checkSelection(false, (ary) => {
       this.primengTableHelper.showLoadingIndicator();
 
-      this._TicketServiceProxy.setTicketStatus({
+      this._TicketServiceProxy.setTicketStatus(new SetTicketStatusInput({
         ticketIds: ary,
-        ticketStatus: "Offline"
-      } as SetTicketStatusInput)
+        ticketStatus: 0
+      }))
         .pipe(finalize(() => { this.primengTableHelper.hideLoadingIndicator() }))
         .subscribe(r => {
           this.publishList = [];
