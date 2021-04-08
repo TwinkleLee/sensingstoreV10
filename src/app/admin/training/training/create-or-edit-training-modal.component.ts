@@ -68,7 +68,7 @@ export class CreateOrEditTrainingModalComponent extends AppComponentBase impleme
             this.paperList = r.items;          
             console.log("papers="+this.paperList);
         })
-        _loginServiceProxy.getPlatformUsers(5056).subscribe((r) => {
+        _loginServiceProxy.getPlatformUsers(abp.session.tenantId).subscribe((r) => {
             this.platformUsers = r;          
             console.log("platformUsers="+this.platformUsers);
         })
