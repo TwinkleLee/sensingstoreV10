@@ -10,7 +10,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { CreateActivityModalComponent } from '@app/admin/activity/activity/create-activity-modal.component';
-import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, ActivityAuditInputCurrentAuditStatus, ActivityAuditInputTargetAuditStatus } from '@shared/service-proxies/service-proxies5';
+import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, AuditStatus as ActivityAuditStatus } from '@shared/service-proxies/service-proxies5';
 
 import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
@@ -272,8 +272,8 @@ export class ActivityComponent extends AppComponentBase {
     // this.review(false);
     this._acitvityService.activityAudit(new ActivityAuditInput({
       activityIds: [],
-      currentAuditStatus: ActivityAuditInputCurrentAuditStatus["Online"],
-      targetAuditStatus: ActivityAuditInputTargetAuditStatus["Offline"]
+      currentAuditStatus: ActivityAuditStatus["Online"],
+      targetAuditStatus: ActivityAuditStatus["Offline"]
     })).subscribe(r => {
       this.getActivity()
     })
@@ -283,8 +283,8 @@ export class ActivityComponent extends AppComponentBase {
     this.checkSelection(false, (ary) => {
       this._acitvityService.activityAudit(new ActivityAuditInput({
         activityIds: ary,
-        currentAuditStatus: ActivityAuditInputCurrentAuditStatus["Online"],
-        targetAuditStatus: ActivityAuditInputTargetAuditStatus["Offline"]
+        currentAuditStatus: ActivityAuditStatus["Online"],
+        targetAuditStatus: ActivityAuditStatus["Offline"]
       })).subscribe(r => {
         this.getActivity()
       })
@@ -296,8 +296,8 @@ export class ActivityComponent extends AppComponentBase {
       console.log(ary)
       this._acitvityService.activityAudit(new ActivityAuditInput({
         activityIds: ary,
-        currentAuditStatus: ActivityAuditInputCurrentAuditStatus["Offline"],
-        targetAuditStatus: ActivityAuditInputTargetAuditStatus["Online"]
+        currentAuditStatus: ActivityAuditStatus["Offline"],
+        targetAuditStatus: ActivityAuditStatus["Online"]
       })).subscribe(r => {
         this.getActivity()
       })
@@ -307,8 +307,8 @@ export class ActivityComponent extends AppComponentBase {
   onlineAll() {
     this._acitvityService.activityAudit(new ActivityAuditInput({
       activityIds: [],
-      currentAuditStatus: ActivityAuditInputCurrentAuditStatus["Offline"],
-      targetAuditStatus: ActivityAuditInputTargetAuditStatus["Online"]
+      currentAuditStatus: ActivityAuditStatus["Offline"],
+      targetAuditStatus: ActivityAuditStatus["Online"]
     })).subscribe(r => {
       this.getActivity()
     })

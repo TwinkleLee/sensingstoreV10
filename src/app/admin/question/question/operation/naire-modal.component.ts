@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { UpdateQuestionScoreAndOrderInput, PublishedQuestionDto, PublishQuestionsToPapersInput, PaperServiceProxy, CreatePaperInput, UpdatePaperInput, QuestionServiceProxy, CreatePaperInputPaperUsageType } from '@shared/service-proxies/service-proxies5';
+import { UpdateQuestionScoreAndOrderInput, PublishedQuestionDto, PublishQuestionsToPapersInput, PaperServiceProxy, CreatePaperInput, UpdatePaperInput, QuestionServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';

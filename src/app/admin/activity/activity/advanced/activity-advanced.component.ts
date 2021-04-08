@@ -7,7 +7,8 @@ import { CreateOrEditCouponModalComponent } from '@app/admin/redpacket/red-packe
 import { AppConsts } from '@shared/AppConsts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
-import { ActivityServiceProxy, HtmlTemplateServiceProxy, ActivityFlowSettingsInput, ActivityShareSettingsInput, TemplateEnum, FlowType, ActivityFlowSettingsInputFlowType } from '@shared/service-proxies/service-proxies5';
+import { ActivityServiceProxy, HtmlTemplateServiceProxy, ActivityFlowSettingsInput, ActivityShareSettingsInput, TemplateEnum, FlowType, FlowType as ActivityFlowSettingsInputFlowType } from '@shared/service-proxies/service-proxies5';
+
 
 @Component({
     selector: 'activity-advanced',
