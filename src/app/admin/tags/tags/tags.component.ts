@@ -10,6 +10,8 @@ import { TagServiceProxy as AdsTagServiceProxy, TagType } from '@shared/service-
 
 import { TagServiceProxy as DeviceTagServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter'
 
+import { TagServiceProxy as GameTagServiceProxy } from '@shared/service-proxies/service-proxies5'
+
 
 import { CreateOrEditTagModalComponent } from '@app/admin/tags/tags/create-or-edit-tags-modal.component';
 import * as moment from 'moment';
@@ -42,6 +44,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
     private _DeviceTagServiceProxy: DeviceTagServiceProxy,
     private _AdsTagServiceProxy: AdsTagServiceProxy,
     private _ProductTagServiceProxy: ProductTagServiceProxy,
+    private _GameTagServiceProxy: GameTagServiceProxy,
   ) {
     super(injector);
     this.tabChange(0);
@@ -104,8 +107,9 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
 
   tabChange(tagType?) {
     this.tagType = tagType;
-
-    if (this.tagType == 0 || this.tagType == 6 || this.tagType == 8 || this.tagType == 7 || this.tagType == 4) {
+    // Resource = 0,Device = 1,Product = 2,Ads = 3,Other = 4,Brand = 5,Question = 6,Counter = 7,WechatPublicMessage = 8
+    
+    if (this.tagType == 0 || this.tagType == 7 || this.tagType == 4) {
       this.ServiceProxy = this._TagService
     }
 
@@ -119,6 +123,10 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
 
     if (this.tagType == 3) {
       this.ServiceProxy = this._AdsTagServiceProxy
+    }
+
+    if (this.tagType == 8 || this.tagType == 6) {
+      this.ServiceProxy = this._GameTagServiceProxy
     }
 
     this.getTags()
