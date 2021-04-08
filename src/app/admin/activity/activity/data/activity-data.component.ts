@@ -319,8 +319,8 @@ export class ActivityDataComponent extends AppComponentBase {
   goValidate(record) {
     console.log(record.id)
     this._ActivityServiceProxy.validateActivityUserDatas(
-      [record.id],
-      true
+      true,
+      [record.id]
     ).subscribe(r => {
       this.notify.info(this.l('success'));
       this.getRegisterUser()
@@ -328,8 +328,8 @@ export class ActivityDataComponent extends AppComponentBase {
   }
   cancelValidate(record) {
     this._ActivityServiceProxy.validateActivityUserDatas(
-      [record.id],
-      false
+      false,
+      [record.id]
     ).subscribe(r => {
       this.notify.info(this.l('success'));
       this.getRegisterUser()

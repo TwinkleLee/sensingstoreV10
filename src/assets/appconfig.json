@@ -8,7 +8,7 @@
   "remoteBigDataServiceUrl": "https://devicebigdata5.sensingstore.com",
   "///remoteOnlineServiceUrl": "https://o.api.troncell.com",
   "remoteMetaServiceUrl": "https://recommend5.sensingstore.com",
-  "///remoteActivityServiceUrl": "https://g.api.troncell.com",
+  "remoteActivityServiceUrl": "https://g5.sensingstore.com",
   "///remoteCargoServiceUrl": "https://e.api.troncell.com",
   "remoteSYNCServiceUrl": "https://thingsync5.sensingstore.com",
   "//remoteSYNCServiceUrl": "https://sync.api.troncell.com",

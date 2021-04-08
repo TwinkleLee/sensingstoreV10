@@ -79,7 +79,7 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
   }
   CreateActionInform() {
     this._UserActionServiceProxy.createActionInform(
-      this.Game.id, "https://m.sensingstore.com/other/V3/PYJ_Inform.html"
+      this.Game.id, "https://m.sensingstore.com/other/V3/PYJ_Inform.html",""
     ).subscribe(result => {
       this.informQrcodeImage = result.qrCodeImage;
     })
