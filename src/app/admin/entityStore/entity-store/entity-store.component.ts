@@ -409,7 +409,7 @@ export class EntityStoreComponent extends AppComponentBase {
       this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
-          this._NewStoreServiceProxy.publishStoreToOrganization(input)
+          this._NewStoreServiceProxy.publishAllStoreToOrganization(input)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
               // this.primengTableHelper.hideLoadingIndicator();
@@ -424,7 +424,7 @@ export class EntityStoreComponent extends AppComponentBase {
       this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
-          this._NewStoreServiceProxy.publishStoreToOrganization(input)
+          this._NewStoreServiceProxy.publishAllStoreToOrganization(input)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
               // this.primengTableHelper.hideLoadingIndicator();

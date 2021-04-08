@@ -44,7 +44,7 @@
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container">
                             <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
-                            <p-table #RecommendTable [value]="skuList" [paginator]="false">
+                            <p-table #RecommendTable [busyIf]="primengTableHelper.isLoading" [value]="skuList" [paginator]="false">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>{{l('Actions')}}</th>
@@ -77,13 +77,13 @@
                                         </td>
                                         <td>
                                             <input class="form-control titleInputInAddOutputinModal" type="text"
-                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.title"
-                                                (keydown.enter)="doSearch($event,record,i)" [readonly]="record.loading">
+                                                [ngModelOptions]="{standalone: true}" readonly [(ngModel)]="record.title"
+                                                 (click)="doSearch($event,record,i)">
                                         </td>
                                         <td>
                                             <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
-                                                [(ngModel)]="record.sku_id" (keydown.enter)="doSearch($event,record,i)"
-                                                [readonly]="record.loading">
+                                                [(ngModel)]="record.sku_id" (click)="doSearch($event,record,i)" readonly
+                                                >
                                         </td>
                                         <td>
                                             <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;" (error)="fixPic($event)" />
