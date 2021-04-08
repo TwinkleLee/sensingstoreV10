@@ -42,7 +42,7 @@
     </sub-header>
 
 
-    <<div [class]="containerClass">
+    <div [class]="containerClass">
       <div class="card card-custom gutter-b">
         <div class="card-body">
 
@@ -63,10 +63,10 @@
                         </div>
                       </div>
 
-                      <div class="col-4">
+                      <div class="col-6">
                         <div class="input-group">
                           <date-range-picker needInitDate="true" [dateRangePickerOptions]='{ "opens": "left"}'
-                            style="width: 80%;position: relative;" name="SampleDateRangePicker"
+                            style="width: 60%;position: relative;" name="SampleDateRangePicker"
                             [(startDate)]="startDate3" [(endDate)]="endDate3" rangeMode="history">
                           </date-range-picker>
                           <span class="input-group-btn">
@@ -82,42 +82,42 @@
                       <table id="table">
                         <tr>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/interactiveCount.png">
                               <div class="div1" style="color:#9abc32;">{{activityData.interactiveCount}}</div>
                               <div class="div2">{{l('interactiveCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/fansCount.png">
                               <div class="div1" style="color:#4ec83b;">{{activityData.fansCount}}</div>
                               <div class="div2">{{l('fansCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/shareCount.png">
                               <div class="div1" style="color:#9abc32;">{{activityData.shareCount}}</div>
                               <div class="div2">{{l('shareCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/viewCount.png">
                               <div class="div1" style="color:#cb6fd7;">{{activityData.viewCount}}</div>
                               <div class="div2">{{l('viewCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/likeCount.png">
                               <div class="div1" style="color:#d53f40;">{{activityData.likeCount}}</div>
                               <div class="div2">{{l('likeCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/spreadCount.png">
                               <div class="div1" style="color:#6fb3e0;">{{activityData.spreadCount}}</div>
                               <div class="div2">{{l('spreadCount')}}</div>
@@ -126,7 +126,7 @@
                         </tr>
                         <tr>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/genderRatio.png">
                               <div class="div1" style="color:#cb6fd7;">
                                 {{activityData.maleCount}}:{{activityData.femaleCount}}</div>
@@ -134,35 +134,35 @@
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/awardCount.png">
                               <div class="div1" style="color:#f79263;">{{activityData.awardCount}}</div>
                               <div class="div2">{{l('awardCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/gameCount.png">
                               <div class="div1" style="color:#00b5a4;">{{activityData.gameCount}}</div>
                               <div class="div2">{{l('gameCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/offlineCount.png">
                               <div class="div1" style="color:#3983c2;">{{activityData.offlineCount}}</div>
                               <div class="div2">{{l('offlineCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/offlineStopCount.png">
                               <div class="div1" style="color:#e8b110;">{{activityData.offlineStopCount}}</div>
                               <div class="div2">{{l('offlineStopCount')}}</div>
                             </div>
                           </td>
                           <td>
-                            <div style="position:relative;">
+                            <div style="position:relative;text-align: start;">
                               <img src="/assets/common/images/chart/offlineStopRatio.png">
                               <div class="div1" style="color:#f79263;">{{activityData.offlineStopRatio}}</div>
                               <div class="div2">{{l('offlineStopRatio')}}</div>
