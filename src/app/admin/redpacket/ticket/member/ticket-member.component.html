@@ -1,6 +1,8 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'getTicketMember' | localize" [description]="'getTicketMember' | localize">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+
             <div role="actions"></div>
         </sub-header>
 

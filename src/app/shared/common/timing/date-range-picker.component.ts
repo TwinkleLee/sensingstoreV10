@@ -16,7 +16,7 @@ import * as moment from 'moment';
                 <i class="icon-sousuo-sousuo"></i>
             </button>
         </span>
-        <span *ngIf="(_startDate||_endDate)&&admitDelete" class="input-group-btn clearSpan" style="position:absolute;right:0;top:2rem;">
+        <span *ngIf="(_startDate||_endDate)&&admitDelete" class="input-group-btn clearSpan" style="position:absolute;right:0;top:0rem;">
             <button (click)="clear()" class="btn btn-primary" style="background:transparent;border:none;" type="button">
                 <i class="icon-icon-test" style="color:#333;"></i>
             </button>
