@@ -46,6 +46,7 @@ import { CreateOrEditGameModalComponent } from '@app/admin/activity/activity/gam
 
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
 import {AppSharedModule} from '@app/shared/app-shared.module';
+import { MachineService } from '@app/shared/services/machine.service';
 
 @NgModule({
     imports: [
@@ -96,7 +97,8 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
         { provide: BsDaterangepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDaterangepickerConfig },
-        { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale }
+        { provide: BsLocaleService, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerLocale },
+        MachineService
     ]
 })
 export class ActivityModule { }
