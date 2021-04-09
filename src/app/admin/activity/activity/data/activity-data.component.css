@@ -430,9 +430,17 @@
 .m-btn--pill input[type=radio]{
   visibility: hidden;
 }
-div.input-group /deep/ span.clearSpan{
+#datePick /deep/ #ClearSpanBtn{
   right: -14px !important;
-  top: 0rem !important;
+  top: 0 !important;
+}
+/deep/ #ClearSpanBtn {
+  right: -14px !important;
+  top: 0 !important;
+}
+#ClearSpanBtn {
+  right: -14px !important;
+  top: 0 !important;
 }
 .hoverImg{
   width: 100px;
