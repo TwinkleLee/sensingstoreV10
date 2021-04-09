@@ -6,7 +6,7 @@ import { UpdateQuestionScoreAndOrderInput, PublishedQuestionDto, PublishQuestion
 import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies2';
+import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { AddQuestionModalComponent } from '@app/admin/question/question/operation/add-question-modal.component';
 
 @Component({

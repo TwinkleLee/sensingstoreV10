@@ -10,7 +10,7 @@ import { NaireModalComponent } from '@app/admin/question/question/operation/nair
 import { PublishPapersToSoftwares, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 //ooo
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies2';
+import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 
 
 import { Router } from '@angular/router';
