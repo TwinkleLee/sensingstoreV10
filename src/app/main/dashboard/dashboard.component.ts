@@ -104,7 +104,7 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
         private _DeviceReportServiceProxy: DeviceReportServiceProxy,
         private _bigDataService: ReportServiceProxy2,
         private _orderService: OrderReportServiceProxy,
-        private _ProductReportServiceProxy:ProductReportServiceProxy
+        private _ProductReportServiceProxy: ProductReportServiceProxy
     ) {
         super(injector);
         this.dashboardHeaderStats = new DashboardHeaderStats();
@@ -374,7 +374,10 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
                     resolve(null);
                 })).subscribe((result) => {
                     console.log("result", result)
-                    newList.push(...result)
+                    newList.push(...result.map(item => ({
+                        count: item.id,
+                        name: item.name
+                    })))
                 })
 
             })
