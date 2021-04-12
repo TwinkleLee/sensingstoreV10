@@ -7,7 +7,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset type="pills">
-                        <tab *ngFor="let themeSetting of themeSettings"
+                        <tab class="p-5" *ngFor="let themeSetting of themeSettings"
                             [active]="themeSetting.theme == currentThemeName">
                             <ng-template tabHeading>
                                 <div class="theme-select-box">

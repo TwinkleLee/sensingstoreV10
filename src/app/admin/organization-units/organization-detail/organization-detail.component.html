@@ -14,7 +14,7 @@
                 <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
                     <div class="card-body">
                         <tabset class="tab-container tabbable-line">
-                            <tab class="pt-5" *ngIf="OUId" heading="{{l('User')}}" customClass="kt-tabs__item icon-yonghu"
+                            <tab class="p-5" *ngIf="OUId" heading="{{l('User')}}" customClass="kt-tabs__item icon-yonghu"
                                 (selectTab)="getUsers()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="userForm">
@@ -147,7 +147,7 @@
                                 </div>
                             </tab>
 
-                            <tab class="pt-5" *ngIf="OUId" heading="{{l('ElectronicCommerce')}}"
+                            <tab class="p-5" *ngIf="OUId" heading="{{l('ElectronicCommerce')}}"
                                 customClass="kt-tabs__item icon-shop" (selectTab)="getStoreList()">
                                 <div class="row">
                                     <form class="horizontal-form" autocomplete="off">
@@ -252,7 +252,7 @@
 
                             </tab>
 
-                            <tab class="pt-5" heading="{{l('Device')}}" customClass="kt-tabs__item icon-devices"
+                            <tab class="p-5" heading="{{l('Device')}}" customClass="kt-tabs__item icon-devices"
                                 *ngIf="isGranted('Pages.Tenant.Devices')&&storeId" (selectTab)="getDeviceByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="deviceForm">
@@ -385,7 +385,7 @@
                                 </div>
                             </tab>
 
-                            <tab class="pt-5" heading="{{l('Advertisement')}}" customClass="kt-tabs__item icon-guanggao"
+                            <tab class="p-5" heading="{{l('Advertisement')}}" customClass="kt-tabs__item icon-guanggao"
                                 *ngIf="isGranted('Pages.Tenant.Ads')" (selectTab)="getAdsByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="adsForm">
@@ -509,7 +509,7 @@
                                 </div>
                             </tab>
 
-                            <tab class="pt-5" heading="{{l('Apps')}}" customClass="kt-tabs__item icon-yingyong"
+                            <tab class="p-5" heading="{{l('Apps')}}" customClass="kt-tabs__item icon-yingyong"
                                 *ngIf="isGranted('Pages.Softwares')" (selectTab)="getAppByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="appForm">
@@ -630,7 +630,7 @@
                                 </div>
                             </tab>
 
-                            <tab class="pt-5" heading="{{l('Product')}}" customClass="kt-tabs__item icon-product"
+                            <tab class="p-5" heading="{{l('Product')}}" customClass="kt-tabs__item icon-product"
                                 *ngIf="isGranted('Pages.Tenant.Products')" (selectTab)="getProductByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="productForm">
@@ -754,7 +754,7 @@
                                 </div>
                             </tab>
 
-                            <tab class="pt-5" heading="{{l('Coupon')}}" customClass="kt-tabs__item icon-hongbao"
+                            <tab class="p-5" heading="{{l('Coupon')}}" customClass="kt-tabs__item icon-hongbao"
                                 *ngIf="isGranted('Pages.Tenant.Coupons')" (selectTab)="getCouponByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="couponForm">
@@ -872,7 +872,7 @@
                                 </div>
                             </tab>
 
-                            <tab class="pt-5" heading="{{l('Activities')}}" customClass="kt-tabs__item icon-huodong"
+                            <tab class="p-5" heading="{{l('Activities')}}" customClass="kt-tabs__item icon-huodong"
                                 *ngIf="isGranted('Pages.Tenant.Activities')" (selectTab)="getActivityByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="activityForm">
@@ -1001,7 +1001,7 @@
 
 
 
-                            <tab class="pt-5" heading="{{l('KPI')}}" customClass="kt-tabs__item icon-huodongshuju1"
+                            <tab class="p-5" heading="{{l('KPI')}}" customClass="kt-tabs__item icon-huodongshuju1"
                                 (selectTab)="initKPITab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="kpiForm">

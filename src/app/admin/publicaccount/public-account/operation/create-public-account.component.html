@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <tabset class="tab-container tabbable-line">
-          <tab heading="{{l('playerDataDetail')}}" customClass="m-tabs__item">
+          <tab class="p-5" heading="{{l('playerDataDetail')}}" customClass="m-tabs__item">
             <div class="row">
               <div class="col-4">
                 <div class="form-group" style="text-align:center;">
@@ -39,7 +39,7 @@
           </tab>
         </tabset>
         <tabset class="tab-container tabbable-line">
-          <tab heading="{{l('Public number landing authorization')}}" customClass="m-tabs__item">
+          <tab class="p-5" heading="{{l('Public number landing authorization')}}" customClass="m-tabs__item">
             <div class="row" style="margin:0;">
               {{l('A secure authorization mechanism allows the public number to authorize their own rights and capabilities to developers,enabling
               development to help public numbers realize their business')}}
@@ -47,7 +47,7 @@
           </tab>
         </tabset>
         <tabset class="tab-container tabbable-line">
-          <tab heading="{{l('The authorization and use of the platform')}}" customClass="m-tabs__item">
+          <tab class="p-5" heading="{{l('The authorization and use of the platform')}}" customClass="m-tabs__item">
             <div class="row" style="font-size:1.05rem;margin:10px 0;">
               <div class="col-4">
                 <a target="_blank" href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318459&lang=zh_CN">{{l('User
@@ -75,7 +75,7 @@
           </tab>
         </tabset>
         <tabset class="tab-container tabbable-line">
-          <tab heading="{{l('Please Choose Your Public-Account')}}" customClass="m-tabs__item">
+          <tab class="p-5" heading="{{l('Please Choose Your Public-Account')}}" customClass="m-tabs__item">
             <div class="form-row" style="text-align:center">
               <div class="form-group col-2" *ngFor="let item of list">
                 <label class="btn m-btn--pill btn-secondary" (click)="chooseAccount()">

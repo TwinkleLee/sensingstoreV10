@@ -35,7 +35,7 @@
                 <div class="card card-custom gutter-b">
                     <div class="card-body">
                         <tabset class="tab-container tabbable-line">
-                            <tab class="pt-5" heading="{{title}}" customClass="m-tabs__item">
+                            <tab class="p-5" heading="{{title}}" customClass="m-tabs__item">
                                 <div class="row align-items-center">
                                     <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                                         <p-table #dataTable (onLazyLoad)="getList($event)" [value]="primengTableHelper.records"

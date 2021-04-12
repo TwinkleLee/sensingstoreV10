@@ -14,6 +14,8 @@ import { StoreServiceProxy as NewStoreServiceProxy} from '@shared/service-proxie
 })
 export class HighTreeComponent extends AppComponentBase implements OnInit {
 
+    @ViewChild('high', { static: false }) high;
+
     @Input() treeList: any[];
     @Input() treeType: any = '';
     @Input() selfConfig: any = {
@@ -65,9 +67,13 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
     needAddShowChildren = true;
     @ViewChild('storeTree',{static:false}) storeTree: MyTreeComponent;
 
-
     lastTimeChosenList: any = [];
 
+    myClose: any = (e) => {
+        if (!this.high.nativeElement.contains(e.target)) {
+            this.showStore = false;
+        }
+    }
 
     constructor(
         injector: Injector,
@@ -80,17 +86,9 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
 
     }
 
-    handleBlur() {
-        console.log('blur')
-        this.showStore=false;
-    }
-    handleFocus () {
-        console.log('focus')
-    }
-
     ngOnInit() {
+        document.addEventListener('click', this.myClose)
 
-        console.log('initShowArray', this.initShowArray);
         this.config = Object.assign(this.defaultConfig, this.config);
         this.getTreeList();
         if (this.initShowArray && this.initShowArray.length) {
@@ -101,6 +99,7 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
 
     }
     ngOnDestroy() {
+        document.removeEventListener('click', this.myClose)
         // console.log('destroy')
     }
 

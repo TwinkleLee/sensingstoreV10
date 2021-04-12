@@ -1,4 +1,4 @@
-<div style="position:relative;padding-bottom: 0;top:0.8rem;" (click)="$event.stopPropagation()">
+<div #high style="position:relative;padding-bottom: 0;top:0.8rem;">
     <label *ngIf="selfConfig.labelName" style="margin-bottom:0;position:relative;">{{l(selfConfig.labelName)}}</label>
     <div class="form-group align-items-center" (click)="clickInput()">
         <div class="input-group">

@@ -42,6 +42,7 @@ export class SalesChartComponent extends AppComponentBase {
   ouTree2 = []; chosenItem2 = []; showTree2 = true;
   ouTree3 = []; chosenItem3 = []; showTree3 = true;
 
+
   constructor(injector: Injector,
     private _ReportServiceProxy: ReportServiceProxy,
     private _OrderServiceProxy: OrderServiceProxy,

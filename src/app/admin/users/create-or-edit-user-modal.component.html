@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-body">
                     <tabset>
-                        <tab class="pt-5" heading="{{'UserInformations' | localize}}">
+                        <tab class="p-5" heading="{{'UserInformations' | localize}}">
                             <div class="row">
                                 <div class="col-sm-3 text-center mb-5 mt-5">
                                     <img src="{{profilePicture}}" width="128" height="128" class="img-thumbnail img-rounded" />
@@ -137,7 +137,7 @@
                                 </label>
                             </div>
                         </tab>
-                        <tab class="pt-5" heading="{{'Roles' | localize}}">
+                        <tab class="p-5" heading="{{'Roles' | localize}}">
                             <ng-template tabHeading>
                                 <span class="label label-success label-inline assigned-role-count">{{getAssignedRoleCount()}}</span>
                             </ng-template>
@@ -149,7 +149,7 @@
                                 </label>
                             </div>
                         </tab>
-                        <tab class="pt-5" heading="{{'OrganizationUnits' | localize}}">
+                        <tab class="p-5" heading="{{'OrganizationUnits' | localize}}">
                             <organization-unit-tree [cascadeSelectEnabled]="false" #organizationUnitTree></organization-unit-tree>
                         </tab>
                         <tab heading="{{l('ClerkMessage')}}" *ngIf="user?.isStaff" customClass="kt-tabs__item">

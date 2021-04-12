@@ -1,4 +1,4 @@
-<div [@routerTransition] (click)="clickContainer()">
+<div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
 
         <sub-header [title]="'SalesInfo' | localize" [description]="'SalesInfo' | localize">
@@ -10,10 +10,10 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab class="pt-5" heading="{{l('SkuMsg')}}" customClass="m-tabs__item icon-dingdan1"
+                        <tab class="p-5" heading="{{l('SkuMsg')}}" customClass="m-tabs__item icon-dingdan1"
                             (selectTab)="changePage()">
                         </tab>
-                        <tab class="pt-5" heading="{{l('MemberMsg')}}" customClass="m-tabs__item icon-huiyuanguanli" active="true">
+                        <tab class="p-5" heading="{{l('MemberMsg')}}" customClass="m-tabs__item icon-huiyuanguanli" active="true">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form m-form--label-align-right">
@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <label>{{l('membershipType')}}</label>
-                                                <div class="form-group" style="margin-bottom:0;">
+                                                <div class="form-group">
                                                     <div class="input-group">
                                                         <select class="form-control" [(ngModel)]="memberShipType"
                                                             name="memberShipType">

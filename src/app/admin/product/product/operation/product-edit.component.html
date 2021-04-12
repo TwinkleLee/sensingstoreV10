@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line" #tabset>
                         <!--  商品基础信息-->
-                        <tab heading="{{l('Product')}}" customClass="m-tabs__item icon-product">
+                        <tab class="p-5" heading="{{l('Product')}}" customClass="m-tabs__item icon-product">
                             <form #productOperationForm='ngForm' name="ProductsForm" (ngSubmit)="save()" novalidate="">
                                 <div class="row">
                                     <div class="col-8">
@@ -344,7 +344,7 @@
                             </form>
                         </tab>
                         <!--  电商平台信息-->
-                        <tab heading="{{l('onlineMsg')}}" customClass="m-tabs__item icon-pingtai1"
+                        <tab class="p-5" heading="{{l('onlineMsg')}}" customClass="m-tabs__item icon-pingtai1"
                             (selectTab)="getOnlineByProductId()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -441,7 +441,7 @@
                             </div>
                         </tab>
                         <!--  sku-->
-                        <tab heading="{{l('sku')}}" [active]="backFromSku"
+                        <tab class="p-5" heading="{{l('sku')}}" [active]="backFromSku"
                             customClass="m-tabs__item icon-ccgl-xinghapweihu-4" (selectTab)="getSkuByProductId()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -621,7 +621,7 @@
                             </div>
                         </tab>
                         <!--  资源列表-->
-                        <tab heading="{{l('resouceList')}}" customClass="m-tabs__item icon-ziyuan"
+                        <tab class="p-5" heading="{{l('resouceList')}}" customClass="m-tabs__item icon-ziyuan"
                             (selectTab)="getResByProductId()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -659,7 +659,7 @@
                             </div>
                         </tab>
                         <!--  评价-->
-                        <tab heading="{{l('judgement')}}" customClass="m-tabs__item icon-daipingjia01"
+                        <tab class="p-5" heading="{{l('judgement')}}" customClass="m-tabs__item icon-daipingjia01"
                             (selectTab)="getCommentsByProductId()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">

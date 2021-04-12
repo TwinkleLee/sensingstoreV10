@@ -10,7 +10,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="fortuneTabset">
-                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
 
                             <form #basicForm='ngForm' name="ProductsForm" (ngSubmit)="save()" novalidate=""
                                 style="position:relative;">
@@ -142,7 +142,7 @@
 
 
                         </tab>
-                        <tab heading="{{l('Swiper')}}" customClass="kt-tabs__item" (selectTab)="getShopSliders($event)">
+                        <tab class="p-5" heading="{{l('Swiper')}}" customClass="kt-tabs__item" (selectTab)="getShopSliders($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="kt-form kt-form--label-align-right">
@@ -263,7 +263,7 @@
                                 <!--<Primeng-Datatable-End>-->
                             </div>
                         </tab>
-                        <tab heading="{{l('ProductCategory')}}" customClass="kt-tabs__item"
+                        <tab class="p-5" heading="{{l('ProductCategory')}}" customClass="kt-tabs__item"
                             (selectTab)="getProductCategory($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
@@ -395,7 +395,7 @@
                                 <!--<Primeng-Datatable-End>-->
                             </div>
                         </tab>
-                        <tab heading="{{l('TagManagement')}}" customClass="kt-tabs__item" (selectTab)="getTags($event)">
+                        <tab class="p-5" heading="{{l('TagManagement')}}" customClass="kt-tabs__item" (selectTab)="getTags($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="kt-form kt-form--label-align-right">
@@ -526,7 +526,7 @@
 
 
                         </tab>
-                        <tab heading="{{l('FreightSetting')}}" customClass="kt-tabs__item"
+                        <tab class="p-5" heading="{{l('FreightSetting')}}" customClass="kt-tabs__item"
                             (selectTab)="getShopFreights($event)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
@@ -678,7 +678,7 @@
 
 
 
-                        <tab heading="{{l('LogisticsSetting')}}" customClass="kt-tabs__item"
+                        <tab class="p-5" heading="{{l('LogisticsSetting')}}" customClass="kt-tabs__item"
                             (selectTab)="getTrackKeyInfo()">
 
                             <form #LogisticsForm='ngForm' name="LogisticsForm" (ngSubmit)="saveTrack()" novalidate=""
@@ -712,7 +712,7 @@
 
                         </tab>
 
-                        <tab heading="{{l('payWay')}}" customClass="kt-tabs__item" (selectTab)="payWayInit()">
+                        <tab class="p-5" heading="{{l('payWay')}}" customClass="kt-tabs__item" (selectTab)="payWayInit()">
                             <div class="freeze-ui" style="position:absolute;" *ngIf="showFreezeUi"></div>
                             <div class="row">
                                 <div class="form-group col-6">
@@ -735,7 +735,7 @@
 
                         </tab>
 
-                        <tab heading="{{l('scoreSetting')}}" customClass="kt-tabs__item">
+                        <tab class="p-5" heading="{{l('scoreSetting')}}" customClass="kt-tabs__item">
                             <div class="freeze-ui" style="position:absolute;" *ngIf="showFreezeUi"></div>
                             <div class="row">
                                 <div class="form-group col-6" *ngIf="basic.payPointRule">

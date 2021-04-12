@@ -119,7 +119,6 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         this.doSearch();
     }
     doSearch() {
-        console.log('this.nowDashboardId', this.nowDashboardId, 'this.nowDeviceId', this.nowDeviceId)
         if (this.nowDashboardId) {
             this.getData();
         } else if (this.nowDeviceId) {
@@ -130,7 +129,6 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
     goExport() {
         this.exportLoading = true;
-
         if (this.nowDashboardId) {
             this.exportData();
         } else if (this.nowDeviceId) {

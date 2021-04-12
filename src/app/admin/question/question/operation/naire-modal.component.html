@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-body" style="min-height:75vh;">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}" (selectTab)="changeTab(0)" customClass="kt-tabs__item">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}" (selectTab)="changeTab(0)" customClass="kt-tabs__item">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="row">
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab *ngIf="Paper.id" heading="{{l('QuestionList')}}" (selectTab)="changeTab(1)" customClass="kt-tabs__item">
+                        <tab class="p-5" *ngIf="Paper.id" heading="{{l('QuestionList')}}" (selectTab)="changeTab(1)" customClass="kt-tabs__item">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="kt-form kt-form--label-align-right">

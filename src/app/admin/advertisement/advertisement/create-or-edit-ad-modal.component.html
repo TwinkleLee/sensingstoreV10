@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item icon-guanggao1">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item icon-guanggao1">
                             <div class="row">
                                 <div class="col-8">
 
@@ -165,7 +165,7 @@
                             </div>
                         </tab>
                         <!--  资溝列表-->
-                        <tab *ngIf="operation=='edit'&&!Ad.pageTemplate" heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
+                        <tab class="p-5" *ngIf="operation=='edit'&&!Ad.pageTemplate" heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
                             (selectTab)="getResByAdId()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab *ngIf="Ad.isCustom" heading="{{l('customContent')}}" customClass="kt-tabs__item icon-nav-entry">
+                        <tab class="p-5" *ngIf="Ad.isCustom" heading="{{l('customContent')}}" customClass="kt-tabs__item icon-nav-entry">
                             <div class="row align-items-center">
                                 <div class="col-12 text-right">
                                     <button type="button" class="btn btn-primary" (click)="formatting()">{{l("formatting")}}</button>

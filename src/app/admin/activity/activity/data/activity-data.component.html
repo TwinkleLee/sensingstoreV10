@@ -47,7 +47,7 @@
         <div class="card-body">
 
           <tabset class="tab-container tabbable-line">
-            <tab heading="{{l('Statistical report of activities')}}" class="pt-5"
+            <tab heading="{{l('Statistical report of activities')}}" class="p-5"
               customClass="kt-tabs__item icon-xiaoshoue" style="margin-left:-5px;">
               <div class="col-12">
                 <div class="kt-portlet" origin>
@@ -180,7 +180,7 @@
                 </div>
               </div>
             </tab>
-            <tab heading="{{l('ActionData')}}" customClass="kt-tabs__item icon-jiaose" (selectTab)="getPlayerData()">
+            <tab class="p-5" heading="{{l('ActionData')}}" customClass="kt-tabs__item icon-jiaose" (selectTab)="getPlayerData()">
               <div>
                 <div class="kt-content" style="padding-top:0 !important;">
                   <div class="kt-portlet kt-portlet--mobile" style="padding-top:0 !important;">
@@ -354,7 +354,7 @@
 
               </div>
             </tab>
-            <tab heading="{{l('winningUser')}}" customClass="kt-tabs__item icon-huojiang"
+            <tab heading="{{l('winningUser')}}" class="p-5" customClass="kt-tabs__item icon-huojiang"
               (selectTab)="getActivityAwardUser()">
               <div>
                 <div class="kt-content" style="padding-top:0 !important;">
@@ -483,7 +483,7 @@
               <expressDetailModal #expressDetailModal (modalSave)="getActivityAwardUser()"></expressDetailModal>
 
             </tab>
-            <tab heading="{{l('UserData')}}" class="pt-5" customClass="kt-tabs__item icon-yonghu" (selectTab)="getUserData()">
+            <tab heading="{{l('UserData')}}" class="p-5" customClass="kt-tabs__item icon-yonghu" (selectTab)="getUserData()">
               <div>
                 <div class="kt-content" style="padding-top:0 !important;">
                   <div class="kt-portlet kt-portlet--mobile" style="padding-top:0 !important;">
@@ -654,7 +654,7 @@
               </div>
 
             </tab>
-            <tab heading="{{l('RegisterUser')}}" customClass="kt-tabs__item icon-shenhe1"
+            <tab class="p-5" heading="{{l('RegisterUser')}}" customClass="kt-tabs__item icon-shenhe1"
               (selectTab)="getRegisterUser()">
               <div>
                 <div class="kt-content" style="padding-top:0 !important;">

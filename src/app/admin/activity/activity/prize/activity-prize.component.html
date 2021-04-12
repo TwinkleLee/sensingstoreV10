@@ -12,13 +12,13 @@
                     <div class="row">
                         <div class="modal-body">
                             <tabset class="tab-container tabbable-line">
-                                <tab heading="{{l('BasicSetup')}}" customClass="m-tabs__item icon-jibenxinxi"
+                                <tab class="p-5" heading="{{l('BasicSetup')}}" customClass="m-tabs__item icon-jibenxinxi"
                                     (selectTab)="changeSetup('basic')">
                                 </tab>
-                                <tab heading="{{l('AdvancedSetup')}}" customClass="m-tabs__item icon-gaojishezhi"
+                                <tab class="p-5" heading="{{l('AdvancedSetup')}}" customClass="m-tabs__item icon-gaojishezhi"
                                     (selectTab)="changeSetup('advanced')">
                                 </tab>
-                                <tab heading="{{l('LotterySetup')}}" active="true"
+                                <tab class="p-5" heading="{{l('LotterySetup')}}" active="true"
                                     customClass="m-tabs__item active icon-jiangxiangshezhi"
                                     (selectTab)="changeSetup('prize')">
                                     <tabset class="tab-container tabbable-line">
@@ -572,7 +572,7 @@
                                         </tab>
                                     </tabset>
                                 </tab>
-                                <tab *ngIf="!deviceId" heading="{{l('GameSetup')}}"
+                                <tab class="p-5" *ngIf="!deviceId" heading="{{l('GameSetup')}}"
                                     customClass="m-tabs__item icon-youxiguanli" (selectTab)="changeSetup('game')">
                                 </tab>
                             </tabset>

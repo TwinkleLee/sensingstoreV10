@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item">
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label>{{l("AppName")}}*</label>
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab *ngIf="software.id&&!software.isExpired" heading="{{l('Edit')}}" customClass="kt-tabs__item">
+                        <tab class="p-5" *ngIf="software.id&&!software.isExpired" heading="{{l('Edit')}}" customClass="kt-tabs__item">
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label class="control-label">{{l("Alias")}}</label>
@@ -131,7 +131,7 @@
                                 </button>
                             </div>
                         </tab>
-                        <tab *ngIf="software.id&&!software.isExpired" heading="{{l('NaireList')}}" (selectTab)="getPaper()"
+                        <tab class="p-5" *ngIf="software.id&&!software.isExpired" heading="{{l('NaireList')}}" (selectTab)="getPaper()"
                             customClass="kt-tabs__item">
                             <div class="kt-portlet kt-portlet--mobile">
                                 <div class="Container row">

@@ -352,7 +352,7 @@ export class EntityStoreComponent extends AppComponentBase {
   }
   //上线所有
   onlineAll() {
-    this.message.confirm(this.l('offlineBatch'), this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('onlineBatch'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
           storeIds: [],
@@ -424,7 +424,7 @@ export class EntityStoreComponent extends AppComponentBase {
       this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
-          this._NewStoreServiceProxy.publishAllStoreToOrganization(input)
+          this._NewStoreServiceProxy.publishStoreToOrganization(input)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(() => {
               // this.primengTableHelper.hideLoadingIndicator();

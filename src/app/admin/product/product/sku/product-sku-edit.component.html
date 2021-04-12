@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
                         <!--  商品sku基础信息-->
-                        <tab class="pt-5" heading="{{l('Sku')}}" customClass="kt-tabs__item icon-ccgl-xinghapweihu-4">
+                        <tab class="p-5" heading="{{l('Sku')}}" customClass="kt-tabs__item icon-ccgl-xinghapweihu-4">
                             <form #skuOperationForm='ngForm' name="ProductsForm" (ngSubmit)="save()" novalidate="">
                                 <div class="row">
                                     <div class="col-8">
@@ -241,7 +241,7 @@
                             </form>
                         </tab>
                         <!--  电商平台信息-->
-                        <tab class="pt-5" heading="{{l('onlineMsg')}}" customClass="kt-tabs__item icon-pingtai1"
+                        <tab class="p-5" heading="{{l('onlineMsg')}}" customClass="kt-tabs__item icon-pingtai1"
                             (selectTab)="getOnlineBySkuId($event)">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">
@@ -339,7 +339,7 @@
                             </div>
                         </tab>
                         <!--  搭配-->
-                        <tab class="pt-5" heading="{{l('Match')}}" customClass="kt-tabs__item icon-dapei"
+                        <tab class="p-5" heading="{{l('Match')}}" customClass="kt-tabs__item icon-dapei"
                             (selectTab)="getMatchBySkuId($event)">
                             <div class="row align-items-center">
                                 <app-image-grid style="width: 100%;" gridOwner="match"
@@ -362,7 +362,7 @@
                             </div>
                         </tab>
                         <!--  猜你喜欢-->
-                        <tab class="pt-5" heading="{{l('Likes')}}" customClass="kt-tabs__item icon-xin"
+                        <tab class="p-5" heading="{{l('Likes')}}" customClass="kt-tabs__item icon-xin"
                             (selectTab)="getLikesBySkuId($event)">
                             <div class="row align-items-center">
                                 <app-image-grid style="width: 100%;" gridOwner="guess"
@@ -385,7 +385,7 @@
                             </div>
                         </tab>
                         <!--  资源列表-->
-                        <tab class="pt-5" heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
+                        <tab class="p-5" heading="{{l('resouceList')}}" customClass="kt-tabs__item icon-ziyuan"
                             (selectTab)="getResBySkuId($event)">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">

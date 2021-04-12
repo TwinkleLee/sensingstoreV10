@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}">
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label>{{l("itemId")}}</label>
@@ -47,7 +47,7 @@
                                 </div> -->
                             </div>
                         </tab>
-                        <tab *ngIf="operation=='edit'" heading="{{l('resouceList')}}"
+                        <tab class="p-5" *ngIf="operation=='edit'" heading="{{l('resouceList')}}"
                             (selectTab)="getResByFloorId()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">

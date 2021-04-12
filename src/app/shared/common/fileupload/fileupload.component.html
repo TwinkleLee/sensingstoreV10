@@ -1,7 +1,7 @@
 <div class="row fileupload" #fileupload>
     <h5 *ngIf="alert" class="m--font-danger">{{alert}}</h5>
     <tabset class="tab-container tabbable-line">
-        <tab customClass="m-tabs__item active icon-bendiziyuan" heading="{{l('LocalResources')}}"
+        <tab class="p-5" customClass="m-tabs__item active icon-bendiziyuan" heading="{{l('LocalResources')}}"
             (selectTab)="isLocal=true">
             <div (drop)="fileGrop($event)" (dragover)="allowGrag($event)" class="dropArea" *ngIf="!multiple">
                 <div style="position:absolute;z-index: 2;">{{l("recommended that the file size should not exceed")}} 200M</div>
@@ -31,7 +31,7 @@
                 </form>
             </div>
         </tab>
-        <tab customClass="m-tabs__item icon-web2 " heading="{{l('WebResources')}}" (selectTab)="isLocal=false">
+        <tab class="p-5" customClass="m-tabs__item icon-web2 " heading="{{l('WebResources')}}" (selectTab)="isLocal=false">
             <div class="col-12">
                 <div class="form-group">
                     <div class="input-group">
@@ -80,7 +80,7 @@
             </div>
         </tab> -->
 
-        <tab *ngIf="appSession.tenantId" customClass="m-tabs__item icon-jiaruziyuanku" heading="{{l('ResourcePool')}}"
+        <tab class="p-5" *ngIf="appSession.tenantId" customClass="m-tabs__item icon-jiaruziyuanku" heading="{{l('ResourcePool')}}"
             (selectTab)="isLocal=false;getResources()">
             <div class="row align-items-center">
                 <div class="col-12">

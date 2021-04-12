@@ -103,7 +103,7 @@ export class FaceRecommendComponent extends AppComponentBase {
   }
   On() {
     if (this.activityPublishList.length === 0) {
-      this.message.warn(this.l('selectOneWarn'));
+      this.message.warn(this.l('atLeastChoseOneItem'));
     } else {
       var personalCheckedIdList = [];
       for (var value of this.activityPublishList) {
@@ -118,7 +118,7 @@ export class FaceRecommendComponent extends AppComponentBase {
   }
   Off() {
     if (this.activityPublishList.length === 0) {
-      this.message.warn(this.l('selectOneWarn'));
+      this.message.warn(this.l('atLeastChoseOneItem'));
     } else {
       var personalCheckedIdList = [];
       for (var value of this.activityPublishList) {

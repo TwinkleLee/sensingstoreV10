@@ -43,7 +43,7 @@
                     </div>
 
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l(tab)}}" customClass="kt-tabs__item" *ngFor="let tab of tabArray;index as index;">
+                        <tab class="p-5" heading="{{l(tab)}}" customClass="kt-tabs__item" *ngFor="let tab of tabArray;index as index;">
                             <div class="fortune-luckArray" *ngFor="let item of luckArray">
                                 <label *ngIf="item" class="fortune-label">{{l('luck'+item)}}</label>
                                 <input *ngIf="['summary','love','career','health','fortune'].indexOf(item)>=0" class="form-control fortune-star"

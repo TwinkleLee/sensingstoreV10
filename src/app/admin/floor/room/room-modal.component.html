@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('BaseMsg')}}">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}">
 
                             <div class="row">
                                 <div class="form-group col-6">
@@ -103,7 +103,7 @@
                             </div>
                         </tab>
 
-                        <tab *ngIf="operation=='edit'" heading="{{l('resouceList')}}"
+                        <tab class="p-5" *ngIf="operation=='edit'" heading="{{l('resouceList')}}"
                             customClass="m-tabs__item icon-ziyuan" (selectTab)="getResByRoomId()">
                             <div class="row align-items-center">
                                 <div class="m-form m-form--label-align-right" style="width:100%;">

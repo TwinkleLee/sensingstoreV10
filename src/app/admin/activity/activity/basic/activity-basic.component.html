@@ -16,7 +16,7 @@
                         autocomplete="off">
                         <div class="modal-body">
                             <tabset class="tab-container tabbable-line">
-                                <tab heading="{{l('BasicSetup')}}" class="pt-5" customClass="m-tabs__item icon-jibenxinxi"
+                                <tab heading="{{l('BasicSetup')}}" class="p-5" customClass="m-tabs__item icon-jibenxinxi"
                                     (selectTab)="changeSetup('basic')" [busyIf]="busy||saving">
                                     <div class="row">
                                         <div class="col-9">
@@ -145,13 +145,13 @@
                                         </div>
                                     </div>
                                 </tab>
-                                <tab heading="{{l('AdvancedSetup')}}" class="pt-5" customClass="m-tabs__item icon-gaojishezhi"
+                                <tab heading="{{l('AdvancedSetup')}}" class="p-5" customClass="m-tabs__item icon-gaojishezhi"
                                     (selectTab)="changeSetup('advanced')">
                                 </tab>
-                                <tab heading="{{l('LotterySetup')}}" class="pt-5" customClass="m-tabs__item icon-jiangxiangshezhi"
+                                <tab heading="{{l('LotterySetup')}}" class="p-5" customClass="m-tabs__item icon-jiangxiangshezhi"
                                     (selectTab)="changeSetup('prize')">
                                 </tab>
-                                <tab *ngIf="!deviceId" class="pt-5" heading="{{l('GameSetup')}}"
+                                <tab *ngIf="!deviceId" class="p-5" heading="{{l('GameSetup')}}"
                                     customClass="m-tabs__item icon-youxiguanli" (selectTab)="changeSetup('game')">
                                 </tab>
                             </tabset>

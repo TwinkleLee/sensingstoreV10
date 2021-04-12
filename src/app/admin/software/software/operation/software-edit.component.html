@@ -9,7 +9,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab class="pt-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null">
+                        <tab class="p-5" heading="{{l('BaseMsg')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null">
                             <form #baseForm="ngForm" novalidate name="AppsForm" (ngSubmit)="save()" autocomplete="off">
                                 <div class="form-row">
                                     <div class="col-4">
@@ -173,7 +173,7 @@
                                 </div>
                             </form>
                         </tab>
-                        <tab class="pt-5" heading="{{l('AuthList')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null"
+                        <tab class="p-5" heading="{{l('AuthList')}}" customClass="kt-tabs__item" *ngIf="appSession.tenantId==null"
                             (selectTab)="getAuthList()">
                             <div class="row align-items-center">
                                 <form class="horizontal-form" autocomplete="off" name="devicesForm">

@@ -12,8 +12,8 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab class="pt-5" heading="{{l('SkuMsg')}}" *ngIf="isGranted('Pages.Tenant.Dashboard.SalesInformation.Sku')"
-                            customClass="m-tabs__item icon-dingdan1" class="pt-5" active="true">
+                        <tab class="p-5" heading="{{l('SkuMsg')}}" *ngIf="isGranted('Pages.Tenant.Dashboard.SalesInformation.Sku')"
+                            customClass="m-tabs__item icon-dingdan1" class="p-5" active="true">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off">
                                     <div class="m-form m-form--label-align-right">
@@ -142,7 +142,7 @@
                                 <!--<Primeng-Datatable-End>-->
                             </div>
                         </tab>
-                        <tab class="pt-5" heading="{{l('MemberMsg')}}"
+                        <tab class="p-5" heading="{{l('MemberMsg')}}"
                             *ngIf="isGranted('Pages.Tenant.Dashboard.SalesInformation.Member')"
                             customClass="m-tabs__item icon-huiyuanguanli" (selectTab)="changePage()">
                         </tab>

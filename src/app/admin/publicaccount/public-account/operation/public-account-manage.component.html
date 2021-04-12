@@ -1,4 +1,4 @@
-<div [@routerTransition] (click)="clickContainer()">
+<div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'PublicAccountManage' | localize" [description]="nickName">
             <div role="actions">
@@ -9,7 +9,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="fortuneTabset">
-                        <tab heading="{{l('MenuSetting')}}" customClass="m-tabs__item" (selectTab)="getList()">
+                        <tab class="p-5" heading="{{l('MenuSetting')}}" customClass="m-tabs__item" (selectTab)="getList()">
                             <div class="col-xs-12 text-right" style="margin-bottom:1vw;">
                                 <button (click)="createItem()" class="btn btn-primary blue">
                                     <i class="fa fa-plus"></i> {{l("add")}}{{l('MenuSetting')}}</button>
@@ -93,7 +93,7 @@
                                 <!--<Primeng-Datatable-End>-->
                             </div>
                         </tab>
-                        <tab heading="{{l('MediasManage')}}" customClass="m-tabs__item" (selectTab)="getMedia()">
+                        <tab class="p-5" heading="{{l('MediasManage')}}" customClass="m-tabs__item" (selectTab)="getMedia()">
                             <div class="row align-items-center mb-4">
                                 <!-- <div class="col-3">
                                 <div class="form-group kt-form__group align-items-center">

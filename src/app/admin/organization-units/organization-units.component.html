@@ -22,13 +22,13 @@
                         </div>
                         <div class="card-body">
                             <tabset class="tab-container">
-                                <tab heading="{{'Members' | localize}}" [active]="true">
+                                <tab class="p-5" heading="{{'Members' | localize}}" [active]="true">
                                     <organization-unit-members #ouMembers (membersAdded)="ouTree.membersAdded($event)" (memberRemoved)="ouTree.memberRemoved($event)"></organization-unit-members>
                                 </tab>
-                                <tab heading="{{'Roles' | localize}}">
+                                <tab class="p-5" heading="{{'Roles' | localize}}">
                                     <organization-unit-roles #ouRoles (rolesAdded)="ouTree.rolesAdded($event)" (roleRemoved)="ouTree.roleRemoved($event)"></organization-unit-roles>
                                 </tab>
-                                <tab heading="{{'EntityStore' | localize}}">
+                                <tab class="p-5" heading="{{'EntityStore' | localize}}">
                                     <organization-unit-stores #ouStores></organization-unit-stores>
                                 </tab>
                             </tabset>

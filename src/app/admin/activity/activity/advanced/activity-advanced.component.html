@@ -12,16 +12,16 @@
                     <form #AdvancedActivityForm="ngForm" name="CommonForm" novalidate autocomplete="off">
                         <div class="modal-body">
                             <tabset class="tab-container tabbable-line">
-                                <tab heading="{{l('BasicSetup')}}" class="pt-5" customClass="m-tabs__item icon-jibenxinxi"
+                                <tab heading="{{l('BasicSetup')}}" class="p-5" customClass="m-tabs__item icon-jibenxinxi"
                                     (selectTab)="changeSetup('basic')">
                                 </tab>
                                 <tab heading="{{l('AdvancedSetup')}}" active="true"
                                     customClass="m-tabs__item active icon-gaojishezhi"
-                                    (selectTab)="changeSetup('advanced')" class="pt-5">
+                                    (selectTab)="changeSetup('advanced')" class="p-5">
                                     <tabset class="tab-container tabbable-line">
                                         <tab heading="{{l('ActivityIntroduce')}}/{{l('ActivityCenter')}}"
                                             customClass="</div>-tabs__item" (selectTab)="getActivityFlow(0)"
-                                            [busyIf]="BusyList[0]||saving" class="pt-5">
+                                            [busyIf]="BusyList[0]||saving" class="p-5">
                                             <form #Form0="ngForm" name="CommonForm" novalidate (ngSubmit)="save(0)"
                                                 autocomplete="off" (selectTab)="stopPropagation($event)">
                                                 <div class="modal-body">
@@ -103,7 +103,7 @@
                                                 </div>
                                             </form>
                                         </tab>
-                                        <tab heading="{{l('Register')}}" class="pt-5" customClass="m-tabs__item"
+                                        <tab heading="{{l('Register')}}" class="p-5" customClass="m-tabs__item"
                                             (selectTab)="getActivityFlow(1)" [busyIf]="BusyList[1]||saving">
                                             <form #Form1="ngForm" name="CommonForm" novalidate (ngSubmit)="save(1)"
                                                 autocomplete="off" (selectTab)="stopPropagation($event)">
@@ -187,7 +187,7 @@
                                             </form>
                                         </tab>
 
-                                        <tab heading="{{l('signIn')}}" class="pt-5" customClass="m-tabs__item"
+                                        <tab heading="{{l('signIn')}}" class="p-5" customClass="m-tabs__item"
                                             (selectTab)="getActivityFlow(2)" [busyIf]="BusyList[2]||saving">
                                             <form #Form2="ngForm" name="CommonForm" novalidate (ngSubmit)="save(2)"
                                                 autocomplete="off" (selectTab)="stopPropagation($event)">
@@ -272,7 +272,7 @@
                                             </form>
                                         </tab>
 
-                                        <tab heading="{{l('GameResult')}}" class="pt-5" customClass="m-tabs__item"
+                                        <tab heading="{{l('GameResult')}}" class="p-5" customClass="m-tabs__item"
                                             (selectTab)="getActivityFlow(3)" [busyIf]="BusyList[3]||saving">
                                             <form #Form3="ngForm" name="CommonForm" novalidate (ngSubmit)="save(3)"
                                                 autocomplete="off" (selectTab)="stopPropagation($event)">
@@ -348,7 +348,7 @@
                                                 </div>
                                             </form>
                                         </tab>
-                                        <tab heading="{{l('WinningStatus')}}" class="pt-5" customClass="m-tabs__item"
+                                        <tab heading="{{l('WinningStatus')}}" class="p-5" customClass="m-tabs__item"
                                             (selectTab)="getActivityFlow(4)" [busyIf]="BusyList[4]||saving">
                                             <form #Form4="ngForm" name="CommonForm" novalidate (ngSubmit)="save(4)"
                                                 autocomplete="off" (selectTab)="stopPropagation($event)">
@@ -424,7 +424,7 @@
                                                 </div>
                                             </form>
                                         </tab>
-                                        <tab heading="{{l('ActivityShare')}}" class="pt-5" customClass="m-tabs__item"
+                                        <tab heading="{{l('ActivityShare')}}" class="p-5" customClass="m-tabs__item"
                                             (selectTab)="getActivityShare()" [busyIf]="BusyList[5]||saving">
                                             <form #ShareForm="ngForm" name="CommonForm" novalidate (ngSubmit)="save()"
                                                 autocomplete="off" (selectTab)="stopPropagation($event)">
@@ -482,11 +482,11 @@
                                         </tab>
                                     </tabset>
                                 </tab>
-                                <tab heading="{{l('LotterySetup')}}" class="pt-5" customClass="m-tabs__item icon-jiangxiangshezhi"
+                                <tab heading="{{l('LotterySetup')}}" class="p-5" customClass="m-tabs__item icon-jiangxiangshezhi"
                                     (selectTab)="changeSetup('prize')">
                                 </tab>
                                 <tab *ngIf="!deviceId" heading="{{l('GameSetup')}}"
-                                   class="pt-5" customClass="m-tabs__item icon-youxiguanli" (selectTab)="changeSetup('game')">
+                                   class="p-5" customClass="m-tabs__item icon-youxiguanli" (selectTab)="changeSetup('game')">
                                 </tab>
                             </tabset>
                         </div>

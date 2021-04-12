@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-body" *ngIf="user">
                     <tabset>
-                        <tab heading="{{'Profile' | localize}}">
+                        <tab class="p-5" heading="{{'Profile' | localize}}">
                             <div class="form-group">
                                 <label for="Name">{{"FirstName" | localize}} *</label>
                                 <input id="Name" #nameInput="ngModel" class="form-control" type="text" name="Name"
@@ -78,7 +78,7 @@
                                     defaultTimezoneScope="{{defaultTimezoneScope}}"></timezone-combo>
                             </div>
                         </tab>
-                        <tab *ngIf="!isMultiTenancyEnabled || isTwoFactorLoginEnabledForApplication"
+                        <tab class="p-5" *ngIf="!isMultiTenancyEnabled || isTwoFactorLoginEnabledForApplication"
                             heading="{{'TwoFactorLogin' | localize}}">
                             <div>
                                 <h4>

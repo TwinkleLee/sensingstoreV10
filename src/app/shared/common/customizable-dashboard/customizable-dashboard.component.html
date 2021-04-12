@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-12" style="z-index: 0;">
                     <tabset #dashboardTabs [justified]="true" [ngClass]="{'nav-hidden': !moreThanOnePage()}">
-                        <tab *ngFor="let page of (userDashboard?.pages || []); let i = index" heading="{{page.name}}"
+                        <tab class="p-5" *ngFor="let page of (userDashboard?.pages || []); let i = index" heading="{{page.name}}"
                             (selectTab)="selectPageTab(page.id)">
                             <gridster [options]="options[i]" [ngClass]="{'no-tab': !moreThanOnePage()}"
                                 [perfectScrollbar]="{wheelPropagation: false}">

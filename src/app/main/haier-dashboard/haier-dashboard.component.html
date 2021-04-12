@@ -1,4 +1,4 @@
-<div id="productRank" (click)="clickContainer()">
+<div id="productRank">
     <a id="aaa"></a>
 
     <div class="content d-flex flex-column flex-column-fluid">
@@ -37,7 +37,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
-                        <tab heading="{{l('感应信息排行')}}" class="pt-5" customClass="m-tabs__item">
+                        <tab heading="{{l('感应信息排行')}}" class="p-5" customClass="m-tabs__item">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12" *ngIf="isGranted('Pages.Tenant.Dashboard.ProductRank')">
 
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('sku感应列表')}}" class="pt-5" customClass="m-tabs__item">
+                        <tab heading="{{l('sku感应列表')}}" class="p-5" customClass="m-tabs__item">
                             <div class="card card-custom gutter-b">
                                 <div class="card-body">
                                     <div class="row align-items-center">
