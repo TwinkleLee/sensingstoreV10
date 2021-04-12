@@ -67,6 +67,8 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
 
 
     lastTimeChosenList: any = [];
+
+
     constructor(
         injector: Injector,
         private _ouService: OrganizationUnitServiceProxy,
@@ -77,7 +79,17 @@ export class HighTreeComponent extends AppComponentBase implements OnInit {
     ngDoCheck() {
 
     }
+
+    handleBlur() {
+        console.log('blur')
+        this.showStore=false;
+    }
+    handleFocus () {
+        console.log('focus')
+    }
+
     ngOnInit() {
+
         console.log('initShowArray', this.initShowArray);
         this.config = Object.assign(this.defaultConfig, this.config);
         this.getTreeList();
