@@ -155,7 +155,7 @@
                                                             (click)="editItem(record)">{{l('Edit')}}</a>
                                                     </li>
                                                     <li>
-                                                        <a class="icon-icon-test dropdown-item"
+                                                        <a *ngIf="record.ticketStatus==0" class="icon-icon-test dropdown-item"
                                                             (click)="deleteItem(record)">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>

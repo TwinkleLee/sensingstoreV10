@@ -10,7 +10,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { DeviceBehaviorServiceProxy } from '@shared/service-proxies/service-proxies3';
 
-import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     templateUrl: './my-dashboard.component.html',
@@ -34,7 +34,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
     nowDashboardId: any = "";
     nowDashboard;
 
-    customTheme=AppConsts.customTheme;
+    customTheme = AppConsts.customTheme;
 
     nowDeviceId: any = "";
     nowDevice;
@@ -54,7 +54,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         private _CustomizeReportServiceProxy: CustomizeReportServiceProxy,
         private _NewDeviceServiceProxy: NewDeviceServiceProxy,
         private _DeviceBehaviorServiceProxy: DeviceBehaviorServiceProxy,
-        private _CounterReportServiceProxy:CounterReportServiceProxy
+        private _CounterReportServiceProxy: CounterReportServiceProxy
 
     ) {
         super(injector);
@@ -129,14 +129,19 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
 
     goExport() {
-        console.log('this.nowDashboardId', this.nowDashboardId, 'this.nowDeviceId', this.nowDeviceId)
         this.exportLoading = true;
 
         if (this.nowDashboardId) {
             this.exportData();
         } else if (this.nowDeviceId) {
             this.exportData2();
+        } else {
+            setTimeout(() => {
+                this.exportLoading = false;
+            }, 2000)
         }
+
+
     }
 
     changeDashboard() {
@@ -244,38 +249,38 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         })
 
         // if (abp.session.tenantId == 5129) {
-            this._CounterReportServiceProxy.getDigitDeviceCounterChartByDeviceIds(
-                StartTime,
-                EndTime,
-                this.dateType,
-                void 0,
-                [this.nowDeviceId]
-            ).subscribe((result) => {
-                try {
-                    var today = result[0].chartItems[0].value;
-                    var yesterday = result[1].chartItems[0].value;
-                    var percentTip = "", color = "";
-                    if (yesterday) {
-                        if (today > yesterday) {
-                            percentTip = `同比上升${(100 * (today / yesterday - 1)).toFixed(2)}%`
-                            color = "Green";
-                        } else if (today < yesterday) {
-                            percentTip = `同比下降${(100 * (1 - today / yesterday)).toFixed(2)}%`
-                            color = "Crimson";
-                        }
+        this._CounterReportServiceProxy.getDigitDeviceCounterChartByDeviceIds(
+            StartTime,
+            EndTime,
+            this.dateType,
+            void 0,
+            [this.nowDeviceId]
+        ).subscribe((result) => {
+            try {
+                var today = result[0].chartItems[0].value;
+                var yesterday = result[1].chartItems[0].value;
+                var percentTip = "", color = "";
+                if (yesterday) {
+                    if (today > yesterday) {
+                        percentTip = `同比上升${(100 * (today / yesterday - 1)).toFixed(2)}%`
+                        color = "Green";
+                    } else if (today < yesterday) {
+                        percentTip = `同比下降${(100 * (1 - today / yesterday)).toFixed(2)}%`
+                        color = "Crimson";
                     }
-                    this.zifengData = {
-                        today,
-                        yesterday,
-                        percentTip,
-                        color
-                    }
-                } catch (error) {
-                    console.log("try catch err", error);
-                    this.zifengData = null;
                 }
+                this.zifengData = {
+                    today,
+                    yesterday,
+                    percentTip,
+                    color
+                }
+            } catch (error) {
+                console.log("try catch err", error);
+                this.zifengData = null;
+            }
 
-            })
+        })
         // }
 
     }
@@ -416,7 +421,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
 
     ngAfterViewInit(): void {
-        
+
     }
 
 

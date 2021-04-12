@@ -47,7 +47,7 @@
                         <div class="col-12" *ngIf="isGranted('Pages.Tenant.Dashboard.Dashboard.DeviceOnlineDuration')">
                             <div class="kt-portlet" origin>
                                 <div class="kt-portlet__head row" style="position:relative;">
-                                    <div class="kt-portlet__head-caption col-5">
+                                    <div class="kt-portlet__head-caption col-4">
                                         <div class="kt-portlet__head-title" style="margin-top:1rem;">
                                             <h3 class="kt-portlet__head-text">
                                                 {{nowDashboard?.name}}
@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="input-group col-5" style="margin-top:1rem;">
+                                    <div class="input-group col-6" style="margin-top:1rem;">
                                         <date-range-picker
                                             [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":dateType=="hh"}'
                                             needInitDate="true" #clickDateranger style="width: 60%;"

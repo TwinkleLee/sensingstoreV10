@@ -5,7 +5,9 @@ import { TagServiceProxy, TagType as Type, TagDto, CreateTagInput, UpdateTagInpu
 
 import { TagServiceProxy as ProductTagServiceProxy } from '@shared/service-proxies/service-proxies-product'
 
-import { TagServiceProxy as AdsTagServiceProxy, TagType } from '@shared/service-proxies/service-proxies-ads'
+import { TagServiceProxy as AdsTagServiceProxy } from '@shared/service-proxies/service-proxies-ads'
+
+import { TagServiceProxy as GameTagServiceProxy, TagType } from '@shared/service-proxies/service-proxies5'
 
 import { TagServiceProxy as DeviceTagServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter'
 
@@ -80,6 +82,7 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
         private _DeviceTagServiceProxy: DeviceTagServiceProxy,
         private _AdsTagServiceProxy: AdsTagServiceProxy,
         private _ProductTagServiceProxy: ProductTagServiceProxy,
+        private _GameTagServiceProxy: GameTagServiceProxy,
     ) {
         super(injector);
     }
@@ -116,8 +119,12 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
 
         console.log(this.tag)
 
-        if (this.tag.type == 0 || this.tag.type == 6 || this.tag.type == 8 || this.tag.type == 7 || this.tag.type == 4) {
+        if (this.tag.type == 0 || this.tag.type == 7 || this.tag.type == 4) {
             this.ServiceProxy = this._tagService
+        }
+
+        if (this.tag.type == 6 || this.tag.type == 8) {
+            this.ServiceProxy = this._GameTagServiceProxy
         }
 
         if (this.tag.type == 1 || this.tag.type == 5) {

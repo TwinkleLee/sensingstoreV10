@@ -383,6 +383,7 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
             })
         ])
             .then(() => {
+                this.headLoading1 = false
                 console.log("newList", newList);
                 var newNewList = newList.map(item => {
                     var newItem = {
