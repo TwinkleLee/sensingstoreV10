@@ -70,7 +70,7 @@ export class CreateOrEditSolCatModalComponent extends AppComponentBase implement
             })
 
         }
-        this._tenantService.getTenants("", undefined, undefined, undefined, undefined, 0, false, undefined, 1000, 0).subscribe(result => {
+        this._tenantService.getTenants("", void 0, void 0, void 0, void 0, 0, false, void 0, 1000, 0).subscribe(result => {
             this.tenantList = result.items;
         })
         this.getQuestionCategories()
@@ -83,7 +83,7 @@ export class CreateOrEditSolCatModalComponent extends AppComponentBase implement
         }
     }
     getQuestionCategories() {
-        this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.metaType.tenantId, undefined, undefined, 999, 0).subscribe(r => {
+        this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.metaType.tenantId, void 0, void 0, 999, 0).subscribe(r => {
             this.categorys = r.items;
             if (this.metaType.categoryId) {
                 this.categoryId = this.metaType.categoryId;

@@ -43,8 +43,8 @@ export class AdsDetailModalComponent extends AppComponentBase implements AfterVi
         this.primengTableHelper.showLoadingIndicator(); 
         this._applyService.getApplyFormDetails(
             this.detailId,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

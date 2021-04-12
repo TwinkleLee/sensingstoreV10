@@ -34,10 +34,10 @@ export class AdsAlertModalComponent extends AppComponentBase {
           this.primengTableHelper.showLoadingIndicator();
         this._adsService.getUnPublishedAdsByDeviceId(
             this.deviceId,
-            undefined,
+            void 0,
             AuditStatus10.Online,
             this.filterText,
-            undefined,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         )

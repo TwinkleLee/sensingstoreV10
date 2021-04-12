@@ -34,7 +34,7 @@ export class MoveTenantsToAnotherEditionModalComponent extends AppComponentBase 
 
         this.moveTenantsInput.sourceEditionId = editionId;
 
-        this._commonLookupService.getEditionsForCombobox(undefined).subscribe(editionsResult => {
+        this._commonLookupService.getEditionsForCombobox(void 0).subscribe(editionsResult => {
             this.targetEditions = editionsResult.items;
             this.modal.show();
         });

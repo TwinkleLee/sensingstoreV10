@@ -127,7 +127,7 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._tagService.getTagsByType(event.query, undefined, 100, 0, Type.Product).subscribe((result) => {
+        this._tagService.getTagsByType(event.query, void 0, 100, 0, Type.Product).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

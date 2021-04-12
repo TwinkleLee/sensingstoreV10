@@ -56,7 +56,7 @@ export class BuyEditionComponent extends AppComponentBase implements OnInit {
                 this.selectedPaymentPeriodType = this._paymnetHelperService.getInitialSelectedPaymentPeriodType(this.edition);
             });
 
-        this._paymentAppService.getActiveGateways(undefined)
+        this._paymentAppService.getActiveGateways(void 0)
             .subscribe((result: PaymentGatewayModel[]) => {
                 this.paymentGateways = result;
                 this.supportsRecurringPayments = result.some((pg) => pg.supportsRecurringPayments);

@@ -96,7 +96,7 @@ export class CategoryComponent extends AppComponentBase {
 
 
     if (this.type == 'questionType') {
-      this._tenantService.getTenants("", undefined, undefined, undefined, undefined, 0, false, undefined, 1000, 0).subscribe(result => {
+      this._tenantService.getTenants("", void 0, void 0, void 0, void 0, 0, false, void 0, 1000, 0).subscribe(result => {
         this.tenants = result.items;
         // setTimeout(() => {
         //   $(this.tenantComboboxElement.nativeElement).selectpicker('refresh');
@@ -110,8 +110,8 @@ export class CategoryComponent extends AppComponentBase {
 
 
   getCategories() {
-    this.questionTypeId = undefined;
-    this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(result => {
+    this.questionTypeId = void 0;
+    this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.tenantId, void 0, void 0, 999, 0).subscribe(result => {
       this.questionTypeList = result.items;
     })
   }

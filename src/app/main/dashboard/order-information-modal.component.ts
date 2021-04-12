@@ -62,10 +62,10 @@ export class OrderInfoModalComponent extends AppComponentBase implements AfterVi
             return;
         }
         var input = new OrderInformationInput({
-            filter: undefined,
+            filter: void 0,
             ouOrStoreList: this.chosenItem,
-            startTime: this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-            endTime: this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+            startTime: this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+            endTime: this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
             sorting: this.primengTableHelper.getSorting(this.dataTable),
             maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
             skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)

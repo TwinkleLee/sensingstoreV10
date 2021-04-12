@@ -36,7 +36,7 @@ export class SkusSelectionModalComponent extends AppComponentBase {
                 this.productId,
                 AuditStatus13.Online,
                 this.filterText,
-                undefined,
+                void 0,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event)
             )

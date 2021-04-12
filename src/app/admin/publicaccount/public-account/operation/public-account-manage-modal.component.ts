@@ -68,7 +68,7 @@ export class PublicAccountManageModalComponent extends AppComponentBase implemen
                 })
             }
         })
-        this.selectedButton = undefined;
+        this.selectedButton = void 0;
     }
 
     selectButton(button, isRoot) {

@@ -142,8 +142,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
 
     changeGateWay() {
         if (!this.belongGateWay2) {
-            this.addressCode = undefined;
-            this.fromGatewayType = undefined;
+            this.addressCode = void 0;
+            this.fromGatewayType = void 0;
             return
         }
         this.saving = true;
@@ -198,14 +198,14 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         if (this.Device.deviceTypeId == 4) {
             this._NewDeviceServiceProxy.getDevices(
                 [],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 true,
                 [17],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe((result) => {
@@ -215,14 +215,14 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         if (this.Device.deviceTypeId == 19) {
             this._NewDeviceServiceProxy.getDevices(
                 [],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 true,
                 [18],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe((result) => {
@@ -232,14 +232,14 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         if (this.Device.deviceTypeId == 23 || this.Device.deviceTypeId == 20) {
             this._NewDeviceServiceProxy.getDevices(
                 [],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 true,
                 [16],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe((result) => {
@@ -248,8 +248,8 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
         }
         if ((this.Device.deviceTypeId == 18 || this.Device.deviceTypeId == 19) && AppConsts.customTheme != 'kewosi') {
             this._SensorAgreementServiceProxy.getAgreements(
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe(r => {
@@ -336,9 +336,9 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                         this._CounterDeviceServiceProxy.bindChildDevicesToGateway(new BindChildDevicesToGatewayInput({
                             gatewayId: this.belongGateWay,
                             deviceIds: [res.id],
-                            type: undefined,
-                            thingId: undefined,
-                            orderNumber: undefined
+                            type: void 0,
+                            thingId: void 0,
+                            orderNumber: void 0
                         })
 
                         ).pipe(finalize(() => { this.saving = false; }))
@@ -364,7 +364,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                             deviceIds: [res.id],
                             type: "CargoRoad",
                             thingId: this.LayerThingId,
-                            orderNumber: undefined
+                            orderNumber: void 0
                         })).pipe(finalize(() => { this.saving = false; }))
                             .subscribe(result => {
                                 this.setDefaultAppPod(res)
@@ -372,7 +372,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                     } else if (this.Device.deviceTypeId == 18) {
                         this.saving = true;
                         this._CounterDeviceServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
-                            // id: undefined,
+                            // id: void 0,
                             deviceId: res.id,
                             agreementId: this.agreementId,
                             gatewayType: this.gatewayType,
@@ -384,7 +384,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
                     } else if (this.Device.deviceTypeId == 19) {
                         this.saving = true;
                         this._CounterDeviceServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
-                            // id: undefined,
+                            // id: void 0,
                             gatewayId: this.belongGateWay2,
                             deviceId: res.id,
                             address: this.addressCode,

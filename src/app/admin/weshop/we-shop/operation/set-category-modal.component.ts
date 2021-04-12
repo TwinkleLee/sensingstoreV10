@@ -36,8 +36,8 @@ export class SetCategoryModalComponent extends AppComponentBase implements After
     ) {
         super(injector);
         this._ProductCategoryServiceProxy.getProductCategories(
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(r => {

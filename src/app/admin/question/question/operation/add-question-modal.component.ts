@@ -63,7 +63,7 @@ export class AddQuestionModalComponent extends AppComponentBase implements After
     }
 
     getTags() {
-        this._TagServiceProxy.getTagsByType('', undefined, 1000, 0, Type.Question).subscribe((r) => {
+        this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
             this.tags = r.items;
         })
     }

@@ -44,7 +44,7 @@ export class PageTemplateComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
 
     this._htmlTemplateService.getHtmlTemplates(
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || '',
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

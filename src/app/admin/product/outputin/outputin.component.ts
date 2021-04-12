@@ -110,7 +110,7 @@ export class OutPutInComponent extends AppComponentBase {
     if (record) {
       this.outputinDetailModal.show(record.id);
     } else {
-      this.outputinDetailModal.show(undefined, undefined, this.storeList);
+      this.outputinDetailModal.show(void 0, void 0, this.storeList);
     }
   }
 

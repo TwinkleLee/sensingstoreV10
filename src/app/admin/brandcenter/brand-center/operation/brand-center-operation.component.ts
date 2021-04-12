@@ -62,7 +62,7 @@ export class BrandOperationComponent extends AppComponentBase {
         super(injector);
         this.initMessage();
         //获取标签下拉
-        this._tagService.getTagsByType(undefined, undefined, 100, 0, Type['Brand']).subscribe((result) => {
+        this._tagService.getTagsByType(void 0, void 0, 100, 0, Type['Brand']).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
         
@@ -123,7 +123,7 @@ export class BrandOperationComponent extends AppComponentBase {
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._tagService.getTagsByType(event.query, undefined, 100, 0, Type.Brand).subscribe((result) => {
+        this._tagService.getTagsByType(event.query, void 0, 100, 0, Type.Brand).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
@@ -208,7 +208,7 @@ export class BrandOperationComponent extends AppComponentBase {
         this._brandService.getBrandResources(
             this.brand.id,
             this.resFilter,
-            undefined,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

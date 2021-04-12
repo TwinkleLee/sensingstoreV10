@@ -43,7 +43,7 @@ export class DownloadLogsComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._BackendDownloadTaskServiceProxy.getExportTask(
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

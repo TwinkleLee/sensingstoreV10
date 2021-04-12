@@ -56,7 +56,7 @@ export class HaierDashboardComponent extends AppComponentBase {
             "action": "try",
             "ouOrStoreList": this.chosenItem,
             "category": ['product', 'sku'],
-            "brandId": undefined
+            "brandId": void 0
         });
         this.productClickLoading = true;
         this._bigDataService.topItems(input).pipe(finalize(() => {
@@ -99,7 +99,7 @@ export class HaierDashboardComponent extends AppComponentBase {
             "action": "pickup",
             "ouOrStoreList": this.chosenItem,
             "category": ['product', 'sku'],
-            "brandId": undefined
+            "brandId": void 0
         });
         this.productClickLoading = true;
         this._bigDataService.topItems(input).pipe(finalize(() => {

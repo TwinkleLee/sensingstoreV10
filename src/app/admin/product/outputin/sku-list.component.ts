@@ -60,10 +60,10 @@ export class SkuListComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._OutPutInStorageServiceProxy.getSkus(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       this.selectedStoreList,
-      undefined,
+      void 0,
       this.rfid,
       this.filter,
       this.primengTableHelper.getSorting(this.dataTable),
@@ -80,7 +80,7 @@ export class SkuListComponent extends AppComponentBase {
 
 
   showDetail(record) {
-    this.outputinDetailModal.show(undefined, record.id);
+    this.outputinDetailModal.show(void 0, record.id);
   }
 
   showRfid(skuId?) {

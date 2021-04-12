@@ -38,13 +38,13 @@ export class PlayerDataComponent extends AppComponentBase {
   ) {
     super(injector);
     this._acitvityService.getActivities(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       false,
-      undefined,
-      // undefined,
-      undefined,
-      undefined,
+      void 0,
+      // void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {
@@ -55,14 +55,14 @@ export class PlayerDataComponent extends AppComponentBase {
   goExport() {
     this.exportLoading = true;
     this._UserActionServiceProxy.getUserActionsToExcel(
-      undefined,
+      void 0,
       this.ActivityId,
-      undefined,
+      void 0,
       this.deviceId,
       this.activityGameId,
       this.StartTime,
       this.EndTime,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       10,
@@ -90,14 +90,14 @@ export class PlayerDataComponent extends AppComponentBase {
     }
     this.primengTableHelper.showLoadingIndicator();
     this._UserActionServiceProxy.getUserActions(
-      undefined,
+      void 0,
       this.ActivityId,
-      undefined,
+      void 0,
       this.deviceId,
       this.activityGameId,
       this.StartTime,
       this.EndTime,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

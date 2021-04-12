@@ -79,7 +79,7 @@ export class AdvertisementComponent extends AppComponentBase {
     this.getMapList();
   }
   getTags() {
-    this.tagService.getTagsByType('', undefined, 1000, 0, Type.Ads).subscribe((r) => {
+    this.tagService.getTagsByType('', void 0, 1000, 0, Type.Ads).subscribe((r) => {
       this.tags = r.items;
     })
   }
@@ -88,8 +88,8 @@ export class AdvertisementComponent extends AppComponentBase {
 
   getDeviceType() {
     this._NewDeviceServiceProxy.getDeviceTypes(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       99,
       0
     ).subscribe(result => {
@@ -109,9 +109,9 @@ export class AdvertisementComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     this._adsService.getAds(
       this.auditStatus,
-      this.adsTag || undefined,
-      undefined,
-      undefined,
+      this.adsTag || void 0,
+      void 0,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -128,9 +128,9 @@ export class AdvertisementComponent extends AppComponentBase {
     this.exportLoading = true;
     this._adsService.getAdsToExcel(
       this.auditStatus,
-      this.adsTag || undefined,
-      undefined,
-      undefined,
+      this.adsTag || void 0,
+      void 0,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       10,

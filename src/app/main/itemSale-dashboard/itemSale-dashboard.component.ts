@@ -99,10 +99,10 @@ export class ItemSaleDashboardComponent extends AppComponentBase {
             this.getSecondTree();
         })
         this._BrandServiceProxy.getBrands(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(r => {
@@ -316,8 +316,8 @@ export class ItemSaleDashboardComponent extends AppComponentBase {
             "groupByProduct": this.groupByProduct,
             "groupByMember": this.groupByMember,
             "sorting": this.primengTableHelper.getSorting(this.dataTable),
-            "maxResultCount": this.primengTableHelper.getMaxResultCount(this.paginator, undefined),
-            "skipCount": this.primengTableHelper.getSkipCount(this.paginator, undefined)
+            "maxResultCount": this.primengTableHelper.getMaxResultCount(this.paginator, void 0),
+            "skipCount": this.primengTableHelper.getSkipCount(this.paginator, void 0)
         } as GetSaleItemDetailInput
         ).pipe(finalize(() => {
             this.exportLoading = false;

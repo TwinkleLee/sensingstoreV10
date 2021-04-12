@@ -420,7 +420,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
     //获取标签下拉数据
     getTags() {
-        this._TagService.getTagsByType(undefined, undefined, 1000, 0, Type.Counter).subscribe((result) => {
+        this._TagService.getTagsByType(void 0, void 0, 1000, 0, Type.Counter).subscribe((result) => {
             this.Tags = result.items;
             this.tagList = Object.assign([], this.Tags);
         });
@@ -436,7 +436,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     }
     //前往管理标签
     goTag(f?) {
-        f !== undefined ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin', 'tags', 'tags']);
+        f !== void 0 ? this.router.navigate(['app', 'tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin', 'tags', 'tags']);
     }
     //选中或者取消选中标签
     setTag() {
@@ -529,11 +529,11 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     this.pChild.showLoadingIndicator();
                     this._CounterDeviceServiceProxy.bindChildDevicesToGateway(
                         new BindChildDevicesToGatewayInput({
-                            gatewayId: undefined,
+                            gatewayId: void 0,
                             deviceIds: this.ChildSelectionList.map(item => { return item.id }),
-                            type: undefined,
-                            thingId: undefined,
-                            orderNumber: undefined
+                            type: void 0,
+                            thingId: void 0,
+                            orderNumber: void 0
                         }))
                         .pipe(finalize(() => {
                             this.pChild.hideLoadingIndicator();
@@ -553,10 +553,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.pChild.showLoadingIndicator();
             this._CounterDeviceServiceProxy.getChildDevicesByGatewayId(
                 this.device.id,
-                undefined,
+                void 0,
                 this.pChild.getSorting(this.dataTableChild),
-                this.pChild.getMaxResultCount(this.paginatorChild, undefined),
-                this.pChild.getSkipCount(this.paginatorChild, undefined)
+                this.pChild.getMaxResultCount(this.paginatorChild, void 0),
+                this.pChild.getSkipCount(this.paginatorChild, void 0)
             ).pipe(finalize(() => {
                 this.pChild.hideLoadingIndicator();
             })).subscribe(result => {
@@ -612,7 +612,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.makeHeatMap(startTime, endTime);
         var CounterIds = [];
         if (this.CounterSelectionList.length == 0 || this.CounterSelectionList.length == this.pCounter.records.length) {
-            CounterIds = undefined;
+            CounterIds = void 0;
         }
         else {
             for (var i = 0; i < this.CounterSelectionList.length; i++) {
@@ -628,7 +628,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             startTime,
             endTime,
             this.typeCounter,
-            CounterIds ? CounterIds[0] : undefined,
+            CounterIds ? CounterIds[0] : void 0,
             [this.device.id]
         ).pipe(finalize(() => {
             this.dataChartLoading = false;
@@ -645,7 +645,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             }
         })).subscribe((result) => {
             this.dataChartLoading = false;
-            this.dataChart.draw(result, this.typeCounter == "hh" ? moment() : undefined);
+            this.dataChart.draw(result, this.typeCounter == "hh" ? moment() : void 0);
         })
     }
 
@@ -655,10 +655,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.pCounter.showLoadingIndicator();
             this._CounterDeviceServiceProxy.getDeviceCountersByDeviceId(
                 this.device.id,
-                undefined,
+                void 0,
                 this.pCounter.getSorting(this.dataTableCounter),
-                this.pCounter.getMaxResultCount(this.paginatorCounter, undefined),
-                this.pCounter.getSkipCount(this.paginatorCounter, undefined)
+                this.pCounter.getMaxResultCount(this.paginatorCounter, void 0),
+                this.pCounter.getSkipCount(this.paginatorCounter, void 0)
             ).pipe(finalize(() => {
                 this.pCounter.hideLoadingIndicator();
             })).subscribe(result => {
@@ -714,10 +714,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
 
         this._AppPodServiceProxy.getAppPodVersions(
-            undefined,
+            void 0,
             this.device.osType,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             99,
             0
         ).subscribe(result => {
@@ -747,7 +747,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
         this._AppPodServiceProxy.changeDeviceApppodVersion4Device(new ChangeDeviceAppPodVersionInput({
             deviceId: this.device.id,
-            targetAppPodVersionId: this.appPod.targetAppPodVersionId ? Number(this.appPod.targetAppPodVersionId) : undefined,
+            targetAppPodVersionId: this.appPod.targetAppPodVersionId ? Number(this.appPod.targetAppPodVersionId) : void 0,
             extensionData: this.appPod.extensionData,
             isLock: this.appPod.isLock
         })).subscribe(r => {
@@ -764,10 +764,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
             this._deviceProductService.getProductsByDeviceId(
                 this.device.id,
-                undefined,
+                void 0,
                 AuditStatus.Online,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 1,
                 0).subscribe((result) => {
                     this.dashboards[1].count = result.totalCount;
@@ -782,10 +782,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
             this._DeviceAdsServiceProxy.getAdsByDeviceId(
                 this.device.id,
-                undefined,
+                void 0,
                 AuditStatus.Online,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 1,
                 0).subscribe((result) => {
                     this.dashboards[3].count = result.totalCount;
@@ -799,10 +799,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         if (this.isGranted('Pages.Softwares')) {
             this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
                 this.device.id,
-                undefined,
+                void 0,
                 AuditStatus.Online,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 1,
                 0).subscribe((result) => {
                     this.dashboards[0].count = result.totalCount;
@@ -817,10 +817,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         if (this.isGranted("Pages.Tenant.Coupons")) {
             this._deviceProductService.getCouponsByDeviceId(
                 this.device.id,
-                undefined,
+                void 0,
                 AuditStatus.Online,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 1,
                 0).subscribe((result) => {
                     this.dashboards[2].count = result.totalCount;
@@ -834,8 +834,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         if (this.isGranted("Pages.Tenant.Activities")) {
             this._deviceAcitvityService.getDeviceActivitiesById(
                 this.device.id,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 1,
                 0
             ).subscribe(result => {
@@ -967,8 +967,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.pHistory.showLoadingIndicator();
             this._SensingDeviceServiceProxy.getCargoHisotory(
                 this.device.subKey,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 this.historyFilterText,
                 this.pHistory.getSorting(this.dataTableHistory),
                 this.pHistory.getMaxResultCount(this.paginatorHistory, event),
@@ -1084,7 +1084,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.ShelfInfoLoading = true;
             this._ShelfDeviceServiceProxy.addOrDeleteCargoRoadByLayerId(new AddOrDeleteCargoRoadByLayerIdInput({
                 "layerId": layerId,
-                "cargoRoadId": undefined
+                "cargoRoadId": void 0
             })).pipe(finalize(() => {
                 this.ShelfInfoLoading = false;
             })).subscribe(r => {
@@ -1134,7 +1134,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                 gender: this.faceGender,
                 collectionStartTime: this.startDateFace,
                 collectionEndTime: this.endDateFace,
-                filter: undefined,
+                filter: void 0,
                 sorting: this.pFace.getSorting(this.dataTableFace),
                 maxResultCount: this.pFace.getMaxResultCount(this.paginatorFace, event),
                 skipCount: this.pFace.getSkipCount(this.paginatorFace, event)
@@ -1195,10 +1195,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     })],
                     entityIds: [record.activityId],
                     action: 'delete',
-                    // 'includeSku': undefined,
-                    // 'isCreateDefaultSchedule': undefined,
-                    // 'informDevice': undefined,
-                    // 'type': undefined
+                    // 'includeSku': void 0,
+                    // 'isCreateDefaultSchedule': void 0,
+                    // 'informDevice': void 0,
+                    // 'type': void 0
                 })
                 this._acitvityService.publishToOrganizationOrStoreOrDevices(input).subscribe(r => {
                     this.notify.info(this.l('success'));
@@ -1231,9 +1231,9 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     startTime: this.StartTime,
                     endTime: this.EndTime,
                     optStatus: this.statusSelect,
-                    tenantId: undefined,
-                    categoryId: undefined,
-                    optKnowledgeId: undefined,
+                    tenantId: void 0,
+                    categoryId: void 0,
+                    optKnowledgeId: void 0,
                     filter: this.questionFilter,
                     sorting: this.primengTableHelper.getSorting(this.dataTable),
                     maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -1327,7 +1327,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         "value": 0
                     }]
                 }];
-                this.deviceClickChart.draw(this.deviceClickDataSets, this.type == "hh" ? this.endDate2 : undefined);
+                this.deviceClickChart.draw(this.deviceClickDataSets, this.type == "hh" ? this.endDate2 : void 0);
             }
             this.deviceProductClickLoading = false;
         })).subscribe((result) => {
@@ -1341,7 +1341,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                     }]
                 }]
             }
-            this.deviceClickChart.draw(this.deviceClickDataSets, this.type == "hh" ? this.endDate2 : undefined);
+            this.deviceClickChart.draw(this.deviceClickDataSets, this.type == "hh" ? this.endDate2 : void 0);
             //以下为测试
             // this.activityChart.draw(this.deviceClickDataSets);
         })
@@ -1375,11 +1375,11 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._ActivityReportServiceProxy.getTotal(
             this.startDate3,
             this.endDate3,
-            undefined,
+            void 0,
             this.device.id,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
         ).subscribe(r => {
             this.activityData = r;
         })
@@ -1389,17 +1389,17 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             'dd',
             this.startDate3,
             this.endDate3,
-            undefined,
+            void 0,
             this.device.id,
-            undefined,
-            undefined,
-            undefined
+            void 0,
+            void 0,
+            void 0
         )
             .pipe(finalize(() => {
                 this.activityLoading = false;
             }))
             .subscribe(r => {
-                this.activityChart.draw(r, undefined);
+                this.activityChart.draw(r, void 0);
             })
     }
 
@@ -1483,14 +1483,14 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
             this._NewDeviceServiceProxy.getDevices(
                 [],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 true,
                 [17],//10=>17
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe((result) => {
@@ -1500,14 +1500,14 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             })
             this._NewDeviceServiceProxy.getDevices(
                 [],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 true,
                 [18],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe((result) => {
@@ -1517,14 +1517,14 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             })
             this._NewDeviceServiceProxy.getDevices(
                 [],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 true,
                 [16],
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 999,
                 0
             ).subscribe((result) => {
@@ -1535,8 +1535,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
 
             if (AppConsts.customTheme != 'kewosi') {
                 this._SensorAgreementServiceProxy.getAgreements(
-                    undefined,
-                    undefined,
+                    void 0,
+                    void 0,
                     999,
                     0
                 ).subscribe(r => {
@@ -1631,8 +1631,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             return
         }
         if (!this.belongGateWay2) {
-            this.addressCode = undefined;
-            this.fromGatewayType = undefined;
+            this.addressCode = void 0;
+            this.fromGatewayType = void 0;
             return
         }
         this.saving = true;
@@ -1670,10 +1670,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.pAds.showLoadingIndicator();
         this._DeviceAdsServiceProxy.getAdsByDeviceId(
             this.device.id,
-            undefined,
+            void 0,
             AuditStatus.Online,
             this.adsFilterText,
-            undefined,
+            void 0,
             this.pAds.getMaxResultCount(this.paginatorAds, event),
             this.pAds.getSkipCount(this.paginatorAds, event))
             .pipe(this.myFinalize(() => { this.pAds.hideLoadingIndicator(); }))
@@ -1810,10 +1810,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.pApp.showLoadingIndicator();
         this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
             this.device.id,
-            undefined,
+            void 0,
             AuditStatus.Online,
             this.softwareFilterText,
-            undefined,
+            void 0,
             this.pApp.getMaxResultCount(this.paginatorSoftware, event),
             this.pApp.getSkipCount(this.paginatorSoftware, event))
             .pipe(this.myFinalize(() => { this.pApp.hideLoadingIndicator(); }))
@@ -1826,10 +1826,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     getSoftwareByDeviceId2(event?: LazyLoadEvent) {
         this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
             this.device.id,
-            undefined,
+            void 0,
             AuditStatus.Online,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             99,
             0).subscribe((result) => {
                 this.controlList = result.items;
@@ -1968,10 +1968,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.pProduct.showLoadingIndicator();
         this._deviceProductService.getProductsByDeviceId(
             this.device.id,
-            undefined,
+            void 0,
             AuditStatus.Online,
             this.productFilterText,
-            undefined,
+            void 0,
             this.paginatorProduct ? this.pProduct.getMaxResultCount(this.paginatorProduct, event) : 10,
             this.paginatorProduct ? this.pProduct.getSkipCount(this.paginatorProduct, event) : 0)
             .pipe(this.myFinalize(() => { this.pProduct.hideLoadingIndicator(); }))
@@ -2118,10 +2118,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this.pCoupon.showLoadingIndicator();
         this._deviceProductService.getCouponsByDeviceId(
             this.device.id,
-            undefined,
+            void 0,
             AuditStatus.Online,
             this.couponFilterText,
-            undefined,
+            void 0,
             this.pCoupon.getMaxResultCount(this.paginatorCoupon, event),
             this.pCoupon.getSkipCount(this.paginatorCoupon, event))
             .pipe(this.myFinalize(() => { this.pCoupon.hideLoadingIndicator(); }))
@@ -2264,7 +2264,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'snapshot',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this.screenLoading++;
@@ -2306,7 +2306,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'update-resource',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2317,7 +2317,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'restart-pc',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2328,7 +2328,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'shutdown-pc',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2339,7 +2339,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'close-app',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2350,7 +2350,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'restart-app',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2361,7 +2361,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'close-container',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2372,7 +2372,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         var input = new DevicesActionInput({
             'deviceIds': [this.device.id],
             'actionName': 'clear-cache',
-            'appId': undefined,
+            'appId': void 0,
             'actionContent': ''
         });
         this._NewDeviceServiceProxy.broadcastEvent(input).subscribe((result) => {
@@ -2393,8 +2393,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     //淘宝设备
     getTokenIdList() {
         this._externalaccessService.getAll(
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(result => {
@@ -2410,10 +2410,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._NewDeviceServiceProxy.addSmartStoreDeviceToExtraPlatform(new AddSmartStoreDeviceToExtraPlatformInput({
             deviceId: this.device.id,
             platformType: AddSmartStoreDeviceToExtraPlatformInputPlatformType['Taobao'],
-            contact: undefined,
-            bizType: undefined,
-            categoryId: undefined,
-            qrCodeExtraInfo: undefined,
+            contact: void 0,
+            bizType: void 0,
+            categoryId: void 0,
+            qrCodeExtraInfo: void 0,
             externalAccessTokenInfoId: this.externalAccessTokenInfoId
         })).subscribe((result) => {
             this.device.extraDeviceId = result.extraDeviceId;
@@ -2426,10 +2426,10 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             deviceId: this.device.id,
             platformType: UpdateThirdDeivceCodeInputPlatformType['Taobao'],
             code: this.taobaoDeviceId,
-            contact: undefined,
-            bizType: undefined,
-            categoryId: undefined,
-            qrCodeExtraInfo: undefined
+            contact: void 0,
+            bizType: void 0,
+            categoryId: void 0,
+            qrCodeExtraInfo: void 0
         })).subscribe(r => {
             this.notify.info(this.l('success'));
         })
@@ -2550,7 +2550,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         this.saving = true;
                         this.showFreezeUi = true;
                         this._CounterDeviceServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
-                            // id: undefined,
+                            // id: void 0,
                             deviceId: this.device.id,
                             agreementId: this.agreementId,
                             gatewayType: this.gatewayType,
@@ -2566,7 +2566,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                         this.saving = true;
                         this.showFreezeUi = true;
                         this._CounterDeviceServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
-                            // id: undefined,
+                            // id: void 0,
                             deviceId: this.device.id,
                             gatewayId: this.belongGateWay2,
                             address: this.addressCode,
@@ -2617,7 +2617,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                                 this.saving = true;
                                 this.showFreezeUi = true;
                                 this._CounterDeviceServiceProxy.addOrUpdateGatewayInfo(new AddOrUpdateGatewayInput({
-                                    // id: undefined,
+                                    // id: void 0,
                                     deviceId: this.device.id,
                                     agreementId: this.agreementId,
                                     gatewayType: this.gatewayType,
@@ -2633,7 +2633,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
                                 this.saving = true;
                                 this.showFreezeUi = true;
                                 this._CounterDeviceServiceProxy.addOrUpdateSensorInfo(new AddOrUpdateSensorInput({
-                                    // id: undefined,
+                                    // id: void 0,
                                     deviceId: this.device.id,
                                     gatewayId: this.belongGateWay2,
                                     address: this.addressCode,

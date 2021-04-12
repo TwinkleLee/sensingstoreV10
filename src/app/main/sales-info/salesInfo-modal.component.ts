@@ -55,8 +55,8 @@ export class SalesInfoModalComponent extends AppComponentBase implements AfterVi
         this.modal.show();
         this.dataTable.sortField = "date"
         this.dataTable.sortOrder = -1;
-        this.StartTime = start ? start : undefined;
-        this.EndTime = end ? end : undefined;
+        this.StartTime = start ? start : void 0;
+        this.EndTime = end ? end : void 0;
         setTimeout(() => {
             this.daterange.refresh()
         })
@@ -71,7 +71,7 @@ export class SalesInfoModalComponent extends AppComponentBase implements AfterVi
         }
 
         var input = new SkuDaySaleInput({
-            filter: undefined,
+            filter: void 0,
             skuId: this.skuId,
             startTime: this.StartTime ? this.StartTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : this.StartTime,
             endTime: this.EndTime ? this.EndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : this.EndTime,

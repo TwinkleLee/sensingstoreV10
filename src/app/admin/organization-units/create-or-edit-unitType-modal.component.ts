@@ -46,7 +46,7 @@ export class CreateOrEditUnitTypeModalComponent extends AppComponentBase {
             this.primengTableHelper.showLoadingIndicator();
             this._organizationUnitTypeService.getOrganizationUnitTypes(
                 this.filterText,
-                undefined,
+                void 0,
                 // this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 // this.primengTableHelper.getSkipCount(this.paginator, event)
                 999, 0
@@ -71,7 +71,7 @@ export class CreateOrEditUnitTypeModalComponent extends AppComponentBase {
         }
         var input = new CreateOrganizationUnitTypeInput();
         input.name = this.ouType;
-        input.orderNumber = undefined;
+        input.orderNumber = void 0;
         this._organizationUnitTypeService.createOrganizationUnitType(input).subscribe((result) => {
             this.notify.info(this.l('success'));
             this.ouType = "";

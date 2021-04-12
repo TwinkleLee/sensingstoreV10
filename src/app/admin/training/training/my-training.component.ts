@@ -31,7 +31,7 @@ export class MyTrainingComponent extends AppComponentBase {
 
   filterText: string = "";
   auditStatus: any = '';
-  trainingStatus : any = undefined;
+  trainingStatus : any = void 0;
   
   exportLoading = false;
 
@@ -72,12 +72,12 @@ export class MyTrainingComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
 
     this._trainingService.getMyTrainings(
-      undefined,
+      void 0,
       this.auditStatus,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       this.trainingStatus,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'title',
@@ -289,17 +289,17 @@ export class MyTrainingComponent extends AppComponentBase {
     //   return item.id
     // })
     this._trainingService.getTrainingsToExcel(
-      undefined,
+      void 0,
       this.auditStatus,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       this.trainingStatus,
-      undefined,     
+      void 0,     
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
-      undefined,
+      void 0,
       0
     ).subscribe(r => {
       

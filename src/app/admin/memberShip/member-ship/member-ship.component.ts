@@ -71,13 +71,13 @@ export class MemberShipComponent extends AppComponentBase {
   DispatchPointToMember() {
     this._SensingShopManageServiceProxy.dispatchPointToMember({
       memberIds: [this.selectedMember.id],
-      openIds: undefined,
+      openIds: void 0,
       dispatchAmount: this.DispatchPoint.dispatchAmount,
       pointFromType: EnumPointFromType["Dispatch"],
       inOrOutType: this.DispatchPoint.inOrOutType,
-      thingId: undefined,
-      from: undefined,
-      description: undefined
+      thingId: void 0,
+      from: void 0,
+      description: void 0
     } as DispatchPointToMemberInput).subscribe(r => {
       this.notify.success(this.l('success'));
       this.PointInputModal.hide();
@@ -142,15 +142,15 @@ export class MemberShipComponent extends AppComponentBase {
     // }
     this._memberService.getMemberListToExcel(
       this.filterText,
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
-      this.memberShipType || undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
+      this.memberShipType || void 0,
       this.chosenItem,
-      undefined,
+      void 0,
       this.primengTableHelper.getSorting(this.dataTable),
-      undefined,
-      this.primengTableHelper.getMaxResultCount(this.paginator, undefined),
-      this.primengTableHelper.getSkipCount(this.paginator, undefined)
+      void 0,
+      this.primengTableHelper.getMaxResultCount(this.paginator, void 0),
+      this.primengTableHelper.getSkipCount(this.paginator, void 0)
     ).subscribe(r => {
       setTimeout(() => {
         this.exportLoading = false;
@@ -193,20 +193,20 @@ export class MemberShipComponent extends AppComponentBase {
 
     // var selectedStores = this.showStore ? this.storeTree.getchosen().map(item => {
     //   return item.id
-    // }) : undefined;
+    // }) : void 0;
 
     this.primengTableHelper.showLoadingIndicator();
     this._memberService.getMembers(
       this.filterText,
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
-      this.memberShipType || undefined,
-      // this.belongStore ? [this.belongStore] : undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
+      this.memberShipType || void 0,
+      // this.belongStore ? [this.belongStore] : void 0,
       // selectedStores,
       this.chosenItem,
-      undefined,
+      void 0,
       this.primengTableHelper.getSorting(this.dataTable),
-      undefined,
+      void 0,
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event)
     ).pipe(finalize(() => {

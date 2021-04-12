@@ -55,7 +55,7 @@ export class AppPodComponent extends AppComponentBase {
       if (r) {
         console.log(record.id)
         if (!this.appSession.tenant) {
-          this._tenantService.getTenants("", undefined, undefined, undefined, undefined, 0, false, undefined, 1000, 0).subscribe(result => {
+          this._tenantService.getTenants("", void 0, void 0, void 0, void 0, 0, false, void 0, 1000, 0).subscribe(result => {
             this.tenants = result.items;
             this.toPublish = true;
 

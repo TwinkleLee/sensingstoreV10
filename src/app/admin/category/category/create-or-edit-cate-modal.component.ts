@@ -77,7 +77,7 @@ export class CreateOrEditCateModalComponent extends AppComponentBase implements 
 
 
         if (this.type == 'questionType') {
-            this._tenantService.getTenants("", undefined, undefined, undefined, undefined, 0, false, undefined, 1000, 0).subscribe(result => {
+            this._tenantService.getTenants("", void 0, void 0, void 0, void 0, 0, false, void 0, 1000, 0).subscribe(result => {
                 this.tenantList = result.items;
             })
         }
@@ -107,7 +107,7 @@ export class CreateOrEditCateModalComponent extends AppComponentBase implements 
         } else {
             this.operation = "add";
             this.category = {
-                'parentCategoryId': category ? category.id : undefined,
+                'parentCategoryId': category ? category.id : void 0,
                 'parentCategoryName': category && category.text ? category.text : 'None'
             };
 

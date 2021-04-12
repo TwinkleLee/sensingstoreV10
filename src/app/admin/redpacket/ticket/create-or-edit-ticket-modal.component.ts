@@ -31,7 +31,7 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
     operation: string = "add";
     objItem: any = {
         useCondition: {
-            "amount": undefined,
+            "amount": void 0,
             "tagIds": [
             ],
             "categoryIds": [
@@ -123,7 +123,7 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
             this.operation = "add";
             this.objItem = {
                 useCondition: {
-                    "amount": undefined,
+                    "amount": void 0,
                     "tagIds": [
                     ],
                     "categoryIds": [
@@ -172,7 +172,7 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
         this.active = false;
         this.objItem = {
             useCondition: {
-                "amount": undefined,
+                "amount": void 0,
                 "tagIds": [
                 ],
                 "categoryIds": [

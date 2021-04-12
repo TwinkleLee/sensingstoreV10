@@ -102,7 +102,7 @@ export class GameComponent extends AppComponentBase {
   deleteGame(record) {
     this.message.confirm(this.l('deletethisGame'),this.l('AreYouSure'), (r) => {
       if (r) {
-        this._ActivityServiceProxy.deleteActivityGame(undefined, [record.id]).subscribe(result => {
+        this._ActivityServiceProxy.deleteActivityGame(void 0, [record.id]).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getGame();
         })
@@ -124,7 +124,7 @@ export class GameComponent extends AppComponentBase {
             gameCheckedIdList.push(value.id);
           }
           console.log(gameCheckedIdList);
-          this._ActivityServiceProxy.deleteActivityGame(undefined, gameCheckedIdList).subscribe(result => {
+          this._ActivityServiceProxy.deleteActivityGame(void 0, gameCheckedIdList).subscribe(result => {
             this.notify.info(this.l('success'));
             this.gameList = [];
             this.getGame();

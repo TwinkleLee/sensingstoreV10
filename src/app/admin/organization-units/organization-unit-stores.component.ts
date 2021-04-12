@@ -75,8 +75,8 @@ export class OrganizationUnitStoresComponent extends AppComponentBase implements
         this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
             storeStatus:null,
             organizationUnitId: [this._organizationUnit.id],
-            areas: undefined,
-            filter: undefined,
+            areas: void 0,
+            filter: void 0,
             sorting: this.primengTableHelper.getSorting(this.dataTable),
             maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
             skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)

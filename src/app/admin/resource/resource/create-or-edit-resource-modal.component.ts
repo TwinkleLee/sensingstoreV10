@@ -127,7 +127,7 @@ export class CreateOrEditResourceModalComponent extends AppComponentBase impleme
         this.active = true;
         if (resource) {
             this.operation = "edit";
-            resource.tenantId = resource.tenantId==0?undefined:resource.tenantId;
+            resource.tenantId = resource.tenantId==0?void 0:resource.tenantId;
             this.resource = resource;
             this.file={
                 'name':this.resource.fileUrl
@@ -144,8 +144,8 @@ export class CreateOrEditResourceModalComponent extends AppComponentBase impleme
             this.resource = {};
             this.file = {};
             this.tags = [];
-            this.resource.tenantId = this.appSession.tenantId||undefined;
-            // this.resource.organizationUnitId = this.appSession.ouId||undefined;
+            this.resource.tenantId = this.appSession.tenantId||void 0;
+            // this.resource.organizationUnitId = this.appSession.ouId||void 0;
             
             this.resource.type = ResourceFileDtoType.None;
             this.resource.category = FileArea2.Common;
@@ -163,7 +163,7 @@ export class CreateOrEditResourceModalComponent extends AppComponentBase impleme
      //筛选标签
      filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query,undefined,100,0,0).subscribe((result)=>{
+        this._TagServiceProxy.getTagsByType(event.query,void 0,100,0,0).subscribe((result)=>{
                 this.tagSuggestion = result.items;
         })
     }

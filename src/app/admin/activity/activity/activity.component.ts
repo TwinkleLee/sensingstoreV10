@@ -73,10 +73,10 @@ export class ActivityComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._acitvityService.getActivities(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       this.isTemplate,
-      undefined,
+      void(0),
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

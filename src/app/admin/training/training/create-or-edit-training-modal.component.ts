@@ -64,7 +64,7 @@ export class CreateOrEditTrainingModalComponent extends AppComponentBase impleme
         private _courseServiceProxy:CourseServiceProxy
     ) {
         super(injector);
-        _paperService.getPapers(undefined,undefined,undefined,undefined,999,0).subscribe((r) => {
+        _paperService.getPapers(void 0,void 0,void 0,void 0,999,0).subscribe((r) => {
             this.paperList = r.items;          
             console.log("papers="+this.paperList);
         })
@@ -76,7 +76,7 @@ export class CreateOrEditTrainingModalComponent extends AppComponentBase impleme
             this.organizationUnits = r.items;          
             console.log("organizationUnits=",this.organizationUnits);
         })
-        _courseServiceProxy.getCourses(undefined,undefined,undefined,undefined,undefined,undefined,999,0).subscribe((r) => {
+        _courseServiceProxy.getCourses(void 0,void 0,void 0,void 0,void 0,void 0,999,0).subscribe((r) => {
             this.courses = r.items;          
             console.log("courses=",this.courses);
         })

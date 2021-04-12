@@ -88,10 +88,10 @@ export class EntityStoreComponent extends AppComponentBase {
     })
     if (this.isGranted("Pages.Tenant.Products")) {
       this._BrandServiceProxy.getBrands(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
+        void 0,
+        void 0,
+        void 0,
+        void 0,
         999, 0
       )
         .subscribe(result => {
@@ -134,7 +134,7 @@ export class EntityStoreComponent extends AppComponentBase {
     this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
       storeStatus: this.storeStatus,
       organizationUnitId: this.chosenItem,
-      areas: this.areaFilter ? [this.areaFilter] : undefined,
+      areas: this.areaFilter ? [this.areaFilter] : void 0,
       filter: this.filterText,
       sorting: this.primengTableHelper.getSorting(this.dataTable) || 'displayName',
       maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -165,7 +165,7 @@ export class EntityStoreComponent extends AppComponentBase {
 
         storeStatus: this.storeStatus,
         organizationUnitId: this.chosenItem,
-        areas: this.areaFilter ? [this.areaFilter] : undefined,
+        areas: this.areaFilter ? [this.areaFilter] : void 0,
         filter: this.filterText,
         sorting: this.primengTableHelper.getSorting(this.dataTable) || 'displayName',
         maxResultCount: 10,

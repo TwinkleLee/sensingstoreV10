@@ -71,7 +71,7 @@ export class PromotionManageProductListComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     this._ProductServiceProxy.getProductPromotions(
       this.promotionId,
-      undefined,
+      void 0,
       this.primengTableHelper.getSorting(this.dataTable),
       999,
       0
@@ -133,13 +133,13 @@ export class PromotionManageProductListComponent extends AppComponentBase {
 
   changeType(record) {
     console.log('changeType');
-    record.discountValue = undefined;
+    record.discountValue = void 0;
   }
   changeValue(record) {
     if (record.discountType == 0) {
       if (record.product.price < record.discountValue) {
         this.notify.warn(this.l('discountOverPrice'));
-        record.discountValue = undefined;
+        record.discountValue = void 0;
         record.price = record.product.price;
       } else {
         record.price = record.product.price - record.discountValue;
@@ -147,7 +147,7 @@ export class PromotionManageProductListComponent extends AppComponentBase {
     } else {
       if (record.discountValue < 0 || record.discountValue > 10) {
         this.notify.warn(this.l('discountOverPrice'));
-        record.discountValue = undefined;
+        record.discountValue = void 0;
         record.price = record.product.price;
       } else {
         record.price = record.product.price * record.discountValue / 10;

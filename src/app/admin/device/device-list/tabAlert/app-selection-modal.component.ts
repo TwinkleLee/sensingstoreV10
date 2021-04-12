@@ -34,10 +34,10 @@ export class AppAlertModalComponent extends AppComponentBase {
           this.primengTableHelper.showLoadingIndicator();
         this._SoftwareServiceProxy.getUnpublishedSoftwaresByDeviceId(
             this.deviceId,
-            undefined,
+            void 0,
             AuditStatus11.Online,
             this.filterText,
-            undefined,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         )

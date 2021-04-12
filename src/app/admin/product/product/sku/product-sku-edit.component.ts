@@ -80,7 +80,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         super(injector);
         this.initSkuMessage();
         //获取标签下拉
-        _tagService.getTags(undefined, undefined, 100, 0).subscribe((result) => {
+        _tagService.getTags(void 0, void 0, 100, 0).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
         /**
@@ -108,7 +108,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
             this.productId,
             id,
             skuQuery.filterText,
-            undefined,
+            void 0,
             skuQuery.maxResultCount,
             skuQuery.skipCount
         ).pipe(finalize(() => {
@@ -117,7 +117,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         })).subscribe((result) => {
             this.sku = result;
             this.sku.productId = this.productId;
-            this.sku.promPrice = result.promPrice ? Number(result.promPrice) : undefined;
+            this.sku.promPrice = result.promPrice ? Number(result.promPrice) : void 0;
             this.tags = this.sku.skuTags ? this.sku.skuTags.map((item) => {
                 return {
                     'id': item.id,
@@ -147,7 +147,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         }
         if (this.currentPropertyIds && this.currentPropertyIds.length > 0) {
             this.propertyList = this.propertyList.filter((item) => {
-                if (item.isDefaultDecideImage && this.mainProperty.propertyId == undefined) {
+                if (item.isDefaultDecideImage && this.mainProperty.propertyId == void 0) {
                     this.mainProperty = item;
                     return false;
                 }
@@ -220,7 +220,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._tagService.getTags(event.query, undefined, 100, 0).subscribe((result) => {
+        this._tagService.getTags(event.query, void 0, 100, 0).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
@@ -239,7 +239,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     save(): void {
         this.saving = true;
         this.sku.propertyValueIds = this.mainPropertyIds.filter((id) => {
-            return id != undefined;
+            return id != void 0;
         }).map((id) => {
             return Number(id);
         });
@@ -322,8 +322,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
         this.matchPrimeg.showLoadingIndicator();
         this._matchInfoService.gets(
             this.sku.id,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.matchPrimeg.getMaxResultCount(this.paginatorMatch, event),
             this.matchPrimeg.getSkipCount(this.paginatorMatch, event)
         )
@@ -350,8 +350,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
         this.likePrimeg.showLoadingIndicator();
         this._likeInfoService.gets(
             this.sku.id,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.likePrimeg.getMaxResultCount(this.paginatorLikes, event),
             this.likePrimeg.getSkipCount(this.paginatorLikes, event)
         )
@@ -379,8 +379,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
         this.resourcePrimeg.showLoadingIndicator();
         this._productsService.getSkuResources(
             this.sku.id,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.resourcePrimeg.getMaxResultCount(this.paginatorRes, event),
             this.resourcePrimeg.getSkipCount(this.paginatorRes, event)
         )

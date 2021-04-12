@@ -36,8 +36,8 @@ export class BrandCenterComponent extends AppComponentBase {
     private _TagServiceProxy: TagServiceProxy) {
     super(injector);
     this._TagServiceProxy.getTagsByType(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       99,
       0,
       Type['Brand']
@@ -55,7 +55,7 @@ export class BrandCenterComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     this._brandService.getBrands(
       this.tagId,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

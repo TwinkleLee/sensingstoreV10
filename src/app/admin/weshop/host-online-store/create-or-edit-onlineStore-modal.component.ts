@@ -42,14 +42,14 @@ export class HostOnlineStoreModalComponent extends AppComponentBase implements A
         super(injector);
 
         this._tenantService.getTenants(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(result => {

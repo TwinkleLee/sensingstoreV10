@@ -99,7 +99,7 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, undefined, 100, 0, Type.Question).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Question).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
@@ -193,7 +193,7 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
 
         this._PaperServiceProxy.getQuestionsByPaperId(
             this.Paper.id,
-            undefined,
+            void 0,
             this.filterText,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),

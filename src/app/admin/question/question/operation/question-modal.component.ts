@@ -54,7 +54,7 @@ export class QuestionModalComponent extends AppComponentBase implements AfterVie
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, undefined, 100, 0, Type.Question).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Question).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

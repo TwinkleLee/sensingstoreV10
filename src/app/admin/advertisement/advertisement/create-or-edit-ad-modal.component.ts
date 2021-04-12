@@ -100,8 +100,8 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
         this.resPrimeng.showLoadingIndicator();
         this._AdService.getAdResources(
             this.Ad.id,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.resPrimeng.getMaxResultCount(this.paginatorRes, event),
             this.resPrimeng.getSkipCount(this.paginatorRes, event)
         )
@@ -250,7 +250,7 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, undefined, 100, 0, Type.Ads).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Ads).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

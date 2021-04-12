@@ -46,13 +46,13 @@ export class SkuGridModalComponent extends AppComponentBase {
         e && e.preventDefault();
         this.primengTableHelper.showLoadingIndicator();
         this._OutPutInStorageServiceProxy.getSkus(
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.storeList,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.filterText,
-            undefined,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

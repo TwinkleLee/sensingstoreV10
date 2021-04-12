@@ -44,9 +44,9 @@ export class PlayerDataDetailComponent extends AppComponentBase implements After
         console.log(detail)
         this._AwardServiceProxy.getAwards(
             detail.activityId,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(r => {

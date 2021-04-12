@@ -72,7 +72,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         this._prodService.getPropertiesByProductId(this.sku.productId).subscribe((result) => {
             this.propertyList = result;
             this.propertyList.filter((item, index, ary) => {
-                if (item.isDefaultDecideImage && this.mainProperty.id == undefined) {
+                if (item.isDefaultDecideImage && this.mainProperty.id == void 0) {
                     this.mainProperty = ary.splice(index, 1)[0];
                     this.haveMainProperty = true;
                 }
@@ -121,7 +121,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._tagService.getTags(event.query, undefined, 100, 0).subscribe((result) => {
+        this._tagService.getTags(event.query, void 0, 100, 0).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
@@ -134,7 +134,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     }
     save(): void {
         this.sku.propertyValueIds = this.mainPropertyIds.filter((id)=>{
-                return id!=undefined;
+                return id!=void 0;
         }).map((id) => {
             return Number(id);
         });

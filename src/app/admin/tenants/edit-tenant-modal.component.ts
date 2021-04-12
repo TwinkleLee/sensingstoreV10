@@ -24,7 +24,7 @@ export class EditTenantModalComponent extends AppComponentBase {
     isUnlimited = false;
     subscriptionEndDateUtcIsValid = false;
 
-    tenant: TenantEditDto = undefined;
+    tenant: TenantEditDto = void 0;
     currentConnectionString: string;
     editions: SubscribableEditionComboboxItemDto[] = [];
     isSubscriptionFieldsVisible = false;
@@ -53,7 +53,7 @@ export class EditTenantModalComponent extends AppComponentBase {
                 this.currentConnectionString = tenantResult.connectionString;
                 this.tenant.editionId = this.tenant.editionId || 0;
                 this.isUnlimited = !this.tenant.subscriptionEndDateUtc;
-                this.subscriptionEndDateUtcIsValid = this.isUnlimited || this.tenant.subscriptionEndDateUtc !== undefined;
+                this.subscriptionEndDateUtcIsValid = this.isUnlimited || this.tenant.subscriptionEndDateUtc !== void 0;
                 this.modal.show();
                 this.toggleSubscriptionFields();
             });

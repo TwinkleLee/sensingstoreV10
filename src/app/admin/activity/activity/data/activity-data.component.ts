@@ -150,8 +150,8 @@ export class ActivityDataComponent extends AppComponentBase {
     })
     this._ActivityServiceProxy.getActivityGameForSelectByActivityId(
       this.activityId,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(r => {
@@ -228,14 +228,14 @@ export class ActivityDataComponent extends AppComponentBase {
     console.log("互动记录的skipCount", this.WhitelistPrimeng.getSkipCount(this.paginator2, event))
     this.WhitelistPrimeng.showLoadingIndicator();
     this._UserActionServiceProxy.getUserActions(
-      undefined,
+      void 0,
       this.activityId,
-      undefined,
+      void 0,
       this.deviceId,
       this.activityGameId,
       this.StartTime,
       this.EndTime,
-      undefined,
+      void 0,
       this.filterText,
       this.WhitelistPrimeng.getSorting(this.dataTable2),
       this.WhitelistPrimeng.getMaxResultCount(this.paginator2, event),
@@ -258,7 +258,7 @@ export class ActivityDataComponent extends AppComponentBase {
           "snsUserInfoId": record.id
         })).subscribe(r => {
           this.notify.info(this.l('success'));
-          this.getUserData(undefined);
+          this.getUserData(void 0);
         })
       }
     })
@@ -269,7 +269,7 @@ export class ActivityDataComponent extends AppComponentBase {
         this.UserPrimeng.showLoadingIndicator();
         this._ActivityServiceProxy.deleteActivityAward([record.id]).subscribe(r => {
           this.notify.info(this.l('success'));
-          this.getActivityAwardUser(undefined);
+          this.getActivityAwardUser(void 0);
         })
       }
     })
@@ -277,14 +277,14 @@ export class ActivityDataComponent extends AppComponentBase {
   getUserData(event?) {
     this.UserPrimeng.showLoadingIndicator();
     this._UserActionServiceProxy.getUsersAndActionsSum(
-      undefined,
+      void 0,
       this.activityId,
-      undefined,
+      void 0,
       this.deviceId,
       this.activityGameId,
       this.StartTime2,
       this.EndTime2,
-      undefined,
+      void 0,
       this.filterText,
       this.UserPrimeng.getSorting(this.dataTable),
       this.UserPrimeng.getMaxResultCount(this.paginator, event) || 10,
@@ -305,8 +305,8 @@ export class ActivityDataComponent extends AppComponentBase {
       this.deviceId,
       this.filterText,
       this.RegisterPrimeng.getSorting(this.dataTable4),
-      this.RegisterPrimeng.getMaxResultCount(this.paginator4, undefined),
-      this.RegisterPrimeng.getSkipCount(this.paginator4, undefined)
+      this.RegisterPrimeng.getMaxResultCount(this.paginator4, void 0),
+      this.RegisterPrimeng.getSkipCount(this.paginator4, void 0)
     )
       .pipe(this.myFinalize(() => { this.RegisterPrimeng.hideLoadingIndicator(); }))
       .subscribe(r => {
@@ -341,9 +341,9 @@ export class ActivityDataComponent extends AppComponentBase {
       this.endDate3,
       this.activityId,
       this.deviceId,
-      undefined,
+      void 0,
       this.activityGameId,
-      undefined
+      void 0
     ).subscribe(r => {
       this.activityData = r;
     })
@@ -355,9 +355,9 @@ export class ActivityDataComponent extends AppComponentBase {
       this.endDate3,
       this.activityId,
       this.deviceId,
-      undefined,
+      void 0,
       this.activityGameId,
-      undefined
+      void 0
     ).subscribe(r => {
       this.activityLoading = false;
       console.log(r)
@@ -371,7 +371,7 @@ export class ActivityDataComponent extends AppComponentBase {
       this.activityId,
       this.deviceId,
       this.activityGameId,
-      undefined,
+      void 0,
       this.WinnerPrimeng.getSorting(this.dataTable3) || 'name',
       this.WinnerPrimeng.getMaxResultCount(this.paginator3, event),
       this.WinnerPrimeng.getSkipCount(this.paginator3, event)

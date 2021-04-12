@@ -44,14 +44,14 @@ export class ExtendEditionComponent extends AppComponentBase implements OnInit {
     ngOnInit(): void {
         this.editionPaymentType = parseInt(this._activatedRoute.snapshot.queryParams['editionPaymentType']);
 
-        this._paymentAppService.getPaymentInfo(undefined)
+        this._paymentAppService.getPaymentInfo(void 0)
             .subscribe((result: PaymentInfoDto) => {
                 this.edition = result.edition;
                 this.additionalPrice = Number(result.additionalPrice.toFixed(2));
                 this.selectedPaymentPeriodType = this._paymnetHelperService.getInitialSelectedPaymentPeriodType(this.edition);
             });
 
-        this._paymentAppService.getActiveGateways(undefined)
+        this._paymentAppService.getActiveGateways(void 0)
             .subscribe((result: PaymentGatewayModel[]) => {
                 this.paymentGateways = result;
             });

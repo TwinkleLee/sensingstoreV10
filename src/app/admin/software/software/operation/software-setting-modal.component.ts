@@ -112,7 +112,7 @@ export class SoftwareSettingModalComponent extends AppComponentBase {
 
 
     getTags() {
-        this._TagServiceProxy.getTagsByType('', undefined, 1000, 0, Type.Question).subscribe((r) => {
+        this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
             this.tags = r.items;
         })
     }
@@ -125,7 +125,7 @@ export class SoftwareSettingModalComponent extends AppComponentBase {
         this.primengTableHelper.showLoadingIndicator();
         this._PaperServiceProxy.getDispatchedPapers(
             this.software.id,
-            undefined,
+            void 0,
             this.tagFilter ? [Number(this.tagFilter)] : [],
             this.filterText,
             this.primengTableHelper.getSorting(this.dataTable),

@@ -59,8 +59,8 @@ export class KeyResultComponent extends AppComponentBase {
     this._OKRServiceProxy.getKeyResultList(
       this.objectiveId,
       this.completed,
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -79,7 +79,7 @@ export class KeyResultComponent extends AppComponentBase {
   }
 
   createItem() {
-    this.keyresultModal.show(undefined)
+    this.keyresultModal.show(void 0)
   }
 
   editItem(record) {

@@ -129,7 +129,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         this.getQuestionCategories(true);
     }
     getQuestionCategories(ifChangeKnowledge?) {
-        this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(r => {
+        this._KnowledgeCategoryServiceProxy.getQuestionCategories(this.tenantId, void 0, void 0, 999, 0).subscribe(r => {
             this.categorys = r.items;
             if (this.deviceRecord.categoryId) {
                 this.categoryId = this.deviceRecord.categoryId;
@@ -147,7 +147,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         } else if (this.deviceRecord.categoryId) {
             categoryId = this.deviceRecord.categoryId
         }
-        this._KnowledgeCategoryServiceProxy.getOptKnowledges(this.tenantId, categoryId, undefined, undefined, 999, 0).subscribe(r => {
+        this._KnowledgeCategoryServiceProxy.getOptKnowledges(this.tenantId, categoryId, void 0, void 0, 999, 0).subscribe(r => {
             this.optKnowledges = r.items;
             if (this.deviceRecord.optKnowledgeId) {
                 this.optKnowledgeId = this.deviceRecord.optKnowledgeId;
@@ -179,12 +179,12 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         this.device = {};
         this._NewDeviceServiceProxy.getDevicesForHost(
             this.tenantId,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             1000,
             0).subscribe(result => {
                 console.log(result.items)
@@ -229,14 +229,14 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
         this.deviceRecord.deviceName = this.device.name;
         this.deviceRecord.organizationUnitName = this.device.organizationUnitName;
 
-        this.deviceRecord.categoryId = this.categoryId ? Number(this.categoryId) : undefined;
-        this.deviceRecord.optKnowledgeId = this.optKnowledgeId ? Number(this.optKnowledgeId) : undefined;
+        this.deviceRecord.categoryId = this.categoryId ? Number(this.categoryId) : void 0;
+        this.deviceRecord.optKnowledgeId = this.optKnowledgeId ? Number(this.optKnowledgeId) : void 0;
 
 
         if (this.operation == "add") {
             console.log(this.deviceRecord.startTime, 111)
-            this.deviceRecord.startTime = this.deviceRecord.startTime ? this.deviceRecord.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-            this.deviceRecord.endTime = this.deviceRecord.endTime ? this.deviceRecord.endTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+            this.deviceRecord.startTime = this.deviceRecord.startTime ? this.deviceRecord.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+            this.deviceRecord.endTime = this.deviceRecord.endTime ? this.deviceRecord.endTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
             if (this.tenants.length == 0) {
                 this._OperationsServiceProxy.addOperationRecords([this.deviceRecord])
                     .pipe(finalize(() => { this.saving = false; }))
@@ -258,8 +258,8 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
             }
 
         } else {
-            this.deviceRecord.startTime = this.deviceRecord.startTime ? this.deviceRecord.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-            this.deviceRecord.endTime = this.deviceRecord.endTime ? this.deviceRecord.endTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+            this.deviceRecord.startTime = this.deviceRecord.startTime ? this.deviceRecord.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+            this.deviceRecord.endTime = this.deviceRecord.endTime ? this.deviceRecord.endTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
             if (this.tenants.length == 0) {
                 this._OperationsServiceProxy.updateOperationRecord(this.deviceRecord)
                     .pipe(finalize(() => { this.saving = false; }))
@@ -285,15 +285,15 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
     close(): void {
         this.active = false;
         this.deviceRecord = {};
-        this.device = undefined;
+        this.device = void 0;
         this.tenants = [];
         this.devices = [];
         this.tenantId = "";
         this.deviceId = '';
         this.categorys = [];
-        this.categoryId = undefined;
+        this.categoryId = void 0;
         this.optKnowledges = [];
-        this.optKnowledgeId = undefined;
+        this.optKnowledgeId = void 0;
         this.categorysReady = false;
         this.optKnowledgesReady = false;
         this.modal.hide();

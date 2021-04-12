@@ -254,7 +254,7 @@ export class LoginService {
     ): void {
         let tokenExpireDate = rememberMe
             ? new Date(new Date().getTime() + 1000 * expireInSeconds)
-            : undefined;
+            : void 0;
 
         this._tokenService.setToken(accessToken, tokenExpireDate);
 
@@ -263,7 +263,7 @@ export class LoginService {
                 ? new Date(
                     new Date().getTime() + 1000 * refreshTokenExpireInSeconds
                 )
-                : undefined;
+                : void 0;
             this._tokenService.setRefreshToken(
                 refreshToken,
                 refreshTokenExpireDate

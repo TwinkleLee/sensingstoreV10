@@ -24,13 +24,13 @@ export class HostSettingsComponent extends AppComponentBase implements OnInit {
 
     loading = false;
     hostSettings: HostSettingsEditDto;
-    editions: ComboboxItemDto[] = undefined;
-    testEmailAddress: string = undefined;
+    editions: ComboboxItemDto[] = void 0;
+    testEmailAddress: string = void 0;
     showTimezoneSelection = abp.clock.provider.supportsMultipleTimezone;
     defaultTimezoneScope: SettingScopes = SettingScopes.Application;
 
     usingDefaultTimeZone = false;
-    initialTimeZone: string = undefined;
+    initialTimeZone: string = void 0;
 
     enabledSocialLoginSettings: string[];
 

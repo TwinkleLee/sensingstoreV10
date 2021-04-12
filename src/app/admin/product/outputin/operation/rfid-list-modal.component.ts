@@ -151,11 +151,11 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
         }
         this.primengTableHelper.showLoadingIndicator();
         this._OutPutInStorageServiceProxy.getSkuRfids(
-            undefined,
+            void 0,
             this.skuId,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             this.filter,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),

@@ -83,7 +83,7 @@ export class OnlineStoreHistoryComponent extends AppComponentBase {
     //需要修改为按id筛选
     this._PlanServiceProxy.getAll(
       this.basic.id,
-      undefined,
+      void 0,
       this.planPrimeng.getSorting(this.dataTablehistory),
       this.planPrimeng.getMaxResultCount(this.paginatorPlan, event),
       this.planPrimeng.getSkipCount(this.paginatorPlan, event)
@@ -158,7 +158,7 @@ export class OnlineStoreHistoryComponent extends AppComponentBase {
       'SyncThirdOnlineProducts',
       // this.filterText,
       this.basic.id,
-      undefined,
+      void 0,
       this.historyPrimeng.getSorting(this.dataTablehistory) || 'taobao_user_nick',
       this.historyPrimeng.getMaxResultCount(this.paginatorhistory, event),
       this.historyPrimeng.getSkipCount(this.paginatorhistory, event)

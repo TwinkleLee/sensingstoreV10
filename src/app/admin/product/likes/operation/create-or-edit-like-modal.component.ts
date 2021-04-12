@@ -46,7 +46,7 @@ export class CreateOrEditLikeModalComponent extends AppComponentBase {
         this.likeService.getSkusForLikeInfo(
             this.likeId,
             this.filterText,
-            undefined,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

@@ -98,8 +98,8 @@ export class CreateOrEditFloorModalComponent extends AppComponentBase implements
         this.resPrimeng.showLoadingIndicator();
         this._FloorServiceProxy.getFloorAngleResources(
             this.objItem.id,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.resPrimeng.getMaxResultCount(this.paginatorRes, event),
             this.resPrimeng.getSkipCount(this.paginatorRes, event)
         )

@@ -121,7 +121,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         this.initProductMessage();
         $(document).on('click', this.clearBindFun);
         //获取标签下拉
-        this._tagService.getTags(undefined, undefined, 100, 0).subscribe((result) => {
+        this._tagService.getTags(void 0, void 0, 100, 0).subscribe((result) => {
             this.tagSuggestion = result.items;
             console.log(this.tagSuggestion)
         })
@@ -143,19 +143,19 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
             productQuery.startTime,
             productQuery.endTime,
             productQuery.auditStatus,
-            productQuery.tagId ? [productQuery.tagId] : undefined,
+            productQuery.tagId ? [productQuery.tagId] : void 0,
             productQuery.cateoryIds,
             productQuery.price1,
             productQuery.price2,
-            productQuery.stock ? productQuery.stockOperator + productQuery.stock : undefined,
-            productQuery.salesVolume ? productQuery.salesVolumeOperator + productQuery.salesVolume : undefined,
+            productQuery.stock ? productQuery.stockOperator + productQuery.stock : void 0,
+            productQuery.salesVolume ? productQuery.salesVolumeOperator + productQuery.salesVolume : void 0,
             productQuery.sortStatus,
             productQuery.isSearchSku,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             productQuery.filterText,
             productQuery.sort,
             productQuery.maxResultCount,
@@ -205,9 +205,9 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
 
     getFreight() {
         this._ShopServiceProxy.getShopFreights(
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             999, 0
         ).subscribe(r => {
             this.freightList = r.items;
@@ -247,14 +247,14 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
 
     //获取品牌
     getBrands() {
-        this._brandService.getBrands(undefined, undefined, undefined, undefined, 999, 0).subscribe((result) => {
+        this._brandService.getBrands(void 0, void 0, void 0, void 0, 999, 0).subscribe((result) => {
             this.brands = result.items;
         })
     }
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._tagService.getTagsByType(event.query, undefined, 100, 0, Type.Product).subscribe((result) => {
+        this._tagService.getTagsByType(event.query, void 0, 100, 0, Type.Product).subscribe((result) => {
             this.tagSuggestion = result.items;
             console.log(this.tagSuggestion)
         })
@@ -435,9 +435,9 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         this.skuPrimeng.showLoadingIndicator();
         this._productsService.getProductSkus(
             this.product.id,
-            undefined,
+            void 0,
             this.skuFilterText,
-            undefined,
+            void 0,
             this.skuPrimeng.getMaxResultCount(this.paginator, event) || 10,
             this.skuPrimeng.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {
@@ -622,7 +622,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         this.onlinePrimeng.showLoadingIndicator();
         this._productsService.getProductOnlinestoreInfos(
             this.product.id,
-            undefined,
+            void 0,
             this.onlinePrimeng.getSorting(this.dataTableOnline),
             this.onlinePrimeng.getMaxResultCount(this.paginatorOnline, event),
             this.onlinePrimeng.getSkipCount(this.paginatorOnline, event)
@@ -667,8 +667,8 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         this.resPrimeng.showLoadingIndicator();
         this._productsService.getProductResources(
             this.product.id,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.resPrimeng.getMaxResultCount(this.paginatorRes, event),
             this.resPrimeng.getSkipCount(this.paginatorRes, event)
         )
@@ -764,7 +764,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         this.commentPrimeng.showLoadingIndicator();
         this._productsService.getProductComments(
             this.product.id,
-            undefined,
+            void 0,
             this.commentPrimeng.getSorting(this.dataTableComment),
             this.commentPrimeng.getMaxResultCount(this.paginatorComment, event),
             this.commentPrimeng.getSkipCount(this.paginatorComment, event)

@@ -156,11 +156,11 @@ export class CreateOrEditDashboardManageModalComponent extends AppComponentBase 
         this._NewDeviceServiceProxy.getDevicesForHost(
             e,
             [4],
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(r => {

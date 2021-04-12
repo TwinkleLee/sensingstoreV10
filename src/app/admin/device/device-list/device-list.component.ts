@@ -127,7 +127,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     this.apply.options = 'all';
     if (!this.appSession.tenant) {
 
-      this._tenantService.getTenants("", undefined, undefined, undefined, undefined, 0, false, undefined, 1000, 0).subscribe(result => {
+      this._tenantService.getTenants("", void 0, void 0, void 0, void 0, 0, false, void 0, 1000, 0).subscribe(result => {
         this.tenants = result.items;
       })
     }
@@ -166,8 +166,8 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       this.operationType = deviceQuery.operationType;
       this.auditStatus = deviceQuery.auditStatus;
       this.filterText = deviceQuery.filterText;
-      this.dataTable.sortField = deviceQuery.sort ? deviceQuery.sort.split(' ')[0] : undefined;
-      this.dataTable.sortOrder = deviceQuery.sort ? deviceQuery.sort.split(' ')[1].indexOf('ASC') > -1 ? 1 : -1 : undefined;
+      this.dataTable.sortField = deviceQuery.sort ? deviceQuery.sort.split(' ')[0] : void 0;
+      this.dataTable.sortOrder = deviceQuery.sort ? deviceQuery.sort.split(' ')[1].indexOf('ASC') > -1 ? 1 : -1 : void 0;
       this.paginator.rows = deviceQuery.maxResultCount;
       this.paginator.first = deviceQuery.skipCount;
       this.primengTableHelper.defaultRecordsCountPerPage = deviceQuery.maxResultCount;
@@ -185,7 +185,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
 
 
     this._NewDeviceServiceProxy.getDeviceTypes(
-      undefined,
+      void 0,
       'id ASC',
       99,
       0
@@ -307,7 +307,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
         this.status,
         this.operationType,
         this.auditStatus,
-        undefined,
+        void 0,
         this.chosenItem,
         this.chosenItem2,
         this.filterText,
@@ -726,12 +726,12 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       this.status,
       this.operationType,
       this.auditStatus,
-      undefined,
+      void 0,
       this.chosenItem,
       this.chosenItem2,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
-      undefined,
+      void 0,
       0
     ).subscribe(r => {
       setTimeout(() => {

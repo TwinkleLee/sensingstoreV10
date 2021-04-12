@@ -105,10 +105,10 @@ export class SoftwareComponent extends AppComponentBase {
     this.AppPublishList = [];
     this.tenantAppPublish = {};
     this._softwareService.getAuthorizedSoftwares(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {
@@ -117,9 +117,9 @@ export class SoftwareComponent extends AppComponentBase {
     });
 
     this._softwareService.getForTenantSoftwares(
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
       999,
       0).subscribe(r => {
         this.ForTenantSoftwaresList = r.items;

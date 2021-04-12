@@ -101,8 +101,8 @@ export class MemberShipModalComponent extends AppComponentBase {
 
         var input: any = ({
             memberId: this.member.id,
-            orderDateTimeStart: this.StartTime ? this.StartTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-            orderDateTimeEnd: this.EndTime ? this.EndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
+            orderDateTimeStart: this.StartTime ? this.StartTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+            orderDateTimeEnd: this.EndTime ? this.EndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
             sorting: this.SkuPrimeng.getSorting(this.SkuDataTable) || "orderDateTime DESC",
             maxResultCount: this.SkuPrimeng.getMaxResultCount(this.SkuPaginator, event),
             skipCount: this.SkuPrimeng.getSkipCount(this.SkuPaginator, event)
@@ -130,22 +130,22 @@ export class MemberShipModalComponent extends AppComponentBase {
             console.log(this.dataTable0, 222333)
         }
         this.OrderPrimeng.showLoadingIndicator();
-        this.startTime = this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-        this.endTime = this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+        this.startTime = this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+        this.endTime = this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
 
         this._OrderServiceProxy.getOrdersByMemberId(
             this.member.id,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             this.startTime,
             this.endTime,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             this.orderStatus,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.OrderPrimeng.getSorting(this.dataTable0) || 'orderDateTime DESC',
             this.OrderPrimeng.getMaxResultCount(this.paginator0, event),
             this.OrderPrimeng.getSkipCount(this.paginator0, event)
@@ -168,18 +168,18 @@ export class MemberShipModalComponent extends AppComponentBase {
         }
 
         this.PointPrimeng.showLoadingIndicator();
-        this.startTime = this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-        this.endTime = this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+        this.startTime = this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+        this.endTime = this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
 
         this._SensingShopServiceProxy.getMemberPointLog(
             this.appSession.tenantId,
             this.member.id,
             new GetMemberPointLogInput({
-                inOrOutType: undefined,
-                pointFromType: undefined,
+                inOrOutType: void 0,
+                pointFromType: void 0,
                 startTime: this.startTime,
                 endTime: this.endTime,
-                filter: undefined,
+                filter: void 0,
                 sorting: this.PointPrimeng.getSorting(this.PointDataTable),
                 maxResultCount: this.PointPrimeng.getMaxResultCount(this.PointPaginator, event),
                 skipCount: this.PointPrimeng.getSkipCount(this.PointPaginator, event)

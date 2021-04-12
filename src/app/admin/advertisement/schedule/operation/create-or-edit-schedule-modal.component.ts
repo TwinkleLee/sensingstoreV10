@@ -36,9 +36,9 @@ export class ScheduleModalComponent extends AppComponentBase implements AfterVie
     ) {
         super(injector);
         this._AdServiceProxy.getProgramsIn24HoursList(
-            undefined,
+            void 0,
             "",
-            undefined,
+            void 0,
             999,
             0
         ).subscribe(result => {
@@ -136,8 +136,8 @@ export class ScheduleModalComponent extends AppComponentBase implements AfterVie
         
             this.UserPrimeng.showLoadingIndicator();
             this._AdServiceProxy.getProgramsIn24HoursList(
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 this.UserPrimeng.getSorting(this.UserDataTable),
                 this.UserPrimeng.getMaxResultCount(this.UserPaginator, event),
                 this.UserPrimeng.getSkipCount(this.UserPaginator, event)

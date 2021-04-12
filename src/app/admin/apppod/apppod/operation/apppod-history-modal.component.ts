@@ -55,8 +55,8 @@ export class ApppodHistoryModalComponent extends AppComponentBase {
 
     this._AppPodServiceProxy.getAppPodVersions(
       this.item.id,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       // this.primengTableHelper0.getSorting(this.dataTable),
       'version DESC',
       this.primengTableHelper0.getMaxResultCount(this.paginator, event),

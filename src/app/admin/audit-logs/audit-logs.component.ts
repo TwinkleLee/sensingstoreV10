@@ -35,7 +35,7 @@ export class AuditLogsComponent extends AppComponentBase implements AfterViewIni
     public serviceName: string;
     public methodName: string;
     public browserInfo: string;
-    public hasException: boolean = undefined;
+    public hasException: boolean = void 0;
     public minExecutionDuration: number;
     public maxExecutionDuration: number;
     public entityTypeFullName: string;
@@ -137,7 +137,7 @@ export class AuditLogsComponent extends AppComponentBase implements AfterViewIni
             self.hasException,
             self.minExecutionDuration,
             self.maxExecutionDuration,
-            undefined,
+            void 0,
             1,
             0)
             .subscribe(result => {
@@ -152,7 +152,7 @@ export class AuditLogsComponent extends AppComponentBase implements AfterViewIni
             self._dateTimeService.getEndOfDayForDate(self.dateRange[1]),
             self.usernameEntityChange,
             self.entityTypeFullName,
-            undefined,
+            void 0,
             1,
             0)
             .subscribe(result => {

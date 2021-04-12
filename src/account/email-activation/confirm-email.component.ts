@@ -48,9 +48,9 @@ export class ConfirmEmailComponent extends AppComponentBase implements OnInit {
     }
 
     parseTenantId(tenantIdAsStr?: string): number {
-        let tenantId = !tenantIdAsStr ? undefined : parseInt(tenantIdAsStr, 10);
+        let tenantId = !tenantIdAsStr ? void 0 : parseInt(tenantIdAsStr, 10);
         if (tenantId === NaN) {
-            tenantId = undefined;
+            tenantId = void 0;
         }
 
         return tenantId;
