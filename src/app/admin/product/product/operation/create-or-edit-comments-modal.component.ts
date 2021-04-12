@@ -71,7 +71,7 @@ export class CreateOrEditCommentsModalComponent extends AppComponentBase impleme
     save(): void {
         this.saving = true;
         // this.comment.commentDateTime = moment($(this.sampleDatePicker.nativeElement).data('DateTimePicker').date().format('YYYY-MM-DDTHH:mm:ssZ'));
-        this.comment.commentDateTime= this.comment.commentDateTime ? moment(this.comment.commentDateTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+        this.comment.commentDateTime= this.comment.commentDateTime ? moment(this.comment.commentDateTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
         if (this.operationType == "add") {
             this.createInput = new CreateProductCommentInput(this.comment);
             this._prodService.addProductComments(this.createInput).pipe(finalize(() => {

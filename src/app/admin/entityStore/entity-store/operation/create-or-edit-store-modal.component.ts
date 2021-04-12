@@ -90,10 +90,10 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
         input = input.concat(ary.map(item => new UpdateRoomDto({
             id: item.id,
-            storeId: undefined,
-            storeName: undefined,
-            brandName: undefined,
-            brandLogo: undefined
+            storeId: void 0,
+            storeName: void 0,
+            brandName: void 0,
+            brandLogo: void 0
         })))
         this._roomServiceProxy.updateRoomList(new UpdateRoomListInput({ "updateRoomDtos": input })).subscribe(r => { })
     }
@@ -126,7 +126,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 this._roomServiceProxy.getRoomDetailsById(ids[0])
                     .subscribe(r => {
                         this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
-                        this._roomServiceProxy.getRooms4Select(r.floor.buildingId, undefined, 'store', undefined)
+                        this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
                             .subscribe(result => {
                                 ids.forEach(item => {
                                     var singleRoom: any = result.find(o => o.id == item)
@@ -315,7 +315,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
         this._roomServiceProxy.getRooms4Select(
             this.buildingId,
-            undefined,
+            void 0,
             'store',
             event.query
         ).subscribe((result) => {

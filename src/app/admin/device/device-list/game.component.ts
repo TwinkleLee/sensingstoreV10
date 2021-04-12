@@ -100,7 +100,7 @@ export class DeviceGameComponent extends AppComponentBase {
     this.message.confirm(this.l('deletethisGame'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._DeviceActivityServiceProxy.deleteDeviceActivityGame(record.id).subscribe(result => {
-          // this._ActivityServiceProxy.deleteActivityGame(undefined, [record.id]).subscribe(result => {
+          // this._ActivityServiceProxy.deleteActivityGame(void 0, [record.id]).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getGame();
         })
@@ -132,7 +132,7 @@ export class DeviceGameComponent extends AppComponentBase {
   //           gameCheckedIdList.push(value.id);
   //         }
   //         console.log(gameCheckedIdList);
-  //         this._ActivityServiceProxy.deleteActivityGame(undefined, gameCheckedIdList).subscribe(result => {
+  //         this._ActivityServiceProxy.deleteActivityGame(void 0, gameCheckedIdList).subscribe(result => {
   // this.notify.info(this.l('success'));
   //           this.gameList = [];
   //           this.getGame();
@@ -148,7 +148,7 @@ export class DeviceGameComponent extends AppComponentBase {
 
   // getPageTemplate() {
   //   this.messageBusy = true;
-  //   this._HtmlTemplateServiceProxy.getHtmlTemplates(TemplateEnum.Action, undefined, undefined, 99, 0).subscribe(r => {
+  //   this._HtmlTemplateServiceProxy.getHtmlTemplates(TemplateEnum.Action, void 0, void 0, 99, 0).subscribe(r => {
   //     console.log(r)
   //     this.templateList = r.items;
   //     this._ActivityServiceProxy.getAwardMessageSettings(this.activityId).subscribe(r => {

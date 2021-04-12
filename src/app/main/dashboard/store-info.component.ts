@@ -65,7 +65,7 @@ export class StoreInfoComponent extends AppComponentBase implements AfterViewIni
 
             this.MapNgIf = true;
             this.ouLocaltionLoading = true;
-            this._NewStoreServiceProxy.getStorePosition(this.ouFilter, undefined, 1000, 0).pipe(finalize(() => {
+            this._NewStoreServiceProxy.getStorePosition(this.ouFilter, void 0, 1000, 0).pipe(finalize(() => {
                 // if (this.ouLocaltionLoading && this.positions.length == 0) {
                 //     setTimeout(() => {
                 //         this.ouLocaltion.render("100%", "600px");
@@ -131,7 +131,7 @@ export class StoreInfoComponent extends AppComponentBase implements AfterViewIni
     getChartData() {
         this.dataChartLoading = true;
         var input = new ChartReportInput({
-            'deviceId': undefined,
+            'deviceId': void 0,
             'startTime': this.startTime,
             'endTime': this.endTime,
             'type': this.type,
@@ -153,7 +153,7 @@ export class StoreInfoComponent extends AppComponentBase implements AfterViewIni
             }
         })).subscribe((result) => {
             this.dataChartLoading = false;
-            this.dataChart.draw(result, this.type == "hh" ? moment() : undefined);
+            this.dataChart.draw(result, this.type == "hh" ? moment() : void 0);
             // this.dataChart.draw([{
             //     chartItems: [
             //         { date: '1', value: '20', thingId: 0, category: 'aaa' },
@@ -161,7 +161,7 @@ export class StoreInfoComponent extends AppComponentBase implements AfterViewIni
             //         { date: '3', value: '50', thingId: 0, category: 'aaa' },
             //     ],
             //     title: 'aaa'
-            // }], undefined);
+            // }], void 0);
         })
     }
 

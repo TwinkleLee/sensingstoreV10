@@ -169,8 +169,8 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
       this.SortStatus = productQuery.sortStatus;
       this.IsSearchSku = productQuery.isSearchSku;
       this.filterText = productQuery.filterText;
-      this.dataTable.sortField = productQuery.sort ? productQuery.sort.split(' ')[0] : undefined;
-      this.dataTable.sortOrder = productQuery.sort ? productQuery.sort.split(' ')[1].indexOf('ASC') > -1 ? 1 : -1 : undefined;
+      this.dataTable.sortField = productQuery.sort ? productQuery.sort.split(' ')[0] : void 0;
+      this.dataTable.sortOrder = productQuery.sort ? productQuery.sort.split(' ')[1].indexOf('ASC') > -1 ? 1 : -1 : void 0;
       this.paginator.rows = productQuery.maxResultCount;
       this.paginator.first = productQuery.skipCount;
       this.showImage = productQuery.showImage;
@@ -208,8 +208,8 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
 
   getDeviceType() {
     this._NewDeviceServiceProxy.getDeviceTypes(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       99,
       0
     ).subscribe(result => {
@@ -251,7 +251,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
 
   //获取标签下拉数据
   getTags() {
-    this.tagService.getTagsByType(undefined, undefined, 1000, 0, Type.Product).subscribe((result) => {
+    this.tagService.getTagsByType(void 0, void 0, 1000, 0, Type.Product).subscribe((result) => {
       this.Tags = result.items;
       this.tagList = Object.assign([], this.Tags);
     });
@@ -268,10 +268,10 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
   //获取品牌
   getBrand() {
     this._BrandServiceProxy.getBrands(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {
@@ -286,7 +286,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
     //获取分类下拉数据
     this.cateService.getProductCategories(
       this.cateFilter,
-      undefined,
+      void 0,
       1000,
       0
     ).subscribe((result) => {
@@ -329,47 +329,47 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
     this.primengTableHelper.showLoadingIndicator();
 
     this.getProductsInput = new GetProductsInput({
-      currentProductId: undefined,
+      currentProductId: void 0,
       startTime: this.StartTime,
       endTime: this.EndTime,
       auditStatus: this.AuditStatus,
-      tagIds: this.TagId ? [this.TagId] : undefined,
-      catetoryIds: this.CatetoryIds || undefined,
-      price1: this.Price1 || undefined,
-      price2: this.Price2 || undefined,
-      stock: this.Stock !== undefined && this.Stock !== null ? this.stockOperator + this.Stock : undefined,
-      salesVolume: this.salesVolume !== undefined && this.salesVolume !== null ? this.salesVolumeOperator + this.salesVolume : undefined,
+      tagIds: this.TagId ? [this.TagId] : void 0,
+      catetoryIds: this.CatetoryIds || void 0,
+      price1: this.Price1 || void 0,
+      price2: this.Price2 || void 0,
+      stock: this.Stock !== void 0 && this.Stock !== null ? this.stockOperator + this.Stock : void 0,
+      salesVolume: this.salesVolume !== void 0 && this.salesVolume !== null ? this.salesVolumeOperator + this.salesVolume : void 0,
       sortStatus: this.SortStatus,
       isSearchSku: this.IsSearchSku,
-      organizationId: undefined,
+      organizationId: void 0,
       language: this.language,
       region: this.region,
       brandIds: this.chosenItem,
-      pointRedeemType: undefined,
+      pointRedeemType: void 0,
       filter: this.filterText,
       sorting: this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
-      maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, undefined),
-      skipCount: this.primengTableHelper.getSkipCount(this.paginator, undefined)
+      maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, void 0),
+      skipCount: this.primengTableHelper.getSkipCount(this.paginator, void 0)
     })
 
     this._productsService.getProducts(
-      undefined,
+      void 0,
       this.StartTime,
       this.EndTime,
       this.AuditStatus,
-      this.TagId ? [this.TagId] : undefined,
-      this.CatetoryIds || undefined,
-      this.Price1 || undefined,
-      this.Price2 || undefined,
-      this.Stock !== undefined && this.Stock !== null ? this.stockOperator + this.Stock : undefined,
-      this.salesVolume !== undefined && this.salesVolume !== null ? this.salesVolumeOperator + this.salesVolume : undefined,
+      this.TagId ? [this.TagId] : void 0,
+      this.CatetoryIds || void 0,
+      this.Price1 || void 0,
+      this.Price2 || void 0,
+      this.Stock !== void 0 && this.Stock !== null ? this.stockOperator + this.Stock : void 0,
+      this.salesVolume !== void 0 && this.salesVolume !== null ? this.salesVolumeOperator + this.salesVolume : void 0,
       this.SortStatus,
       this.IsSearchSku,
-      undefined,
+      void 0,
       this.language,
       this.region,
       this.chosenItem,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -697,26 +697,26 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
       })
     }
     this._productsService.getProductToExcel(
-      undefined,
+      void 0,
       this.StartTime,
       this.EndTime,
       this.AuditStatus,
-      this.TagId ? [this.TagId] : undefined,
-      this.CatetoryIds || undefined,
-      this.Price1 || undefined,
-      this.Price2 || undefined,
-      this.Stock !== undefined && this.Stock !== null ? this.stockOperator + this.Stock : undefined,
-      this.salesVolume !== undefined && this.salesVolume !== null ? this.salesVolumeOperator + this.salesVolume : undefined,
+      this.TagId ? [this.TagId] : void 0,
+      this.CatetoryIds || void 0,
+      this.Price1 || void 0,
+      this.Price2 || void 0,
+      this.Stock !== void 0 && this.Stock !== null ? this.stockOperator + this.Stock : void 0,
+      this.salesVolume !== void 0 && this.salesVolume !== null ? this.salesVolumeOperator + this.salesVolume : void 0,
       this.SortStatus,
       this.IsSearchSku,
-      undefined,
+      void 0,
       this.language,
       this.region,
       this.chosenItem,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
-      undefined,
+      void 0,
       0
     ).subscribe(r => {
       setTimeout(() => {
@@ -809,7 +809,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
 
   //前往管理标签
   goTag(f?) {
-    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
+    f !== void 0 ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
   }
   //前往管理分类
   goCate(f?) {

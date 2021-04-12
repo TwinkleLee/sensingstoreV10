@@ -58,7 +58,7 @@ export class PlanHistoryModalComponent extends AppComponentBase {
 
     this._BatchTaskLogServiceProxy.getBatchTaskLogs(
       this.planId,
-      undefined,
+      void 0,
       this.primengTableHelper0.getSorting(this.dataTable),
       this.primengTableHelper0.getMaxResultCount(this.paginator, event),
       this.primengTableHelper0.getSkipCount(this.paginator, event)

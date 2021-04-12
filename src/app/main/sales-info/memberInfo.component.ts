@@ -61,16 +61,16 @@ export class MemberInfoComponent extends AppComponentBase implements OnInit {
       return;
     }
     this.primengTableHelper.showLoadingIndicator();
-    this.startTime = this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-    this.endTime = this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+    this.startTime = this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+    this.endTime = this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
 
     var input = new MemberCostInput({
-      filter: undefined,
+      filter: void 0,
       memberName: this.filterText,
       type: this.memberShipType,
       storeId: this.belongStore,
-      orderDateTimeStart: this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      orderDateTimeEnd: this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+      orderDateTimeStart: this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      orderDateTimeEnd: this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
       sorting: this.primengTableHelper.getSorting(this.dataTable) || "amount DESC",
       maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
       skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)
@@ -103,7 +103,7 @@ export class MemberInfoComponent extends AppComponentBase implements OnInit {
     if (arr.length) {
       this.belongStore = arr[0].id;
     } else {
-      this.belongStore = undefined;
+      this.belongStore = void 0;
     }
   }
   clickContainer() {

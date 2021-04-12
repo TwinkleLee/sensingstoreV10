@@ -64,10 +64,10 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
     ngOnInit() {
         this._CustomizeReportServiceProxy.getReports(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(r => {
@@ -76,14 +76,14 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
         })
         this._NewDeviceServiceProxy.getDevices(
             [],
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             [4],
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(result => {
@@ -144,7 +144,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
 
     changeDashboard() {
         this.nowDeviceId = "";
-        this.nowDevice = undefined;
+        this.nowDevice = void 0;
 
         if (!this.nowDashboardId) return
 
@@ -162,7 +162,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
     }
     changeDevice() {
         this.nowDashboardId = "";
-        this.nowDashboard = undefined;
+        this.nowDashboard = void 0;
 
         if (!this.nowDeviceId) return
 
@@ -215,7 +215,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             console.log(r)
             this.showChart = true;
             setTimeout(() => {
-                this.deviceChartDiv.draw(r, this.dateType == "hh" ? StartTime : undefined);
+                this.deviceChartDiv.draw(r, this.dateType == "hh" ? StartTime : void 0);
             })
         })
     }
@@ -235,14 +235,14 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             StartTime,
             EndTime,
             this.dateType,
-            undefined,
+            void 0,
             [this.nowDeviceId]
         ).pipe(finalize(() => {
             this.deviceChartLoading = false;
         })).subscribe((result) => {
             this.showChart = true;
             setTimeout(() => {
-                this.deviceChartDiv.draw(result, this.dateType == "hh" ? StartTime : undefined);
+                this.deviceChartDiv.draw(result, this.dateType == "hh" ? StartTime : void 0);
             })
         })
 
@@ -251,7 +251,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             StartTime,
             EndTime,
             this.dateType,
-            undefined,
+            void 0,
             [this.nowDeviceId]
         ).subscribe((result) => {
             try {
@@ -294,7 +294,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             StartTime,
             EndTime,
             this.dateType,
-            undefined,
+            void 0,
             [this.nowDeviceId]
         ).subscribe((result) => {
             var href = result;
@@ -343,7 +343,7 @@ export class MyDashboardComponent extends AppComponentBase implements AfterViewI
             StartTime,
             EndTime,
             this.dateType,
-            undefined,
+            void 0,
             [this.nowDeviceId]
         ).subscribe(r => {
             setTimeout(() => {

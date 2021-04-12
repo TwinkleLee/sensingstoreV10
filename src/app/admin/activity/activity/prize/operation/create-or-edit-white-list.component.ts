@@ -57,9 +57,9 @@ export class CreateOrEditWhiteListModalComponent extends AppComponentBase implem
       });
       this._AwardServiceProxy.getAwards(
         this.activityId,
-        undefined,
-        undefined,
-        undefined,
+        void 0,
+        void 0,
+        void 0,
         10,
         0
       ).subscribe(result => {
@@ -92,9 +92,9 @@ export class CreateOrEditWhiteListModalComponent extends AppComponentBase implem
       this.WhiteList = new CreateSpecialUserInput();
       this._AwardServiceProxy.getAwards(
         this.activityId,
-        undefined,
-        undefined,
-        undefined,
+        void 0,
+        void 0,
+        void 0,
         10,
         0
       ).subscribe(result => {

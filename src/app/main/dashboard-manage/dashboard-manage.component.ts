@@ -34,14 +34,14 @@ export class DashboardManageComponent extends AppComponentBase {
   ) {
     super(injector);
     this._TenantServiceProxy.getTenants(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {
@@ -51,8 +51,8 @@ export class DashboardManageComponent extends AppComponentBase {
     });
 
     this._CustomizeReportServiceProxy.getReportTemplates(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {

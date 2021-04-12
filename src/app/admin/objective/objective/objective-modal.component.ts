@@ -157,15 +157,15 @@ export class CreateOrEditObjectiveModalComponent extends AppComponentBase implem
 
     parentFilter (event) {
         this._OKRServiceProxy.getObjectives(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             999,
-            undefined,
+            void 0,
         ).subscribe(r => {
             this.parentSelection = (r.items || []).map((item) => {
                 return {
@@ -178,8 +178,8 @@ export class CreateOrEditObjectiveModalComponent extends AppComponentBase implem
 
     parent2Filter () {
         this._OKRServiceProxy.getExcutes(
-            undefined,
-            undefined
+            void 0,
+            void 0
         ).subscribe(r => {
             this.parentSelection = (r || []).map((item) => {
                 return {

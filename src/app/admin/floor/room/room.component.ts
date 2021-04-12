@@ -77,7 +77,7 @@ export class RoomComponent extends AppComponentBase {
     this._RoomServiceProxy.getRoomsNew(
       this.floorId,
       this.buildingId,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

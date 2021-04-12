@@ -89,8 +89,8 @@ export class QuestionComponent extends AppComponentBase {
     this._QuestionServiceProxy.getQuestions(
       this.type,
       this.tagFilter ? [Number(this.tagFilter)] : [],
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -107,7 +107,7 @@ export class QuestionComponent extends AppComponentBase {
   }
 
   getTags() {
-    this._TagServiceProxy.getTagsByType('', undefined, 1000, 0, Type.Question).subscribe((r) => {
+    this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
       this.tags = r.items;
     })
   }
@@ -216,10 +216,10 @@ export class QuestionComponent extends AppComponentBase {
 
 
     this._PaperServiceProxy.getPapers(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {

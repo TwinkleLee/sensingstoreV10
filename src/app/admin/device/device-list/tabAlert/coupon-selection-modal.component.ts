@@ -33,10 +33,10 @@ export class CouponAlertModalComponent extends AppComponentBase {
           this.primengTableHelper.showLoadingIndicator();
         this._deviceService.getUnPublishedCouponsByDeviceId(
             this.deviceId,
-            undefined,
+            void 0,
             AuditStatus14.Online,
             this.filterText,
-            undefined,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         )

@@ -42,11 +42,11 @@ export class CreateOrEditSkuRfidModalComponent extends AppComponentBase implemen
     ) {
         super(injector);
         this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
-            storeStatus: undefined,
-            organizationUnitId: undefined,
-            areas: undefined,
-            filter: undefined,
-            sorting: undefined,
+            storeStatus: void 0,
+            organizationUnitId: void 0,
+            areas: void 0,
+            filter: void 0,
+            sorting: void 0,
             maxResultCount: 999,
             skipCount: 0
         }))

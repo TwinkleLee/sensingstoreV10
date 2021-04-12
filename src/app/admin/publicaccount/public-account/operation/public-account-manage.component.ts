@@ -91,7 +91,7 @@ export class PublicAccountManageComponent extends AppComponentBase {
 
   //获取标签下拉数据
   getTags() {
-    this._TagService.getTagsByType(undefined, undefined, 1000, 0, Type.WechatPublicMessage).subscribe((result) => {
+    this._TagService.getTagsByType(void 0, void 0, 1000, 0, Type.WechatPublicMessage).subscribe((result) => {
       this.Tags = result.items;
       this.tagList = Object.assign([], this.Tags);
     });
@@ -107,7 +107,7 @@ export class PublicAccountManageComponent extends AppComponentBase {
   }
   //前往管理标签
   goTag(f?) {
-    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
+    f !== void 0 ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
   }
   //选中或者取消选中标签
   setTag() {
@@ -169,7 +169,7 @@ export class PublicAccountManageComponent extends AppComponentBase {
     this.MenuPrimengTableHelper.showLoadingIndicator();
     this._WechatManageServiceProxy.getWechatMenus(
       this.weixinAppID,
-      undefined,
+      void 0,
       this.MenuPrimengTableHelper.getSorting(this.dataTable),
       this.MenuPrimengTableHelper.getMaxResultCount(this.MenuPaginator, event),
       this.MenuPrimengTableHelper.getSkipCount(this.MenuPaginator, event)
@@ -228,10 +228,10 @@ export class PublicAccountManageComponent extends AppComponentBase {
 
     this._WechatManageServiceProxy.getWechatMedias(
       this.weixinAppID,
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
       this.tagIdfilter,
-      undefined,
+      void 0,
       this.MediaPrimeng.getSorting(this.PersonalityDataTable),
       this.MediaPrimeng.getMaxResultCount(this.PersonalityPaginator, event),
       this.MediaPrimeng.getSkipCount(this.PersonalityPaginator, event)

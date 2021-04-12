@@ -53,8 +53,8 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
     })
     this._HtmlTemplateServiceProxy.getHtmlTemplates(
       TemplateEnum['Action'],
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       99,
       0
     ).subscribe(r => {
@@ -70,7 +70,7 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
 
   GetSnsUserInform() {
     this._UserActionServiceProxy.getSnsUserInform(
-      this.Game.id, undefined, undefined, 999, 0
+      this.Game.id, void 0, void 0, 999, 0
     ).subscribe(r => {
       console.log(r)
       this.informUsers = r.items;
@@ -148,10 +148,10 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
     }
 
     this._softwareService.getAuthorizedSoftwares(
-      undefined,
+      void 0,
       this.softwareType,
       this.filterText,
-      undefined,
+      void 0,
       99,
       0
     ).subscribe(result => {
@@ -181,15 +181,15 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
     }
 
     if (this.BeforeNotUseTemplate) {
-      this.Game.beforeGameMessage.htmlTemplateID = undefined;
+      this.Game.beforeGameMessage.htmlTemplateID = void 0;
     } else {
-      this.Game.beforeGameMessage.url = undefined;
+      this.Game.beforeGameMessage.url = void 0;
     }
 
     if (this.AfterNotUseTemplate) {
-      this.Game.afterGameMessage.htmlTemplateID = undefined;
+      this.Game.afterGameMessage.htmlTemplateID = void 0;
     } else {
-      this.Game.afterGameMessage.url = undefined;
+      this.Game.afterGameMessage.url = void 0;
     }
 
     this.saving = true;

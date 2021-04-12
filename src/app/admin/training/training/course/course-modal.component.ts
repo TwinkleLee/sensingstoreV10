@@ -97,7 +97,7 @@ export class CreateOrEditCourseModalComponent extends AppComponentBase implement
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, undefined, 100, 0, Type.Other).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Other).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

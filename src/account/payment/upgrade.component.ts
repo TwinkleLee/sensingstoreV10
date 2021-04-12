@@ -110,7 +110,7 @@ export class UpgradeEditionComponent extends AppComponentBase implements OnInit 
                     this.paymentPeriodType = result.paymentPeriodType;
 
                     if (this.appSession.tenant.subscriptionPaymentType === this.subscriptionPaymentType.Manual) {
-                        this._paymentAppService.getActiveGateways(undefined)
+                        this._paymentAppService.getActiveGateways(void 0)
                             .subscribe((result: PaymentGatewayModel[]) => {
                                 this.paymentGateways = result;
                             });

@@ -57,8 +57,8 @@ export class OnlineStoreComponent extends AppComponentBase {
   chooseTaobao() {
     this.chooseTaobaoLoading = true;
     this._taobaoPlatformService.getTaobaoOpenPlatformList(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       100, 0
     ).subscribe(r => {
       this.chooseTaobaoLoading = false;

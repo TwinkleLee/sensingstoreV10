@@ -63,7 +63,7 @@ export class SetTrainingModalComponent extends AppComponentBase implements After
     save(): void {
         this.saving = true;
 
-        this.training.startTime = this.training.startTime ? this.training.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+        this.training.startTime = this.training.startTime ? this.training.startTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
 
         console.log(this.training)
         this._TrainingServiceProxy.autoGenerateTrainingByTag(new AutoGenerateTrainingInput(this.training))
@@ -80,7 +80,7 @@ export class SetTrainingModalComponent extends AppComponentBase implements After
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, undefined, 100, 0, Type.Other).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Other).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

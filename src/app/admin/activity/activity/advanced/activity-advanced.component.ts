@@ -71,7 +71,7 @@ export class ActivityAdvancedComponent extends AppComponentBase {
     getActivityFlow(i) {
         this.BusyList[i] = true;
         var flowArr = ['ActivityIntroduction', 'Register', 'GameOnLine', 'GameResult', 'Award']
-        this._HtmlTemplateServiceProxy.getHtmlTemplates(TemplateEnum[flowArr[i]], undefined, undefined, 99, 0).subscribe(r1 => {
+        this._HtmlTemplateServiceProxy.getHtmlTemplates(TemplateEnum[flowArr[i]], void 0, void 0, 99, 0).subscribe(r1 => {
             var List = 'list' + i;
             var Flow = 'Flow' + i;
             this[List] = r1.items;
@@ -103,9 +103,9 @@ export class ActivityAdvancedComponent extends AppComponentBase {
             var Flow = 'Flow' + i;
             console.log(this[Flow])
             if (this[Flow].isUseOutside) {
-                this[Flow].htmlTemplateId = undefined
+                this[Flow].htmlTemplateId = void 0
             } else {
-                this[Flow].outsideLink = undefined
+                this[Flow].outsideLink = void 0
             }
             this[Flow].activityId = this.activityId;
             var flowArr3 = ['Introduction', 'Register', 'Sign', 'GameResult', 'Reward']

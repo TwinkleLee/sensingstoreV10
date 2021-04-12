@@ -37,10 +37,10 @@ export class CreateOrEditPrizeModalComponent extends AppComponentBase implements
     super(injector);
     var online: any = 1;
     this._CouponServiceProxy.getCoupons(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {

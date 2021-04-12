@@ -78,9 +78,9 @@ export class UsersComponent extends AppComponentBase implements AfterViewInit {
         this._userServiceProxy.getUsers(new GetUsersInput({
                 filter: this.filterText,
                 permissions: this.permissionFilterTreeModal.getSelectedPermissions(),
-                role: this.role !== '' ? parseInt(this.role) : undefined,
+                role: this.role !== '' ? parseInt(this.role) : void 0,
                 onlyLockedUsers: this.onlyLockedUsers,
-                organizationUnitId:undefined,//V3
+                organizationUnitId:void 0,//V3
                 sorting: this.primengTableHelper.getSorting(this.dataTable),
                 maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)
@@ -121,7 +121,7 @@ export class UsersComponent extends AppComponentBase implements AfterViewInit {
         this._userServiceProxy.getUsersToExcel(
             this.filterText,
             this.permissionFilterTreeModal.getSelectedPermissions(),
-            this.role !== '' ? parseInt(this.role) : undefined,
+            this.role !== '' ? parseInt(this.role) : void 0,
             this.onlyLockedUsers,
             this.primengTableHelper.getSorting(this.dataTable))
             .subscribe(result => {

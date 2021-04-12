@@ -36,7 +36,7 @@ export class MessageRecordComponent extends AppComponentBase {
     console.log("route", this.route)
     this._ApplicationServiceProxy.getApplications(
       "",
-      undefined,
+      void 0,
       999,
       0
     )

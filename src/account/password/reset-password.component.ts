@@ -94,9 +94,9 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
     }
 
     parseTenantId(tenantIdAsStr?: string): number {
-        let tenantId = !tenantIdAsStr ? undefined : parseInt(tenantIdAsStr);
+        let tenantId = !tenantIdAsStr ? void 0 : parseInt(tenantIdAsStr);
         if (tenantId === NaN) {
-            tenantId = undefined;
+            tenantId = void 0;
         }
 
         return tenantId;

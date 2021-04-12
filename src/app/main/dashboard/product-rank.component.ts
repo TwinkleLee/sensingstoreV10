@@ -39,10 +39,10 @@ export class ProductRankComponent extends AppComponentBase {
     ) {
         super(injector);
         this._brandService.getBrands(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(r => {

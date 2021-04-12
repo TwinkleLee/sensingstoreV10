@@ -68,7 +68,7 @@ export class SoftwareEditComponent extends AppComponentBase {
     getAuthList(event?: LazyLoadEvent) {
         this._appService.getSoftwareAuthList(
             this.software.id,
-            undefined,
+            void 0,
             this.filterText,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),

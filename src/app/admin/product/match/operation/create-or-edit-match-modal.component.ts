@@ -44,7 +44,7 @@ export class CreateOrEditMatchModalComponent extends AppComponentBase {
         e&&e.preventDefault();
         this.primengTableHelper.showLoadingIndicator();
         this.matchService.getSkusForMatchInfo(
-            this.matchId,this.filterText,undefined,
+            this.matchId,this.filterText,void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

@@ -52,10 +52,10 @@ export class NaireComponent extends AppComponentBase {
     if (this.isGranted("Pages.Softwares")) {
 
       this._softwareService.getAuthorizedSoftwares(
-        undefined,
-        undefined,
-        undefined,//filterText
-        undefined,
+        void 0,
+        void 0,
+        void 0,//filterText
+        void 0,
         999,
         0
       ).subscribe(result => {
@@ -73,7 +73,7 @@ export class NaireComponent extends AppComponentBase {
   }
 
   getTags() {
-    this._TagServiceProxy.getTagsByType('', undefined, 1000, 0, Type.Question).subscribe((r) => {
+    this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
       this.tags = r.items;
     })
   }
@@ -105,7 +105,7 @@ export class NaireComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._PaperServiceProxy.getPapers(
-      undefined,
+      void 0,
       this.tagFilter ? [Number(this.tagFilter)] : [],
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
@@ -158,10 +158,10 @@ export class NaireComponent extends AppComponentBase {
 
   getSoftwareTree(cb?) {
     // this._softwareService.getAuthorizedSoftwares(
-    //   undefined,
-    //   undefined,
-    //   undefined,//filterText
-    //   undefined,
+    //   void 0,
+    //   void 0,
+    //   void 0,//filterText
+    //   void 0,
     //   999,
     //   0
     // ).subscribe(result => {

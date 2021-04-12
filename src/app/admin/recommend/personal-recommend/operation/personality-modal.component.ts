@@ -50,7 +50,7 @@ export class PersonalityModalComponent extends AppComponentBase implements After
 
 
     show(Personality?: any): void {
-        this._PersonalityService.getMetaPhysicsTypes(undefined,undefined,100,0).subscribe((r) => {
+        this._PersonalityService.getMetaPhysicsTypes(void 0,void 0,100,0).subscribe((r) => {
             this.types = r.items;
             this.active = true;
             if (Personality) {

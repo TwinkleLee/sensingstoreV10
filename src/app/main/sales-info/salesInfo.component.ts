@@ -57,14 +57,14 @@ export class SalesInfoComponent extends AppComponentBase implements OnInit {
 
     this._ReportServiceProxy.getSkuSaleListToExcel(
       this.filterText,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       [],
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
       this.primengTableHelper.getSorting(this.dataTable) || 'number DESC',
-      this.primengTableHelper.getMaxResultCount(this.paginator, undefined),
-      this.primengTableHelper.getSkipCount(this.paginator, undefined)
+      this.primengTableHelper.getMaxResultCount(this.paginator, void 0),
+      this.primengTableHelper.getSkipCount(this.paginator, void 0)
     ).subscribe(r => {
       setTimeout(() => {
         this.exportLoading = false;
@@ -84,10 +84,10 @@ export class SalesInfoComponent extends AppComponentBase implements OnInit {
 
     var input = new SkuSaleListInput({
       filter: this.filterText,
-      skuName: undefined,
-      skuId: undefined,
-      startTime: this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      endTime: this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+      skuName: void 0,
+      skuId: void 0,
+      startTime: this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      endTime: this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
       storeIds: [],
       sorting: this.primengTableHelper.getSorting(this.dataTable) || 'number DESC',
       maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),

@@ -68,8 +68,8 @@ export class RedPacketComponent extends AppComponentBase {
 
   getDeviceType() {
     this._NewDeviceServiceProxy.getDeviceTypes(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       99,
       0
     ).subscribe(result => {
@@ -88,7 +88,7 @@ export class RedPacketComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     this._couponService.getCoupons(
       this.auditStatus,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'title',
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

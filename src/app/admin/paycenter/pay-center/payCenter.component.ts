@@ -39,9 +39,9 @@ export class PayCenterComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._PayCenterServiceProxy.getPayAccounts(
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event)

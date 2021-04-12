@@ -101,7 +101,7 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
         if (originalArr.length) {
             this.Input.storeId = originalArr[0].id;
         } else {
-            this.Input.storeId = undefined;
+            this.Input.storeId = void 0;
         }
         this.skuList = [];
     }
@@ -160,8 +160,8 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
             title: '',
             sku_id: '',
             picUrl: '',
-            quantity: undefined,
-            number: undefined
+            quantity: void 0,
+            number: void 0
         });
     }
 
@@ -174,13 +174,13 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
         this.primengTableHelper.showLoadingIndicator();
         record.loading = true;
         this._OutPutInStorageServiceProxy.getSkus(
-            undefined,
-            undefined,
-            this.Input.storeId ? [this.Input.storeId] : undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            this.Input.storeId ? [this.Input.storeId] : void 0,
+            void 0,
+            void 0,
             e.target.value,
-            undefined,
+            void 0,
             10,
             0
         ).pipe(finalize(() => { 
@@ -199,7 +199,7 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
                     record.productId = r.items[0].productId;
                     this.focusNumber();
                 } else {
-                    this.skuGridModal.show(this.Input.storeId ? [this.Input.storeId] : undefined, e.target.value, _.cloneDeep(r));
+                    this.skuGridModal.show(this.Input.storeId ? [this.Input.storeId] : void 0, e.target.value, _.cloneDeep(r));
                 }
             })
     }

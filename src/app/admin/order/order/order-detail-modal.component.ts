@@ -67,8 +67,8 @@ export class OrderDetailModalComponent extends AppComponentBase {
             this.order = Object.assign({}, order);
             if (this.order.from == 'weishop') {
                 this._SensingShopManageServiceProxy.getExpressCompanies(
-                    undefined,
-                    undefined,
+                    void 0,
+                    void 0,
                     999,
                     0
                 ).subscribe(r => {
@@ -197,25 +197,25 @@ export class OrderDetailModalComponent extends AppComponentBase {
     //筛选商品
     filterGoods(event) {
         this._productsService.getProducts(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             false,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             event,
-            undefined,
+            void 0,
             10,
             0
         ).subscribe(result => {

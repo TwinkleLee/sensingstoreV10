@@ -87,7 +87,7 @@ export class ResourceManagementComponent extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._resourceService.getResources(
-      undefined,
+      void 0,
       this.resourceType,
       this.resourceCate,
       this.filterText,
@@ -177,7 +177,7 @@ export class ResourceManagementComponent extends AppComponentBase {
     if (f && this.tags.length != 0) {
       return;
     }
-    this._tagService.getTagsByType(this.tagFilter, undefined, 100, 0, 0).subscribe((result) => {
+    this._tagService.getTagsByType(this.tagFilter, void 0, 100, 0, 0).subscribe((result) => {
       this.tags = result.items;
     })
   }
@@ -216,7 +216,7 @@ export class ResourceManagementComponent extends AppComponentBase {
   }
   //前往管理标签
   goTag(f?) {
-    f !== undefined ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
+    f !== void 0 ? this.router.navigate(['app', 'admin','tags', 'tags'], { queryParams: { "type": f } }) : this.router.navigate(['app', 'admin','tags', 'tags']);
   }
 
 }

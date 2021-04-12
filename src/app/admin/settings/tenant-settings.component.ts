@@ -25,14 +25,14 @@ export class TenantSettingsComponent extends AppComponentBase implements OnInit 
 
     usingDefaultTimeZone = false;
     initialTimeZone: string = null;
-    testEmailAddress: string = undefined;
+    testEmailAddress: string = void 0;
     setRandomPassword: boolean;
 
     isMultiTenancyEnabled: boolean = this.multiTenancy.isEnabled;
     showTimezoneSelection: boolean = abp.clock.provider.supportsMultipleTimezone;
     activeTabIndex: number = (abp.clock.provider.supportsMultipleTimezone) ? 0 : 1;
     loading = false;
-    settings: TenantSettingsEditDto = undefined;
+    settings: TenantSettingsEditDto = void 0;
 
     logoUploader: FileUploader;
     customCssUploader: FileUploader;

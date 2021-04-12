@@ -78,7 +78,7 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
         this._RoomServiceProxy.getRoomAngleLocationResources(
             this.objItem.id,
             "",
-            undefined,
+            void 0,
             999,
             0
         ).subscribe(result => {

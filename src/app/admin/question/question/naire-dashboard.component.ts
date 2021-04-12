@@ -81,8 +81,8 @@ export class NaireDashboardComponent extends AppComponentBase {
     this.UserPrimeng.showLoadingIndicator();
 
     this._UserPaperServiceProxy.getUserPaperListToExcel(
-      this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined
+      this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0
     ).subscribe(r => {
       console.log("GetUserPaperListToExcel", r);
       this.UserPrimeng.hideLoadingIndicator();
@@ -99,12 +99,12 @@ export class NaireDashboardComponent extends AppComponentBase {
 
   export() {
     this.exportLoading = true;
-    var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-    var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined;
+    var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+    var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0;
     this._UserPaperServiceProxy.getPaperAnswerReportToExcel(
       this.naireId,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       StartTime,
       EndTime,
       this.filter,
@@ -129,13 +129,13 @@ export class NaireDashboardComponent extends AppComponentBase {
         return;
       }
       this.VoteCheckedList = [];
-      var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-      var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined;
+      var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+      var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0;
       this.VotePrimeng.showLoadingIndicator();
       this._UserPaperServiceProxy.getPaperAnswerReport(
         this.naireId,
-        undefined,
-        undefined,
+        void 0,
+        void 0,
         StartTime,
         EndTime,
         this.filter,
@@ -168,8 +168,8 @@ export class NaireDashboardComponent extends AppComponentBase {
       }
       this.UserCheckedList = [];
 
-      var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-      var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined;
+      var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+      var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0;
       this.UserPrimeng.showLoadingIndicator();
 
       this._UserPaperServiceProxy.getUserPapers(
@@ -199,13 +199,13 @@ export class NaireDashboardComponent extends AppComponentBase {
       }
       this.ComCheckedList = [];
 
-      var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-      var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined;
+      var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+      var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0;
       this.ComPrimeng.showLoadingIndicator();
       this._UserPaperServiceProxy.getPaperAnswerCompetitionReport(
         this.naireId,
-        undefined,
-        undefined,
+        void 0,
+        void 0,
         StartTime,
         EndTime,
         this.filter2,

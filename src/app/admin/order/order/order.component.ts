@@ -124,21 +124,21 @@ export class OrderComponent extends AppComponentBase {
       })
     }
     this._orderService.getOrderListToExcel(
-      undefined,
+      void 0,
       this.memberName,
       this.regPhone,
       this.filterText,
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
       this.from,
-      undefined,
-      undefined,
-      this.orderStatus || undefined,
+      void 0,
+      void 0,
+      this.orderStatus || void 0,
       this.chosenItem,
-      undefined,
+      void 0,
       this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getMaxResultCount(this.paginator, undefined),
-      this.primengTableHelper.getSkipCount(this.paginator, undefined)
+      this.primengTableHelper.getMaxResultCount(this.paginator, void 0),
+      this.primengTableHelper.getSkipCount(this.paginator, void 0)
     ).subscribe(r => {
       setTimeout(() => {
         this.exportLoading = false;
@@ -171,18 +171,18 @@ export class OrderComponent extends AppComponentBase {
 
       this.primengTableHelper.showLoadingIndicator();
       this._orderService.getOrders(
-        undefined,
+        void 0,
         this.memberName,
         this.regPhone,
         this.filterText,
-        this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-        this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
+        this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+        this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
         this.from,
-        undefined,
-        undefined,
-        this.orderStatus || undefined,
+        void 0,
+        void 0,
+        this.orderStatus || void 0,
         this.chosenItem,
-        undefined,
+        void 0,
         this.primengTableHelper.getSorting(this.dataTable),
         this.primengTableHelper.getMaxResultCount(this.paginator, event),
         this.primengTableHelper.getSkipCount(this.paginator, event)

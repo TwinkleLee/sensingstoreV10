@@ -114,7 +114,7 @@ export class CreateTenantModalComponent extends AppComponentBase {
             return false;
         }
 
-        return this.tenant.subscriptionEndDateUtc !== undefined;
+        return this.tenant.subscriptionEndDateUtc !== void 0;
     }
 
     save(): void {

@@ -47,13 +47,13 @@ export class SoftwareAuthComponent extends AppComponentBase {
     }
 
     filterTenant(e) {
-        this._tenantService.getTenants(e.query, undefined, undefined, undefined, undefined, undefined, undefined, 'name', 100, 0).subscribe((result) => {
+        this._tenantService.getTenants(e.query, void 0, void 0, void 0, void 0, void 0, void 0, 'name', 100, 0).subscribe((result) => {
             this.tenantList = result.items;
         })
     }
     show(record?): void {
         this.active = true;
-        this.isUpdate = record.id != undefined;
+        this.isUpdate = record.id != void 0;
         if (this.isUpdate) {
             this.auth = record;
             this.tenant = {
@@ -65,7 +65,7 @@ export class SoftwareAuthComponent extends AppComponentBase {
             // setTimeout(() => {
             //     this.dateranger.refresh();
             // }, 0);
-            if (record.softwareId != undefined) {
+            if (record.softwareId != void 0) {
                 this.isquick = true;
                 this.auth = record;
             } else {

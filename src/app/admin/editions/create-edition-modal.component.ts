@@ -62,8 +62,8 @@ export class CreateEditionModalComponent extends AppComponentBase {
     }
 
     resetPrices(isFree) {
-        this.edition.edition.annualPrice = undefined;
-        this.edition.edition.monthlyPrice = undefined;
+        this.edition.edition.annualPrice = void 0;
+        this.edition.edition.monthlyPrice = void 0;
     }
 
     removeExpiringEdition(isDeactivateTenant) {

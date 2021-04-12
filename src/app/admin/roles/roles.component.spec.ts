@@ -59,7 +59,7 @@ describe('RolesComponent', () => {
 
         let helper = component.primengTableHelper;
 
-        expect(helper.records).not.toBe(undefined);
+        expect(helper.records).not.toBe(void 0);
         expect(helper.records.length).toBe(2);
     });
 });

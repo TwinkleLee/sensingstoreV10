@@ -74,8 +74,8 @@ export class TicketComponent extends AppComponentBase {
     }
 
     this._TagServiceProxy.getTagsByType(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       999,
       0,
       Type['Product']
@@ -280,11 +280,11 @@ export class TicketComponent extends AppComponentBase {
 
   getStoreList () {
     this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
-        organizationUnitId: undefined,
-        storeStatus: undefined,
-        areas: undefined,
-        filter: undefined,
-        sorting: undefined,
+        organizationUnitId: void 0,
+        storeStatus: void 0,
+        areas: void 0,
+        filter: void 0,
+        sorting: void 0,
         maxResultCount: 999,
         skipCount: 0
     }))

@@ -19,8 +19,8 @@ export class ProductAlertModalComponent extends AppComponentBase {
     cargoType;
     filterText: string = '';
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-    @Input() AuditStatus = undefined;
-    @Input() Sorting = undefined;
+    @Input() AuditStatus = void 0;
+    @Input() Sorting = void 0;
     @Input() outputWhenClose = false;
 
 
@@ -40,23 +40,23 @@ export class ProductAlertModalComponent extends AppComponentBase {
         }
         this.primengTableHelper.showLoadingIndicator();
         this._ProductServiceProxy.getProducts(
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             this.AuditStatus,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
+            void 0,
             this.filterText,
             this.Sorting,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),

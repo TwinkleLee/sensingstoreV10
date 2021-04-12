@@ -55,8 +55,8 @@ export class MemberInfoModalComponent extends AppComponentBase implements AfterV
         this.dataTable.sortField = "number"
         this.dataTable.sortOrder = -1;
 
-        this.StartTime = start ? start : undefined;
-        this.EndTime = end ? end : undefined;
+        this.StartTime = start ? start : void 0;
+        this.EndTime = end ? end : void 0;
         setTimeout(() => {
             this.daterange.refresh()
         })
@@ -72,8 +72,8 @@ export class MemberInfoModalComponent extends AppComponentBase implements AfterV
         }
         var input: any = ({
             memberId: this.memberId,
-            orderDateTimeStart: this.StartTime ? this.StartTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-            orderDateTimeEnd: this.EndTime ? this.EndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
+            orderDateTimeStart: this.StartTime ? this.StartTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+            orderDateTimeEnd: this.EndTime ? this.EndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
             sorting: this.primengTableHelper.getSorting(this.dataTable) || "number ASC",
             maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
             skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)

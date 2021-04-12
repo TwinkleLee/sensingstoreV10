@@ -36,8 +36,8 @@ export class SetTagModalComponent extends AppComponentBase implements AfterViewC
     ) {
         super(injector);
         this._TagServiceProxy.getTagsByType(
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             999,
             0,
             Type['Product']

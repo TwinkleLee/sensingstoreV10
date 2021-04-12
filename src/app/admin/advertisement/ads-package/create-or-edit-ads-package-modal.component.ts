@@ -70,7 +70,7 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
         this.primengTableHelper.showLoadingIndicator();
 
         this._adsPackageSvc.getAdInfosInSamePackage(this.record.id,
-            undefined,
+            void 0,
             this.primengTableHelper.getSorting(this.dataTable) || 'OrderNumber',
             200,
             0)

@@ -422,7 +422,7 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
 
         } else if (record.cargoType == "adsPackage") {
             this._adsPackageSvc.getAdInfosInSamePackage(record.selection[0].id,
-                undefined,
+                void 0,
                 'OrderNumber',
                 999,
                 0)
@@ -641,8 +641,8 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
         this.content.monthDay && (this.content.monthDay = this.content.monthDay.split(','))
         //时间轴开始结束日期
         if (this.content.model != "0") {
-            this.content.startTime = undefined;
-            this.content.endTime = undefined;
+            this.content.startTime = void 0;
+            this.content.endTime = void 0;
         } else {
             if (this.content.startTime) {
                 try {
@@ -664,9 +664,9 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
                 children.push(new AdOrAppItem({
                     id: this.Program.ads[i].id,
                     duration: this.Program.ads[i].scheduleEndTime - this.Program.ads[i].scheduleStartTime,
-                    transition: undefined,
-                    startPointName: undefined,
-                    stopPointName: undefined,
+                    transition: void 0,
+                    startPointName: void 0,
+                    stopPointName: void 0,
                 }))
             } else {
                 this.Program.ads[i].children.forEach(item => {
@@ -734,8 +734,8 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
         ];
         this.isFromCalender = false;
         this.nowHoveredIndex = -1;
-        this.targetIndex = undefined;
-        this.originIndex = undefined;
+        this.targetIndex = void 0;
+        this.originIndex = void 0;
         this.modal.hide();
     }
 

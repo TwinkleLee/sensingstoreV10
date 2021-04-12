@@ -67,7 +67,7 @@ export class AdsPackageComponent extends AppComponentBase {
   }
 
   createAdsPackage() {
-    this.createOrEditAdsPackageModal.show(undefined, this._adsTransitionList);
+    this.createOrEditAdsPackageModal.show(void 0, this._adsTransitionList);
   }
 
   editAdsPackage(record) {
@@ -77,14 +77,14 @@ export class AdsPackageComponent extends AppComponentBase {
   getDeviceList () {
     this._NewDeviceServiceProxy.getDevices(
       [],
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(r => {

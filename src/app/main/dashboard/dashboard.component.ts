@@ -203,7 +203,7 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
                 'title': this.l('buyerCount'),
                 'chartItems': arr
             }];
-            this.buyerChartDiv.draw(data, undefined);
+            this.buyerChartDiv.draw(data, void 0);
         })
     }
 
@@ -213,25 +213,25 @@ export class DashboardComponent extends AppComponentBase implements AfterViewIni
         this.deviceChartLoading = true;
 
         this._bigDataService.getDeviceRuntimeChartReportPost(new DevieStatusChartReportInput({
-            deviceId: undefined,
+            deviceId: void 0,
             startTime: this.allStartTime,
             endTime: this.allEndTime,
             ouOrStoreList: this.chosenItem
         })).pipe(finalize(() => {
             this.deviceChartLoading = false;
         })).subscribe((result) => {
-            this.deviceChartDiv.draw(result, undefined);
+            this.deviceChartDiv.draw(result, void 0);
         })
 
         this._bigDataService.getDeviceActionsChartReport(new GetDeviceActionsChartReportInput({
-            deviceId: undefined,
+            deviceId: void 0,
             startTime: this.allStartTime,
             endTime: this.allEndTime,
             ouOrStoreList: this.chosenItem
         })).pipe(finalize(() => {
             this.deviceChartLoading = false;
         })).subscribe((result) => {
-            this.actionChartDiv.draw(result, undefined);
+            this.actionChartDiv.draw(result, void 0);
         })
     }
 

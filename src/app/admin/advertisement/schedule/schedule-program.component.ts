@@ -44,8 +44,8 @@ export class ScheduleProgram extends AppComponentBase {
     private activatedRoute: ActivatedRoute) {
     super(injector);
     this._AdServiceProxy.getSchedulings(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       999,
       0
     )
@@ -80,7 +80,7 @@ export class ScheduleProgram extends AppComponentBase {
 
     this.primengTableHelper.showLoadingIndicator();
     this._AdServiceProxy.getProgramsIn24HoursList(
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

@@ -44,7 +44,7 @@ export class MaintainInfoComponent extends AppComponentBase {
   ) {
     super(injector);
     if (!this.appSession.tenant) {
-      this._tenantService.getTenants("", undefined, undefined, undefined, undefined, 0, false, undefined, 1000, 0).subscribe(result => {
+      this._tenantService.getTenants("", void 0, void 0, void 0, void 0, 0, false, void 0, 1000, 0).subscribe(result => {
         this.tenants = result.items;
       })
       this.getCategories();
@@ -52,8 +52,8 @@ export class MaintainInfoComponent extends AppComponentBase {
   }
 
   getCategories() {
-    this.questionTypeId = undefined;
-    this._QuestionCategoryServiceProxy.getQuestionCategories(this.tenantId, undefined, undefined, 999, 0).subscribe(result => {
+    this.questionTypeId = void 0;
+    this._QuestionCategoryServiceProxy.getQuestionCategories(this.tenantId, void 0, void 0, 999, 0).subscribe(result => {
       this.questionTypeList = result.items;
     })
   }
@@ -61,16 +61,16 @@ export class MaintainInfoComponent extends AppComponentBase {
   goImport() {
     this.exportLoading = true;
     this._OperationsServiceProxy.getOperationRecordsToExcel(
-      undefined,
+      void 0,
       this.StartTime,
       this.EndTime,
       this.statusSelect,
       this.tenantId,
       this.questionTypeId,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
-      undefined,
+      void 0,
       0
     ).subscribe((result) => {
       console.log(result)
@@ -134,13 +134,13 @@ export class MaintainInfoComponent extends AppComponentBase {
     console.log(this.primengTableHelper.getSorting(this.dataTable))
     this._OperationsServiceProxy.getOperationRecords(
       new GetDeviceOptInput({
-        deviceId: undefined,
+        deviceId: void 0,
         startTime: this.StartTime,
         endTime: this.EndTime,
         optStatus:  this.statusSelect,
         tenantId:this.tenantId,
         categoryId:this.questionTypeId,
-        optKnowledgeId:undefined,
+        optKnowledgeId:void 0,
         filter:this.filterText,
         sorting:this.primengTableHelper.getSorting(this.dataTable),
         maxResultCount:this.primengTableHelper.getMaxResultCount(this.paginator, event),

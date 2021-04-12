@@ -83,9 +83,9 @@ export class FortuneModalComponent extends AppComponentBase implements AfterView
     //获取个性信息列表
     getPersonalityInformation() {
         this._metaService.getMetaPhysicsList(
-            undefined,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
+            void 0,
             1000,
             0
         ).subscribe(result => {

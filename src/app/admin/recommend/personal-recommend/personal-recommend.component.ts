@@ -58,10 +58,10 @@ export class PersonalRecommendComponent extends AppComponentBase {
     private _dateMetaService: DateMetaPhysicsServiceProxy) {
     super(injector);
     //个性分类下拉
-    _metaService.getMetaPhysicsTypes(undefined, undefined, 1000, 0).subscribe((result) => {
+    _metaService.getMetaPhysicsTypes(void 0, void 0, 1000, 0).subscribe((result) => {
       this.PersonalCategories = result.items;
     })
-    _metaService.getHostMetaphysicsTypes(undefined, undefined, undefined, undefined).subscribe((result) => {
+    _metaService.getHostMetaphysicsTypes(void 0, void 0, void 0, void 0).subscribe((result) => {
       this.HostCategories = result.items;
     })
   }
@@ -200,14 +200,14 @@ export class PersonalRecommendComponent extends AppComponentBase {
     }
     this.FortuneCheckedList = [];
 
-    var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
-    var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined;
+    var StartTime = this.StartTime ? moment(this.StartTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
+    var EndTime = this.EndTime ? moment(this.EndTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0;
     this.FortunePrimeng.showLoadingIndicator();
     this._dateMetaService.getDateMetaphysicsList(
       StartTime,
       EndTime,
       this.metaTypeSelect2,
-      undefined,
+      void 0,
       this.metaName2,
       this.FortunePrimeng.getSorting(this.FortuneDataTable),
       this.FortunePrimeng.getMaxResultCount(this.FortunePaginator, event) || 10,
@@ -279,11 +279,11 @@ export class PersonalRecommendComponent extends AppComponentBase {
             startTime: this.StartTime,
             endTime: this.EndTime,
             typeId: this.metaTypeSelect2,
-            metaPhysicsId: undefined,
+            metaPhysicsId: void 0,
             filter: this.metaName2,
-            sorting: undefined,
-            maxResultCount: undefined,
-            skipCount: undefined
+            sorting: void 0,
+            maxResultCount: void 0,
+            skipCount: void 0
           }
         )).pipe(finalize(() => {
           this.FortunePrimeng.hideLoadingIndicator();
@@ -304,7 +304,7 @@ export class PersonalRecommendComponent extends AppComponentBase {
   //同步数据
   synchronousData(type) {
     console.log(type.id)
-    this._metaService.getCopyMetaPhysics(undefined, undefined, type.id, undefined, undefined, undefined, undefined).subscribe(() => {
+    this._metaService.getCopyMetaPhysics(void 0, void 0, type.id, void 0, void 0, void 0, void 0).subscribe(() => {
       this.notify.info(type.name + this.l('success'));
       this.getFortuneInformation();
       this.getPersonalityInformation();

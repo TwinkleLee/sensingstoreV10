@@ -23,10 +23,10 @@ export class ProductAlertModalComponent extends AppComponentBase {
     cargoType;
     filterText: string = '';
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-    @Input() AuditStatus = undefined;
-    @Input() Sorting = undefined;
+    @Input() AuditStatus = void 0;
+    @Input() Sorting = void 0;
     @Input() outputWhenClose = false;
-    @Input() isMultiSelected?: boolean = undefined;
+    @Input() isMultiSelected?: boolean = void 0;
 
 
     constructor(
@@ -43,7 +43,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
 
     isSingleSection(): boolean {
         var oldMode = this.cargoType ? true : false;
-        if (this.isMultiSelected == null || this.isMultiSelected == undefined) {
+        if (this.isMultiSelected == null || this.isMultiSelected == void 0) {
             return oldMode;
         }
         return this.isMultiSelected ? false : true;
@@ -60,10 +60,10 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this.primengTableHelper.showLoadingIndicator();
             this._deviceService.getUnpublishedProductsByDeviceId(
                 this.deviceId,
-                undefined,
+                void 0,
                 AuditStatus.Online,
                 this.filterText,
-                undefined,
+                void 0,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event)
             )
@@ -81,10 +81,10 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this.primengTableHelper.showLoadingIndicator();
             this._deviceService.getProductsByDeviceId(
                 this.deviceId,
-                undefined,
+                void 0,
                 AuditStatus.Online,
                 this.filterText,
-                undefined,
+                void 0,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event)
             )
@@ -103,10 +103,10 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this.primengTableHelper.showLoadingIndicator();
             this._deviceService.getSkusByDeviceId(
                 this.deviceId,
-                undefined,
+                void 0,
                 AuditStatus.Online,
                 this.filterText,
-                undefined,
+                void 0,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event)
             )
@@ -126,7 +126,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
             this._ActivityServiceProxy.getDeviceActivityAward(
                 this.deviceId,
                 this.filterText,
-                undefined,
+                void 0,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event)
             )
@@ -144,7 +144,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
             }
             this.primengTableHelper.showLoadingIndicator();
             this._AdServiceProxy.getAds(
-                this.AuditStatus, undefined, undefined, undefined,
+                this.AuditStatus, void 0, void 0, void 0,
                 this.filterText,
                 this.Sorting,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -164,10 +164,10 @@ export class ProductAlertModalComponent extends AppComponentBase {
             }
             this.primengTableHelper.showLoadingIndicator();
             this._SoftwareServiceProxy.getAuthorizedSoftwares(
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 this.filterText,
-                undefined,//this.Sorting,
+                void 0,//this.Sorting,
                 this.primengTableHelper.getMaxResultCount(this.paginator, event),
                 this.primengTableHelper.getSkipCount(this.paginator, event)
             )

@@ -40,6 +40,6 @@ export class PaymentHelperService {
             return PaymentPeriodType.Annual;
         }
 
-        return undefined;
+        return void 0;
     }
 }

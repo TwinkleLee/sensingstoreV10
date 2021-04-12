@@ -253,7 +253,7 @@
 
                                                 <select id="EntityTypeFullName" name="EntityTypeFullName"
                                                     class="form-control" [(ngModel)]="entityTypeFullName">
-                                                    <option value=undefined selected="selected">{{"All" | localize}}
+                                                    <option value=void 0 selected="selected">{{"All" | localize}}
                                                     </option>
                                                     <option *ngFor="let objectType of objectTypes"
                                                         [value]="objectType.value">{{objectType.name}}</option>

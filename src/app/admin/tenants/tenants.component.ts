@@ -129,12 +129,12 @@ export class TenantsComponent extends AppComponentBase implements OnInit {
 
         this._tenantService.getTenants(
             this.filters.filterText,
-            this.filters.subscriptionEndDateRangeActive ? this.subscriptionDateRange[0] : undefined,
-            this.filters.subscriptionEndDateRangeActive ? this.subscriptionDateRange[1].endOf('day') : undefined,
-            this.filters.creationDateRangeActive ? this.creationDateRange[0] : undefined,
-            this.filters.creationDateRangeActive ? this.creationDateRange[1].endOf('day') : undefined,
+            this.filters.subscriptionEndDateRangeActive ? this.subscriptionDateRange[0] : void 0,
+            this.filters.subscriptionEndDateRangeActive ? this.subscriptionDateRange[1].endOf('day') : void 0,
+            this.filters.creationDateRangeActive ? this.creationDateRange[0] : void 0,
+            this.filters.creationDateRangeActive ? this.creationDateRange[1].endOf('day') : void 0,
             this.filters.selectedEditionId,
-            this.filters.selectedEditionId !== undefined && (this.filters.selectedEditionId + '') !== '-1',
+            this.filters.selectedEditionId !== void 0 && (this.filters.selectedEditionId + '') !== '-1',
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)

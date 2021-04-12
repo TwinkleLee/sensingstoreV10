@@ -146,8 +146,8 @@ export class WeShopComponent extends AppComponentBase {
       })
 
     this._WeixinMpServiceProxy.getWeixinMps(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(result => {
@@ -319,7 +319,7 @@ export class WeShopComponent extends AppComponentBase {
 
     this.freightPrimeng.showLoadingIndicator();
     this._ShopServiceProxy.getShopFreights(
-      undefined,
+      void 0,
       this.freightFilter,
       this.freightPrimeng.getSorting(this.freightTable),
       this.freightPrimeng.getMaxResultCount(this.freightPaginator, event) || 10,
@@ -366,7 +366,7 @@ export class WeShopComponent extends AppComponentBase {
 
   getTrackKeyInfo() {
     this.showFreezeUi = true;
-    this._SensingShopManageServiceProxy.getTrackKeyInfo(undefined).subscribe(r => {
+    this._SensingShopManageServiceProxy.getTrackKeyInfo(void 0).subscribe(r => {
       console.log(r, 'rrrrrrrrrr')
       this.track = r;
       this.showFreezeUi = false;
@@ -385,9 +385,9 @@ export class WeShopComponent extends AppComponentBase {
 
   payWayInit() {
     this._SensingShopManageServiceProxy.getShopPaySettings(
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(r => {
@@ -400,10 +400,10 @@ export class WeShopComponent extends AppComponentBase {
       console.log(this.paySetting, 'paySetting')
     })
     this._PayCenterServiceProxy.getPayAccounts(//获取支付方式
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       999,
       0
     ).subscribe(r => {

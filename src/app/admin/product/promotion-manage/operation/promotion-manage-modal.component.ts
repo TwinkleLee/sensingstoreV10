@@ -102,8 +102,8 @@ export class PromotionManageModalComponent extends AppComponentBase implements A
             }
         }
         if (this.Program.promotionType == 2) {
-            this.Program.discountType = undefined;
-            this.Program.discountAmount = undefined;
+            this.Program.discountType = void 0;
+            this.Program.discountAmount = void 0;
         }
         this.Program.attribute = this.content;
 

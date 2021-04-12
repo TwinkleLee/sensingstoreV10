@@ -99,9 +99,9 @@ export class ChangeWhiteListModalComponent extends AppComponentBase implements A
   addLogic() {
     this._AwardServiceProxy.getAwards(
       this.activityId,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
       10,
       0
     ).subscribe(result => {
@@ -133,9 +133,9 @@ export class ChangeWhiteListModalComponent extends AppComponentBase implements A
     });
     this._AwardServiceProxy.getAwards(
       this.activityId,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
       10,
       0
     ).subscribe(result => {

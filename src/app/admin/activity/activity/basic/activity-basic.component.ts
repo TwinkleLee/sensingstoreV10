@@ -79,8 +79,8 @@ export class ActivityBasicComponent extends AppComponentBase implements AfterVie
         })
 
         this._weixinMpService.getWeixinMps(
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(result => {
@@ -88,8 +88,8 @@ export class ActivityBasicComponent extends AppComponentBase implements AfterVie
             this.wxList = result.items;
         })
         this._externalaccessService.getAll(
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             999,
             0
         ).subscribe(result => {

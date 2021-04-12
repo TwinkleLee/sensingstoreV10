@@ -44,8 +44,8 @@ export class ProductDetailModalComponent extends AppComponentBase implements Aft
         this.primengTableHelper.showLoadingIndicator(); 
         this._applyService.getApplyFormDetails(
             this.detailId,
-            undefined,
-            undefined,
+            void 0,
+            void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)
         ).pipe(finalize(() => {

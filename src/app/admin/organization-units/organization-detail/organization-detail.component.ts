@@ -205,7 +205,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             })
             this._OrganizationUnitServiceProxy.getOrganizationUnitKPIs(
                 this.OUId,
-                undefined,// this.storeId,
+                void 0,// this.storeId,
                 this.StartTimeKPI,
                 this.EndTimeKPI,
                 this.checkScale,
@@ -320,12 +320,12 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         if (this.storeId) {
             this.pDevice.showLoadingIndicator();
             this._deviceService.getDevices(
-                undefined,
+                void 0,
                 this.deviceStatus,
                 this.deviceOperationType,
                 this.deviceAuditStatus,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 [this.storeId],
                 this.deviceFilterText,
                 this.pDevice.getSorting(this.dataTableDevice),
@@ -350,8 +350,8 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             this.pAds.showLoadingIndicator();
             this._adsService.getAds(
                 this.adsAuditStatus,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 this.OUId,
                 this.adsFilterText,
                 this.pAds.getSorting(this.dataTableAds),
@@ -435,23 +435,23 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         if (this.OUId) {
             this.pProduct.showLoadingIndicator();
             this._productService.getProducts(
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 this.productAuditStatus,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
                 this.OUId,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
                 this.productFilterText,
                 this.pProduct.getSorting(this.dataTableProduct),
                 this.pProduct.getMaxResultCount(this.paginatorProduct, event),
@@ -466,22 +466,22 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         } else if (this.storeId) {
             this.pProduct.showLoadingIndicator();
             this._StoreProductServiceProxy.getProductsByStoreId(
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 this.productAuditStatus,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
+                void 0,
                 this.storeId,
-                undefined,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
+                void 0,
                 this.productFilterText,
                 this.pProduct.getSorting(this.dataTableProduct),
                 this.pProduct.getMaxResultCount(this.paginatorProduct, event),
@@ -505,9 +505,9 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.pUser.showLoadingIndicator();
         this._userServiceProxy.getUsers(new GetUsersInput({
             filter: this.UserFilterText,
-            permissions: undefined,
-            role: undefined,
-            onlyLockedUsers: undefined,
+            permissions: void 0,
+            role: void 0,
+            onlyLockedUsers: void 0,
             organizationUnitId: this.OUId,
             sorting: this.pUser.getSorting(this.dataTableFace),
             maxResultCount: this.pUser.getMaxResultCount(this.paginatorFace, event),
@@ -546,8 +546,8 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this._StoreServiceProxy.getStoresList(new GetStorseListInput({
             storeStatus: null,
             organizationUnitId: [this.OUId],
-            areas: undefined,
-            filter: undefined,
+            areas: void 0,
+            filter: void 0,
             sorting: this.primengTableHelper.getSorting(this.dataTable),
             maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
             skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)
@@ -576,7 +576,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 this.couponAuditStatus,
                 this.OUId,
                 this.couponFilterText,
-                undefined,
+                void 0,
                 this.pCoupon.getMaxResultCount(this.paginatorCoupon, event),
                 this.pCoupon.getSkipCount(this.paginatorCoupon, event))
                 .pipe(this.myFinalize(() => { this.pCoupon.hideLoadingIndicator(); }))
@@ -591,7 +591,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 this.couponAuditStatus,
                 this.storeId,
                 this.couponFilterText,
-                undefined,
+                void 0,
                 this.pCoupon.getMaxResultCount(this.paginatorCoupon, event),
                 this.pCoupon.getSkipCount(this.paginatorCoupon, event))
                 .pipe(this.myFinalize(() => { this.pCoupon.hideLoadingIndicator(); }))
@@ -615,8 +615,8 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             this.pActivity.showLoadingIndicator();
             this._acitvityService.getActivities(
                 this.activityAuditStatus,
-                undefined,
-                undefined,
+                void 0,
+                void 0,
                 this.OUId,
                 this.activityFilterText,
                 this.pActivity.getSorting(this.dataTableActivity),

@@ -66,7 +66,7 @@ export class CreateOrEditSiteModalComponent extends AppComponentBase implements 
     save(): void {
         this.saving = true;
         console.log(this.objItem);
-        this.objItem.supportEndTime = this.objItem.supportEndTime ? this.objItem.supportEndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined;
+        this.objItem.supportEndTime = this.objItem.supportEndTime ? this.objItem.supportEndTime.add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0;
         if (!this.objItem.id) {
             this._DeploymentServiceProxy.addOrUpdateIndependentDeploymentInfo(new AddOrUpdateIndependentDeploymentInfoInput(this.objItem))
                 .pipe(finalize(() => { this.saving = false; }))

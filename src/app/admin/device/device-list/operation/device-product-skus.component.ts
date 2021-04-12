@@ -61,7 +61,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
     }
     getDeviceProductSkus(event?: LazyLoadEvent) {
         this.primengTableHelper.showLoadingIndicator();
-        this._deviceService.getSkusByDeviceId(this.deviceId, this.productId, AuditStatus8.Online, this.filterText, undefined,
+        this._deviceService.getSkusByDeviceId(this.deviceId, this.productId, AuditStatus8.Online, this.filterText, void 0,
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event)).pipe(finalize(() => {
                 this.primengTableHelper.hideLoadingIndicator();

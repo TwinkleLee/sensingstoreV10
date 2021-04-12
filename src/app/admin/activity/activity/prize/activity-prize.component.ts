@@ -120,7 +120,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
     }
     this._WhiteUserServiceProxy.getUsers(
       this.activityId,
-      undefined,
+      void 0,
       this.WhitelistPrimeng.getSorting(this.dataTable2),
       this.WhitelistPrimeng.getMaxResultCount(this.paginator2, event),
       this.WhitelistPrimeng.getSkipCount(this.paginator2, event)
@@ -178,7 +178,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
     this.PrizePrimeng.showLoadingIndicator();
     this._AwardServiceProxy.getAwards(
       this.activityId,
-      undefined,
+      void 0,
       this.filterText,
       this.PrizePrimeng.getSorting(this.dataTable) || 'awardSeq ASC',
       this.PrizePrimeng.getMaxResultCount(this.paginator, event),
@@ -203,7 +203,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
     console.log(record)
     this.message.confirm(this.l('deletethisPrize'), this.l('AreYouSure'), (r) => {
       if (r) {
-        this._AwardServiceProxy.deleteAward(undefined, [record.id]).subscribe(result => {
+        this._AwardServiceProxy.deleteAward(void 0, [record.id]).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getPrize();
         })
@@ -223,7 +223,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
             gameCheckedIdList.push(value.id);
           }
           console.log(gameCheckedIdList);
-          this._AwardServiceProxy.deleteAward(undefined, gameCheckedIdList)
+          this._AwardServiceProxy.deleteAward(void 0, gameCheckedIdList)
             .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
             .subscribe(result => {
               this.notify.info(this.l('success'));
@@ -246,7 +246,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
             whiteCheckedIdList.push(value.id);
           }
           console.log(whiteCheckedIdList)
-          this._WhiteUserServiceProxy.deleteWhiteUser(undefined, whiteCheckedIdList)
+          this._WhiteUserServiceProxy.deleteWhiteUser(void 0, whiteCheckedIdList)
           .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
           .subscribe(result => {
             this.notify.info(this.l('success'));
@@ -260,7 +260,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
 
   getPageTemplate() {
     this.messageBusy = true;
-    this._HtmlTemplateServiceProxy.getHtmlTemplates(TemplateEnum.Award, undefined, undefined, 99, 0).subscribe(r => {
+    this._HtmlTemplateServiceProxy.getHtmlTemplates(TemplateEnum.Award, void 0, void 0, 99, 0).subscribe(r => {
       console.log(r)
       this.templateList = r.items;
       this._ActivityServiceProxy.getAwardMessageSettings(this.activityId).subscribe(r => {
@@ -283,7 +283,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
   deleteWhiteList(record) {
     this.message.confirm(this.l('deletethisWhiteList'), this.l('AreYouSure'), (r) => {
       if (r) {
-        this._WhiteUserServiceProxy.deleteWhiteUser(undefined, [record.id]).subscribe(result => {
+        this._WhiteUserServiceProxy.deleteWhiteUser(void 0, [record.id]).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getWhitelist();
         })

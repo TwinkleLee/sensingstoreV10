@@ -48,10 +48,10 @@ export class FaceRecommendComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
     this._FaceTagsServiceProxy.getFaceTagList(
       // this._acitvityService.getActivities(
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       this.IsEnabled,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

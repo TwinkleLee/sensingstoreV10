@@ -114,9 +114,9 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     this.historyPrimeng.showLoadingIndicator();
     this._batchTaskLog.getBatchTaskLogs(
       'ImportProducts',
-      undefined,
-      undefined,
-      undefined,// this.historyPrimeng.getSorting(this.dataTablehistory) || 'taobao_user_nick',
+      void 0,
+      void 0,
+      void 0,// this.historyPrimeng.getSorting(this.dataTablehistory) || 'taobao_user_nick',
       this.historyPrimeng.getMaxResultCount(this.paginatorhistory, event),
       this.historyPrimeng.getSkipCount(this.paginatorhistory, event)
     )

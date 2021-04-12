@@ -31,8 +31,8 @@ export class OutputinDetailModalComponent extends AppComponentBase implements Af
     storeId;
     filter = '';
 
-    StartTime: any = undefined;
-    EndTime: any = undefined;
+    StartTime: any = void 0;
+    EndTime: any = void 0;
     OutPutInStorageType: any = '';
     constructor(
         injector: Injector,
@@ -73,10 +73,10 @@ export class OutputinDetailModalComponent extends AppComponentBase implements Af
         this._OutPutInStorageServiceProxy.getOutPutInStorageRecords({
             outPutInStorageBillId: this.billId,
             skuId: this.skuId,
-            storeId: undefined,//list
+            storeId: void 0,//list
             startTime: StartTime ? StartTime : this.StartTime,
             endtTime: EndTime ? EndTime : this.EndTime,
-            ignoreStore: undefined,
+            ignoreStore: void 0,
             outPutInStorageType: this.OutPutInStorageType,//OutPutInStorageType
             filter: this.filter,
             sorting: this.primengTableHelper.getSorting(this.dataTable),

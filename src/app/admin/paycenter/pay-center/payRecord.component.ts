@@ -45,10 +45,10 @@ export class PayRecordComponent extends AppComponentBase {
     this._PayCenterServiceProxy.getPayRecords(
       StartTime ? StartTime : this.startTime,
       EndTime ? EndTime : this.endTime,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
       this.payType,
-      undefined,
+      void 0,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event)

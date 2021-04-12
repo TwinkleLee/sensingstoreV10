@@ -36,7 +36,7 @@ export class TrainingListComponent extends AppComponentBase {
 
   filterText: string = "";
   auditStatus: any = '';
-  trainingStatus: any = undefined;
+  trainingStatus: any = void 0;
 
   exportLoading = false;
 
@@ -84,13 +84,13 @@ export class TrainingListComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
 
     this._trainingService.getTrainings(
-      undefined,
+      void 0,
       this.auditStatus,
-      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : undefined,
-      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : undefined,
-      undefined,
-      undefined,
-      undefined,
+      this.startTime ? moment(this.startTime.format("YYYY/MM/DD")).add(-(new Date().getTimezoneOffset() / 60), 'h') : void 0,
+      this.endTime ? moment(this.endTime.format("YYYY/MM/DD")).add(24 - (new Date().getTimezoneOffset() / 60), 'h').add(-1, 's') : void 0,
+      void 0,
+      void 0,
+      void 0,
       this.trainingStatus,
       this.trainingUserId,
       this.filterText,
@@ -303,17 +303,17 @@ export class TrainingListComponent extends AppComponentBase {
     //   return item.id
     // })
     this._trainingService.getTrainingsToExcel(
-      undefined,
+      void 0,
       this.auditStatus,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      void 0,
+      void 0,
+      void 0,
+      void 0,
       this.trainingStatus,
-      undefined,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable) || 'lastModificationTime DESC',
-      undefined,
+      void 0,
       0
     ).subscribe(r => {
 

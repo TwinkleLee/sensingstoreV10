@@ -42,10 +42,10 @@ export class CourseComponent extends AppComponentBase {
     this.primengTableHelper.showLoadingIndicator();
 
     this._courseSerivce.getCourses(
-      undefined,
-      undefined,
-      undefined,     
-      undefined,     
+      void 0,
+      void 0,
+      void 0,     
+      void 0,     
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
