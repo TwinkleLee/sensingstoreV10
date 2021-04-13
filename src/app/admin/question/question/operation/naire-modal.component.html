@@ -269,7 +269,7 @@
                                                     <span *ngIf="record.type==2">{{record.answer}}</span>
                                                 </td>
                                                 <td>
-                                                    <span *ngFor="let tag of record.tags" class="kt-badge  kt-badge--info kt-badge--inline">
+                                                    <span *ngFor="let tag of record.tags" class="label label-success label-inline">
                                                         {{tag.name}}
                                                     </span>
                                                     <span *ngIf="!record.tags||record.tags.length==0">

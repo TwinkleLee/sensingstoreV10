@@ -2,6 +2,8 @@
   <div class="content d-flex flex-column flex-column-fluid">
 
     <sub-header [title]="'GameSetup' | localize" [description]="activityId + '|' + activityName">
+      <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+      
       <div role="actions">
       </div>
     </sub-header>

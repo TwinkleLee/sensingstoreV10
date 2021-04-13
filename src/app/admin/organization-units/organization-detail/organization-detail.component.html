@@ -1,8 +1,6 @@
 <div>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="OUId ? l('OuDetail') : l('StoreDetail')" [description]="OUId ? OUName + '|' + OUId:OUName + '|' + storeId">
-
-
             <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions"></div>
         </sub-header>
@@ -349,15 +347,15 @@
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['auditStatus']==1"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
+                                                            class="label label-success label-inline">{{l("On")}}</span>
                                                         <span *ngIf="record['auditStatus']==0"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                                            class="label label-dark label-inline">{{l("Off")}}</span>
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['status']==1"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("Online")}}</span>
+                                                            class="label label-success label-inline">{{l("Online")}}</span>
                                                         <span *ngIf="record['status']==0"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Offline")}}</span>
+                                                            class="label label-dark label-inline">{{l("Offline")}}</span>
                                                     </td>
 
                                                 </tr>
@@ -471,7 +469,7 @@
                                                     </td>
                                                     <td>
                                                         <span *ngFor="let tag of record.adsTags"
-                                                            class="kt-badge  kt-badge--info kt-badge--inline">
+                                                            class="label label-success label-inline">
                                                             {{tag.name}}
                                                         </span>
                                                         <span *ngIf="!record.adsTags||record.adsTags.length==0">
@@ -480,9 +478,9 @@
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['auditStatus']==1"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("online")}}</span>
+                                                            class="label label-success label-inline">{{l("online")}}</span>
                                                         <span *ngIf="record['auditStatus']==0"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("offline")}}</span>
+                                                            class="label label-dark label-inline">{{l("offline")}}</span>
                                                     </td>
                                                 </tr>
                                             </ng-template>
@@ -601,9 +599,9 @@
                                                     HH:mm'}}</td>
                                                     <td>
                                                         <span *ngIf="record.isDefault"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                            class="label label-success label-inline">{{l("true")}}</span>
                                                         <span *ngIf="!record.isDefault"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                            class="label label-dark label-inline">{{l("false")}}</span>
                                                     </td>
                                                 </tr>
                                             </ng-template>
@@ -725,9 +723,9 @@
                                                     <td>{{'￥'+record.price}}</td>
                                                     <td>
                                                         <span *ngIf="record['auditStatus']=='Online'"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("OnSale")}}</span>
+                                                            class="label label-success label-inline">{{l("OnSale")}}</span>
                                                         <span *ngIf="record['auditStatus']=='Offline'"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("OffSale")}}</span>
+                                                            class="label label-dark label-inline">{{l("OffSale")}}</span>
                                                     </td>
                                                 </tr>
                                             </ng-template>
@@ -840,9 +838,9 @@
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['auditStatus']==1"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("Online")}}</span>
+                                                            class="label label-success label-inline">{{l("Online")}}</span>
                                                         <span *ngIf="record['auditStatus']==0"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Offline")}}</span>
+                                                            class="label label-dark label-inline">{{l("Offline")}}</span>
                                                     </td>
                                                     <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
                                                     <td>{{record.end_time| date : "yyyy/MM/dd"}}</td>
@@ -958,21 +956,21 @@
                                                     <td>{{record.endDate| date : "yyyy/MM/dd"}}</td>
                                                     <td>
                                                         <span *ngIf="record['isPublic']"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                            class="label label-success label-inline">{{l("true")}}</span>
                                                         <span *ngIf="!record['isPublic']"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                            class="label label-dark label-inline">{{l("false")}}</span>
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['isTemplate']"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                            class="label label-success label-inline">{{l("true")}}</span>
                                                         <span *ngIf="!record['isTemplate']"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                            class="label label-dark label-inline">{{l("false")}}</span>
                                                     </td>
                                                     <td>
                                                         <span *ngIf="record['auditStatus']==1"
-                                                            class="kt-badge  kt-badge--success kt-badge--inline">{{l("online")}}</span>
+                                                            class="label label-success label-inline">{{l("online")}}</span>
                                                         <span *ngIf="record['auditStatus']==0"
-                                                            class="kt-badge  kt-badge--danger kt-badge--inline">{{l("offline")}}</span>
+                                                            class="label label-dark label-inline">{{l("offline")}}</span>
                                                     </td>
                                                 </tr>
                                             </ng-template>

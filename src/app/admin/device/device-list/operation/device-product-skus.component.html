@@ -139,15 +139,15 @@
                                             <td>{{'￥'+record.price}}</td>
                                             <td>
                                                 <span *ngIf="record['auditStatus']==1"
-                                                    class="kt-badge  kt-badge--success kt-badge--inline">{{l("OnSale")}}</span>
+                                                    class="label label-success label-inline">{{l("OnSale")}}</span>
                                                 <span *ngIf="record['auditStatus']==0"
-                                                    class="kt-badge  kt-badge--danger kt-badge--inline">{{l("OffSale")}}</span>
+                                                    class="label label-dark label-inline">{{l("OffSale")}}</span>
                                             </td>
                                             <td>
                                                 <span *ngIf="record['isDefault']"
-                                                    class="kt-badge  kt-badge--success kt-badge--inline">{{l("true")}}</span>
+                                                    class="label label-success label-inline">{{l("true")}}</span>
                                                 <span *ngIf="!record['isDefault']"
-                                                    class="kt-badge  kt-badge--danger kt-badge--inline">{{l("false")}}</span>
+                                                    class="label label-dark label-inline">{{l("false")}}</span>
                                             </td>
                                         </tr>
                                     </ng-template>

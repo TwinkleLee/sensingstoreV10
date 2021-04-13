@@ -69,7 +69,7 @@ export class SalesInfoComponent extends AppComponentBase implements OnInit {
       setTimeout(() => {
         this.exportLoading = false;
       }, 2000)
-      var href = `https://o.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
+      var href = `https://o5.sensingstore.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
       var link = document.getElementById('aaa');
       $(link).attr("href", href);
       link.click();

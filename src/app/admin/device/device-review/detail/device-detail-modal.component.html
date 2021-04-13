@@ -52,12 +52,12 @@
                                         </td>
                                         <td>{{(record['resolution_Width']||0 )+ ' * '+ (record['resolution_Height']||0)}}</td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']==1" class="kt-badge  kt-badge--success kt-badge--inline">{{l("On")}}</span>
-                                            <span *ngIf="record['auditStatus']==0" class="kt-badge  kt-badge--danger kt-badge--inline">{{l("Off")}}</span>
+                                            <span *ngIf="record['auditStatus']==1" class="label label-success label-inline">{{l("On")}}</span>
+                                            <span *ngIf="record['auditStatus']==0" class="label label-dark label-inline">{{l("Off")}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['status']==1" class="kt-badge  kt-badge--success kt-badge--inline">{{l("deviceOpen")}}</span>
-                                            <span *ngIf="record['status']==0" class="kt-badge  kt-badge--danger kt-badge--inline">{{l("deviceClose")}}</span>
+                                            <span *ngIf="record['status']==1" class="label label-success label-inline">{{l("deviceOpen")}}</span>
+                                            <span *ngIf="record['status']==0" class="label label-dark label-inline">{{l("deviceClose")}}</span>
                                         </td>
                                         <td>{{record.heartBeatTime| date : "yyyy/MM/dd HH:mm:ss"}}</td>
                                     </tr>
