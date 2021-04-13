@@ -18,7 +18,7 @@ import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 })
 export class ScheduleProgram extends AppComponentBase {
 
-  @ViewChild('programModal', { static: true }) ProgramModalComponent: ProgramModalComponent;
+  @ViewChild('programModal', { static: false }) ProgramModalComponent: ProgramModalComponent;
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;

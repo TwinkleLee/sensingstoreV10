@@ -3,11 +3,10 @@
     <div class="content d-flex flex-column flex-column-fluid">
 
         <sub-header [title]="'programList' | localize" [description]="'programList' | localize">
-            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions">
                 <button class="btn btn-primary" (click)="goPublish()">
                     <i class="fa icon-fabu"></i>
-                    {{l("publishSchedule")}}</button>
+                    {{l("Publish")}}{{l('programList')}}</button>
                 <button class="btn btn-primary" (click)="createProgram()">
                     <i class="fa fa-plus"></i>
                     {{l("Create")}}{{l("programList")}}</button>

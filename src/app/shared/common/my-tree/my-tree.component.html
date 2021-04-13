@@ -16,7 +16,7 @@
             <i class="belongToTree" *ngIf="item[config.children]&&item[config.children].length>0" (click)="toggleChildren(item,$event)"
                 [ngClass]="{'close':!item.showChildren,'open':item.showChildren,'treeToggle':true}" [ngStyle]="{'left':getLeft('i')}"
                 role="presentation"></i>
-            <input class="belongToTree" type="checkbox" [id]="item.id" *ngIf="config.selectable" [(ngModel)]="item.isSelected"
+            <input class="belongToTree" type="checkbox" [id]="item.id" *ngIf="config.selectable&&(!isonlydevice||isonlydevice&&item.type=='device')" [(ngModel)]="item.isSelected"
                 (change)="chose(item)">
             <img *ngIf="config.showIcon" [ngStyle]="{'left':getLeft('img')}" [src]="transIconUrl(item[config.icon])"
                 (error)="showEmpty($event)" (contextmenu)="showMenu($event,item)" />
@@ -31,7 +31,7 @@
         </label>
         <!-- &&item.showChildren -->
         <app-my-tree *ngIf="item[config.children]&&item[config.children].length>0&&!item.showChildren" (onMenu)="childMenuEvent($event)"
-            (onCheck)="childCheckEvent()" [(items)]="item[config.children]" [(filterRoot)]="filterRoot" [(root)]="root"
+            (onCheck)="childCheckEvent()" [isonlydevice]="isonlydevice" [(items)]="item[config.children]" [(filterRoot)]="filterRoot" [(root)]="root"
             [isRoot]="false" [(config)]="config"></app-my-tree>
     </dt>
 </dl>

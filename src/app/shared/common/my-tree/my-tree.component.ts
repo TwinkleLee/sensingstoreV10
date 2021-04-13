@@ -53,6 +53,8 @@ export class MyTreeComponent implements OnInit {
     @Input() isRoot = true;
     @Input() needAddShowChildren = true; //给每个item.showChildren变成true 注意,这里是反的,true是收缩,false才是展开
     @Input() needShowNoChildren = true;
+    @Input() isonlydevice = false;
+
 
     @ViewChild("list",{static:false}) list: ElementRef;
     private rootFunBinded = false;

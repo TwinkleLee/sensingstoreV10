@@ -88,10 +88,10 @@ import * as _ from 'lodash';
 })
 export class ProgramModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
-    @ViewChild('confirmModal', { static: true }) confirmModal: ModalDirective;
-    @ViewChild('childrenModal', { static: true }) childrenModal: ModalDirective;
-    @ViewChild('ProductAlertModal', { static: true }) ProductAlertModal: ProductAlertModalComponent;
+    @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
+    @ViewChild('confirmModal', { static: false }) confirmModal: ModalDirective;
+    @ViewChild('childrenModal', { static: false }) childrenModal: ModalDirective;
+    @ViewChild('ProductAlertModal', { static: false }) ProductAlertModal: ProductAlertModalComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 

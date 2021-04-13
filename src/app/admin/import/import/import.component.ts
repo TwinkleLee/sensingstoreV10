@@ -34,15 +34,14 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     'match': AppConsts.remoteServiceBaseUrl + '/ImportMatches/ImportMatchByZip',
     'like': AppConsts.remoteServiceBaseUrl + '/ImportLikes/ImportLikeByZip',
     'device': AppConsts.remoteServiceBaseUrl + '/ImportDevices/ImportDevicesByExcel',
-    'ads': AppConsts.remoteServiceBaseUrl + '/ImportAds/ImportAdsByZip',
-    'product': AppConsts.remoteServiceBaseUrl + '/ImportProducts/ImportProductByZip',
+    'ads': AppConsts.remoteAdserviceUrl + '/ImportAds/ImportAdsByZip',
+    'product': AppConsts.remoteProductServiceUrl + '/ImportProducts/ImportProductByZip',
     'organization-units': AppConsts.remoteServiceBaseUrl + '/ImportStores/ImportStoresByExcel',
-    'rfid': AppConsts.remoteServiceBaseUrl + '/ImportSkuRfids/ImportSkuRfidByExcel',
-    'storagecheck': AppConsts.remoteServiceBaseUrl + '/ImportStorageCheck/ImportStoageCheckByExcel',
+    'rfid': AppConsts.remoteProductServiceUrl + '/ImportSkuRfids/ImportSkuRfidByExcel',
+    'storagecheck': AppConsts.remoteProductServiceUrl + '/ImportStorageCheck/ImportStoageCheckByExcel',
     'training': AppConsts.remoteActivityServiceUrl + '/ImportTrainings/ImportTrainingsByExcel',
     'room': AppConsts.remoteFloorServiceUrl + '/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel',
     'sulwhasoo': AppConsts.remoteServiceBaseUrl + '/ImportDeviceSchedule/ImportDeviceStoreScheduleByExcel',
-
   }
   accept = {
     'match': 'zip',

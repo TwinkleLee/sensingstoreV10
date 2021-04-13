@@ -99,6 +99,10 @@ export class AdsPackageComponent extends AppComponentBase {
 
   deleteAdsPackages(){
     var ids = this._selectedAdsPackageList.map(({ id }) => id);
+    if (ids.length == 0) {
+      this.message.warn(this.l('atLeastChoseOneItem'));
+      return
+    }
     this.message.confirm(this.l('deletethisadpackage'),this.l('AreYouSure'), (r) => {
       if (r) {
         this._adsPackageSvc.deletePackageByIds(ids).subscribe(result => {

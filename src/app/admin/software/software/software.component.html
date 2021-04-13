@@ -301,12 +301,12 @@
                                             {{l('withdraw')}}
                                             <span></span>
                                         </label>
-                                        <label class="checkbox checkbox-primary">
-                                            <input [(ngModel)]="onlyPublishToDevice"
+                                        <!-- <label class="checkbox checkbox-primary">
+                                            <input value="true"
                                                 type="checkbox"
                                                 name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
                                             <span></span>
-                                        </label>
+                                        </label> -->
                                         <label class="checkbox checkbox-primary">
                                             <input [(ngModel)]="informDevice" type="checkbox"
                                                 name="informDevice" />{{l("informDevice")}}
@@ -329,7 +329,7 @@
                                 <!-- <div class="form-group beautyScroll" [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 253px)','padding-left':'20px'}"> -->
                                 <div class="form-group beautyScroll"
                                     [ngStyle]="{'max-height':'calc('+customHeight+' - 253px)','padding-left':'20px'}">
-                                    <app-my-tree #myTree [(items)]="deviceTree"></app-my-tree>
+                                    <app-my-tree [isonlydevice]="true" #myTree [(items)]="deviceTree"></app-my-tree>
                                     <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
                                 </div>
                                 <!-- {{avalibleHeight}} -->

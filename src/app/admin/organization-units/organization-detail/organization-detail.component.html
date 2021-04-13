@@ -456,7 +456,20 @@
                                                     <td>
                                                         <span>{{record.name}}</span>
                                                     </td>
-                                                    <td>{{record.resourceType}}</td>
+                                                    <td>
+                                                        <span *ngIf="record.resourceType == 0">None</span>
+                                                        <span *ngIf="record.resourceType == 1">Text</span>
+                                                        <span *ngIf="record.resourceType == 2">Image</span>
+                                                        <span *ngIf="record.resourceType == 3">Video</span>
+                                                        <span *ngIf="record.resourceType == 4">PPT</span>
+                                                        <span *ngIf="record.resourceType == 5">PDF</span>
+                                                        <span *ngIf="record.resourceType == 6">Web</span>
+                                                        <span *ngIf="record.resourceType == 7">Audio</span>
+                                                        <span *ngIf="record.resourceType == 8">Zip</span>
+                                                        <span *ngIf="record.resourceType == 9">View3DS</span>
+                                                        <span *ngIf="record.resourceType == 10">Other</span>
+                                                        <span *ngIf="record.resourceType == 11">Json</span>
+                                                    </td>
                                                     <td>{{record.ageScope||EmptyTdText}}</td>
                                                     <td>
                                                         <span *ngIf="record.gender==null">-</span>
@@ -508,7 +521,7 @@
                             </tab>
 
                             <tab class="p-5" heading="{{l('Apps')}}" customClass="kt-tabs__item icon-yingyong"
-                                *ngIf="isGranted('Pages.Softwares')" (selectTab)="getAppByOUId()">
+                                *ngIf="false" (selectTab)="getAppByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="appForm">
                                         <div class="kt-form kt-form--label-align-right">
@@ -871,7 +884,7 @@
                             </tab>
 
                             <tab class="p-5" heading="{{l('Activities')}}" customClass="kt-tabs__item icon-huodong"
-                                *ngIf="isGranted('Pages.Tenant.Activities')" (selectTab)="getActivityByOUId()">
+                                *ngIf="false" (selectTab)="getActivityByOUId()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="activityForm">
                                         <div class="kt-form kt-form--label-align-right">

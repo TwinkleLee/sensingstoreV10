@@ -54,9 +54,9 @@ import { ProgramModalComponent } from '@app/admin/advertisement/schedule/operati
 })
 export class CalendarModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
+    @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
     @ViewChild("dateranger", { static: false }) dateranger: DateRangePickerComponent;
-    @ViewChild('programModal', { static: true }) ProgramModalComponent: ProgramModalComponent;
+    @ViewChild('programModal', { static: false }) ProgramModalComponent: ProgramModalComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 

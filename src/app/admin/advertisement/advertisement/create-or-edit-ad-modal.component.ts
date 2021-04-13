@@ -201,6 +201,12 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
     }
 
     save(): void {
+
+        if (this.Ad.resourceItemId) {
+            this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
+
+            return
+        }
         // if (!this.Ad.resourceItemId) {
         //     return this.notify.warn(this.l('adsmusthavaresource'));
         // }

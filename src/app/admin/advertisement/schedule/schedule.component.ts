@@ -19,8 +19,8 @@ import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-prox
 })
 export class Schedule extends AppComponentBase {
 
-  @ViewChild('scheduleModal', { static: true }) ScheduleModalComponent: ScheduleModalComponent;
-  @ViewChild('calendarModal', { static: true }) CalendarModalComponent: CalendarModalComponent;
+  @ViewChild('scheduleModal', { static: false }) ScheduleModalComponent: ScheduleModalComponent;
+  @ViewChild('calendarModal', { static: false }) CalendarModalComponent: CalendarModalComponent;
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
   @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
