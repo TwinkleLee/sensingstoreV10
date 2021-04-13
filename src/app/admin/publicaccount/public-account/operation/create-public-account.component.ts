@@ -68,7 +68,7 @@ export class CreatePublicAccountComponent extends AppComponentBase implements Af
     this.href = null;
     this._weixinOpenService.getMpAuthorzieUrl(this.id).subscribe(result => {
       console.log(result.url);
-      this.href = 'https://g.api.troncell.com/transmit/index.html?url=' + result.url
+      this.href = 'https://g5.api.troncell.com/transmit/index.html?url=' + result.url
       // console.log(this.appSession)
     })
   }

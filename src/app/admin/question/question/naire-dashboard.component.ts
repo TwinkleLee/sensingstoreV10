@@ -86,7 +86,7 @@ export class NaireDashboardComponent extends AppComponentBase {
     ).subscribe(r => {
       console.log("GetUserPaperListToExcel", r);
       this.UserPrimeng.hideLoadingIndicator();
-      var href = `https://g.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
+      var href = `https://g5.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
       var link = document.getElementById('bbb');
       $(link).attr("href", href);
       link.click();
