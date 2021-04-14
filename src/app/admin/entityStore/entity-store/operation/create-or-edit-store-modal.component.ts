@@ -8,7 +8,7 @@ import { MyMapComponent } from '@app/shared/common/map/my-map.component';
 
 import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/service-proxies/service-proxies-floor'
 
-import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput,PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 @Component({
     selector: 'createOrEditStoreModal',
@@ -100,6 +100,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     show(organizationUnit?: any): void {
         this.rooms = [];
+        this.lastRooms = [];
         if (organizationUnit) {
             this.showBusy = true;
             this._NewStoreServiceProxy.getStoreById(organizationUnit.storeId).subscribe((r) => {
@@ -135,24 +136,28 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                                         'id': singleRoom.id,
                                         'value': singleRoom.name
                                     });
+                                    
                                 });
+
+                                this.lastRooms.concat(this.rooms)
+
+                                this.modal.show();
+                                this.active = true;
+                                this._changeDetector.detectChanges();
                             })
                     })
             }
 
-            this.lastRooms = this.rooms;
-            // 显示brand
-            console.log(this.brandList.find(i => i.id == organizationUnit.brandId));
-            // 所有room
         } else {
             this.organizationUnit = {
                 'position': {}
             };
             this.onShowBool = true;
+            this.modal.show();
+            this.active = true;
+            this._changeDetector.detectChanges();
         }
-        this.active = true;
-        this.modal.show();
-        this._changeDetector.detectChanges();
+
     }
 
     save(): void {

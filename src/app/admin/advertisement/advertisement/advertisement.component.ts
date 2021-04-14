@@ -326,7 +326,7 @@ export class AdvertisementComponent extends AppComponentBase {
         })
       }
       if (ouOrDeviceList.length == 0) {
-        return this.notify.warn(this.l('noselectouordevice'));
+        return this.notify.warn(this.l('noselectdevice'));
       }
       var input = new PublishEntitiesInput({
         'entityIds': ary,

@@ -57,6 +57,10 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
     onShown(): void {
     }
     save(): void {
+        if (!this.resource.resourceItemId) {
+            this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
+            return
+        }
         this.saving = true;
         if (this.operationType == "edit") {
             this.updateInput = new AddAdResourceFileInput(this.resource);

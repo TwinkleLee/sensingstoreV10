@@ -220,7 +220,12 @@ export class EntityStoreComponent extends AppComponentBase {
     if (this.storeCheckedList.length == 0) {
       return this.message.warn(this.l('atLeastChoseOneItem'));
     }
-    var input = this.storeCheckedList.map(item => {
+    if (this.filterStore().downNum.length == 0) {
+      return this.message.warn(this.l('noneOfflineGotten'));
+    }
+
+
+    var input = this.filterStore().downNum.map(item => {
       return item.storeId
     })
     console.log(input)
@@ -242,8 +247,6 @@ export class EntityStoreComponent extends AppComponentBase {
       }
     );
   }
-
-
 
 
   //筛选上下线
@@ -306,7 +309,7 @@ export class EntityStoreComponent extends AppComponentBase {
 
   //下线所有
   offlineAll() {
-    this.message.confirm(this.l('offlineBatch'), this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('offlineAll'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
           storeIds: [],
@@ -352,7 +355,7 @@ export class EntityStoreComponent extends AppComponentBase {
   }
   //上线所有
   onlineAll() {
-    this.message.confirm(this.l('onlineBatch'), this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('onlineAll'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
           storeIds: [],

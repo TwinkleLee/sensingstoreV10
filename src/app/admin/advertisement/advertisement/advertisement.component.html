@@ -214,7 +214,18 @@
                                             <td>
                                                 <span>{{record.name}}</span>
                                             </td>
-                                            <td>{{record.resourceType}}</td>
+                                            <td><span *ngIf="record.resourceType == 0">None</span>
+                                                <span *ngIf="record.resourceType == 1">Text</span>
+                                                <span *ngIf="record.resourceType == 2">Image</span>
+                                                <span *ngIf="record.resourceType == 3">Video</span>
+                                                <span *ngIf="record.resourceType == 4">PPT</span>
+                                                <span *ngIf="record.resourceType == 5">PDF</span>
+                                                <span *ngIf="record.resourceType == 6">Web</span>
+                                                <span *ngIf="record.resourceType == 7">Audio</span>
+                                                <span *ngIf="record.resourceType == 8">Zip</span>
+                                                <span *ngIf="record.resourceType == 9">View3DS</span>
+                                                <span *ngIf="record.resourceType == 10">Other</span>
+                                                <span *ngIf="record.resourceType == 11">Json</span></td>
                                             <td>{{record.ageScope||EmptyTdText}}</td>
                                             <td>
                                                 <span *ngIf="record.gender==null">-</span>
@@ -296,12 +307,12 @@
                                             {{l('withdraw')}}
                                             <span></span>
                                         </label>
-                                        <!-- <label class="checkbox checkbox-primary">
+                                        <label class="checkbox checkbox-primary">
                                             <input [(ngModel)]="onlyPublishToDevice"
                                                 type="checkbox"
                                                 name="onlyPublishToDevice" />{{l("onlyPublishToDevice")}}
                                             <span></span>
-                                        </label> -->
+                                        </label>
                                         <!-- <label class="checkbox checkbox-primary">
                                             <input [(ngModel)]="isCreateDefaultSchedule"
                                                 type="checkbox"
@@ -340,7 +351,7 @@
                                 </div>
                                 <div class="form-group beautyScroll"
                                     [ngStyle]="{'max-height':'calc('+avalibleHeight+' - 253px)','padding-left':'20px'}">
-                                    <app-my-tree #myTree [isonlydevice]="true" [config]="{'showId':true}" [(items)]="deviceTree">
+                                    <app-my-tree [isonlydevice]="onlyPublishToDevice" #myTree [config]="{'showId':true}" [(items)]="deviceTree">
                                     </app-my-tree>
                                     <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
                                 </div>

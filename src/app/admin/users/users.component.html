@@ -1,5 +1,6 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
+
         <sub-header [title]="'Users' | localize" [description]="'UsersHeaderInfo' | localize">
             <div role="actions">
                 <div class="btn-group" dropdown>
@@ -35,6 +36,7 @@
                     class="btn btn-primary"><i class="fa fa-plus"></i> {{"CreateNewUser" | localize}}</button>
             </div>
         </sub-header>
+
         <div [class]="containerClass">
             <div class="card card-custom gutter-b">
                 <div class="card-body">
