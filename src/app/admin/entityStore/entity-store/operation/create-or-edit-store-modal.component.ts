@@ -136,7 +136,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                                         'id': singleRoom.id,
                                         'value': singleRoom.name
                                     });
-                                    
+
                                 });
 
                                 this.lastRooms.concat(this.rooms)
@@ -146,12 +146,17 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                                 this._changeDetector.detectChanges();
                             })
                     })
+            } else {
+                this.modal.show();
+                this.active = true;
+                this._changeDetector.detectChanges();
             }
 
         } else {
             this.organizationUnit = {
                 'position': {}
             };
+
             this.onShowBool = true;
             this.modal.show();
             this.active = true;

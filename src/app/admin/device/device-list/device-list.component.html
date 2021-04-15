@@ -297,7 +297,7 @@
                                 </div>
                                 <div class="form-group beautyScroll" style="max-height:100%;padding-left:20px;">
                                     <app-my-tree [isonlydevice]="true" #myTree *ngIf="!ifMirror" [needShowNoChildren]="false" [config]="config" [(items)]="deviceTree"></app-my-tree>
-                                    <app-my-tree [isonlydevice]="true" #myTree *ngIf="ifMirror" [config]="config2" [(items)]="deviceTree">
+                                    <app-my-tree #myTree *ngIf="ifMirror" [config]="config2" [(items)]="deviceTree">
                                     </app-my-tree>
                                     <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
                                 </div>
