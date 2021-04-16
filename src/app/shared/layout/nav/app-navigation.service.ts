@@ -69,7 +69,12 @@ export class AppNavigationService {
             ]),
 
             new AppMenuItem('Order', 'Pages.Tenant.Order', 'icon-dingdan1', '/app/admin/order/order'),
-            new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/admin/memberShip/memberShip'),
+
+            // 会员
+            new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '', [], [
+                new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/admin/memberShip/memberShip'),
+                new AppMenuItem('MessageRecord', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/messageRecord'),
+            ]),
 
             //host建立商城
             new AppMenuItem('WeShop', 'Pages.Administration.Host.MaintainRecord', 'icon-iconfontshangcheng', '/app/admin/weshop/hostOnlineStore'),
@@ -179,11 +184,9 @@ export class AppNavigationService {
                 new AppMenuItem('manageCate', 'Pages.Administration.Host.MaintainRecord', 'icon-fenlei1', '/app/admin/category/maintain/questionType'),
             ]),
 
-            //PageStatistics
-            new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '', [], [
-                new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '/app/admin/user/application'),
-                new AppMenuItem('MessageRecord', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/messageRecord'),
-            ]),
+            // 页面统计
+            new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '/app/admin/user/application'),
+
 
             // IndependentDeployment
             new AppMenuItem('Deployment', 'Pages.Administration.Host.MaintainRecord', 'icon-qiu', '/app/admin/deployment/deployment'),

@@ -170,7 +170,7 @@
                                                         <a (click)="editQuestion(record)"
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li *ngIf="isGranted('Pages.Tenant.Question.Delete')">
+                                                    <li *ngIf="isGranted('Pages.Tenant.Question.Delete')&&!record.enabled">
                                                         <a (click)="deleteQuestion(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>

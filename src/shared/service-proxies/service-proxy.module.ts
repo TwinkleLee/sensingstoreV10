@@ -12,7 +12,7 @@ import * as MetaApiServiceProxies from './service-proxies4';
 import * as ActivityServiceProxies from './service-proxies5';
 import * as CargoServiceProxies from './service-proxies-cargo';//e
 import * as SYNCServiceProxies from './service-proxies-sync';
-// import * as PagerServiceProxies from './service-proxies-pager';
+import * as PagerServiceProxies from './service-proxies-pager';
 import * as UserServiceProxies from './service-proxies-user';
 import * as FloorServiceProxies from './service-proxies-floor';//floor
 import * as OKRServiceProxies from './service-proxies-okr';//okr
@@ -156,12 +156,17 @@ import * as ProductServiceProxies from './service-proxies-product';// product
 
         // PagerServiceProxies.ToolBoxServiceProxy,
 
-
+        // user 迁到 pager
         UserServiceProxies.ApplicationServiceProxy,
         UserServiceProxies.AppointmentServiceProxy,
         UserServiceProxies.IdentityServiceProxy,
         UserServiceProxies.PageExtraServiceProxy,
         UserServiceProxies.UserDataServiceProxy,
+
+        PagerServiceProxies.MarketingUserDataServiceProxy,
+        PagerServiceProxies.MarketingServiceProxy,
+        PagerServiceProxies.UserAppointmentServiceProxy,
+        PagerServiceProxies.UserFeedbackServiceProxy,
 
 
         FloorServiceProxies.FloorServiceProxy,

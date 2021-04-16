@@ -275,7 +275,7 @@
                             </div>
                             <div class="form-group beautyScroll"
                                 [ngStyle]="{'max-height':'50vh','padding-left':'20px'}">
-                                <app-my-tree #myTree [config]="{'showId':true}" [(items)]="deviceTree">
+                                <app-my-tree [isonlydevice]="onlyPublishToDevice" #myTree [config]="{'showId':true}" [(items)]="deviceTree">
                                 </app-my-tree>
                                 <h3 *ngIf="!deviceTree||deviceTree.length==0">{{l('NoData')}}</h3>
                             </div>
