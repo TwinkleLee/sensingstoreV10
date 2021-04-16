@@ -718,7 +718,7 @@
                                                 <td>{{record.value}}</td>
                                                 <td>
                                                     <span *ngIf="record.type==null">{{l('unknown')}}</span>
-                                                    <span *ngIf="record.type!=null"></span>{{l(Type[record.type]||'')}}
+                                                    <span *ngIf="record.type!=null"></span>{{l(record.type||'')}}
                                                 </td>
                                                 <td>
                                                     <span *ngIf="record.isFromBrand"
@@ -966,7 +966,7 @@
                                                 <td>{{record.value}}</td>
                                                 <td>
                                                     <span *ngIf="record.type==null">{{l('unknown')}}</span>
-                                                    <span *ngIf="record.type!=null"></span>{{l(Type[record.type]||'')}}
+                                                    <span *ngIf="record.type!=null"></span>{{l(record.type||'')}}
                                                 </td>
                                                 <td>
                                                     <span *ngIf="record.isFromBrand"

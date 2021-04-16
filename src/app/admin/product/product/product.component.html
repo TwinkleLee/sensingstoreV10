@@ -48,7 +48,8 @@
 
                     </div>
                 </div>
-                <div class="btn-group dropdown" #dropdown0="bs-dropdown" dropdown [autoClose]="false"
+
+                <div class="btn-group dropdown" #dropdown0="bs-dropdown" dropdown [autoClose]="true"
                     *ngIf="isGranted('Pages.Tenant.Products.Edit')">
                     <button class="btn btn-primary dropdown-toggle icon-fenlei" type="button" id="setCateButton"
                         (click)="getCates(true)" data-toggle="dropdown" dropdownToggle aria-haspopup="true"
@@ -67,8 +68,8 @@
                             </div>
                         </form>
                         <div class="dropdown-divider"></div>
-                        <a *ngIf="!cateIds || cateIds.length==0" class="icon-apply dropdown-item"
-                            (click)="goCate(2)">{{l('Create')+l('cate')}}</a>
+                        <!-- <a *ngIf="!cateIds || cateIds.length==0" class="icon-apply dropdown-item"
+                            (click)="goCate(2)">{{l('Create')+l('cate')}}</a> -->
                         <a *ngIf="cateIds&&cateIds.length>0" class="icon-apply dropdown-item"
                             (click)="dropdown0.hide();setCate()">{{l('setCate')}}</a>
                         <a *ngIf="cateIds&&cateIds.length>0" class="icon-Clearsearch dropdown-item"
@@ -76,7 +77,7 @@
                         <a class="icon-jiaoyiguanli dropdown-item" (click)="goCate()">{{l('manageCate')}}</a>
                     </div>
                 </div>
-                <div class="btn-group dropdown" #dropdown1="bs-dropdown" dropdown [autoClose]="false"
+                <div class="btn-group dropdown" #dropdown1="bs-dropdown" dropdown [autoClose]="true"
                     *ngIf="isGranted('Pages.Tenant.Products.Edit')">
                     <button class="btn btn-primary dropdown-toggle icon-biaoqian2" type="button" id="setTagButton"
                         data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">

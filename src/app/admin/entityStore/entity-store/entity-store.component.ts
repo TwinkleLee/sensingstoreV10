@@ -309,9 +309,9 @@ export class EntityStoreComponent extends AppComponentBase {
 
   //下线所有
   offlineAll() {
-    if (this.filterStore().upNum.length == 0) {
-      return this.message.warn(this.l('noneOnlineGotten'));
-    }
+    // if (this.filterStore().upNum.length == 0) {
+    //   return this.message.warn(this.l('noneOnlineGotten'));
+    // }
     this.message.confirm(this.l('offlineAll'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._NewStoreServiceProxy.auditStore(new StoreAuditInput({
@@ -358,9 +358,9 @@ export class EntityStoreComponent extends AppComponentBase {
   }
   //上线所有
   onlineAll() {
-    if (this.filterStore().downNum.length == 0) {
-      return this.message.warn(this.l('noneOfflineGotten'));
-    }
+    // if (this.filterStore().downNum.length == 0) {
+    //   return this.message.warn(this.l('noneOfflineGotten'));
+    // }
     
     this.message.confirm(this.l('onlineAll'), this.l('AreYouSure'), (r) => {
       if (r) {

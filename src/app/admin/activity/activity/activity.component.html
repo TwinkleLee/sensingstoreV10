@@ -199,10 +199,12 @@
                                                     class="label label-dark label-inline">{{l("false")}}</span>
                                             </td>
                                             <td>
-                                                <span *ngIf="record['auditStatus']==1"
+                                                <!-- <span *ngIf="record['auditStatus']==1"
                                                     class="label label-success label-inline">{{l("online")}}</span>
                                                 <span *ngIf="record['auditStatus']==0"
-                                                    class="label label-dark label-inline">{{l("offline")}}</span>
+                                                    class="label label-dark label-inline">{{l("offline")}}</span> -->
+
+                                                <span [class]="{'label-dark': record.auditStatus == 'Offline', 'label-success': record.auditStatus == 'Online'}" class="label label-inline">{{l(record.auditStatus)}}</span>
                                             </td>
                                         </tr>
                                     </ng-template>

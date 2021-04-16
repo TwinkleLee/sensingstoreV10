@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy } from '@shared/service-proxies/service-proxies-product'
-import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads'
+import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy, FileType } from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -36,9 +36,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
 
     storeId;
-
-
-
+    FileType = FileType;
 
     //用户分页
     @ViewChild('dataTableFace', { static: false }) dataTableFace: Table;

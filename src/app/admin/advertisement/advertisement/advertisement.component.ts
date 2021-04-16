@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
-import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, IdTypeDto, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies-ads';
+import { AdServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, PublishEntitiesInput, AuditStatus, IdTypeDto, TagServiceProxy, TagType as Type, FileType } from '@shared/service-proxies/service-proxies-ads';
 import { CreateOrEditAdModalComponent } from './create-or-edit-ad-modal.component'
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
@@ -49,6 +49,7 @@ export class AdvertisementComponent extends AppComponentBase {
   tags: any[] = [];
   exportLoading = false;
   mapList: any = [];
+  FileType = FileType;
 
 
   deviceTypeList: any = [];

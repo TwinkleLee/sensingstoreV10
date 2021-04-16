@@ -57,10 +57,6 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
     onShown(): void {
     }
     save(): void {
-        if (!this.resource.resourceItemId) {
-            this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
-            return
-        }
         this.saving = true;
         if (this.operationType == "edit") {
             this.updateInput = new AddAdResourceFileInput(this.resource);
@@ -73,6 +69,10 @@ export class CreateOrEditAdResourceModalComponent extends AppComponentBase imple
             })
         }
         else {
+            if (!this.resource.resourceItemId) {
+                this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
+                return
+            }
             this.createInput = new AddAdResourceFileInput(this.resource);
             this._prodService.addorUpdateAdResource(this.createInput).pipe(finalize(() => {
                 this.saving = false;
