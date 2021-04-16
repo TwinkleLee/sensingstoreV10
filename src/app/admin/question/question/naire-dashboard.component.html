@@ -108,8 +108,8 @@
                                                     </div>
                                                 </td>
                                                 <td> {{transIndex(i,UserPaginator)}}</td>
-                                                <td> {{record.snsUserInfo.nickname}}</td>
-                                                <td><img [src]="fixFileUrl(record.snsUserInfo.headimgurl)" /></td>
+                                                <td> {{record.snsUserInfo?.nickname}}</td>
+                                                <td><img [src]="fixFileUrl(record.snsUserInfo?.headimgurl)" /></td>
                                                 <td>
                                                     {{record.paper.name}}
                                                 </td>
@@ -235,8 +235,8 @@
                                                     </div>
                                                 </td> -->
                                                 <td> {{transIndex(i,UserPaginator)}}</td>
-                                                <td> {{record.snsUserInfo.nickname}}</td>
-                                                <td><img [src]="fixFileUrl(record.snsUserInfo.headimgurl)" /></td>
+                                                <td> {{record.snsUserInfo?.nickname}}</td>
+                                                <td><img [src]="fixFileUrl(record.snsUserInfo?.headimgurl)" /></td>
                                                 <td>
                                                     {{record.paper.name}}
                                                 </td>

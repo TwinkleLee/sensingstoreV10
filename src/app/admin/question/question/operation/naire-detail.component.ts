@@ -52,8 +52,8 @@ export class NaireDetailComponent extends AppComponentBase implements AfterViewC
       this._UserPaperServiceProxy.getSingleUserPaperDetail(id)
       .subscribe(r => {
         this.objItem = r;
-        this.headimgurl = r.snsUserInfo.headimgurl;
-        this.nickname = r.snsUserInfo.nickname;
+        this.headimgurl = r.snsUserInfo&&r.snsUserInfo.headimgurl;
+        this.nickname = r.snsUserInfo&&r.snsUserInfo.nickname;
         this.displayName = r.userPaper.paper.displayName;
         this.opinion = r.userPaper.opinion;
         console.log(this.objItem.questionItems[0].id);
