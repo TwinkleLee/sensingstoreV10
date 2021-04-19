@@ -46,7 +46,7 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
     resPrimeng: PrimengTableHelper = new PrimengTableHelper();
 
     // troncell 
-    customTheme=AppConsts.customTheme;
+    customTheme = AppConsts.customTheme;
 
     showPreview = false;
     // isLocal = AppConsts.appBaseUrl != 'https://sensingstore.com' ? true : false;
@@ -202,14 +202,6 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
 
     save(): void {
 
-        if (this.Ad.resourceItemId) {
-            this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
-
-            return
-        }
-        // if (!this.Ad.resourceItemId) {
-        //     return this.notify.warn(this.l('adsmusthavaresource'));
-        // }
         this.Ad.tags = this.tags.map((item) => {
             return Number(item.id);
         })
@@ -224,6 +216,10 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
         }
 
         if (this.operation == "add") {
+            if (!this.Ad.resourceItemId) {
+                this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
+                return
+            }
             console.log(this.Ad);
             this.CreateAdInput = new CreateAdInput(this.Ad);
             this._AdService.createAd(this.CreateAdInput)
@@ -234,6 +230,11 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
                     this.modalSave.emit(null);
                 });
         } else {
+
+            if (!this.Ad.fileUrl) {
+                this.message.warn(this.l('atLeastChoseOneItem') + this.l('Image'));
+                return
+            }
             this.UpdateAdInput = new UpdateAdInput(this.Ad);
             this._AdService.updateAd(this.UpdateAdInput)
                 .pipe(finalize(() => { this.saving = false; }))
@@ -271,6 +272,7 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
     // upload completed event
     onUpload(result): void {
         this.Ad.resourceItemId = Number(result.resourceId);
+        this.Ad.fileUrl = result.fileUrl;
     }
 
     onBeforeSend(event): void {
@@ -316,7 +318,7 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
         }
     }
 
-    getMapPointList () {
+    getMapPointList() {
         let map = this.mapList.find(i => i.value == this.Ad.robotMapName);
         this._RobotServiceProxy.getMapPoints(map.id)
             .subscribe(r => {

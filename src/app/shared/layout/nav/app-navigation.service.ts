@@ -73,7 +73,8 @@ export class AppNavigationService {
             // 会员
             new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '', [], [
                 new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/admin/memberShip/memberShip'),
-                new AppMenuItem('MessageRecord', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/messageRecord'),
+                new AppMenuItem('feedback', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/feedback'),
+                new AppMenuItem('UserAppointment', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/appointment'),
             ]),
 
             //host建立商城

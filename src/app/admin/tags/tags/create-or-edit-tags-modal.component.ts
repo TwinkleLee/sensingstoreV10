@@ -34,6 +34,8 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
     active = false;
     saving = false;
 
+    readonly = false;
+
     uploadUrl: string;
     uploadedFiles: any[] = [];
     operation: string = "add";
@@ -97,6 +99,7 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
     show(tag?: any, type?): void {
         this.active = true;
         if (tag) {
+            this.readonly = true;
             this.operation = "edit";
             this.tag = tag;
         } else {
@@ -163,6 +166,7 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
     close(): void {
         this.active = false;
         this.tag = {};
+        this.readonly = false;
         this.modal.hide();
     }
 
