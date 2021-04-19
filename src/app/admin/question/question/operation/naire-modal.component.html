@@ -73,7 +73,7 @@
                                                     [(ngModel)]="Paper.questionsCount">
                                             </div>
                                         </div>
-                                        <div class="col-4" *ngIf="Paper.compositionType==2">
+                                        <div class="col-4" *ngIf="Paper.compositionType=='FixedPlusRandom'">
                                             <div class="form-group">
                                                 <label>{{l("randomCount")}}</label>
                                                 <input class="form-control" type="number" name="randomCount"
@@ -161,11 +161,11 @@
                                                 </div>
                                             </div>
                                             <div class="col-7 text-right">
-                                                <button type="button" *ngIf="initPaper.compositionType!=1" class="btn btn-primary"
+                                                <button type="button" *ngIf="initPaper.compositionType!='Random'" class="btn btn-primary"
                                                     (click)="AddQuestion()">
                                                     <i class="fa fa-plus"></i>
                                                     {{l("AddQuestion")}}</button>
-                                                <button type="button" *ngIf="initPaper.compositionType!=0" class="btn btn-primary"
+                                                <button type="button" *ngIf="initPaper.compositionType!='Fixed'" class="btn btn-primary"
                                                     (click)="AddRandomQuestionsToPaper()">
                                                     <i class="fa fa-plus"></i>
                                                     {{l("AddRandomQuestionsToPaper")}}</button>

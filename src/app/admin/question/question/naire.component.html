@@ -154,9 +154,9 @@
                                             <span>{{record.displayName}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.compositionType==0">{{l("Fixed")}}</span>
-                                            <span *ngIf="record.compositionType==1">{{l("Random")}}</span>
-                                            <span *ngIf="record.compositionType==2">{{l('Fixed')}} +
+                                            <span *ngIf="record.compositionType=='Fixed'">{{l("Fixed")}}</span>
+                                            <span *ngIf="record.compositionType=='Random'">{{l("Random")}}</span>
+                                            <span *ngIf="record.compositionType=='FixedPlusRandom'">{{l('Fixed')}} +
                                                 {{l('Random')}}</span>
                                         </td>
                                         <td>
