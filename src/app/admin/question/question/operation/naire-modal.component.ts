@@ -8,7 +8,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { AddQuestionModalComponent } from '@app/admin/question/question/operation/add-question-modal.component';
-
+import {PaperCompositionEnum} from '@shared/service-proxies/service-proxies5'
 @Component({
     selector: 'naireModal',
     templateUrl: './naire-modal.component.html',
@@ -50,7 +50,7 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     tags: any[] = [];
 
     PaperUsageType = PaperUsageType;
-
+    PaperCompositionEnum = PaperCompositionEnum;
 
     constructor(
         injector: Injector,
@@ -70,7 +70,7 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     }
 
     show(record?: any): void {
-        this.Paper = { compositionType: 0 };
+        this.Paper = { compositionType: "Fixed" };
         this.modal.show();
 
         if (record) {
@@ -231,11 +231,11 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     save(): void {
         if (this.nowTab == 0) {
 
-            if (this.Paper.compositionType == 0) {
+            if (this.Paper.compositionType == "Fixed") {
                 this.Paper.randomCount = 0;
-            } else if (this.Paper.compositionType == 1) {
+            } else if (this.Paper.compositionType == 'Random') {
                 this.Paper.randomCount = this.Paper.questionsCount;
-            } else if (this.Paper.compositionType == 2 && this.Paper.randomCount >= this.Paper.questionsCount) {
+            } else if (this.Paper.compositionType == 'FixedPlusRandom' && this.Paper.randomCount >= this.Paper.questionsCount) {
                 // return this.notify.warn(this.l('randomCount must less than questionsCount'))
                 return this.message.warn(this.l('randomCount must less than questionsCount'))
             }
