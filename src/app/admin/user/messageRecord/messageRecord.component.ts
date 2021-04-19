@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 
 import { CreateOrEditMessageRecordModalComponent } from './messageRecord-modal.component';
 
-import { UserDataServiceProxy, ApplicationServiceProxy } from '@shared/service-proxies/service-proxies-user';
+import { UserFeedbackServiceProxy, MarketingServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -29,8 +29,8 @@ export class MessageRecordComponent extends AppComponentBase {
   constructor(injector: Injector,
     private router: Router,
     private route: ActivatedRoute,
-    private _UserDataServiceProxy: UserDataServiceProxy,
-    private _ApplicationServiceProxy: ApplicationServiceProxy
+    private _UserFeedbackServiceProxy: UserFeedbackServiceProxy,
+    private _ApplicationServiceProxy: MarketingServiceProxy
   ) {
     super(injector);
     console.log("route", this.route)
@@ -54,7 +54,7 @@ export class MessageRecordComponent extends AppComponentBase {
     }
 
     this.primengTableHelper.showLoadingIndicator();
-    this._UserDataServiceProxy.getCustomerRequirements(
+    this._UserFeedbackServiceProxy.getUserFeedbacks(
       this.handled,
       this.applicationId,
       this.filterText,

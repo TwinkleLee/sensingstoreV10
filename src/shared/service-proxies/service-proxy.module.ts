@@ -157,11 +157,11 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         // PagerServiceProxies.ToolBoxServiceProxy,
 
         // user 迁到 pager
-        UserServiceProxies.ApplicationServiceProxy,
-        UserServiceProxies.AppointmentServiceProxy,
-        UserServiceProxies.IdentityServiceProxy,
-        UserServiceProxies.PageExtraServiceProxy,
-        UserServiceProxies.UserDataServiceProxy,
+        // UserServiceProxies.ApplicationServiceProxy,
+        // UserServiceProxies.AppointmentServiceProxy,
+        // UserServiceProxies.IdentityServiceProxy,
+        // UserServiceProxies.PageExtraServiceProxy,
+        // UserServiceProxies.UserDataServiceProxy,
 
         PagerServiceProxies.MarketingUserDataServiceProxy,
         PagerServiceProxies.MarketingServiceProxy,

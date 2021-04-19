@@ -30,26 +30,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Publish')">
-                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
-                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
-                        {{l('publishProducts')}}
-                    </button>
-                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
-                        <a class="dropdown-item icon-fabu1" (click)="goPublishproducts()">
-                            {{l('publishSelected')}}
-                        </a>
-                        <a class="dropdown-item icon-select" (click)="publishAll()">
-                            {{l('publishAll')}}
-                        </a>
-                        <a class="dropdown-item icon-sousuo-sousuo" (click)="publishSearch()">
-                            {{l('publishSearchResult')}}
-                        </a>
-
-                    </div>
-                </div>
-
-                <div class="btn-group dropdown" #dropdown0="bs-dropdown" dropdown [autoClose]="true"
+                <div class="btn-group dropdown" #dropdown0="bs-dropdown" dropdown [autoClose]="false"
                     *ngIf="isGranted('Pages.Tenant.Products.Edit')">
                     <button class="btn btn-primary dropdown-toggle icon-fenlei" type="button" id="setCateButton"
                         (click)="getCates(true)" data-toggle="dropdown" dropdownToggle aria-haspopup="true"
@@ -77,7 +58,42 @@
                         <a class="icon-jiaoyiguanli dropdown-item" (click)="goCate()">{{l('manageCate')}}</a>
                     </div>
                 </div>
-                <div class="btn-group dropdown" #dropdown1="bs-dropdown" dropdown [autoClose]="true"
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Publish')">
+                    <button class="btn btn-primary dropdown-toggle icon-fabu" type="button" id="publishButton"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('publishProducts')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="publishButton" x-placement="bottom-start">
+                        <a class="dropdown-item icon-fabu1" (click)="goPublishproducts()">
+                            {{l('publishSelected')}}
+                        </a>
+                        <a class="dropdown-item icon-select" (click)="publishAll()">
+                            {{l('publishAll')}}
+                        </a>
+                        <a class="dropdown-item icon-sousuo-sousuo" (click)="publishSearch()">
+                            {{l('publishSearchResult')}}
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Create')">
+                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
+                        [buttonBusy]="exportLoading">
+                        {{l('ImportOrExport')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="port" x-placement="bottom-start">
+                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="goImport()">
+                            {{l('import')}}
+                        </a>
+                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="goExport()">
+                            {{l('export')}}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="btn-group dropdown" #dropdown1="bs-dropdown" dropdown [autoClose]="false"
                     *ngIf="isGranted('Pages.Tenant.Products.Edit')">
                     <button class="btn btn-primary dropdown-toggle icon-biaoqian2" type="button" id="setTagButton"
                         data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
@@ -101,22 +117,6 @@
                         <a *ngIf="tagIds&&tagIds.length>0" class="icon-Clearsearch dropdown-item"
                             (click)="dropdown1.hide();clearTag()">{{l('clearTag')}}</a>
                         <a class="icon-jiaoyiguanli dropdown-item" (click)="goTag()">{{l('manageTag')}}</a>
-                    </div>
-                </div>
-
-                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Products.Create')">
-                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
-                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
-                        [buttonBusy]="exportLoading">
-                        {{l('ImportOrExport')}}
-                    </button>
-                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="port" x-placement="bottom-start">
-                        <a class="dropdown-item icon-shuminghaoxia_xian" (click)="goImport()">
-                            {{l('import')}}
-                        </a>
-                        <a class="dropdown-item icon-shuminghaoshang_xian" (click)="goExport()">
-                            {{l('export')}}
-                        </a>
                     </div>
                 </div>
 

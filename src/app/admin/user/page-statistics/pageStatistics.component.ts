@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 
 import { CreateOrEditApplicationModalComponent } from './create-or-edit-application-modal.component';
 
-import { ApplicationServiceProxy } from '@shared/service-proxies/service-proxies-user';
+import { MarketingServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -26,7 +26,7 @@ export class PageStatisticsComponent extends AppComponentBase {
   constructor(injector: Injector,
     private router: Router,
     private route: ActivatedRoute,
-    private _ApplicationServiceProxy: ApplicationServiceProxy,
+    private _ApplicationServiceProxy: MarketingServiceProxy,
   ) {
     super(injector);
     console.log("route", this.route)
