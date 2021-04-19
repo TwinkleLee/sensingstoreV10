@@ -3,7 +3,8 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { UserDataServiceProxy, HandleRequirementsInput } from '@shared/service-proxies/service-proxies-user';
+import { HandleFeedbacksInput, UserFeedbackServiceProxy } from '@shared/service-proxies/service-proxies-pager';
+
 
 @Component({
     selector: 'messageRecordModal',
@@ -26,7 +27,7 @@ export class CreateOrEditMessageRecordModalComponent extends AppComponentBase im
 
     constructor(
         injector: Injector,
-        private _UserDataServiceProxy: UserDataServiceProxy
+        private _UserDataServiceProxy: UserFeedbackServiceProxy
     ) {
         super(injector);
     }
@@ -56,7 +57,7 @@ export class CreateOrEditMessageRecordModalComponent extends AppComponentBase im
     save(): void {
         this.saving = true;
         console.log(this.objItem);
-        this._UserDataServiceProxy.handleRequirements(new HandleRequirementsInput({
+        this._UserDataServiceProxy.handleUserFeedbacks(new HandleFeedbacksInput({
             ids: [this.objItem.id],
             handleContent: this.objItem.handleContent
         }))

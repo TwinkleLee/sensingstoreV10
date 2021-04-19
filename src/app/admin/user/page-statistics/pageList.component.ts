@@ -7,7 +7,7 @@ import { Paginator } from 'primeng/paginator';
 
 import { CreateOrEditPageModalComponent } from './create-or-edit-page-modal.component';
 
-import { ApplicationServiceProxy } from '@shared/service-proxies/service-proxies-user';
+import { MarketingServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -30,8 +30,8 @@ export class PageListComponent extends AppComponentBase {
   constructor(injector: Injector,
     private router: Router,
     private route: ActivatedRoute,
-    private _ApplicationServiceProxy: ApplicationServiceProxy,
-    private _OrganizationUnitServiceProxy:OrganizationUnitServiceProxy
+    private _ApplicationServiceProxy: MarketingServiceProxy,
+    private _OrganizationUnitServiceProxy: OrganizationUnitServiceProxy
   ) {
     super(injector);
     this.route.queryParams.subscribe(queryParams => {

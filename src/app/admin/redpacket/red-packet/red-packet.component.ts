@@ -267,11 +267,17 @@ export class RedPacketComponent extends AppComponentBase {
   ok() {
     this.busy = true;
     this.applyService.createApplyForm(this.apply).subscribe((result) => {
-      this.couponPublishList = [];
-      this.getCoupons();
-      $("#review").hide();
-      this.busy = false;
-    })
+        this.couponPublishList = [];
+        this.getCoupons();
+        $("#review").hide();
+        this.busy = false;
+      },
+      (error: any) => {
+        // this.couponPublishList = [];
+        // $("#review").hide();
+        this.busy = false;
+      }
+    )
 
   }
 

@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ApplicationServiceProxy } from '@shared/service-proxies/service-proxies-user';
+import { MarketingServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { ProductAlertModalComponent } from './product-selection-modal.component';
 
@@ -30,7 +30,7 @@ export class CreateOrEditPageModalComponent extends AppComponentBase {
     objItem: any = {};
     constructor(
         injector: Injector,
-        private _ApplicationServiceProxy: ApplicationServiceProxy,
+        private _ApplicationServiceProxy: MarketingServiceProxy,
         private _ProductServiceProxy: ProductServiceProxy
     ) {
         super(injector);

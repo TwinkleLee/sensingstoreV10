@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ApplicationServiceProxy } from '@shared/service-proxies/service-proxies-user';
+import { MarketingServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 
 @Component({
     selector: 'applicationModal',
@@ -26,7 +26,7 @@ export class CreateOrEditApplicationModalComponent extends AppComponentBase impl
 
     constructor(
         injector: Injector,
-        private _ApplicationServiceProxy: ApplicationServiceProxy
+        private _ApplicationServiceProxy: MarketingServiceProxy
     ) {
         super(injector);
     }
