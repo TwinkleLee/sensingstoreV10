@@ -9,7 +9,6 @@ import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { QuestionModalComponent } from '@app/admin/question/question/operation/question-modal.component';
 import { UpdateQuestionStatusInput, PublishedQuestionDto, QuestionServiceProxy, PublishQuestionsToPapersInput, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
-//ooo
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { finalize } from 'rxjs/operators';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
