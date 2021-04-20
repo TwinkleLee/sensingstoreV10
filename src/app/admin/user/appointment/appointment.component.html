@@ -1,6 +1,6 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
-        <sub-header [title]="'feedback' | localize" [description]="'feedback' | localize">
+        <sub-header [title]="'appointment' | localize" [description]="'appointment' | localize">
             <div role="actions"></div>
         </sub-header>
 
@@ -21,31 +21,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-2">
-                                        <div class="form-group m-form__group align-items-center">
-                                            <div class="input-group">
-                                                <select class="form-control" [(ngModel)]="handled" name="auditStatus">
-                                                    <option value="">
-                                                        {{l("All")}}</option>
-                                                    <option [value]="true">{{l("HasHandled")}}</option>
-                                                    <option [value]="false">{{l("NotHandled")}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group m-form__group align-items-center">
-                                            <div class="input-group">
-                                                <select class="form-control" [(ngModel)]="applicationId"
-                                                    name="application">
-                                                    <option value="">
-                                                        {{l("All")}}{{l("application")}}</option>
-                                                    <option *ngFor="let application of applicationList"
-                                                        [value]="application.id">{{application.name}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-2">
                                         <div class="form-group m-form__group align-items-center">
                                             <div class="input-group">
@@ -72,11 +47,11 @@
                                     <tr>
                                         <th style="width: 15%">{{l('Actions')}}</th>
                                         <th style="width:5%">{{l('RecordId')}}</th>
-                                        <th>{{l('application')}}</th>
                                         <th>{{l('name')}}</th>
                                         <th>{{l('phone')}}</th>
                                         <th>{{l('CompanyName')}}</th>
-                                        <th style="width:40%;">{{l('description')}}</th>
+                                        <th>{{l('appointmentStatus')}}</th>
+                                        <th>{{l('appointmentTime')}}</th>
                                         <th>{{l('HasHandled')}}</th>
                                     </tr>
                                 </ng-template>
@@ -93,26 +68,26 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
                                                         <a class="icon-bianji dropdown-item"
-                                                            (click)="editItem(record)">{{l('handle')}}</a>
+                                                            >{{l('handle')}}</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </td>
                                         <td style="width:5%"> {{transIndex(i)}}</td>
                                         <td>
-                                            <span>{{record.applicationName}}</span>
-                                        </td>
-                                        <td>
                                             <span>{{record.name}}</span>
                                         </td>
                                         <td>
-                                            <span>{{record.tel}}</span>
+                                            <span>{{record.phone}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{record.appointmentStatus}}</span>
                                         </td>
                                         <td>
                                             <span [title]="record.company">{{record.company}}</span>
                                         </td>
-                                        <td style="width:40%;">
-                                            <span [title]="record.description">{{record.description}}</span>
+                                        <td>
+                                            <span>{{record.appointmentTime | date : "yyyy/MM/dd"}}</span>
                                         </td>
 
                                         <td>
@@ -149,7 +124,6 @@
             </div>
         </div>
 
-        <messageRecordModal #messageRecordModal (modalSave)="getList()"></messageRecordModal>
     </div>
 
 </div>

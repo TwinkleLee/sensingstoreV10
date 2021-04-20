@@ -28,7 +28,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>{{l("TagType")}}*</label>
-                                            <select #nameInput="ngModel" class="form-control" type="text" name="TagType"
+                                            <select [disabled]="readonly" #nameInput="ngModel" class="form-control" type="text" name="TagType"
                                                 [(ngModel)]="tag.type" required maxlength="32">
                                                 <option *ngFor="let tagType of tagTypes" [value]="tagType.value">{{tagType.name}}</option>
                                             </select>
