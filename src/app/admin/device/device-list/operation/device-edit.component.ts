@@ -30,7 +30,7 @@ import { SensingDeviceServiceProxy, SensorAgreementServiceProxy } from '@shared/
 
 import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput, AddOrUpdateSensorInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
-import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies-smartdevice';
 
 
 import { ChangeDeviceAppPodVersionInput, AppPodServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
@@ -38,8 +38,6 @@ import { ChangeDeviceAppPodVersionInput, AppPodServiceProxy } from '@shared/serv
 
 import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.component';
 import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies-product';
-//ooo
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
 
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { DeviceBehaviorServiceProxy } from '@shared/service-proxies/service-proxies3';

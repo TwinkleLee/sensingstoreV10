@@ -5,14 +5,13 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { LoginServiceProxy } from '@shared/service-proxies/service-proxies';
-//ooo
-import {  AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy } from '@shared/service-proxies/service-proxies-product';
+
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { from } from 'rxjs';
 import * as moment from 'moment';
 import {
-  TrainingServiceProxy, TrainingStatusEnum as TrainingStatus, TrainingBasicDto, TrainingAuditInput,AuditStatus as TrainingAuditStatus,
+  AuditStatus,TrainingServiceProxy, TrainingStatusEnum as TrainingStatus, TrainingBasicDto, TrainingAuditInput,AuditStatus as TrainingAuditStatus,
   
 } from '@shared/service-proxies/service-proxies5';
 import { CreateOrEditTrainingModalComponent } from './create-or-edit-training-modal.component';
@@ -34,6 +33,9 @@ export class TrainingListComponent extends AppComponentBase {
   @ViewChild('paginator', { static: true }) paginator: Paginator;
   @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
 
+  AuditStatus = AuditStatus;
+  TrainingStatus = TrainingStatus;
+
   filterText: string = "";
   auditStatus: any = '';
   trainingStatus: any = void 0;
@@ -42,14 +44,6 @@ export class TrainingListComponent extends AppComponentBase {
 
   lecturerSuggestion: any = []
 
-
-  //枚举
-  AuditStatus = AuditStatus;
-  TrainingStatus = TrainingStatus;
-
-  CreateApplyFormInputWanted = CreateApplyFormInputWanted;
-  //审核
-  apply: CreateApplyFormInput = new CreateApplyFormInput();
   busy = false;
 
   couponPublishList: any = [];
@@ -62,15 +56,12 @@ export class TrainingListComponent extends AppComponentBase {
   lecturers: any = '';
 
   constructor(injector: Injector,
-    private applyService: ApplyServiceProxy,
     private _trainingService: TrainingServiceProxy,
     private router: Router, private route: ActivatedRoute,
     private _LoginServiceProxy: LoginServiceProxy
   ) {
     super(injector);
-    this.apply.applyType = CreateApplyFormInputApplyType.Coupon;
-    this.apply.itemids = [];
-    this.apply.options = 'all';
+
   }
 
 
@@ -252,33 +243,6 @@ export class TrainingListComponent extends AppComponentBase {
     }
     callback && callback(f ? downNumIds : upNumIds);
   }
-
-
-
-  //取消
-  no() {
-    $("#review").hide();
-  }
-  //确定
-  ok() {
-    this.busy = true;
-    this.applyService.createApplyForm(this.apply).subscribe((result) => {
-      this.couponPublishList = [];
-      this.getTrainings();
-      $("#review").hide();
-      this.busy = false;
-    })
-
-  }
-
-  //审核
-  review(f, ary?) {
-    this.apply.itemids = ary ? ary : [];
-    this.apply.reason = '';
-    this.apply.wanted = f ? CreateApplyFormInputWanted.Online : CreateApplyFormInputWanted.Offline;
-    $("#review").show();
-  }
-
 
 
   //选中所有

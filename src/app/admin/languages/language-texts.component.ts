@@ -89,6 +89,10 @@ export class LanguageTextsComponent extends AppComponentBase implements AfterVie
         });
     }
 
+    goBack () {
+        this._router.navigate(['app', 'admin','languages']);
+    }
+
     reloadPage(): void {
         this.paginator.changePage(this.paginator.getPage());
     }

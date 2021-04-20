@@ -6,6 +6,7 @@ import { ShelfDeviceServiceProxy, CreateCargoRoadsInput, CreateCargoThingInput }
 import { ProductAlertModalComponent } from '@app/admin/device/device-list/tabAlert/product-selection-modal.component';
 import * as _ from 'lodash';
 
+
 @Component({
     selector: 'CargoModal',
     templateUrl: './cargo-modal.component.html',

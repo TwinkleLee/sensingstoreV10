@@ -5,12 +5,11 @@ import { Table, TableCheckbox } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { PublicAccountManageModalComponent } from '@app/admin/publicaccount/public-account/operation/public-account-manage-modal.component';
-import { WechatManageServiceProxy, SetMediaTagsInput } from '@shared/service-proxies/service-proxies5';
+import { WechatManageServiceProxy, SetMediaTagsInput, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import * as moment from 'moment';
-//ooo
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 
 @Component({

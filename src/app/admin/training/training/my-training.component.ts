@@ -4,12 +4,12 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-//ooo
-import { AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy} from '@shared/service-proxies/service-proxies-product';
+
+
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { from } from 'rxjs';
-import { TrainingServiceProxy,TrainingStatusEnum as TrainingStatus,TrainingBasicDto,TrainingAuditInput,AuditStatus as TrainingAuditStatus} from '@shared/service-proxies/service-proxies5';
+import { AuditStatus,TrainingServiceProxy,TrainingStatusEnum as TrainingStatus,TrainingBasicDto,TrainingAuditInput,AuditStatus as TrainingAuditStatus} from '@shared/service-proxies/service-proxies5';
 import { CreateOrEditTrainingModalComponent } from './create-or-edit-training-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -40,9 +40,6 @@ export class MyTrainingComponent extends AppComponentBase {
   AuditStatus = AuditStatus;
   TrainingStatus = TrainingStatus;
 
-  CreateApplyFormInputWanted = CreateApplyFormInputWanted;
-  //审核
-  apply: CreateApplyFormInput = new CreateApplyFormInput();
   busy = false;
 
   couponPublishList :any =[];
@@ -51,14 +48,10 @@ export class MyTrainingComponent extends AppComponentBase {
   informDevice = false;
 
   constructor(injector: Injector,
-    private applyService: ApplyServiceProxy,
     private _trainingService: TrainingServiceProxy,
     private router: Router, private route: ActivatedRoute,
   ) {
     super(injector);
-    this.apply.applyType = CreateApplyFormInputApplyType.Coupon;
-    this.apply.itemids = [];
-    this.apply.options = 'all';
   }
 
 
@@ -238,33 +231,6 @@ export class MyTrainingComponent extends AppComponentBase {
     }
     callback && callback(f ? downNumIds : upNumIds);
   }
-
-
-
-  //取消
-  no() {
-    $("#review").hide();
-  }
-  //确定
-  ok() {
-    this.busy = true;
-    this.applyService.createApplyForm(this.apply).subscribe((result) => {
-      this.couponPublishList = [];
-      this.getTrainings();
-      $("#review").hide();
-      this.busy = false;
-    })
-
-  }
-
-  //审核
-  review(f, ary?) {
-    this.apply.itemids = ary ? ary : [];
-    this.apply.reason = '';
-    this.apply.wanted = f ? CreateApplyFormInputWanted.Online : CreateApplyFormInputWanted.Offline;
-    $("#review").show();
-  }
-
 
   
   //选中所有

@@ -41,7 +41,7 @@ import { API_ACTIVITY_URL } from '@shared/service-proxies/service-proxies5';
 import { API_CARGO_URL } from '@shared/service-proxies/service-proxies-cargo';
 import { API_SYNC_URL } from '@shared/service-proxies/service-proxies-sync';
 import { API_PAGER_URL } from '@shared/service-proxies/service-proxies-pager';
-import { API_USER_URL } from '@shared/service-proxies/service-proxies-user';
+// import { API_USER_URL } from '@shared/service-proxies/service-proxies-user';
 import { API_FLOOR_URL } from '@shared/service-proxies/service-proxies-floor';
 import { API_OKR_URL } from '@shared/service-proxies/service-proxies-okr';
 import { API_DEVICECENTER_URL } from '@shared/service-proxies/service-proxies-devicecenter';
@@ -253,9 +253,9 @@ export function getPaperServiceBaseUrl(): string {
     return AppConsts.remotePaperServiceUrl;
 }
 
-export function getUserServiceBaseUrl(): string {
-    return AppConsts.remoteUserServiceUrl;
-}
+// export function getUserServiceBaseUrl(): string {
+//     return AppConsts.remoteUserServiceUrl;
+// }
 
 export function getFloorServiceBaseUrl(): string {
     return AppConsts.remoteFloorServiceUrl;
@@ -334,7 +334,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         { provide: API_CARGO_URL, useFactory: getCargoServiceBaseUrl },
         { provide: API_SYNC_URL, useFactory: getSYNCServiceBaseUrl },
         { provide: API_PAGER_URL, useFactory: getPaperServiceBaseUrl },
-        { provide: API_USER_URL, useFactory: getUserServiceBaseUrl },
+        // { provide: API_USER_URL, useFactory: getUserServiceBaseUrl },
         { provide: API_FLOOR_URL, useFactory: getFloorServiceBaseUrl },
         { provide: API_OKR_URL, useFactory: getOKRServiceBaseUrl },
         { provide: API_DEVICECENTER_URL, useFactory:getDeviceCenterServiceBaseUrl  },
