@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ShopServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { ExternalAccessServiceProxy } from '@shared/service-proxies/service-proxies';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
@@ -36,7 +36,7 @@ export class HostOnlineStoreModalComponent extends AppComponentBase implements A
 
     constructor(
         injector: Injector,
-        private _ShopServiceProxy: ShopServiceProxy,
+        private _ExternalAccessServiceProxy: ExternalAccessServiceProxy,
         private _tenantService: TenantServiceProxy
     ) {
         super(injector);
@@ -83,7 +83,7 @@ export class HostOnlineStoreModalComponent extends AppComponentBase implements A
         this.saving = true;
         if (this.operation == "add") {
             console.log(this.shopItem);
-            this._ShopServiceProxy.createShopForHost(this.shopItem)
+            this._ExternalAccessServiceProxy.createShopForHost(this.shopItem)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(result => {
                     console.log(result)

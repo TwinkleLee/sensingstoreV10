@@ -5,8 +5,7 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { HostOnlineStoreModalComponent } from './create-or-edit-onlineStore-modal.component';
-
-import { ShopServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { ExternalAccessServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
   templateUrl: './online-store.component.html',
@@ -19,7 +18,7 @@ export class HostOnlineStoreComponent extends AppComponentBase {
   @ViewChild('paginator',{static:true}) paginator: Paginator;
   filterText: string;
   constructor(injector: Injector,
-    private _ShopServiceProxy: ShopServiceProxy,
+    private _ExternalAccessServiceProxy:ExternalAccessServiceProxy
   ) {
     super(injector);
 
@@ -36,7 +35,7 @@ export class HostOnlineStoreComponent extends AppComponentBase {
       return;
     }
     this.primengTableHelper.showLoadingIndicator();
-    this._ShopServiceProxy.getShopsForHost(
+    this._ExternalAccessServiceProxy.getShopsForHost(
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -61,7 +60,7 @@ export class HostOnlineStoreComponent extends AppComponentBase {
     this.message.confirm(this.l('confirmDelete'),this.l('AreYouSure'), (r) => {
       console.log(record)
       if (r) {
-        this._ShopServiceProxy.deleteShopForHost(record.tenantId, record.id).subscribe(result => {
+        this._ExternalAccessServiceProxy.deleteShopForHost(record.tenantId, record.id).subscribe(result => {
           this.notify.info(this.l('success'));
           this.getShopsForHost();
         })
