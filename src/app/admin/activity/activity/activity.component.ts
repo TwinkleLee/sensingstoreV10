@@ -4,8 +4,8 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-//ooo
-import {  AuditStatus, ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
+
+import { ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
@@ -39,7 +39,6 @@ export class ActivityComponent extends AppComponentBase {
   isTemplate: any = 'false';
 
   //枚举
-  AuditStatus = AuditStatus;
   CreateApplyFormInputWanted = CreateApplyFormInputWanted;
   //审核
   apply: CreateApplyFormInput = new CreateApplyFormInput();

@@ -9,8 +9,7 @@ import { TokenService } from 'abp-ng2-module';
 import { finalize } from 'rxjs/operators';
 import { Table } from 'primeng/table';
 import { PaperServiceProxy, PublishPapersToSoftwares } from '@shared/service-proxies/service-proxies5';
-//ooo
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import * as _ from 'lodash';
 
 

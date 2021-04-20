@@ -13,7 +13,7 @@ import * as ActivityServiceProxies from './service-proxies5';
 import * as CargoServiceProxies from './service-proxies-cargo';//e
 import * as SYNCServiceProxies from './service-proxies-sync';
 import * as PagerServiceProxies from './service-proxies-pager';
-import * as UserServiceProxies from './service-proxies-user';
+// import * as UserServiceProxies from './service-proxies-user';
 import * as FloorServiceProxies from './service-proxies-floor';//floor
 import * as OKRServiceProxies from './service-proxies-okr';//okr
 
@@ -253,7 +253,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         SMARTDEVICEServiceProxies.CustomizeReportServiceProxy,
         SMARTDEVICEServiceProxies.ImportCargoRoadsServiceProxy,
         SMARTDEVICEServiceProxies.SensorAgreementServiceProxy,
-        // SMARTDEVICEServiceProxies.TagServiceProxy,
+        SMARTDEVICEServiceProxies.TagServiceProxy,
 
 
         

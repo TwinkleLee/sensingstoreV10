@@ -7,10 +7,8 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { NaireModalComponent } from '@app/admin/question/question/operation/naire-modal.component';
-import { PublishPapersToSoftwares, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { PublishPapersToSoftwares, PaperServiceProxy,TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
-//ooo
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 
 
 import { Router } from '@angular/router';
