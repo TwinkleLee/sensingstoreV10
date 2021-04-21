@@ -8,7 +8,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 
 
-import { UserFeedbackServiceProxy, UserAppointmentServiceProxy } from '@shared/service-proxies/service-proxies-pager';
+import { AppointmentStatus, UserAppointmentServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -21,6 +21,7 @@ export class AppointmentComponent extends AppComponentBase {
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
 
+  AppointmentStatus = AppointmentStatus;
 
   filterText = "";
   handled: any = "";
@@ -29,7 +30,7 @@ export class AppointmentComponent extends AppComponentBase {
   constructor(injector: Injector,
     private router: Router,
     private route: ActivatedRoute,
-    private _UserFeedbackServiceProxy: UserFeedbackServiceProxy,
+    private _UserAppointmentServiceProxy: UserAppointmentServiceProxy,
   ) {
     super(injector);
     
@@ -44,9 +45,10 @@ export class AppointmentComponent extends AppComponentBase {
     }
 
     this.primengTableHelper.showLoadingIndicator();
-    this._UserFeedbackServiceProxy.getUserFeedbacks(
-      this.handled,
-      this.applicationId,
+    this._UserAppointmentServiceProxy.getAppointmentsForHall(
+      void 0,
+      void 0,
+      this.appSession.tenantId,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'abp-ng2-module';
 import { DateMetaPhysicsServiceProxy } from '@shared/service-proxies/service-proxies4';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
-import { BatchTaskLogServiceProxy } from '@shared/service-proxies/service-proxies-product';
+// import { BatchTaskLogServiceProxy } from '@shared/service-proxies/service-proxies-product';
 import { ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -83,7 +83,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
 
   target: any = 'match';
   constructor(injector: Injector,
-    private _batchTaskLog: BatchTaskLogServiceProxy,
+    // private _batchTaskLog: BatchTaskLogServiceProxy,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private _tokenService: TokenService,
@@ -106,25 +106,25 @@ export class ImportComponent extends AppComponentBase implements OnInit {
 
   //查询同步历史
   getSyncHistory(event?: LazyLoadEvent) {
-    if (this.historyPrimeng.shouldResetPaging(event)) {
-      this.paginatorhistory.changePage(0);
-      return;
-    }
-    this.historyPrimeng.showLoadingIndicator();
-    this._batchTaskLog.getBatchTaskLogs(
-      'ImportProducts',
-      void 0,
-      void 0,
-      void 0,// this.historyPrimeng.getSorting(this.dataTablehistory) || 'taobao_user_nick',
-      this.historyPrimeng.getMaxResultCount(this.paginatorhistory, event),
-      this.historyPrimeng.getSkipCount(this.paginatorhistory, event)
-    )
-      .pipe(this.myFinalize(() => { this.historyPrimeng.hideLoadingIndicator(); }))
-      .subscribe(result => {
-        this.historyPrimeng.totalRecordsCount = result.totalCount;
-        this.historyPrimeng.records = result.items;
-        // this.historyPrimeng.hideLoadingIndicator();
-      });
+  //   if (this.historyPrimeng.shouldResetPaging(event)) {
+  //     this.paginatorhistory.changePage(0);
+  //     return;
+  //   }
+  //   this.historyPrimeng.showLoadingIndicator();
+  //   this._batchTaskLog.getBatchTaskLogs(
+  //     'ImportProducts',
+  //     void 0,
+  //     void 0,
+  //     void 0,// this.historyPrimeng.getSorting(this.dataTablehistory) || 'taobao_user_nick',
+  //     this.historyPrimeng.getMaxResultCount(this.paginatorhistory, event),
+  //     this.historyPrimeng.getSkipCount(this.paginatorhistory, event)
+  //   )
+  //     .pipe(this.myFinalize(() => { this.historyPrimeng.hideLoadingIndicator(); }))
+  //     .subscribe(result => {
+  //       this.historyPrimeng.totalRecordsCount = result.totalCount;
+  //       this.historyPrimeng.records = result.items;
+  //       // this.historyPrimeng.hideLoadingIndicator();
+  //     });
   }
 
   //转换序列

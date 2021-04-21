@@ -72,9 +72,9 @@
                                             <div class="form-group col-6">
                                                 <label>{{l("PublicAccount")}}</label>
                                                 <div class="input-group">
-                                                    <select class="form-control" [(ngModel)]="basic.publicAccountId"
-                                                        name="publicAccountId">
-                                                        <option value=""></option>
+                                                    <select class="form-control" [(ngModel)]="basic.weixinPublicAccountId"
+                                                        name="weixinPublicAccountId">
+                                                        <option value="">{{l('NULL')}}</option>
                                                         <option [value]="item.id"
                                                             *ngFor="let item of publicAccountList">
                                                             {{item.nickName}}</option>
@@ -629,7 +629,7 @@
                                                     <span>{{record.displayName}}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{record.shopShopFreightType}}</span>
+                                                    <span>{{l(ShopFreightType[record.shopShopFreightType])}}</span>
                                                 </td>
                                                 <td>
                                                     <span>{{record.firstPrice}}</span>

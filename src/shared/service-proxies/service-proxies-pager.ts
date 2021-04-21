@@ -938,6 +938,7 @@ export class MarketingUserDataServiceProxy {
     }
 
     /**
+     * 更新市场埋点的数据
      * @param appKey (optional) 
      * @param id (optional) 
      * @return Success
@@ -1330,28 +1331,52 @@ export class UserAppointmentServiceProxy {
     }
 
     /**
-     * @param openId (optional) 
-     * @param storeId (optional) 
-     * @param tenantId (optional) 
+     * 获取用户的预约
+     * @param openId (optional) 获取特定用户的预约，可选
+     * @param storeId (optional) 特定的店铺,可选
+     * @param tenantId 特定的租付
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
-    getAppointmentsForHall(openId: string | undefined, storeId: number | undefined, tenantId: number | undefined): Observable<UserAppointmentDto[]> {
+    getAppointmentsForHall(openId: string | undefined, storeId: number | undefined, tenantId: number, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<UserAppointmentDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/UserAppointment/GetAppointmentsForHall?";
         if (openId === null)
             throw new Error("The parameter 'openId' cannot be null.");
         else if (openId !== undefined)
-            url_ += "openId=" + encodeURIComponent("" + openId) + "&";
+            url_ += "OpenId=" + encodeURIComponent("" + openId) + "&";
         if (storeId === null)
             throw new Error("The parameter 'storeId' cannot be null.");
         else if (storeId !== undefined)
-            url_ += "storeId=" + encodeURIComponent("" + storeId) + "&";
+            url_ += "StoreId=" + encodeURIComponent("" + storeId) + "&";
+        if (tenantId === undefined || tenantId === null)
+            throw new Error("The parameter 'tenantId' must be defined and cannot be null.");
+        else
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
                 "Accept": "text/plain"
             })
         };
@@ -1363,14 +1388,14 @@ export class UserAppointmentServiceProxy {
                 try {
                     return this.processGetAppointmentsForHall(<any>response_);
                 } catch (e) {
-                    return <Observable<UserAppointmentDto[]>><any>_observableThrow(e);
+                    return <Observable<UserAppointmentDtoPagedResultDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<UserAppointmentDto[]>><any>_observableThrow(response_);
+                return <Observable<UserAppointmentDtoPagedResultDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetAppointmentsForHall(response: HttpResponseBase): Observable<UserAppointmentDto[]> {
+    protected processGetAppointmentsForHall(response: HttpResponseBase): Observable<UserAppointmentDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1381,11 +1406,7 @@ export class UserAppointmentServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(UserAppointmentDto.fromJS(item));
-            }
+            result200 = UserAppointmentDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1393,7 +1414,7 @@ export class UserAppointmentServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<UserAppointmentDto[]>(<any>null);
+        return _observableOf<UserAppointmentDtoPagedResultDto>(<any>null);
     }
 
     /**
@@ -1665,7 +1686,6 @@ export class UserFeedbackServiceProxy {
 }
 
 export class AddMarketingUserDataInput implements IAddMarketingUserDataInput {
-    tenantId!: number;
     /** 用户的数据属于特殊设备 */
     deviceId!: number | undefined;
     /** 具体的数据来自于那个软件 */
@@ -1708,7 +1728,6 @@ export class AddMarketingUserDataInput implements IAddMarketingUserDataInput {
 
     init(_data?: any) {
         if (_data) {
-            this.tenantId = _data["tenantId"];
             this.deviceId = _data["deviceId"];
             this.softwareId = _data["softwareId"];
             this.applicationName = _data["applicationName"];
@@ -1738,7 +1757,6 @@ export class AddMarketingUserDataInput implements IAddMarketingUserDataInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["tenantId"] = this.tenantId;
         data["deviceId"] = this.deviceId;
         data["softwareId"] = this.softwareId;
         data["applicationName"] = this.applicationName;
@@ -1761,7 +1779,6 @@ export class AddMarketingUserDataInput implements IAddMarketingUserDataInput {
 }
 
 export interface IAddMarketingUserDataInput {
-    tenantId: number;
     /** 用户的数据属于特殊设备 */
     deviceId: number | undefined;
     /** 具体的数据来自于那个软件 */
@@ -3578,6 +3595,54 @@ export interface IUserAppointmentDto {
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
+}
+
+export class UserAppointmentDtoPagedResultDto implements IUserAppointmentDtoPagedResultDto {
+    totalCount!: number;
+    items!: UserAppointmentDto[] | undefined;
+
+    constructor(data?: IUserAppointmentDtoPagedResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(UserAppointmentDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): UserAppointmentDtoPagedResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserAppointmentDtoPagedResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IUserAppointmentDtoPagedResultDto {
+    totalCount: number;
+    items: UserAppointmentDto[] | undefined;
 }
 
 /** 用户的反馈(如改进意见，服务质量等) */

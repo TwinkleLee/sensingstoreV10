@@ -287,7 +287,7 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         ProductServiceProxies.SensingSkuRfidServiceProxy,
         ProductServiceProxies.SkuRfidServiceProxy,
         ProductServiceProxies.PriceTagServiceProxy,
-        ProductServiceProxies.BatchTaskLogServiceProxy,
+        // ProductServiceProxies.BatchTaskLogServiceProxy,
         ProductServiceProxies.ShopServiceProxy,
         ProductServiceProxies.SensingShopServiceProxy,
         ProductServiceProxies.ReportServiceProxy,

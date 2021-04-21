@@ -15,6 +15,7 @@ import { SetCategoryModalComponent } from './operation/set-category-modal.compon
 import { SetFreightModalComponent } from './operation/set-freight-modal.component';
 import { SensingShopManageServiceProxy, PayCenterServiceProxy, SetShopPayInput } from '@shared/service-proxies/service-proxies2';
 import { WeixinMpServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { ShopFreightType } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
   templateUrl: './we-shop.component.html',
@@ -26,6 +27,8 @@ export class WeShopComponent extends AppComponentBase {
   basic: any = {};
   showFreezeUi = false;
   publicAccountList: any = [];
+
+  ShopFreightType = ShopFreightType;
 
   //轮播图
   @ViewChild('SwiperModal', { static: true }) SwiperModal: SwiperModalComponent;
@@ -91,7 +94,7 @@ export class WeShopComponent extends AppComponentBase {
 
   //返回
   goBack() {
-    this.router.navigate(['app', 'admin','weshop', 'onlineStore']);
+    this.router.navigate(['app', 'admin','onlineStore', 'onlineStore']);
   }
   save() {
     this.showFreezeUi = true;
@@ -194,8 +197,6 @@ export class WeShopComponent extends AppComponentBase {
       }
     })
   }
-
-
 
   getProductCategory(event?: LazyLoadEvent) {
     if (this.categoryPrimeng.shouldResetPaging(event)) {

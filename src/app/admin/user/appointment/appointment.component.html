@@ -81,10 +81,10 @@
                                             <span>{{record.phone}}</span>
                                         </td>
                                         <td>
-                                            <span>{{record.appointmentStatus}}</span>
+                                            <span>{{record.companyName}}</span>
                                         </td>
                                         <td>
-                                            <span [title]="record.company">{{record.company}}</span>
+                                            <span>{{l(AppointmentStatus[record.appointmentStatus])}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.appointmentTime | date : "yyyy/MM/dd"}}</span>
