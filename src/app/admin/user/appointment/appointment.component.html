@@ -67,7 +67,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
-                                                        <a class="icon-bianji dropdown-item"
+                                                        <a (click)="handle(record)" class="icon-bianji dropdown-item"
                                                             >{{l('handle')}}</a>
                                                     </li>
                                                 </ul>
@@ -123,6 +123,7 @@
                 </div>
             </div>
         </div>
+        <appointmentModal #appointmentModal (modalSave)="getList()"></appointmentModal>
 
     </div>
 

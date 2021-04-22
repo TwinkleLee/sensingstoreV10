@@ -69,11 +69,11 @@
                       <div class="input-group">
                         <select class="form-control" [(ngModel)]="Game.weChatAuthorizationType"
                           name="weChatAuthorizationType">
-                          <option value="0">{{l('Follow')}}</option>
-                          <option value="1">{{l('Web')}}</option>
-                          <option value="3">{{l('FollowAutoRegister')}}</option>
-                          <option value="4">{{l('WebAutoRegister')}}</option>
-                          <option value="2">{{l('NoAuthorize')}}</option>
+                          <option value="Follow">{{l('Follow')}}</option>
+                          <option value="Web">{{l('Web')}}</option>
+                          <option value="FollowAutoRegister">{{l('FollowAutoRegister')}}</option>
+                          <option value="WebAutoRegister">{{l('WebAutoRegister')}}</option>
+                          <option value="NoAuthorize">{{l('NoAuthorize')}}</option>
                         </select>
                       </div>
                     </div>
@@ -122,13 +122,13 @@
                     <div class="form-group col-6">
                       <label>{{l('weChatType')}}</label>
                       <select class="form-control" [(ngModel)]="Game.beforeGameMessage.weChatType" name="weChatType">
-                        <option value="0">{{l('Text')}}</option>
-                        <option value="1">{{l('News')}}</option>
+                        <option value="Text">{{l('Text')}}</option>
+                        <option value="News">{{l('News')}}</option>
                       </select>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-6" *ngIf="Game.beforeGameMessage.weChatType==1">
+                    <div class="form-group col-6" *ngIf="Game.beforeGameMessage.weChatType=='News'">
                       <label>{{l("title")}}</label>
                       <input class="form-control" type="text" name="title" [(ngModel)]="Game.beforeGameMessage.title">
                     </div>
@@ -138,7 +138,7 @@
                         [(ngModel)]="Game.beforeGameMessage.textMessage">
                     </div>
                   </div>
-                  <div class="row" *ngIf="Game.beforeGameMessage.weChatType==1">
+                  <div class="row" *ngIf="Game.beforeGameMessage.weChatType=='News'">
 
 
                     <div class="form-group col-6" style="position:relative;">
@@ -170,7 +170,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-4" *ngIf="Game.beforeGameMessage.weChatType==1">
+                <div class="col-4" *ngIf="Game.beforeGameMessage.weChatType=='News'">
                   <div class="form-group">
                     <label class="control-label">{{l("Image")}}</label>
                     <app-fileupload [fileUrl]="Game.beforeGameMessage.picUrl" (onUpLoadEvent)="BeforeOnUpload($event)"
@@ -193,13 +193,13 @@
                     <div class="form-group col-6">
                       <label>{{l('weChatType')}}</label>
                       <select class="form-control" [(ngModel)]="Game.afterGameMessage.weChatType" name="weChatType2">
-                        <option value="0">{{l('Text')}}</option>
-                        <option value="1">{{l('News')}}</option>
+                        <option value="Text">{{l('Text')}}</option>
+                        <option value="News">{{l('News')}}</option>
                       </select>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-6" *ngIf="Game.afterGameMessage.weChatType==1">
+                    <div class="form-group col-6" *ngIf="Game.afterGameMessage.weChatType=='News'">
                       <label>{{l("title")}}</label>
                       <input class="form-control" type="text" name="title2" [(ngModel)]="Game.afterGameMessage.title">
                     </div>
@@ -209,7 +209,7 @@
                         [(ngModel)]="Game.afterGameMessage.textMessage">
                     </div>
                   </div>
-                  <div class="row" *ngIf="Game.afterGameMessage.weChatType==1">
+                  <div class="row" *ngIf="Game.afterGameMessage.weChatType=='News'">
                     <div class="form-group col-6" style="position:relative;">
                       <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
                         <input [(ngModel)]="AfterNotUseTemplate" type="checkbox"
@@ -239,7 +239,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-4" *ngIf="Game.afterGameMessage.weChatType==1">
+                <div class="col-4" *ngIf="Game.afterGameMessage.weChatType=='News'">
                   <div class="form-group">
                     <label class="control-label">{{l("Image")}}</label>
                     <app-fileupload [fileUrl]="Game.afterGameMessage.picUrl" (onUpLoadEvent)="AfterOnUpload($event)"

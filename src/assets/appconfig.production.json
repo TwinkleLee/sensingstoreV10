@@ -12,7 +12,7 @@
   "///remoteCargoServiceUrl": "https://e.api.troncell.com",
   "remoteSYNCServiceUrl": "https://thingsync5.sensingstore.com",
   "//remoteSYNCServiceUrl": "https://sync.api.troncell.com",
-  "remotePaperServiceUrl": "https://pager5.sensingstore.com",
+  "remotePaperServiceUrl": "https://userdatabank5.sensingstore.com",
   "///remoteUserServiceUrl": "https://u.api.troncell.com",
   "remoteFloorServiceUrl": "https://floor5.sensingstore.com",
   "//remoteOKRServiceUrl": "https://okr.api.troncell.com",

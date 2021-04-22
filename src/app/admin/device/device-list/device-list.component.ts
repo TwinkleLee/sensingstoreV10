@@ -115,9 +115,6 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     private _tokenService: TokenService,
     private route: ActivatedRoute,
     private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
-
-
-
     private _NewDeviceServiceProxy: NewDeviceServiceProxy
 
   ) {
@@ -177,7 +174,11 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     }
 
 
+    // ????
     if (this.appSession.tenantId) {
+      // this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
+      //   this.deviceTree = [result];
+      // })
       this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([],false).subscribe((result) => {
         this.deviceTree = [result];
       })

@@ -63,11 +63,11 @@
                         <div class="row" style="margin:0.5rem 0;">
                             <div class="col-3">{{l('Default')}}</div>
                             <div class="col-2" *ngIf="freight.shopShopFreightType==0">
-                                <input class="form-control" type="number" name="firstNumber" [(ngModel)]="freight.firstNumber"
+                                <input class="form-control" min="1" type="number" name="firstNumber" [(ngModel)]="freight.firstNumber"
                                     required>
                             </div>
                             <div class="col-2" *ngIf="freight.shopShopFreightType==0">
-                                <input class="form-control" type="number" name="secondNumber" [(ngModel)]="freight.secondNumber"
+                                <input min="1" class="form-control" type="number" name="secondNumber" [(ngModel)]="freight.secondNumber"
                                     required>
                             </div>
                             <div class="col-2" *ngIf="freight.shopShopFreightType==1">

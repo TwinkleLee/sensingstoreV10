@@ -8,7 +8,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { QuestionModalComponent } from '@app/admin/question/question/operation/question-modal.component';
-import { UpdateQuestionStatusInput, PublishedQuestionDto, QuestionServiceProxy, PublishQuestionsToPapersInput, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { UpdateQuestionStatusInput, QuestionTypeEnum, PublishedQuestionDto, QuestionServiceProxy, PublishQuestionsToPapersInput, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { finalize } from 'rxjs/operators';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
@@ -45,6 +45,7 @@ export class QuestionComponent extends AppComponentBase {
 
   tags = [];
   tagFilter = "";
+  QuestionTypeEnum = QuestionTypeEnum;
 
   constructor(injector: Injector,
     private router: Router,

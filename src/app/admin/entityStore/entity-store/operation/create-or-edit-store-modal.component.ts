@@ -180,10 +180,8 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             temp.push(i.id);
         });
         this.organizationUnit.roomIds = JSON.stringify(temp);
-
-        console.log(this.organizationUnit.roomIds)
-        this.organizationUnit.openingTime = moment(`2017-12-31T${this.openingTime}:00.000Z`);
-        this.organizationUnit.closedTime = moment(`2017-12-31T${this.closedTime}:00.000Z`);
+        this.organizationUnit.openingTime = moment(`2017-01-10T${this.openingTime}:00`);
+        this.organizationUnit.closedTime = moment(`2017-01-10T${this.closedTime}:00`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
         const createInput = new CreateStoreInput(this.organizationUnit);
         this.saving = true;

@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { AwardServiceProxy, CreateAwardInput, UpdateAwardInput } from '@shared/service-proxies/service-proxies5';
+import { AwardServiceProxy, CreateAwardInput, UpdateAwardInput, AwardType } from '@shared/service-proxies/service-proxies5';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CouponServiceProxy } from '@shared/service-proxies/service-proxies-product';
 

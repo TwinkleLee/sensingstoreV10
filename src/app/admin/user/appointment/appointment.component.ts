@@ -11,12 +11,15 @@ import { finalize } from 'rxjs/operators';
 import { AppointmentStatus, UserAppointmentServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { CreateOrEditAppointmentModalComponent } from './appointment-modal.component';
 
 @Component({
   templateUrl: './appointment.component.html',
   animations: [appModuleAnimation()]
 })
 export class AppointmentComponent extends AppComponentBase {
+
+  @ViewChild('appointmentModal', { static: true }) appointmentModal: CreateOrEditAppointmentModalComponent;
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -36,6 +39,9 @@ export class AppointmentComponent extends AppComponentBase {
     
   }
 
+  handle (record) {
+    this.appointmentModal.show(Object.assign({}, record));
+  }
 
   //获取列表
   getList(event?: LazyLoadEvent) {

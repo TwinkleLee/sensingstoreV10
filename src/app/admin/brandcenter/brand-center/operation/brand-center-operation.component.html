@@ -152,7 +152,7 @@
                                     </div>
                                 </tab>
                                 <!--  资源列表-->
-                                <tab heading="{{l('resouceList')}}" class="p-5" (selectTab)="getResByBrandId()">
+                                <tab *ngIf="brand && brand.id" heading="{{l('resouceList')}}" class="p-5" (selectTab)="getResByBrandId()">
                                     <div class="row align-items-center">
                                         <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                             <div class="kt-form kt-form--label-align-right">

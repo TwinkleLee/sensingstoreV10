@@ -193,9 +193,7 @@
                                             <span>{{record.score}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.type==0">{{l('oneChoose')}}</span>
-                                            <span *ngIf="record.type==1">{{l('multiChoose')}}</span>
-                                            <span *ngIf="record.type==2">{{l('text')}}</span>
+                                            <span>{{l(QuestionTypeEnum[record.type])}}</span>
                                         </td>
                                         <td>
                                             <span *ngIf="record.type!=2" style="line-height:1rem;">

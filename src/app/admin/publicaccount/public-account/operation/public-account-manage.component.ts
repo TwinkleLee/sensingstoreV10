@@ -75,7 +75,7 @@ export class PublicAccountManageComponent extends AppComponentBase {
   }
 
   goBack() {
-    this.router.navigate(['app', 'publicaccount', 'publicaccount']);
+    this.router.navigate(['app', 'admin', 'publicaccount', 'publicaccount']);
   }
   clickContainer() {
     if (this.highTree && this.highTree.showStore) {

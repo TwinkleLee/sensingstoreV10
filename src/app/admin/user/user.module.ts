@@ -34,6 +34,7 @@ import { MessageRecordComponent } from './messageRecord/messageRecord.component'
 import { CreateOrEditMessageRecordModalComponent } from './messageRecord/messageRecord-modal.component'
 
 import { AppointmentComponent } from './appointment/appointment.component'
+import { CreateOrEditAppointmentModalComponent } from './appointment/appointment-modal.component'
 
 
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
@@ -71,7 +72,8 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         ProductAlertModalComponent,
         MessageRecordComponent,
         CreateOrEditMessageRecordModalComponent,
-        AppointmentComponent
+        AppointmentComponent,
+        CreateOrEditAppointmentModalComponent
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
