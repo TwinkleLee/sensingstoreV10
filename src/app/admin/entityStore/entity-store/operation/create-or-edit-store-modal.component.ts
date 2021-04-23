@@ -10,6 +10,8 @@ import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/se
 
 import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
+import { DateTime } from 'luxon'
+
 @Component({
     selector: 'createOrEditStoreModal',
     templateUrl: './create-or-edit-store-modal.component.html'
@@ -180,8 +182,8 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             temp.push(i.id);
         });
         this.organizationUnit.roomIds = JSON.stringify(temp);
-        this.organizationUnit.openingTime = moment(`2017-01-10T${this.openingTime}:00`);
-        this.organizationUnit.closedTime = moment(`2017-01-10T${this.closedTime}:00`);
+        this.organizationUnit.openingTime = new Date(`2017-01-10T${this.openingTime}:00`);
+        this.organizationUnit.closedTime = new Date(`2017-01-10T${this.closedTime}:00`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
         const createInput = new CreateStoreInput(this.organizationUnit);
         this.saving = true;

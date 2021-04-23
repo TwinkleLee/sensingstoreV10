@@ -192,7 +192,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
       this.router.navigate(['app', 'admin', 'organization-units']);
     } 
     else if (this.target == 'match') {
-      this.router.navigate(['app', 'admin', 'import', 'import', 'match']);
+      this.router.navigate(['app', 'admin', 'product', 'match']);
     }
     else {
       this.router.navigate(['app', 'admin', this.target, this.target]);

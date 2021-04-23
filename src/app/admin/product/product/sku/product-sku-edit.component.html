@@ -37,7 +37,7 @@
                                             <div class="form-group col-3">
                                                 <label>{{l("PriceArea")}}*</label>
                                                 <input #priceInput="ngModel" class="form-control" min="0" maxlength="24"
-                                                    pattern="([1-9][0-9]*(\.[0-9]+)?|0)" step="0.01" type="number"
+                                                    pattern="([0-9]*(\.[0-9]+)?|0)" step="0.01" type="number"
                                                     name="price" [(ngModel)]="sku.price" required>
                                                 <validation-messages [formCtrl]="priceInput"></validation-messages>
                                             </div>
@@ -45,7 +45,7 @@
                                                 <label>&nbsp;</label>
                                                 <input #price2Input="ngModel" class="form-control"
                                                     [attr.max]="sku.price" maxlength="24"
-                                                    pattern="([1-9][0-9]*(\.[0-9]+)?|0)" step="0.01" type="number"
+                                                    pattern="([0-9]*(\.[0-9]+)?|0)" step="0.01" type="number"
                                                     name="price2" [(ngModel)]="sku.price2">
                                                 <validation-messages [formCtrl]="price2Input"></validation-messages>
                                             </div>
