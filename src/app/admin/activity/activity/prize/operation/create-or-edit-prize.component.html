@@ -69,11 +69,11 @@
                       <select class="form-control" [(ngModel)]="Prize.type" name="type" required>
                         <option value="Coupon">{{l('Coupon')}}</option>
                         <option value="Product">{{l('Product')}}</option>
-                        <option value="ThankYou">{{l('ThankYou')}}</option>
+                        <option value="Placeholder">{{l('Placeholder')}}</option>
                       </select>
                     </div>
                   </div>
-                  <div class="row" *ngIf="Prize.type==0">
+                  <div class="row" *ngIf="Prize.type=='Coupon'">
                     <div class="form-group col-6"></div>
                     <!-- <div class="form-group col-6">
                       <label>{{l("CouponUrl")}}</label>
@@ -88,13 +88,13 @@
                     </div>
 
                   </div>
-                  <div class="row" *ngIf="Prize.type==1">
+                  <div class="row" *ngIf="Prize.type=='Product'">
                     <div class="form-group col-6">
                       <label>{{l("fromType")}}</label>
                       <select class="form-control" [(ngModel)]="Prize.thingType" name="thingType">
                         <option value="">{{l('Other')}}</option>
-                        <option value="0">{{l('Spu')}}</option>
-                        <option value="1">{{l('Sku')}}</option>
+                        <option value="Spu">{{l('Spu')}}</option>
+                        <option value="Sku">{{l('Sku')}}</option>
                       </select>
                     </div>
                     <div class="form-group col-6">

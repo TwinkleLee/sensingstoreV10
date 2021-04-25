@@ -183,7 +183,7 @@ export class OrderComponent extends AppComponentBase {
         this.orderStatus || void 0,
         this.chosenItem,
         void 0,
-        this.primengTableHelper.getSorting(this.dataTable),
+        this.primengTableHelper.getSorting(this.dataTable) || 'creationTime DESC',
         this.primengTableHelper.getMaxResultCount(this.paginator, event),
         this.primengTableHelper.getSkipCount(this.paginator, event)
       ).pipe(finalize(() => {

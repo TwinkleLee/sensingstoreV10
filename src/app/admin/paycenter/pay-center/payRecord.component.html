@@ -72,7 +72,7 @@
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td style="width:5%"> {{transIndex(i)}}</td>
                                         <td>
-                                            <span>{{record.orderNo}}</span>
+                                            <span [title]="record.orderNo">{{record.orderNo}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.payAmount}}</span>

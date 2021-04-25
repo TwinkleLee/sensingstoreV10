@@ -31,7 +31,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-3"
                                                             style="position:relative;top:5px;">
-                                                            <label class="m-checkbox checkbox-primary"
+                                                            <label class="checkbox checkbox-primary"
                                                                 style="position:relative;top:0;">
                                                                 <input
                                                                     [(ngModel)]="AwardSetting.isEnableWhiteUser"
@@ -43,7 +43,7 @@
 
                                                         <div class="form-group col-3"
                                                             style="position:relative;top:5px;">
-                                                            <label class="m-checkbox checkbox-primary"
+                                                            <label class="checkbox checkbox-primary"
                                                                 style="position:relative;top:0;">
                                                                 <input
                                                                     [(ngModel)]="AwardSetting.isEnableBlackUser"
@@ -70,7 +70,7 @@
                                                         <div class="form-group col-3"
                                                             style="position:relative;top:5px;">
                                                             <label style="display:block;">&nbsp;</label>
-                                                            <label class="m-checkbox checkbox-primary"
+                                                            <label class="checkbox checkbox-primary"
                                                                 style="position:relative;top:0;">
                                                                 <input
                                                                     [(ngModel)]="AwardSetting.isAllowedRepeatAward"
@@ -83,7 +83,7 @@
                                                             *ngIf="AwardSetting.isAllowedRepeatAward"
                                                             style="position:relative;top:5px;">
                                                             <label style="display:block;">&nbsp;</label>
-                                                            <label class="m-checkbox checkbox-primary"
+                                                            <label class="checkbox checkbox-primary"
                                                                 style="position:relative;top:0;">
                                                                 <input
                                                                     [(ngModel)]="AwardSetting.isAwardType"
@@ -118,7 +118,7 @@
                                                         <div class="form-group col-3"
                                                             style="position:relative;top:5px;">
                                                             <label style="display:block;">&nbsp;</label>
-                                                            <label class="m-checkbox checkbox-primary"
+                                                            <label class="checkbox checkbox-primary"
                                                                 style="position:relative;top:0;">
                                                                 <input
                                                                     [(ngModel)]="AwardSetting.isAllowedShareGetLotteryTimes"
@@ -287,9 +287,9 @@
                                                                                     <td *ngIf="record.type==0">
                                                                                         {{l('Coupon')}}</td>
                                                                                     <td *ngIf="record.type==1">
-                                                                                        {{l('Products')}}</td>
+                                                                                        {{l('Product')}}</td>
                                                                                     <td *ngIf="record.type==2">
-                                                                                        {{l('ThankYou')}}</td>
+                                                                                        {{l('Placeholder')}}</td>
                                                                                     <td>{{record.rate}}</td>
                                                                                 </tr>
                                                                             </ng-template>

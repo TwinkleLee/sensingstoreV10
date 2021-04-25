@@ -64,7 +64,7 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
     }
     generateAll() {
         if (this.rfidList.length == 0) {
-            return
+            return this.message.warn(this.l('atLeastChoseOneItem'));
         }
         console.log(this.skuId)
         var promptMsg = prompt("请输入格式配置", JSON.stringify({

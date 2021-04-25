@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
-import { AdsPackageServiceProxy, AddOrUpdateAdsPackageInput, AuditStatus, AdPackageBindingDto, AdPackageDto, AdDto, GetPackageDto, AdPlayInfoDto } from '@shared/service-proxies/service-proxies-ads';
+import { FileType,AdsPackageServiceProxy, AddOrUpdateAdsPackageInput, AuditStatus, AdPackageBindingDto, AdPackageDto, AdDto, GetPackageDto, AdPlayInfoDto } from '@shared/service-proxies/service-proxies-ads';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
@@ -43,6 +43,8 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
 
     pointList: any = [];
     routeList: any = [];
+
+    FileType = FileType;
 
     operation: string = "add";
     record?: AddOrUpdateAdsPackageInput;

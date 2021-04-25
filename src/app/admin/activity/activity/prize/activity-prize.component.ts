@@ -8,7 +8,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 
-import { ActivityServiceProxy, AwardMessageSettingsInput, AwardServiceProxy, SpecialUserServiceProxy, AwardSettingsDto, HtmlTemplateServiceProxy, AwardMessageSettingsDto, TemplateEnum } from '@shared/service-proxies/service-proxies5';
+import { AwardType,ActivityServiceProxy, AwardMessageSettingsInput, AwardServiceProxy, SpecialUserServiceProxy, AwardSettingsDto, HtmlTemplateServiceProxy, AwardMessageSettingsDto, TemplateEnum } from '@shared/service-proxies/service-proxies5';
 import { CreateOrEditPrizeModalComponent } from '@app/admin/activity/activity/prize/operation/create-or-edit-prize.component'
 import { CreateOrEditWhiteListModalComponent } from '@app/admin/activity/activity/prize/operation/create-or-edit-white-list.component'
 import { finalize } from 'rxjs/operators';
@@ -45,6 +45,7 @@ export class ActivityPrizeComponent extends AppComponentBase {
   templateList = [];
   Message: any = {};
   messageBusy = false;
+  AwardType = AwardType;
 
   deviceId;
   activityName;

@@ -108,7 +108,7 @@
                       {{record.ad.name}}
                     </td>
                     <td>
-                      {{record.ad.resourceType}}
+                      <span>{{l(FileType[record.ad.resourceType])}}</span>
                     </td>
                     <!-- customTheme=='kewosi'&& -->
                     <td *ngIf="_record.isLocationBased">
