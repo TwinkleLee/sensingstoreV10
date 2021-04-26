@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="col-2">
                                     <div class="form-group align-items-center">
-                                        <label>&nbsp;</label>
+                                        <label>{{l('DeviceStatus')}}</label>
 
                                         <div class="input-group">
                                             <select class="form-control" [(ngModel)]="status" name="status">
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="col-2" *ngIf="!appSession.tenant">
                                     <div class="form-group align-items-center">
-                                        <label>&nbsp;</label>
+                                        <label>{{l('DeviceStatus')}}</label>
 
                                         <div class="input-group">
                                             <select class="form-control" [(ngModel)]="tenantId" name="tenantId" [disabled]="!tenants">

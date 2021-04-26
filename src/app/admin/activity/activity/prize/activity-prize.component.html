@@ -284,12 +284,8 @@
                                                                                     <td>{{record.awardSeq}}</td>
                                                                                     <td>{{record.planQty}}</td>
                                                                                     <td>{{record.actualQty}}</td>
-                                                                                    <td *ngIf="record.type==0">
-                                                                                        {{l('Coupon')}}</td>
-                                                                                    <td *ngIf="record.type==1">
-                                                                                        {{l('Product')}}</td>
-                                                                                    <td *ngIf="record.type==2">
-                                                                                        {{l('Placeholder')}}</td>
+                                                                                    <td>
+                                                                                        {{l(record.type)}}</td>
                                                                                     <td>{{record.rate}}</td>
                                                                                 </tr>
                                                                             </ng-template>

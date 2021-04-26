@@ -148,6 +148,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
             });
     }
     close(): void {
+        this.selectProperty = {};
         this.active = false;
         this.sku = new CreateSkuInput();
         this.modal.hide();
