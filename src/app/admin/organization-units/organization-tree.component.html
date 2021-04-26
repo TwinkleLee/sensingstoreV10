@@ -6,14 +6,14 @@
             </span>
         </h3>
         <div class="card-toolbar">
-            <div class="input-group" style="width:50%;">
+            <!-- <div class="input-group" style="width:50%;">
                 <input autoFocus [(ngModel)]="filterText" name="filterText" class="form-control" placeholder="{{l('SearchWithThreeDot')}}"
                     type="text">
                 <span class="input-group-btn">
                     <button (click)="doFilter()" class="btn btn-primary" type="button" style="margin-top:0;margin-bottom:0;margin-right:0.5rem;"><i
                             class="flaticon-search-1" [attr.aria-label]="l('Search')"></i></button>
                 </span>
-            </div>
+            </div> -->
             <button *ngIf="'Pages.Administration.OrganizationUnits.ManageOrganizationTree' | permission" (click)="manageOutype()" class="btn btn-primary">
                 <i class="fa fa-plus"></i> {{"type" | localize}}
             </button>
