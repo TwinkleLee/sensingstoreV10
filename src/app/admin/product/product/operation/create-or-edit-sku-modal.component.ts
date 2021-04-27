@@ -20,7 +20,7 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditSkuModalComponent extends AppComponentBase implements AfterViewChecked,OnInit {
 
     @ViewChild('nameInput',{static:true}) nameInput: ElementRef;
-    @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+    @ViewChild('createOrEditModal',{static:false}) modal: ModalDirective;
 
     @Input("editable") editable:boolean=true;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -69,6 +69,8 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
          /**
          * 待优化 : 当前使用获取1000条格式 然后过滤出是否显图属性
          */
+        
+
         this._prodService.getPropertiesByProductId(this.sku.productId).subscribe((result) => {
             this.propertyList = result;
             this.propertyList.filter((item, index, ary) => {
@@ -78,10 +80,14 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
                 }
             })
         })
+        
         this.mainPropertyIds = [];
         this.addPropertyList=[];
         this.selectProperty = {};
         this.modal.show();
+
+
+        console.log("propertyValues" + this.mainProperty.propertyValues)
     }
 
     onShown(): void {
@@ -148,7 +154,12 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
             });
     }
     close(): void {
+        this.propertyList = [];
+        this.mainPropertyIds = [];
         this.selectProperty = {};
+        this.mainProperty.propertyValues = [];
+
+
         this.active = false;
         this.sku = new CreateSkuInput();
         this.modal.hide();

@@ -3,7 +3,7 @@ import { ModalDirective,  } from '@node_modules/ngx-bootstrap/modal';
 import { TabsetComponent } from '@node_modules/ngx-bootstrap/tabs';
 
 
-import { ProductServiceProxy, UpdateProductInput, TagServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, ProductCategoryServiceProxy, TagType as Type,ProductPointRule,RedeemRule,AwardRule } from '@shared/service-proxies/service-proxies-product';
+import { ProductServiceProxy, RedeemType,UpdateProductInput, TagServiceProxy, ApplyServiceProxy, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyWanted as CreateApplyFormInputWanted, ProductCategoryServiceProxy, TagType as Type,ProductPointRule,RedeemRule,AwardRule } from '@shared/service-proxies/service-proxies-product';
 
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -42,7 +42,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
 
     //sku
     @ViewChild('paginatorSku',{static:true}) paginator: Paginator;
-    @ViewChild('createOrEditSkuModal',{static:true}) createOrEditSkuModal: CreateOrEditSkuModalComponent;
+    @ViewChild('createOrEditSkuModal',{static:false}) createOrEditSkuModal: CreateOrEditSkuModalComponent;
     // @ViewChild('BrandCombobox') brandComboboxElement: ElementRef;
     @ViewChild('TableCheckbox',{static:true}) TableCheckbox: TableCheckbox;
     skuPrimeng: PrimengTableHelper = new PrimengTableHelper();
@@ -182,7 +182,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
                 this.product.pointRule = new ProductPointRule({
                     "redeemRule": new RedeemRule( {
                         "pointRedeemable": false,
-                        "redeemType": 1,
+                        "redeemType": RedeemType[1],
                         "redeemAmount": 0,
                         "cashAmount": 0
                       }),

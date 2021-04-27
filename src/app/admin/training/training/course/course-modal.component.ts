@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { CourseServiceProxy, CreateCourseInput, UpdateCourseInput } from '@shared/service-proxies/service-proxies5';
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 
 @Component({
     selector: 'courseModal',

@@ -175,10 +175,13 @@
 
                         <div class="form-group col-6">
                             <label>{{l("Brand")}}</label>
-                            <select [(ngModel)]="organizationUnit.brandId" name="brandId" class="form-control">
-                                <option value="">{{l("None")}}</option>
-                                <option [value]="brand.id" *ngFor="let brand of brandList">{{brand.name}}</option>
-                            </select>
+
+                            <p-autoComplete [(ngModel)]="singleBrand" [suggestions]="brandSuggestions"
+                                (completeMethod)="brandFilter($event)" field="value" [placeholder]="l('Brand')"
+                                dataKey="id" [dropdown]="true" (onSelect)="assignBrand()" (onUnselect)="assignBrand()"
+                                [minLength]="1" [multiple]="false" name="brandId" inputStyleClass="form-control"
+                                styleClass="width-percent-100">
+                            </p-autoComplete>
                         </div>
 
                         <!-- <div class="col-12">

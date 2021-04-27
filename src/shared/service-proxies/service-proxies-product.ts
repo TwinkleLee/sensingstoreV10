@@ -2015,6 +2015,74 @@ export class IdentityServiceProxy {
 }
 
 @Injectable()
+export class ImportProductsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+    }
+
+    /**
+     * @param isAutoOffLine (optional) 
+     * @return Success
+     */
+    importProductByZip(isAutoOffLine: boolean | undefined): Observable<ImportProductResultDto> {
+        let url_ = this.baseUrl + "/ImportProducts/ImportProductByZip?";
+        if (isAutoOffLine === null)
+            throw new Error("The parameter 'isAutoOffLine' cannot be null.");
+        else if (isAutoOffLine !== undefined)
+            url_ += "isAutoOffLine=" + encodeURIComponent("" + isAutoOffLine) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processImportProductByZip(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processImportProductByZip(<any>response_);
+                } catch (e) {
+                    return <Observable<ImportProductResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ImportProductResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processImportProductByZip(response: HttpResponseBase): Observable<ImportProductResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ImportProductResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ImportProductResultDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class LikeInfoServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -12314,8 +12382,8 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
-                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
@@ -12375,8 +12443,8 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
-                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
@@ -12424,8 +12492,8 @@ export class SensingShopServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    getproductCategories(tenantId: number | undefined, body: GetShopProductCategoriesInput | undefined): Observable<ProductCategoryDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetproductCategories";
+    getProductCategories(tenantId: number | undefined, body: GetShopProductCategoriesInput | undefined): Observable<ProductCategoryDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/GetProductCategories";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -12435,18 +12503,18 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetproductCategories(response_);
+            return this.processGetProductCategories(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetproductCategories(<any>response_);
+                    return this.processGetProductCategories(<any>response_);
                 } catch (e) {
                     return <Observable<ProductCategoryDtoPagedResultDto>><any>_observableThrow(e);
                 }
@@ -12455,7 +12523,7 @@ export class SensingShopServiceProxy {
         }));
     }
 
-    protected processGetproductCategories(response: HttpResponseBase): Observable<ProductCategoryDtoPagedResultDto> {
+    protected processGetProductCategories(response: HttpResponseBase): Observable<ProductCategoryDtoPagedResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -12536,6 +12604,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取商城里面的SKU信息
      * @param tenantId (optional) 
      * @param body (optional) 
      * @return Success
@@ -12551,7 +12620,7 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
@@ -12598,6 +12667,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取商城里面的单个SPU信息
      * @param tenantId (optional) 
      * @param productId (optional) 
      * @return Success
@@ -12607,14 +12677,14 @@ export class SensingShopServiceProxy {
         if (productId === null)
             throw new Error("The parameter 'productId' cannot be null.");
         else if (productId !== undefined)
-            url_ += "ProductId=" + encodeURIComponent("" + productId) + "&";
+            url_ += "productId=" + encodeURIComponent("" + productId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
                 "Accept": "text/plain"
             })
         };
@@ -12656,6 +12726,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取商城的配置信息
      * @param tenantId (optional) 
      * @return Success
      */
@@ -12716,12 +12787,12 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取线上商城的基本信息
      * @param tenantId (optional) 
      * @param memberId (optional) 
-     * @param storeId (optional) 
      * @return Success
      */
-    getShopBasicInformations(tenantId: number | undefined, memberId: number | undefined, storeId: number | undefined): Observable<BasicShopDto> {
+    getShopBasicInformations(tenantId: number | undefined, memberId: number | undefined): Observable<BasicShopDto> {
         let url_ = this.baseUrl + "/api/services/app/SensingShop/GetShopBasicInformations";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -12729,9 +12800,8 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
-                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
-                "StoreId": storeId !== undefined && storeId !== null ? "" + storeId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
                 "Accept": "text/plain"
             })
         };
@@ -12830,7 +12900,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
-     * 获取猜你喜欢
+     * 获取会员的猜你喜欢
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param body (optional) 
@@ -12847,8 +12917,8 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
-                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
@@ -12957,6 +13027,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 添加或删除购物车信息
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param body (optional) 
@@ -12973,8 +13044,8 @@ export class SensingShopServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "TenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
-                "MemberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
@@ -13021,6 +13092,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 删除购物撤信息
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param body (optional) 
@@ -13077,6 +13149,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取商城内的集合信息
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @return Success
@@ -13132,6 +13205,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 添加或删除集合信息
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param body (optional) 
@@ -13196,6 +13270,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 商城内主推的的商品
      * @param tenantId (optional) 
      * @param body (optional) 
      * @return Success
@@ -13254,6 +13329,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取运费的信息
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param body (optional) 
@@ -13314,6 +13390,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 创建商品的评价
      * @param tenantId (optional) 
      * @param storeId (optional) 
      * @param memberId (optional) 
@@ -13376,6 +13453,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 更新Sku的RFID的售卖信息
      * @param tenantId (optional) 
      * @param rfidCode (optional) 
      * @return Success
@@ -13434,6 +13512,7 @@ export class SensingShopServiceProxy {
     }
 
     /**
+     * 获取rfid信息的状态
      * @param rfidCodes (optional) 
      * @return Success
      */
@@ -13487,6 +13566,62 @@ export class SensingShopServiceProxy {
             }));
         }
         return _observableOf<RfidCodeStateDto>(<any>null);
+    }
+
+    /**
+     * @param number (optional) 
+     * @return Success
+     */
+    sendRegisterMessage(number: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/SendRegisterMessage?";
+        if (number === null)
+            throw new Error("The parameter 'number' cannot be null.");
+        else if (number !== undefined)
+            url_ += "Number=" + encodeURIComponent("" + number) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSendRegisterMessage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSendRegisterMessage(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSendRegisterMessage(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
     }
 }
 
@@ -16885,25 +17020,26 @@ export interface IApplyFormDtoPagedResultDto {
 }
 
 export enum ApplyFormType {
-    Product = 0,
-    Ads = 1,
-    App = 2,
-    Device = 3,
-    Sku = 4,
-    Coupon = 5,
-    Brand = 6,
+    Product = "Product",
+    Ads = "Ads",
+    App = "App",
+    Device = "Device",
+    Sku = "Sku",
+    Coupon = "Coupon",
+    Brand = "Brand",
+    UXPage = "UXPage",
 }
 
 export enum ApplyStatus {
-    Applied = 0,
-    Cancel = 1,
-    Accepted = 2,
-    Rejected = 3,
+    Applied = "Applied",
+    Cancel = "Cancel",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
 }
 
 export enum ApplyWanted {
-    Online = 0,
-    Offline = 1,
+    Online = "Online",
+    Offline = "Offline",
 }
 
 export class AreaModel implements IAreaModel {
@@ -17011,8 +17147,8 @@ export interface IAuditApplyFormInput {
 }
 
 export enum AuditStatus {
-    Offline = 0,
-    Online = 1,
+    Offline = "Offline",
+    Online = "Online",
 }
 
 export class AwardRule implements IAwardRule {
@@ -17061,6 +17197,7 @@ export class BasicShopDto implements IBasicShopDto {
     shopCategoryDtos!: ShopCategoryDto[] | undefined;
     shopTagDtos!: ShopTagDto[] | undefined;
     shopCarThings!: number | undefined;
+    position!: PositionDto;
 
     constructor(data?: IBasicShopDto) {
         if (data) {
@@ -17090,6 +17227,7 @@ export class BasicShopDto implements IBasicShopDto {
                     this.shopTagDtos!.push(ShopTagDto.fromJS(item));
             }
             this.shopCarThings = _data["shopCarThings"];
+            this.position = _data["position"] ? PositionDto.fromJS(_data["position"]) : <any>undefined;
         }
     }
 
@@ -17119,6 +17257,7 @@ export class BasicShopDto implements IBasicShopDto {
                 data["shopTagDtos"].push(item.toJSON());
         }
         data["shopCarThings"] = this.shopCarThings;
+        data["position"] = this.position ? this.position.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -17129,6 +17268,7 @@ export interface IBasicShopDto {
     shopCategoryDtos: ShopCategoryDto[] | undefined;
     shopTagDtos: ShopTagDto[] | undefined;
     shopCarThings: number | undefined;
+    position: PositionDto;
 }
 
 export class BindProductWithShopFreightInput implements IBindProductWithShopFreightInput {
@@ -17440,9 +17580,9 @@ export interface ICargoInfoForWeimobActivityDto {
 }
 
 export enum CargoType {
-    Product = 0,
-    Sku = 1,
-    Award = 2,
+    Product = "Product",
+    Sku = "Sku",
+    Award = "Award",
 }
 
 export class CouponDto implements ICouponDto {
@@ -19878,12 +20018,12 @@ export interface IDeviceSkusDtoPagedResultDto {
 }
 
 export enum DiscountType {
-    Voucher = 0,
-    Discount = 1,
+    Voucher = "Voucher",
+    Discount = "Discount",
 }
 
 export enum DownloadType {
-    Excel = 0,
+    Excel = "Excel",
 }
 
 export class EntityFileDto implements IEntityFileDto {
@@ -20157,9 +20297,9 @@ export interface IExportMissionInput {
 }
 
 export enum ExportMissionStatus {
-    Acting = 0,
-    Success = 1,
-    Failed = 2,
+    Acting = "Acting",
+    Success = "Success",
+    Failed = "Failed",
 }
 
 export class ExportTaskDto implements IExportTaskDto {
@@ -23120,6 +23260,94 @@ export interface IIdTypeDto {
     type: string | undefined;
 }
 
+export class ImportProductResultDto implements IImportProductResultDto {
+    importResult!: string | undefined;
+    canNotFindImages!: string[] | undefined;
+    canNotFindSpus!: string[] | undefined;
+    canNotFindSkus!: string[] | undefined;
+    succeedCode!: string[] | undefined;
+    importState!: boolean;
+
+    constructor(data?: IImportProductResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.importResult = _data["importResult"];
+            if (Array.isArray(_data["canNotFindImages"])) {
+                this.canNotFindImages = [] as any;
+                for (let item of _data["canNotFindImages"])
+                    this.canNotFindImages!.push(item);
+            }
+            if (Array.isArray(_data["canNotFindSpus"])) {
+                this.canNotFindSpus = [] as any;
+                for (let item of _data["canNotFindSpus"])
+                    this.canNotFindSpus!.push(item);
+            }
+            if (Array.isArray(_data["canNotFindSkus"])) {
+                this.canNotFindSkus = [] as any;
+                for (let item of _data["canNotFindSkus"])
+                    this.canNotFindSkus!.push(item);
+            }
+            if (Array.isArray(_data["succeedCode"])) {
+                this.succeedCode = [] as any;
+                for (let item of _data["succeedCode"])
+                    this.succeedCode!.push(item);
+            }
+            this.importState = _data["importState"];
+        }
+    }
+
+    static fromJS(data: any): ImportProductResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ImportProductResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["importResult"] = this.importResult;
+        if (Array.isArray(this.canNotFindImages)) {
+            data["canNotFindImages"] = [];
+            for (let item of this.canNotFindImages)
+                data["canNotFindImages"].push(item);
+        }
+        if (Array.isArray(this.canNotFindSpus)) {
+            data["canNotFindSpus"] = [];
+            for (let item of this.canNotFindSpus)
+                data["canNotFindSpus"].push(item);
+        }
+        if (Array.isArray(this.canNotFindSkus)) {
+            data["canNotFindSkus"] = [];
+            for (let item of this.canNotFindSkus)
+                data["canNotFindSkus"].push(item);
+        }
+        if (Array.isArray(this.succeedCode)) {
+            data["succeedCode"] = [];
+            for (let item of this.succeedCode)
+                data["succeedCode"].push(item);
+        }
+        data["importState"] = this.importState;
+        return data; 
+    }
+}
+
+export interface IImportProductResultDto {
+    importResult: string | undefined;
+    canNotFindImages: string[] | undefined;
+    canNotFindSpus: string[] | undefined;
+    canNotFindSkus: string[] | undefined;
+    succeedCode: string[] | undefined;
+    importState: boolean;
+}
+
 export class Int32IdNameDto implements IInt32IdNameDto {
     id!: number;
     name!: string | undefined;
@@ -23997,73 +24225,73 @@ export interface INameValueDto {
 }
 
 export enum OnlineStore {
-    MyStore = 0,
-    Taobao = 1,
-    JD = 2,
-    Suning = 3,
-    Shangpai = 4,
-    Baisheng_Openshop = 5,
-    Amazon = 6,
-    Amazonedi = 7,
-    Yihaodian = 8,
-    Dangdang = 9,
-    Baisheng_Encm = 10,
-    Vjia = 11,
-    Yougou = 12,
-    Yintai = 13,
-    Jumei = 14,
-    Weigou = 15,
-    M18 = 16,
-    Baisheng_Ishop = 17,
-    Taobao_Fenxiao = 18,
-    Baisheng_Icrm = 19,
-    Baisheng_M6 = 20,
-    Koudaitong = 21,
-    Feiniu = 22,
-    Feiniu_zd = 23,
-    Suning_hwg = 24,
-    Jingdong_qqg = 25,
-    Weimeng = 26,
-    Magento = 27,
-    Icbc = 28,
-    Juanpi = 29,
-    Xiaodian = 30,
-    Zhe800 = 31,
-    Kaola = 32,
-    Beibei = 33,
-    Paipai = 34,
-    Baidu = 35,
-    Chuchujie = 36,
-    Guomei = 37,
-    Mogujie = 38,
-    Alibaba = 39,
-    Cbc = 40,
-    Hichao = 41,
-    Mengdian = 42,
-    Mia = 43,
-    Renren = 44,
-    Aliexpress = 45,
-    Shangpin = 46,
-    Okbuy = 47,
-    Pinduoduo = 48,
-    Qiake = 49,
-    Wangyi = 50,
-    Lefeng = 51,
-    EBay = 52,
-    Xindan = 53,
-    Weipinhui = 54,
-    Weipinhui_jit = 55,
-    ECSHOP = 56,
-    ZhinengmendianPad = 57,
-    ProductApp = 58,
-    Youhuo = 59,
-    Shimao = 60,
-    Zhenpin = 61,
-    Yunji = 62,
-    Haiziwang = 63,
-    Siku = 64,
-    Suning_temai = 65,
-    Yike = 66,
+    MyStore = "MyStore",
+    Taobao = "Taobao",
+    JD = "JD",
+    Suning = "Suning",
+    Shangpai = "Shangpai",
+    Baisheng_Openshop = "Baisheng_Openshop",
+    Amazon = "Amazon",
+    Amazonedi = "Amazonedi",
+    Yihaodian = "Yihaodian",
+    Dangdang = "Dangdang",
+    Baisheng_Encm = "Baisheng_Encm",
+    Vjia = "Vjia",
+    Yougou = "Yougou",
+    Yintai = "Yintai",
+    Jumei = "Jumei",
+    Weigou = "Weigou",
+    M18 = "M18",
+    Baisheng_Ishop = "Baisheng_Ishop",
+    Taobao_Fenxiao = "Taobao_Fenxiao",
+    Baisheng_Icrm = "Baisheng_Icrm",
+    Baisheng_M6 = "Baisheng_M6",
+    Koudaitong = "Koudaitong",
+    Feiniu = "Feiniu",
+    Feiniu_zd = "Feiniu_zd",
+    Suning_hwg = "Suning_hwg",
+    Jingdong_qqg = "Jingdong_qqg",
+    Weimeng = "Weimeng",
+    Magento = "Magento",
+    Icbc = "Icbc",
+    Juanpi = "Juanpi",
+    Xiaodian = "Xiaodian",
+    Zhe800 = "Zhe800",
+    Kaola = "Kaola",
+    Beibei = "Beibei",
+    Paipai = "Paipai",
+    Baidu = "Baidu",
+    Chuchujie = "Chuchujie",
+    Guomei = "Guomei",
+    Mogujie = "Mogujie",
+    Alibaba = "Alibaba",
+    Cbc = "Cbc",
+    Hichao = "Hichao",
+    Mengdian = "Mengdian",
+    Mia = "Mia",
+    Renren = "Renren",
+    Aliexpress = "Aliexpress",
+    Shangpin = "Shangpin",
+    Okbuy = "Okbuy",
+    Pinduoduo = "Pinduoduo",
+    Qiake = "Qiake",
+    Wangyi = "Wangyi",
+    Lefeng = "Lefeng",
+    EBay = "eBay",
+    Xindan = "Xindan",
+    Weipinhui = "Weipinhui",
+    Weipinhui_jit = "Weipinhui_jit",
+    ECSHOP = "ECSHOP",
+    ZhinengmendianPad = "ZhinengmendianPad",
+    ProductApp = "ProductApp",
+    Youhuo = "Youhuo",
+    Shimao = "Shimao",
+    Zhenpin = "Zhenpin",
+    Yunji = "Yunji",
+    Haiziwang = "Haiziwang",
+    Siku = "Siku",
+    Suning_temai = "Suning_temai",
+    Yike = "Yike",
 }
 
 export class OnlineStoreInfoViewModel implements IOnlineStoreInfoViewModel {
@@ -24203,9 +24431,9 @@ export interface IOutPutInStorageSku {
 }
 
 export enum OutPutInStorageType {
-    Out = 0,
-    Put = 1,
-    Check = 2,
+    Out = "Out",
+    Put = "Put",
+    Check = "Check",
 }
 
 export class PayCashPointRule implements IPayCashPointRule {
@@ -24404,16 +24632,11 @@ export class PositionDto implements IPositionDto {
     id!: number | undefined;
     state!: string | undefined;
     area!: string | undefined;
-    /** 省份 */
     province!: string | undefined;
-    /** 城市 */
     city!: string | undefined;
-    /** 县区 */
     county!: string | undefined;
-    /** 详细地址 */
     location!: string | undefined;
     longitude!: number | undefined;
-    /** 纬度 */
     latitude!: number | undefined;
     code!: string | undefined;
     zipCode!: string | undefined;
@@ -24471,16 +24694,11 @@ export interface IPositionDto {
     id: number | undefined;
     state: string | undefined;
     area: string | undefined;
-    /** 省份 */
     province: string | undefined;
-    /** 城市 */
     city: string | undefined;
-    /** 县区 */
     county: string | undefined;
-    /** 详细地址 */
     location: string | undefined;
     longitude: number | undefined;
-    /** 纬度 */
     latitude: number | undefined;
     code: string | undefined;
     zipCode: string | undefined;
@@ -26133,9 +26351,9 @@ export interface IProductTagAndCategoryDto {
 }
 
 export enum PromotionTypeEnum {
-    InShop = 0,
-    InGroup = 1,
-    InProduct = 2,
+    InShop = "InShop",
+    InGroup = "InGroup",
+    InProduct = "InProduct",
 }
 
 export class PropertyDto implements IPropertyDto {
@@ -26889,9 +27107,9 @@ export interface IRedeemRule {
 }
 
 export enum RedeemType {
-    None = 0,
-    Full = 1,
-    Partial = 2,
+    None = "None",
+    Full = "Full",
+    Partial = "Partial",
 }
 
 export class ResViewModel implements IResViewModel {
@@ -27693,8 +27911,8 @@ export interface IShopCollectionDtoPagedResultDto {
 }
 
 export enum ShopFreightBindingType {
-    Calculate = 0,
-    Fixed = 1,
+    Calculate = "Calculate",
+    Fixed = "Fixed",
 }
 
 export class ShopFreightDto implements IShopFreightDto {
@@ -27842,13 +28060,13 @@ export interface IShopFreightDtoPagedResultDto {
 }
 
 export enum ShopFreightStatus {
-    Offline = 0,
-    Online = 1,
+    Offline = "Offline",
+    Online = "Online",
 }
 
 export enum ShopFreightType {
-    ByNumber = 0,
-    ByWeight = 1,
+    ByNumber = "ByNumber",
+    ByWeight = "ByWeight",
 }
 
 export class ShopLikeInfosDto implements IShopLikeInfosDto {
@@ -28454,14 +28672,14 @@ export interface IShopSliderDtoPagedResultDto {
 }
 
 export enum ShopStatus {
-    Stopped = 0,
-    Running = 1,
+    Stopped = "Stopped",
+    Running = "Running",
 }
 
 export enum ShopTag {
-    Left = 0,
-    Top = 1,
-    Bottom = 2,
+    Left = "Left",
+    Top = "Top",
+    Bottom = "Bottom",
 }
 
 export class ShopTagDto implements IShopTagDto {
@@ -30643,22 +30861,23 @@ export interface ITagSdkModelPagedResultDto {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
 }
 
 export enum TakeType {
-    UserTake = 0,
-    ManagerGrant = 1,
-    RegisterAutoGrant = 2,
-    GameAutoGrant = 3,
+    UserTake = "UserTake",
+    ManagerGrant = "ManagerGrant",
+    RegisterAutoGrant = "RegisterAutoGrant",
+    GameAutoGrant = "GameAutoGrant",
 }
 
 /** 输入字段 */
@@ -30748,8 +30967,8 @@ export interface IThingDto {
 }
 
 export enum TicketType {
-    Voucher = 0,
-    Discount = 1,
+    Voucher = "Voucher",
+    Discount = "Discount",
 }
 
 export class TicketUseCondition implements ITicketUseCondition {

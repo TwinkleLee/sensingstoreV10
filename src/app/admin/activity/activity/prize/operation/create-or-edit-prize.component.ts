@@ -60,8 +60,9 @@ export class CreateOrEditPrizeModalComponent extends AppComponentBase implements
     if (Template) {
       this.operation = "edit";
       this.Prize = new UpdateAwardInput(Template);
-      if (this.Prize.type == 0) {
+      if (this.Prize.type == 'Coupon') {
         var coupon = this.couponList.find(item => item.url == this.Prize.couponUrl);
+        console.log(coupon)
         this.Prize.couponUrl = coupon && coupon.id;
       }
       console.log(this.Prize)

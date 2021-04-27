@@ -548,6 +548,7 @@ export class GcodeConvertServiceProxy {
      * @param signatureImage (optional) 
      * @param strokeFile (optional) 
      * @param strokes (optional) 
+     * @param strokeJson (optional) 
      * @param drawOutline (optional) 
      * @param maxWidth (optional) 
      * @param maxHeight (optional) 
@@ -556,7 +557,7 @@ export class GcodeConvertServiceProxy {
      * @param borderSpeed (optional) 
      * @return Success
      */
-    convertStrokeToGcode(canvasWidth: number | undefined, canvasHeight: number | undefined, signatureImage: FileParameter | undefined, strokeFile: FileParameter | undefined, strokes: PointF[][] | undefined, drawOutline: boolean | undefined, maxWidth: number | undefined, maxHeight: number | undefined, offsetX: number | undefined, offsetY: number | undefined, borderSpeed: number | undefined): Observable<TinyFileOutput> {
+    convertStrokeToGcode(canvasWidth: number | undefined, canvasHeight: number | undefined, signatureImage: FileParameter | undefined, strokeFile: FileParameter | undefined, strokes: PointF[][] | undefined, strokeJson: string | undefined, drawOutline: boolean | undefined, maxWidth: number | undefined, maxHeight: number | undefined, offsetX: number | undefined, offsetY: number | undefined, borderSpeed: number | undefined): Observable<TinyFileOutput> {
         let url_ = this.baseUrl + "/api/GcodeConvert/ConvertStrokeToGcode";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -581,6 +582,10 @@ export class GcodeConvertServiceProxy {
             throw new Error("The parameter 'strokes' cannot be null.");
         else
             strokes.forEach(item_ => content_.append("Strokes", item_.toString()));
+        if (strokeJson === null || strokeJson === undefined)
+            throw new Error("The parameter 'strokeJson' cannot be null.");
+        else
+            content_.append("StrokeJson", strokeJson.toString());
         if (drawOutline === null || drawOutline === undefined)
             throw new Error("The parameter 'drawOutline' cannot be null.");
         else
@@ -3728,6 +3733,7 @@ export class OrderExtensionServiceProxy {
     }
 }
 
+
 @Injectable()
 export class PayCenterServiceProxy {
     private http: HttpClient;
@@ -5821,174 +5827,6 @@ export class SensingShopServiceProxy {
     }
 
     /**
-     * @return Success
-     */
-    checkOrderConfirm(): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/SensingShop/CheckOrderConfirm";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCheckOrderConfirm(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCheckOrderConfirm(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processCheckOrderConfirm(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    addCustomerMemberFromOnline(body: AddCustomerMemberFromOnlineInput | undefined): Observable<IdNameDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/SensingShop/AddCustomerMemberFromOnline";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAddCustomerMemberFromOnline(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processAddCustomerMemberFromOnline(<any>response_);
-                } catch (e) {
-                    return <Observable<IdNameDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<IdNameDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processAddCustomerMemberFromOnline(response: HttpResponseBase): Observable<IdNameDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(IdNameDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<IdNameDto[]>(<any>null);
-    }
-
-    /**
-     * @param pickNo (optional) 
-     * @param subKey (optional) 
-     * @return Success
-     */
-    usePickNo(pickNo: string | undefined, subKey: string | undefined): Observable<TakeTicketResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/SensingShop/UsePickNo?";
-        if (pickNo === null)
-            throw new Error("The parameter 'pickNo' cannot be null.");
-        else if (pickNo !== undefined)
-            url_ += "pickNo=" + encodeURIComponent("" + pickNo) + "&";
-        if (subKey === null)
-            throw new Error("The parameter 'subKey' cannot be null.");
-        else if (subKey !== undefined)
-            url_ += "subKey=" + encodeURIComponent("" + subKey) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUsePickNo(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUsePickNo(<any>response_);
-                } catch (e) {
-                    return <Observable<TakeTicketResultDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<TakeTicketResultDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUsePickNo(response: HttpResponseBase): Observable<TakeTicketResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TakeTicketResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<TakeTicketResultDto>(<any>null);
-    }
-
-    /**
      * @param body (optional) 
      * @return Success
      */
@@ -6289,12 +6127,12 @@ export class SensingShopServiceProxy {
     /**
      * @param tenantId (optional) 
      * @param memberId (optional) 
-     * @param storeId (optional) 
+     * @param storeOuterId (optional) 
      * @param deviceId (optional) 
      * @param body (optional) 
      * @return Success
      */
-    addOrUpdateWeishopOrder(tenantId: number | undefined, memberId: number | undefined, storeId: string | undefined, deviceId: number | undefined, body: AddOrUpdateWeishopOrderInput | undefined): Observable<number> {
+    addOrUpdateWeishopOrder(tenantId: number | undefined, memberId: number | undefined, storeOuterId: string | undefined, deviceId: number | undefined, body: AddOrUpdateWeishopOrderInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/SensingShop/AddOrUpdateWeishopOrder";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -6307,7 +6145,7 @@ export class SensingShopServiceProxy {
             headers: new HttpHeaders({
                 "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
                 "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
-                "storeId": storeId !== undefined && storeId !== null ? "" + storeId : "",
+                "storeOuterId": storeOuterId !== undefined && storeOuterId !== null ? "" + storeOuterId : "",
                 "deviceId": deviceId !== undefined && deviceId !== null ? "" + deviceId : "",
                 "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
@@ -9912,6 +9750,174 @@ export class SensingShopServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    checkOrderConfirm(): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/CheckOrderConfirm";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCheckOrderConfirm(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCheckOrderConfirm(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCheckOrderConfirm(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addCustomerMemberFromOnline(body: AddCustomerMemberFromOnlineInput | undefined): Observable<IdNameDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/AddCustomerMemberFromOnline";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddCustomerMemberFromOnline(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddCustomerMemberFromOnline(<any>response_);
+                } catch (e) {
+                    return <Observable<IdNameDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<IdNameDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddCustomerMemberFromOnline(response: HttpResponseBase): Observable<IdNameDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(IdNameDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<IdNameDto[]>(<any>null);
+    }
+
+    /**
+     * @param pickNo (optional) 
+     * @param subKey (optional) 
+     * @return Success
+     */
+    usePickNo(pickNo: string | undefined, subKey: string | undefined): Observable<TakeTicketResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingShop/UsePickNo?";
+        if (pickNo === null)
+            throw new Error("The parameter 'pickNo' cannot be null.");
+        else if (pickNo !== undefined)
+            url_ += "pickNo=" + encodeURIComponent("" + pickNo) + "&";
+        if (subKey === null)
+            throw new Error("The parameter 'subKey' cannot be null.");
+        else if (subKey !== undefined)
+            url_ += "subKey=" + encodeURIComponent("" + subKey) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUsePickNo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUsePickNo(<any>response_);
+                } catch (e) {
+                    return <Observable<TakeTicketResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TakeTicketResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUsePickNo(response: HttpResponseBase): Observable<TakeTicketResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TakeTicketResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TakeTicketResultDto>(<any>null);
     }
 }
 
@@ -14971,6 +14977,7 @@ export interface IAddOrUpdateTicketInput {
 
 export class AddOrUpdateWeishopOrderInput implements IAddOrUpdateWeishopOrderInput {
     id!: number | undefined;
+    tenantId!: number | undefined;
     /** 所属OU */
     organizationUnitId!: number | undefined;
     totalFee!: number;
@@ -15008,6 +15015,7 @@ export class AddOrUpdateWeishopOrderInput implements IAddOrUpdateWeishopOrderInp
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.tenantId = _data["tenantId"];
             this.organizationUnitId = _data["organizationUnitId"];
             this.totalFee = _data["totalFee"];
             this.discountFee = _data["discountFee"];
@@ -15046,6 +15054,7 @@ export class AddOrUpdateWeishopOrderInput implements IAddOrUpdateWeishopOrderInp
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["tenantId"] = this.tenantId;
         data["organizationUnitId"] = this.organizationUnitId;
         data["totalFee"] = this.totalFee;
         data["discountFee"] = this.discountFee;
@@ -15077,6 +15086,7 @@ export class AddOrUpdateWeishopOrderInput implements IAddOrUpdateWeishopOrderInp
 
 export interface IAddOrUpdateWeishopOrderInput {
     id: number | undefined;
+    tenantId: number | undefined;
     /** 所属OU */
     organizationUnitId: number | undefined;
     totalFee: number;
@@ -25190,6 +25200,7 @@ export class SkuSaleListDto implements ISkuSaleListDto {
     picUrl!: string | undefined;
     number!: number;
     saleAmout!: number;
+    creationTime!: moment.Moment | undefined;
 
     constructor(data?: ISkuSaleListDto) {
         if (data) {
@@ -25207,6 +25218,7 @@ export class SkuSaleListDto implements ISkuSaleListDto {
             this.picUrl = _data["picUrl"];
             this.number = _data["number"];
             this.saleAmout = _data["saleAmout"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
     }
 
@@ -25224,6 +25236,7 @@ export class SkuSaleListDto implements ISkuSaleListDto {
         data["picUrl"] = this.picUrl;
         data["number"] = this.number;
         data["saleAmout"] = this.saleAmout;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -25237,6 +25250,7 @@ export interface ISkuSaleListDto {
     picUrl: string | undefined;
     number: number;
     saleAmout: number;
+    creationTime: moment.Moment | undefined;
 }
 
 export class SkuSaleListDtoPagedTotalResultDto implements ISkuSaleListDtoPagedTotalResultDto {

@@ -7596,8 +7596,8 @@ export interface IBindTagsToDeviceCounterInput {
 }
 
 export enum CalculateType {
-    Plus = 0,
-    Reduce = 1,
+    Plus = "Plus",
+    Reduce = "Reduce",
 }
 
 /** 获取货道历史掉货记录的返回对象 */
@@ -8241,14 +8241,14 @@ export interface ICargoThingInput {
 }
 
 export enum CargoType {
-    Product = 0,
-    Sku = 1,
-    Award = 2,
+    Product = "Product",
+    Sku = "Sku",
+    Award = "Award",
 }
 
 export enum CargoTypeEnum {
-    Sequence = 0,
-    Random = 1,
+    Sequence = "Sequence",
+    Random = "Random",
 }
 
 /** 修改设备的AppPod版本 */
@@ -8462,10 +8462,10 @@ export interface IChildDeviceDto {
 }
 
 export enum ControlType {
-    Limit = 0,
-    Timing = 1,
-    Manual = 2,
-    Reverse = 3,
+    Limit = "Limit",
+    Timing = "Timing",
+    Manual = "Manual",
+    Reverse = "Reverse",
 }
 
 export class CounterDto implements ICounterDto {
@@ -8677,8 +8677,8 @@ export interface ICounterRecordsDto {
 }
 
 export enum CounterTagRules {
-    Union = 0,
-    Intersection = 1,
+    Union = "Union",
+    Intersection = "Intersection",
 }
 
 /** 创建一个新的AppPod版本信息 */
@@ -9362,10 +9362,10 @@ export interface IDataRecordDto {
 }
 
 export enum DataStatus {
-    Normal = 0,
-    ExceedUpLimit = 1,
-    ExceedDownLimit = 2,
-    Error = 3,
+    Normal = "Normal",
+    ExceedUpLimit = "ExceedUpLimit",
+    ExceedDownLimit = "ExceedDownLimit",
+    Error = "Error",
 }
 
 export class DeviceAgreement implements IDeviceAgreement {
@@ -9809,8 +9809,8 @@ export interface IDeviceDto {
 }
 
 export enum DeviceType {
-    Gateway = 0,
-    Sensor = 1,
+    Gateway = "Gateway",
+    Sensor = "Sensor",
 }
 
 /** 派样机掉货时传入的入参对象 */
@@ -9920,8 +9920,8 @@ export interface IExchangeCargoRoadSkuInput {
 }
 
 export enum GatewayType {
-    Passive = 0,
-    Active = 1,
+    Passive = "Passive",
+    Active = "Active",
 }
 
 export class GetAgreementFileDto implements IGetAgreementFileDto {
@@ -11647,10 +11647,10 @@ export interface IGetWarnningRecordDto {
 }
 
 export enum HandlerStatus {
-    UnHandled = 0,
-    Handled = 1,
-    Ignored = 2,
-    AutoRecover = 3,
+    UnHandled = "UnHandled",
+    Handled = "Handled",
+    Ignored = "Ignored",
+    AutoRecover = "AutoRecover",
 }
 
 export class IdOuterIdValueDto implements IIdOuterIdValueDto {
@@ -12102,10 +12102,10 @@ export interface IOperateRecord {
 }
 
 export enum OsTypeEnum {
-    Windows = 0,
-    Android = 1,
-    IOS = 2,
-    Linux = 3,
+    Windows = "Windows",
+    Android = "Android",
+    IOS = "iOS",
+    Linux = "Linux",
 }
 
 export class PostAgreementFileInput implements IPostAgreementFileInput {
@@ -12213,9 +12213,9 @@ export interface IReplenishCargoThingInput {
 }
 
 export enum ReportCompareType {
-    Day = 0,
-    Week = 1,
-    Month = 2,
+    Day = "Day",
+    Week = "Week",
+    Month = "Month",
 }
 
 export class ReportDataInput implements IReportDataInput {
@@ -12289,17 +12289,17 @@ export interface IReportDataInput {
 }
 
 export enum ReportDataType {
-    Counter = 0,
+    Counter = "Counter",
 }
 
 export enum ReportType {
-    Line = 0,
-    Pie = 1,
-    Bar = 2,
-    Circle = 3,
-    Radar = 4,
-    Polar = 5,
-    Digit = 6,
+    Line = "Line",
+    Pie = "Pie",
+    Bar = "Bar",
+    Circle = "Circle",
+    Radar = "Radar",
+    Polar = "Polar",
+    Digit = "Digit",
 }
 
 export class SensorDto implements ISensorDto {
@@ -12911,8 +12911,8 @@ export interface ISwitchInfo {
 }
 
 export enum SwitchStatus {
-    Off = 0,
-    On = 1,
+    Off = "Off",
+    On = "On",
 }
 
 export class Tag implements ITag {
@@ -13158,15 +13158,15 @@ export interface ITagDtoPagedResultDto {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
 }
 
 /** 更新AppPod版本信息的入参 */

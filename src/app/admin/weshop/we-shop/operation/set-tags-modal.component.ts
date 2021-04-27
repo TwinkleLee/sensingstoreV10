@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { TagServiceProxy} from '@shared/service-proxies/service-proxies-product';
 
-import { ShopServiceProxy, CreateShopTagInput, TagType as Type,UpdateShopTagInput } from '@shared/service-proxies/service-proxies-product'
+import { ShopServiceProxy, ShopTag,CreateShopTagInput, TagType as Type,UpdateShopTagInput } from '@shared/service-proxies/service-proxies-product'
 
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -28,6 +28,8 @@ export class SetTagModalComponent extends AppComponentBase implements AfterViewC
     operation: string = "add";
     tag: any;
     tagList: any = [];
+
+    ShopTag = ShopTag;
 
     constructor(
         injector: Injector,

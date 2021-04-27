@@ -255,7 +255,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType==2">
+                                        <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType==RedeemType[2]">
                                             <div class="form-group">
                                                 <label>{{l("cashAmount")}}</label>
                                                 <input class="form-control" type="number" name="cashAmount" [(ngModel)]="product.pointRule.redeemRule.cashAmount"

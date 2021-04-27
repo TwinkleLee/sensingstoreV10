@@ -51,8 +51,11 @@ export class TrainingListComponent extends AppComponentBase {
   onlyPublishToDevice = false;
   informDevice = false;
   trainingUserId: any = '';
-  startTime: any = moment().utc().subtract(29, 'days').startOf('day');
-  endTime: any = moment().utc().endOf('day');
+  // startTime: any = moment().utc().subtract(29, 'days').startOf('day');
+  // endTime: any = moment().utc().endOf('day');
+  startTime = void 0;
+  endTime = void 0;
+
   lecturers: any = '';
 
   constructor(injector: Injector,

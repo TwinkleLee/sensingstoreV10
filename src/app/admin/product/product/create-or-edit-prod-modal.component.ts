@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { ProductServiceProxy, TagServiceProxy, CreateProductInput, ProductCategoryServiceProxy, TagType as Type, ProductPointRule, RedeemRule, AwardRule } from '@shared/service-proxies/service-proxies-product';
+import { ProductServiceProxy, RedeemType,TagServiceProxy, CreateProductInput, ProductCategoryServiceProxy, TagType as Type, ProductPointRule, RedeemRule, AwardRule } from '@shared/service-proxies/service-proxies-product';
 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
@@ -38,6 +38,10 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
     categoryName: string = '';
     isDetail: boolean = false;
     areaMode: boolean = false;
+
+    RedeemType = RedeemType;
+
+    
     treeConfig: any = {
         'selectable': true,
         'singleSelect': false,
@@ -75,7 +79,7 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
         this.product.pointRule = new ProductPointRule({
             "redeemRule": new RedeemRule({
                 "pointRedeemable": false,
-                "redeemType": 0,
+                "redeemType": RedeemType[0],
                 "redeemAmount": 0,
                 "cashAmount": 0
             }),

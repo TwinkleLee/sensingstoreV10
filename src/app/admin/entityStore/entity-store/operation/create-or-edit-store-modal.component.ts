@@ -10,7 +10,8 @@ import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/se
 
 import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
-import { DateTime } from 'luxon'
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+
 
 @Component({
     selector: 'createOrEditStoreModal',
@@ -46,11 +47,16 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
     lastRooms: any = [];
     roomSuggestions: any = [];
 
+    brandSuggestions: any = [];
+
+    singleBrand: any = {};
+
     constructor(
         injector: Injector,
         private _NewStoreServiceProxy: NewStoreServiceProxy,
         private _changeDetector: ChangeDetectorRef,
-        private _roomServiceProxy: RoomServiceProxy
+        private _roomServiceProxy: RoomServiceProxy,
+        private _BrandServiceProxy: BrandServiceProxy
     ) {
         super(injector);
     }
@@ -142,10 +148,10 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                                 });
 
                                 this.lastRooms.concat(this.rooms)
-
                                 this.modal.show();
                                 this.active = true;
                                 this._changeDetector.detectChanges();
+
                             })
                     })
             } else {
@@ -153,6 +159,25 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 this.active = true;
                 this._changeDetector.detectChanges();
             }
+
+            if (organizationUnit.brandId) {
+                this._BrandServiceProxy.getSingleBrand(organizationUnit.brandId).subscribe(res => {
+                    console.log(res)
+
+                    this.singleBrand = {
+                        id: res.id,
+                        value: res.name
+                    }
+                    this.modal.show();
+                    this.active = true;
+                    this._changeDetector.detectChanges();
+                })
+            } else {
+                this.modal.show();
+                this.active = true;
+                this._changeDetector.detectChanges();
+            }
+
 
         } else {
             this.organizationUnit = {
@@ -182,6 +207,8 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             temp.push(i.id);
         });
         this.organizationUnit.roomIds = JSON.stringify(temp);
+
+        this.organizationUnit.brandId = this.singleBrand.id;
         this.organizationUnit.openingTime = new Date(`2017-01-10T${this.openingTime}:00`);
         this.organizationUnit.closedTime = new Date(`2017-01-10T${this.closedTime}:00`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
@@ -227,9 +254,13 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     updateUnit() {
         var temp: any = [];
+        var tempBrand: any = [];
         this.rooms.forEach(i => {
             temp.push(i.id);
         });
+
+        this.organizationUnit.brandId = this.singleBrand.id;
+
         this.organizationUnit.roomIds = JSON.stringify(temp);
         // this.organizationUnit.openingTime = moment(`2017-12-31T${this.openingTime}:00.000Z`);
         // this.organizationUnit.closedTime = moment(`2017-12-31T${this.closedTime}:00.000Z`);
@@ -285,7 +316,9 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
     close(): void {
         this.rooms = [];
         this.roomSuggestions = [];
+        this.brandSuggestions = [];
         this.buildingId = '';
+        this.singleBrand = {};
         this.organizationUnit = {
             'position': {}
         };
@@ -339,4 +372,25 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             })
         })
     }
+
+    brandFilter(event) {
+        this._BrandServiceProxy.getBrands(
+            void 0,
+            void 0,
+            event.query,
+            void 0,
+            999, 0
+        )
+            .subscribe(result => {
+                this.brandSuggestions = (result.items || []).map((item) => {
+                    return {
+                        'id': item.id,
+                        'value': item.name
+                    }
+                })
+            });
+
+    }
+
+    assignBrand() { }
 }

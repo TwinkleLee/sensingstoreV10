@@ -25,7 +25,7 @@ export class AdServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -1991,7 +1991,7 @@ export class AdsPackageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -2740,7 +2740,7 @@ export class ApplyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -3043,7 +3043,7 @@ export class BatchTaskLogServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -3140,7 +3140,7 @@ export class DeviceAdsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -3537,7 +3537,7 @@ export class DeviceSoftwareServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -3705,7 +3705,7 @@ export class IdentityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -3948,7 +3948,7 @@ export class ImportAdsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -4015,7 +4015,7 @@ export class SensingDeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -4354,7 +4354,7 @@ export class SoftwareServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -5609,7 +5609,7 @@ export class StoreAdsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -5711,7 +5711,7 @@ export class StoreSoftwareServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -5813,7 +5813,7 @@ export class TagServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -6307,7 +6307,7 @@ export class ToolBoxServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -6524,7 +6524,7 @@ export class UXPageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ADS_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8003";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://ads5.sensingstore.com";
     }
 
     /**
@@ -7150,6 +7150,7 @@ export class AddAdResourceFileInput implements IAddAdResourceFileInput {
     id!: number | undefined;
     /** 资源ID */
     resourceItemId!: number;
+    fileUrl!: string | undefined;
     /** 资源用途 */
     usage!: string | undefined;
     /** 描述信息 */
@@ -7178,6 +7179,7 @@ export class AddAdResourceFileInput implements IAddAdResourceFileInput {
         if (_data) {
             this.id = _data["id"];
             this.resourceItemId = _data["resourceItemId"];
+            this.fileUrl = _data["fileUrl"];
             this.usage = _data["usage"];
             this.description = _data["description"];
             this.content = _data["content"];
@@ -7199,6 +7201,7 @@ export class AddAdResourceFileInput implements IAddAdResourceFileInput {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["resourceItemId"] = this.resourceItemId;
+        data["fileUrl"] = this.fileUrl;
         data["usage"] = this.usage;
         data["description"] = this.description;
         data["content"] = this.content;
@@ -7216,6 +7219,7 @@ export interface IAddAdResourceFileInput {
     id: number | undefined;
     /** 资源ID */
     resourceItemId: number;
+    fileUrl: string | undefined;
     /** 资源用途 */
     usage: string | undefined;
     /** 描述信息 */
@@ -9023,8 +9027,8 @@ export interface IAdsTag {
 }
 
 export enum AdsType {
-    Single = 1,
-    Multi = 2,
+    Single = "Single",
+    Multi = "Multi",
 }
 
 export class ApplyFormDto implements IApplyFormDto {
@@ -9164,25 +9168,26 @@ export interface IApplyFormDtoPagedResultDto {
 }
 
 export enum ApplyFormType {
-    Product = 0,
-    Ads = 1,
-    App = 2,
-    Device = 3,
-    Sku = 4,
-    Coupon = 5,
-    Brand = 6,
+    Product = "Product",
+    Ads = "Ads",
+    App = "App",
+    Device = "Device",
+    Sku = "Sku",
+    Coupon = "Coupon",
+    Brand = "Brand",
+    UXPage = "UXPage",
 }
 
 export enum ApplyStatus {
-    Applied = 0,
-    Cancel = 1,
-    Accepted = 2,
-    Rejected = 3,
+    Applied = "Applied",
+    Cancel = "Cancel",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
 }
 
 export enum ApplyWanted {
-    Online = 0,
-    Offline = 1,
+    Online = "Online",
+    Offline = "Offline",
 }
 
 export class AuditApplyFormInput implements IAuditApplyFormInput {
@@ -9230,8 +9235,8 @@ export interface IAuditApplyFormInput {
 }
 
 export enum AuditStatus {
-    Offline = 0,
-    Online = 1,
+    Offline = "Offline",
+    Online = "Online",
 }
 
 /** 获取授权应用列表返回的对象 */
@@ -9541,8 +9546,8 @@ export interface IBatchTaskLogDtoPagedResultDto {
 }
 
 export enum CategoryEnum {
-    Common = 0,
-    Custom = 1,
+    Common = "Common",
+    Custom = "Custom",
 }
 
 /** 创建广告时的入参对象 */
@@ -10493,10 +10498,12 @@ export class DispatchedSoftwareDto implements IDispatchedSoftwareDto {
     softwareId!: number;
     /** 授权之后的别名. */
     alias!: string | undefined;
+    softwareName!: string | undefined;
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     tenantName!: string | undefined;
     organizationUnitName!: string | undefined;
+    organizationUnitId!: number | undefined;
     tenantId!: number;
 
     constructor(data?: IDispatchedSoftwareDto) {
@@ -10513,10 +10520,12 @@ export class DispatchedSoftwareDto implements IDispatchedSoftwareDto {
             this.id = _data["id"];
             this.softwareId = _data["softwareId"];
             this.alias = _data["alias"];
+            this.softwareName = _data["softwareName"];
             this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
             this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
             this.tenantName = _data["tenantName"];
             this.organizationUnitName = _data["organizationUnitName"];
+            this.organizationUnitId = _data["organizationUnitId"];
             this.tenantId = _data["tenantId"];
         }
     }
@@ -10533,10 +10542,12 @@ export class DispatchedSoftwareDto implements IDispatchedSoftwareDto {
         data["id"] = this.id;
         data["softwareId"] = this.softwareId;
         data["alias"] = this.alias;
+        data["softwareName"] = this.softwareName;
         data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
         data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
         data["tenantName"] = this.tenantName;
         data["organizationUnitName"] = this.organizationUnitName;
+        data["organizationUnitId"] = this.organizationUnitId;
         data["tenantId"] = this.tenantId;
         return data; 
     }
@@ -10548,10 +10559,12 @@ export interface IDispatchedSoftwareDto {
     softwareId: number;
     /** 授权之后的别名. */
     alias: string | undefined;
+    softwareName: string | undefined;
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     tenantName: string | undefined;
     organizationUnitName: string | undefined;
+    organizationUnitId: number | undefined;
     tenantId: number;
 }
 
@@ -10604,37 +10617,37 @@ export interface IDispatchedSoftwareDtoPagedResultDto {
 }
 
 export enum EnviormentEnum {
-    H5Screen = 0,
-    UWP = 1,
-    WPF_Win32 = 2,
-    Android = 3,
-    IOS = 4,
+    H5Screen = "H5Screen",
+    UWP = "UWP",
+    WPF_Win32 = "WPF_Win32",
+    Android = "Android",
+    IOS = "iOS",
 }
 
 export enum FileType {
-    None = 0,
-    Text = 1,
-    Image = 2,
-    Video = 3,
-    PPT = 4,
-    PDF = 5,
-    Web = 6,
-    Audio = 7,
-    Zip = 8,
-    View3DS = 9,
-    Other = 10,
-    Json = 11,
+    None = "None",
+    Text = "Text",
+    Image = "Image",
+    Video = "Video",
+    PPT = "PPT",
+    PDF = "PDF",
+    Web = "Web",
+    Audio = "Audio",
+    Zip = "Zip",
+    View3DS = "View3DS",
+    Other = "Other",
+    Json = "Json",
 }
 
 export enum FromEnum {
-    Creation = 0,
-    Clone = 1,
-    Import = 2,
+    Creation = "Creation",
+    Clone = "Clone",
+    Import = "Import",
 }
 
 export enum GameTypeEnum {
-    OffLine = 0,
-    OnLine = 1,
+    OffLine = "OffLine",
+    OnLine = "OnLine",
 }
 
 /** 获取广告排程列表信息的返回对象 */
@@ -10653,6 +10666,8 @@ export class GetAdSchedulingDto implements IGetAdSchedulingDto {
     /** 图标 */
     iconUrl!: string | undefined;
     playType!: PlayType;
+    /** 发布时间 */
+    publishTime!: moment.Moment | undefined;
     /** 节目单内容 */
     adschedulingContent!: string | undefined;
     /** 生效时间 */
@@ -10678,6 +10693,7 @@ export class GetAdSchedulingDto implements IGetAdSchedulingDto {
             this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
             this.iconUrl = _data["iconUrl"];
             this.playType = _data["playType"];
+            this.publishTime = _data["publishTime"] ? moment(_data["publishTime"].toString()) : <any>undefined;
             this.adschedulingContent = _data["adschedulingContent"];
             this.effectiveTime = _data["effectiveTime"] ? moment(_data["effectiveTime"].toString()) : <any>undefined;
             this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
@@ -10701,6 +10717,7 @@ export class GetAdSchedulingDto implements IGetAdSchedulingDto {
         data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
         data["iconUrl"] = this.iconUrl;
         data["playType"] = this.playType;
+        data["publishTime"] = this.publishTime ? this.publishTime.toISOString() : <any>undefined;
         data["adschedulingContent"] = this.adschedulingContent;
         data["effectiveTime"] = this.effectiveTime ? this.effectiveTime.toISOString() : <any>undefined;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
@@ -10724,6 +10741,8 @@ export interface IGetAdSchedulingDto {
     /** 图标 */
     iconUrl: string | undefined;
     playType: PlayType;
+    /** 发布时间 */
+    publishTime: moment.Moment | undefined;
     /** 节目单内容 */
     adschedulingContent: string | undefined;
     /** 生效时间 */
@@ -11057,6 +11076,12 @@ export class GetProgramsIn24HoursDto implements IGetProgramsIn24HoursDto {
     adList!: AdListDto[] | undefined;
     /** 应用程序信息列表 */
     softwareList!: SoftwareDto[] | undefined;
+    /** 发布时间 */
+    publishTime!: moment.Moment | undefined;
+    /** 最后修改时间 */
+    lastModificationTime!: moment.Moment | undefined;
+    /** 优先级 */
+    priority!: number | undefined;
 
     constructor(data?: IGetProgramsIn24HoursDto) {
         if (data) {
@@ -11085,6 +11110,9 @@ export class GetProgramsIn24HoursDto implements IGetProgramsIn24HoursDto {
                 for (let item of _data["softwareList"])
                     this.softwareList!.push(SoftwareDto.fromJS(item));
             }
+            this.publishTime = _data["publishTime"] ? moment(_data["publishTime"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.priority = _data["priority"];
         }
     }
 
@@ -11113,6 +11141,9 @@ export class GetProgramsIn24HoursDto implements IGetProgramsIn24HoursDto {
             for (let item of this.softwareList)
                 data["softwareList"].push(item.toJSON());
         }
+        data["publishTime"] = this.publishTime ? this.publishTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["priority"] = this.priority;
         return data; 
     }
 }
@@ -11135,6 +11166,12 @@ export interface IGetProgramsIn24HoursDto {
     adList: AdListDto[] | undefined;
     /** 应用程序信息列表 */
     softwareList: SoftwareDto[] | undefined;
+    /** 发布时间 */
+    publishTime: moment.Moment | undefined;
+    /** 最后修改时间 */
+    lastModificationTime: moment.Moment | undefined;
+    /** 优先级 */
+    priority: number | undefined;
 }
 
 export class GetProgramsIn24HoursDtoPagedResultDto implements IGetProgramsIn24HoursDtoPagedResultDto {
@@ -11856,8 +11893,8 @@ export interface IInt64IdNameDto {
 }
 
 export enum PlayType {
-    Sequence = 0,
-    TimeLine = 1,
+    Sequence = "Sequence",
+    TimeLine = "TimeLine",
 }
 
 export class Program implements IProgram {
@@ -12370,9 +12407,9 @@ export interface IPublishEntitiesInput {
 
 /** 积分兑换方式 */
 export enum RedeemType {
-    None = 0,
-    Full = 1,
-    Partial = 2,
+    None = "None",
+    Full = "Full",
+    Partial = "Partial",
 }
 
 export class ResourceFile implements IResourceFile {
@@ -12714,9 +12751,9 @@ export interface IScheduleModel {
 }
 
 export enum ScheduleType {
-    Public = 0,
-    Copy = 1,
-    Default = 2,
+    Public = "Public",
+    Copy = "Copy",
+    Default = "Default",
 }
 
 /** 排程节目单详细内容对象 */
@@ -13352,11 +13389,11 @@ export interface ISoftwareSdkModel {
 }
 
 export enum SoftwareType {
-    None = 0,
-    GAME = 1,
-    Behavior = 2,
-    Shopping = 3,
-    Customerize = 4,
+    None = "None",
+    GAME = "GAME",
+    Behavior = "Behavior",
+    Shopping = "Shopping",
+    Customerize = "Customerize",
 }
 
 export class Tag implements ITag {
@@ -13742,16 +13779,16 @@ export interface ITagSdkModelPagedResultDto {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
-    UxPage = 9,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
 }
 
 /** 租户下应用程序设置信息对象 */

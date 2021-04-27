@@ -56,8 +56,8 @@
 
             <div class="col-4">
               <label>{{l("trainingTime")}}</label>
-              <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false}'
-                  name="startDate" [(startDate)]="startDate" [(endDate)]="startDate"
+              <date-range-picker id="datepicker" [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false}'
+                  name="startDate" [(startDate)]="startDate"
                   [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
               </date-range-picker>
             </div>

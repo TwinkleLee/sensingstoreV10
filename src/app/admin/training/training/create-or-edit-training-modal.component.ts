@@ -6,9 +6,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { from } from 'rxjs';
-import { transcode } from 'buffer';
-import { Console } from 'console';
+
 
 @Component({
     selector: 'createOrEditTrainingModal',
@@ -45,7 +43,8 @@ export class CreateOrEditTrainingModalComponent extends AppComponentBase impleme
 
     startTime:string="17:30:00";
     endTime:string="18:30:00";
-    startDate:string="2020-08-10";
+    
+    startDate:string= moment().format('YYYY-MM-DD');
 
 
     //枚举

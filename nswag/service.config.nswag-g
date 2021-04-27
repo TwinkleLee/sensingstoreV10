@@ -4,7 +4,7 @@
   "documentGenerator": {
     "fromDocument": {
       "url?": "http://139.196.240.230:238/swagger/v1/swagger.json",
-      "url": "https://g5.sensingstore.com/swagger/v1/swagger.json",
+      "url": "https://g5.api.troncell.com/swagger/v1/swagger.json",
       "output": null
     }
   },
