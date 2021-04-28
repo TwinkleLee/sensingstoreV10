@@ -27,8 +27,8 @@
                             <div class="form-group ">
                                 <div class="input-group">
                                     <select class="form-control" [(ngModel)]="freight.shopShopFreightType" name="shopShopFreightType">
-                                        <option [value]="0">{{l('ByNumber')}}</option>
-                                        <option [value]="1">{{l('ByWeight')}}</option>
+                                        <option value="ByNumber">{{l('ByNumber')}}</option>
+                                        <option value="ByWeight">{{l('ByWeight')}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -50,26 +50,26 @@
                     <div>
                         <div class="row" style="font-weight:bold;margin:0.5rem 0;">
                             <div class="col-3">{{l('area')}}</div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">{{l('firstNumber')}}</div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">{{l('secondNumber')}}</div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">{{l('firstWeight')}}({{l('gram')}})</div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">{{l('secondWeight')}}({{l('gram')}})</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByNumber'">{{l('firstNumber')}}</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByNumber'">{{l('secondNumber')}}</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByWeight'">{{l('firstWeight')}}({{l('gram')}})</div>
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByWeight'">{{l('secondWeight')}}({{l('gram')}})</div>
                             <div class="col-2">{{l('firstPrice')}}({{l('yuan')}})</div>
                             <div class="col-2">{{l('secondPrice')}}({{l('yuan')}})</div>
                             <div class="col-1">{{l('Actions')}}</div>
                         </div>
                         <div class="row" style="margin:0.5rem 0;">
                             <div class="col-3">{{l('Default')}}</div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByNumber'">
                                 <input class="form-control" pattern="[1-9][0-9]*" type="number" name="firstNumber" [(ngModel)]="freight.firstNumber" required>
                             </div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByNumber'">
                                 <input class="form-control" pattern="[1-9][0-9]*" type="number" name="secondNumber" [(ngModel)]="freight.secondNumber" required>
                             </div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByWeight'">
                                 <input class="form-control" type="number" name="firstWeight" [(ngModel)]="freight.firstWeight" required>
                             </div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByWeight'">
                                 <input class="form-control" type="number" name="secondWeight" [(ngModel)]="freight.secondWeight" required>
                             </div>
                             <div class="col-2">
@@ -88,16 +88,16 @@
                                 <a style="text-decoration:underline;color:blue;" (click)="editArea(area,i)">{{l('edit')}}</a>
                             </div>
 
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByNumber'">
                                 <input class="form-control" type="number" [name]="'firstNumber'+i" [(ngModel)]="area.firstNumber" required>
                             </div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==0">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByNumber'">
                                 <input class="form-control" type="number" [name]="'secondNumber'+i" [(ngModel)]="area.secondNumber" required>
                             </div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByWeight'">
                                 <input class="form-control" type="number" [name]="'firstWeight'+i" [(ngModel)]="area.firstWeight" required>
                             </div>
-                            <div class="col-2" *ngIf="freight.shopShopFreightType==1">
+                            <div class="col-2" *ngIf="freight.shopShopFreightType=='ByWeight'">
                                 <input class="form-control" type="number" [name]="'secondWeight'+i" [(ngModel)]="area.secondWeight" required>
                             </div>
                             <div class="col-2">

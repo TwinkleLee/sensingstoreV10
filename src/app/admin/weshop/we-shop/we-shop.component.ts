@@ -344,7 +344,7 @@ export class WeShopComponent extends AppComponentBase {
 
   }
   editFreight(record) {
-    this.setFreightModal.show(record);
+    this.setFreightModal.show(Object.assign({}, record));
   }
   deleteFreight(record) {
     this.message.confirm(this.l("deletethisselected"),this.l('AreYouSure'), (r) => {

@@ -44,7 +44,7 @@ export class CreateOrEditTrainingModalComponent extends AppComponentBase impleme
     startTime:string="17:30:00";
     endTime:string="18:30:00";
     
-    startDate:string= moment().format('YYYY-MM-DD');
+    startDate: any= moment(moment().utc().format("YYYY/MM/DD")).startOf('day');
 
 
     //枚举

@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { ShopServiceProxy, CreateShopFreightInput, UpdateShopFreightInput } from '@shared/service-proxies/service-proxies-product';
+import { ShopServiceProxy, ShopFreightType, ShopFreightStatus, CreateShopFreightInput, UpdateShopFreightInput } from '@shared/service-proxies/service-proxies-product';
 // import districts from './districts';
 import districts from '@app/admin/weshop/we-shop/operation/districts';
 
@@ -197,7 +197,7 @@ export class SetFreightModalComponent extends AppComponentBase implements AfterV
         if (freight) {
             this.operation = "edit";
             this.freight = freight;
-            if (this.freight.status == 1) {
+            if (this.freight.status == 'Online') {
                 this.freightStatus = true;
             } else {
                 this.freightStatus = false;
@@ -206,8 +206,8 @@ export class SetFreightModalComponent extends AppComponentBase implements AfterV
             this.operation = "add";
             this.freight = {
                 areas: [],
-                shopShopFreightType: 0,
-                status: 1
+                shopShopFreightType: ShopFreightType[0],
+                status: ShopFreightStatus[1]
             };
         }
         this.modal.show();
@@ -221,9 +221,9 @@ export class SetFreightModalComponent extends AppComponentBase implements AfterV
         this.saving = true;
 
         if (this.freightStatus) {
-            this.freight.status = 1;
+            this.freight.status = 'Online';
         } else {
-            this.freight.status = 0;
+            this.freight.status = 'Offline';
         }
         if (this.operation == "add") {
             console.log(this.freight);

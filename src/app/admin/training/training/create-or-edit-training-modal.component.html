@@ -20,20 +20,21 @@
                 <input #nameInput="ngModel" class="form-control" type="text" name="title" [(ngModel)]="training.title"
                   required maxlength="32">
                 <validation-messages [formCtrl]="nameInput"></validation-messages>
-              </div>            
+              </div>
             </div>
-            
+
             <div class="col-4">
               <label>{{l("trainingNo")}}</label>
               <select required class="form-control" [(ngModel)]="training.courseId" name="courseId">
-                  <option [value]="course.id" *ngFor="let course of courses">{{l(course.name)}}</option>
+                <option [value]="course.id" *ngFor="let course of courses">{{l(course.name)}}</option>
               </select>
             </div>
 
             <div class="col-4">
               <label>{{l("lecturer")}}</label>
               <select class="form-control" [(ngModel)]="training.userId" name="userId">
-                  <option [value]="platformUser.userId" *ngFor="let platformUser of platformUsers">{{l(platformUser.userName)}}</option>
+                <option [value]="platformUser.userId" *ngFor="let platformUser of platformUsers">
+                  {{l(platformUser.userName)}}</option>
               </select>
             </div>
 
@@ -43,45 +44,44 @@
                   <option [value]="organizationUnit.id" *ngFor="let organizationUnit of organizationUnits">{{l(organizationUnit.displayName)}}</option>
               </select> -->
 
-              <p-autoComplete [(ngModel)]="tags" [suggestions]="organizationUnits"
-                (completeMethod)="filter($event)" field="displayName" placeholder="department"
-                dataKey="id" [multiple]="true" [dropdown]="true"
-                (onSelect)="assignTags()" (onUnselect)="assignTags()"
-                (onBlur)="clearInput($event)" [minLength]="1"
-                name="MultiSelectInput" inputStyleClass="form-control"
-                styleClass="width-percent-100">
+              <p-autoComplete [(ngModel)]="tags" [suggestions]="organizationUnits" (completeMethod)="filter($event)"
+                field="displayName" placeholder="department" dataKey="id" [multiple]="true" [dropdown]="true"
+                (onSelect)="assignTags()" (onUnselect)="assignTags()" (onBlur)="clearInput($event)" [minLength]="1"
+                name="MultiSelectInput" inputStyleClass="form-control" styleClass="width-percent-100">
               </p-autoComplete>
             </div>
 
 
             <div class="col-4">
               <label>{{l("trainingTime")}}</label>
-              <date-range-picker id="datepicker" [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false}'
-                  name="startDate" [(startDate)]="startDate"
-                  [allowFutureDate]="true" needInitDate="true" [admitDelete]="false">
+              <date-range-picker [dateRangePickerOptions]='{ "opens": "left","singleDatePicker":true,"timePicker": false}' name="startTime"
+                [(startDate)]="startDate" [(endDate)]="startDate" [allowFutureDate]="true"
+                needInitDate="true" [admitDelete]="false">
               </date-range-picker>
             </div>
 
             <div class="col-4">
-                <label>{{l("TrainingCategory")}}</label>
-                <select class="form-control" [(ngModel)]="training.category" name="category">
-                    <option [value]="category.key" *ngFor="let category of trainingCategoryEnum | keyvalue">{{l(category.value)}}</option>
-                </select>
-           </div>
+              <label>{{l("TrainingCategory")}}</label>
+              <select class="form-control" [(ngModel)]="training.category" name="category">
+                <option [value]="category.key" *ngFor="let category of trainingCategoryEnum | keyvalue">
+                  {{l(category.value)}}</option>
+              </select>
+            </div>
 
-           <div class="col-4">
-            <label>{{l("TrainingWay")}}</label>
-            <select class="form-control" [(ngModel)]="training.trainingWay" name="trainingway">
-                <option [value]="trainingWay.key" *ngFor="let trainingWay of trainingWayEnum | keyvalue">{{l(trainingWay.value)}}</option>
-            </select>
-          </div>
+            <div class="col-4">
+              <label>{{l("TrainingWay")}}</label>
+              <select class="form-control" [(ngModel)]="training.trainingWay" name="trainingway">
+                <option [value]="trainingWay.key" *ngFor="let trainingWay of trainingWayEnum | keyvalue">
+                  {{l(trainingWay.value)}}</option>
+              </select>
+            </div>
 
-          <div class="col-4">
-            <label>{{l("Paper")}}</label>
-            <select class="form-control" [(ngModel)]="training.paperId" name="paperId">
+            <div class="col-4">
+              <label>{{l("Paper")}}</label>
+              <select class="form-control" [(ngModel)]="training.paperId" name="paperId">
                 <option [value]="paper.id" *ngFor="let paper of paperList">{{l(paper.name)}}</option>
-            </select>
-          </div>
+              </select>
+            </div>
 
             <div class="col-4">
                  <label class="control-label">{{l('trainingStartTime')}}</label>
@@ -98,8 +98,9 @@
 
         <div class="modal-footer">
           <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
-          <button type="submit" *ngIf="training.isMine!==false" class="btn btn-primary blue" [disabled]="!couponForm.form.valid"
-            [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+          <button type="submit" *ngIf="training.isMine!==false" class="btn btn-primary blue"
+            [disabled]="!couponForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i
+              class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
         </div>
       </form>
     </div>

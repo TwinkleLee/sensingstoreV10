@@ -176,12 +176,12 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
 
     // ????
     if (this.appSession.tenantId) {
-      this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
-        this.deviceTree = [result];
-      })
-      // this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([],false).subscribe((result) => {
+      // this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       //   this.deviceTree = [result];
       // })
+      this._StoreServiceProxy.getCurrentTenantSimpleOrganizationUnitsAndStoresTree().subscribe((result) => {
+        this.deviceTree = [result];
+      })
     }
 
 
