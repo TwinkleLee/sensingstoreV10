@@ -52,8 +52,8 @@
                                         </td>
                                         <td>{{(record['resolution_Width']||0 )+ ' * '+ (record['resolution_Height']||0)}}</td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']==1" class="label label-success label-inline">{{l("On")}}</span>
-                                            <span *ngIf="record['auditStatus']==0" class="label label-dark label-inline">{{l("Off")}}</span>
+                                            <span *ngIf="record['auditStatus']=='Online'" class="label label-success label-inline">{{l("On")}}</span>
+                                            <span *ngIf="record['auditStatus']=='Offline'" class="label label-dark label-inline">{{l("Off")}}</span>
                                         </td>
                                         <td>
                                             <span *ngIf="record['status']==1" class="label label-success label-inline">{{l("deviceOpen")}}</span>

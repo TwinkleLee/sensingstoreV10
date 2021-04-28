@@ -26,9 +26,9 @@ import { CreateOrEditDeviceRecordComponent } from '@app/admin/device/device-list
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, DeviceActivityServiceProxy, ReportServiceProxy as ActivityReportServiceProxy, PublishEntitiesInput as PublishEntitiesInput2 } from '@shared/service-proxies/service-proxies5';
 
-import { SensingDeviceServiceProxy, SensorAgreementServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
+import { SensingDeviceServiceProxy, SensorAgreementServiceProxy, CargoTypeEnum } from '@shared/service-proxies/service-proxies-smartdevice';
 
-import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput, AddOrUpdateSensorInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { CounterDeviceServiceProxy, UpdateDeviceCounterTagInput, BindChildDevicesToGatewayInput, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, GatewayType } from '@shared/service-proxies/service-proxies-smartdevice';
 import { CounterReportServiceProxy } from '@shared/service-proxies/service-proxies-smartdevice';
 import { ShelfDeviceServiceProxy, UpdateCargoStatusInput, CargoStatus, AddOrUpdateShelfInfoInput, LayerInput, AddOrDeleteCargoRoadByLayerIdInput, ExchangeCargoRoadSkuInput, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies-smartdevice';
 
@@ -83,6 +83,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     LayerThingId: any = "";
     LayerOrderNumber: any = "";
     LayerThingIdList: any = [];
+
+    CargoTypeEnum = CargoTypeEnum;
 
 
     @ViewChild('AdsAlertModal', { static: true }) AdsAlertModal: AdsAlertModalComponent;

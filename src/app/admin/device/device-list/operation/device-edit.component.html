@@ -161,14 +161,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6" *ngIf="device.deviceTypeId==19&&(fromGatewayType==0||fromGatewayType==1)">
+                                        <div class="col-sm-6" *ngIf="device.deviceTypeId==19&&(fromGatewayType==GatewayType[0]||fromGatewayType==GatewayType[1])">
                                             <div class="form-group">
                                                 <label>{{l("addressCode")}}</label>
                                                 <input [(ngModel)]="addressCode" class="form-control" type="text" name="addressCode" required>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6" *ngIf="device.deviceTypeId==19&&fromGatewayType==0">
+                                        <div class="col-sm-6" *ngIf="device.deviceTypeId==19&&fromGatewayType==GatewayType[0]">
                                             <div class="form-group">
                                                 <label>{{l("sensorType")}}</label>
                                                 <select [(ngModel)]="agreementId" name="agreementId" class="form-control" [disabled]="agreementList.length==0" required>
@@ -178,7 +178,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6" *ngIf="device.deviceTypeId==19&&fromGatewayType==0">
+                                        <div class="col-sm-6" *ngIf="device.deviceTypeId==19&&fromGatewayType==GatewayType[0]">
                                             <div class="form-group">
                                                 <label>{{l("pollingCommand")}}</label>
                                                 <input [(ngModel)]="command" class="form-control" type="text" name="command" required>
@@ -489,8 +489,8 @@
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <span *ngIf="record['auditStatus']==1" class="label label-success label-inline">{{l("Online")}}</span>
-                                                        <span *ngIf="record['auditStatus']==0" class="label label-dark label-inline">{{l("Offline")}}</span>
+                                                        <span *ngIf="record['auditStatus']=='Online'" class="label label-success label-inline">{{l("Online")}}</span>
+                                                        <span *ngIf="record['auditStatus']=='Offline'" class="label label-dark label-inline">{{l("Offline")}}</span>
                                                     </td>
                                                     <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
                                                     <td>{{record.end_time| date : "yyyy/MM/dd"}}</td>
@@ -1372,8 +1372,8 @@
                                                         <td><span>{{record.name}}</span></td>
                                                         <td>{{record.outerId}}</td>
                                                         <td>
-                                                            <span *ngIf="record.cargoType==0">{{l('orderCargo')}}</span>
-                                                            <span *ngIf="record.cargoType==1">{{l('randomCargo')}}</span>
+                                                            <span *ngIf="record.cargoType==CargoTypeEnum[0]">{{l('orderCargo')}}</span>
+                                                            <span *ngIf="record.cargoType==CargoTypeEnum[1]">{{l('randomCargo')}}</span>
                                                         </td>
                                                         <td>
                                                             <span>

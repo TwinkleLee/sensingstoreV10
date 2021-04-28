@@ -105,7 +105,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&(fromGatewayType==0||fromGatewayType==1)">
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&(fromGatewayType==GatewayType[0]||fromGatewayType==GatewayType[1])">
                             <div class="form-group">
                                 <label>{{l("addressCode")}}</label>
                                 <input [(ngModel)]="addressCode" class="form-control" type="text" name="addressCode"
@@ -113,7 +113,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&fromGatewayType==0">
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&fromGatewayType==GatewayType[0]">
                             <div class="form-group">
                                 <label>{{l("sensorType")}}</label>
                                 <select [(ngModel)]="agreementId" name="agreementId" class="form-control"
@@ -123,7 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&fromGatewayType==0">
+                        <div class="col-sm-6" *ngIf="Device.deviceTypeId==19&&fromGatewayType==GatewayType[0]">
                             <div class="form-group">
                                 <label>{{l("pollingCommand")}}</label>
                                 <input [(ngModel)]="command" class="form-control" type="text" name="command" required>

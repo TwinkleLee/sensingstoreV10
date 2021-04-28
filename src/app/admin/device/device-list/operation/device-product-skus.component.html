@@ -1,28 +1,16 @@
 <div>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-            <div class="kt-subheader__main">
-                <h3 class="kt-subheader__title">
-                    <i class="icon-fanhui text-info" (click)="backToDeviceEdit()"></i>
-                    <span>{{l("DeviceProductSkus")}}</span>
-                </h3>
-                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                <span class="kt-subheader__desc">
-                    {{deviceId+':'+deviceName +' | '+ productId+':'+productName}}
-                </span>
-            </div>
-            <div class="kt-subheader__toolbar">
-                <div class="kt-subheader__wrapper">
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'DeviceProductSkus' | localize"
+            [description]="deviceId+':'+deviceName +' | '+ productId+':'+productName">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
 
-                </div>
-            </div>
-        </div>
-        </div>
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
-                    <div class="kt-portlet__body">
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
+
                         <div class="row align-items-center">
                             <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                 <div class="kt-form kt-form--label-align-right">
@@ -138,9 +126,9 @@
                                             <td>{{record.salesVolume}}</td>
                                             <td>{{'￥'+record.price}}</td>
                                             <td>
-                                                <span *ngIf="record['auditStatus']==1"
+                                                <span *ngIf="record['auditStatus']=='Online'"
                                                     class="label label-success label-inline">{{l("OnSale")}}</span>
-                                                <span *ngIf="record['auditStatus']==0"
+                                                <span *ngIf="record['auditStatus']=='Offline'"
                                                     class="label label-dark label-inline">{{l("OffSale")}}</span>
                                             </td>
                                             <td>
@@ -172,8 +160,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { AppPodServiceProxy, SetDefaultAppPodVersionInput } from '@shared/service-proxies/service-proxies-devicecenter';
-import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
+import { CounterDeviceServiceProxy, SensorAgreementServiceProxy, AddOrUpdateGatewayInput, AddOrUpdateSensorInput, ShelfDeviceServiceProxy, GatewayType, BindChildDevicesToGatewayInput } from '@shared/service-proxies/service-proxies-smartdevice';
 import { DeviceServiceProxy as NewDeviceServiceProxy, CreateDeviceInput } from '@shared/service-proxies/service-proxies-devicecenter';
 import { DeviceServiceProxy as DeviceProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
 
@@ -53,6 +53,7 @@ export class CreateOrEditDeviceModalComponent extends AppComponentBase implement
     addressCode: any = '';
     command: any = '';
     fromGatewayType = null;
+    GatewayType = GatewayType;
 
 
     // Device.deviceTypeId==23/20
