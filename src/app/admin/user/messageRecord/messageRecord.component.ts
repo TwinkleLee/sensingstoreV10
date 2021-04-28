@@ -26,6 +26,9 @@ export class MessageRecordComponent extends AppComponentBase {
   handled: any = "";
   applicationId: any = "";
   applicationList = [];
+  busy = false;
+  selection: any = [];
+
   constructor(injector: Injector,
     private router: Router,
     private route: ActivatedRoute,
@@ -43,6 +46,25 @@ export class MessageRecordComponent extends AppComponentBase {
       .subscribe(result => {
         this.applicationList = result.items;
       })
+  }
+
+  //取消
+  no() {
+    $("#review").hide();
+  }
+
+  //确定
+  ok() {
+    this.busy = true;
+    $("#review").hide();
+    this.busy = false;
+  }
+
+  batchHandle () {
+    if (this.selection.length == 0) {
+      return this.message.warn(this.l('atLeastChoseOneItem'));
+    }
+    $("#review").show();
   }
 
 

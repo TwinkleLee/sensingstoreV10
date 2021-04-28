@@ -91,9 +91,9 @@
                                         </td>
 
                                         <td>
-                                            <span *ngIf="record['handled']"
+                                            <span *ngIf="record['appointmentStatus']"
                                                 class="label label-success label-inline">{{l("Yes")}}</span>
-                                            <span *ngIf="!record['handled']"
+                                            <span *ngIf="!record['appointmentStatus']"
                                                 class="label label-dark label-inline">{{l("No")}}</span>
                                         </td>
                                     </tr>

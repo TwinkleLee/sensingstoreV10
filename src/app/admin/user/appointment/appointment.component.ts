@@ -8,7 +8,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
 
 
-import { AppointmentStatus, UserAppointmentServiceProxy } from '@shared/service-proxies/service-proxies-pager';
+import { AppointmentStatus, AuditUserAppointmentInput, UserAppointmentServiceProxy } from '@shared/service-proxies/service-proxies-pager';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateOrEditAppointmentModalComponent } from './appointment-modal.component';
@@ -36,11 +36,27 @@ export class AppointmentComponent extends AppComponentBase {
     private _UserAppointmentServiceProxy: UserAppointmentServiceProxy,
   ) {
     super(injector);
-    
+
   }
 
-  handle (record) {
-    this.appointmentModal.show(Object.assign({}, record));
+  handle(record) {
+    // this.appointmentModal.show(Object.assign({}, record));
+    if (!record) return
+
+    this.message.confirm(this.l('AuditUserAppointment'), this.l('AreYouSure'), (r) => {
+      if (r) {
+        this._UserAppointmentServiceProxy.auditAppointment(this.appSession.tenantId, new AuditUserAppointmentInput({
+          targetStatus: 1,
+          userAppointmentId: record.id
+        }))
+          .subscribe((res) => {
+            this.notify.info(this.l('success'));
+            this.getList();
+          })
+      }
+
+    })
+
   }
 
   //获取列表

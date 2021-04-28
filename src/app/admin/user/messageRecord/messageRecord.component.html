@@ -1,7 +1,18 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'feedback' | localize" [description]="'feedback' | localize">
-            <div role="actions"></div>
+            <div role="actions">
+                <div class="btn-group dropdown" dropdown>
+                    <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton" data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false">
+                        {{l('batchOperation')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="applyButton" x-placement="bottom-start">
+                        <a class="dropdown-item" (click)="batchHandle()">
+                            {{l('batchHandle')}}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </sub-header>
 
         <div [class]="containerClass">
@@ -67,16 +78,20 @@
                             <p-table #dataTable (onLazyLoad)="getList($event)" [value]="primengTableHelper.records"
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
                                 [resizableColumns]="primengTableHelper.resizableColumns"
-                                [responsive]="primengTableHelper.isResponsive">
+                                [responsive]="primengTableHelper.isResponsive" [(selection)]="selection">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th style="width: 15%">{{l('Actions')}}</th>
+                                        <th style="width: 5em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
                                         <th style="width:5%">{{l('RecordId')}}</th>
                                         <th>{{l('application')}}</th>
                                         <th>{{l('name')}}</th>
                                         <th>{{l('phone')}}</th>
                                         <th>{{l('CompanyName')}}</th>
-                                        <th style="width:40%;">{{l('description')}}</th>
+                                        <th style="width:20%;">{{l('description')}}</th>
+                                        <th style="width:20%;">{{l('handleContent')}}</th>
                                         <th>{{l('HasHandled')}}</th>
                                     </tr>
                                 </ng-template>
@@ -98,6 +113,9 @@
                                                 </ul>
                                             </div>
                                         </td>
+                                        <td>
+                                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                        </td>
                                         <td style="width:5%"> {{transIndex(i)}}</td>
                                         <td>
                                             <span>{{record.applicationName}}</span>
@@ -111,8 +129,11 @@
                                         <td>
                                             <span [title]="record.company">{{record.company}}</span>
                                         </td>
-                                        <td style="width:40%;">
+                                        <td style="width:20%;">
                                             <span [title]="record.description">{{record.description}}</span>
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span [title]="record.handleContent">{{record.handleContent}}</span>
                                         </td>
 
                                         <td>
@@ -144,6 +165,38 @@
                             </div>
                         </div>
                         <!--<Primeng-Datatable-End>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="reviewLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviewLabel">{{l('reviewRequest')}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="no()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <form>
+                                <div class="form-group">
+                                    <label for="reason" class="col-form-label">{{l('Message')}}:</label>
+                                    <textarea class="form-control" id="reason" name="reason"
+                                        [(ngModel)]="apply.reason"></textarea>
+                                </div>
+                            </form> -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="no()"
+                                data-dismiss="modal">{{l('Close')}}</button>
+                            <button type="button" class="btn btn-primary" (click)="ok()" [buttonBusy]="busy"
+                                [busyText]="l('SavingWithThreeDot')" [disabled]="busy">
+                                <i></i>{{l('Send')}}</button>
+                        </div>
                     </div>
                 </div>
             </div>
