@@ -9,7 +9,7 @@ import { OutputinDetailModalComponent } from '@app/admin/product/outputin/operat
 import { AddOutputinComponent } from '@app/admin/product/outputin/operation/add-outputin-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { OutPutInStorageServiceProxy, GetOutPutInStorageBillInput } from '@shared/service-proxies/service-proxies-product';
+import { OutPutInStorageServiceProxy, GetOutPutInStorageBillInput, OutPutInStorageType as OutPutInStorageTypeEnum } from '@shared/service-proxies/service-proxies-product';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -38,6 +38,8 @@ export class OutPutInComponent extends AppComponentBase {
   OutPutInStorageType: any = '';
   storeList: any = [];
   treeList: any = [];
+
+  OutPutInStorageTypeEnum = OutPutInStorageTypeEnum;
 
   isTenant = false;
   ignoreStore = true;

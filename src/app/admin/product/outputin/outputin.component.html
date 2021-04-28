@@ -152,9 +152,9 @@
                                             <span>{{record.outerId}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.outPutInStorageType==0">{{l('OutQuantity')}}</span>
-                                            <span *ngIf="record.outPutInStorageType==1">{{l('InQuantity')}}</span>
-                                            <span *ngIf="record.outPutInStorageType==2">{{l('checkQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum[0]">{{l('OutQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum[1]">{{l('InQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum[2]">{{l('checkQuantity')}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.creationTime| date : "yyyy/MM/dd HH:mm"}}</span>
