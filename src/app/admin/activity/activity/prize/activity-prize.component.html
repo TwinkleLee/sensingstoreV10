@@ -441,9 +441,9 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <span
-                                                                                            *ngIf="record.type==0">{{l('WhitelistList')}}</span>
+                                                                                            *ngIf="record.type==SpecialType[0]">{{l('WhitelistList')}}</span>
                                                                                         <span
-                                                                                            *ngIf="record.type==1">{{l('BlacklistList')}}</span>
+                                                                                            *ngIf="record.type==SpecialType[1]">{{l('BlacklistList')}}</span>
                                                                                     </td>
                                                                                     <td>
                                                                                         <span

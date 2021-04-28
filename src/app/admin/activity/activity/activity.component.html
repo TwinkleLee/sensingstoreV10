@@ -165,7 +165,7 @@
                                                                 class="icon-artboard13 dropdown-item">{{l('Dashboard')}}</a>
                                                         </li>
                                                         <li
-                                                            *ngIf="isGranted('Pages.Tenant.Activities.Delete')&&record['auditStatus']==0&&record.isMine!==false">
+                                                            *ngIf="isGranted('Pages.Tenant.Activities.Delete')&&record['auditStatus']=='Offline'&&record.isMine!==false">
                                                             <a (click)="deleteActivity(record)"
                                                                 class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                         </li>

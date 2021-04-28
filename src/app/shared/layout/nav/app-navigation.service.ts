@@ -73,8 +73,8 @@ export class AppNavigationService {
             // 会员
             new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '', [], [
                 new AppMenuItem('Membership', 'Pages.Tenant.Member', 'icon-huiyuanguanli', '/app/admin/memberShip/memberShip'),
-                new AppMenuItem('feedback', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/feedback'),
-                new AppMenuItem('UserAppointment', 'Pages.Tenant.PageStatistics', 'icon-nav-entry', '/app/admin/user/appointment'),
+                new AppMenuItem('feedback', 'Pages.Tenant.PageStatistics', 'icon-fankui', '/app/admin/user/feedback'),
+                new AppMenuItem('UserAppointment', 'Pages.Tenant.PageStatistics', 'icon-4-141', '/app/admin/user/appointment'),
             ]),
 
             //host建立商城
@@ -99,8 +99,8 @@ export class AppNavigationService {
 
             //节目(AdPackage & App)排程
             new AppMenuItem('Scheduling', 'Pages.Tenant.Scheduling', 'icon-paiban', '', [], [
-                new AppMenuItem('24HTimeline', 'Pages.Tenant.Scheduling', 'icon-shijuan', '/app/admin/advertisement/24htimeline'),
-                new AppMenuItem('DateScheduling', 'Pages.Tenant.Scheduling', 'icon-paiban', '/app/admin/advertisement/schedule'),
+                new AppMenuItem('24HTimeline', 'Pages.Tenant.Scheduling', 'icon-jiemu', '/app/admin/advertisement/24htimeline'),
+                new AppMenuItem('DateScheduling', 'Pages.Tenant.Scheduling', 'icon-timeAxis', '/app/admin/advertisement/schedule'),
             ]),
 
             //Floor
@@ -111,9 +111,9 @@ export class AppNavigationService {
             ]),
 
             // 品牌
-            new AppMenuItem('Brand', 'Pages.Tenant.Products', 'icon-brand', '', [], [
-                new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/brandcenter'),
-                new AppMenuItem('BrandCategory', 'Pages.Tenant.Products', 'icon-brand', '/app/admin/category/brandCate'),
+            new AppMenuItem('Brand', 'Pages.Tenant.Products', 'icon-pinpai', '', [], [
+                new AppMenuItem('BrandCenter', 'Pages.Tenant.Products', 'icon-pinpai', '/app/admin/brandcenter'),
+                new AppMenuItem('BrandCategory', 'Pages.Tenant.Products', 'icon-shangpinguanli', '/app/admin/category/brandCate'),
             ]),
 
             //商品管理
@@ -125,8 +125,8 @@ export class AppNavigationService {
                 new AppMenuItem('Likes', 'Pages.Tenant.Products.Like', 'icon-xin', '/app/admin/product/like'),
                 new AppMenuItem('Match', 'Pages.Tenant.Products.Match', 'icon-dapei', '/app/admin/product/match'),
                 new AppMenuItem('QuantityManage', 'Pages.Tenant.Products', 'icon-xunhuan', '/app/admin/product/outputin'),
-                new AppMenuItem('QuantityList', 'Pages.Tenant.Products', 'icon-tuijian', '/app/admin/product/skuList'),
-                new AppMenuItem('PromotionManage', 'Pages.Tenant.Products', 'icon-qian', '/app/admin/product/promotionManage'),
+                new AppMenuItem('QuantityList', 'Pages.Tenant.Products', 'icon-tubiao_kucun', '/app/admin/product/skuList'),
+                new AppMenuItem('PromotionManage', 'Pages.Tenant.Products', 'icon-cuxiao', '/app/admin/product/promotionManage'),
             ]),
 
 
@@ -174,8 +174,8 @@ export class AppNavigationService {
             // new AppMenuItem('OKRManage', '', 'icon-leixing1', '/app/admin/objective/objective'),
 
             //支付中心
-            new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-qian', '', [], [
-                new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-qian', '/app/admin/paycenter/payCenter'),
+            new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-02TPM_zhifuzhongxin', '', [], [
+                new AppMenuItem('PayCenter', 'Pages.Tenant.PayCenter', 'icon-zhifu', '/app/admin/paycenter/payCenter'),
                 new AppMenuItem('PayRecord', 'Pages.Tenant.PayCenter', 'icon-artboard13', '/app/admin/paycenter/payRecord'),
             ]),
 
@@ -186,7 +186,7 @@ export class AppNavigationService {
             ]),
 
             // 页面统计
-            new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-shijuan', '/app/admin/user/application'),
+            new AppMenuItem('PageStatistics', 'Pages.Tenant.PageStatistics', 'icon-tuiguangtongji', '/app/admin/user/application'),
 
 
             // IndependentDeployment

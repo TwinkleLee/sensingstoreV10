@@ -228,12 +228,12 @@
                                             <span *ngIf="record.storeId">{{record.storeName}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']=='On'" class="label label-success label-inline">{{l("On")}}</span>
-                                            <span *ngIf="record['auditStatus']=='Off'" class="label label-dark label-inline">{{l("Off")}}</span>
+                                            <span *ngIf="record['auditStatus']=='Online'" class="label label-success label-inline">{{l("On")}}</span>
+                                            <span *ngIf="record['auditStatus']=='Offline'" class="label label-dark label-inline">{{l("Off")}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['status']=='Online'" class="label label-success label-inline">{{l("Online")}}</span>
-                                            <span *ngIf="record['status']=='Offline'" class="label label-dark label-inline">{{l("Offline")}}</span>
+                                            <span *ngIf="record['status']==1" class="label label-success label-inline">{{l("Online")}}</span>
+                                            <span *ngIf="record['status']==0" class="label label-dark label-inline">{{l("Offline")}}</span>
                                         </td>
                                         <td *ngIf="!appSession.tenant">
                                             <span *ngIf="record['operatingType']=='Official'" class="label label-success label-inline">{{l("Official")}}</span>

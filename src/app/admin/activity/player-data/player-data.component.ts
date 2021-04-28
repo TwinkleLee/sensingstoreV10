@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { PlayerDataDetailComponent } from '@app/admin/activity/player-data/detail/player-data-detail.component';
-import { UserActionServiceProxy, ActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { UserActionServiceProxy, ActivityServiceProxy, _definitions_EnumSnsType } from '@shared/service-proxies/service-proxies5';
 import * as moment from 'moment';
 
 
@@ -30,6 +30,7 @@ export class PlayerDataComponent extends AppComponentBase {
 
   deviceId;
   activityGameId;
+  _definitions_EnumSnsType = _definitions_EnumSnsType;
 
   constructor(injector: Injector,
     private _UserActionServiceProxy: UserActionServiceProxy,

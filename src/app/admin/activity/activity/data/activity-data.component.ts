@@ -10,7 +10,7 @@ import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 import * as moment from 'moment';
-import { ActivityServiceProxy, ClearActivityUserDataInput, DoClearActivityDataInput, ReportServiceProxy as ActivityReportServiceProxy, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { ActivityServiceProxy, _definitions_EnumSnsType,ClearActivityUserDataInput, DoClearActivityDataInput, ReportServiceProxy as ActivityReportServiceProxy, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { PlayerDataDetailComponent } from '@app/admin/activity/player-data/detail/player-data-detail.component';
 import { ChangeWhiteListModalComponent } from '@app/admin/activity/activity/data/operation/change-white-list.component';
 import { ExpressDetailModalComponent } from '@app/admin/activity/activity/data/operation/express-detail.component';
@@ -69,6 +69,8 @@ export class ActivityDataComponent extends AppComponentBase {
 
   activityGameId: any = "";
   activityGameList = [];
+
+  _definitions_EnumSnsType = _definitions_EnumSnsType;
 
   changeViewType(a) {
 

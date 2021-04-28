@@ -200,7 +200,7 @@
                                                                 (click)="editAds(record)">{{l('Edit')}}</a>
                                                         </li>
                                                         <li
-                                                            *ngIf="record.isMine!==false&&record.auditStatus==0&&isGranted('Pages.Tenant.Ads.Delete')">
+                                                            *ngIf="record.isMine!==false&&record.auditStatus=='Offline'&&isGranted('Pages.Tenant.Ads.Delete')">
                                                             <a class="icon-icon-test dropdown-item"
                                                                 (click)="deleteAds(record)">{{l('Delete')}}</a>
                                                         </li>
@@ -237,9 +237,9 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <span *ngIf="record['auditStatus']==1"
+                                                <span *ngIf="record['auditStatus']=='Online'"
                                                     class="label label-success label-inline">{{l("online")}}</span>
-                                                <span *ngIf="record['auditStatus']==0"
+                                                <span *ngIf="record['auditStatus']=='Offline'"
                                                     class="label label-dark label-inline">{{l("offline")}}</span>
                                             </td>
                                         </tr>

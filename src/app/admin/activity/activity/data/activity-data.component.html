@@ -310,8 +310,8 @@
                                     <span>{{record.province}}</span>
                                   </td>
                                   <td>
-                                    <span *ngIf="record.snsType==0">{{l('Taobao')}}</span>
-                                    <span *ngIf="record.snsType==1">{{l('WeChat')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[0]">{{l('Taobao')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[1]">{{l('WeChat')}}</span>
                                     <span *ngIf="record.snsType==2">{{l('Others')}}</span>
                                   </td>
                                   <td>
@@ -618,9 +618,9 @@
                                   </td>
 
                                   <td>
-                                    <span *ngIf="record.snsType==0">{{l('Taobao')}}</span>
-                                    <span *ngIf="record.snsType==1">{{l('WeChat')}}</span>
-                                    <span *ngIf="record.snsType==2">{{l('Others')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[0]">{{l('Taobao')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[1]">{{l('WeChat')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[6]">{{l('Others')}}</span>
                                   </td>
 
                                   <td>

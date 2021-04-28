@@ -117,9 +117,9 @@
                       <span [title]="record.activityName">{{record.activityName}}</span>
                     </td>
                     <td>
-                      <span *ngIf="record.snsType==0" [title]="l('Taobao')">{{l('Taobao')}}</span>
-                      <span *ngIf="record.snsType==1" [title]="l('WeChat')">{{l('WeChat')}}</span>
-                      <span *ngIf="record.snsType==2" [title]="l('Others')">{{l('Others')}}</span>
+                      <span *ngIf="record.snsType==_definitions_EnumSnsType[0]" [title]="l('Taobao')">{{l('Taobao')}}</span>
+                      <span *ngIf="record.snsType==_definitions_EnumSnsType[1]" [title]="l('WeChat')">{{l('WeChat')}}</span>
+                      <span *ngIf="record.snsType==_definitions_EnumSnsType[6]" [title]="l('Others')">{{l('Others')}}</span>
                     </td>
                     <td>
                       <span>{{record.startTime | date : "yyyy/MM/dd"}}</span>

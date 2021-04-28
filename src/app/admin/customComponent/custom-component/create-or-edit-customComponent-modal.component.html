@@ -55,7 +55,7 @@
                                     <div class="form-group" style="position:relative;margin-top:1rem;"
                                         (click)="changeCategory()">
                                         <label class="checkbox checkbox-primary">
-                                            <input [value]="customItem.category==0" type="checkbox"
+                                            <input [value]="customItem.category==CategoryEnum[0]" type="checkbox"
                                                 name="category">
                                             <span></span>
                                             {{l("Default")}}
