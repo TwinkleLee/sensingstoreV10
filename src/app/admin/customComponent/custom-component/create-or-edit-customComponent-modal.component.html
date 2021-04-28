@@ -45,8 +45,9 @@
                                     <div class="form-group" style="position:relative;margin-top:1rem;">
                                         <label class="checkbox checkbox-primary">
                                             <input [(ngModel)]="customItem.enabled" type="checkbox"
-                                                name="enabled" />{{l("IsEnabled")}}
+                                                name="enabled" />
                                             <span></span>
+                                            {{l("IsEnabled")}}
                                         </label>
                                     </div>
                                 </div>
@@ -55,8 +56,9 @@
                                         (click)="changeCategory()">
                                         <label class="checkbox checkbox-primary">
                                             <input [value]="customItem.category==0" type="checkbox"
-                                                name="category">{{l("Default")}}
+                                                name="category">
                                             <span></span>
+                                            {{l("Default")}}
                                         </label>
                                     </div>
                                 </div>

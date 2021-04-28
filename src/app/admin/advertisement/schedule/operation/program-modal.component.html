@@ -104,8 +104,9 @@
                                     <label class="checkbox checkbox-primary" style="margin-right:1rem;"
                                         *ngFor="let item of weekList">
                                         <input [(ngModel)]="item.result" type="checkbox"
-                                            [name]="item.name" [value]="item.value" />{{l(item.name)}}
+                                            [name]="item.name" [value]="item.value" />
                                         <span></span>
+                                        {{l(item.name)}}
                                     </label>
                                 </div>
                             </div>
@@ -277,8 +278,9 @@
                                         <label class="checkbox checkbox-primary" style="margin-right:1rem;">
                                             <input [(ngModel)]="item.unstoppable" type="checkbox"
                                                 [ngModelOptions]="{standalone: true}"
-                                                [value]="true" />{{l("unstoppable")}}
+                                                [value]="true" />
                                             <span></span>
+                                            {{l("unstoppable")}}
                                         </label>
                                     </div>
                                 </div>

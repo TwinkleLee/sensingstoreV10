@@ -279,8 +279,9 @@
                                 <div class="m--align-left row" style="padding:0 16px;" *ngIf="ifMirror">
 
                                     <label class="checkbox checkbox--primary col-4" *ngFor="let item of mirrorList">
-                                        <input [(ngModel)]="item.selected" type="checkbox" [name]="item.name" value="true" />{{l(item.name)}}
+                                        <input [(ngModel)]="item.selected" type="checkbox" [name]="item.name" value="true" />
                                         <span></span>
+                                        {{l(item.name)}}
                                     </label>
 
                                 </div>

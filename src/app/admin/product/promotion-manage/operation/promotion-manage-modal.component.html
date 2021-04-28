@@ -78,8 +78,9 @@
                                         <div class="col m--align-left" style="margin-top:3rem;padding-left:0;">
                                             <label class="checkbox checkbox-primary">
                                                 <input [(ngModel)]="content.isEnable" type="checkbox"
-                                                    name="isEnable"/>{{l('AdvancedSetup')}}
+                                                    name="isEnable"/>
                                                 <span></span>
+                                                {{l('AdvancedSetup')}}
                                             </label>
                                         </div>
                                     </div>
@@ -131,8 +132,9 @@
                                         <div class="col m--align-left">
                                             <label class="checkbox checkbox-primary" *ngFor="let item of weekList">
                                                 <input [(ngModel)]="item.result" type="checkbox"
-                                                    [name]="item.name" [value]="item.value" />{{l(item.name)}}
+                                                    [name]="item.name" [value]="item.value" />
                                                 <span></span>
+                                                {{l(item.name)}}
                                             </label>
                                         </div>
                                     </div>

@@ -14,8 +14,9 @@
         <div class="row">
           <div class="form-group col-3" style="position:relative;margin-top:2rem;" *ngFor="let item of memberList">
             <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
-              <input [(ngModel)]="objItem[item.value]" type="checkbox" [ngModelOptions]="{standalone: true}"/>{{item.name}}
+              <input [(ngModel)]="objItem[item.value]" type="checkbox" [ngModelOptions]="{standalone: true}"/>
               <span></span>
+              {{item.name}}
             </label>
           </div>
         </div>

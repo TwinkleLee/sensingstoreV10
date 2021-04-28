@@ -24,7 +24,11 @@
                           <input class="form-control" required name="angle" type="text" [(ngModel)]="resource.angle" />
                       </div>
                       <div class="form-group">
-                        <label><input name="isDefault" type="checkbox" [(ngModel)]="resource.isDefault" />{{l('isDefault')}}</label>
+                        <label class="checkbox">
+                            <input name="isDefault" type="checkbox" [(ngModel)]="resource.isDefault" />
+                            <span></span>
+                            {{l('isDefault')}}
+                        </label>
                     </div>
                     </div>
                     <div class="col-6">
