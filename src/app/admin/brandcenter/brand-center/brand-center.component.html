@@ -145,9 +145,9 @@
                                         </td>
                                         <td>{{record.creationTime | date:'yyyy-MM-dd'}}</td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']==1"
+                                            <span *ngIf="record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("online")}}</span>
-                                            <span *ngIf="record['auditStatus']==0"
+                                            <span *ngIf="record['auditStatus']=='Offline'"
                                                 class="label label-dark label-inline">{{l("offline")}}</span>
                                         </td>
                                     </tr>

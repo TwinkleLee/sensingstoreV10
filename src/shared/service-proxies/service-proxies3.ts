@@ -25,7 +25,7 @@ export class DeviceBehaviorServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BIGDATA_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8002";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -173,7 +173,7 @@ export class DeviceOperationsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BIGDATA_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8002";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -597,7 +597,7 @@ export class IdentityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BIGDATA_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8002";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -668,7 +668,7 @@ export class OperationKnowledgeServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BIGDATA_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8002";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -1388,7 +1388,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BIGDATA_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8002";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -1888,15 +1888,15 @@ export class ReportServiceProxy {
         if (deviceId === null)
             throw new Error("The parameter 'deviceId' cannot be null.");
         else if (deviceId !== undefined)
-            url_ += "deviceId=" + encodeURIComponent("" + deviceId) + "&";
+            url_ += "DeviceId=" + encodeURIComponent("" + deviceId) + "&";
         if (startTime === undefined || startTime === null)
             throw new Error("The parameter 'startTime' must be defined and cannot be null.");
         else
-            url_ += "startTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
+            url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
         if (endTime === undefined || endTime === null)
             throw new Error("The parameter 'endTime' must be defined and cannot be null.");
         else
-            url_ += "endTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
+            url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
         if (ouOrStoreList === null)
             throw new Error("The parameter 'ouOrStoreList' cannot be null.");
         else if (ouOrStoreList !== undefined)
@@ -1957,7 +1957,7 @@ export class ReportServiceProxy {
     }
 
     /**
-     * 设备是否开机
+     * 设备是否开机的历史数据
      * @param deviceId (optional) 
      * @param ouOrStoreList (optional) 
      * @return Success
@@ -1967,15 +1967,15 @@ export class ReportServiceProxy {
         if (deviceId === null)
             throw new Error("The parameter 'deviceId' cannot be null.");
         else if (deviceId !== undefined)
-            url_ += "deviceId=" + encodeURIComponent("" + deviceId) + "&";
+            url_ += "DeviceId=" + encodeURIComponent("" + deviceId) + "&";
         if (startTime === undefined || startTime === null)
             throw new Error("The parameter 'startTime' must be defined and cannot be null.");
         else
-            url_ += "startTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
+            url_ += "StartTime=" + encodeURIComponent(startTime ? "" + startTime.toJSON() : "") + "&";
         if (endTime === undefined || endTime === null)
             throw new Error("The parameter 'endTime' must be defined and cannot be null.");
         else
-            url_ += "endTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
+            url_ += "EndTime=" + encodeURIComponent(endTime ? "" + endTime.toJSON() : "") + "&";
         if (ouOrStoreList === null)
             throw new Error("The parameter 'ouOrStoreList' cannot be null.");
         else if (ouOrStoreList !== undefined)
@@ -2239,7 +2239,7 @@ export class SensingDeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BIGDATA_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://119.3.154.130:8002";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**

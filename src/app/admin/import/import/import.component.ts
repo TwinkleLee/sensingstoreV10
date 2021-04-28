@@ -33,7 +33,7 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     //通过jq直接调接口
     'match': AppConsts.remoteServiceBaseUrl + '/ImportMatches/ImportMatchByZip',
     'like': AppConsts.remoteServiceBaseUrl + '/ImportLikes/ImportLikeByZip',
-    'device': AppConsts.remoteServiceBaseUrl + '/ImportDevices/ImportDevicesByExcel',
+    'device': AppConsts.remoteDeviceCenterUrl + '/ImportDevices/ImportDevicesByExcel',
     'ads': AppConsts.remoteAdserviceUrl + '/ImportAds/ImportAdsByZip',
     'product': AppConsts.remoteProductServiceUrl + '/ImportProducts/ImportProductByZip',
     'organization-units': AppConsts.remoteServiceBaseUrl + '/ImportStores/ImportStoresByExcel',

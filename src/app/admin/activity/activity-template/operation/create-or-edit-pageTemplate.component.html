@@ -29,12 +29,12 @@
                             <option value="GameResult">{{l('GameResult')}}</option>
                             <option value="Award">{{l('WinningStatus')}}</option>
                             <option value="Action">{{l('messageTemplate')}}</option> -->
-                            <option value="1">{{l('ActivityIntroduce')}}</option>
-                            <option value="4">{{l('Login')}}</option>
-                            <option value="5">{{l('OnlineGame')}}</option>
-                            <option value="6">{{l('GameResult')}}</option>
-                            <option value="3">{{l('WinningStatus')}}</option>
-                            <option value="2">{{l('messageTemplate')}}</option>
+                            <option [value]="TemplateEnum[1]">{{l('ActivityIntroduce')}}</option>
+                            <option [value]="TemplateEnum[4]">{{l('Login')}}</option>
+                            <option [value]="TemplateEnum[5]">{{l('OnlineGame')}}</option>
+                            <option [value]="TemplateEnum[6]">{{l('GameResult')}}</option>
+                            <option [value]="TemplateEnum[3]">{{l('WinningStatus')}}</option>
+                            <option [value]="TemplateEnum[2]">{{l('messageTemplate')}}</option>
                           </select>
                         </div>
                       </div>

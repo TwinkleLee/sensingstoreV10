@@ -57,7 +57,7 @@
                         disabled="disabled">
                     </div>
                     <div class="form-group col-12"
-                      *ngIf="(Game.weChatAuthorizationType==1||Game.weChatAuthorizationType==4)&&Game.securityKey">
+                      *ngIf="(Game.weChatAuthorizationType==SnsActivityAuthorizationType[1]||Game.weChatAuthorizationType==SnsActivityAuthorizationType[4])&&Game.securityKey">
                       <label>{{l("URL")}}</label>
                       <input class="form-control" type="text"
                         [value]="'https://m.sensingstore.com/transfer-action.html?securityKey='+Game.securityKey"
@@ -84,8 +84,11 @@
                         <select class="form-control" [(ngModel)]="Game.taobaoAuthorizationType"
                           name="taobaoAuthorizationType">
                           <!-- <option value="0">{{l('Follow')}}</option> -->
-                          <option value="1">{{l('Web')}}</option>
-                          <option value="2">{{l('NoAuthorize')}}</option>
+                          <option value="Follow">{{l('Follow')}}</option>
+                          <option value="Web">{{l('Web')}}</option>
+                          <option value="FollowAutoRegister">{{l('FollowAutoRegister')}}</option>
+                          <option value="WebAutoRegister">{{l('WebAutoRegister')}}</option>
+                          <option value="NoAuthorize">{{l('NoAuthorize')}}</option>
                         </select>
                       </div>
                     </div>

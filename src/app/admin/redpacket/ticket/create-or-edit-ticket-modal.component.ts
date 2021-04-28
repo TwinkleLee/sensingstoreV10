@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { TicketServiceProxy, AddOrUpdateTicketInput } from '@shared/service-proxies/service-proxies2';
+import { TicketServiceProxy, AddOrUpdateTicketInput,TakeType } from '@shared/service-proxies/service-proxies2';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -27,6 +27,8 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
 
     active = false;
     saving = false;
+    
+    TakeType = TakeType;
 
     operation: string = "add";
     objItem: any = {

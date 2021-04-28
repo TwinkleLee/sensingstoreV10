@@ -155,7 +155,7 @@
                                                             (click)="editItem(record)">{{l('Edit')}}</a>
                                                     </li>
                                                     <li>
-                                                        <a *ngIf="record.ticketStatus==0" class="icon-icon-test dropdown-item"
+                                                        <a *ngIf="record.ticketStatus=='Offline'" class="icon-icon-test dropdown-item"
                                                             (click)="deleteItem(record)">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>
@@ -186,14 +186,14 @@
                                             <span>{{record.usage}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.ticketType==0">{{l('Voucher')}}</span>
-                                            <span *ngIf="record.ticketType==1">{{l('Discount')}}</span>
+                                            <span *ngIf="record.ticketType==TicketType[0]">{{l('Voucher')}}</span>
+                                            <span *ngIf="record.ticketType==TicketType[1]">{{l('Discount')}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.takeType==0">{{l('UserTake')}}</span>
-                                            <span *ngIf="record.takeType==1">{{l('ManagerGrant')}}</span>
-                                            <span *ngIf="record.takeType==2">{{l('RegisterAutoGrant')}}</span>
-                                            <span *ngIf="record.takeType==3">{{l('GameAutoGrant')}}</span>
+                                            <span *ngIf="record.takeType==TakeType[0]">{{l('UserTake')}}</span>
+                                            <span *ngIf="record.takeType==TakeType[1]">{{l('ManagerGrant')}}</span>
+                                            <span *ngIf="record.takeType==TakeType[2]">{{l('RegisterAutoGrant')}}</span>
+                                            <span *ngIf="record.takeType==TakeType[3]">{{l('GameAutoGrant')}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.limitTimes}}</span>

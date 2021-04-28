@@ -1625,9 +1625,9 @@
                                                         <span>{{record.totalMinutes}}{{l("minutes")}}</span>
                                                     </td>
                                                     <td>
-                                                        <span *ngIf="record.optStatus==0" style="color:#ccc;">{{record.optStatus|deviceStatus}}</span>
-                                                        <span *ngIf="record.optStatus==1" style="color:#DD0000;">{{record.optStatus|deviceStatus}}</span>
-                                                        <span *ngIf="record.optStatus==2" style="color:#00DD00;">{{record.optStatus|deviceStatus}}</span>
+                                                        <span *ngIf="record.optStatus==EnumOptStatus[0]" style="color:#ccc;">{{record.optStatus|deviceStatus}}</span>
+                                                        <span *ngIf="record.optStatus==EnumOptStatus[1]" style="color:#DD0000;">{{record.optStatus|deviceStatus}}</span>
+                                                        <span *ngIf="record.optStatus==EnumOptStatus[2]" style="color:#00DD00;">{{record.optStatus|deviceStatus}}</span>
                                                     </td>
                                                 </tr>
                                             </ng-template>

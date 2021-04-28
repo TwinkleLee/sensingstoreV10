@@ -437,10 +437,10 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
   filterDevice() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.devicePublishList.forEach((v, index, array) => {
-      if (v.auditStatus == 0) {
+      if (v.auditStatus == 'Offline') {
         downNum.push(v);
         downNumIds.push(v.id);
-      } else if (v.auditStatus == 1) {
+      } else if (v.auditStatus == 'Online') {
         upNum.push(v);
         upNumIds.push(v.id);
       }

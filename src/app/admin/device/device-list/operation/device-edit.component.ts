@@ -40,7 +40,7 @@ import { CargoModalComponent } from '@app/admin/device/cargo-lane/cargo-modal.co
 import { PriceTagServiceProxy, PriceTagPriceTagIntegrationInput } from '@shared/service-proxies/service-proxies-product';
 
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
-import { DeviceBehaviorServiceProxy } from '@shared/service-proxies/service-proxies3';
+import { DeviceBehaviorServiceProxy, EnumOptStatus } from '@shared/service-proxies/service-proxies3';
 import { ExternalAccessServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
 import { AppConsts } from '@shared/AppConsts';
@@ -70,6 +70,8 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     agreementId: any = '';
     agreementList: any = [];
 
+    GatewayType = GatewayType;
+
 
     // 传感器 device.deviceTypeId==19
     belongGateWay2: any = '';
@@ -85,6 +87,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     LayerThingIdList: any = [];
 
     CargoTypeEnum = CargoTypeEnum;
+    EnumOptStatus = EnumOptStatus;
 
 
     @ViewChild('AdsAlertModal', { static: true }) AdsAlertModal: AdsAlertModalComponent;

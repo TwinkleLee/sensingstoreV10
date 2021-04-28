@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { HtmlTemplateServiceProxy, CreateHtmlTemplateInput,UpdateHtmlTemplateInput } from '@shared/service-proxies/service-proxies5';
+import { HtmlTemplateServiceProxy, CreateHtmlTemplateInput,UpdateHtmlTemplateInput,TemplateEnum } from '@shared/service-proxies/service-proxies5';
 
 
 @Component({
@@ -23,6 +23,8 @@ export class PageTemplateModalComponent extends AppComponentBase implements Afte
   saving = false;
   operation: string = "add";
   Template: any = {};
+
+  TemplateEnum = TemplateEnum;
 
   constructor(
     injector: Injector,

@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "http://119.3.154.130:8002/swagger/v1/swagger.json",
+      "url": "https://devicebigdata5.sensingstore.com/swagger/v1/swagger.json",
       "output": null
     }
   },

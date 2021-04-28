@@ -6,7 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { AppConsts } from '@shared/AppConsts';
 import { PageTemplateModalComponent } from '@app/admin/activity/activity-template/operation/create-or-edit-pageTemplate.component';
-import { HtmlTemplateServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { HtmlTemplateServiceProxy, TemplateEnum } from '@shared/service-proxies/service-proxies5';
 
 
 @Component({
@@ -21,6 +21,8 @@ export class PageTemplateComponent extends AppComponentBase {
   @ViewChild('paginator',{static:true}) paginator: Paginator;
   filterText: string;
   MetaCheckedList: any = [];
+  TemplateEnum = TemplateEnum;
+
   constructor(injector: Injector,
     private _htmlTemplateService: HtmlTemplateServiceProxy
   ) {

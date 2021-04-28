@@ -156,7 +156,7 @@
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li
-                                                        *ngIf="isGranted('Pages.Tenant.Coupons.Delete')&&record['auditStatus']==0&&record.isMine!==false">
+                                                        *ngIf="isGranted('Pages.Tenant.Coupons.Delete')&&record['auditStatus']=='Offline'&&record.isMine!==false">
                                                         <a (click)="deleteCoupon(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
@@ -180,9 +180,9 @@
                                         <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
                                         <td>{{record.end_time| date : "yyyy/MM/dd"}}</td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']==1"
+                                            <span *ngIf="record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("OnSale")}}</span>
-                                            <span *ngIf="record['auditStatus']==0"
+                                            <span *ngIf="record['auditStatus']=='Offline'"
                                                 class="label label-dark label-inline">{{l("OffSale")}}</span>
                                         </td>
                                     </tr>

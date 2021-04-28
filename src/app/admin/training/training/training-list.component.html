@@ -217,7 +217,7 @@
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
                                                     <li
-                                                        *ngIf="isGranted('Pages.Tenant.Training.Delete')&&record['auditStatus']==0">
+                                                        *ngIf="isGranted('Pages.Tenant.Training.Delete')&&record['auditStatus']=='Offline'">
                                                         <a (click)="deleteTraining(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
@@ -240,20 +240,20 @@
                                         <td>{{record.score}}</td>
                                         <td>{{record.participaterCount}}</td>
                                         <td>
-                                            <span *ngIf="record['auditStatus']==1"
+                                            <span *ngIf="record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("OnSale")}}</span>
-                                            <span *ngIf="record['auditStatus']==0"
+                                            <span *ngIf="record['auditStatus']=='Offline"
                                                 class="label label-dark label-inline">{{l("OffSale")}}</span>
                                         </td>
 
                                         <td>
-                                            <span *ngIf="record['trainingStatus']==3&&record['auditStatus']==1"
+                                            <span *ngIf="record['trainingStatus']==3&&record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("Completed")}}</span>
-                                            <span *ngIf="record['trainingStatus']==1&&record['auditStatus']==1"
+                                            <span *ngIf="record['trainingStatus']==1&&record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("NotStarted")}}</span>
-                                            <span *ngIf="record['trainingStatus']==2&&record['auditStatus']==1"
+                                            <span *ngIf="record['trainingStatus']==2&&record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("Overdue")}}</span>
-                                            <span *ngIf="record['auditStatus']==0"></span>
+                                            <span *ngIf="record['auditStatus']=='Offline'"></span>
 
                                         </td>
 

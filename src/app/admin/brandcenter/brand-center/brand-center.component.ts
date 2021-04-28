@@ -272,7 +272,7 @@ export class BrandCenterComponent extends AppComponentBase {
 
     //此处应检测是否存在已上线的品牌
     if (this.brandPublishList.some(item => {
-      return item.auditStatus == 1
+      return item.auditStatus == 'Online'
     })) {
       this.message.warn(this.l('cantDeleteOnlineBrand'))
       return

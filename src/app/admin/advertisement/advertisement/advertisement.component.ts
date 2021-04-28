@@ -227,7 +227,7 @@ export class AdvertisementComponent extends AppComponentBase {
   filterAds() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.AdsPublishList.forEach((v, index, array) => {
-      if (v.auditStatus == "0") {
+      if (v.auditStatus == "Offline") {
         downNum.push(v);
         downNumIds.push(v.id);
       } else {

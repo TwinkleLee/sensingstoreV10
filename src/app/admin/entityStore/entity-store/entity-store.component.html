@@ -108,8 +108,8 @@
                                                 <select class="form-control" [(ngModel)]="storeStatus"
                                                     name="storeStatus">
                                                     <option value="">{{l('All')}}</option>
-                                                    <option [value]="1">{{l("online")}}</option>
-                                                    <option [value]="0">{{l("offline")}}</option>
+                                                    <option [value]="StoreStatus[1]">{{l("online")}}</option>
+                                                    <option [value]="StoreStatus[0]">{{l("offline")}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@
                                                         <a (click)="editStore(record)"
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']==0">
+                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']==StoreStatus[0]">
                                                         <a (click)="deleteStore(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
@@ -232,9 +232,9 @@
                                             <span>{{getBrandName(record)}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['storeStatus']==1"
+                                            <span *ngIf="record['storeStatus']==StoreStatus[1]"
                                                 class="label label-success label-inline">{{l("online")}}</span>
-                                            <span *ngIf="record['storeStatus']==0"
+                                            <span *ngIf="record['storeStatus']==StoreStatus[0]"
                                                 class="label label-dark label-inline">{{l("offline")}}</span>
                                         </td>
                                     </tr>
