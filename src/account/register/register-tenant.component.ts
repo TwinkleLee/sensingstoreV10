@@ -90,7 +90,7 @@ export class RegisterTenantComponent extends AppComponentBase implements OnInit,
                 .subscribe((result: RegisterTenantOutput) => {
                     this.notify.success(this.l('SuccessfullyRegistered'));
                     this._tenantRegistrationHelper.registrationResult = result;
-                    if (parseInt(this.model.subscriptionStartType.toString()) === SubscriptionStartType.Paid) {
+                    if (this.model.subscriptionStartType === SubscriptionStartType.Paid) {
                         this._router.navigate(['account/buy'],
                             {
                                 queryParams: {

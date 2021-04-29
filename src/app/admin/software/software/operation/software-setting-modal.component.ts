@@ -9,7 +9,7 @@ import { TokenService } from 'abp-ng2-module';
 import { finalize } from 'rxjs/operators';
 import { Table } from 'primeng/table';
 import { PaperServiceProxy, PublishPapersToSoftwares } from '@shared/service-proxies/service-proxies5';
-import { TagServiceProxy, TagType as Type, Type4 } from '@shared/service-proxies/service-proxies5';
+import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import * as _ from 'lodash';
 
 
@@ -111,7 +111,7 @@ export class SoftwareSettingModalComponent extends AppComponentBase {
 
 
     getTags() {
-        this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type4.Question).subscribe((r) => {
+        this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
             this.tags = r.items;
         })
     }

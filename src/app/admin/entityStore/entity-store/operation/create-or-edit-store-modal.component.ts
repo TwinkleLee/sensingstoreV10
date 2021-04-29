@@ -71,10 +71,9 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     // 更新room
     updateRoomList(store) {
-
         let obj = {}
-
         let ary = []
+
 
         this.lastRooms.concat(this.rooms).reduce(function (item, next) {
             obj[next.id] ? '' : obj[next.id] = true && item.push(next);
@@ -103,6 +102,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             brandName: void 0,
             brandLogo: void 0
         })))
+        
         this._roomServiceProxy.updateRoomList(new UpdateRoomListInput({ "updateRoomDtos": input })).subscribe(r => { })
     }
 

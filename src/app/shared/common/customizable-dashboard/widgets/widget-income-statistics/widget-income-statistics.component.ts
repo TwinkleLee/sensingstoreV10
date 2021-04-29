@@ -32,8 +32,8 @@ export class WidgetIncomeStatisticsComponent extends WidgetComponentBaseComponen
     this.runDelayed(this.loadIncomeStatisticsData);
   }
 
-  incomeStatisticsDateIntervalChange(interval: number) {
-    if (this.selectedIncomeStatisticsDateInterval === interval) {
+  incomeStatisticsDateIntervalChange(interval: any) {
+    if (this.selectedIncomeStatisticsDateInterval == interval) {
       return;
     }
 

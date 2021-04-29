@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import {  LoginServiceProxy } from '@shared/service-proxies/service-proxies';
-import { AutoGenerateTrainingInput, TrainingServiceProxy,TagServiceProxy, TagType as Type, Type4 } from '@shared/service-proxies/service-proxies5';
+import { AutoGenerateTrainingInput, TrainingServiceProxy,TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 
 @Component({
     selector: 'trainingModal',
@@ -80,7 +80,7 @@ export class SetTrainingModalComponent extends AppComponentBase implements After
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type4.Question).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Question).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
