@@ -253,10 +253,10 @@ export class EntityStoreComponent extends AppComponentBase {
   filterStore() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.storeCheckedList.forEach((v, index, array) => {
-      if (v.storeStatus == 0) {
+      if (v.storeStatus == 'Offline') {
         downNum.push(v);
         downNumIds.push(v.storeId);
-      } else if (v.storeStatus == 1) {
+      } else if (v.storeStatus == 'Online') {
         upNum.push(v);
         upNumIds.push(v.storeId);
       }

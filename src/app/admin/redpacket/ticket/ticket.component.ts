@@ -186,7 +186,7 @@ export class TicketComponent extends AppComponentBase {
   filterAds() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.publishList.forEach((v, index, array) => {
-      if (v.ticketStatus == "0") {
+      if (v.ticketStatus == "Offline") {
         downNum.push(v);
         downNumIds.push(v.id);
       } else {
