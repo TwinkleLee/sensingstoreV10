@@ -8431,9 +8431,9 @@ export class StoreServiceProxy {
     }
 
     /**
-     * 获取当前租户下组织架构和店铺关系的树形结构
+     * 获取当前租户下的组织机构的Tree
      * @param ouids (optional) 
-     * @param includeOfflineStore (optional) 上下线
+     * @param includeOfflineStore (optional) 
      * @return Success
      */
     getCurrentTenantOrganizationUnitsAndStoresTree(ouids: number[] | null | undefined, includeOfflineStore: boolean | undefined): Observable<Int64TreeDto> {
@@ -9100,6 +9100,84 @@ export class StoreServiceProxy {
         } else if (status === 403) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("Forbidden", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * 开门接口
+     * @param tenantId (optional) 
+     * @param memberId (optional) 
+     * @param storeId (optional) 
+     * @param deviceId (optional) 
+     * @param longitude (optional) 
+     * @param latitude (optional) 
+     * @return Success
+     */
+    controlOpenDoor(tenantId: number | undefined, memberId: number | undefined, storeId: number | undefined, deviceId: number | undefined, longitude: number | undefined, latitude: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Store/ControlOpenDoor?";
+        if (tenantId === null)
+            throw new Error("The parameter 'tenantId' cannot be null.");
+        else if (tenantId !== undefined)
+            url_ += "tenantId=" + encodeURIComponent("" + tenantId) + "&";
+        if (memberId === null)
+            throw new Error("The parameter 'memberId' cannot be null.");
+        else if (memberId !== undefined)
+            url_ += "memberId=" + encodeURIComponent("" + memberId) + "&";
+        if (storeId === null)
+            throw new Error("The parameter 'storeId' cannot be null.");
+        else if (storeId !== undefined)
+            url_ += "storeId=" + encodeURIComponent("" + storeId) + "&";
+        if (deviceId === null)
+            throw new Error("The parameter 'deviceId' cannot be null.");
+        else if (deviceId !== undefined)
+            url_ += "deviceId=" + encodeURIComponent("" + deviceId) + "&";
+        if (longitude === null)
+            throw new Error("The parameter 'longitude' cannot be null.");
+        else if (longitude !== undefined)
+            url_ += "longitude=" + encodeURIComponent("" + longitude) + "&";
+        if (latitude === null)
+            throw new Error("The parameter 'latitude' cannot be null.");
+        else if (latitude !== undefined)
+            url_ += "latitude=" + encodeURIComponent("" + latitude) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processControlOpenDoor(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processControlOpenDoor(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processControlOpenDoor(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -10395,19 +10473,19 @@ export interface IApplyFormDtoPagedResultDto {
 }
 
 export enum ApplyFormType {
-    Product = 0,
-    Ads = 1,
-    App = 2,
-    Device = 3,
-    Sku = 4,
-    Coupon = 5,
-    Brand = 6,
-    UXPage = 7,
+    Product = "Product",
+    Ads = "Ads",
+    App = "App",
+    Device = "Device",
+    Sku = "Sku",
+    Coupon = "Coupon",
+    Brand = "Brand",
+    UXPage = "UXPage",
 }
 
 export enum ApplyWanted {
-    Online = 0,
-    Offline = 1,
+    Online = "Online",
+    Offline = "Offline",
 }
 
 export class CreateApplyFormInput implements ICreateApplyFormInput {
@@ -10471,10 +10549,10 @@ export interface ICreateApplyFormInput {
 }
 
 export enum ApplyStatus {
-    Applied = 0,
-    Cancel = 1,
-    Accepted = 2,
-    Rejected = 3,
+    Applied = "Applied",
+    Cancel = "Cancel",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
 }
 
 export class AuditApplyFormInput implements IAuditApplyFormInput {
@@ -10614,20 +10692,20 @@ export interface IIdNamePicDtoPagedResultDto {
 }
 
 export enum AuditStatus {
-    Offline = 0,
-    Online = 1,
+    Offline = "Offline",
+    Online = "Online",
 }
 
 export enum OperatingType {
-    Official = 0,
-    Test = 1,
+    Official = "Official",
+    Test = "Test",
 }
 
 export enum BussinessType {
-    SelfBuyFromOthers = 0,
-    SelfBuyFromTronCell = 1,
-    RentFromOthers = 2,
-    RentFromTronCell = 3,
+    SelfBuyFromOthers = "SelfBuyFromOthers",
+    SelfBuyFromTronCell = "SelfBuyFromTronCell",
+    RentFromOthers = "RentFromOthers",
+    RentFromTronCell = "RentFromTronCell",
 }
 
 export class DeviceTypeDto implements IDeviceTypeDto {
@@ -10851,21 +10929,21 @@ export interface IDevicePeripheralDto {
 }
 
 export enum ExternalEnum {
-    Platform = 0,
-    Taobao = 1,
-    Oracle = 2,
-    JD = 3,
-    BaiSheng = 4,
-    Shangpai = 5,
-    Weimob = 6,
+    Platform = "Platform",
+    Taobao = "Taobao",
+    Oracle = "Oracle",
+    JD = "JD",
+    BaiSheng = "BaiSheng",
+    Shangpai = "Shangpai",
+    Weimob = "Weimob",
 }
 
 export enum OsTypeEnum {
-    Windows = 0,
-    Android = 1,
-    IOS = 2,
-    Linux = 3,
-    MacOS = 4,
+    Windows = "Windows",
+    Android = "Android",
+    IOS = "iOS",
+    Linux = "Linux",
+    MacOS = "MacOS",
 }
 
 export class DeviceDto implements IDeviceDto {
@@ -13065,8 +13143,8 @@ export interface IUpdateBrandCategoryInput {
 }
 
 export enum DeviceStatus {
-    Stopped = 0,
-    Running = 1,
+    Stopped = "Stopped",
+    Running = "Running",
 }
 
 export class TenantDeviceOutput implements ITenantDeviceOutput {
@@ -14284,13 +14362,13 @@ export interface IFileDto {
 }
 
 export enum StoreStatus {
-    Stopped = 0,
-    Running = 1,
+    Stopped = "Stopped",
+    Running = "Running",
 }
 
 export enum StoreType {
-    Self_Supporting = 0,
-    Join = 1,
+    Self_Supporting = "Self_Supporting",
+    Join = "Join",
 }
 
 export class DeviceTypeDtoPagedResultDto implements IDeviceTypeDtoPagedResultDto {
@@ -16023,10 +16101,10 @@ export interface IInt64TreeDto {
 }
 
 export enum GroupKPIScaleEnum {
-    Year = 0,
-    Month = 1,
-    Week = 2,
-    Day = 3,
+    Year = "Year",
+    Month = "Month",
+    Week = "Week",
+    Day = "Day",
 }
 
 export class OrganizationUnitKPIDto implements IOrganizationUnitKPIDto {
@@ -17522,9 +17600,9 @@ export interface IUpdateIntfaDeviceDescriptionsInput {
 }
 
 export enum RedeemType {
-    None = 0,
-    Full = 1,
-    Partial = 2,
+    None = "None",
+    Full = "Full",
+    Partial = "Partial",
 }
 
 export class EntityFileSdkModel implements IEntityFileSdkModel {
@@ -19984,16 +20062,16 @@ export interface IUpdateStoreKpiDtoInput {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
-    UxPage = 9,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
 }
 
 export class TagDto implements ITagDto {
