@@ -1,7 +1,7 @@
 <div>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="(operation=='edit'?'editBrand':'createBrand') | localize"
-            [description]="brand?.id+' | '+brand?.name"> 
+            [description]="brand?.id+' | '+brand?.name">
             <div action="back">
                 <i class="icon-fanhui text-info" (click)="goBack()"></i>
             </div>
@@ -12,186 +12,180 @@
                 <div class="card-body">
                     <form #deviceInfooperationForm="ngForm" name="ProductsForm" novalidate (ngSubmit)="save()"
                         autocomplete="off">
-                        
-                            <tabset>
-                                <tab heading="{{l('BrandMessage')}}" class="p-5">
-                                    <div class="row">
-                                        <div class="form-group col-4">
-                                            <label>{{l("BrandNo")}} *</label>
-                                            <input #codeInput="ngModel" class="form-control" type="text" name="code"
-                                                [(ngModel)]="brand.code" required maxlength="64">
-                                            <validation-messages [formCtrl]="codeInput"></validation-messages>
-                                        </div>
-                                        <div class="form-group col-4">
-                                            <label>{{l("BrandName")}}*</label>
-                                            <input #nameInput="ngModel" class="form-control" type="text" name="name"
-                                                [(ngModel)]="brand.name" required maxlength="64">
-                                            <validation-messages [formCtrl]="nameInput"></validation-messages>
-                                        </div>
-                                        <div class="form-group col-4">
-                                            <label>{{l("BrandTheme")}}</label>
-                                            <input #nameInput="ngModel" class="form-control" type="text" name="theme"
-                                                [(ngModel)]="brand.theme">
-                                            <!-- <validation-messages [formCtrl]="nameInput"></validation-messages> -->
-                                        </div>
 
-                                        <div class="form-group col-4">
-                                            <label>{{l("tags")}}</label>
-                                            <p-autoComplete [(ngModel)]="tags" 
-                                                [suggestions]="tagSuggestion"
-                                                (completeMethod)="filter($event)" 
-                                                field="value" placeholder="tags"
-                                                dataKey="id" [multiple]="true" 
-                                                [dropdown]="true"
-                                                (onSelect)="assignTags()" 
-                                                (onUnselect)="assignTags()"
-                                                (onBlur)="clearInput($event)" 
-                                                [minLength]="1" 
-                                                name="MultiSelectInput"
-                                                id="MultiSelectInput"
-                                                inputStyleClass="form-control" 
-                                                styleClass="width-percent-100">
-                                            </p-autoComplete>
-                                        </div>
+                        <tabset>
+                            <tab heading="{{l('BrandMessage')}}" class="p-5">
+                                <div class="row">
+                                    <div class="form-group col-4">
+                                        <label>{{l("BrandNo")}} *</label>
+                                        <input #codeInput="ngModel" class="form-control" type="text" name="code"
+                                            [(ngModel)]="brand.code" required maxlength="64">
+                                        <validation-messages [formCtrl]="codeInput"></validation-messages>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("BrandName")}}*</label>
+                                        <input #nameInput="ngModel" class="form-control" type="text" name="name"
+                                            [(ngModel)]="brand.name" required maxlength="64">
+                                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("BrandTheme")}}</label>
+                                        <input #nameInput="ngModel" class="form-control" type="text" name="theme"
+                                            [(ngModel)]="brand.theme">
+                                        <!-- <validation-messages [formCtrl]="nameInput"></validation-messages> -->
+                                    </div>
 
-                                        <div class="form-group col-4">
-                                            <label>{{l("BrandCategory")}}</label>
-                                            <div class="form-group" id="BrandCategory">
-                                                <input class="form-control" readonly type="text" [title]="categoryName"
-                                                    id="categoryName" name="BrandCategory" [(ngModel)]="categoryName"
-                                                    (click)="showCateTree()">
-                                                <ul class="dropdown-menu"
-                                                    style="width:100%;padding-left: 30px;overflow: auto;position: absolute;">
-                                                    <li *ngIf="categoryList&&categoryList.length==0">
-                                                        {{l('NoBrandCategoryDefinedYet')}}
-                                                    </li>
-                                                    <li style="max-height: 300px;">
-                                                        <app-my-tree #tree [(items)]="categoryList"
-                                                            [(config)]="treeConfig">
-                                                        </app-my-tree>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("tags")}}</label>
+                                        <p-autoComplete [(ngModel)]="tags" [suggestions]="tagSuggestion"
+                                            (completeMethod)="filter($event)" field="value" placeholder="tags"
+                                            dataKey="id" [multiple]="true" [dropdown]="true" (onSelect)="assignTags()"
+                                            (onUnselect)="assignTags()" (onBlur)="clearInput($event)" [minLength]="1"
+                                            name="MultiSelectInput" id="MultiSelectInput" inputStyleClass="form-control"
+                                            styleClass="width-percent-100">
+                                        </p-autoComplete>
+                                    </div>
 
-                                        <div class="form-group col-4">
-                                            <label>{{l("slogan")}}</label>
-                                            <input class="form-control" type="text" name="slogan"
-                                                [(ngModel)]="brand.slogan" maxlength="256">
-                                        </div>
-                                        <div class="form-group col-4">
-                                            <label>{{l("BrandThemeColor")}}</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text icon-yanse">
-                                                        <input type="color" id="mainColor" name="mainColor"
-                                                            [(ngModel)]="brand.mainColor" class="hiddenChose" />
-                                                    </span>
-                                                </div>
-                                                <input class="form-control" type="text"
-                                                    [placeholder]="l('colorPickTips')"
-                                                    [ngStyle]="{'color':brand.mainColor}" name="mainColor"
-                                                    [(ngModel)]="brand.mainColor">
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-4">
-                                            <label>{{l("orderNumber")}}</label>
-                                            <input class="form-control" maxlength="32" type="number"
-                                                pattern="^(([1-9][0-9]*)|0)\b$" name="orderNumber"
-                                                [(ngModel)]="brand.orderNumber">
-                                        </div>
-                                        <div class="form-group col-4">
-                                            <label>{{l("auditStatus")}}</label>
-                                            <input #stateInput="ngModel" class="form-control" maxlength="32" type="text"
-                                                name="state" [(ngModel)]="brand.state">
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label class="control-label">{{l("logo")}}</label>
-                                                <app-fileupload [fileUrl]="brand.logoUrl"
-                                                    (onUpLoadEvent)="onUploadLogo($event)" require="required">
-                                                </app-fileupload>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label>{{l("description")}}</label>
-                                                <textarea #descriptionInput="ngModel" style="height: 390px"
-                                                    class="form-control" name="description"
-                                                    [(ngModel)]="brand.description"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="form-grou">
-                                                <label class="control-label">{{l("image")}}</label>
-                                                <app-fileupload [fileUrl]="brand.imageUrl"
-                                                    (onUpLoadEvent)="onUploadImage($event)" require="required">
-                                                </app-fileupload>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="control-label">{{l("ExtensionData")}}</label>
-                                                <textarea class="form-control" id="extensionData" name="extensionData"
-                                                    [(ngModel)]="brand.extensionData"></textarea>
-                                            </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("BrandCategory")}}</label>
+                                        <div class="form-group" id="BrandCategory">
+                                            <input class="form-control" readonly type="text" [title]="categoryName"
+                                                id="categoryName" name="BrandCategory" [(ngModel)]="categoryName"
+                                                (click)="showCateTree()">
+                                            <ul class="dropdown-menu"
+                                                style="width:100%;padding-left: 30px;overflow: auto;position: absolute;">
+                                                <li *ngIf="categoryList&&categoryList.length==0">
+                                                    {{l('NoBrandCategoryDefinedYet')}}
+                                                </li>
+                                                <li style="max-height: 300px;">
+                                                    <app-my-tree #tree [(items)]="categoryList" [(config)]="treeConfig">
+                                                    </app-my-tree>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12 text-right">
-                                            <button [disabled]="saving" type="button" class="btn btn-primary"
-                                                (click)="back()">{{l("Cancel")}}</button>
-                                            <button type="submit" class="btn btn-primary blue"
-                                                [disabled]="!deviceInfooperationForm.form.valid" [buttonBusy]="saving"
-                                                [busyText]="l('SavingWithThreeDot')">
-                                                <i class="fa fa-save"></i>
-                                                <span>{{l("Save")}}</span>
-                                            </button>
+
+                                    <div class="form-group col-4">
+                                        <label>{{l("slogan")}}</label>
+                                        <input class="form-control" type="text" name="slogan" [(ngModel)]="brand.slogan"
+                                            maxlength="256">
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("BrandThemeColor")}}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text icon-yanse">
+                                                    <input type="color" id="mainColor" name="mainColor"
+                                                        [(ngModel)]="brand.mainColor" class="hiddenChose" />
+                                                </span>
+                                            </div>
+                                            <input class="form-control" type="text" [placeholder]="l('colorPickTips')"
+                                                [ngStyle]="{'color':brand.mainColor}" name="mainColor"
+                                                [(ngModel)]="brand.mainColor">
                                         </div>
                                     </div>
-                                </tab>
-                                <!--  资源列表-->
-                                <tab *ngIf="brand && brand.id" heading="{{l('resouceList')}}" class="p-5" (selectTab)="getResByBrandId()">
-                                    <div class="row align-items-center">
-                                        <form class="horizontal-form" autocomplete="off" name="devicesForm">
-                                            <div class="kt-form kt-form--label-align-right">
-                                                <div class="row align-items-center m--margin-bottom-10">
-                                                    <div class="offset-4 col-8">
-                                                        <div class="form-group">
-                                                            <div class="input-group"
-                                                                style="text-align:right;display: block;">
-                                                                <button type="button" (click)="createResource()"
-                                                                    class="btn btn-primary">{{l('add')}}</button>
-                                                                <button type="button" (click)="deleteResources()"
-                                                                    class="btn btn-primary">{{l('deleteBatch')}}</button>
-                                                            </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("orderNumber")}}</label>
+                                        <input class="form-control" maxlength="32" type="number"
+                                            pattern="^(([1-9][0-9]*)|0)\b$" name="orderNumber"
+                                            [(ngModel)]="brand.orderNumber">
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>{{l("auditStatus")}}</label>
+                                        <input #stateInput="ngModel" class="form-control" maxlength="32" type="text"
+                                            name="state" [(ngModel)]="brand.state">
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="control-label">{{l("logo")}}</label>
+                                            <app-fileupload [fileUrl]="brand.logoUrl"
+                                                (onUpLoadEvent)="onUploadLogo($event)" require="required">
+                                            </app-fileupload>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label>{{l("description")}}</label>
+                                            <textarea #descriptionInput="ngModel" style="height: 390px"
+                                                class="form-control" name="description"
+                                                [(ngModel)]="brand.description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-grou">
+                                            <label class="control-label">{{l("image")}}</label>
+                                            <app-fileupload [fileUrl]="brand.imageUrl"
+                                                (onUpLoadEvent)="onUploadImage($event)" require="required">
+                                            </app-fileupload>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="control-label">{{l("ExtensionData")}}</label>
+                                            <textarea class="form-control" id="extensionData" name="extensionData"
+                                                [(ngModel)]="brand.extensionData"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <button [disabled]="saving" type="button" class="btn btn-primary"
+                                            (click)="back()">{{l("Cancel")}}</button>
+                                        <button type="submit" class="btn btn-primary blue"
+                                            [disabled]="!deviceInfooperationForm.form.valid" [buttonBusy]="saving"
+                                            [busyText]="l('SavingWithThreeDot')">
+                                            <i class="fa fa-save"></i>
+                                            <span>{{l("Save")}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </tab>
+                            <!--  资源列表-->
+                            <tab *ngIf="brand && brand.id" heading="{{l('resouceList')}}" class="p-5"
+                                (selectTab)="getResByBrandId()">
+                                <div class="row align-items-center">
+                                    <form class="horizontal-form" autocomplete="off" name="devicesForm">
+                                        <div class="kt-form kt-form--label-align-right">
+                                            <div class="row align-items-center m--margin-bottom-10">
+                                                <div class="offset-4 col-8">
+                                                    <div class="form-group">
+                                                        <div class="input-group"
+                                                            style="text-align:right;display: block;">
+                                                            <button type="button" (click)="createResource()"
+                                                                class="btn btn-primary">{{l('add')}}</button>
+                                                            <button type="button" (click)="deleteResources()"
+                                                                class="btn btn-primary">{{l('deleteBatch')}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <div class="primeng-datatable-container"
-                                            [busyIf]="primengTableHelper.isLoading">
-                                            <app-image-grid id="gridShow" style="width: 100%;" gridOwner="product"
-                                                (onOperate)="onOperateResource($event)"
-                                                (onLazyLoad)="getResByBrandId($event)" [(selection)]="resourceSelection"
-                                                [imageList]="primengTableHelper.records"></app-image-grid>
-                                            <div class="primeng-paging-container">
-                                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
-                                                    #paginator (onPageChange)="getResByBrandId($event)"
-                                                    [totalRecords]="primengTableHelper.totalRecordsCount"
-                                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
-                                                </p-paginator>
-                                                <span class="total-records-count">
-                                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
-                                                </span>
-                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                    <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                                        <app-image-grid id="gridShow" style="width: 100%;" gridOwner="product"
+                                            (onOperate)="onOperateResource($event)"
+                                            (onLazyLoad)="getResByBrandId($event)" [(selection)]="resourceSelection"
+                                            [imageList]="primengTableHelper.records"></app-image-grid>
+                                        <div class="primeng-paging-container">
+                                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                                #paginator (onPageChange)="getResByBrandId($event)"
+                                                [totalRecords]="primengTableHelper.totalRecordsCount"
+                                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                                            </p-paginator>
+                                            <span class="total-records-count">
+                                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                            </span>
                                         </div>
                                     </div>
-                                </tab>
-                            </tabset>
-                       
+
+                
+                                </div>
+                            </tab>
+                        </tabset>
+
                     </form>
                 </div>
             </div>

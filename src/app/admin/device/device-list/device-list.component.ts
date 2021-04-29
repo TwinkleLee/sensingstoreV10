@@ -179,7 +179,10 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
       // this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       //   this.deviceTree = [result];
       // })
-      this._StoreServiceProxy.getCurrentTenantSimpleOrganizationUnitsAndStoresTree().subscribe((result) => {
+      this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree(
+        void 0,
+        void 0
+      ).subscribe((result) => {
         this.deviceTree = [result];
       })
     }

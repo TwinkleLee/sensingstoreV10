@@ -121,7 +121,7 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
         })
         console.log(this.Input)
         
-        if (this.Input.outPutInStorageType != 2) {
+        if (this.Input.outPutInStorageType != 'Put') {
             this._OutPutInStorageServiceProxy.addOrUpdateOutPutInStorageBill(this.Input)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
@@ -242,7 +242,7 @@ export class AddOutputinComponent extends AppComponentBase implements AfterViewC
             this.buildInput();
             return
         }
-        if (this.Input.outPutInStorageType == 1 || this.Input.outPutInStorageType == 2) {
+        if (this.Input.outPutInStorageType == 'Put' || this.Input.outPutInStorageType == 'Check') {
             this.skuList[index].valid = true;
             this.buildInput();
             return

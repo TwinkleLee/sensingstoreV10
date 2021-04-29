@@ -8,8 +8,8 @@ import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { QuestionModalComponent } from '@app/admin/question/question/operation/question-modal.component';
-import { UpdateQuestionStatusInput, QuestionTypeEnum, PublishedQuestionDto, QuestionServiceProxy, PublishQuestionsToPapersInput, PaperServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
+import { UpdateQuestionStatusInput, PublishedQuestionDto, QuestionServiceProxy, PublishQuestionsToPapersInput, PaperServiceProxy, QuestionDtoType } from '@shared/service-proxies/service-proxies5';
+import { TagServiceProxy, TagType as Type, Type4 } from '@shared/service-proxies/service-proxies5';
 import { finalize } from 'rxjs/operators';
 import { DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
 
@@ -45,7 +45,7 @@ export class QuestionComponent extends AppComponentBase {
 
   tags = [];
   tagFilter = "";
-  QuestionTypeEnum = QuestionTypeEnum;
+  QuestionTypeEnum = QuestionDtoType;
 
   constructor(injector: Injector,
     private router: Router,
@@ -107,7 +107,7 @@ export class QuestionComponent extends AppComponentBase {
   }
 
   getTags() {
-    this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
+    this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type4.Question).subscribe((r) => {
       this.tags = r.items;
     })
   }

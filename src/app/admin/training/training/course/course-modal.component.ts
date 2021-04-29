@@ -3,7 +3,7 @@ import { ModalDirective, ModalModule } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { CourseServiceProxy, CreateCourseInput, UpdateCourseInput } from '@shared/service-proxies/service-proxies5';
+import { CourseServiceProxy, CreateCourseInput, Type4, UpdateCourseInput } from '@shared/service-proxies/service-proxies5';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 
 @Component({
@@ -97,7 +97,7 @@ export class CreateOrEditCourseModalComponent extends AppComponentBase implement
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Other).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type4.Other).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

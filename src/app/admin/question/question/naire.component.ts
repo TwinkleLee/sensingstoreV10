@@ -7,7 +7,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { NaireModalComponent } from '@app/admin/question/question/operation/naire-modal.component';
-import { PublishPapersToSoftwares, PaperServiceProxy,TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
+import { PublishPapersToSoftwares, PaperServiceProxy,TagServiceProxy, TagType as Type, Type4 } from '@shared/service-proxies/service-proxies5';
 import { SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';
 
 
@@ -71,7 +71,7 @@ export class NaireComponent extends AppComponentBase {
   }
 
   getTags() {
-    this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type.Question).subscribe((r) => {
+    this._TagServiceProxy.getTagsByType('', void 0, 1000, 0, Type4.Question).subscribe((r) => {
       this.tags = r.items;
     })
   }

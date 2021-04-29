@@ -25,7 +25,7 @@ export class ActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2050,7 +2050,7 @@ export class AlipayServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2181,7 +2181,7 @@ export class ApplyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2196,7 +2196,7 @@ export class ApplyServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getApplyForms(type: ApplyFormType, applyStatus: ApplyStatus | undefined, start: moment.Moment | undefined, end: moment.Moment | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfApplyFormDto> {
+    getApplyForms(type: Type, applyStatus: ApplyStatus | undefined, start: moment.Moment | undefined, end: moment.Moment | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfApplyFormDto> {
         let url_ = this.baseUrl + "/api/services/app/Apply/GetApplyForms?";
         if (type === undefined || type === null)
             throw new Error("The parameter 'type' must be defined and cannot be null.");
@@ -2403,7 +2403,7 @@ export class AwardServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2681,7 +2681,7 @@ export class CommonServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2861,7 +2861,7 @@ export class CourseServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -3196,7 +3196,7 @@ export class DeviceActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -3646,7 +3646,7 @@ export class DouyinServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4019,7 +4019,7 @@ export class FileServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4090,7 +4090,7 @@ export class HtmlTemplateServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4358,7 +4358,7 @@ export class IdentityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4429,7 +4429,7 @@ export class ImportQuestionsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4500,7 +4500,7 @@ export class ImportTrainingsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4622,14 +4622,14 @@ export class PaperServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    createPaper(body: CreatePaperInput | undefined): Observable<void> {
+    createPaper(body: CreatePaperInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Paper/CreatePaper";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -4641,6 +4641,7 @@ export class PaperServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -4651,14 +4652,14 @@ export class PaperServiceProxy {
                 try {
                     return this.processCreatePaper(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<number>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<number>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreatePaper(response: HttpResponseBase): Observable<void> {
+    protected processCreatePaper(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4667,7 +4668,10 @@ export class PaperServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -4678,7 +4682,7 @@ export class PaperServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<number>(<any>null);
     }
 
     /**
@@ -5434,7 +5438,7 @@ export class PublicAccountServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -5497,7 +5501,7 @@ export class ServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -5561,14 +5565,14 @@ export class QuestionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    createQuestion(body: CreateQuestionInput | undefined): Observable<void> {
+    createQuestion(body: CreateQuestionInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Question/CreateQuestion";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -5580,6 +5584,7 @@ export class QuestionServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -5590,14 +5595,14 @@ export class QuestionServiceProxy {
                 try {
                     return this.processCreateQuestion(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<number>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<number>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateQuestion(response: HttpResponseBase): Observable<void> {
+    protected processCreateQuestion(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5606,7 +5611,10 @@ export class QuestionServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -5617,7 +5625,7 @@ export class QuestionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<number>(<any>null);
     }
 
     /**
@@ -5687,7 +5695,7 @@ export class QuestionServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getQuestions(type: QuestionTypeEnum | undefined, tagIds: number[] | undefined, questionScoreType: QuestionScoreTypeEnum | undefined, organizationUnitId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfQuestionDto> {
+    getQuestions(type: Type2 | undefined, tagIds: number[] | undefined, questionScoreType: QuestionScoreType | undefined, organizationUnitId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfQuestionDto> {
         let url_ = this.baseUrl + "/api/services/app/Question/GetQuestions?";
         if (type === null)
             throw new Error("The parameter 'type' cannot be null.");
@@ -5782,7 +5790,7 @@ export class QuestionServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getQuestionList(type: QuestionTypeEnum | undefined, tagIds: number[] | undefined, questionScoreType: QuestionScoreTypeEnum | undefined, organizationUnitId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<QuestionDto[]> {
+    getQuestionList(type: Type3 | undefined, tagIds: number[] | undefined, questionScoreType: QuestionScoreType2 | undefined, organizationUnitId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<QuestionDto[]> {
         let url_ = this.baseUrl + "/api/services/app/Question/GetQuestionList?";
         if (type === null)
             throw new Error("The parameter 'type' cannot be null.");
@@ -6164,7 +6172,7 @@ export class ReleaseApiTestServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -6235,7 +6243,7 @@ export class RepertoryHelpServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -6374,7 +6382,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -6623,7 +6631,7 @@ export class SengsingDeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -7514,7 +7522,7 @@ export class SensingDeviceActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -8883,7 +8891,7 @@ export class SensingDeviceActivityServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getPlayGamesByUser(openId: string, snsType: _definitions_EnumSnsType, securityKey: string, params: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlayGameOutput> {
+    getPlayGamesByUser(openId: string, snsType: SnsType, securityKey: string, params: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfPlayGameOutput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDeviceActivity/GetPlayGamesByUser?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -8974,7 +8982,7 @@ export class SensingDeviceActivityServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getMyActionsInActivity(minScore: number | undefined, isGameLevel: boolean | undefined, openId: string, snsType: _definitions_EnumSnsType, securityKey: string, params: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfUserActionPlayInfoOutput> {
+    getMyActionsInActivity(minScore: number | undefined, isGameLevel: boolean | undefined, openId: string, snsType: SnsType2, securityKey: string, params: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfUserActionPlayInfoOutput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDeviceActivity/GetMyActionsInActivity?";
         if (minScore === null)
             throw new Error("The parameter 'minScore' cannot be null.");
@@ -9071,7 +9079,7 @@ export class SensingDeviceActivityServiceProxy {
      * @param params (optional) 
      * @return Success
      */
-    getMyRankInActivity(rankColumn: string | undefined, rank: number | undefined, isGameLevel: boolean | undefined, actionId: number | undefined, openId: string, snsType: _definitions_EnumSnsType, securityKey: string, params: string | undefined): Observable<RankUserActionInfoOutput> {
+    getMyRankInActivity(rankColumn: string | undefined, rank: number | undefined, isGameLevel: boolean | undefined, actionId: number | undefined, openId: string, snsType: SnsType3, securityKey: string, params: string | undefined): Observable<RankUserActionInfoOutput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDeviceActivity/GetMyRankInActivity?";
         if (rankColumn === null)
             throw new Error("The parameter 'rankColumn' cannot be null.");
@@ -9429,7 +9437,7 @@ export class SensingDeviceActivityServiceProxy {
      * @param actionId (optional) 
      * @return Success
      */
-    getMyPersonDataInActivity(openId: string, snsType: _definitions_EnumSnsType, securityKey: string, params: string | undefined, actionId: number | undefined): Observable<ActivityUserDataOutput> {
+    getMyPersonDataInActivity(openId: string, snsType: SnsType4, securityKey: string, params: string | undefined, actionId: number | undefined): Observable<ActivityUserDataOutput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDeviceActivity/GetMyPersonDataInActivity?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -10603,7 +10611,7 @@ export class SensingDeviceActivityServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getMyAwardsInActivity(isGameLevel: boolean | undefined, openId: string, snsType: _definitions_EnumSnsType, securityKey: string, params: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSnsUserAwardOuput> {
+    getMyAwardsInActivity(isGameLevel: boolean | undefined, openId: string, snsType: SnsType5, securityKey: string, params: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSnsUserAwardOuput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDeviceActivity/GetMyAwardsInActivity?";
         if (isGameLevel === null)
             throw new Error("The parameter 'isGameLevel' cannot be null.");
@@ -10703,7 +10711,7 @@ export class SensingDeviceActivityServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    getAwardsByUserAndAction(openId: string, avatarUrl: string | undefined, actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<SnsUserAwardsSimpleOutput> {
+    getAwardsByUserAndAction(openId: string, avatarUrl: string | undefined, actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType, snsType: SnsType6, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<SnsUserAwardsSimpleOutput> {
         let url_ = this.baseUrl + "/api/services/app/SensingDeviceActivity/GetAwardsByUserAndAction?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -11006,7 +11014,7 @@ export class SensingWechatManageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11175,123 +11183,7 @@ export class SnsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
-    }
-
-    /**
-     * @param weixinAccountId (optional) 
-     * @return Success
-     */
-    setShopWeixinAccount(weixinAccountId: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sns/SetShopWeixinAccount?";
-        if (weixinAccountId === null)
-            throw new Error("The parameter 'weixinAccountId' cannot be null.");
-        else if (weixinAccountId !== undefined)
-            url_ += "WeixinAccountId=" + encodeURIComponent("" + weixinAccountId) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSetShopWeixinAccount(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSetShopWeixinAccount(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSetShopWeixinAccount(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param from (optional) 
-     * @return Success
-     */
-    getShopWSettings(from: string | undefined): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Sns/GetShopWSettings?";
-        if (from === null)
-            throw new Error("The parameter 'from' cannot be null.");
-        else if (from !== undefined)
-            url_ += "From=" + encodeURIComponent("" + from) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetShopWSettings(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetShopWSettings(<any>response_);
-                } catch (e) {
-                    return <Observable<number>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<number>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetShopWSettings(response: HttpResponseBase): Observable<number> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<number>(<any>null);
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11359,7 +11251,7 @@ export class SnsUserInfoServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11669,7 +11561,7 @@ export class SpecialUserServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -12067,7 +11959,7 @@ export class StoreActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -12417,10 +12309,11 @@ export class TagServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
+     * 获取标签的列表，支持分页（无筛选条件）
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -12500,6 +12393,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 根据类型获取设备、品牌、店铺的标签
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -12507,7 +12401,7 @@ export class TagServiceProxy {
      * @param type (optional) 
      * @return Success
      */
-    getTagsByType(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined, type: TagType | undefined): Observable<PagedResultDtoOfTagDto> {
+    getTagsByType(filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined, type: Type4 | undefined): Observable<PagedResultDtoOfTagDto> {
         let url_ = this.baseUrl + "/api/services/app/Tag/GetTagsByType?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -12576,6 +12470,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 新建设备、品牌、店铺标签
      * @param body (optional) 
      * @return Success
      */
@@ -12640,6 +12535,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 修改设备、品牌、店铺的标签
      * @param body (optional) 
      * @return Success
      */
@@ -12704,6 +12600,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 删除设备、品牌、店铺的标签
      * @param id (optional) 
      * @return Success
      */
@@ -12764,6 +12661,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 查看前N个Tag（N为传入得参数,可能用于下拉列表）
      * @param count (optional) 
      * @return Success
      */
@@ -12832,7 +12730,7 @@ export class TemplateMessageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -12925,7 +12823,7 @@ export class TrainingServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -13060,7 +12958,7 @@ export class TrainingServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getTrainings(id: number | undefined, auditStatus: AuditStatus | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, organizationUnitId: number | undefined, trainingCategory: TrainingCategoryEnum | undefined, trainingWay: TrainingWayEnum | undefined, trainingStatus: TrainingStatusEnum | undefined, trainingUserId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfTrainingBasicDto> {
+    getTrainings(id: number | undefined, auditStatus: AuditStatus2 | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, organizationUnitId: number | undefined, trainingCategory: TrainingCategory | undefined, trainingWay: TrainingWay | undefined, trainingStatus: TrainingStatus | undefined, trainingUserId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfTrainingBasicDto> {
         let url_ = this.baseUrl + "/api/services/app/Training/GetTrainings?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -13178,7 +13076,7 @@ export class TrainingServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getMyTrainings(id: number | undefined, auditStatus: AuditStatus | undefined, startTime: moment.Moment | undefined, organizationUnitId: number | undefined, trainingCategory: TrainingCategoryEnum | undefined, trainingWay: TrainingWayEnum | undefined, trainingStatus: TrainingStatusEnum | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfTrainingBasicDto> {
+    getMyTrainings(id: number | undefined, auditStatus: AuditStatus3 | undefined, startTime: moment.Moment | undefined, organizationUnitId: number | undefined, trainingCategory: TrainingCategory2 | undefined, trainingWay: TrainingWay2 | undefined, trainingStatus: TrainingStatus2 | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfTrainingBasicDto> {
         let url_ = this.baseUrl + "/api/services/app/Training/GetMyTrainings?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -13516,7 +13414,7 @@ export class TrainingServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getTrainingsToExcel(id: number | undefined, auditStatus: AuditStatus | undefined, startTime: moment.Moment | undefined, organizationUnitId: number | undefined, trainingCategory: TrainingCategoryEnum | undefined, trainingWay: TrainingWayEnum | undefined, trainingStatus: TrainingStatusEnum | undefined, trainingUserId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FileDto> {
+    getTrainingsToExcel(id: number | undefined, auditStatus: AuditStatus4 | undefined, startTime: moment.Moment | undefined, organizationUnitId: number | undefined, trainingCategory: TrainingCategory3 | undefined, trainingWay: TrainingWay3 | undefined, trainingStatus: TrainingStatus3 | undefined, trainingUserId: number | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/Training/GetTrainingsToExcel?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -14025,7 +13923,7 @@ export class TrainingListExcelExporterServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14093,7 +13991,7 @@ export class TransferServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14159,7 +14057,7 @@ export class TransferServiceProxy {
      * @param from (optional) 
      * @return Success
      */
-    action(actionId: number | undefined, gameId: number | undefined, isShared: boolean | undefined, openid: string | undefined, needAuth: boolean | undefined, isPostData: boolean | undefined, weChatAuthorizationType: SnsActivityAuthorizationType | undefined, from: string | undefined): Observable<void> {
+    action(actionId: number | undefined, gameId: number | undefined, isShared: boolean | undefined, openid: string | undefined, needAuth: boolean | undefined, isPostData: boolean | undefined, weChatAuthorizationType: WeChatAuthorizationType | undefined, from: string | undefined): Observable<void> {
         let url_ = this.baseUrl + "/Transfer/Action?";
         if (actionId === null)
             throw new Error("The parameter 'actionId' cannot be null.");
@@ -14241,9 +14139,10 @@ export class TransferServiceProxy {
      * @param storeId (optional) 
      * @param deviceId (optional) 
      * @param memberId (optional) 
+     * @param weixinAccountId (optional) 
      * @return Success
      */
-    weishop(tenantId: number | undefined, urlSource: string | undefined, storeId: string | undefined, deviceId: number | undefined, memberId: number | undefined): Observable<void> {
+    weishop(tenantId: number | undefined, urlSource: string | undefined, storeId: string | undefined, deviceId: number | undefined, memberId: number | undefined, weixinAccountId: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/Transfer/Weishop?";
         if (tenantId === null)
             throw new Error("The parameter 'tenantId' cannot be null.");
@@ -14265,6 +14164,10 @@ export class TransferServiceProxy {
             throw new Error("The parameter 'memberId' cannot be null.");
         else if (memberId !== undefined)
             url_ += "MemberId=" + encodeURIComponent("" + memberId) + "&";
+        if (weixinAccountId === null)
+            throw new Error("The parameter 'weixinAccountId' cannot be null.");
+        else if (weixinAccountId !== undefined)
+            url_ += "weixinAccountId=" + encodeURIComponent("" + weixinAccountId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14310,11 +14213,16 @@ export class TransferServiceProxy {
     /**
      * @param tenantId (optional) 
      * @param memberId (optional) 
+     * @param weixinAccountId (optional) 
      * @param body (optional) 
      * @return Success
      */
-    getWechatImg(tenantId: number | undefined, memberId: number | undefined, body: string[] | undefined): Observable<string[]> {
-        let url_ = this.baseUrl + "/Transfer/GetWechatImg";
+    getWechatImg(tenantId: number | undefined, memberId: number | undefined, weixinAccountId: number | undefined, body: string[] | undefined): Observable<string[]> {
+        let url_ = this.baseUrl + "/Transfer/GetWechatImg?";
+        if (weixinAccountId === null)
+            throw new Error("The parameter 'weixinAccountId' cannot be null.");
+        else if (weixinAccountId !== undefined)
+            url_ += "weixinAccountId=" + encodeURIComponent("" + weixinAccountId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -14484,7 +14392,7 @@ export class UserActionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14848,7 +14756,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postPlayerData4ActionQrcode(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
+    postPlayerData4ActionQrcode(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType2, snsType: SnsType7, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostPlayerData4ActionQrcode?";
         if (score === null)
             throw new Error("The parameter 'score' cannot be null.");
@@ -14956,7 +14864,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码传库存生成二维码接口
+     * ɨ�봫������ɶ�ά��ӿ�
     DDD
      * @param gameId (optional) 
      * @param targetUrl (optional) 
@@ -15024,7 +14932,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码确认后收集用户信息
+     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
      * @param openId (optional) 
      * @param gameId (optional) 
      * @return Success
@@ -15086,7 +14994,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码确认后收集用户信息
+     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
      * @param gameID (optional) 
      * @param filter (optional) 
      * @param sorting (optional) 
@@ -15163,7 +15071,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码确认后收集用户信息
+     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
      * @param id (optional) 
      * @return Success
      */
@@ -15229,7 +15137,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postPlayerData4ActionQrcodeOnline(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
+    postPlayerData4ActionQrcodeOnline(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType3, snsType: SnsType8, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostPlayerData4ActionQrcodeOnline?";
         if (score === null)
             throw new Error("The parameter 'score' cannot be null.");
@@ -15358,7 +15266,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postPlayerData4ActionQrcodeWithSeconds(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
+    postPlayerData4ActionQrcodeWithSeconds(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType4, snsType: SnsType9, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostPlayerData4ActionQrcodeWithSeconds?";
         if (score === null)
             throw new Error("The parameter 'score' cannot be null.");
@@ -15479,7 +15387,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postPlayerData4ActionQrcodeLimit(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
+    postPlayerData4ActionQrcodeLimit(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType5, snsType: SnsType10, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostPlayerData4ActionQrcodeLimit?";
         if (score === null)
             throw new Error("The parameter 'score' cannot be null.");
@@ -15600,7 +15508,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postPlayerDataWithAuthorizationType4ActionQrcode(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, weChatAuthorizationType: SnsActivityAuthorizationType | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
+    postPlayerDataWithAuthorizationType4ActionQrcode(score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, weChatAuthorizationType: WeChatAuthorizationType2 | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType6, snsType: SnsType11, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<QrcodeActionOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostPlayerDataWithAuthorizationType4ActionQrcode?";
         if (score === null)
             throw new Error("The parameter 'score' cannot be null.");
@@ -15787,7 +15695,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postPlayerDataByAction(actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<UserActionInfoOutput> {
+    postPlayerDataByAction(actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType7, snsType: SnsType12, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<UserActionInfoOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostPlayerDataByAction?";
         if (actionId === undefined || actionId === null)
             throw new Error("The parameter 'actionId' must be defined and cannot be null.");
@@ -15969,7 +15877,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postDataByUser(openId: string, avatarUrl: string | undefined, actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<UserActionInfoOutput> {
+    postDataByUser(openId: string, avatarUrl: string | undefined, actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType8, snsType: SnsType13, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<UserActionInfoOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostDataByUser?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -16103,7 +16011,7 @@ export class UserActionServiceProxy {
      * @param playingImage (optional) 
      * @return Success
      */
-    postDataByUserForPoint(openId: string, avatarUrl: string | undefined, actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<UserActionInfoOutput> {
+    postDataByUserForPoint(openId: string, avatarUrl: string | undefined, actionId: number, score: number | undefined, type: string | undefined, extensionData: string | undefined, fromType: string | undefined, snsUserInfoId: number | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType9, snsType: SnsType14, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, playerImage: FileParameter | undefined, playingImage: FileParameter | undefined): Observable<UserActionInfoOutput> {
         let url_ = this.baseUrl + "/api/UserAction/PostDataByUserForPoint?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -16233,7 +16141,7 @@ export class UserActionServiceProxy {
      * @param headerImage (optional) 
      * @return Success
      */
-    registerFaceMemberWithForm(openId: string, avatarUrl: string | undefined, phone: string | undefined, name: string | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, headerImage: FileParameter | undefined): Observable<SnsUserInfoOutput> {
+    registerFaceMemberWithForm(openId: string, avatarUrl: string | undefined, phone: string | undefined, name: string | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType10, snsType: SnsType15, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined, headerImage: FileParameter | undefined): Observable<SnsUserInfoOutput> {
         let url_ = this.baseUrl + "/api/UserAction/RegisterFaceMemberWithForm?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -16343,7 +16251,7 @@ export class UserActionServiceProxy {
      * @param params (optional) 
      * @return Success
      */
-    registerFaceMember(openId: string, avatarUrl: string | undefined, faceUrl: string | undefined, phone: string | undefined, name: string | undefined, isSendWeChatMsg: boolean | undefined, qrType: EnumQRStatus, snsType: _definitions_EnumSnsType, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined): Observable<SnsUserInfoOutput> {
+    registerFaceMember(openId: string, avatarUrl: string | undefined, faceUrl: string | undefined, phone: string | undefined, name: string | undefined, isSendWeChatMsg: boolean | undefined, qrType: QrType11, snsType: SnsType16, targetUrl: string | undefined, isTransferred: boolean | undefined, securityKey: string, params: string | undefined): Observable<SnsUserInfoOutput> {
         let url_ = this.baseUrl + "/api/UserAction/RegisterFaceMember?";
         if (openId === undefined || openId === null)
             throw new Error("The parameter 'openId' must be defined and cannot be null.");
@@ -16617,7 +16525,7 @@ export class UserActionServiceProxy {
      * @param openId (optional) 
      * @return Success
      */
-    likeAction(actionId: number | undefined, openId: string | undefined, snsType: _definitions_EnumSnsType): Observable<boolean> {
+    likeAction(actionId: number | undefined, openId: string | undefined, snsType: SnsType17): Observable<boolean> {
         let url_ = this.baseUrl + "/api/UserAction/LikeAction?";
         if (actionId === null)
             throw new Error("The parameter 'actionId' cannot be null.");
@@ -16681,7 +16589,7 @@ export class UserActionServiceProxy {
      * @param openId (optional) 
      * @return Success
      */
-    shareAction(actionId: number, openId: string | undefined, snsType: _definitions_EnumSnsType, shareType: EnumWeixinShareType): Observable<boolean> {
+    shareAction(actionId: number, openId: string | undefined, snsType: SnsType18, shareType: ShareType): Observable<boolean> {
         let url_ = this.baseUrl + "/api/UserAction/ShareAction?";
         if (actionId === undefined || actionId === null)
             throw new Error("The parameter 'actionId' must be defined and cannot be null.");
@@ -16750,7 +16658,7 @@ export class UserActionServiceProxy {
      * @param openId (optional) 
      * @return Success
      */
-    viewAction(actionId: number | undefined, openId: string | undefined, snsType: _definitions_EnumSnsType): Observable<boolean> {
+    viewAction(actionId: number | undefined, openId: string | undefined, snsType: SnsType19): Observable<boolean> {
         let url_ = this.baseUrl + "/api/UserAction/ViewAction?";
         if (actionId === null)
             throw new Error("The parameter 'actionId' cannot be null.");
@@ -16881,7 +16789,7 @@ export class UserActionServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getUserActions(snsUserInfoId: number | undefined, activityId: number | undefined, softwareId: number | undefined, deviceId: number | undefined, activityGameId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, snsType: _definitions_EnumSnsType | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfUserActionDto> {
+    getUserActions(snsUserInfoId: number | undefined, activityId: number | undefined, softwareId: number | undefined, deviceId: number | undefined, activityGameId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, snsType: SnsType20 | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfUserActionDto> {
         let url_ = this.baseUrl + "/api/services/app/UserAction/GetUserActions?";
         if (snsUserInfoId === null)
             throw new Error("The parameter 'snsUserInfoId' cannot be null.");
@@ -16992,7 +16900,7 @@ export class UserActionServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getUserActionsToExcel(snsUserInfoId: number | undefined, activityId: number | undefined, softwareId: number | undefined, deviceId: number | undefined, activityGameId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, snsType: _definitions_EnumSnsType | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<string> {
+    getUserActionsToExcel(snsUserInfoId: number | undefined, activityId: number | undefined, softwareId: number | undefined, deviceId: number | undefined, activityGameId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, snsType: SnsType21 | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/UserAction/GetUserActionsToExcel?";
         if (snsUserInfoId === null)
             throw new Error("The parameter 'snsUserInfoId' cannot be null.");
@@ -17215,7 +17123,7 @@ export class UserActionServiceProxy {
      * @param skipCount (optional) 
      * @return Success
      */
-    getUsersAndActionsSum(snsUserInfoId: number | undefined, activityId: number | undefined, softwareId: number | undefined, deviceId: number | undefined, activityGameId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, snsType: _definitions_EnumSnsType | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSnsUserActionSumDto> {
+    getUsersAndActionsSum(snsUserInfoId: number | undefined, activityId: number | undefined, softwareId: number | undefined, deviceId: number | undefined, activityGameId: number | undefined, startTime: moment.Moment | undefined, endTime: moment.Moment | undefined, snsType: SnsType22 | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSnsUserActionSumDto> {
         let url_ = this.baseUrl + "/api/services/app/UserAction/GetUsersAndActionsSum?";
         if (snsUserInfoId === null)
             throw new Error("The parameter 'snsUserInfoId' cannot be null.");
@@ -17480,7 +17388,7 @@ export class UserPaperServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -18279,7 +18187,7 @@ export class WechatManageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19540,7 +19448,7 @@ export class WeiboServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19609,7 +19517,7 @@ export class WeixinServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19810,7 +19718,7 @@ export class WeixinJSSDKServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19945,9 +19853,10 @@ export class WeixinJSSDKServiceProxy {
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param url (optional) 
+     * @param weixinAppId (optional) 
      * @return Success
      */
-    getWeishopJsViewModel(tenantId: number | undefined, memberId: number | undefined, url: string | undefined): Observable<WeChatJSViewModel> {
+    getWeishopJsViewModel(tenantId: number | undefined, memberId: number | undefined, url: string | undefined, weixinAppId: number | undefined): Observable<WeChatJSViewModel> {
         let url_ = this.baseUrl + "/WeixinJSSDK/GetWeishopJsViewModel?";
         if (tenantId === null)
             throw new Error("The parameter 'tenantId' cannot be null.");
@@ -19961,6 +19870,10 @@ export class WeixinJSSDKServiceProxy {
             throw new Error("The parameter 'url' cannot be null.");
         else if (url !== undefined)
             url_ += "url=" + encodeURIComponent("" + url) + "&";
+        if (weixinAppId === null)
+            throw new Error("The parameter 'weixinAppId' cannot be null.");
+        else if (weixinAppId !== undefined)
+            url_ += "weixinAppId=" + encodeURIComponent("" + weixinAppId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20016,7 +19929,7 @@ export class WeixinMpServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -20163,7 +20076,7 @@ export class WeixinOAuth2ServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -20632,7 +20545,7 @@ export class WeixinOpenPlatformServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -20697,13 +20610,13 @@ export class WeixinOpenPlatformServiceProxy {
 }
 
 export enum _definitions_EnumSnsType {
-    Taobao = 0,
-    WeChat = 1,
-    AliPay = 2,
-    AliPay_WeChat = 3,
-    Douyin = 4,
-    Weibo = 5,
-    Others = 6,
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
 }
 
 export class ActionInfo implements IActionInfo {
@@ -20843,7 +20756,7 @@ export class ActionShareDto implements IActionShareDto {
     imageLink!: string | undefined;
     /** 描述 */
     description!: string | undefined;
-    activityShareType!: EnumActivityShareType;
+    activityShareType!: ActionShareDtoActivityShareType;
 
     constructor(data?: IActionShareDto) {
         if (data) {
@@ -20893,17 +20806,7 @@ export interface IActionShareDto {
     imageLink: string | undefined;
     /** 描述 */
     description: string | undefined;
-    activityShareType: EnumActivityShareType;
-}
-
-export enum ActionStatus {
-    Start = 0,
-    Waitting = 1,
-    Playing = 2,
-    Done = 3,
-    AwardEdit = 4,
-    NotGetPrizeWithNoAward = 5,
-    NotGetPrize = 6,
+    activityShareType: ActionShareDtoActivityShareType;
 }
 
 export class Activity implements IActivity {
@@ -20944,7 +20847,7 @@ export class Activity implements IActivity {
     isEnableBlackUser!: boolean;
     organizer!: string | undefined;
     isAllowedRepeatAward!: boolean;
-    repeatAwardFrequency!: FrequencyType;
+    repeatAwardFrequency!: ActivityRepeatAwardFrequency | undefined;
     repeatAwardDurations!: number | undefined;
     repeatAwardTimes!: number | undefined;
     isAllowedShareGetLotteryTimes!: boolean;
@@ -20964,7 +20867,7 @@ export class Activity implements IActivity {
     contactor!: string | undefined;
     outerId!: string | undefined;
     contactorPhone!: string | undefined;
-    auditStatus!: AuditStatus;
+    auditStatus!: ActivityAuditStatus;
     games!: ActivityGame[] | undefined;
     type!: string | undefined;
     isDeleted!: boolean;
@@ -21209,7 +21112,7 @@ export interface IActivity {
     isEnableBlackUser: boolean;
     organizer: string | undefined;
     isAllowedRepeatAward: boolean;
-    repeatAwardFrequency: FrequencyType;
+    repeatAwardFrequency: ActivityRepeatAwardFrequency | undefined;
     repeatAwardDurations: number | undefined;
     repeatAwardTimes: number | undefined;
     isAllowedShareGetLotteryTimes: boolean;
@@ -21229,7 +21132,7 @@ export interface IActivity {
     contactor: string | undefined;
     outerId: string | undefined;
     contactorPhone: string | undefined;
-    auditStatus: AuditStatus;
+    auditStatus: ActivityAuditStatus;
     games: ActivityGame[] | undefined;
     type: string | undefined;
     isDeleted: boolean;
@@ -21284,8 +21187,8 @@ export interface IActivityAndSoftwareDto {
 
 export class ActivityAuditInput implements IActivityAuditInput {
     activityIds!: number[] | undefined;
-    currentAuditStatus!: AuditStatus;
-    targetAuditStatus!: AuditStatus;
+    currentAuditStatus!: ActivityAuditInputCurrentAuditStatus;
+    targetAuditStatus!: ActivityAuditInputTargetAuditStatus;
 
     constructor(data?: IActivityAuditInput) {
         if (data) {
@@ -21330,8 +21233,8 @@ export class ActivityAuditInput implements IActivityAuditInput {
 
 export interface IActivityAuditInput {
     activityIds: number[] | undefined;
-    currentAuditStatus: AuditStatus;
-    targetAuditStatus: AuditStatus;
+    currentAuditStatus: ActivityAuditInputCurrentAuditStatus;
+    targetAuditStatus: ActivityAuditInputTargetAuditStatus;
 }
 
 export class ActivityAwardDto implements IActivityAwardDto {
@@ -21342,7 +21245,7 @@ export class ActivityAwardDto implements IActivityAwardDto {
     awardIcon!: string | undefined;
     awardPicUrl!: string | undefined;
     awardCouponUrl!: string | undefined;
-    awardThingType!: ThingType;
+    awardThingType!: ActivityAwardDtoAwardThingType;
 
     constructor(data?: IActivityAwardDto) {
         if (data) {
@@ -21395,7 +21298,7 @@ export interface IActivityAwardDto {
     awardIcon: string | undefined;
     awardPicUrl: string | undefined;
     awardCouponUrl: string | undefined;
-    awardThingType: ThingType;
+    awardThingType: ActivityAwardDtoAwardThingType;
 }
 
 export class ActivityBasicDto implements IActivityBasicDto {
@@ -21441,7 +21344,7 @@ export class ActivityBasicDto implements IActivityBasicDto {
     contactor!: string | undefined;
     /** 活动联系人电话 */
     contactorPhone!: string | undefined;
-    auditStatus!: AuditStatus;
+    auditStatus!: ActivityBasicDtoAuditStatus;
     isMine!: boolean;
     organizationUnitId!: number | undefined;
     description!: string | undefined;
@@ -21572,7 +21475,7 @@ export interface IActivityBasicDto {
     contactor: string | undefined;
     /** 活动联系人电话 */
     contactorPhone: string | undefined;
-    auditStatus: AuditStatus;
+    auditStatus: ActivityBasicDtoAuditStatus;
     isMine: boolean;
     organizationUnitId: number | undefined;
     description: string | undefined;
@@ -21625,7 +21528,7 @@ export class ActivityFlow implements IActivityFlow {
     activityId!: number;
     activity!: Activity;
     flowUrl!: string | undefined;
-    flowType!: FlowType;
+    flowType!: ActivityFlowFlowType;
     isUseOutside!: boolean;
     htmlTemplateId!: number | undefined;
     htmlTemplate!: HtmlTemplate;
@@ -21714,7 +21617,7 @@ export interface IActivityFlow {
     activityId: number;
     activity: Activity;
     flowUrl: string | undefined;
-    flowType: FlowType;
+    flowType: ActivityFlowFlowType;
     isUseOutside: boolean;
     htmlTemplateId: number | undefined;
     htmlTemplate: HtmlTemplate;
@@ -21739,7 +21642,8 @@ export class ActivityFlowDto implements IActivityFlowDto {
     activityId!: number;
     /** Flow Url */
     flowUrl!: string | undefined;
-    flowType!: FlowType;
+    /** 流程 */
+    flowType!: ActivityFlowDtoFlowType;
     isUseOutside!: boolean;
     /** 本地链接 */
     htmlTemplateId!: number | undefined;
@@ -21822,7 +21726,8 @@ export interface IActivityFlowDto {
     activityId: number;
     /** Flow Url */
     flowUrl: string | undefined;
-    flowType: FlowType;
+    /** 流程 */
+    flowType: ActivityFlowDtoFlowType;
     isUseOutside: boolean;
     /** 本地链接 */
     htmlTemplateId: number | undefined;
@@ -21842,7 +21747,7 @@ export interface IActivityFlowDto {
 
 export class ActivityFlowOutput implements IActivityFlowOutput {
     flowUrl!: string | undefined;
-    flowType!: FlowType;
+    flowType!: ActivityFlowOutputFlowType;
     isUseOutside!: boolean;
     htmlTemplateId!: number | undefined;
     htmlTemplate!: HtmlTemplateOutput;
@@ -21916,7 +21821,7 @@ export class ActivityFlowOutput implements IActivityFlowOutput {
 
 export interface IActivityFlowOutput {
     flowUrl: string | undefined;
-    flowType: FlowType;
+    flowType: ActivityFlowOutputFlowType;
     isUseOutside: boolean;
     htmlTemplateId: number | undefined;
     htmlTemplate: HtmlTemplateOutput;
@@ -21936,7 +21841,8 @@ export class ActivityFlowSettingsInput implements IActivityFlowSettingsInput {
     id!: number | undefined;
     activityId!: number;
     flowUrl!: string | undefined;
-    flowType!: FlowType;
+    /** 流程 */
+    flowType!: ActivityFlowSettingsInputFlowType;
     /** 本地链接 */
     htmlTemplateId!: number | undefined;
     isUseOutside!: boolean;
@@ -22012,7 +21918,8 @@ export interface IActivityFlowSettingsInput {
     id: number | undefined;
     activityId: number;
     flowUrl: string | undefined;
-    flowType: FlowType;
+    /** 流程 */
+    flowType: ActivityFlowSettingsInputFlowType;
     /** 本地链接 */
     htmlTemplateId: number | undefined;
     isUseOutside: boolean;
@@ -22168,8 +22075,8 @@ export class ActivityGame implements IActivityGame {
     lastGameOverTime!: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode!: boolean;
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    weChatAuthorizationType!: ActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType!: ActivityGameTaobaoAuthorizationType;
     extensionData!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -22311,8 +22218,8 @@ export interface IActivityGame {
     lastGameOverTime: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode: boolean;
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    weChatAuthorizationType: ActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType: ActivityGameTaobaoAuthorizationType;
     extensionData: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -22382,8 +22289,10 @@ export class ActivityGameDto implements IActivityGameDto {
     gameType!: number;
     /** 游戏密钥 */
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType!: ActivityGameDtoWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType!: ActivityGameDtoTaobaoAuthorizationType;
     isSendWechatBeforeGame!: boolean;
     isSendWechatAfterGame!: boolean;
     isShareAction!: boolean;
@@ -22528,8 +22437,10 @@ export interface IActivityGameDto {
     gameType: number;
     /** 游戏密钥 */
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType: ActivityGameDtoWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType: ActivityGameDtoTaobaoAuthorizationType;
     isSendWechatBeforeGame: boolean;
     isSendWechatAfterGame: boolean;
     isShareAction: boolean;
@@ -22580,8 +22491,10 @@ export class ActivityGameSettingsInput implements IActivityGameSettingsInput {
     isNeedCheckBeforScanQRCode!: boolean;
     /** 该活动中游戏最大支持人数 */
     supportedPlayersCount!: number;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType!: ActivityGameSettingsInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType!: ActivityGameSettingsInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl!: string | undefined;
     isSendSnsMsgBeforeGame!: boolean;
@@ -22673,8 +22586,10 @@ export interface IActivityGameSettingsInput {
     isNeedCheckBeforScanQRCode: boolean;
     /** 该活动中游戏最大支持人数 */
     supportedPlayersCount: number;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType: ActivityGameSettingsInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType: ActivityGameSettingsInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl: string | undefined;
     isSendSnsMsgBeforeGame: boolean;
@@ -22726,7 +22641,7 @@ export class ActivityOutput implements IActivityOutput {
     contactor!: string | undefined;
     outerId!: string | undefined;
     contactorPhone!: string | undefined;
-    auditStatus!: AuditStatus;
+    auditStatus!: ActivityOutputAuditStatus;
     activityShare!: ActivityShareOutput;
 
     constructor(data?: IActivityOutput) {
@@ -22866,13 +22781,13 @@ export interface IActivityOutput {
     contactor: string | undefined;
     outerId: string | undefined;
     contactorPhone: string | undefined;
-    auditStatus: AuditStatus;
+    auditStatus: ActivityOutputAuditStatus;
     activityShare: ActivityShareOutput;
 }
 
 export class ActivityPayRecord implements IActivityPayRecord {
     tenantId!: number;
-    activityPayType!: ActivityPayType;
+    activityPayType!: ActivityPayRecordActivityPayType;
     payAmount!: number;
     actionId!: number;
     openid!: string | undefined;
@@ -22961,7 +22876,7 @@ export class ActivityPayRecord implements IActivityPayRecord {
 
 export interface IActivityPayRecord {
     tenantId: number;
-    activityPayType: ActivityPayType;
+    activityPayType: ActivityPayRecordActivityPayType;
     payAmount: number;
     actionId: number;
     openid: string | undefined;
@@ -22985,7 +22900,7 @@ export interface IActivityPayRecord {
 export class ActivityPayRecordInput implements IActivityPayRecordInput {
     id!: number;
     tenantId!: number;
-    activityPayType!: ActivityPayType;
+    activityPayType!: ActivityPayRecordInputActivityPayType;
     payAmount!: number;
     actionId!: number;
     openid!: string | undefined;
@@ -23053,7 +22968,7 @@ export class ActivityPayRecordInput implements IActivityPayRecordInput {
 export interface IActivityPayRecordInput {
     id: number;
     tenantId: number;
-    activityPayType: ActivityPayType;
+    activityPayType: ActivityPayRecordInputActivityPayType;
     payAmount: number;
     actionId: number;
     openid: string | undefined;
@@ -23066,19 +22981,13 @@ export interface IActivityPayRecordInput {
     extensionData: string | undefined;
 }
 
-export enum ActivityPayType {
-    Cash = 0,
-    Point = 1,
-    Ticket = 2,
-}
-
 export class ActivityShare implements IActivityShare {
     tenantId!: number;
     title!: string | undefined;
     link!: string | undefined;
     imageLink!: string | undefined;
     description!: string | undefined;
-    activityShareType!: EnumActivityShareType;
+    activityShareType!: ActivityShareType;
     creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
     id!: number;
@@ -23134,7 +23043,7 @@ export interface IActivityShare {
     link: string | undefined;
     imageLink: string | undefined;
     description: string | undefined;
-    activityShareType: EnumActivityShareType;
+    activityShareType: ActivityShareType;
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
@@ -23145,7 +23054,7 @@ export class ActivityShareOutput implements IActivityShareOutput {
     link!: string | undefined;
     imageLink!: string | undefined;
     description!: string | undefined;
-    activityShareType!: EnumActivityShareType;
+    activityShareType!: ActivityShareOutputActivityShareType;
     id!: number;
 
     constructor(data?: IActivityShareOutput) {
@@ -23192,7 +23101,7 @@ export interface IActivityShareOutput {
     link: string | undefined;
     imageLink: string | undefined;
     description: string | undefined;
-    activityShareType: EnumActivityShareType;
+    activityShareType: ActivityShareOutputActivityShareType;
     id: number;
 }
 
@@ -23207,7 +23116,7 @@ export class ActivityShareSettingsDto implements IActivityShareSettingsDto {
     imageLink!: string | undefined;
     /** 描述 */
     description!: string | undefined;
-    activityShareType!: EnumActivityShareType;
+    activityShareType!: ActivityShareSettingsDtoActivityShareType;
 
     constructor(data?: IActivityShareSettingsDto) {
         if (data) {
@@ -23261,7 +23170,7 @@ export interface IActivityShareSettingsDto {
     imageLink: string | undefined;
     /** 描述 */
     description: string | undefined;
-    activityShareType: EnumActivityShareType;
+    activityShareType: ActivityShareSettingsDtoActivityShareType;
 }
 
 export class ActivityShareSettingsInput implements IActivityShareSettingsInput {
@@ -23274,7 +23183,7 @@ export class ActivityShareSettingsInput implements IActivityShareSettingsInput {
     imageLink!: string | undefined;
     /** 描述 */
     description!: string | undefined;
-    activityShareType!: EnumActivityShareType;
+    activityShareType!: ActivityShareSettingsInputActivityShareType;
 
     constructor(data?: IActivityShareSettingsInput) {
         if (data) {
@@ -23327,7 +23236,7 @@ export interface IActivityShareSettingsInput {
     imageLink: string | undefined;
     /** 描述 */
     description: string | undefined;
-    activityShareType: EnumActivityShareType;
+    activityShareType: ActivityShareSettingsInputActivityShareType;
 }
 
 export class ActivityUserDataDto implements IActivityUserDataDto {
@@ -23558,7 +23467,7 @@ export interface IActivityUserDataOutput {
 
 export class AddOrUpdateActivityUserInput implements IAddOrUpdateActivityUserInput {
     openId!: string;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: AddOrUpdateActivityUserInputSnsType;
     securityKey!: string | undefined;
     /** 用户真是姓名 */
     name!: string | undefined;
@@ -23619,7 +23528,7 @@ export class AddOrUpdateActivityUserInput implements IAddOrUpdateActivityUserInp
 
 export interface IAddOrUpdateActivityUserInput {
     openId: string;
-    snsType: _definitions_EnumSnsType;
+    snsType: AddOrUpdateActivityUserInputSnsType;
     securityKey: string | undefined;
     /** 用户真是姓名 */
     name: string | undefined;
@@ -23639,7 +23548,7 @@ export class AddOrUpdateConditionalMenuInput implements IAddOrUpdateConditionalM
     weixinAppID!: string | undefined;
     menuContent!: ConditionalButtonGroup;
     displayName!: string | undefined;
-    menuType!: MenuType;
+    menuType!: AddOrUpdateConditionalMenuInputMenuType;
 
     constructor(data?: IAddOrUpdateConditionalMenuInput) {
         if (data) {
@@ -23683,7 +23592,7 @@ export interface IAddOrUpdateConditionalMenuInput {
     weixinAppID: string | undefined;
     menuContent: ConditionalButtonGroup;
     displayName: string | undefined;
-    menuType: MenuType;
+    menuType: AddOrUpdateConditionalMenuInputMenuType;
 }
 
 export class AddOrUpdateMenuInput implements IAddOrUpdateMenuInput {
@@ -23691,7 +23600,7 @@ export class AddOrUpdateMenuInput implements IAddOrUpdateMenuInput {
     weixinAppID!: string | undefined;
     menuContent!: any | undefined;
     displayName!: string | undefined;
-    menuType!: MenuType;
+    menuType!: AddOrUpdateMenuInputMenuType;
 
     constructor(data?: IAddOrUpdateMenuInput) {
         if (data) {
@@ -23735,7 +23644,7 @@ export interface IAddOrUpdateMenuInput {
     weixinAppID: string | undefined;
     menuContent: any | undefined;
     displayName: string | undefined;
-    menuType: MenuType;
+    menuType: AddOrUpdateMenuInputMenuType;
 }
 
 export class AddOrUpdateMessageSeedInput implements IAddOrUpdateMessageSeedInput {
@@ -23968,7 +23877,7 @@ export class AddUserPaperInput implements IAddUserPaperInput {
     correctCount!: number;
     totalScore!: number;
     opinion!: string | undefined;
-    examResult!: ExamEnum;
+    examResult!: AddUserPaperInputExamResult;
     paperQuestions!: PaperQuestion[] | undefined;
 
     constructor(data?: IAddUserPaperInput) {
@@ -24038,7 +23947,7 @@ export interface IAddUserPaperInput {
     correctCount: number;
     totalScore: number;
     opinion: string | undefined;
-    examResult: ExamEnum;
+    examResult: AddUserPaperInputExamResult;
     paperQuestions: PaperQuestion[] | undefined;
 }
 
@@ -24052,7 +23961,7 @@ export class AddUserPaperInput4Wechat implements IAddUserPaperInput4Wechat {
     correctCount!: number;
     totalScore!: number;
     opinion!: string | undefined;
-    examResult!: ExamEnum;
+    examResult!: AddUserPaperInput4WechatExamResult;
     paperQuestions!: PaperQuestion[] | undefined;
 
     constructor(data?: IAddUserPaperInput4Wechat) {
@@ -24122,7 +24031,7 @@ export interface IAddUserPaperInput4Wechat {
     correctCount: number;
     totalScore: number;
     opinion: string | undefined;
-    examResult: ExamEnum;
+    examResult: AddUserPaperInput4WechatExamResult;
     paperQuestions: PaperQuestion[] | undefined;
 }
 
@@ -24220,26 +24129,9 @@ export interface IApplyFormDto {
     id: number;
 }
 
-export enum ApplyFormType {
-    Activity = 0,
-    Training = 1,
-}
-
-export enum ApplyStatus {
-    Applied = 0,
-    Cancel = 1,
-    Accepted = 2,
-    Rejected = 3,
-}
-
-export enum ApplyWanted {
-    Online = 0,
-    Offline = 1,
-}
-
 export class AuditApplyFormInput implements IAuditApplyFormInput {
     applyFormId!: number;
-    applyStatus!: ApplyStatus;
+    applyStatus!: AuditApplyFormInputApplyStatus;
     resultMessage!: string | undefined;
 
     constructor(data?: IAuditApplyFormInput) {
@@ -24277,13 +24169,8 @@ export class AuditApplyFormInput implements IAuditApplyFormInput {
 
 export interface IAuditApplyFormInput {
     applyFormId: number;
-    applyStatus: ApplyStatus;
+    applyStatus: AuditApplyFormInputApplyStatus;
     resultMessage: string | undefined;
-}
-
-export enum AuditStatus {
-    Offline = 0,
-    Online = 1,
 }
 
 export class AuthenticateResultModel implements IAuthenticateResultModel {
@@ -24435,7 +24322,7 @@ export class Award implements IAward {
     description!: string | undefined;
     type!: AwardType;
     couponUrl!: string | undefined;
-    thingType!: ThingType;
+    thingType!: AwardThingType;
     thingId!: number;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -24542,7 +24429,7 @@ export interface IAward {
     description: string | undefined;
     type: AwardType;
     couponUrl: string | undefined;
-    thingType: ThingType;
+    thingType: AwardThingType;
     thingId: number;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -24629,9 +24516,9 @@ export class AwardDto implements IAwardDto {
     isRandomAward!: boolean;
     /** 描述 */
     description!: string | undefined;
-    type!: AwardType;
+    type!: AwardDtoType;
     couponUrl!: string | undefined;
-    thingType!: ThingType;
+    thingType!: AwardDtoThingType;
     thingId!: number;
     id!: number;
 
@@ -24725,9 +24612,9 @@ export interface IAwardDto {
     isRandomAward: boolean;
     /** 描述 */
     description: string | undefined;
-    type: AwardType;
+    type: AwardDtoType;
     couponUrl: string | undefined;
-    thingType: ThingType;
+    thingType: AwardDtoThingType;
     thingId: number;
     id: number;
 }
@@ -24866,9 +24753,9 @@ export class AwardOutput implements IAwardOutput {
     maxScore!: number;
     isRandomAward!: boolean;
     description!: string | undefined;
-    type!: AwardType;
+    type!: AwardOutputType;
     couponUrl!: string | undefined;
-    thingType!: ThingType;
+    thingType!: AwardOutputThingType;
     thingId!: number;
     id!: number;
 
@@ -24949,9 +24836,9 @@ export interface IAwardOutput {
     maxScore: number;
     isRandomAward: boolean;
     description: string | undefined;
-    type: AwardType;
+    type: AwardOutputType;
     couponUrl: string | undefined;
-    thingType: ThingType;
+    thingType: AwardOutputThingType;
     thingId: number;
     id: number;
 }
@@ -25048,12 +24935,6 @@ export interface IAwardSettingsDto {
     isNeedAwardInfo: boolean;
     /** 是否区分奖品分类 */
     isAwardType: boolean;
-}
-
-export enum AwardType {
-    Coupon = 0,
-    Product = 1,
-    Placeholder = 2,
 }
 
 export class BaseButton implements IBaseButton {
@@ -25437,7 +25318,7 @@ export class ClearSnsUserDataInput implements IClearSnsUserDataInput {
     isClearUserData!: boolean;
     isClearAward!: boolean;
     openId!: string;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: ClearSnsUserDataInputSnsType;
     securityKey!: string;
     params!: string | undefined;
 
@@ -25487,7 +25368,7 @@ export interface IClearSnsUserDataInput {
     isClearUserData: boolean;
     isClearAward: boolean;
     openId: string;
-    snsType: _definitions_EnumSnsType;
+    snsType: ClearSnsUserDataInputSnsType;
     securityKey: string;
     params: string | undefined;
 }
@@ -25708,7 +25589,7 @@ export class CreateActionShareInput implements ICreateActionShareInput {
     imageLink!: string | undefined;
     /** 描述 */
     description!: string | undefined;
-    activityShareType!: EnumActivityShareType;
+    activityShareType!: CreateActionShareInputActivityShareType;
 
     constructor(data?: ICreateActionShareInput) {
         if (data) {
@@ -25755,13 +25636,15 @@ export interface ICreateActionShareInput {
     imageLink: string | undefined;
     /** 描述 */
     description: string | undefined;
-    activityShareType: EnumActivityShareType;
+    activityShareType: CreateActionShareInputActivityShareType;
 }
 
 export class CreateApplyFormInput implements ICreateApplyFormInput {
     reason!: string | undefined;
-    applyType!: ApplyFormType;
-    wanted!: ApplyWanted;
+    /** the type of Application. */
+    applyType!: CreateApplyFormInputApplyType;
+    /** what your want. */
+    wanted!: CreateApplyFormInputWanted;
     /** 申请的项目id */
     itemids!: number[] | undefined;
     /** 申请时的额外参数, All,Party */
@@ -25814,8 +25697,10 @@ export class CreateApplyFormInput implements ICreateApplyFormInput {
 
 export interface ICreateApplyFormInput {
     reason: string | undefined;
-    applyType: ApplyFormType;
-    wanted: ApplyWanted;
+    /** the type of Application. */
+    applyType: CreateApplyFormInputApplyType;
+    /** what your want. */
+    wanted: CreateApplyFormInputWanted;
     /** 申请的项目id */
     itemids: number[] | undefined;
     /** 申请时的额外参数, All,Party */
@@ -25847,9 +25732,9 @@ export class CreateAwardInput implements ICreateAwardInput {
     description!: string | undefined;
     /** Random Award Switch. Not used now. */
     isRandomAward!: boolean;
-    type!: AwardType;
+    type!: CreateAwardInputType;
     couponUrl!: string | undefined;
-    thingType!: ThingType;
+    thingType!: CreateAwardInputThingType;
     thingId!: number;
 
     constructor(data?: ICreateAwardInput) {
@@ -25936,9 +25821,9 @@ export interface ICreateAwardInput {
     description: string | undefined;
     /** Random Award Switch. Not used now. */
     isRandomAward: boolean;
-    type: AwardType;
+    type: CreateAwardInputType;
     couponUrl: string | undefined;
-    thingType: ThingType;
+    thingType: CreateAwardInputThingType;
     thingId: number;
 }
 
@@ -25981,7 +25866,7 @@ export class CreateBasicActivityInput implements ICreateBasicActivityInput {
     imagePath!: string | undefined;
     /** 该活动是否是模板 */
     isTemplate!: boolean;
-    auditStatus!: AuditStatus;
+    auditStatus!: CreateBasicActivityInputAuditStatus;
     organizationUnitId!: number | undefined;
 
     constructor(data?: ICreateBasicActivityInput) {
@@ -26092,7 +25977,7 @@ export interface ICreateBasicActivityInput {
     imagePath: string | undefined;
     /** 该活动是否是模板 */
     isTemplate: boolean;
-    auditStatus: AuditStatus;
+    auditStatus: CreateBasicActivityInputAuditStatus;
     organizationUnitId: number | undefined;
 }
 
@@ -26164,8 +26049,10 @@ export class CreateDeviceActivityGameInput implements ICreateDeviceActivityGameI
     supportedPlayersCount!: number;
     /** 游戏密钥 */
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType!: CreateDeviceActivityGameInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType!: CreateDeviceActivityGameInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl!: string | undefined;
     isSendSnsMsgBeforeGame!: boolean;
@@ -26251,8 +26138,10 @@ export interface ICreateDeviceActivityGameInput {
     supportedPlayersCount: number;
     /** 游戏密钥 */
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType: CreateDeviceActivityGameInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType: CreateDeviceActivityGameInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl: string | undefined;
     isSendSnsMsgBeforeGame: boolean;
@@ -26276,7 +26165,8 @@ export class CreateHtmlTemplateInput implements ICreateHtmlTemplateInput {
     title!: string | undefined;
     logo!: string | undefined;
     backgroundImage!: string | undefined;
-    templateType!: TemplateEnum;
+    /** 模板类型 */
+    templateType!: CreateHtmlTemplateInputTemplateType;
     /** 描述 */
     description!: string | undefined;
     args!: string | undefined;
@@ -26338,7 +26228,8 @@ export interface ICreateHtmlTemplateInput {
     title: string | undefined;
     logo: string | undefined;
     backgroundImage: string | undefined;
-    templateType: TemplateEnum;
+    /** 模板类型 */
+    templateType: CreateHtmlTemplateInputTemplateType;
     /** 描述 */
     description: string | undefined;
     args: string | undefined;
@@ -26361,8 +26252,8 @@ export class CreatePaperInput implements ICreatePaperInput {
     extensionData!: string | undefined;
     outerId!: string | undefined;
     questionsCount!: number;
-    compositionType!: PaperCompositionEnum;
-    paperUsageType!: PaperUsageType;
+    compositionType!: CreatePaperInputCompositionType;
+    paperUsageType!: CreatePaperInputPaperUsageType;
     /** 随机的场合，随机题目的数量，最大不能超过题目的总量 QuestionsCount */
     randomCount!: number;
     tagIds!: number[] | undefined;
@@ -26447,8 +26338,8 @@ export interface ICreatePaperInput {
     extensionData: string | undefined;
     outerId: string | undefined;
     questionsCount: number;
-    compositionType: PaperCompositionEnum;
-    paperUsageType: PaperUsageType;
+    compositionType: CreatePaperInputCompositionType;
+    paperUsageType: CreatePaperInputPaperUsageType;
     /** 随机的场合，随机题目的数量，最大不能超过题目的总量 QuestionsCount */
     randomCount: number;
     tagIds: number[] | undefined;
@@ -26459,7 +26350,7 @@ export class CreateQuestionInput implements ICreateQuestionInput {
     prefix!: string | undefined;
     /** 问题标题 */
     title!: string | undefined;
-    type!: QuestionTypeEnum;
+    type!: CreateQuestionInputType;
     /** 此道题的得分 */
     score!: number;
     /** 题目的顺序 */
@@ -26473,7 +26364,8 @@ export class CreateQuestionInput implements ICreateQuestionInput {
     imageUrl!: string | undefined;
     enabled!: boolean;
     outerId!: string | undefined;
-    questionScoreType!: QuestionScoreTypeEnum;
+    /** 多选的评分，多选全对才能得分，或可部分才能得分 */
+    questionScoreType!: CreateQuestionInputQuestionScoreType;
     questionItems!: QuestionItemDto[] | undefined;
     tagIds!: number[] | undefined;
 
@@ -26555,7 +26447,7 @@ export interface ICreateQuestionInput {
     prefix: string | undefined;
     /** 问题标题 */
     title: string | undefined;
-    type: QuestionTypeEnum;
+    type: CreateQuestionInputType;
     /** 此道题的得分 */
     score: number;
     /** 题目的顺序 */
@@ -26569,7 +26461,8 @@ export interface ICreateQuestionInput {
     imageUrl: string | undefined;
     enabled: boolean;
     outerId: string | undefined;
-    questionScoreType: QuestionScoreTypeEnum;
+    /** 多选的评分，多选全对才能得分，或可部分才能得分 */
+    questionScoreType: CreateQuestionInputQuestionScoreType;
     questionItems: QuestionItemDto[] | undefined;
     tagIds: number[] | undefined;
 }
@@ -26579,7 +26472,7 @@ export class CreateSnsMsgGameInput implements ICreateSnsMsgGameInput {
     picUrl!: string | undefined;
     url!: string | undefined;
     textMessage!: string | undefined;
-    weChatType!: EnumWeChatType;
+    weChatType!: CreateSnsMsgGameInputWeChatType;
     htmlTemplateID!: number | undefined;
 
     constructor(data?: ICreateSnsMsgGameInput) {
@@ -26626,7 +26519,7 @@ export interface ICreateSnsMsgGameInput {
     picUrl: string | undefined;
     url: string | undefined;
     textMessage: string | undefined;
-    weChatType: EnumWeChatType;
+    weChatType: CreateSnsMsgGameInputWeChatType;
     htmlTemplateID: number | undefined;
 }
 
@@ -26642,7 +26535,7 @@ export class CreateSpecialUserInput implements ICreateSpecialUserInput {
     forAward!: boolean | undefined;
     forLottery!: boolean | undefined;
     forUseTicket!: boolean | undefined;
-    type!: SpecialType;
+    type!: CreateSpecialUserInputType;
 
     constructor(data?: ICreateSpecialUserInput) {
         if (data) {
@@ -26707,12 +26600,12 @@ export interface ICreateSpecialUserInput {
     forAward: boolean | undefined;
     forLottery: boolean | undefined;
     forUseTicket: boolean | undefined;
-    type: SpecialType;
+    type: CreateSpecialUserInputType;
 }
 
 export class CreateTagInput implements ICreateTagInput {
     value!: string | undefined;
-    type!: TagType;
+    type!: CreateTagInputType;
     iconUrl!: string | undefined;
     isSpecial!: boolean;
     orderNumber!: number;
@@ -26759,7 +26652,7 @@ export class CreateTagInput implements ICreateTagInput {
 
 export interface ICreateTagInput {
     value: string | undefined;
-    type: TagType;
+    type: CreateTagInputType;
     iconUrl: string | undefined;
     isSpecial: boolean;
     orderNumber: number;
@@ -26771,12 +26664,12 @@ export class CreateTrainingInput implements ICreateTrainingInput {
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     address!: string | undefined;
-    category!: TrainingCategoryEnum;
-    auditStatus!: AuditStatus;
+    category!: CreateTrainingInputCategory;
+    auditStatus!: CreateTrainingInputAuditStatus | undefined;
     totalLength!: number | undefined;
     fileUrl!: string | undefined;
     picUrl!: string | undefined;
-    trainingWay!: TrainingWayEnum;
+    trainingWay!: CreateTrainingInputTrainingWay;
     /** 主讲人用户Id */
     userId!: number | undefined;
     courseId!: number | undefined;
@@ -26857,12 +26750,12 @@ export interface ICreateTrainingInput {
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     address: string | undefined;
-    category: TrainingCategoryEnum;
-    auditStatus: AuditStatus;
+    category: CreateTrainingInputCategory;
+    auditStatus: CreateTrainingInputAuditStatus | undefined;
     totalLength: number | undefined;
     fileUrl: string | undefined;
     picUrl: string | undefined;
-    trainingWay: TrainingWayEnum;
+    trainingWay: CreateTrainingInputTrainingWay;
     /** 主讲人用户Id */
     userId: number | undefined;
     courseId: number | undefined;
@@ -27110,8 +27003,8 @@ export class DeviceActivityGame implements IDeviceActivityGame {
     lastGameOverTime!: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode!: boolean;
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    weChatAuthorizationType!: DeviceActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType!: DeviceActivityGameTaobaoAuthorizationType;
     extensionData!: string | undefined;
     points!: number;
     isAllowBlack!: boolean;
@@ -27274,8 +27167,8 @@ export interface IDeviceActivityGame {
     lastGameOverTime: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode: boolean;
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    weChatAuthorizationType: DeviceActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType: DeviceActivityGameTaobaoAuthorizationType;
     extensionData: string | undefined;
     points: number;
     isAllowBlack: boolean;
@@ -27362,8 +27255,8 @@ export class DeviceActivityGameOutput implements IDeviceActivityGameOutput {
     lastGameOverTime!: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode!: boolean;
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    weChatAuthorizationType!: DeviceActivityGameOutputWeChatAuthorizationType;
+    taobaoAuthorizationType!: DeviceActivityGameOutputTaobaoAuthorizationType;
     actionShareId!: number | undefined;
     actionShare!: ActivityShareOutput;
     extensionData!: string | undefined;
@@ -27481,8 +27374,8 @@ export interface IDeviceActivityGameOutput {
     lastGameOverTime: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode: boolean;
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    weChatAuthorizationType: DeviceActivityGameOutputWeChatAuthorizationType;
+    taobaoAuthorizationType: DeviceActivityGameOutputTaobaoAuthorizationType;
     actionShareId: number | undefined;
     actionShare: ActivityShareOutput;
     extensionData: string | undefined;
@@ -27512,8 +27405,8 @@ export class DeviceActivityGameSimpleOutput implements IDeviceActivityGameSimple
     lastGameOverTime!: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode!: boolean;
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    weChatAuthorizationType!: DeviceActivityGameSimpleOutputWeChatAuthorizationType;
+    taobaoAuthorizationType!: DeviceActivityGameSimpleOutputTaobaoAuthorizationType;
     actionShareId!: number | undefined;
     extensionData!: string | undefined;
     points!: number;
@@ -27625,8 +27518,8 @@ export interface IDeviceActivityGameSimpleOutput {
     lastGameOverTime: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode: boolean;
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    weChatAuthorizationType: DeviceActivityGameSimpleOutputWeChatAuthorizationType;
+    taobaoAuthorizationType: DeviceActivityGameSimpleOutputTaobaoAuthorizationType;
     actionShareId: number | undefined;
     extensionData: string | undefined;
     points: number;
@@ -27812,8 +27705,8 @@ export class DispatchedActivityGame implements IDispatchedActivityGame {
     lastGameOverTime!: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode!: boolean;
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    weChatAuthorizationType!: DispatchedActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType!: DispatchedActivityGameTaobaoAuthorizationType;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: moment.Moment | undefined;
@@ -27958,8 +27851,8 @@ export interface IDispatchedActivityGame {
     lastGameOverTime: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode: boolean;
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    weChatAuthorizationType: DispatchedActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType: DispatchedActivityGameTaobaoAuthorizationType;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: moment.Moment | undefined;
@@ -27970,93 +27863,8 @@ export interface IDispatchedActivityGame {
     id: number;
 }
 
-export class DispatchedSoftware implements IDispatchedSoftware {
-    organizationUnitId!: number | undefined;
-    tenantId!: number;
-    softwareId!: number;
-    software!: Software;
-    alias!: string | undefined;
-    startTime!: moment.Moment | undefined;
-    endTime!: moment.Moment | undefined;
-    extensionData!: string | undefined;
-    materialPacketUrl!: string | undefined;
-    isDefault!: boolean;
-    creationTime!: moment.Moment;
-    creatorUserId!: number | undefined;
-    id!: number;
-
-    constructor(data?: IDispatchedSoftware) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.organizationUnitId = _data["organizationUnitId"];
-            this.tenantId = _data["tenantId"];
-            this.softwareId = _data["softwareId"];
-            this.software = _data["software"] ? Software.fromJS(_data["software"]) : <any>undefined;
-            this.alias = _data["alias"];
-            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
-            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
-            this.extensionData = _data["extensionData"];
-            this.materialPacketUrl = _data["materialPacketUrl"];
-            this.isDefault = _data["isDefault"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): DispatchedSoftware {
-        data = typeof data === 'object' ? data : {};
-        let result = new DispatchedSoftware();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["organizationUnitId"] = this.organizationUnitId;
-        data["tenantId"] = this.tenantId;
-        data["softwareId"] = this.softwareId;
-        data["software"] = this.software ? this.software.toJSON() : <any>undefined;
-        data["alias"] = this.alias;
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
-        data["extensionData"] = this.extensionData;
-        data["materialPacketUrl"] = this.materialPacketUrl;
-        data["isDefault"] = this.isDefault;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IDispatchedSoftware {
-    organizationUnitId: number | undefined;
-    tenantId: number;
-    softwareId: number;
-    software: Software;
-    alias: string | undefined;
-    startTime: moment.Moment | undefined;
-    endTime: moment.Moment | undefined;
-    extensionData: string | undefined;
-    materialPacketUrl: string | undefined;
-    isDefault: boolean;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-}
-
 export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
     dispatchedSoftwareId!: number;
-    dispatchedSoftware!: DispatchedSoftware;
     paperId!: number;
     paper!: Paper;
     description!: string | undefined;
@@ -28081,7 +27889,6 @@ export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
     init(_data?: any) {
         if (_data) {
             this.dispatchedSoftwareId = _data["dispatchedSoftwareId"];
-            this.dispatchedSoftware = _data["dispatchedSoftware"] ? DispatchedSoftware.fromJS(_data["dispatchedSoftware"]) : <any>undefined;
             this.paperId = _data["paperId"];
             this.paper = _data["paper"] ? Paper.fromJS(_data["paper"]) : <any>undefined;
             this.description = _data["description"];
@@ -28106,7 +27913,6 @@ export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["dispatchedSoftwareId"] = this.dispatchedSoftwareId;
-        data["dispatchedSoftware"] = this.dispatchedSoftware ? this.dispatchedSoftware.toJSON() : <any>undefined;
         data["paperId"] = this.paperId;
         data["paper"] = this.paper ? this.paper.toJSON() : <any>undefined;
         data["description"] = this.description;
@@ -28124,7 +27930,6 @@ export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
 
 export interface IDispatchedSoftwarePaper {
     dispatchedSoftwareId: number;
-    dispatchedSoftware: DispatchedSoftware;
     paperId: number;
     paper: Paper;
     description: string | undefined;
@@ -28458,47 +28263,6 @@ export interface IDropCargoInput {
     actionId: number | undefined;
 }
 
-export enum EnumActivityShareType {
-    Award = 0,
-    ActivityShare = 1,
-}
-
-export enum EnumMpType {
-    Private = 0,
-    Public = 1,
-}
-
-export enum EnumQRStatus {
-    BeforeGame = 1,
-    AfterGame = 2,
-    ActivityIntroduction = 3,
-    ActivityRegister = 4,
-    OnlineGame = 5,
-    GameResult = 6,
-    Award = 7,
-    Game = 8,
-}
-
-export enum EnumWeChatType {
-    Text = 0,
-    News = 1,
-}
-
-export enum EnumWeixinShareType {
-    ShareAppMessage = 1,
-    ShareTimeline = 2,
-    ShareQQ = 3,
-    ShareWeibo = 4,
-    ShareQZone = 5,
-    Like = 6,
-}
-
-export enum ExamEnum {
-    NoneOk = 0,
-    PartOk = 1,
-    AllOk = 2,
-}
-
 export class FileDto implements IFileDto {
     fileName!: string;
     fileType!: string;
@@ -28541,22 +28305,6 @@ export interface IFileDto {
     fileName: string;
     fileType: string;
     fileToken: string;
-}
-
-export enum FlowType {
-    Introduction = 0,
-    Register = 1,
-    Sign = 2,
-    GameResult = 3,
-    Reward = 4,
-}
-
-export enum FrequencyType {
-    None = 0,
-    Day = 1,
-    Week = 2,
-    Month = 3,
-    Year = 4,
 }
 
 export class GetActivityActionsForNextGameDto implements IGetActivityActionsForNextGameDto {
@@ -29074,7 +28822,7 @@ export class GetUserPaperDto implements IGetUserPaperDto {
     answeredQuestionCount!: number;
     correctCount!: number;
     totalScore!: number;
-    examResult!: ExamEnum;
+    examResult!: GetUserPaperDtoExamResult;
     snsUserInfo!: SnsUserInfoOutput;
     paper!: PaperDto;
     userAction!: UserActionDto;
@@ -29136,7 +28884,7 @@ export interface IGetUserPaperDto {
     answeredQuestionCount: number;
     correctCount: number;
     totalScore: number;
-    examResult: ExamEnum;
+    examResult: GetUserPaperDtoExamResult;
     snsUserInfo: SnsUserInfoOutput;
     paper: PaperDto;
     userAction: UserActionDto;
@@ -29195,7 +28943,7 @@ export class GetWechatMediaDto implements IGetWechatMediaDto {
     id!: number;
     creationTime!: moment.Moment;
     media_id!: string | undefined;
-    mediaType!: MediaType;
+    mediaType!: GetWechatMediaDtoMediaType;
     title!: string | undefined;
     name!: string | undefined;
     author!: string | undefined;
@@ -29280,7 +29028,7 @@ export interface IGetWechatMediaDto {
     id: number;
     creationTime: moment.Moment;
     media_id: string | undefined;
-    mediaType: MediaType;
+    mediaType: GetWechatMediaDtoMediaType;
     title: string | undefined;
     name: string | undefined;
     author: string | undefined;
@@ -29300,7 +29048,7 @@ export class GetWechatMenuDto implements IGetWechatMenuDto {
     creationTime!: moment.Moment;
     lastModificationTime!: moment.Moment;
     displayName!: string | undefined;
-    menuType!: MenuType;
+    menuType!: GetWechatMenuDtoMenuType;
     status!: boolean;
     menuContent!: any | undefined;
 
@@ -29350,7 +29098,7 @@ export interface IGetWechatMenuDto {
     creationTime: moment.Moment;
     lastModificationTime: moment.Moment;
     displayName: string | undefined;
-    menuType: MenuType;
+    menuType: GetWechatMenuDtoMenuType;
     status: boolean;
     menuContent: any | undefined;
 }
@@ -29358,7 +29106,7 @@ export interface IGetWechatMenuDto {
 export class GetWechatTemplateMessageDto implements IGetWechatTemplateMessageDto {
     id!: number;
     templateId!: string | undefined;
-    templateMessageType!: TemplateMessageType;
+    templateMessageType!: GetWechatTemplateMessageDtoTemplateMessageType | undefined;
     weixinAppID!: string | undefined;
     title!: string | undefined;
     primaryIndustry!: string | undefined;
@@ -29414,7 +29162,7 @@ export class GetWechatTemplateMessageDto implements IGetWechatTemplateMessageDto
 export interface IGetWechatTemplateMessageDto {
     id: number;
     templateId: string | undefined;
-    templateMessageType: TemplateMessageType;
+    templateMessageType: GetWechatTemplateMessageDtoTemplateMessageType | undefined;
     weixinAppID: string | undefined;
     title: string | undefined;
     primaryIndustry: string | undefined;
@@ -29433,7 +29181,7 @@ export class HtmlTemplate implements IHtmlTemplate {
     title!: string | undefined;
     logo!: string | undefined;
     backgroundImage!: string | undefined;
-    templateType!: TemplateEnum;
+    templateType!: HtmlTemplateTemplateType;
     description!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -29519,7 +29267,7 @@ export interface IHtmlTemplate {
     title: string | undefined;
     logo: string | undefined;
     backgroundImage: string | undefined;
-    templateType: TemplateEnum;
+    templateType: HtmlTemplateTemplateType;
     description: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -29545,7 +29293,8 @@ export class HtmlTemplateDto implements IHtmlTemplateDto {
     title!: string | undefined;
     logo!: string | undefined;
     backgroundImage!: string | undefined;
-    templateType!: TemplateEnum;
+    /** 模板类型 */
+    templateType!: HtmlTemplateDtoTemplateType;
     /** 描述 */
     description!: string | undefined;
     args!: string | undefined;
@@ -29614,7 +29363,8 @@ export interface IHtmlTemplateDto {
     title: string | undefined;
     logo: string | undefined;
     backgroundImage: string | undefined;
-    templateType: TemplateEnum;
+    /** 模板类型 */
+    templateType: HtmlTemplateDtoTemplateType;
     /** 描述 */
     description: string | undefined;
     args: string | undefined;
@@ -29629,7 +29379,7 @@ export class HtmlTemplateOutput implements IHtmlTemplateOutput {
     title!: string | undefined;
     logo!: string | undefined;
     backgroundImage!: string | undefined;
-    templateType!: TemplateEnum;
+    templateType!: HtmlTemplateOutputTemplateType;
     description!: string | undefined;
     id!: number;
 
@@ -29688,7 +29438,7 @@ export interface IHtmlTemplateOutput {
     title: string | undefined;
     logo: string | undefined;
     backgroundImage: string | undefined;
-    templateType: TemplateEnum;
+    templateType: HtmlTemplateOutputTemplateType;
     description: string | undefined;
     id: number;
 }
@@ -30050,7 +29800,7 @@ export class MakeUserToSpecialInput implements IMakeUserToSpecialInput {
     identityID!: string | undefined;
     companyName!: string | undefined;
     description!: string | undefined;
-    type!: SpecialType;
+    type!: MakeUserToSpecialInputType;
 
     constructor(data?: IMakeUserToSpecialInput) {
         if (data) {
@@ -30118,14 +29868,7 @@ export interface IMakeUserToSpecialInput {
     identityID: string | undefined;
     companyName: string | undefined;
     description: string | undefined;
-    type: SpecialType;
-}
-
-export enum MediaType {
-    News = 0,
-    Image = 1,
-    Video = 2,
-    Voice = 3,
+    type: MakeUserToSpecialInputType;
 }
 
 export class MenuMatchRule implements IMenuMatchRule {
@@ -30190,11 +29933,6 @@ export interface IMenuMatchRule {
     city: string | undefined;
     client_platform_type: string | undefined;
     language: string | undefined;
-}
-
-export enum MenuType {
-    Normal = 0,
-    Individualization = 1,
 }
 
 export class MergeSnsUsersInput implements IMergeSnsUsersInput {
@@ -30331,16 +30069,6 @@ export class MpAuthorzieUrlDto implements IMpAuthorzieUrlDto {
 
 export interface IMpAuthorzieUrlDto {
     url: string | undefined;
-}
-
-export enum MsgTypeEnum {
-    Text = 0,
-    Emoji = 1,
-    Audio = 2,
-    RedPacket = 3,
-    File = 4,
-    Location = 5,
-    Image = 6,
 }
 
 export class NameValueDto implements INameValueDto {
@@ -32388,7 +32116,7 @@ export class Paper implements IPaper {
     extensionData!: string | undefined;
     outerId!: string | undefined;
     questionsCount!: number;
-    compositionType!: PaperCompositionEnum;
+    compositionType!: PaperCompositionType;
     paperUsageType!: PaperUsageType;
     randomCount!: number;
     isDeleted!: boolean;
@@ -32486,7 +32214,7 @@ export interface IPaper {
     extensionData: string | undefined;
     outerId: string | undefined;
     questionsCount: number;
-    compositionType: PaperCompositionEnum;
+    compositionType: PaperCompositionType;
     paperUsageType: PaperUsageType;
     randomCount: number;
     isDeleted: boolean;
@@ -32497,12 +32225,6 @@ export interface IPaper {
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
-}
-
-export enum PaperCompositionEnum {
-    Fixed = 0,
-    Random = 1,
-    FixedPlusRandom = 2,
 }
 
 export class PaperDto implements IPaperDto {
@@ -32524,8 +32246,8 @@ export class PaperDto implements IPaperDto {
     outerId!: string | undefined;
     questionsCount!: number;
     actualQuestionsCount!: number;
-    compositionType!: PaperCompositionEnum;
-    paperUsageType!: PaperUsageType;
+    compositionType!: PaperDtoCompositionType;
+    paperUsageType!: PaperDtoPaperUsageType;
     /** 随机的场合，随机题目的数量，最大不能超过题目的总量 QuestionsCount */
     randomCount!: number;
     tags!: IdNameDto[] | undefined;
@@ -32627,8 +32349,8 @@ export interface IPaperDto {
     outerId: string | undefined;
     questionsCount: number;
     actualQuestionsCount: number;
-    compositionType: PaperCompositionEnum;
-    paperUsageType: PaperUsageType;
+    compositionType: PaperDtoCompositionType;
+    paperUsageType: PaperDtoPaperUsageType;
     /** 随机的场合，随机题目的数量，最大不能超过题目的总量 QuestionsCount */
     randomCount: number;
     tags: IdNameDto[] | undefined;
@@ -32693,13 +32415,6 @@ export interface IPaperQuestion {
     comments: string | undefined;
     questionItemIds: number[] | undefined;
     imgUrl: string | undefined;
-}
-
-export enum PaperUsageType {
-    Competition = 0,
-    GamePK = 1,
-    Vote = 2,
-    Investigate = 3,
 }
 
 export class PlayGameOutput implements IPlayGameOutput {
@@ -32990,8 +32705,8 @@ export interface IPublishQuestionsToPapersInput {
 
 export class Qrcode4LoginInput implements IQrcode4LoginInput {
     isSendWeChatMsg!: boolean | undefined;
-    qrType!: EnumQRStatus;
-    snsType!: _definitions_EnumSnsType;
+    qrType!: Qrcode4LoginInputQrType;
+    snsType!: Qrcode4LoginInputSnsType;
     targetUrl!: string | undefined;
     isTransferred!: boolean;
     securityKey!: string;
@@ -33040,8 +32755,8 @@ export class Qrcode4LoginInput implements IQrcode4LoginInput {
 
 export interface IQrcode4LoginInput {
     isSendWeChatMsg: boolean | undefined;
-    qrType: EnumQRStatus;
-    snsType: _definitions_EnumSnsType;
+    qrType: Qrcode4LoginInputQrType;
+    snsType: Qrcode4LoginInputSnsType;
     targetUrl: string | undefined;
     isTransferred: boolean;
     securityKey: string;
@@ -33146,7 +32861,7 @@ export class QuestionDto implements IQuestionDto {
     prefix!: string | undefined;
     /** 问题标题 */
     title!: string | undefined;
-    type!: QuestionTypeEnum;
+    type!: QuestionDtoType;
     /** 此道题的得分 */
     score!: number;
     /** 题目的顺序 */
@@ -33161,7 +32876,8 @@ export class QuestionDto implements IQuestionDto {
     answerImgUrl!: string | undefined;
     enabled!: boolean;
     outerId!: string | undefined;
-    questionScoreType!: QuestionScoreTypeEnum;
+    /** 多选的评分，多选全对才能得分，或可部分才能得分 */
+    questionScoreType!: QuestionDtoQuestionScoreType;
     questionItems!: QuestionItemDto[] | undefined;
     tags!: IdNameDto[] | undefined;
 
@@ -33248,7 +32964,7 @@ export interface IQuestionDto {
     prefix: string | undefined;
     /** 问题标题 */
     title: string | undefined;
-    type: QuestionTypeEnum;
+    type: QuestionDtoType;
     /** 此道题的得分 */
     score: number;
     /** 题目的顺序 */
@@ -33263,7 +32979,8 @@ export interface IQuestionDto {
     answerImgUrl: string | undefined;
     enabled: boolean;
     outerId: string | undefined;
-    questionScoreType: QuestionScoreTypeEnum;
+    /** 多选的评分，多选全对才能得分，或可部分才能得分 */
+    questionScoreType: QuestionDtoQuestionScoreType;
     questionItems: QuestionItemDto[] | undefined;
     tags: IdNameDto[] | undefined;
 }
@@ -33348,17 +33065,6 @@ export interface IQuestionItemDto {
     /** 此项的说明 */
     description: string | undefined;
     outerId: string | undefined;
-}
-
-export enum QuestionScoreTypeEnum {
-    Partial = 0,
-    Full = 1,
-}
-
-export enum QuestionTypeEnum {
-    Single = 0,
-    Multiple = 1,
-    Text = 2,
 }
 
 export class RankUserActionInfoOutput implements IRankUserActionInfoOutput {
@@ -33680,7 +33386,7 @@ export class SensingDeviceActivityDto implements ISensingDeviceActivityDto {
     contactor!: string | undefined;
     /** 活动联系人电话 */
     contactorPhone!: string | undefined;
-    auditStatus!: AuditStatus;
+    auditStatus!: SensingDeviceActivityDtoAuditStatus;
     isMine!: boolean;
     organizationUnitId!: number | undefined;
     description!: string | undefined;
@@ -33811,7 +33517,7 @@ export interface ISensingDeviceActivityDto {
     contactor: string | undefined;
     /** 活动联系人电话 */
     contactorPhone: string | undefined;
-    auditStatus: AuditStatus;
+    auditStatus: SensingDeviceActivityDtoAuditStatus;
     isMine: boolean;
     organizationUnitId: number | undefined;
     description: string | undefined;
@@ -33846,7 +33552,7 @@ export class SensingDeviceAwardDto implements ISensingDeviceAwardDto {
     isRandomAward!: boolean;
     /** 描述 */
     description!: string | undefined;
-    type!: AwardType;
+    type!: SensingDeviceAwardDtoType;
     couponUrl!: string | undefined;
     id!: number;
 
@@ -33936,7 +33642,7 @@ export interface ISensingDeviceAwardDto {
     isRandomAward: boolean;
     /** 描述 */
     description: string | undefined;
-    type: AwardType;
+    type: SensingDeviceAwardDtoType;
     couponUrl: string | undefined;
     id: number;
 }
@@ -34051,12 +33757,6 @@ export class SensingDeviceUserInfoInput implements ISensingDeviceUserInfoInput {
 export interface ISensingDeviceUserInfoInput {
     subKey: string;
     memberIds: number[] | undefined;
-}
-
-export enum ServiceType {
-    Subscribe = 0,
-    HistoryToSubscribe = 1,
-    Service = 2,
 }
 
 export class SetMediaTagsInput implements ISetMediaTagsInput {
@@ -34315,14 +34015,6 @@ export interface ISingleUserPaperDetailDto {
     questionItems: QuestionItemDto[] | undefined;
 }
 
-export enum SnsActivityAuthorizationType {
-    Follow = 0,
-    Web = 1,
-    None = 2,
-    FollowAutoRegister = 3,
-    WebAutoRegister = 4,
-}
-
 export class SnsDataInput implements ISnsDataInput {
     snsUserInfoId!: number;
     securityKey!: string | undefined;
@@ -34374,7 +34066,7 @@ export class SnsMessage implements ISnsMessage {
     picUrl!: string | undefined;
     url!: string | undefined;
     textMessage!: string | undefined;
-    weChatType!: EnumWeChatType;
+    weChatType!: SnsMessageWeChatType;
     htmlTemplateID!: number | undefined;
     htmlTemplate!: HtmlTemplate;
     isDeleted!: boolean;
@@ -34454,7 +34146,7 @@ export interface ISnsMessage {
     picUrl: string | undefined;
     url: string | undefined;
     textMessage: string | undefined;
-    weChatType: EnumWeChatType;
+    weChatType: SnsMessageWeChatType;
     htmlTemplateID: number | undefined;
     htmlTemplate: HtmlTemplate;
     isDeleted: boolean;
@@ -34473,7 +34165,7 @@ export class SnsMsgAfterGameDto implements ISnsMsgAfterGameDto {
     picUrl!: string | undefined;
     url!: string | undefined;
     textMessage!: string | undefined;
-    weChatType!: EnumWeChatType;
+    weChatType!: SnsMsgAfterGameDtoWeChatType;
     htmlTemplateID!: number | undefined;
 
     constructor(data?: ISnsMsgAfterGameDto) {
@@ -34523,7 +34215,7 @@ export interface ISnsMsgAfterGameDto {
     picUrl: string | undefined;
     url: string | undefined;
     textMessage: string | undefined;
-    weChatType: EnumWeChatType;
+    weChatType: SnsMsgAfterGameDtoWeChatType;
     htmlTemplateID: number | undefined;
 }
 
@@ -34533,7 +34225,7 @@ export class SnsMsgBeforeGameDto implements ISnsMsgBeforeGameDto {
     picUrl!: string | undefined;
     url!: string | undefined;
     textMessage!: string | undefined;
-    weChatType!: EnumWeChatType;
+    weChatType!: SnsMsgBeforeGameDtoWeChatType;
     htmlTemplateID!: number | undefined;
 
     constructor(data?: ISnsMsgBeforeGameDto) {
@@ -34583,13 +34275,13 @@ export interface ISnsMsgBeforeGameDto {
     picUrl: string | undefined;
     url: string | undefined;
     textMessage: string | undefined;
-    weChatType: EnumWeChatType;
+    weChatType: SnsMsgBeforeGameDtoWeChatType;
     htmlTemplateID: number | undefined;
 }
 
 export class SnsShare implements ISnsShare {
     tenantId!: number;
-    weixinShareType!: EnumWeixinShareType;
+    weixinShareType!: SnsShareWeixinShareType;
     shareAppMessageType!: string | undefined;
     shareAppMessageDataUrl!: string | undefined;
     userActionId!: number | undefined;
@@ -34663,7 +34355,7 @@ export class SnsShare implements ISnsShare {
 
 export interface ISnsShare {
     tenantId: number;
-    weixinShareType: EnumWeixinShareType;
+    weixinShareType: SnsShareWeixinShareType;
     shareAppMessageType: string | undefined;
     shareAppMessageDataUrl: string | undefined;
     userActionId: number | undefined;
@@ -34714,7 +34406,7 @@ export class SnsUserActionSumDto implements ISnsUserActionSumDto {
     phone!: string | undefined;
     /** 用户身份证号码 */
     identityID!: string | undefined;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserActionSumDtoSnsType;
     /** 是否是人脸会员 */
     isFaceMember!: boolean;
     faceMemberId!: string | undefined;
@@ -34838,7 +34530,7 @@ export interface ISnsUserActionSumDto {
     phone: string | undefined;
     /** 用户身份证号码 */
     identityID: string | undefined;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserActionSumDtoSnsType;
     /** 是否是人脸会员 */
     isFaceMember: boolean;
     faceMemberId: string | undefined;
@@ -35211,7 +34903,7 @@ export class SnsUserInfo implements ISnsUserInfo {
     name!: string | undefined;
     phone!: string | undefined;
     identityID!: string | undefined;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserInfoSnsType;
     isFaceMember!: boolean;
     faceMemberId!: string | undefined;
     faceUrl!: string | undefined;
@@ -35353,7 +35045,7 @@ export interface ISnsUserInfo {
     name: string | undefined;
     phone: string | undefined;
     identityID: string | undefined;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserInfoSnsType;
     isFaceMember: boolean;
     faceMemberId: string | undefined;
     faceUrl: string | undefined;
@@ -35401,7 +35093,7 @@ export class SnsUserInfoDto implements ISnsUserInfoDto {
     phone!: string | undefined;
     /** 用户身份证号码 */
     identityID!: string | undefined;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserInfoDtoSnsType;
     /** 是否是人脸会员 */
     isFaceMember!: boolean;
     faceMemberId!: string | undefined;
@@ -35522,7 +35214,7 @@ export interface ISnsUserInfoDto {
     phone: string | undefined;
     /** 用户身份证号码 */
     identityID: string | undefined;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserInfoDtoSnsType;
     /** 是否是人脸会员 */
     isFaceMember: boolean;
     faceMemberId: string | undefined;
@@ -35588,7 +35280,7 @@ export class SnsUserInfoOutput implements ISnsUserInfoOutput {
     unionid!: string | undefined;
     remark!: string | undefined;
     weixinGroupid!: number;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserInfoOutputSnsType;
 
     constructor(data?: ISnsUserInfoOutput) {
         if (data) {
@@ -35656,7 +35348,7 @@ export interface ISnsUserInfoOutput {
     unionid: string | undefined;
     remark: string | undefined;
     weixinGroupid: number;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserInfoOutputSnsType;
 }
 
 export class SnsUserInfoWithMemberDto implements ISnsUserInfoWithMemberDto {
@@ -35697,7 +35389,7 @@ export class SnsUserInfoWithMemberDto implements ISnsUserInfoWithMemberDto {
     phone!: string | undefined;
     /** 用户身份证号码 */
     identityID!: string | undefined;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserInfoWithMemberDtoSnsType;
     /** 是否是人脸会员 */
     isFaceMember!: boolean;
     faceMemberId!: string | undefined;
@@ -35863,7 +35555,7 @@ export interface ISnsUserInfoWithMemberDto {
     phone: string | undefined;
     /** 用户身份证号码 */
     identityID: string | undefined;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserInfoWithMemberDtoSnsType;
     /** 是否是人脸会员 */
     isFaceMember: boolean;
     faceMemberId: string | undefined;
@@ -35971,7 +35663,7 @@ export interface ISnsUserQrcode {
 
 export class SnsUserSimpleDataInput implements ISnsUserSimpleDataInput {
     openId!: string;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserSimpleDataInputSnsType;
     securityKey!: string;
     params!: string | undefined;
     actionId!: number | undefined;
@@ -36015,7 +35707,7 @@ export class SnsUserSimpleDataInput implements ISnsUserSimpleDataInput {
 
 export interface ISnsUserSimpleDataInput {
     openId: string;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserSimpleDataInputSnsType;
     securityKey: string;
     params: string | undefined;
     actionId: number | undefined;
@@ -36024,7 +35716,7 @@ export interface ISnsUserSimpleDataInput {
 export class SnsUserTextDataInput implements ISnsUserTextDataInput {
     text!: string;
     openId!: string;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: SnsUserTextDataInputSnsType;
     securityKey!: string;
     params!: string | undefined;
 
@@ -36068,193 +35760,9 @@ export class SnsUserTextDataInput implements ISnsUserTextDataInput {
 export interface ISnsUserTextDataInput {
     text: string;
     openId: string;
-    snsType: _definitions_EnumSnsType;
+    snsType: SnsUserTextDataInputSnsType;
     securityKey: string;
     params: string | undefined;
-}
-
-export class Software implements ISoftware {
-    name!: string;
-    code!: string | undefined;
-    owner!: string | undefined;
-    contact!: string | undefined;
-    tenantId!: number | undefined;
-    url!: string | undefined;
-    logoUrl!: string | undefined;
-    largeImageUrl!: string | undefined;
-    envType!: number;
-    versionNumber!: string | undefined;
-    packageUrl!: string | undefined;
-    exePath!: string | undefined;
-    type!: number;
-    isShowToTenant!: boolean;
-    targetResolution_Width!: number | undefined;
-    targetResolution_Height!: number | undefined;
-    setting!: string | undefined;
-    language!: string | undefined;
-    auditStatus!: AuditStatus;
-    extensionData!: string | undefined;
-    gameType!: number;
-    description!: string | undefined;
-    supportedPlayersCount!: number | undefined;
-    isSupportAsync!: boolean;
-    isSendWechatBeforeGame!: boolean;
-    sendWeChatBeforGameTabName!: string | undefined;
-    isSendWechatAfterGame!: boolean;
-    sendWeChatAfterGameTabName!: string | undefined;
-    isShareAction!: boolean;
-    shareActionTabName!: string | undefined;
-    isDeleted!: boolean;
-    deleterUserId!: number | undefined;
-    deletionTime!: moment.Moment | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment;
-    creatorUserId!: number | undefined;
-    id!: number;
-
-    constructor(data?: ISoftware) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"];
-            this.code = _data["code"];
-            this.owner = _data["owner"];
-            this.contact = _data["contact"];
-            this.tenantId = _data["tenantId"];
-            this.url = _data["url"];
-            this.logoUrl = _data["logoUrl"];
-            this.largeImageUrl = _data["largeImageUrl"];
-            this.envType = _data["envType"];
-            this.versionNumber = _data["versionNumber"];
-            this.packageUrl = _data["packageUrl"];
-            this.exePath = _data["exePath"];
-            this.type = _data["type"];
-            this.isShowToTenant = _data["isShowToTenant"];
-            this.targetResolution_Width = _data["targetResolution_Width"];
-            this.targetResolution_Height = _data["targetResolution_Height"];
-            this.setting = _data["setting"];
-            this.language = _data["language"];
-            this.auditStatus = _data["auditStatus"];
-            this.extensionData = _data["extensionData"];
-            this.gameType = _data["gameType"];
-            this.description = _data["description"];
-            this.supportedPlayersCount = _data["supportedPlayersCount"];
-            this.isSupportAsync = _data["isSupportAsync"];
-            this.isSendWechatBeforeGame = _data["isSendWechatBeforeGame"];
-            this.sendWeChatBeforGameTabName = _data["sendWeChatBeforGameTabName"];
-            this.isSendWechatAfterGame = _data["isSendWechatAfterGame"];
-            this.sendWeChatAfterGameTabName = _data["sendWeChatAfterGameTabName"];
-            this.isShareAction = _data["isShareAction"];
-            this.shareActionTabName = _data["shareActionTabName"];
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): Software {
-        data = typeof data === 'object' ? data : {};
-        let result = new Software();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        data["code"] = this.code;
-        data["owner"] = this.owner;
-        data["contact"] = this.contact;
-        data["tenantId"] = this.tenantId;
-        data["url"] = this.url;
-        data["logoUrl"] = this.logoUrl;
-        data["largeImageUrl"] = this.largeImageUrl;
-        data["envType"] = this.envType;
-        data["versionNumber"] = this.versionNumber;
-        data["packageUrl"] = this.packageUrl;
-        data["exePath"] = this.exePath;
-        data["type"] = this.type;
-        data["isShowToTenant"] = this.isShowToTenant;
-        data["targetResolution_Width"] = this.targetResolution_Width;
-        data["targetResolution_Height"] = this.targetResolution_Height;
-        data["setting"] = this.setting;
-        data["language"] = this.language;
-        data["auditStatus"] = this.auditStatus;
-        data["extensionData"] = this.extensionData;
-        data["gameType"] = this.gameType;
-        data["description"] = this.description;
-        data["supportedPlayersCount"] = this.supportedPlayersCount;
-        data["isSupportAsync"] = this.isSupportAsync;
-        data["isSendWechatBeforeGame"] = this.isSendWechatBeforeGame;
-        data["sendWeChatBeforGameTabName"] = this.sendWeChatBeforGameTabName;
-        data["isSendWechatAfterGame"] = this.isSendWechatAfterGame;
-        data["sendWeChatAfterGameTabName"] = this.sendWeChatAfterGameTabName;
-        data["isShareAction"] = this.isShareAction;
-        data["shareActionTabName"] = this.shareActionTabName;
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface ISoftware {
-    name: string;
-    code: string | undefined;
-    owner: string | undefined;
-    contact: string | undefined;
-    tenantId: number | undefined;
-    url: string | undefined;
-    logoUrl: string | undefined;
-    largeImageUrl: string | undefined;
-    envType: number;
-    versionNumber: string | undefined;
-    packageUrl: string | undefined;
-    exePath: string | undefined;
-    type: number;
-    isShowToTenant: boolean;
-    targetResolution_Width: number | undefined;
-    targetResolution_Height: number | undefined;
-    setting: string | undefined;
-    language: string | undefined;
-    auditStatus: AuditStatus;
-    extensionData: string | undefined;
-    gameType: number;
-    description: string | undefined;
-    supportedPlayersCount: number | undefined;
-    isSupportAsync: boolean;
-    isSendWechatBeforeGame: boolean;
-    sendWeChatBeforGameTabName: string | undefined;
-    isSendWechatAfterGame: boolean;
-    sendWeChatAfterGameTabName: string | undefined;
-    isShareAction: boolean;
-    shareActionTabName: string | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
 }
 
 export class SoftwareOutput implements ISoftwareOutput {
@@ -36414,7 +35922,7 @@ export class SpecailUserDto implements ISpecailUserDto {
     /** 用户公司名 */
     companyName!: string | undefined;
     description!: string | undefined;
-    type!: SpecialType;
+    type!: SpecailUserDtoType;
     id!: number;
 
     constructor(data?: ISpecailUserDto) {
@@ -36489,13 +35997,8 @@ export interface ISpecailUserDto {
     /** 用户公司名 */
     companyName: string | undefined;
     description: string | undefined;
-    type: SpecialType;
+    type: SpecailUserDtoType;
     id: number;
-}
-
-export enum SpecialType {
-    White = 0,
-    Black = 1,
 }
 
 export class StoreActivity implements IStoreActivity {
@@ -36606,8 +36109,8 @@ export class StoreActivityGame implements IStoreActivityGame {
     lastGameOverTime!: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode!: boolean;
     securityKey!: string | undefined;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    weChatAuthorizationType!: StoreActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType!: StoreActivityGameTaobaoAuthorizationType;
     extensionData!: string | undefined;
     points!: number;
     isAllowBlack!: boolean;
@@ -36770,8 +36273,8 @@ export interface IStoreActivityGame {
     lastGameOverTime: moment.Moment | undefined;
     isNeedCheckBeforScanQRCode: boolean;
     securityKey: string | undefined;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    weChatAuthorizationType: StoreActivityGameWeChatAuthorizationType;
+    taobaoAuthorizationType: StoreActivityGameTaobaoAuthorizationType;
     extensionData: string | undefined;
     points: number;
     isAllowBlack: boolean;
@@ -36988,7 +36491,7 @@ export interface ITag {
 
 export class TagDto implements ITagDto {
     value!: string | undefined;
-    type!: TagType;
+    type!: TagDtoType;
     iconUrl!: string | undefined;
     isSpecial!: boolean;
     tenantId!: number;
@@ -37065,7 +36568,7 @@ export class TagDto implements ITagDto {
 
 export interface ITagDto {
     value: string | undefined;
-    type: TagType;
+    type: TagDtoType;
     iconUrl: string | undefined;
     isSpecial: boolean;
     tenantId: number;
@@ -37082,45 +36585,6 @@ export interface ITagDto {
     id: number;
 }
 
-export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
-    UxPage = 9,
-}
-
-export enum TemplateEnum {
-    ActivityIntroduction = 1,
-    Action = 2,
-    Award = 3,
-    Register = 4,
-    GameOnLine = 5,
-    GameResult = 6,
-}
-
-export enum TemplateMessageType {
-    付款成功通知 = 0,
-    订单支付通知 = 1,
-    订单发货通知 = 2,
-    退款申请通知 = 3,
-    退款审核通知 = 4,
-    退款成功通知 = 5,
-    取货通知 = 6,
-    防盗器报警通知 = 7,
-    商机认领提醒 = 8,
-}
-
-export enum ThingType {
-    Spu = 0,
-    Sku = 1,
-}
-
 export class Training implements ITraining {
     tenantId!: number | undefined;
     title!: string | undefined;
@@ -37128,13 +36592,13 @@ export class Training implements ITraining {
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     address!: string | undefined;
-    category!: TrainingCategoryEnum;
-    auditStatus!: AuditStatus;
+    category!: TrainingCategory4;
+    auditStatus!: TrainingAuditStatus;
     totalLength!: number | undefined;
     fileUrl!: string | undefined;
     picUrl!: string | undefined;
-    trainingWay!: TrainingWayEnum;
-    trainingStatus!: TrainingStatusEnum;
+    trainingWay!: TrainingWay4;
+    trainingStatus!: TrainingStatus4;
     userId!: number;
     lecturer!: string | undefined;
     paperId!: number | undefined;
@@ -37247,13 +36711,13 @@ export interface ITraining {
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     address: string | undefined;
-    category: TrainingCategoryEnum;
-    auditStatus: AuditStatus;
+    category: TrainingCategory4;
+    auditStatus: TrainingAuditStatus;
     totalLength: number | undefined;
     fileUrl: string | undefined;
     picUrl: string | undefined;
-    trainingWay: TrainingWayEnum;
-    trainingStatus: TrainingStatusEnum;
+    trainingWay: TrainingWay4;
+    trainingStatus: TrainingStatus4;
     userId: number;
     lecturer: string | undefined;
     paperId: number | undefined;
@@ -37275,8 +36739,8 @@ export interface ITraining {
 
 export class TrainingAuditInput implements ITrainingAuditInput {
     trainingIds!: number[] | undefined;
-    currentAuditStatus!: AuditStatus;
-    targetAuditStatus!: AuditStatus;
+    currentAuditStatus!: TrainingAuditInputCurrentAuditStatus;
+    targetAuditStatus!: TrainingAuditInputTargetAuditStatus;
 
     constructor(data?: ITrainingAuditInput) {
         if (data) {
@@ -37321,8 +36785,8 @@ export class TrainingAuditInput implements ITrainingAuditInput {
 
 export interface ITrainingAuditInput {
     trainingIds: number[] | undefined;
-    currentAuditStatus: AuditStatus;
-    targetAuditStatus: AuditStatus;
+    currentAuditStatus: TrainingAuditInputCurrentAuditStatus;
+    targetAuditStatus: TrainingAuditInputTargetAuditStatus;
 }
 
 export class TrainingBasicDto implements ITrainingBasicDto {
@@ -37333,13 +36797,13 @@ export class TrainingBasicDto implements ITrainingBasicDto {
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     address!: string | undefined;
-    category!: TrainingCategoryEnum;
-    auditStatus!: AuditStatus;
+    category!: TrainingBasicDtoCategory;
+    auditStatus!: TrainingBasicDtoAuditStatus;
     totalLength!: number | undefined;
     fileUrl!: string | undefined;
     picUrl!: string | undefined;
-    trainingWay!: TrainingWayEnum;
-    trainingStatus!: TrainingStatusEnum;
+    trainingWay!: TrainingBasicDtoTrainingWay;
+    trainingStatus!: TrainingBasicDtoTrainingStatus;
     /** 主讲人用户Id */
     userId!: number;
     courseId!: number;
@@ -37451,13 +36915,13 @@ export interface ITrainingBasicDto {
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     address: string | undefined;
-    category: TrainingCategoryEnum;
-    auditStatus: AuditStatus;
+    category: TrainingBasicDtoCategory;
+    auditStatus: TrainingBasicDtoAuditStatus;
     totalLength: number | undefined;
     fileUrl: string | undefined;
     picUrl: string | undefined;
-    trainingWay: TrainingWayEnum;
-    trainingStatus: TrainingStatusEnum;
+    trainingWay: TrainingBasicDtoTrainingWay;
+    trainingStatus: TrainingBasicDtoTrainingStatus;
     /** 主讲人用户Id */
     userId: number;
     courseId: number;
@@ -37473,13 +36937,6 @@ export interface ITrainingBasicDto {
     isMine: boolean;
     isCompleted: boolean;
     paperId: number | undefined;
-}
-
-export enum TrainingCategoryEnum {
-    Basic = 0,
-    Skill = 1,
-    Manage = 2,
-    Other = 3,
 }
 
 export class TrainingSimpleDto implements ITrainingSimpleDto {
@@ -37614,20 +37071,6 @@ export interface ITrainingSimpleInfo {
     participaterCount: number | undefined;
 }
 
-export enum TrainingStatusEnum {
-    None = 0,
-    NotStarted = 1,
-    Overdue = 2,
-    Completed = 3,
-}
-
-export enum TrainingWayEnum {
-    LecturerAndInsideShare = 0,
-    LecturerAndOutersideShare = 1,
-    VideoAndInsideShare = 2,
-    VideoAndOutersideShare = 3,
-}
-
 export class UpdateActivityAwardsInput implements IUpdateActivityAwardsInput {
     securityKey!: string | undefined;
     cargoStocks!: CargoStock[] | undefined;
@@ -37702,9 +37145,9 @@ export class UpdateAwardInput implements IUpdateAwardInput {
     description!: string | undefined;
     /** Random Award Switch. Not used now. */
     isRandomAward!: boolean;
-    type!: AwardType;
+    type!: UpdateAwardInputType;
     couponUrl!: string | undefined;
-    thingType!: ThingType;
+    thingType!: UpdateAwardInputThingType;
     thingId!: number;
 
     constructor(data?: IUpdateAwardInput) {
@@ -37794,9 +37237,9 @@ export interface IUpdateAwardInput {
     description: string | undefined;
     /** Random Award Switch. Not used now. */
     isRandomAward: boolean;
-    type: AwardType;
+    type: UpdateAwardInputType;
     couponUrl: string | undefined;
-    thingType: ThingType;
+    thingType: UpdateAwardInputThingType;
     thingId: number;
 }
 
@@ -37840,7 +37283,7 @@ export class UpdateBasicActivityInput implements IUpdateBasicActivityInput {
     imagePath!: string | undefined;
     /** 该活动是否是模板 */
     isTemplate!: boolean;
-    auditStatus!: AuditStatus;
+    auditStatus!: UpdateBasicActivityInputAuditStatus;
     organizationUnitId!: number | undefined;
 
     constructor(data?: IUpdateBasicActivityInput) {
@@ -37954,7 +37397,7 @@ export interface IUpdateBasicActivityInput {
     imagePath: string | undefined;
     /** 该活动是否是模板 */
     isTemplate: boolean;
-    auditStatus: AuditStatus;
+    auditStatus: UpdateBasicActivityInputAuditStatus;
     organizationUnitId: number | undefined;
 }
 
@@ -38027,8 +37470,10 @@ export class UpdateDeviceActivityGameInput implements IUpdateDeviceActivityGameI
     isNeedCheckBeforScanQRCode!: boolean;
     /** 该活动中游戏最大支持人数 */
     supportedPlayersCount!: number;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType!: UpdateDeviceActivityGameInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType!: UpdateDeviceActivityGameInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl!: string | undefined;
     isSendSnsMsgBeforeGame!: boolean;
@@ -38107,8 +37552,10 @@ export interface IUpdateDeviceActivityGameInput {
     isNeedCheckBeforScanQRCode: boolean;
     /** 该活动中游戏最大支持人数 */
     supportedPlayersCount: number;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType: UpdateDeviceActivityGameInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType: UpdateDeviceActivityGameInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl: string | undefined;
     isSendSnsMsgBeforeGame: boolean;
@@ -38133,7 +37580,8 @@ export class UpdateHtmlTemplateInput implements IUpdateHtmlTemplateInput {
     title!: string | undefined;
     logo!: string | undefined;
     backgroundImage!: string | undefined;
-    templateType!: TemplateEnum;
+    /** 模板类型 */
+    templateType!: UpdateHtmlTemplateInputTemplateType;
     /** 描述 */
     description!: string | undefined;
     args!: string | undefined;
@@ -38198,7 +37646,8 @@ export interface IUpdateHtmlTemplateInput {
     title: string | undefined;
     logo: string | undefined;
     backgroundImage: string | undefined;
-    templateType: TemplateEnum;
+    /** 模板类型 */
+    templateType: UpdateHtmlTemplateInputTemplateType;
     /** 描述 */
     description: string | undefined;
     args: string | undefined;
@@ -38222,8 +37671,8 @@ export class UpdatePaperInput implements IUpdatePaperInput {
     extensionData!: string | undefined;
     outerId!: string | undefined;
     questionsCount!: number;
-    compositionType!: PaperCompositionEnum;
-    paperUsageType!: PaperUsageType;
+    compositionType!: UpdatePaperInputCompositionType;
+    paperUsageType!: UpdatePaperInputPaperUsageType;
     /** 随机的场合，随机题目的数量，最大不能超过题目的总量 QuestionsCount */
     randomCount!: number;
     tagIds!: number[] | undefined;
@@ -38311,8 +37760,8 @@ export interface IUpdatePaperInput {
     extensionData: string | undefined;
     outerId: string | undefined;
     questionsCount: number;
-    compositionType: PaperCompositionEnum;
-    paperUsageType: PaperUsageType;
+    compositionType: UpdatePaperInputCompositionType;
+    paperUsageType: UpdatePaperInputPaperUsageType;
     /** 随机的场合，随机题目的数量，最大不能超过题目的总量 QuestionsCount */
     randomCount: number;
     tagIds: number[] | undefined;
@@ -38324,7 +37773,7 @@ export class UpdateQuestionInput implements IUpdateQuestionInput {
     prefix!: string | undefined;
     /** 问题标题 */
     title!: string | undefined;
-    type!: QuestionTypeEnum;
+    type!: UpdateQuestionInputType;
     /** 此道题的得分 */
     score!: number;
     /** 题目的顺序 */
@@ -38338,7 +37787,8 @@ export class UpdateQuestionInput implements IUpdateQuestionInput {
     imageUrl!: string | undefined;
     enabled!: boolean;
     outerId!: string | undefined;
-    questionScoreType!: QuestionScoreTypeEnum;
+    /** 多选的评分，多选全对才能得分，或可部分才能得分 */
+    questionScoreType!: UpdateQuestionInputQuestionScoreType;
     questionItems!: QuestionItemDto[] | undefined;
     tagIds!: number[] | undefined;
 
@@ -38423,7 +37873,7 @@ export interface IUpdateQuestionInput {
     prefix: string | undefined;
     /** 问题标题 */
     title: string | undefined;
-    type: QuestionTypeEnum;
+    type: UpdateQuestionInputType;
     /** 此道题的得分 */
     score: number;
     /** 题目的顺序 */
@@ -38437,7 +37887,8 @@ export interface IUpdateQuestionInput {
     imageUrl: string | undefined;
     enabled: boolean;
     outerId: string | undefined;
-    questionScoreType: QuestionScoreTypeEnum;
+    /** 多选的评分，多选全对才能得分，或可部分才能得分 */
+    questionScoreType: UpdateQuestionInputQuestionScoreType;
     questionItems: QuestionItemDto[] | undefined;
     tagIds: number[] | undefined;
 }
@@ -38599,7 +38050,7 @@ export class UpdateSpecialUserInput implements IUpdateSpecialUserInput {
     forAward!: boolean | undefined;
     forLottery!: boolean | undefined;
     forUseTicket!: boolean | undefined;
-    type!: SpecialType;
+    type!: UpdateSpecialUserInputType;
 
     constructor(data?: IUpdateSpecialUserInput) {
         if (data) {
@@ -38667,7 +38118,7 @@ export interface IUpdateSpecialUserInput {
     forAward: boolean | undefined;
     forLottery: boolean | undefined;
     forUseTicket: boolean | undefined;
-    type: SpecialType;
+    type: UpdateSpecialUserInputType;
 }
 
 export class UpdateStoreActivityGameInput implements IUpdateStoreActivityGameInput {
@@ -38679,8 +38130,10 @@ export class UpdateStoreActivityGameInput implements IUpdateStoreActivityGameInp
     isNeedCheckBeforScanQRCode!: boolean;
     /** 该活动中游戏最大支持人数 */
     supportedPlayersCount!: number;
-    weChatAuthorizationType!: SnsActivityAuthorizationType;
-    taobaoAuthorizationType!: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType!: UpdateStoreActivityGameInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType!: UpdateStoreActivityGameInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl!: string | undefined;
     isSendSnsMsgBeforeGame!: boolean;
@@ -38759,8 +38212,10 @@ export interface IUpdateStoreActivityGameInput {
     isNeedCheckBeforScanQRCode: boolean;
     /** 该活动中游戏最大支持人数 */
     supportedPlayersCount: number;
-    weChatAuthorizationType: SnsActivityAuthorizationType;
-    taobaoAuthorizationType: SnsActivityAuthorizationType;
+    /** 微信授权类型 */
+    weChatAuthorizationType: UpdateStoreActivityGameInputWeChatAuthorizationType;
+    /** 淘宝授权类型 */
+    taobaoAuthorizationType: UpdateStoreActivityGameInputTaobaoAuthorizationType;
     /** 用户自定义游戏素材zip路径 */
     materialPacketUrl: string | undefined;
     isSendSnsMsgBeforeGame: boolean;
@@ -38775,7 +38230,7 @@ export interface IUpdateStoreActivityGameInput {
 export class UpdateTagInput implements IUpdateTagInput {
     id!: number;
     value!: string | undefined;
-    type!: TagType;
+    type!: UpdateTagInputType;
     iconUrl!: string | undefined;
     isSpecial!: boolean;
     orderNumber!: number;
@@ -38825,7 +38280,7 @@ export class UpdateTagInput implements IUpdateTagInput {
 export interface IUpdateTagInput {
     id: number;
     value: string | undefined;
-    type: TagType;
+    type: UpdateTagInputType;
     iconUrl: string | undefined;
     isSpecial: boolean;
     orderNumber: number;
@@ -38838,12 +38293,12 @@ export class UpdateTrainingInput implements IUpdateTrainingInput {
     startTime!: moment.Moment | undefined;
     endTime!: moment.Moment | undefined;
     address!: string | undefined;
-    category!: TrainingCategoryEnum;
-    auditStatus!: AuditStatus;
+    category!: UpdateTrainingInputCategory;
+    auditStatus!: UpdateTrainingInputAuditStatus | undefined;
     totalLength!: number | undefined;
     fileUrl!: string | undefined;
     picUrl!: string | undefined;
-    trainingWay!: TrainingWayEnum;
+    trainingWay!: UpdateTrainingInputTrainingWay;
     /** 主讲人用户Id */
     userId!: number | undefined;
     courseId!: number | undefined;
@@ -38927,12 +38382,12 @@ export interface IUpdateTrainingInput {
     startTime: moment.Moment | undefined;
     endTime: moment.Moment | undefined;
     address: string | undefined;
-    category: TrainingCategoryEnum;
-    auditStatus: AuditStatus;
+    category: UpdateTrainingInputCategory;
+    auditStatus: UpdateTrainingInputAuditStatus | undefined;
     totalLength: number | undefined;
     fileUrl: string | undefined;
     picUrl: string | undefined;
-    trainingWay: TrainingWayEnum;
+    trainingWay: UpdateTrainingInputTrainingWay;
     /** 主讲人用户Id */
     userId: number | undefined;
     courseId: number | undefined;
@@ -39027,7 +38482,7 @@ export class UserAction implements IUserAction {
     softwareName!: string | undefined;
     activityId!: number;
     activity!: Activity;
-    status!: ActionStatus;
+    status!: UserActionStatus;
     gameImage!: string | undefined;
     postUrl!: string | undefined;
     startTime!: moment.Moment | undefined;
@@ -39226,7 +38681,7 @@ export interface IUserAction {
     softwareName: string | undefined;
     activityId: number;
     activity: Activity;
-    status: ActionStatus;
+    status: UserActionStatus;
     gameImage: string | undefined;
     postUrl: string | undefined;
     startTime: moment.Moment | undefined;
@@ -39434,7 +38889,7 @@ export class UserActionDto implements IUserActionDto {
     sex!: number | undefined;
     province!: string | undefined;
     city!: string | undefined;
-    snsType!: _definitions_EnumSnsType;
+    snsType!: UserActionDtoSnsType;
     activityId!: number;
     activityName!: string | undefined;
     snsAppID!: string | undefined;
@@ -39553,7 +39008,7 @@ export interface IUserActionDto {
     sex: number | undefined;
     province: string | undefined;
     city: string | undefined;
-    snsType: _definitions_EnumSnsType;
+    snsType: UserActionDtoSnsType;
     activityId: number;
     activityName: string | undefined;
     snsAppID: string | undefined;
@@ -40241,7 +39696,7 @@ export class UserPaper implements IUserPaper {
     answeredQuestionCount!: number;
     correctCount!: number;
     totalScore!: number;
-    examResult!: ExamEnum;
+    examResult!: UserPaperExamResult;
     opinion!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -40348,7 +39803,7 @@ export interface IUserPaper {
     answeredQuestionCount: number;
     correctCount: number;
     totalScore: number;
-    examResult: ExamEnum;
+    examResult: UserPaperExamResult;
     opinion: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -40524,7 +39979,7 @@ export class UserRoomMessageOutput implements IUserRoomMessageOutput {
     /** 用户id 特定公众号下面的user/说到Taobao的用户Id */
     snsUserInfoId!: number | undefined;
     snsUserInfo!: SnsUserInfoOutput;
-    type!: MsgTypeEnum;
+    type!: UserRoomMessageOutputType;
     content!: string | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
@@ -40590,7 +40045,7 @@ export interface IUserRoomMessageOutput {
     /** 用户id 特定公众号下面的user/说到Taobao的用户Id */
     snsUserInfoId: number | undefined;
     snsUserInfo: SnsUserInfoOutput;
-    type: MsgTypeEnum;
+    type: UserRoomMessageOutputType;
     content: string | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
@@ -40600,16 +40055,6 @@ export interface IUserRoomMessageOutput {
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
-}
-
-export enum VerifyType {
-    WechatAuthentication = 0,
-    SinaWeiboAuthentication = 1,
-    QQweiboAuthentication = 2,
-    NoNameAuthentication = 3,
-    NoNameBySinaWeiboAuthentication = 4,
-    NoNameByQqWeiboAuthentication = 5,
-    UnAuthentication = -1,
 }
 
 export class WeChatJSViewModel implements IWeChatJSViewModel {
@@ -40720,13 +40165,6 @@ export interface IWechatLoginResultDto {
     authenticateResultModel: AuthenticateResultModel;
 }
 
-export enum WeixinAuthStatus {
-    Authrozied = 0,
-    UnAuthrozied = 1,
-    Locked = 2,
-    UnLocked = 3,
-}
-
 export class WeixinMpDto implements IWeixinMpDto {
     weixinAppID!: string | undefined;
     /** 有效期（在授权的公众号具备API权限时，才有此返回值） */
@@ -40737,15 +40175,17 @@ export class WeixinMpDto implements IWeixinMpDto {
     nickName!: string | undefined;
     /** 公众号头像 */
     head_img!: string | undefined;
-    service_type_info!: ServiceType;
-    verify_type_info!: VerifyType;
+    /** 授权方公众号类型，0代表订阅号，1代表由历史老帐号升级后的订阅号，2代表服务号 */
+    service_type_info!: WeixinMpDtoService_type_info;
+    /** 授权方认证类型，-1代表未认证，0代表微信认证，1代表新浪微博认证，2代表腾讯微博认证，3代表已资质认证通过但还未通过名称认证，4代表已资质认证通过、还未通过名称认证，但通过了新浪微博认证，5代表已资质认证通过、还未通过名称认证，但通过了腾讯微博认证 */
+    verify_type_info!: WeixinMpDtoVerify_type_info;
     /** 授权方公众号的原始ID */
     user_name!: string | undefined;
     /** 授权方公众号所设置的微信号，可能为空 */
     alias!: string | undefined;
     /** 二维码图片的URL，开发者最好自行也进行保存 */
     qrcode_url!: string | undefined;
-    status!: WeixinAuthStatus;
+    status!: WeixinMpDtoStatus;
     func_infos!: string | undefined;
     authorizationTime!: moment.Moment | undefined;
     unAuthorizationTime!: moment.Moment | undefined;
@@ -40753,7 +40193,7 @@ export class WeixinMpDto implements IWeixinMpDto {
     /** 中奖模板id
 类似 4MVFGFHDQtNexQgT9U9mIko2_zcMnxCLTbKDlwYowTs */
     awardTemplateId!: string | undefined;
-    mpType!: EnumMpType;
+    mpType!: WeixinMpDtoMpType;
     organizationUnitId!: number | undefined;
     isMine!: boolean;
     isDeleted!: boolean;
@@ -40858,15 +40298,17 @@ export interface IWeixinMpDto {
     nickName: string | undefined;
     /** 公众号头像 */
     head_img: string | undefined;
-    service_type_info: ServiceType;
-    verify_type_info: VerifyType;
+    /** 授权方公众号类型，0代表订阅号，1代表由历史老帐号升级后的订阅号，2代表服务号 */
+    service_type_info: WeixinMpDtoService_type_info;
+    /** 授权方认证类型，-1代表未认证，0代表微信认证，1代表新浪微博认证，2代表腾讯微博认证，3代表已资质认证通过但还未通过名称认证，4代表已资质认证通过、还未通过名称认证，但通过了新浪微博认证，5代表已资质认证通过、还未通过名称认证，但通过了腾讯微博认证 */
+    verify_type_info: WeixinMpDtoVerify_type_info;
     /** 授权方公众号的原始ID */
     user_name: string | undefined;
     /** 授权方公众号所设置的微信号，可能为空 */
     alias: string | undefined;
     /** 二维码图片的URL，开发者最好自行也进行保存 */
     qrcode_url: string | undefined;
-    status: WeixinAuthStatus;
+    status: WeixinMpDtoStatus;
     func_infos: string | undefined;
     authorizationTime: moment.Moment | undefined;
     unAuthorizationTime: moment.Moment | undefined;
@@ -40874,7 +40316,7 @@ export interface IWeixinMpDto {
     /** 中奖模板id
 类似 4MVFGFHDQtNexQgT9U9mIko2_zcMnxCLTbKDlwYowTs */
     awardTemplateId: string | undefined;
-    mpType: EnumMpType;
+    mpType: WeixinMpDtoMpType;
     organizationUnitId: number | undefined;
     isMine: boolean;
     isDeleted: boolean;
@@ -40965,6 +40407,1463 @@ export interface IWeixinOpenPlatformDto {
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
+}
+
+export enum AuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum FlowType {
+    Introduction = "Introduction",
+    Register = "Register",
+    Sign = "Sign",
+    GameResult = "GameResult",
+    Reward = "Reward",
+}
+
+/** 类型 product,coupon,ads.... */
+export enum Type {
+    Activity = "Activity",
+    Training = "Training",
+}
+
+/** Accepted,Rejected */
+export enum ApplyStatus {
+    Applied = "Applied",
+    Cancel = "Cancel",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
+}
+
+export enum TemplateEnum {
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
+}
+
+export enum Type2 {
+    Single = "Single",
+    Multiple = "Multiple",
+    Text = "Text",
+}
+
+export enum QuestionScoreType {
+    Partial = "Partial",
+    Full = "Full",
+}
+
+export enum Type3 {
+    Single = "Single",
+    Multiple = "Multiple",
+    Text = "Text",
+}
+
+export enum QuestionScoreType2 {
+    Partial = "Partial",
+    Full = "Full",
+}
+
+export enum SnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsType2 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsType3 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsType4 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsType5 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType6 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum Type4 {
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
+}
+
+export enum AuditStatus2 {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingCategory {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum TrainingWay {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum TrainingStatus {
+    None = "None",
+    NotStarted = "NotStarted",
+    Overdue = "Overdue",
+    Completed = "Completed",
+}
+
+export enum AuditStatus3 {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingCategory2 {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum TrainingWay2 {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum TrainingStatus2 {
+    None = "None",
+    NotStarted = "NotStarted",
+    Overdue = "Overdue",
+    Completed = "Completed",
+}
+
+export enum AuditStatus4 {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingCategory3 {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum TrainingWay3 {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum TrainingStatus3 {
+    None = "None",
+    NotStarted = "NotStarted",
+    Overdue = "Overdue",
+    Completed = "Completed",
+}
+
+export enum WeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum QrType2 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType7 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType3 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType8 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType4 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType9 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType5 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType10 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum WeChatAuthorizationType2 {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum QrType6 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType11 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType7 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType12 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType8 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType13 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType9 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType14 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType10 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType15 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QrType11 {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum SnsType16 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsType17 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsType18 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum ShareType {
+    ShareAppMessage = "ShareAppMessage",
+    ShareTimeline = "ShareTimeline",
+    ShareQQ = "ShareQQ",
+    ShareWeibo = "ShareWeibo",
+    ShareQZone = "ShareQZone",
+    Like = "Like",
+}
+
+export enum SnsType19 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+/** UserAction => SnsUserInfo => EnumSnsType */
+export enum SnsType20 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+/** UserAction => SnsUserInfo => EnumSnsType */
+export enum SnsType21 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+/** UserAction => SnsUserInfo => EnumSnsType */
+export enum SnsType22 {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum ActionShareDtoActivityShareType {
+    Award = "Award",
+    ActivityShare = "ActivityShare",
+}
+
+export enum ActivityRepeatAwardFrequency {
+    None = "None",
+    Day = "Day",
+    Week = "Week",
+    Month = "Month",
+    Year = "Year",
+}
+
+export enum ActivityAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum ActivityAuditInputCurrentAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum ActivityAuditInputTargetAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum ActivityAwardDtoAwardThingType {
+    Spu = "Spu",
+    Sku = "Sku",
+}
+
+export enum ActivityBasicDtoAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum ActivityFlowFlowType {
+    Introduction = "Introduction",
+    Register = "Register",
+    Sign = "Sign",
+    GameResult = "GameResult",
+    Reward = "Reward",
+}
+
+export enum ActivityFlowDtoFlowType {
+    Introduction = "Introduction",
+    Register = "Register",
+    Sign = "Sign",
+    GameResult = "GameResult",
+    Reward = "Reward",
+}
+
+export enum ActivityFlowOutputFlowType {
+    Introduction = "Introduction",
+    Register = "Register",
+    Sign = "Sign",
+    GameResult = "GameResult",
+    Reward = "Reward",
+}
+
+export enum ActivityFlowSettingsInputFlowType {
+    Introduction = "Introduction",
+    Register = "Register",
+    Sign = "Sign",
+    GameResult = "GameResult",
+    Reward = "Reward",
+}
+
+export enum ActivityGameWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum ActivityGameTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum ActivityGameDtoWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum ActivityGameDtoTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum ActivityGameSettingsInputWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum ActivityGameSettingsInputTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum ActivityOutputAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum ActivityPayRecordActivityPayType {
+    Cash = "Cash",
+    Point = "Point",
+    Ticket = "Ticket",
+}
+
+export enum ActivityPayRecordInputActivityPayType {
+    Cash = "Cash",
+    Point = "Point",
+    Ticket = "Ticket",
+}
+
+export enum ActivityShareType {
+    Award = "Award",
+    ActivityShare = "ActivityShare",
+}
+
+export enum ActivityShareOutputActivityShareType {
+    Award = "Award",
+    ActivityShare = "ActivityShare",
+}
+
+export enum ActivityShareSettingsDtoActivityShareType {
+    Award = "Award",
+    ActivityShare = "ActivityShare",
+}
+
+export enum ActivityShareSettingsInputActivityShareType {
+    Award = "Award",
+    ActivityShare = "ActivityShare",
+}
+
+export enum AddOrUpdateActivityUserInputSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum AddOrUpdateConditionalMenuInputMenuType {
+    Normal = "Normal",
+    Individualization = "Individualization",
+}
+
+export enum AddOrUpdateMenuInputMenuType {
+    Normal = "Normal",
+    Individualization = "Individualization",
+}
+
+export enum AddUserPaperInputExamResult {
+    NoneOk = "NoneOk",
+    PartOk = "PartOk",
+    AllOk = "AllOk",
+}
+
+export enum AddUserPaperInput4WechatExamResult {
+    NoneOk = "NoneOk",
+    PartOk = "PartOk",
+    AllOk = "AllOk",
+}
+
+export enum AuditApplyFormInputApplyStatus {
+    Applied = "Applied",
+    Cancel = "Cancel",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
+}
+
+export enum AwardType {
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
+}
+
+export enum AwardThingType {
+    Spu = "Spu",
+    Sku = "Sku",
+}
+
+export enum AwardDtoType {
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
+}
+
+export enum AwardDtoThingType {
+    Spu = "Spu",
+    Sku = "Sku",
+}
+
+export enum AwardOutputType {
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
+}
+
+export enum AwardOutputThingType {
+    Spu = "Spu",
+    Sku = "Sku",
+}
+
+export enum ClearSnsUserDataInputSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum CreateActionShareInputActivityShareType {
+    Award = "Award",
+    ActivityShare = "ActivityShare",
+}
+
+export enum CreateApplyFormInputApplyType {
+    Activity = "Activity",
+    Training = "Training",
+}
+
+export enum CreateApplyFormInputWanted {
+    Online = "Online",
+    Offline = "Offline",
+}
+
+export enum CreateAwardInputType {
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
+}
+
+export enum CreateAwardInputThingType {
+    Spu = "Spu",
+    Sku = "Sku",
+}
+
+export enum CreateBasicActivityInputAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum CreateDeviceActivityGameInputWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum CreateDeviceActivityGameInputTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum CreateHtmlTemplateInputTemplateType {
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
+}
+
+export enum CreatePaperInputCompositionType {
+    Fixed = "Fixed",
+    Random = "Random",
+    FixedPlusRandom = "FixedPlusRandom",
+}
+
+export enum CreatePaperInputPaperUsageType {
+    Competition = "Competition",
+    GamePK = "GamePK",
+    Vote = "Vote",
+    Investigate = "Investigate",
+}
+
+export enum CreateQuestionInputType {
+    Single = "Single",
+    Multiple = "Multiple",
+    Text = "Text",
+}
+
+export enum CreateQuestionInputQuestionScoreType {
+    Partial = "Partial",
+    Full = "Full",
+}
+
+export enum CreateSnsMsgGameInputWeChatType {
+    Text = "Text",
+    News = "News",
+}
+
+export enum CreateSpecialUserInputType {
+    White = "White",
+    Black = "Black",
+}
+
+export enum CreateTagInputType {
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
+}
+
+export enum CreateTrainingInputCategory {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum CreateTrainingInputAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum CreateTrainingInputTrainingWay {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum DeviceActivityGameWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DeviceActivityGameTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DeviceActivityGameOutputWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DeviceActivityGameOutputTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DeviceActivityGameSimpleOutputWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DeviceActivityGameSimpleOutputTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DispatchedActivityGameWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum DispatchedActivityGameTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum GetUserPaperDtoExamResult {
+    NoneOk = "NoneOk",
+    PartOk = "PartOk",
+    AllOk = "AllOk",
+}
+
+export enum GetWechatMediaDtoMediaType {
+    News = "News",
+    Image = "Image",
+    Video = "Video",
+    Voice = "Voice",
+}
+
+export enum GetWechatMenuDtoMenuType {
+    Normal = "Normal",
+    Individualization = "Individualization",
+}
+
+export enum GetWechatTemplateMessageDtoTemplateMessageType {
+    付款成功通知 = "付款成功通知",
+    订单支付通知 = "订单支付通知",
+    订单发货通知 = "订单发货通知",
+    退款申请通知 = "退款申请通知",
+    退款审核通知 = "退款审核通知",
+    退款成功通知 = "退款成功通知",
+    取货通知 = "取货通知",
+    防盗器报警通知 = "防盗器报警通知",
+    商机认领提醒 = "商机认领提醒",
+}
+
+export enum HtmlTemplateTemplateType {
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
+}
+
+export enum HtmlTemplateDtoTemplateType {
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
+}
+
+export enum HtmlTemplateOutputTemplateType {
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
+}
+
+export enum MakeUserToSpecialInputType {
+    White = "White",
+    Black = "Black",
+}
+
+export enum PaperCompositionType {
+    Fixed = "Fixed",
+    Random = "Random",
+    FixedPlusRandom = "FixedPlusRandom",
+}
+
+export enum PaperUsageType {
+    Competition = "Competition",
+    GamePK = "GamePK",
+    Vote = "Vote",
+    Investigate = "Investigate",
+}
+
+export enum PaperDtoCompositionType {
+    Fixed = "Fixed",
+    Random = "Random",
+    FixedPlusRandom = "FixedPlusRandom",
+}
+
+export enum PaperDtoPaperUsageType {
+    Competition = "Competition",
+    GamePK = "GamePK",
+    Vote = "Vote",
+    Investigate = "Investigate",
+}
+
+export enum Qrcode4LoginInputQrType {
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
+}
+
+export enum Qrcode4LoginInputSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum QuestionDtoType {
+    Single = "Single",
+    Multiple = "Multiple",
+    Text = "Text",
+}
+
+export enum QuestionDtoQuestionScoreType {
+    Partial = "Partial",
+    Full = "Full",
+}
+
+export enum SensingDeviceActivityDtoAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum SensingDeviceAwardDtoType {
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
+}
+
+export enum SnsMessageWeChatType {
+    Text = "Text",
+    News = "News",
+}
+
+export enum SnsMsgAfterGameDtoWeChatType {
+    Text = "Text",
+    News = "News",
+}
+
+export enum SnsMsgBeforeGameDtoWeChatType {
+    Text = "Text",
+    News = "News",
+}
+
+export enum SnsShareWeixinShareType {
+    ShareAppMessage = "ShareAppMessage",
+    ShareTimeline = "ShareTimeline",
+    ShareQQ = "ShareQQ",
+    ShareWeibo = "ShareWeibo",
+    ShareQZone = "ShareQZone",
+    Like = "Like",
+}
+
+export enum SnsUserActionSumDtoSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsUserInfoSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsUserInfoDtoSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsUserInfoOutputSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsUserInfoWithMemberDtoSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsUserSimpleDataInputSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SnsUserTextDataInputSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum SpecailUserDtoType {
+    White = "White",
+    Black = "Black",
+}
+
+export enum StoreActivityGameWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum StoreActivityGameTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum TagType {
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
+}
+
+export enum TagDtoType {
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
+}
+
+export enum TrainingCategory4 {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum TrainingAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingWay4 {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum TrainingStatus4 {
+    None = "None",
+    NotStarted = "NotStarted",
+    Overdue = "Overdue",
+    Completed = "Completed",
+}
+
+export enum TrainingAuditInputCurrentAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingAuditInputTargetAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingBasicDtoCategory {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum TrainingBasicDtoAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum TrainingBasicDtoTrainingWay {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum TrainingBasicDtoTrainingStatus {
+    None = "None",
+    NotStarted = "NotStarted",
+    Overdue = "Overdue",
+    Completed = "Completed",
+}
+
+export enum UpdateAwardInputType {
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
+}
+
+export enum UpdateAwardInputThingType {
+    Spu = "Spu",
+    Sku = "Sku",
+}
+
+export enum UpdateBasicActivityInputAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum UpdateDeviceActivityGameInputWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum UpdateDeviceActivityGameInputTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum UpdateHtmlTemplateInputTemplateType {
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
+}
+
+export enum UpdatePaperInputCompositionType {
+    Fixed = "Fixed",
+    Random = "Random",
+    FixedPlusRandom = "FixedPlusRandom",
+}
+
+export enum UpdatePaperInputPaperUsageType {
+    Competition = "Competition",
+    GamePK = "GamePK",
+    Vote = "Vote",
+    Investigate = "Investigate",
+}
+
+export enum UpdateQuestionInputType {
+    Single = "Single",
+    Multiple = "Multiple",
+    Text = "Text",
+}
+
+export enum UpdateQuestionInputQuestionScoreType {
+    Partial = "Partial",
+    Full = "Full",
+}
+
+export enum UpdateSpecialUserInputType {
+    White = "White",
+    Black = "Black",
+}
+
+export enum UpdateStoreActivityGameInputWeChatAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum UpdateStoreActivityGameInputTaobaoAuthorizationType {
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
+}
+
+export enum UpdateTagInputType {
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
+}
+
+export enum UpdateTrainingInputCategory {
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
+}
+
+export enum UpdateTrainingInputAuditStatus {
+    Offline = "Offline",
+    Online = "Online",
+}
+
+export enum UpdateTrainingInputTrainingWay {
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
+}
+
+export enum UserActionStatus {
+    Start = "Start",
+    Waitting = "Waitting",
+    Playing = "Playing",
+    Done = "Done",
+    AwardEdit = "AwardEdit",
+    NotGetPrizeWithNoAward = "NotGetPrizeWithNoAward",
+    NotGetPrize = "NotGetPrize",
+}
+
+export enum UserActionDtoSnsType {
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
+}
+
+export enum UserPaperExamResult {
+    NoneOk = "NoneOk",
+    PartOk = "PartOk",
+    AllOk = "AllOk",
+}
+
+export enum UserRoomMessageOutputType {
+    Text = "Text",
+    Emoji = "Emoji",
+    Audio = "Audio",
+    RedPacket = "RedPacket",
+    File = "File",
+    Location = "Location",
+    Image = "Image",
+}
+
+export enum WeixinMpDtoService_type_info {
+    Subscribe = "Subscribe",
+    HistoryToSubscribe = "HistoryToSubscribe",
+    Service = "Service",
+}
+
+export enum WeixinMpDtoVerify_type_info {
+    WechatAuthentication = "WechatAuthentication",
+    SinaWeiboAuthentication = "SinaWeiboAuthentication",
+    QQweiboAuthentication = "QQweiboAuthentication",
+    NoNameAuthentication = "NoNameAuthentication",
+    NoNameBySinaWeiboAuthentication = "NoNameBySinaWeiboAuthentication",
+    NoNameByQqWeiboAuthentication = "NoNameByQqWeiboAuthentication",
+    UnAuthentication = "UnAuthentication",
+}
+
+export enum WeixinMpDtoStatus {
+    Authrozied = "Authrozied",
+    UnAuthrozied = "UnAuthrozied",
+    Locked = "Locked",
+    UnLocked = "UnLocked",
+}
+
+export enum WeixinMpDtoMpType {
+    Private = "Private",
+    Public = "Public",
 }
 
 export interface FileParameter {

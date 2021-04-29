@@ -46,8 +46,8 @@
                                     <select class="form-control" [(ngModel)]="OutPutInStorageType"
                                         name="OutPutInStorageType">
                                         <option value="">{{l('All')}}</option>
-                                        <option value="0">{{l('OutQuantity')}}</option>
-                                        <option value="1">{{l('InQuantity')}}</option>
+                                        <option value="Out">{{l('OutQuantity')}}</option>
+                                        <option value="Put">{{l('InQuantity')}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -152,9 +152,9 @@
                                             <span>{{record.outerId}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum[0]">{{l('OutQuantity')}}</span>
-                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum[1]">{{l('InQuantity')}}</span>
-                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum[2]">{{l('checkQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum['Out']">{{l('OutQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum['Put']">{{l('InQuantity')}}</span>
+                                            <span *ngIf="record.outPutInStorageType==OutPutInStorageTypeEnum['Check']">{{l('checkQuantity')}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.creationTime| date : "yyyy/MM/dd HH:mm"}}</span>

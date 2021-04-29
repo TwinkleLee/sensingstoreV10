@@ -245,7 +245,7 @@ export class TicketComponent extends AppComponentBase {
 
       this._TicketServiceProxy.setTicketStatus(new SetTicketStatusInput({
         ticketIds: ary,
-        ticketStatus: 1
+        ticketStatus: AuditStatus['Online']
       }))
         .pipe(finalize(() => { this.primengTableHelper.hideLoadingIndicator() }))
         .subscribe(r => {
@@ -262,7 +262,7 @@ export class TicketComponent extends AppComponentBase {
 
       this._TicketServiceProxy.setTicketStatus(new SetTicketStatusInput({
         ticketIds: ary,
-        ticketStatus: 0
+        ticketStatus: AuditStatus['Offline']
       }))
         .pipe(finalize(() => { this.primengTableHelper.hideLoadingIndicator() }))
         .subscribe(r => {

@@ -8,7 +8,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { AddQuestionModalComponent } from '@app/admin/question/question/operation/add-question-modal.component';
-import {PaperCompositionEnum} from '@shared/service-proxies/service-proxies5'
+import {Type4} from '@shared/service-proxies/service-proxies5'
 @Component({
     selector: 'naireModal',
     templateUrl: './naire-modal.component.html',
@@ -50,7 +50,6 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     tags: any[] = [];
 
     PaperUsageType = PaperUsageType;
-    PaperCompositionEnum = PaperCompositionEnum;
 
     constructor(
         injector: Injector,
@@ -101,7 +100,7 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Question).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type4.Question).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }

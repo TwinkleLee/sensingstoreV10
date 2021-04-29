@@ -3,7 +3,7 @@ import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
-import { TicketServiceProxy, AddOrUpdateTicketInput,TakeType } from '@shared/service-proxies/service-proxies2';
+import { TicketServiceProxy, AddOrUpdateTicketInput, TakeType, TicketType } from '@shared/service-proxies/service-proxies2';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -17,18 +17,20 @@ import * as _ from 'lodash';
 })
 export class CreateOrEditTicketModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('tagTree',{static:false}) tagTree;
-    @ViewChild('typeTree',{static:false}) typeTree;
-    @ViewChild('memberTree',{static:false}) memberTree;
+    @ViewChild('tagTree', { static: false }) tagTree;
+    @ViewChild('typeTree', { static: false }) typeTree;
+    @ViewChild('memberTree', { static: false }) memberTree;
 
     @Input() storeList;
 
     active = false;
     saving = false;
-    
+
     TakeType = TakeType;
+
+    TicketType = TicketType;
 
     operation: string = "add";
     objItem: any = {
@@ -40,12 +42,12 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
             ]
         },
         takeCondition: [],
-        ticketType: 0,
-        takeType: 0,
+        ticketType: 'Voucher',
+        takeType: 'UserTake',
         usage: 'weishop',
         repeatTakeTimes: 1,
         mergeUse: false,
-        ticketStatus: 1
+        ticketStatus: 'Online'
     };
 
     memberTypeList: any = [];
@@ -132,12 +134,12 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
                     ]
                 },
                 takeCondition: [],
-                ticketType: 0,
-                takeType: 0,
+                ticketType: 'Voucher',
+                takeType: 'UserTake',
                 usage: 'weishop',
                 repeatTakeTimes: 1,
                 mergeUse: false,
-                ticketStatus: 1,
+                ticketStatus: 'Online',
                 color: '#0000ff'
             };
 
@@ -181,12 +183,12 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
                 ]
             },
             takeCondition: [],
-            ticketType: 0,
-            takeType: 0,
+            ticketType: 'Voucher',
+            takeType: 'UserTake',
             usage: 'weishop',
             repeatTakeTimes: 1,
             mergeUse: false,
-            ticketStatus: 1
+            ticketStatus: 'Online'
 
         };
         this.saving = false;
@@ -198,5 +200,5 @@ export class CreateOrEditTicketModalComponent extends AppComponentBase implement
         this.objItem.picUrl = result.fileUri;
     }
 
-    
+
 }

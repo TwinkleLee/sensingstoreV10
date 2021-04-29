@@ -5,7 +5,7 @@ import { Table, TableCheckbox } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { PublicAccountManageModalComponent } from '@app/admin/publicaccount/public-account/operation/public-account-manage-modal.component';
-import { WechatManageServiceProxy, SetMediaTagsInput, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
+import { WechatManageServiceProxy, SetMediaTagsInput, TagServiceProxy, TagType as Type, Type4 } from '@shared/service-proxies/service-proxies5';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import * as moment from 'moment';
@@ -90,7 +90,7 @@ export class PublicAccountManageComponent extends AppComponentBase {
 
   //获取标签下拉数据
   getTags() {
-    this._TagService.getTagsByType(void 0, void 0, 1000, 0, Type.WechatPublicMessage).subscribe((result) => {
+    this._TagService.getTagsByType(void 0, void 0, 1000, 0, Type4.WechatPublicMessage).subscribe((result) => {
       this.Tags = result.items;
       this.tagList = Object.assign([], this.Tags);
     });

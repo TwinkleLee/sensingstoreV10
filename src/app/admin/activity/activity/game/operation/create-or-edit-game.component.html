@@ -57,7 +57,7 @@
                         disabled="disabled">
                     </div>
                     <div class="form-group col-12"
-                      *ngIf="(Game.weChatAuthorizationType==SnsActivityAuthorizationType[1]||Game.weChatAuthorizationType==SnsActivityAuthorizationType[4])&&Game.securityKey">
+                      *ngIf="(Game.weChatAuthorizationType==SnsActivityAuthorizationType['Web']||Game.weChatAuthorizationType==SnsActivityAuthorizationType['WebAutoRegister'])&&Game.securityKey">
                       <label>{{l("URL")}}</label>
                       <input class="form-control" type="text"
                         [value]="'https://m.sensingstore.com/transfer-action.html?securityKey='+Game.securityKey"

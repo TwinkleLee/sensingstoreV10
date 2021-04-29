@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { QuestionServiceProxy, CreateQuestionInput, UpdateQuestionInput, QuestionItemDto } from '@shared/service-proxies/service-proxies5';
+import { QuestionServiceProxy, CreateQuestionInput, UpdateQuestionInput, QuestionItemDto, Type4 } from '@shared/service-proxies/service-proxies5';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 
 @Component({
@@ -54,7 +54,7 @@ export class QuestionModalComponent extends AppComponentBase implements AfterVie
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Question).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type4.Question).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
