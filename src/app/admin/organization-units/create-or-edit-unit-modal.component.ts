@@ -257,8 +257,8 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         // updateInput.displayName = this.organizationUnit.displayName;
 
         //V3
-        this.organizationUnit.openingTime = moment(`2017-12-31T${this.openingTime}:00.000Z`);
-        this.organizationUnit.closedTime = moment(`2017-12-31T${this.closedTime}:00.000Z`);
+        this.organizationUnit.openingTime = new Date(`2017-12-31T${this.openingTime}:00.000`);
+        this.organizationUnit.closedTime = new Date(`2017-12-31T${this.closedTime}:00.000`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
         const updateInput = new UpdateGroupInput(this.organizationUnit);
 

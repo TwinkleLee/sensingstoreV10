@@ -18,7 +18,7 @@
                         </form>
                         <div class="dropdown-divider"></div>
                         <a *ngIf="tagIds.length==0" class="icon-apply dropdown-item"
-                            (click)="goTag(0)">{{l('Create')+l('Tags')}}</a>
+                            (click)="goTag('Resource')">{{l('Create')+l('Tags')}}</a>
                         <a *ngIf="tagIds.length>0" class="icon-apply dropdown-item"
                             (click)="setTag()">{{l('setTag')}}</a>
                         <a *ngIf="tagIds.length>0" class="icon-Clearsearch dropdown-item"

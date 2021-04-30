@@ -320,6 +320,19 @@ export class TrainingListComponent extends AppComponentBase {
     this.trainingUserId = this.lecturers.id
   }
 
+  deleteBatch () {
+    this.checkSelection(true, (ary) => {
+      this.message.confirm(this.l('batchDeleteAdsQuestion'), this.l('AreYouSure'),(r) => {
+        if (r) {
+          this._trainingService.batchDeleteTraining(ary).subscribe((result) => {
+            this.notify.info(this.l('success'));
+            this.getTrainings();
+          })
+        }
+      })
+    })
+  }
+
 }
 
 

@@ -219,7 +219,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
 
   dropDownBind = function (e) {
     var target = e.target;
-    if ($(target).closest(".filterButton div.dropdown-menu").length == 0 && !$(target).hasClass("filterIcon")) {
+    if ($(target).closest("#dropdown div.dropdown-menu").length == 0 && !$(target).hasClass("filterIcon")) {
       this.toggleFilter(false);
     }
   }.bind(this);
@@ -233,7 +233,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
   //显示隐藏高级过滤搜索
   toggleFilter(f?) {
     if (f) {
-      $(".filterButton div.dropdown-menu").show();
+      $("#dropdown div.dropdown-menu").show();
 
       // 暂时注释->
       
@@ -244,7 +244,7 @@ export class ProductComponent extends AppComponentBase implements OnInit, OnDest
       //   this.languageList = r;
       // })
     } else {
-      $(".filterButton div.dropdown-menu").hide();
+      $("#dropdown div.dropdown-menu").hide();
     }
 
   }

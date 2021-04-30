@@ -49,34 +49,34 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
     tagTypes = TagType;
 
 
-    // tagTypes = [{
-    //     name: this.l("Resources"),
-    //     value: 0
-    // }, {
-    //     name: this.l("Devices"),
-    //     value: 1
-    // }, {
-    //     name: this.l("Product"),
-    //     value: 2
-    // }, {
-    //     name: this.l("Advertisement"),
-    //     value: 3
-    // }, {
-    //     name: this.l("Brand"),
-    //     value: 5
-    // }, {
-    //     name: this.l("Question"),
-    //     value: 6
-    // }, {
-    //     name: this.l("counter"),
-    //     value: 7
-    // }, {
-    //     name: this.l("WechatPublicMessage"),
-    //     value: 8
-    // }, {
-    //     name: this.l("Others"),
-    //     value: 4
-    // }];
+    tagType = [{
+        name: this.l("Resources"),
+        value: 'Resources'
+    }, {
+        name: this.l("Devices"),
+        value: 'Devices'
+    }, {
+        name: this.l("Product"),
+        value: 'Product'
+    }, {
+        name: this.l("Advertisement"),
+        value: 'Ads'
+    }, {
+        name: this.l("Brand"),
+        value: 'Brand'
+    }, {
+        name: this.l("Question"),
+        value: 'Question'
+    }, {
+        name: this.l("counter"),
+        value: 'Counter'
+    }, {
+        name: this.l("WechatPublicMessage"),
+        value: 'WechatPublicMessage'
+    }, {
+        name: this.l("Others"),
+        value: 'Other'
+    }];
 
     memberedOrganizationUnits: string[];
 

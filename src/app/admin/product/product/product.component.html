@@ -111,7 +111,7 @@
                         </form>
                         <div class="dropdown-divider"></div>
                         <a *ngIf="!tagIds || tagIds.length==0" class="icon-apply dropdown-item"
-                            (click)="goTag(2)">{{l('Create')+l('Tags')}}</a>
+                            (click)="goTag('Product')">{{l('Create')+l('Tags')}}</a>
                         <a *ngIf="tagIds&&tagIds.length>0" class="icon-apply dropdown-item"
                             (click)="dropdown1.hide();setTag()">{{l('setTag')}}</a>
                         <a *ngIf="tagIds&&tagIds.length>0" class="icon-Clearsearch dropdown-item"
@@ -141,7 +141,7 @@
                                     <div class="col-3">
                                         <div class="form-group align-items-center">
                                             <label>&nbsp;</label>
-                                            <div class="input-group">
+                                            <div class="input-group" id="dropdown">
                                                 <button class="form-control filterButton">
                                                     <input [(ngModel)]="filterText" name="filterText"
                                                         (keyup.enter)="getProducts()"
@@ -150,151 +150,146 @@
                                                         style="position:relative;top:-1px;">
                                                     <i class="icon-shaixuanxuanzhong filterIcon"
                                                         [attr.title]="l('ShowAdvancedFilters')"
-                                                        (click)="toggleFilter(true)" style="right: 0.5rem;top: calc(50% - .1rem) !important;"></i>
-                                                    <div class="dropdown-menu">
-                                                        <form (ngSubmit)="doFilterproducts()" name="filterProForm"
-                                                            autocomplete="off" #productsFilterForm="ngForm" novalidate>
-                                                            <div class="form-group col-12">
-                                                                <label>{{l('name')}}</label>
-                                                                <input class="form-control" [(ngModel)]="filterText"
-                                                                    maxlength="256" name="filterText"
-                                                                    [placeholder]="l('productSearchPlaceholder')"
-                                                                    type="text" />
+                                                        (click)="toggleFilter(true)"
+                                                        style="right: 0.5rem;top: calc(50% - .1rem) !important;"></i>
+                                                </button>
+                                                <div class="dropdown-menu" style="width: 100%;">
+                                                    <form (ngSubmit)="doFilterproducts()" name="filterProForm"
+                                                        autocomplete="off" #productsFilterForm="ngForm" novalidate>
+                                                        <div class="form-group col-12">
+                                                            <label>{{l('name')}}</label>
+                                                            <input class="form-control" [(ngModel)]="filterText"
+                                                                maxlength="256" name="filterText"
+                                                                [placeholder]="l('productSearchPlaceholder')"
+                                                                type="text" />
+                                                        </div>
+
+                                                        <div class="col-12 row">
+                                                            <div class="form-group col-6">
+                                                                <label>{{l("PriceArea")}}</label>
+                                                                <input class="form-control" [(ngModel)]="Price1"
+                                                                    name="price1" type="number" />
                                                             </div>
-                                                            <div class="col-12 row">
-                                                                <div class="form-group col-6">
-                                                                    <label>{{l("PriceArea")}}</label>
-                                                                    <input class="form-control" [(ngModel)]="Price1"
-                                                                        name="price1" type="number" />
-                                                                </div>
-                                                                <div class="form-group col-6">
-                                                                    <label>&nbsp;</label>
-                                                                    <input class="form-control" [(ngModel)]="Price2"
-                                                                        name="price2" type="number" />
-                                                                </div>
+                                                            <div class="form-group col-6">
+                                                                <label>&nbsp;</label>
+                                                                <input class="form-control" [(ngModel)]="Price2"
+                                                                    name="price2" type="number" />
                                                             </div>
-                                                            <div class="form-group col-12" style="position:relative;">
-                                                                <label>{{l('Category')}}</label>
-                                                                <input class="form-control" readonly
-                                                                    [(ngModel)]="CatetoryId" name="CatetoryId"
-                                                                    type="text" (click)="showTree()" />
-                                                                <div class="input-group" *ngIf="showTreeFlag"
-                                                                    style="position:absolute;width:92%;z-index:888;background:#fff;">
-                                                                    <li
-                                                                        style="max-height: 250px;overflow-y:auto;width:100%;">
-                                                                        <app-my-tree
-                                                                            style="position:relative;left:25px;" #tree
-                                                                            [(items)]="CategoriesTree"
-                                                                            [(config)]="treeConfig"
-                                                                            (onCheck)="getChosen()"></app-my-tree>
-                                                                    </li>
-                                                                </div>
+                                                        </div>
+                                                        <div class="form-group col-12" style="position:relative;">
+                                                            <label>{{l('Category')}}</label>
+                                                            <input class="form-control" readonly
+                                                                [(ngModel)]="CatetoryId" name="CatetoryId" type="text"
+                                                                (click)="showTree()" />
+                                                            <div class="input-group" *ngIf="showTreeFlag"
+                                                                style="position:absolute;width:92%;z-index:888;background:#fff;">
+                                                                <li
+                                                                    style="max-height: 250px;overflow-y:auto;width:100%;">
+                                                                    <app-my-tree style="position:relative;left:25px;"
+                                                                        #tree [(items)]="CategoriesTree"
+                                                                        [(config)]="treeConfig" (onCheck)="getChosen()">
+                                                                    </app-my-tree>
+                                                                </li>
                                                             </div>
-                                                            <div class="form-group col-12">
-                                                                <label>{{l('Tags')}}</label>
+                                                        </div>
+                                                        <div class="form-group col-12">
+                                                            <label>{{l('Tags')}}</label>
+                                                            <div class="input-group">
+                                                                <select class="form-control" [(ngModel)]="TagId"
+                                                                    name="TagId">
+                                                                    <option value="">{{l('All')}}</option>
+                                                                    <option [value]="tag.id" *ngFor="let tag of Tags">
+                                                                        {{tag.value}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 row">
+
+                                                            <div class="form-group col-6">
+                                                                <label>{{l('area')}}</label>
                                                                 <div class="input-group">
-                                                                    <select class="form-control" [(ngModel)]="TagId"
-                                                                        name="TagId">
+                                                                    <select class="form-control" [(ngModel)]="region"
+                                                                        name="region">
                                                                         <option value="">{{l('All')}}</option>
-                                                                        <option [value]="tag.id"
-                                                                            *ngFor="let tag of Tags">{{tag.value}}
+                                                                        <option [value]="item"
+                                                                            *ngFor="let item of regionList">
+                                                                            <span
+                                                                                *ngIf="isNull(item)">{{l('Other')}}</span>
+                                                                            <span *ngIf="!isNull(item)">{{item}}</span>
                                                                         </option>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-12 row">
-
-                                                                <div class="form-group col-6">
-                                                                    <label>{{l('area')}}</label>
-                                                                    <div class="input-group">
-                                                                        <select class="form-control"
-                                                                            [(ngModel)]="region" name="region">
-                                                                            <option value="">{{l('All')}}</option>
-                                                                            <option [value]="item"
-                                                                                *ngFor="let item of regionList">
-                                                                                <span
-                                                                                    *ngIf="isNull(item)">{{l('Other')}}</span>
-                                                                                <span
-                                                                                    *ngIf="!isNull(item)">{{item}}</span>
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-6">
-                                                                    <label>{{l('Language')}}</label>
-                                                                    <div class="input-group">
-                                                                        <select class="form-control"
-                                                                            [(ngModel)]="language" name="language">
-                                                                            <option value="">{{l('All')}}</option>
-                                                                            <option [value]="item"
-                                                                                *ngFor="let item of languageList">
-                                                                                <span
-                                                                                    *ngIf="isNull(item)">{{l('Other')}}</span>
-                                                                                <span
-                                                                                    *ngIf="!isNull(item)">{{item}}</span>
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-12 row">
-                                                                <div class="form-group col-6">
-                                                                    <label>{{l('stock')}}</label>
-                                                                    <select class="form-control" name="stockOperator"
-                                                                        [(ngModel)]="stockOperator">
-                                                                        <option value="=">{{l('equal')}}</option>
-                                                                        <option value=">">{{l('larger')}}</option>
-                                                                        <option value="<">{{l('smaller')}}</option>
+                                                            <div class="form-group col-6">
+                                                                <label>{{l('Language')}}</label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control" [(ngModel)]="language"
+                                                                        name="language">
+                                                                        <option value="">{{l('All')}}</option>
+                                                                        <option [value]="item"
+                                                                            *ngFor="let item of languageList">
+                                                                            <span
+                                                                                *ngIf="isNull(item)">{{l('Other')}}</span>
+                                                                            <span *ngIf="!isNull(item)">{{item}}</span>
+                                                                        </option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="form-group col-6">
-                                                                    <label>&nbsp;</label>
-                                                                    <input class="form-control" name="Stock"
-                                                                        type="number" [(ngModel)]="Stock" />
-                                                                </div>
                                                             </div>
-                                                            <div class="col-12 row">
-                                                                <div class="form-group col-6">
-                                                                    <label>{{l("salesVolume")}}</label>
-                                                                    <select class="form-control"
-                                                                        name="salesVolumeOperator"
-                                                                        [(ngModel)]="salesVolumeOperator">
-                                                                        <option value="=">{{l('equal')}}</option>
-                                                                        <option value=">">{{l('larger')}}</option>
-                                                                        <option value="<">{{l('smaller')}}</option>
-                                                                    </select>
 
-                                                                </div>
-                                                                <div class="form-group col-6">
-                                                                    <label>&nbsp;</label>
-                                                                    <input class="form-control" name="salesVolume2"
-                                                                        type="number" [(ngModel)]="salesVolume" />
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-12 row">
+                                                            <div class="form-group col-6">
+                                                                <label>{{l('stock')}}</label>
+                                                                <select class="form-control" name="stockOperator"
+                                                                    [(ngModel)]="stockOperator">
+                                                                    <option value="=">{{l('equal')}}</option>
+                                                                    <option value=">">{{l('larger')}}</option>
+                                                                    <option value="<">{{l('smaller')}}</option>
+                                                                </select>
                                                             </div>
-                                                            <div class="form-group col-12">
-                                                                <label class="checkbox checkbox-primary">
-                                                                    <input [(ngModel)]="IsSearchSku" type="checkbox"
-                                                                        name="IsSearchSku" />
-                                                                    <span></span>
-                                                                    {{l("isFilterSku")}}
-                                                                </label>
+                                                            <div class="form-group col-6">
+                                                                <label>&nbsp;</label>
+                                                                <input class="form-control" name="Stock" type="number"
+                                                                    [(ngModel)]="Stock" />
                                                             </div>
-                                                            <div class="form-group col-12">
-                                                                <button [disabled]="!productsFilterForm.form.valid"
-                                                                    type="submit" class="btn btn-primary">查询</button>
+                                                        </div>
+                                                        <div class="col-12 row">
+                                                            <div class="form-group col-6">
+                                                                <label>{{l("salesVolume")}}</label>
+                                                                <select class="form-control" name="salesVolumeOperator"
+                                                                    [(ngModel)]="salesVolumeOperator">
+                                                                    <option value="=">{{l('equal')}}</option>
+                                                                    <option value=">">{{l('larger')}}</option>
+                                                                    <option value="<">{{l('smaller')}}</option>
+                                                                </select>
+
                                                             </div>
-                                                        </form>
-                                                    </div>
-                                                </button>
-                                                <!-- <span class="input-group-btn">
-                                                    <button (click)="getProducts()" class="btn btn-primary" type="submit">
-                                                        <i class="icon-sousuo-sousuo"></i>
-                                                    </button>
-                                                </span> -->
+                                                            <div class="form-group col-6">
+                                                                <label>&nbsp;</label>
+                                                                <input class="form-control" name="salesVolume2"
+                                                                    type="number" [(ngModel)]="salesVolume" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group col-12">
+                                                            <label class="checkbox">
+                                                                <input [(ngModel)]="IsSearchSku" type="checkbox"
+                                                                    name="IsSearchSku" />
+                                                                <span></span>
+                                                                {{l("isFilterSku")}}
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group col-12">
+                                                            <button [disabled]="!productsFilterForm.form.valid"
+                                                                type="submit" class="btn btn-primary">查询</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <!-- 时间范围筛选 -->
                                     <!-- <div class="col-2" style="position: relative;top:-0.5rem;">
                                         <label>{{l('lastUpdated')}}</label>

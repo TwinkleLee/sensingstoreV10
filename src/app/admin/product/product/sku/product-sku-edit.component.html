@@ -4,10 +4,10 @@
         <sub-header [title]="'ProductSkuEdit' | localize" [description]="sku?.id+' | '+ sku?.title">
             <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions">
-                <a [ngClass]="{'icon-shangyiye':true,'text-primary':sku.preSkuId,'text-secondary':!sku.preSkuId}"
+                <!-- <a [ngClass]="{'icon-shangyiye':true,'text-primary':sku.preSkuId,'text-secondary':!sku.preSkuId}"
                     (click)="switchSku(false)"></a>
                 <a [ngClass]="{'icon-xiayiye':true,'text-primary':sku.nextSkuId,'text-secondary':!sku.nextSkuId}"
-                    (click)="switchSku(true)"></a>
+                    (click)="switchSku(true)"></a> -->
             </div>
         </sub-header>
 

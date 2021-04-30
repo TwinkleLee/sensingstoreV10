@@ -16,7 +16,7 @@ import { HtmlTemplateServiceProxy, TemplateEnum } from '@shared/service-proxies/
 })
 export class PageTemplateComponent extends AppComponentBase {
 
-  @ViewChild('pageTemplateModalComponent',{static:true}) pageTemplateModalComponent: PageTemplateModalComponent;
+  @ViewChild('pageTemplateModalComponent',{static:false}) pageTemplateModalComponent: PageTemplateModalComponent;
   @ViewChild('dataTable',{static:true}) dataTable: Table;
   @ViewChild('paginator',{static:true}) paginator: Paginator;
   filterText: string;

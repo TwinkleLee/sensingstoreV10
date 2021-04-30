@@ -11,9 +11,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <tabset class="tab-container tabbable-line">
-                        <!-- Resource = 0,Device = 1,Product = 2,Ads = 3,Other = 4,Brand = 5,Question = 6,Counter = 7,WechatPublicMessage = 8 -->
-                        <!-- tagType 0 1 2 3 4 5 6 7 8 -->
-                        <tab heading="{{l('ResourceTag')}}" class="p-5" (selectTab)="tabChange(0)">
+                        <tab heading="{{l('ResourceTag')}}" class="p-5" (selectTab)="tabChange(Type.Resource )">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -137,7 +135,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('DeviceTag')}}" class="p-5" (selectTab)="tabChange(1)">
+                        <tab heading="{{l('DeviceTag')}}" class="p-5" (selectTab)="tabChange(Type.Device )">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -261,7 +259,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('ProductTag')}}" class="p-5" (selectTab)="tabChange(2)">
+                        <tab heading="{{l('ProductTag')}}" class="p-5" (selectTab)="tabChange(Type.Product)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -385,7 +383,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('AdsTag')}}" class="p-5" (selectTab)="tabChange(3)">
+                        <tab heading="{{l('AdsTag')}}" class="p-5" (selectTab)="tabChange(Type.Ads)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -509,7 +507,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('BrandTag')}}" class="p-5" (selectTab)="tabChange(5)">
+                        <tab heading="{{l('BrandTag')}}" class="p-5" (selectTab)="tabChange(Type.Brand)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -633,7 +631,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('QuestionTag')}}" class="p-5" (selectTab)="tabChange(6)">
+                        <tab heading="{{l('QuestionTag')}}" class="p-5" (selectTab)="tabChange(Type.Question)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -757,7 +755,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('CounterTag')}}" class="p-5" (selectTab)="tabChange(7)">
+                        <tab heading="{{l('CounterTag')}}" class="p-5" (selectTab)="tabChange(Type.Counter)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -881,7 +879,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('WechatPublicMessageTag')}}" class="p-5" (selectTab)="tabChange(8)">
+                        <tab heading="{{l('WechatPublicMessageTag')}}" class="p-5" (selectTab)="tabChange(Type.WechatPublicMessage)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
@@ -1005,7 +1003,7 @@
                                 </div>
                             </div>
                         </tab>
-                        <tab heading="{{l('OtherTag')}}" class="p-5" (selectTab)="tabChange(4)">
+                        <tab heading="{{l('OtherTag')}}" class="p-5" (selectTab)="tabChange(Type.Other)">
                             <div class="row">
                                 <form class="horizontal-form" autocomplete="off" style="width:100%;">
                                     <div class="m-form">
