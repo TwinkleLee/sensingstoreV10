@@ -787,7 +787,9 @@ div .primeng-datatable-container .ui-table th {
 p-autocomplete {
     padding: 0 !important;
 }
-
+.originPAutoComplete{
+    padding: 10px !important;
+}
 /* .ui-autocomplete-multiple-container li {
     padding: 0 !important;
 } */
