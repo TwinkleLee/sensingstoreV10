@@ -235,8 +235,8 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         // createInput.displayName = this.organizationUnit.displayName;
 
         //V3
-        this.organizationUnit.openingTime = `2017-12-31T${this.openingTime}:00.000Z`;
-        this.organizationUnit.closedTime = `2017-12-31T${this.closedTime}:00.000Z`;
+        this.organizationUnit.openingTime = new Date(`2017-12-31T${this.openingTime}:00.000`);
+        this.organizationUnit.closedTime = new Date(`2017-12-31T${this.closedTime}:00.000`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
         const createInput = new CreateOrganizationUnitInput(this.organizationUnit);
         console.log("createInput",createInput)

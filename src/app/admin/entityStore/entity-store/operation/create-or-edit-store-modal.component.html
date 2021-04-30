@@ -11,10 +11,10 @@
                         <span *ngIf="organizationUnit.storeId">{{l("Edit")}}{{l("Store")}}</span>
                         <span *ngIf="!organizationUnit.storeId">{{l("AddStore")}}</span>
                     </h5>
-                    
+
                     <button type="button" class="close" (click)="close()" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
-                      </button>
+                    </button>
                 </div>
 
                 <div class="modal-body">
@@ -118,8 +118,8 @@
                         </div>
                         <div class="form-group col-6">
                             <label>{{l("addressDetail")}} </label>
-                            <input class="form-control" type="text"
-                                name="addressDetail_sulwhasoo" [(ngModel)]="organizationUnit.addressDetail">
+                            <input class="form-control" type="text" name="addressDetail_sulwhasoo"
+                                [(ngModel)]="organizationUnit.addressDetail">
                         </div>
                         <div class="form-group col-6">
                             <label>{{l("addressDetail")}} </label>
@@ -157,7 +157,8 @@
 
                         <div class="form-group col-6">
                             <label>{{l("Room")}} </label>
-                            <p-autoComplete [(ngModel)]="rooms" [disabled]="!buildingId" [suggestions]="roomSuggestions"
+                            <p-autoComplete name="rooms" id="MultiSelectInput" [(ngModel)]="rooms"
+                                [disabled]="!buildingId" [suggestions]="roomSuggestions"
                                 (completeMethod)="roomFilter($event)" field="value" [placeholder]="l('Room')"
                                 dataKey="id" [dropdown]="true" (onSelect)="assignRoom()" (onUnselect)="assignRoom()"
                                 [minLength]="1" [multiple]="true" name="SelectInput" inputStyleClass="form-control"
@@ -176,7 +177,7 @@
                         <div class="form-group col-6">
                             <label>{{l("Brand")}}</label>
 
-                            <p-autoComplete [(ngModel)]="singleBrand" [suggestions]="brandSuggestions"
+                            <p-autoComplete name="singleBrand" id="SingleSelectInput" [(ngModel)]="singleBrand" [suggestions]="brandSuggestions"
                                 (completeMethod)="brandFilter($event)" field="value" [placeholder]="l('Brand')"
                                 dataKey="id" [dropdown]="true" (onSelect)="assignBrand()" (onUnselect)="assignBrand()"
                                 [minLength]="1" [multiple]="false" name="brandId" inputStyleClass="form-control"
@@ -253,7 +254,7 @@
                                     </label>
                                     <label class="checkbox checkbox-primary">
                                         <input type="checkbox" [(ngModel)]="organizationUnit.isProductAutoSendDown"
-                                            name="isProductAutoSendDown"> 
+                                            name="isProductAutoSendDown">
                                         <span></span>
                                         {{l("isProductAutoSendDown")}}
                                     </label>
@@ -262,26 +263,26 @@
                                     <label class="checkbox checkbox-primary">
                                         <input type="checkbox"
                                             [(ngModel)]="organizationUnit.canAcceptCouponAutoSendDown"
-                                            name="canAcceptCouponAutoSendDown"> 
+                                            name="canAcceptCouponAutoSendDown">
                                         <span></span>
                                         {{l("canAcceptCouponAutoSendDown")}}
                                     </label>
                                     <label class="checkbox checkbox-primary">
                                         <input type="checkbox" [(ngModel)]="organizationUnit.canAcceptAdsAutoSendDown"
-                                            name="canAcceptAdsAutoSendDown"> 
+                                            name="canAcceptAdsAutoSendDown">
                                         <span></span>
                                         {{l("canAcceptAdsAutoSendDown")}}
                                     </label>
                                     <label class="checkbox checkbox-primary">
                                         <input type="checkbox" [(ngModel)]="organizationUnit.canAcceptAppAutoSendDown"
-                                            name="canAcceptAppAutoSendDown"> 
+                                            name="canAcceptAppAutoSendDown">
                                         <span></span>
                                         {{l("canAcceptAppAutoSendDown")}}
                                     </label>
                                     <label class="checkbox checkbox-primary">
                                         <input type="checkbox"
                                             [(ngModel)]="organizationUnit.canAcceptProductAutoSendDown"
-                                            name="canAcceptProductAutoSendDown"> 
+                                            name="canAcceptProductAutoSendDown">
                                         <span></span>
                                         {{l("canAcceptProductAutoSendDown")}}
                                     </label>

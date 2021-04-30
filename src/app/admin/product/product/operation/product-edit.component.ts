@@ -168,8 +168,8 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
             abp.ui.clearBusy();
         })).subscribe((result) => {
             this.product = result;
-            this.product.auditStatus = this.product.auditStatus == "Offline" ? 0 : 1;
-            this.product.auditStatusForShow = this.product.auditStatus == 0 ? this.l('Offline') : this.l('Online');
+            // this.product.auditStatus = this.product.auditStatus == "Offline" ? 0 : 1;
+            this.product.auditStatusForShow = this.product.auditStatus == 'Offline' ? this.l('Offline') : this.l('Online');
             var chosen = [];
             this.product.p_ProductCategories.forEach((item) => {
                 chosen.push(item.id);

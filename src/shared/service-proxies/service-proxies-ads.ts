@@ -12771,6 +12771,8 @@ export class SchedulingContent implements ISchedulingContent {
     /** 广告 */
     ads!: ProgramItem[] | undefined;
     playType!: PlayType;
+    /** 优先级 */
+    priority!: number | undefined;
 
     constructor(data?: ISchedulingContent) {
         if (data) {
@@ -12794,6 +12796,7 @@ export class SchedulingContent implements ISchedulingContent {
                     this.ads!.push(ProgramItem.fromJS(item));
             }
             this.playType = _data["playType"];
+            this.priority = _data["priority"];
         }
     }
 
@@ -12817,6 +12820,7 @@ export class SchedulingContent implements ISchedulingContent {
                 data["ads"].push(item.toJSON());
         }
         data["playType"] = this.playType;
+        data["priority"] = this.priority;
         return data; 
     }
 }
@@ -12836,6 +12840,8 @@ export interface ISchedulingContent {
     /** 广告 */
     ads: ProgramItem[] | undefined;
     playType: PlayType;
+    /** 优先级 */
+    priority: number | undefined;
 }
 
 /** 更新排程节目单详细内容时的入参对象 */

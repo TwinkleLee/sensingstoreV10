@@ -346,9 +346,9 @@
                                                         <span *ngIf="record.storeId">{{record.storeName}}</span>
                                                     </td>
                                                     <td>
-                                                        <span *ngIf="record['auditStatus']==1"
+                                                        <span *ngIf="record['auditStatus']=='Online'"
                                                             class="label label-success label-inline">{{l("On")}}</span>
-                                                        <span *ngIf="record['auditStatus']==0"
+                                                        <span *ngIf="record['auditStatus']=='Offline'"
                                                             class="label label-dark label-inline">{{l("Off")}}</span>
                                                     </td>
                                                     <td>
@@ -479,9 +479,9 @@
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <span *ngIf="record['auditStatus']==1"
+                                                        <span *ngIf="record['auditStatus']=='Online'"
                                                             class="label label-success label-inline">{{l("online")}}</span>
-                                                        <span *ngIf="record['auditStatus']==0"
+                                                        <span *ngIf="record['auditStatus']=='Offline'"
                                                             class="label label-dark label-inline">{{l("offline")}}</span>
                                                     </td>
                                                 </tr>
@@ -839,9 +839,9 @@
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <span *ngIf="record['auditStatus']==1"
+                                                        <span *ngIf="record['auditStatus']=='Online'"
                                                             class="label label-success label-inline">{{l("Online")}}</span>
-                                                        <span *ngIf="record['auditStatus']==0"
+                                                        <span *ngIf="record['auditStatus']=='Offline'"
                                                             class="label label-dark label-inline">{{l("Offline")}}</span>
                                                     </td>
                                                     <td>{{record.start_time| date : "yyyy/MM/dd"}}</td>
@@ -969,9 +969,9 @@
                                                             class="label label-dark label-inline">{{l("false")}}</span>
                                                     </td>
                                                     <td>
-                                                        <span *ngIf="record['auditStatus']==1"
+                                                        <span *ngIf="record['auditStatus']=='Online'"
                                                             class="label label-success label-inline">{{l("online")}}</span>
-                                                        <span *ngIf="record['auditStatus']==0"
+                                                        <span *ngIf="record['auditStatus']=='Offline'"
                                                             class="label label-dark label-inline">{{l("offline")}}</span>
                                                     </td>
                                                 </tr>
@@ -1084,10 +1084,10 @@
                                                     <th style="width:5%">{{l('RecordId')}}</th>
                                                     <!-- <th>{{l('storeNumber')}}</th> -->
                                                     <th>{{l('ouOrStoreName')}}</th>
-                                                    <th>
+                                                    <!-- <th>
                                                         <span *ngIf="OUId">{{l('OUName')}}</span>
                                                         <span *ngIf="storeId">{{l('storeName')}}</span>
-                                                    </th>
+                                                    </th> -->
                                                     <th>{{l('CheckScale')}}</th>
                                                     <th>{{l('CheckTime')}}</th>
                                                     <th>{{l('CheckType')}}</th>
@@ -1120,21 +1120,22 @@
                                                         <p-tableCheckbox [value]="record"></p-tableCheckbox>
                                                     </td>
                                                     <td> {{transKPIIndex(i)}}</td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <span *ngIf="OUId">{{record.ouOuterId}}</span>
                                                         <span *ngIf="storeId">{{record.storeOuterId}}</span>
-                                                    </td>
-                                                    <td><span>{{record.ouName}}</span></td>
+                                                    </td> -->
                                                     <td>
-                                                        <span *ngIf="record.kpiScale==0">{{l('yearly')}}</span>
-                                                        <span *ngIf="record.kpiScale==1">{{l('monthly')}}</span>
-                                                        <span *ngIf="record.kpiScale==3">{{l('daily')}}</span>
+                                                        <span *ngIf="record.ouName">{{record.ouName}}</span>
+                                                        <span *ngIf="record.storeName">{{record.storeName}}</span>
                                                     </td>
-                                                    <td *ngIf="record.kpiScale==0">{{record.scaleTime | date : "yyyy"}}
+                                                    <td>
+                                                        <span>{{l(record.kpiScale)}}</span>
                                                     </td>
-                                                    <td *ngIf="record.kpiScale==1">
+                                                    <td *ngIf="record.kpiScale=='Year'">{{record.scaleTime | date : "yyyy"}}
+                                                    </td>
+                                                    <td *ngIf="record.kpiScale=='Month'">
                                                         {{record.scaleTime | date : "yyyy/MM"}}</td>
-                                                    <td *ngIf="record.kpiScale==3">{{record.scaleTime | date :
+                                                    <td *ngIf="record.kpiScale=='Day'">{{record.scaleTime | date :
                                                     "yyyy/MM/dd"}}</td>
                                                     <td><span>{{record.name}}</span></td>
                                                     <td><span>{{record.value}}</span></td>

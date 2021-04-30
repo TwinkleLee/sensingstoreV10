@@ -244,7 +244,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
             return Number(id);
         });
         this.addOrEditInput = new UpdateSkuInput(this.sku);
-        this.addOrEditInput.auditStatus = this.sku.auditStatus == "Online" ? 1 : 0;
+        // this.addOrEditInput.auditStatus = this.sku.auditStatus == "Online" ? 1 : 0;
+        this.addOrEditInput.auditStatus = this.sku.auditStatus;
 
         console.log(this.addOrEditInput.propertyValueIds)
         //此处是为了修复一个bug

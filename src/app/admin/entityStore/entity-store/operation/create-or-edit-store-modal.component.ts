@@ -151,7 +151,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                                 this.modal.show();
                                 this.active = true;
                                 this._changeDetector.detectChanges();
-
                             })
                     })
             } else {
@@ -264,8 +263,8 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
         this.organizationUnit.roomIds = JSON.stringify(temp);
         // this.organizationUnit.openingTime = moment(`2017-12-31T${this.openingTime}:00.000Z`);
         // this.organizationUnit.closedTime = moment(`2017-12-31T${this.closedTime}:00.000Z`);
-        this.organizationUnit.openingTime = new Date(`2017-01-10T${this.openingTime}:00`);
-        this.organizationUnit.closedTime = new Date(`2017-01-10T${this.closedTime}:00`);
+        this.organizationUnit.openingTime = new Date(`2017-12-31T${this.openingTime}:00`);
+        this.organizationUnit.closedTime = new Date(`2017-12-31T${this.closedTime}:00`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
         this.organizationUnit.id = this.organizationUnit.storeId;
         const updateInput = new UpdateStoreInput(this.organizationUnit);

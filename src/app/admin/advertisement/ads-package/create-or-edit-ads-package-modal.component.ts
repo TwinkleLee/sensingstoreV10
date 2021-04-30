@@ -120,6 +120,8 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
     }
 
     save(): void {
+        console.log(this.record);
+        
         this.record.adPackages = this.adPackageList;
         this._adsPackageSvc.addOrUpdateAdsPackage(this.record)
             .pipe(finalize(() => { this.saving = false; }))

@@ -200,7 +200,7 @@ export class SoftwareComponent extends AppComponentBase {
   filterProduct() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.AppPublishList.forEach((v, index, array) => {
-      if (v.auditStatus == 0) {
+      if (v.auditStatus == 'Offline') {
         downNum.push(v);
         downNumIds.push(v.id);
       } else {

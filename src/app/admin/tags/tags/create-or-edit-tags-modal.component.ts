@@ -46,35 +46,37 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
 
     ServiceProxy: any = '';
 
+    tagTypes = TagType;
 
-    tagTypes = [{
-        name: this.l("Resources"),
-        value: 0,
-    }, {
-        name: this.l("Devices"),
-        value: 1
-    }, {
-        name: this.l("Product"),
-        value: 2
-    }, {
-        name: this.l("Advertisement"),
-        value: 3
-    }, {
-        name: this.l("Brand"),
-        value: 5
-    }, {
-        name: this.l("Question"),
-        value: 6
-    }, {
-        name: this.l("counter"),
-        value: 7
-    }, {
-        name: this.l("WechatPublicMessage"),
-        value: 8
-    }, {
-        name: this.l("Others"),
-        value: 4
-    }];
+
+    // tagTypes = [{
+    //     name: this.l("Resources"),
+    //     value: 0
+    // }, {
+    //     name: this.l("Devices"),
+    //     value: 1
+    // }, {
+    //     name: this.l("Product"),
+    //     value: 2
+    // }, {
+    //     name: this.l("Advertisement"),
+    //     value: 3
+    // }, {
+    //     name: this.l("Brand"),
+    //     value: 5
+    // }, {
+    //     name: this.l("Question"),
+    //     value: 6
+    // }, {
+    //     name: this.l("counter"),
+    //     value: 7
+    // }, {
+    //     name: this.l("WechatPublicMessage"),
+    //     value: 8
+    // }, {
+    //     name: this.l("Others"),
+    //     value: 4
+    // }];
 
     memberedOrganizationUnits: string[];
 
@@ -122,23 +124,23 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
 
         console.log(this.tag)
 
-        if (this.tag.type == 0 || this.tag.type == 7 || this.tag.type == 4) {
+        if (this.tag.type == this.tagTypes.Resource || this.tag.type == this.tagTypes.Counter || this.tag.type == this.tagTypes.Other) {
             this.ServiceProxy = this._tagService
         }
 
-        if (this.tag.type == 6 || this.tag.type == 8) {
+        if (this.tag.type == this.tagTypes.Question || this.tag.type == this.tagTypes.WechatPublicMessage) {
             this.ServiceProxy = this._GameTagServiceProxy
         }
 
-        if (this.tag.type == 1 || this.tag.type == 5) {
+        if (this.tag.type == this.tagTypes.Device || this.tag.type == this.tagTypes.Brand) {
             this.ServiceProxy = this._DeviceTagServiceProxy
         }
 
-        if (this.tag.type == 2) {
+        if (this.tag.type == this.tagTypes.Product) {
             this.ServiceProxy = this._ProductTagServiceProxy
         }
 
-        if (this.tag.type == 3) {
+        if (this.tag.type == this.tagTypes.Ads) {
             this.ServiceProxy = this._AdsTagServiceProxy
         }
 

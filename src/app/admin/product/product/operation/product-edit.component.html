@@ -3,10 +3,10 @@
         <sub-header [title]="'ProductEdit' | localize" [description]="product?.id + ' | '+product?.title">
             <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions">
-                <a [ngClass]="{'icon-shangyiye':true,'text-primary':product.preProductId,'text-secondary':!product.preProductId}"
+                <!-- <a [ngClass]="{'icon-shangyiye':true,'text-primary':product.preProductId,'text-secondary':!product.preProductId}"
                     (click)="switchProduct(false)"></a>
                 <a [ngClass]="{'icon-xiayiye':true,'text-primary':product.nextProductId,'text-secondary':!product.nextProductId}"
-                    (click)="switchProduct(true)"></a>
+                    (click)="switchProduct(true)"></a> -->
             </div>
         </sub-header>
 
@@ -593,9 +593,9 @@
                                                 <td>{{record.salesVolume}}</td>
                                                 <td>{{'￥'+record.price}}</td>
                                                 <td>
-                                                    <span *ngIf="record['auditStatus']==1"
+                                                    <span *ngIf="record['auditStatus']=='Online'"
                                                         class="label label-success label-inline">{{l("OnSale")}}</span>
-                                                    <span *ngIf="record['auditStatus']==0"
+                                                    <span *ngIf="record['auditStatus']=='Offline'"
                                                         class="label label-dark label-inline">{{l("OffSale")}}</span>
                                                 </td>
                                             </tr>

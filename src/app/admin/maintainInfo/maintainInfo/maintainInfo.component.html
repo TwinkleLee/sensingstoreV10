@@ -19,7 +19,8 @@
                                             <label>{{l('bugDescriptionSearch')}}/{{l('deviceName')}}</label>
                                             <!-- /{{l('outId')}} -->
                                             <div class="input-group">
-                                                <input (keyup.enter)="getOperationsRecord($event)" [(ngModel)]="filterText" name="metaName" autoFocus
+                                                <input (keyup.enter)="getOperationsRecord($event)"
+                                                    [(ngModel)]="filterText" name="metaName" autoFocus
                                                     class="form-control m-input" type="text"
                                                     [placeholder]="l('search')">
                                             </div>
@@ -42,9 +43,10 @@
                                                 <select class="form-control" [(ngModel)]="statusSelect"
                                                     name="metaTypeSelect2">
                                                     <option value="">{{l('AllTypes')}}</option>
-                                                    <option value="0">{{l('unsolved')}}</option>
-                                                    <option value="1">{{l('resolving')}}</option>
-                                                    <option value="2">{{l('resolved')}}</option>
+                                                    <option value="Undo">{{l('unsolved')}}</option>
+                                                    <option value="Processing">{{l('resolving')}}</option>
+                                                    <option value="Completed">{{l('resolved')}}</option>
+                                                    <option value="InPlan">{{l('InPlan')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -190,11 +192,13 @@
                                         <span>{{record.totalMinutes}}{{l("minutes")}}</span>
                                     </td> -->
                                         <td>
-                                            <span *ngIf="record.optStatus==0"
+                                            <span *ngIf="record.optStatus=='Undo'"
                                                 style="color:#ccc;">{{record.optStatus|deviceStatus}}</span>
-                                            <span *ngIf="record.optStatus==1"
+                                            <span *ngIf="record.optStatus=='Processing'"
                                                 style="color:#DD0000;">{{record.optStatus|deviceStatus}}</span>
-                                            <span *ngIf="record.optStatus==2"
+                                            <span *ngIf="record.optStatus=='Completed'"
+                                                style="color:#00DD00;">{{record.optStatus|deviceStatus}}</span>
+                                            <span *ngIf="record.optStatus=='InPlan'"
                                                 style="color:#00DD00;">{{record.optStatus|deviceStatus}}</span>
                                         </td>
                                     </tr>

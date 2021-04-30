@@ -109,25 +109,27 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
     this.tagType = tagType;
     // Resource = 0,Device = 1,Product = 2,Ads = 3,Other = 4,Brand = 5,Question = 6,Counter = 7,WechatPublicMessage = 8
     
-    if (this.tagType == 0 || this.tagType == 4) {
+    if (this.tagType == Type.Resource || this.tagType == Type.Counter || this.tagType == Type.Other) {
       this.ServiceProxy = this._TagService
-    }
+  }
 
-    if (this.tagType == 1 || this.tagType == 5 || this.tagType == 7) {
-      this.ServiceProxy = this._DeviceTagServiceProxy
-    }
-
-    if (this.tagType == 2) {
-      this.ServiceProxy = this._ProductTagServiceProxy
-    }
-
-    if (this.tagType == 3) {
-      this.ServiceProxy = this._AdsTagServiceProxy
-    }
-
-    if (this.tagType == 8 || this.tagType == 6) {
+  if (this.tagType == Type.Question || this.tagType == Type.WechatPublicMessage) {
       this.ServiceProxy = this._GameTagServiceProxy
-    }
+  }
+
+  if (this.tagType == Type.Device || this.tagType == Type.Brand) {
+      this.ServiceProxy = this._DeviceTagServiceProxy
+  }
+
+  if (this.tagType == Type.Product) {
+      this.ServiceProxy = this._ProductTagServiceProxy
+  }
+
+  if (this.tagType == Type.Ads) {
+      this.ServiceProxy = this._AdsTagServiceProxy
+  }
+
+    
 
     this.getTags()
   }
