@@ -47,7 +47,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
     private _GameTagServiceProxy: GameTagServiceProxy,
   ) {
     super(injector);
-    this.tabChange(0);
+    this.tabChange(Type.Resource);
   }
   ngAfterViewInit() {
     var autoCreate = window.location.search != '';
@@ -62,11 +62,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
   }
 
   getTags(event?: LazyLoadEvent) {
-    // if (this.primengTableHelper.shouldResetPaging(event)) {
-    //   // this.paginator.changePage(0);
-    //   return;
-    // }
-    // this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.showLoadingIndicator()
     setTimeout(() => {
       this.ServiceProxy.getTagsByType(
         this.filterText,
@@ -79,7 +75,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
         .subscribe(result => {
           this.primengTableHelper.totalRecordsCount = result.totalCount;
           this.primengTableHelper.records = result.items;
-          // this.primengTableHelper.hideLoadingIndicator();
+          this.primengTableHelper.hideLoadingIndicator();
         });
     }, 500)
 

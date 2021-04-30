@@ -435,7 +435,7 @@ export class MyTreeComponent implements OnInit {
         if (node == 'i') {
             left = showIcon ? (selectable ? '-22px' : '-22px') : (selectable ? '-22px' : '-5px');
         } else if (node == 'img') {
-            left = showIcon ? (selectable ? '0px' : '0px') : (selectable ? '18px' : '0px');
+            left = showIcon ? (selectable ? '18px' : '0px') : (selectable ? '18px' : '0px');
         } else if (node == 'a') {
             left = showIcon && selectable ? '38px' : '20px';
         } else if (node == 'span') {

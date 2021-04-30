@@ -162,7 +162,7 @@
                                                         <a class="icon-huiyuanguanli dropdown-item"
                                                             (click)="goMember(record)">{{l('getTicketMember')}}</a>
                                                     </li>
-                                                    <li *ngIf="record.takeType==3">
+                                                    <li *ngIf="record.takeType=='GameAutoGrant'">
                                                         <a class="icon-hongbao dropdown-item"
                                                             (click)="createCouponByTicket(record)">{{l('CreatingCoupon')}}</a>
                                                     </li>

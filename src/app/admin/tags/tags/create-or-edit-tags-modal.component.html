@@ -30,7 +30,7 @@
                                             <label>{{l("TagType")}}*</label>
                                             <select [disabled]="readonly" #nameInput="ngModel" class="form-control" type="text" name="TagType"
                                                 [(ngModel)]="tag.type" required maxlength="32">
-                                                <option *ngFor="let tagType of tagTypes" [value]="tagType.value">{{tagType.name}}</option>
+                                                <option *ngFor="let type of tagType" [value]="type.value">{{type.name}}</option>
                                             </select>
                                             <validation-messages [formCtrl]="nameInput"></validation-messages>
                                         </div>

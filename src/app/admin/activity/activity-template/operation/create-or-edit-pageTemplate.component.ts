@@ -15,7 +15,7 @@ import { HtmlTemplateServiceProxy, CreateHtmlTemplateInput,UpdateHtmlTemplateInp
 })
 export class PageTemplateModalComponent extends AppComponentBase implements AfterViewChecked {
 
-  @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+  @ViewChild('createOrEditModal',{static:false}) modal: ModalDirective;
 
   @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 

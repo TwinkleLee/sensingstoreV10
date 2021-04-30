@@ -102,13 +102,14 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             brandName: void 0,
             brandLogo: void 0
         })))
-        
+
         this._roomServiceProxy.updateRoomList(new UpdateRoomListInput({ "updateRoomDtos": input })).subscribe(r => { })
     }
 
     show(organizationUnit?: any): void {
         this.rooms = [];
         this.lastRooms = [];
+
         if (organizationUnit) {
             this.showBusy = true;
             this._NewStoreServiceProxy.getStoreById(organizationUnit.storeId).subscribe((r) => {
@@ -123,66 +124,70 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     this.openingTime = openingTime;
                 }
 
-                this.onShowBool = true;
-                this.showBusy = false;
-            })
+                // getRoom -> building -> floor 
+                var ids = JSON.parse(organizationUnit.roomIds) || [];
 
-            // getRoom -> building -> floor 
-            var ids = JSON.parse(organizationUnit.roomIds) || [];
+                // 回显  楼，房间
+                Promise.all([
+                    new Promise((resolve, reject) => {
+                        if (ids.lenght !== 0) {
+                            this._roomServiceProxy.getRoomDetailsById(ids[0])
+                                .subscribe(r => {
+                                    console.log(r);
+                                    
+                                    if (!r.floor) return reject('this room not found')
 
-            // 回显  楼，房间
-            if (ids.length != 0) {
-                this._roomServiceProxy.getRoomDetailsById(ids[0])
-                    .subscribe(r => {
-                        this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
-                        this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
-                            .subscribe(result => {
-                                ids.forEach(item => {
-                                    var singleRoom: any = result.find(o => o.id == item)
-                                    console.log(singleRoom);
-                                    this.rooms.push({
-                                        'id': singleRoom.id,
-                                        'value': singleRoom.name
-                                    });
+                                    this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
+                                    this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
+                                        .subscribe(result => {
+                                            ids.forEach(item => {
+                                                var singleRoom: any = result.find(o => o.id == item)
+                                                console.log(singleRoom);
+                                                this.rooms.push({
+                                                    'id': singleRoom.id,
+                                                    'value': singleRoom.name
+                                                });
 
-                                });
-
-                                this.lastRooms.concat(this.rooms)
-                                this.modal.show();
-                                this.active = true;
-                                this._changeDetector.detectChanges();
+                                            });
+                                            this.lastRooms.concat(this.rooms)
+                                            resolve()
+                                        })
+                                })
+                        } else {
+                            resolve()
+                        }
+                    }), new Promise((resolve, reject) => {
+                        if (organizationUnit.brandId) {
+                            this._BrandServiceProxy.getSingleBrand(organizationUnit.brandId)
+                            .pipe(finalize(() => { reject() })).subscribe(res => {
+                                this.singleBrand = {
+                                    id: res.id,
+                                    value: res.name
+                                }
+                                resolve()
                             })
+                        } else {
+                            resolve()
+                        }
                     })
-            } else {
-                this.modal.show();
-                this.active = true;
-                this._changeDetector.detectChanges();
-            }
-
-            if (organizationUnit.brandId) {
-                this._BrandServiceProxy.getSingleBrand(organizationUnit.brandId).subscribe(res => {
-                    console.log(res)
-
-                    this.singleBrand = {
-                        id: res.id,
-                        value: res.name
-                    }
+                ]).then(() => {
                     this.modal.show();
                     this.active = true;
                     this._changeDetector.detectChanges();
+                }).catch((e) => {
+                    console.log(e);
+                    this.message.warn(this.l(e));
                 })
-            } else {
-                this.modal.show();
-                this.active = true;
-                this._changeDetector.detectChanges();
-            }
+
+                this.onShowBool = true;
+                this.showBusy = false;
+            })
 
 
         } else {
             this.organizationUnit = {
                 'position': {}
             };
-
             this.onShowBool = true;
             this.modal.show();
             this.active = true;
@@ -261,8 +266,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
         this.organizationUnit.brandId = this.singleBrand.id;
 
         this.organizationUnit.roomIds = JSON.stringify(temp);
-        // this.organizationUnit.openingTime = moment(`2017-12-31T${this.openingTime}:00.000Z`);
-        // this.organizationUnit.closedTime = moment(`2017-12-31T${this.closedTime}:00.000Z`);
         this.organizationUnit.openingTime = new Date(`2017-12-31T${this.openingTime}:00`);
         this.organizationUnit.closedTime = new Date(`2017-12-31T${this.closedTime}:00`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);

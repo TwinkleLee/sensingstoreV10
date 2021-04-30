@@ -157,11 +157,11 @@
 
                         <div class="form-group col-6">
                             <label>{{l("Room")}} </label>
-                            <p-autoComplete name="rooms" id="MultiSelectInput" [(ngModel)]="rooms"
+                            <p-autoComplete name="rooms" id="rooms" [(ngModel)]="rooms"
                                 [disabled]="!buildingId" [suggestions]="roomSuggestions"
                                 (completeMethod)="roomFilter($event)" field="value" [placeholder]="l('Room')"
                                 dataKey="id" [dropdown]="true" (onSelect)="assignRoom()" (onUnselect)="assignRoom()"
-                                [minLength]="1" [multiple]="true" name="SelectInput" inputStyleClass="form-control"
+                                [minLength]="1" [multiple]="true" inputStyleClass="form-control"
                                 styleClass="width-percent-100">
                             </p-autoComplete>
                         </div>
@@ -177,10 +177,10 @@
                         <div class="form-group col-6">
                             <label>{{l("Brand")}}</label>
 
-                            <p-autoComplete name="singleBrand" id="SingleSelectInput" [(ngModel)]="singleBrand" [suggestions]="brandSuggestions"
+                            <p-autoComplete name="singleBrand" id="singleBrand" [(ngModel)]="singleBrand" [suggestions]="brandSuggestions"
                                 (completeMethod)="brandFilter($event)" field="value" [placeholder]="l('Brand')"
                                 dataKey="id" [dropdown]="true" (onSelect)="assignBrand()" (onUnselect)="assignBrand()"
-                                [minLength]="1" [multiple]="false" name="brandId" inputStyleClass="form-control"
+                                [minLength]="1" [multiple]="false" inputStyleClass="form-control"
                                 styleClass="width-percent-100">
                             </p-autoComplete>
                         </div>
