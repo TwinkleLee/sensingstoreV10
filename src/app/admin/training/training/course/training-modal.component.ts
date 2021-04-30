@@ -112,6 +112,7 @@ export class SetTrainingModalComponent extends AppComponentBase implements After
     close(): void {
         this.active = false;
         this.saving = false;
+        this.training = {};
         this.modal.hide();
     }
 
