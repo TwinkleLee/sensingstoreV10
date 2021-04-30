@@ -1,9 +1,9 @@
 import { Component, ViewChild, Injector, EventEmitter, Output, ElementRef, ChangeDetectorRef, } from '@angular/core';
 import { UpdateBrandInput, CreateBrandInput, BrandServiceProxy, TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies-devicecenter';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { LazyLoadEvent } from 'primeng/api';
-import { Paginator } from 'primeng/paginator';
-import { Table } from 'primeng/table';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import { BrandResourceModalComponent } from '@app/admin/brandcenter/brand-center/operation/brand-res-modal.component';
 import { finalize } from 'rxjs/operators';
@@ -20,9 +20,10 @@ export class BrandOperationComponent extends AppComponentBase {
 
     @ViewChild('codeInput', { static: true }) codeInput: ElementRef;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('paginator', { static: true }) paginator: Paginator;
+    @ViewChild('paginator', { static: false }) paginator: Paginator;
     @ViewChild('BrandResourceModal', { static: true }) BrandResourceModal: BrandResourceModalComponent;
     @ViewChild('tree', { static: false }) tree: MyTreeComponent;
+
 
 
     active = false;
@@ -65,10 +66,10 @@ export class BrandOperationComponent extends AppComponentBase {
         this._tagService.getTagsByType(void 0, void 0, 100, 0, Type['Brand']).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
-        
+
     }
 
-    ngOnInit () {
+    ngOnInit() {
         this._brandService.getBrandCategoryTrees().subscribe((result) => {
             console.log(result)
             this.categoryList = result;
@@ -108,7 +109,7 @@ export class BrandOperationComponent extends AppComponentBase {
             })
 
             this.brand.categorys = chosen;
- 
+
             this.tree.initSelection(chosen);
 
             this.tags = this.brand.brandTags.map((item) => {
@@ -200,24 +201,26 @@ export class BrandOperationComponent extends AppComponentBase {
     }
     //资源列表
     getResByBrandId(event?: LazyLoadEvent) {
-        if (this.primengTableHelper.shouldResetPaging(event)) {
-            this.paginator.changePage(0);
-            return;
-        }
-        this.primengTableHelper.showLoadingIndicator();
-        this._brandService.getBrandResources(
-            this.brand.id,
-            this.resFilter,
-            void 0,
-            this.primengTableHelper.getMaxResultCount(this.paginator, event),
-            this.primengTableHelper.getSkipCount(this.paginator, event)
-        ).pipe(finalize(() => {
-            this.primengTableHelper.hideLoadingIndicator();
-        })).subscribe(result => {
-            this.primengTableHelper.totalRecordsCount = result.totalCount;
-            this.primengTableHelper.records = result.items;
-            this.primengTableHelper.hideLoadingIndicator();
-        });
+        setTimeout(() => {
+            if (this.primengTableHelper.shouldResetPaging(event)) {
+                this.paginator.changePage(0);
+                return;
+            }
+            this.primengTableHelper.showLoadingIndicator();
+            this._brandService.getBrandResources(
+                this.brand.id,
+                this.resFilter,
+                void 0,
+                this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                this.primengTableHelper.getSkipCount(this.paginator, event)
+            ).pipe(finalize(() => {
+                this.primengTableHelper.hideLoadingIndicator();
+            })).subscribe(result => {
+                this.primengTableHelper.totalRecordsCount = result.totalCount;
+                this.primengTableHelper.records = result.items;
+                this.primengTableHelper.hideLoadingIndicator();
+            });
+        })
     }
     createResource() {
         this.BrandResourceModal.show(this.brand.id);
@@ -260,7 +263,7 @@ export class BrandOperationComponent extends AppComponentBase {
         $("#BrandCategory>ul.dropdown-menu").show();
     }
 
-    goBack () {
+    goBack() {
         this.router.navigate(['app', 'admin', 'brandcenter']);
     }
 }

@@ -45,8 +45,8 @@
                                     <div class="form-group ">
                                         <div class="input-group">
                                             <select class="form-control" [(ngModel)]="objItem.ticketType" name="ticketType">
-                                                <option value="0">{{l('Voucher')}}</option>
-                                                <option value="1">{{l('Discount')}}</option>
+                                                <option value="Voucher">{{l('Voucher')}}</option>
+                                                <option value="Discount">{{l('Discount')}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -76,16 +76,16 @@
                                     <div class="form-group ">
                                         <div class="input-group">
                                             <select class="form-control" [(ngModel)]="objItem.takeType" name="takeType">
-                                                <option [value]="TakeType[0]">{{l('UserTake')}}</option>
-                                                <option [value]="TakeType[1]">{{l('ManagerGrant')}}</option>
-                                                <option [value]="TakeType[2]">{{l('RegisterAutoGrant')}}</option>
-                                                <option [value]="TakeType[3]">{{l('GameAutoGrant')}}</option>
+                                                <option value="UserTake">{{l('UserTake')}}</option>
+                                                <option value="ManagerGrant">{{l('ManagerGrant')}}</option>
+                                                <option value="RegisterAutoGrant">{{l('RegisterAutoGrant')}}</option>
+                                                <option value="GameAutoGrant">{{l('GameAutoGrant')}}</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-4 form-group" *ngIf="objItem.takeType==TakeType[0]">
+                                <div class="col-4 form-group" *ngIf="objItem.takeType=='UserTake'">
                                     <app-high-tree #memberTree [treeList]="memberTypeList" [selfConfig]="{labelName:l('Membership')+l('useScope')}"
                                         [config]="{name:'name',preciseMatch:false}" (onTreeUpdate)="onTreeUpdate3($event)"
                                         [initShowArray]="memberInitArray"></app-high-tree>

@@ -7,12 +7,12 @@
 //----------------------
 // ReSharper disable InconsistentNaming
 
-import { DateTime } from 'luxon';
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
+import { DateTime, Duration } from "luxon";
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
@@ -19649,6 +19649,131 @@ export class UserLoginServiceProxy {
 }
 
 @Injectable()
+export class UtilsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param number (optional) 
+     * @return Success
+     */
+    sendRegisterCode(number: string | null | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Utils/SendRegisterCode?";
+        if (number !== undefined && number !== null)
+            url_ += "Number=" + encodeURIComponent("" + number) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSendRegisterCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSendRegisterCode(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSendRegisterCode(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param number (optional) 
+     * @param tenantId (optional) 
+     * @return Success
+     */
+    sendRegisterCodeByTenantId(number: string | null | undefined, tenantId: number | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/Utils/SendRegisterCodeByTenantId?";
+        if (number !== undefined && number !== null)
+            url_ += "Number=" + encodeURIComponent("" + number) + "&";
+        if (tenantId === null)
+            throw new Error("The parameter 'tenantId' cannot be null.");
+        else if (tenantId !== undefined)
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSendRegisterCodeByTenantId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSendRegisterCodeByTenantId(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSendRegisterCodeByTenantId(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+}
+
+@Injectable()
 export class WebhookEventServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -20528,9 +20653,9 @@ export interface IIsTenantAvailableInput {
 }
 
 export enum TenantAvailabilityState {
-    Available = 1,
-    InActive = 2,
-    NotFound = 3,
+    Available = "Available",
+    InActive = "InActive",
+    NotFound = "NotFound",
 }
 
 export class IsTenantAvailableOutput implements IIsTenantAvailableOutput {
@@ -21674,9 +21799,9 @@ export interface INameValueDto {
 }
 
 export enum EntityChangeType {
-    Created = 0,
-    Updated = 1,
-    Deleted = 2,
+    Created = "Created",
+    Updated = "Updated",
+    Deleted = "Deleted",
 }
 
 export class EntityChangeListDto implements IEntityChangeListDto {
@@ -21852,13 +21977,13 @@ export interface IEntityPropertyChangeDto {
 }
 
 export enum ExportMissionStatus {
-    Acting = 0,
-    Success = 1,
-    Failed = 2,
+    Acting = "Acting",
+    Success = "Success",
+    Failed = "Failed",
 }
 
 export enum DownloadType {
-    Excel = 0,
+    Excel = "Excel",
 }
 
 export class ExportMissionInput implements IExportMissionInput {
@@ -22266,8 +22391,8 @@ export interface IEntityDtoOfString {
 }
 
 export enum FriendshipState {
-    Accepted = 1,
-    Blocked = 2,
+    Accepted = "Accepted",
+    Blocked = "Blocked",
 }
 
 export class FriendDto implements IFriendDto {
@@ -22383,13 +22508,13 @@ export interface IGetUserChatFriendsWithSettingsOutput {
 }
 
 export enum ChatSide {
-    Sender = 1,
-    Receiver = 2,
+    Sender = "Sender",
+    Receiver = "Receiver",
 }
 
 export enum ChatMessageReadState {
-    Unread = 1,
-    Read = 2,
+    Unread = "Unread",
+    Read = "Read",
 }
 
 export class ChatMessageDto implements IChatMessageDto {
@@ -25357,20 +25482,20 @@ export interface IPagedResultDtoOfShopDto {
 }
 
 export enum FileArea {
-    Common = 0,
-    Users = 1,
-    Apps = 2,
-    Products = 3,
-    Matchs = 4,
-    Likes = 5,
-    Ads = 6,
-    Coupon = 7,
-    Peripheral = 8,
-    DeviceCategory = 9,
-    ProductCategory = 10,
-    DeviceType = 11,
-    Staffs = 12,
-    Devices = 13,
+    Common = "Common",
+    Users = "Users",
+    Apps = "Apps",
+    Products = "Products",
+    Matchs = "Matchs",
+    Likes = "Likes",
+    Ads = "Ads",
+    Coupon = "Coupon",
+    Peripheral = "Peripheral",
+    DeviceCategory = "DeviceCategory",
+    ProductCategory = "ProductCategory",
+    DeviceType = "DeviceType",
+    Staffs = "Staffs",
+    Devices = "Devices",
 }
 
 export class ValidationErrorInfo implements IValidationErrorInfo {
@@ -25938,9 +26063,9 @@ export interface IGetExpiringTenantsOutput {
 }
 
 export enum ChartDateInterval {
-    Daily = 1,
-    Weekly = 2,
-    Monthly = 3,
+    Daily = "Daily",
+    Weekly = "Weekly",
+    Monthly = "Monthly",
 }
 
 export class IncomeStastistic implements IIncomeStastistic {
@@ -29010,8 +29135,8 @@ export interface ISimpleUserDto {
 }
 
 export enum UserNotificationState {
-    Unread = 0,
-    Read = 1,
+    Unread = "Unread",
+    Read = "Read",
 }
 
 export class NotificationData implements INotificationData {
@@ -29067,11 +29192,11 @@ export interface INotificationData {
 }
 
 export enum NotificationSeverity {
-    Info = 0,
-    Success = 1,
-    Warn = 2,
-    Error = 3,
-    Fatal = 4,
+    Info = "Info",
+    Success = "Success",
+    Warn = "Warn",
+    Error = "Error",
+    Fatal = "Fatal",
 }
 
 export class TenantNotification implements ITenantNotification {
@@ -31811,22 +31936,22 @@ export interface IPaymentInfoDto {
 }
 
 export enum EditionPaymentType {
-    NewRegistration = 0,
-    BuyNow = 1,
-    Upgrade = 2,
-    Extend = 3,
+    NewRegistration = "NewRegistration",
+    BuyNow = "BuyNow",
+    Upgrade = "Upgrade",
+    Extend = "Extend",
 }
 
 export enum PaymentPeriodType {
-    Daily = 1,
-    Weekly = 7,
-    Monthly = 30,
-    Annual = 365,
+    Daily = "Daily",
+    Weekly = "Weekly",
+    Monthly = "Monthly",
+    Annual = "Annual",
 }
 
 export enum SubscriptionPaymentGatewayType {
-    Paypal = 1,
-    Stripe = 2,
+    Paypal = "Paypal",
+    Stripe = "Stripe",
 }
 
 export class CreatePaymentDto implements ICreatePaymentDto {
@@ -32114,11 +32239,11 @@ export interface IPaymentGatewayModel {
 }
 
 export enum SubscriptionPaymentStatus {
-    NotPaid = 1,
-    Paid = 2,
-    Failed = 3,
-    Cancelled = 4,
-    Completed = 5,
+    NotPaid = "NotPaid",
+    Paid = "Paid",
+    Failed = "Failed",
+    Cancelled = "Cancelled",
+    Completed = "Completed",
 }
 
 export class SubscriptionPaymentDto implements ISubscriptionPaymentDto {
@@ -32890,18 +33015,18 @@ export interface INameCountDto {
 }
 
 export enum FileType {
-    None = 0,
-    Text = 1,
-    Image = 2,
-    Video = 3,
-    PPT = 4,
-    PDF = 5,
-    Web = 6,
-    Audio = 7,
-    Zip = 8,
-    View3DS = 9,
-    Other = 10,
-    Json = 11,
+    None = "None",
+    Text = "Text",
+    Image = "Image",
+    Video = "Video",
+    PPT = "PPT",
+    PDF = "PDF",
+    Web = "Web",
+    Audio = "Audio",
+    Zip = "Zip",
+    View3DS = "View3DS",
+    Other = "Other",
+    Json = "Json",
 }
 
 export class ResourceFileDto implements IResourceFileDto {
@@ -33749,9 +33874,9 @@ export interface IUserLoginInfoDto {
 }
 
 export enum SubscriptionPaymentType {
-    Manual = 0,
-    RecurringAutomatic = 1,
-    RecurringManual = 2,
+    Manual = "Manual",
+    RecurringAutomatic = "RecurringAutomatic",
+    RecurringManual = "RecurringManual",
 }
 
 export class EditionInfoDto implements IEditionInfoDto {
@@ -34819,16 +34944,16 @@ export interface IStripePaymentResultOutput {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
-    UxPage = 9,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
 }
 
 export class TagDto implements ITagDto {
@@ -35803,9 +35928,9 @@ export interface IGetMemberActivityOutput {
 }
 
 export enum SalesSummaryDatePeriod {
-    Daily = 1,
-    Weekly = 2,
-    Monthly = 3,
+    Daily = "Daily",
+    Weekly = "Weekly",
+    Monthly = "Monthly",
 }
 
 export class SalesSummaryData implements ISalesSummaryData {
@@ -36309,9 +36434,9 @@ export interface IGetGeneralStatsOutput {
 }
 
 export enum SubscriptionStartType {
-    Free = 1,
-    Trial = 2,
-    Paid = 3,
+    Free = "Free",
+    Trial = "Trial",
+    Paid = "Paid",
 }
 
 export class RegisterTenantInput implements IRegisterTenantInput {
@@ -36995,10 +37120,10 @@ export interface ITenantSettingsEditDto {
 }
 
 export enum SettingScopes {
-    Application = 1,
-    Tenant = 2,
-    User = 4,
-    All = 7,
+    Application = "Application",
+    Tenant = "Tenant",
+    User = "User",
+    All = "All",
 }
 
 export class AuthenticateModel implements IAuthenticateModel {
@@ -38813,67 +38938,72 @@ export interface IWebhookEvent {
 }
 
 export enum HttpStatusCode {
-    Continue = 100,
-    SwitchingProtocols = 101,
-    Processing = 102,
-    EarlyHints = 103,
-    OK = 200,
-    Created = 201,
-    Accepted = 202,
-    NonAuthoritativeInformation = 203,
-    NoContent = 204,
-    ResetContent = 205,
-    PartialContent = 206,
-    MultiStatus = 207,
-    AlreadyReported = 208,
-    IMUsed = 226,
-    MultipleChoices = 300,
-    Ambiguous = 301,
-    MovedPermanently = 302,
-    Moved = 303,
-    Found = 304,
-    Redirect = 305,
-    SeeOther = 306,
-    RedirectMethod = 307,
-    NotModified = 308,
-    UseProxy = 400,
-    Unused = 401,
-    TemporaryRedirect = 402,
-    RedirectKeepVerb = 403,
-    PermanentRedirect = 404,
-    BadRequest = 405,
-    Unauthorized = 406,
-    PaymentRequired = 407,
-    Forbidden = 408,
-    NotFound = 409,
-    MethodNotAllowed = 410,
-    NotAcceptable = 411,
-    ProxyAuthenticationRequired = 412,
-    RequestTimeout = 413,
-    Conflict = 414,
-    Gone = 415,
-    LengthRequired = 416,
-    PreconditionFailed = 417,
-    RequestEntityTooLarge = 421,
-    RequestUriTooLong = 422,
-    UnsupportedMediaType = 423,
-    RequestedRangeNotSatisfiable = 424,
-    ExpectationFailed = 426,
-    MisdirectedRequest = 428,
-    UnprocessableEntity = 429,
-    Locked = 431,
-    FailedDependency = 451,
-    UpgradeRequired = 500,
-    PreconditionRequired = 501,
-    TooManyRequests = 502,
-    RequestHeaderFieldsTooLarge = 503,
-    UnavailableForLegalReasons = 504,
-    InternalServerError = 505,
-    NotImplemented = 506,
-    BadGateway = 507,
-    ServiceUnavailable = 508,
-    GatewayTimeout = 510,
-    HttpVersionNotSupported = 511,
+    Continue = "Continue",
+    SwitchingProtocols = "SwitchingProtocols",
+    Processing = "Processing",
+    EarlyHints = "EarlyHints",
+    OK = "OK",
+    Created = "Created",
+    Accepted = "Accepted",
+    NonAuthoritativeInformation = "NonAuthoritativeInformation",
+    NoContent = "NoContent",
+    ResetContent = "ResetContent",
+    PartialContent = "PartialContent",
+    MultiStatus = "MultiStatus",
+    AlreadyReported = "AlreadyReported",
+    IMUsed = "IMUsed",
+    MultipleChoices = "MultipleChoices",
+    Ambiguous = "Ambiguous",
+    MovedPermanently = "MovedPermanently",
+    Moved = "Moved",
+    Found = "Found",
+    Redirect = "Redirect",
+    SeeOther = "SeeOther",
+    RedirectMethod = "RedirectMethod",
+    NotModified = "NotModified",
+    UseProxy = "UseProxy",
+    Unused = "Unused",
+    TemporaryRedirect = "TemporaryRedirect",
+    RedirectKeepVerb = "RedirectKeepVerb",
+    PermanentRedirect = "PermanentRedirect",
+    BadRequest = "BadRequest",
+    Unauthorized = "Unauthorized",
+    PaymentRequired = "PaymentRequired",
+    Forbidden = "Forbidden",
+    NotFound = "NotFound",
+    MethodNotAllowed = "MethodNotAllowed",
+    NotAcceptable = "NotAcceptable",
+    ProxyAuthenticationRequired = "ProxyAuthenticationRequired",
+    RequestTimeout = "RequestTimeout",
+    Conflict = "Conflict",
+    Gone = "Gone",
+    LengthRequired = "LengthRequired",
+    PreconditionFailed = "PreconditionFailed",
+    RequestEntityTooLarge = "RequestEntityTooLarge",
+    RequestUriTooLong = "RequestUriTooLong",
+    UnsupportedMediaType = "UnsupportedMediaType",
+    RequestedRangeNotSatisfiable = "RequestedRangeNotSatisfiable",
+    ExpectationFailed = "ExpectationFailed",
+    MisdirectedRequest = "MisdirectedRequest",
+    UnprocessableEntity = "UnprocessableEntity",
+    Locked = "Locked",
+    FailedDependency = "FailedDependency",
+    UpgradeRequired = "UpgradeRequired",
+    PreconditionRequired = "PreconditionRequired",
+    TooManyRequests = "TooManyRequests",
+    RequestHeaderFieldsTooLarge = "RequestHeaderFieldsTooLarge",
+    UnavailableForLegalReasons = "UnavailableForLegalReasons",
+    InternalServerError = "InternalServerError",
+    NotImplemented = "NotImplemented",
+    BadGateway = "BadGateway",
+    ServiceUnavailable = "ServiceUnavailable",
+    GatewayTimeout = "GatewayTimeout",
+    HttpVersionNotSupported = "HttpVersionNotSupported",
+    VariantAlsoNegotiates = "VariantAlsoNegotiates",
+    InsufficientStorage = "InsufficientStorage",
+    LoopDetected = "LoopDetected",
+    NotExtended = "NotExtended",
+    NetworkAuthenticationRequired = "NetworkAuthenticationRequired",
 }
 
 export class GetAllSendAttemptsOutput implements IGetAllSendAttemptsOutput {

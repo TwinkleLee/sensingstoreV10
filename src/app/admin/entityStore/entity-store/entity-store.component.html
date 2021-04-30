@@ -108,8 +108,8 @@
                                                 <select class="form-control" [(ngModel)]="storeStatus"
                                                     name="storeStatus">
                                                     <option value="">{{l('All')}}</option>
-                                                    <option [value]="StoreStatus[1]">{{l("online")}}</option>
-                                                    <option [value]="StoreStatus[0]">{{l("offline")}}</option>
+                                                    <option [value]="StoreStatus['Running']">{{l("online")}}</option>
+                                                    <option [value]="StoreStatus['Stopped']">{{l("offline")}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -149,13 +149,12 @@
                                         <th style="width:5%">{{l('RecordId')}}</th>
                                         <th>{{l('storeOuterId')}}</th>
                                         <th>{{l('Name')}}</th>
-                                        <th pSortableColumn="openingTime">
+                                        <th>
                                             {{l('openingTime')}}
-                                            <p-sortIcon field="openingTime"></p-sortIcon>
                                         </th>
-                                        <th pSortableColumn="closedTime">
+                                        <th>
                                             {{l('closedTime')}}
-                                            <p-sortIcon field="closedTime"></p-sortIcon>
+                                            <!-- <p-sortIcon field="closedTime"></p-sortIcon> -->
                                         </th>
                                         <th>{{l('qrCodeExtraInfo')}}</th>
                                         <th>{{l('taobaoStoreId')}}</th>
@@ -232,9 +231,9 @@
                                             <span>{{getBrandName(record)}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['storeStatus']==StoreStatus[1]"
+                                            <span *ngIf="record['storeStatus']==StoreStatus['Running']"
                                                 class="label label-success label-inline">{{l("online")}}</span>
-                                            <span *ngIf="record['storeStatus']==StoreStatus[0]"
+                                            <span *ngIf="record['storeStatus']==StoreStatus['Stopped']"
                                                 class="label label-dark label-inline">{{l("offline")}}</span>
                                         </td>
                                     </tr>

@@ -9,7 +9,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { from } from 'rxjs';
-import { AuditStatus,TrainingServiceProxy,TrainingStatusEnum as TrainingStatus,TrainingBasicDto,TrainingAuditInput,AuditStatus as TrainingAuditStatus} from '@shared/service-proxies/service-proxies5';
+import { AuditStatus,TrainingServiceProxy,TrainingBasicDto,TrainingAuditInput,AuditStatus as TrainingAuditStatus, TrainingStatusEnum} from '@shared/service-proxies/service-proxies5';
 import { CreateOrEditTrainingModalComponent } from './create-or-edit-training-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -35,10 +35,11 @@ export class MyTrainingComponent extends AppComponentBase {
   
   exportLoading = false;
 
+  TrainingStatus = TrainingStatusEnum;
+
 
   //枚举
   AuditStatus = AuditStatus;
-  TrainingStatus = TrainingStatus;
 
   busy = false;
 
@@ -113,8 +114,8 @@ export class MyTrainingComponent extends AppComponentBase {
     // this.review(false);
     this._trainingService.trainingAudit(new TrainingAuditInput({
       trainingIds: [],
-      currentAuditStatus: TrainingAuditStatus["Online"],
-      targetAuditStatus: TrainingAuditStatus["Offline"]
+      currentAuditStatus: AuditStatus["Online"],
+      targetAuditStatus: AuditStatus["Offline"]
     })).subscribe(r => {
       this.getTrainings()
     })
@@ -125,8 +126,8 @@ export class MyTrainingComponent extends AppComponentBase {
       // this.review(false, ary);
       this._trainingService.trainingAudit(new TrainingAuditInput({
         trainingIds: ary,
-        currentAuditStatus: TrainingAuditStatus["Online"],
-        targetAuditStatus: TrainingAuditStatus["Offline"]
+        currentAuditStatus: AuditStatus["Online"],
+        targetAuditStatus: AuditStatus["Offline"]
       })).subscribe(r => {
         this.getTrainings()
       })
@@ -139,8 +140,8 @@ export class MyTrainingComponent extends AppComponentBase {
       // this.review(true, ary);
       this._trainingService.trainingAudit(new TrainingAuditInput({
         trainingIds: ary,
-        currentAuditStatus: TrainingAuditStatus["Offline"],
-        targetAuditStatus: TrainingAuditStatus["Online"]
+        currentAuditStatus: AuditStatus["Offline"],
+        targetAuditStatus: AuditStatus["Online"]
       })).subscribe(r => {
         this.getTrainings()
       })
@@ -151,8 +152,8 @@ export class MyTrainingComponent extends AppComponentBase {
     // this.review(true);
     this._trainingService.trainingAudit(new TrainingAuditInput({
       trainingIds: [],
-      currentAuditStatus: TrainingAuditStatus["Offline"],
-        targetAuditStatus: TrainingAuditStatus["Online"]
+      currentAuditStatus: AuditStatus["Offline"],
+        targetAuditStatus: AuditStatus["Online"]
     })).subscribe(r => {
       this.getTrainings()
     })
@@ -181,10 +182,10 @@ export class MyTrainingComponent extends AppComponentBase {
   filterTraining() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.couponPublishList.forEach((v, index, array) => {
-      if (v.auditStatus == 0) {
+      if (v.auditStatus == 'Offline') {
         downNum.push(v);
         downNumIds.push(v.id);
-      } else if (v.auditStatus == 1) {
+      } else if (v.auditStatus == 'Online') {
         upNum.push(v);
         upNumIds.push(v.id);
       }

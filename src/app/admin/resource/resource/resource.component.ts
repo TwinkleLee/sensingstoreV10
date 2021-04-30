@@ -5,10 +5,11 @@ import { Table, TableCheckbox } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateOrEditResourceModalComponent } from '@app/admin/resource/resource/create-or-edit-resource-modal.component';
-import { ResourceFileDto, ResourceFileServiceProxy, TagServiceProxy, SetResourceTagsDto, FileType } from '@shared/service-proxies/service-proxies';
+import { ResourceFileDto, ResourceFileServiceProxy, TagServiceProxy, SetResourceTagsDto, FileType, TagType } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
+import { Tag } from '@shared/service-proxies/service-proxies5';
 
 export enum FileArea2 {
   Common = "Common",
@@ -177,7 +178,7 @@ export class ResourceManagementComponent extends AppComponentBase {
     if (f && this.tags.length != 0) {
       return;
     }
-    this._tagService.getTagsByType(this.tagFilter, void 0, 100, 0, 0).subscribe((result) => {
+    this._tagService.getTagsByType(this.tagFilter, void 0, 100, 0, TagType.Resource).subscribe((result) => {
       this.tags = result.items;
     })
   }

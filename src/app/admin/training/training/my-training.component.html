@@ -223,11 +223,11 @@
                                         </td>
 
                                         <td>
-                                            <span *ngIf="record['trainingStatus']==3&&record['auditStatus']=='Online'"
+                                            <span *ngIf="record['trainingStatus']==TrainingStatus['Completed']&&record['auditStatus']=='Online'"
                                                 class="label label-success label-inline">{{l("Completed")}}</span>
-                                            <span *ngIf="record['trainingStatus']==1&&record['auditStatus']=='Online'"
+                                            <span *ngIf="record['trainingStatus']==TrainingStatus['NotStarted']&&record['auditStatus']=='Online'"
                                                 class="label label-dark label-inline">{{l("NotStarted")}}</span>
-                                            <span *ngIf="record['trainingStatus']==2&&record['auditStatus']=='Online'"
+                                            <span *ngIf="record['trainingStatus']==TrainingStatus['Overdue']&&record['auditStatus']=='Online'"
                                                 class="label label-dark label-inline">{{l("Overdue")}}</span>
                                             <span *ngIf="record['auditStatus']=='Offline'"></span>
 

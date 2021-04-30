@@ -1991,3 +1991,11 @@
 	.icon-4-141:before {
 		content: "\e72c";
 	}
+
+	.icon-hangwei:before {
+		content: "\e738";
+	}
+	
+	.icon-navicon-dpxstj:before {
+		content: "\e737";
+	}

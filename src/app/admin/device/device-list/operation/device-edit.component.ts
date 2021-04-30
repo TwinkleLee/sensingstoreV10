@@ -46,6 +46,7 @@ import * as _ from 'lodash';
 import { AppConsts } from '@shared/AppConsts';
 
 import { CalendarModalComponent } from '@app/admin/advertisement/schedule/operation/calendar-modal.component';
+import { AuditUserAppointmentInput } from '@shared/service-proxies/service-proxies-pager';
 
 
 @Component({
@@ -766,10 +767,9 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         if (this.isGranted("Pages.Tenant.Products")) {
 
             this._deviceProductService.getProductsByDeviceId(
-                // AuditStatus.Online
-                1,
                 this.device.id,
                 void 0,
+                AuditStatus.Offline,
                 void 0,
                 void 0,
                 1,

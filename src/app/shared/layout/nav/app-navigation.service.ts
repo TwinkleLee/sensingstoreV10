@@ -49,8 +49,8 @@ export class AppNavigationService {
                 new AppMenuItem('productRank', 'Pages.Tenant.Dashboard.ProductRank', 'icon-shangpinliebiao', '/app/main/product-rank'),
                 new AppMenuItem('StoreInfo', 'Pages.Tenant.Dashboard.StoreInformation', 'icon-yuyan', '/app/main/storeinfo'),
                 new AppMenuItem('PassengerDashboard', 'Pages.Tenant.Dashboard.MyDashboard', 'flaticon-line-graph', '/app/main/myDashboard'),
-                new AppMenuItem('行为报表', 'Pages.Tenant.Dashboard.HaierDashboard', 'icon-tuijian1', '/app/main/haierDashboard'),
-                new AppMenuItem('ItemDetail', 'Pages.Tenant.Dashboard.ItemSaleDashboard', 'icon-tuijian1', '/app/main/itemSaleDashboard'),
+                new AppMenuItem('行为报表', 'Pages.Tenant.Dashboard.HaierDashboard', 'icon-hangwei', '/app/main/haierDashboard'),
+                new AppMenuItem('ItemDetail', 'Pages.Tenant.Dashboard.ItemSaleDashboard', 'icon-navicon-dpxstj', '/app/main/itemSaleDashboard'),
             ]),
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 

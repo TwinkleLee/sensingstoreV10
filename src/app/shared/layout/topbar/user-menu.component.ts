@@ -9,7 +9,7 @@ import { AppConsts } from '@shared/AppConsts';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
 import { LoginServiceProxy, BindPlatformUserInput } from '@shared/service-proxies/service-proxies';
-import { UserActionServiceProxy, EnumQRStatus, _definitions_EnumSnsType } from '@shared/service-proxies/service-proxies5';
+import { EnumQRStatus, UserActionServiceProxy, _definitions_EnumSnsType } from '@shared/service-proxies/service-proxies5';
 
 @Component({
     selector: 'user-menu',

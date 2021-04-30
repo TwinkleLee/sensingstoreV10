@@ -15,7 +15,7 @@ import { SetCategoryModalComponent } from './operation/set-category-modal.compon
 import { SetFreightModalComponent } from './operation/set-freight-modal.component';
 import { SensingShopManageServiceProxy, PayCenterServiceProxy, SetShopPayInput } from '@shared/service-proxies/service-proxies2';
 import { WeixinMpServiceProxy } from '@shared/service-proxies/service-proxies5';
-import { ShopFreightType, ShopStatus } from '@shared/service-proxies/service-proxies-product';
+import { ShopFreightType } from '@shared/service-proxies/service-proxies-product';
 
 @Component({
   templateUrl: './we-shop.component.html',
@@ -29,7 +29,6 @@ export class WeShopComponent extends AppComponentBase {
   publicAccountList: any = [];
 
   ShopFreightType = ShopFreightType;
-  ShopStatus = ShopStatus;
 
   //轮播图
   @ViewChild('SwiperModal', { static: true }) SwiperModal: SwiperModalComponent;
@@ -227,7 +226,7 @@ export class WeShopComponent extends AppComponentBase {
 
 
   editCategory(record) {
-    this.setCategoryModal.show(record);
+    this.setCategoryModal.show(Object.assign({}, record));
   }
 
   deleteCategory(record) {

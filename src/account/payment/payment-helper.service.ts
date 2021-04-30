@@ -8,9 +8,9 @@ import {
 
 @Injectable()
 export class PaymentHelperService {
-
+    // enum ???
     getPaymentGatewayType(gatewayType) {
-        if (parseInt(gatewayType) === SubscriptionPaymentGatewayType.Paypal) {
+        if (gatewayType == SubscriptionPaymentGatewayType.Paypal) {
             return 'Paypal';
         }
 
@@ -18,11 +18,11 @@ export class PaymentHelperService {
     }
 
     getEditionPaymentType(editionPaymentType) {
-        if (parseInt(editionPaymentType) === EditionPaymentType.BuyNow) {
+        if (editionPaymentType == EditionPaymentType.BuyNow) {
             return 'BuyNow';
-        } else if (parseInt(editionPaymentType) === EditionPaymentType.Extend) {
+        } else if (editionPaymentType == EditionPaymentType.Extend) {
             return 'Extend';
-        } else if (parseInt(editionPaymentType) === EditionPaymentType.NewRegistration) {
+        } else if (editionPaymentType == EditionPaymentType.NewRegistration) {
             return 'NewRegistration';
         }
 

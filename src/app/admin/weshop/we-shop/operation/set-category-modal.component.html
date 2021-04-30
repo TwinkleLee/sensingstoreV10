@@ -25,6 +25,12 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label>{{l("name")}}</label>
+                                <input class="form-control" name="categoryName" [(ngModel)]="cate.categoryName">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
                                 <label>{{l("orderNumber")}}</label>
                                 <input class="form-control" type="number" name="orderNumber" [(ngModel)]="cate.orderNumber">
                             </div>

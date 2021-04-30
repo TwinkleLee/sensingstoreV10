@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked } from '@angular/core';
 import { ModalDirective, ModalModule } from '@node_modules/ngx-bootstrap/modal';
-import { TrainingServiceProxy, CreateTrainingInput, UpdateTrainingInput,TrainingCategoryEnum as TrainingCategory,TrainingWayEnum as TrainingWay,PaperServiceProxy,CourseServiceProxy } from '@shared/service-proxies/service-proxies5'
+import { TrainingServiceProxy, CreateTrainingInput, UpdateTrainingInput,PaperServiceProxy,CourseServiceProxy, TrainingCategoryEnum, TrainingWayEnum } from '@shared/service-proxies/service-proxies5'
 import { LoginServiceProxy,OrganizationUnitServiceProxy} from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
@@ -48,8 +48,8 @@ export class CreateOrEditTrainingModalComponent extends AppComponentBase impleme
 
 
     //枚举
-    trainingCategoryEnum=TrainingCategory;
-    trainingWayEnum = TrainingWay;
+    trainingCategoryEnum=TrainingCategoryEnum;
+    trainingWayEnum = TrainingWayEnum;
 
 
     memberedOrganizationUnits: string[];

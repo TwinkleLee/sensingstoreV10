@@ -25,7 +25,7 @@ export class ActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2050,7 +2050,7 @@ export class AlipayServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2181,7 +2181,7 @@ export class ApplyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2403,7 +2403,7 @@ export class AwardServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2681,7 +2681,7 @@ export class CommonServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -2861,7 +2861,7 @@ export class CourseServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -3196,7 +3196,7 @@ export class DeviceActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -3646,7 +3646,7 @@ export class DouyinServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4019,7 +4019,7 @@ export class FileServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4090,7 +4090,7 @@ export class HtmlTemplateServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4358,7 +4358,7 @@ export class IdentityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4429,7 +4429,7 @@ export class ImportQuestionsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4500,7 +4500,7 @@ export class ImportTrainingsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -4622,14 +4622,14 @@ export class PaperServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    createPaper(body: CreatePaperInput | undefined): Observable<void> {
+    createPaper(body: CreatePaperInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Paper/CreatePaper";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -4641,6 +4641,7 @@ export class PaperServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -4651,14 +4652,14 @@ export class PaperServiceProxy {
                 try {
                     return this.processCreatePaper(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<number>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<number>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreatePaper(response: HttpResponseBase): Observable<void> {
+    protected processCreatePaper(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4667,7 +4668,10 @@ export class PaperServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -4678,7 +4682,7 @@ export class PaperServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<number>(<any>null);
     }
 
     /**
@@ -5434,7 +5438,7 @@ export class PublicAccountServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -5497,7 +5501,7 @@ export class ServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -5561,14 +5565,14 @@ export class QuestionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    createQuestion(body: CreateQuestionInput | undefined): Observable<void> {
+    createQuestion(body: CreateQuestionInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Question/CreateQuestion";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -5580,6 +5584,7 @@ export class QuestionServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -5590,14 +5595,14 @@ export class QuestionServiceProxy {
                 try {
                     return this.processCreateQuestion(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<number>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<number>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateQuestion(response: HttpResponseBase): Observable<void> {
+    protected processCreateQuestion(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5606,7 +5611,10 @@ export class QuestionServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
             }));
         } else if (status === 401) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -5617,7 +5625,7 @@ export class QuestionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<number>(<any>null);
     }
 
     /**
@@ -6164,7 +6172,7 @@ export class ReleaseApiTestServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -6235,7 +6243,7 @@ export class RepertoryHelpServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -6374,7 +6382,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -6623,7 +6631,7 @@ export class SengsingDeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -7514,7 +7522,7 @@ export class SensingDeviceActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11006,7 +11014,7 @@ export class SensingWechatManageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11175,123 +11183,7 @@ export class SnsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
-    }
-
-    /**
-     * @param weixinAccountId (optional) 
-     * @return Success
-     */
-    setShopWeixinAccount(weixinAccountId: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Sns/SetShopWeixinAccount?";
-        if (weixinAccountId === null)
-            throw new Error("The parameter 'weixinAccountId' cannot be null.");
-        else if (weixinAccountId !== undefined)
-            url_ += "WeixinAccountId=" + encodeURIComponent("" + weixinAccountId) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSetShopWeixinAccount(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSetShopWeixinAccount(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSetShopWeixinAccount(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * @param from (optional) 
-     * @return Success
-     */
-    getShopWSettings(from: string | undefined): Observable<number> {
-        let url_ = this.baseUrl + "/api/services/app/Sns/GetShopWSettings?";
-        if (from === null)
-            throw new Error("The parameter 'from' cannot be null.");
-        else if (from !== undefined)
-            url_ += "From=" + encodeURIComponent("" + from) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetShopWSettings(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetShopWSettings(<any>response_);
-                } catch (e) {
-                    return <Observable<number>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<number>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetShopWSettings(response: HttpResponseBase): Observable<number> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
-            return _observableOf(result200);
-            }));
-        } else if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Unauthorized", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<number>(<any>null);
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11359,7 +11251,7 @@ export class SnsUserInfoServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -11669,7 +11561,7 @@ export class SpecialUserServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -12067,7 +11959,7 @@ export class StoreActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -12417,10 +12309,11 @@ export class TagServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
+     * 获取标签的列表，支持分页（无筛选条件）
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -12500,6 +12393,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 根据类型获取设备、品牌、店铺的标签
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -12576,6 +12470,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 新建设备、品牌、店铺标签
      * @param body (optional) 
      * @return Success
      */
@@ -12640,6 +12535,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 修改设备、品牌、店铺的标签
      * @param body (optional) 
      * @return Success
      */
@@ -12704,6 +12600,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 删除设备、品牌、店铺的标签
      * @param id (optional) 
      * @return Success
      */
@@ -12764,6 +12661,7 @@ export class TagServiceProxy {
     }
 
     /**
+     * 查看前N个Tag（N为传入得参数,可能用于下拉列表）
      * @param count (optional) 
      * @return Success
      */
@@ -12832,7 +12730,7 @@ export class TemplateMessageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -12925,7 +12823,7 @@ export class TrainingServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14025,7 +13923,7 @@ export class TrainingListExcelExporterServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14093,7 +13991,7 @@ export class TransferServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14241,9 +14139,10 @@ export class TransferServiceProxy {
      * @param storeId (optional) 
      * @param deviceId (optional) 
      * @param memberId (optional) 
+     * @param weixinAccountId (optional) 
      * @return Success
      */
-    weishop(tenantId: number | undefined, urlSource: string | undefined, storeId: string | undefined, deviceId: number | undefined, memberId: number | undefined): Observable<void> {
+    weishop(tenantId: number | undefined, urlSource: string | undefined, storeId: string | undefined, deviceId: number | undefined, memberId: number | undefined, weixinAccountId: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/Transfer/Weishop?";
         if (tenantId === null)
             throw new Error("The parameter 'tenantId' cannot be null.");
@@ -14265,6 +14164,10 @@ export class TransferServiceProxy {
             throw new Error("The parameter 'memberId' cannot be null.");
         else if (memberId !== undefined)
             url_ += "MemberId=" + encodeURIComponent("" + memberId) + "&";
+        if (weixinAccountId === null)
+            throw new Error("The parameter 'weixinAccountId' cannot be null.");
+        else if (weixinAccountId !== undefined)
+            url_ += "weixinAccountId=" + encodeURIComponent("" + weixinAccountId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14310,11 +14213,16 @@ export class TransferServiceProxy {
     /**
      * @param tenantId (optional) 
      * @param memberId (optional) 
+     * @param weixinAccountId (optional) 
      * @param body (optional) 
      * @return Success
      */
-    getWechatImg(tenantId: number | undefined, memberId: number | undefined, body: string[] | undefined): Observable<string[]> {
-        let url_ = this.baseUrl + "/Transfer/GetWechatImg";
+    getWechatImg(tenantId: number | undefined, memberId: number | undefined, weixinAccountId: number | undefined, body: string[] | undefined): Observable<string[]> {
+        let url_ = this.baseUrl + "/Transfer/GetWechatImg?";
+        if (weixinAccountId === null)
+            throw new Error("The parameter 'weixinAccountId' cannot be null.");
+        else if (weixinAccountId !== undefined)
+            url_ += "weixinAccountId=" + encodeURIComponent("" + weixinAccountId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -14484,7 +14392,7 @@ export class UserActionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -14956,7 +14864,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码传库存生成二维码接口
+     * ɨ�봫������ɶ�ά��ӿ�
     DDD
      * @param gameId (optional) 
      * @param targetUrl (optional) 
@@ -15024,7 +14932,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码确认后收集用户信息
+     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
      * @param openId (optional) 
      * @param gameId (optional) 
      * @return Success
@@ -15086,7 +14994,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码确认后收集用户信息
+     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
      * @param gameID (optional) 
      * @param filter (optional) 
      * @param sorting (optional) 
@@ -15163,7 +15071,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * 扫码确认后收集用户信息
+     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
      * @param id (optional) 
      * @return Success
      */
@@ -17480,7 +17388,7 @@ export class UserPaperServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -18279,7 +18187,7 @@ export class WechatManageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19540,7 +19448,7 @@ export class WeiboServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19609,7 +19517,7 @@ export class WeixinServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19810,7 +19718,7 @@ export class WeixinJSSDKServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -19945,9 +19853,10 @@ export class WeixinJSSDKServiceProxy {
      * @param tenantId (optional) 
      * @param memberId (optional) 
      * @param url (optional) 
+     * @param weixinAppId (optional) 
      * @return Success
      */
-    getWeishopJsViewModel(tenantId: number | undefined, memberId: number | undefined, url: string | undefined): Observable<WeChatJSViewModel> {
+    getWeishopJsViewModel(tenantId: number | undefined, memberId: number | undefined, url: string | undefined, weixinAppId: number | undefined): Observable<WeChatJSViewModel> {
         let url_ = this.baseUrl + "/WeixinJSSDK/GetWeishopJsViewModel?";
         if (tenantId === null)
             throw new Error("The parameter 'tenantId' cannot be null.");
@@ -19961,6 +19870,10 @@ export class WeixinJSSDKServiceProxy {
             throw new Error("The parameter 'url' cannot be null.");
         else if (url !== undefined)
             url_ += "url=" + encodeURIComponent("" + url) + "&";
+        if (weixinAppId === null)
+            throw new Error("The parameter 'weixinAppId' cannot be null.");
+        else if (weixinAppId !== undefined)
+            url_ += "weixinAppId=" + encodeURIComponent("" + weixinAppId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20016,7 +19929,7 @@ export class WeixinMpServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -20163,7 +20076,7 @@ export class WeixinOAuth2ServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -20632,7 +20545,7 @@ export class WeixinOpenPlatformServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
     }
 
     /**
@@ -20697,13 +20610,13 @@ export class WeixinOpenPlatformServiceProxy {
 }
 
 export enum _definitions_EnumSnsType {
-    Taobao = 0,
-    WeChat = 1,
-    AliPay = 2,
-    AliPay_WeChat = 3,
-    Douyin = 4,
-    Weibo = 5,
-    Others = 6,
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    AliPay = "AliPay",
+    AliPay_WeChat = "AliPay_WeChat",
+    Douyin = "Douyin",
+    Weibo = "Weibo",
+    Others = "Others",
 }
 
 export class ActionInfo implements IActionInfo {
@@ -20897,13 +20810,13 @@ export interface IActionShareDto {
 }
 
 export enum ActionStatus {
-    Start = 0,
-    Waitting = 1,
-    Playing = 2,
-    Done = 3,
-    AwardEdit = 4,
-    NotGetPrizeWithNoAward = 5,
-    NotGetPrize = 6,
+    Start = "Start",
+    Waitting = "Waitting",
+    Playing = "Playing",
+    Done = "Done",
+    AwardEdit = "AwardEdit",
+    NotGetPrizeWithNoAward = "NotGetPrizeWithNoAward",
+    NotGetPrize = "NotGetPrize",
 }
 
 export class Activity implements IActivity {
@@ -23067,9 +22980,9 @@ export interface IActivityPayRecordInput {
 }
 
 export enum ActivityPayType {
-    Cash = 0,
-    Point = 1,
-    Ticket = 2,
+    Cash = "Cash",
+    Point = "Point",
+    Ticket = "Ticket",
 }
 
 export class ActivityShare implements IActivityShare {
@@ -24221,20 +24134,20 @@ export interface IApplyFormDto {
 }
 
 export enum ApplyFormType {
-    Activity = 0,
-    Training = 1,
+    Activity = "Activity",
+    Training = "Training",
 }
 
 export enum ApplyStatus {
-    Applied = 0,
-    Cancel = 1,
-    Accepted = 2,
-    Rejected = 3,
+    Applied = "Applied",
+    Cancel = "Cancel",
+    Accepted = "Accepted",
+    Rejected = "Rejected",
 }
 
 export enum ApplyWanted {
-    Online = 0,
-    Offline = 1,
+    Online = "Online",
+    Offline = "Offline",
 }
 
 export class AuditApplyFormInput implements IAuditApplyFormInput {
@@ -24282,8 +24195,8 @@ export interface IAuditApplyFormInput {
 }
 
 export enum AuditStatus {
-    Offline = 0,
-    Online = 1,
+    Offline = "Offline",
+    Online = "Online",
 }
 
 export class AuthenticateResultModel implements IAuthenticateResultModel {
@@ -25051,9 +24964,9 @@ export interface IAwardSettingsDto {
 }
 
 export enum AwardType {
-    Coupon = 0,
-    Product = 1,
-    Placeholder = 2,
+    Coupon = "Coupon",
+    Product = "Product",
+    Placeholder = "Placeholder",
 }
 
 export class BaseButton implements IBaseButton {
@@ -27970,93 +27883,8 @@ export interface IDispatchedActivityGame {
     id: number;
 }
 
-export class DispatchedSoftware implements IDispatchedSoftware {
-    organizationUnitId!: number | undefined;
-    tenantId!: number;
-    softwareId!: number;
-    software!: Software;
-    alias!: string | undefined;
-    startTime!: moment.Moment | undefined;
-    endTime!: moment.Moment | undefined;
-    extensionData!: string | undefined;
-    materialPacketUrl!: string | undefined;
-    isDefault!: boolean;
-    creationTime!: moment.Moment;
-    creatorUserId!: number | undefined;
-    id!: number;
-
-    constructor(data?: IDispatchedSoftware) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.organizationUnitId = _data["organizationUnitId"];
-            this.tenantId = _data["tenantId"];
-            this.softwareId = _data["softwareId"];
-            this.software = _data["software"] ? Software.fromJS(_data["software"]) : <any>undefined;
-            this.alias = _data["alias"];
-            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
-            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
-            this.extensionData = _data["extensionData"];
-            this.materialPacketUrl = _data["materialPacketUrl"];
-            this.isDefault = _data["isDefault"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): DispatchedSoftware {
-        data = typeof data === 'object' ? data : {};
-        let result = new DispatchedSoftware();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["organizationUnitId"] = this.organizationUnitId;
-        data["tenantId"] = this.tenantId;
-        data["softwareId"] = this.softwareId;
-        data["software"] = this.software ? this.software.toJSON() : <any>undefined;
-        data["alias"] = this.alias;
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
-        data["extensionData"] = this.extensionData;
-        data["materialPacketUrl"] = this.materialPacketUrl;
-        data["isDefault"] = this.isDefault;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IDispatchedSoftware {
-    organizationUnitId: number | undefined;
-    tenantId: number;
-    softwareId: number;
-    software: Software;
-    alias: string | undefined;
-    startTime: moment.Moment | undefined;
-    endTime: moment.Moment | undefined;
-    extensionData: string | undefined;
-    materialPacketUrl: string | undefined;
-    isDefault: boolean;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-}
-
 export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
     dispatchedSoftwareId!: number;
-    dispatchedSoftware!: DispatchedSoftware;
     paperId!: number;
     paper!: Paper;
     description!: string | undefined;
@@ -28081,7 +27909,6 @@ export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
     init(_data?: any) {
         if (_data) {
             this.dispatchedSoftwareId = _data["dispatchedSoftwareId"];
-            this.dispatchedSoftware = _data["dispatchedSoftware"] ? DispatchedSoftware.fromJS(_data["dispatchedSoftware"]) : <any>undefined;
             this.paperId = _data["paperId"];
             this.paper = _data["paper"] ? Paper.fromJS(_data["paper"]) : <any>undefined;
             this.description = _data["description"];
@@ -28106,7 +27933,6 @@ export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["dispatchedSoftwareId"] = this.dispatchedSoftwareId;
-        data["dispatchedSoftware"] = this.dispatchedSoftware ? this.dispatchedSoftware.toJSON() : <any>undefined;
         data["paperId"] = this.paperId;
         data["paper"] = this.paper ? this.paper.toJSON() : <any>undefined;
         data["description"] = this.description;
@@ -28124,7 +27950,6 @@ export class DispatchedSoftwarePaper implements IDispatchedSoftwarePaper {
 
 export interface IDispatchedSoftwarePaper {
     dispatchedSoftwareId: number;
-    dispatchedSoftware: DispatchedSoftware;
     paperId: number;
     paper: Paper;
     description: string | undefined;
@@ -28459,44 +28284,44 @@ export interface IDropCargoInput {
 }
 
 export enum EnumActivityShareType {
-    Award = 0,
-    ActivityShare = 1,
+    Award = "Award",
+    ActivityShare = "ActivityShare",
 }
 
 export enum EnumMpType {
-    Private = 0,
-    Public = 1,
+    Private = "Private",
+    Public = "Public",
 }
 
 export enum EnumQRStatus {
-    BeforeGame = 1,
-    AfterGame = 2,
-    ActivityIntroduction = 3,
-    ActivityRegister = 4,
-    OnlineGame = 5,
-    GameResult = 6,
-    Award = 7,
-    Game = 8,
+    BeforeGame = "BeforeGame",
+    AfterGame = "AfterGame",
+    ActivityIntroduction = "ActivityIntroduction",
+    ActivityRegister = "ActivityRegister",
+    OnlineGame = "OnlineGame",
+    GameResult = "GameResult",
+    Award = "Award",
+    Game = "Game",
 }
 
 export enum EnumWeChatType {
-    Text = 0,
-    News = 1,
+    Text = "Text",
+    News = "News",
 }
 
 export enum EnumWeixinShareType {
-    ShareAppMessage = 1,
-    ShareTimeline = 2,
-    ShareQQ = 3,
-    ShareWeibo = 4,
-    ShareQZone = 5,
-    Like = 6,
+    ShareAppMessage = "ShareAppMessage",
+    ShareTimeline = "ShareTimeline",
+    ShareQQ = "ShareQQ",
+    ShareWeibo = "ShareWeibo",
+    ShareQZone = "ShareQZone",
+    Like = "Like",
 }
 
 export enum ExamEnum {
-    NoneOk = 0,
-    PartOk = 1,
-    AllOk = 2,
+    NoneOk = "NoneOk",
+    PartOk = "PartOk",
+    AllOk = "AllOk",
 }
 
 export class FileDto implements IFileDto {
@@ -28544,19 +28369,19 @@ export interface IFileDto {
 }
 
 export enum FlowType {
-    Introduction = 0,
-    Register = 1,
-    Sign = 2,
-    GameResult = 3,
-    Reward = 4,
+    Introduction = "Introduction",
+    Register = "Register",
+    Sign = "Sign",
+    GameResult = "GameResult",
+    Reward = "Reward",
 }
 
 export enum FrequencyType {
-    None = 0,
-    Day = 1,
-    Week = 2,
-    Month = 3,
-    Year = 4,
+    None = "None",
+    Day = "Day",
+    Week = "Week",
+    Month = "Month",
+    Year = "Year",
 }
 
 export class GetActivityActionsForNextGameDto implements IGetActivityActionsForNextGameDto {
@@ -30122,10 +29947,10 @@ export interface IMakeUserToSpecialInput {
 }
 
 export enum MediaType {
-    News = 0,
-    Image = 1,
-    Video = 2,
-    Voice = 3,
+    News = "News",
+    Image = "Image",
+    Video = "Video",
+    Voice = "Voice",
 }
 
 export class MenuMatchRule implements IMenuMatchRule {
@@ -30193,8 +30018,8 @@ export interface IMenuMatchRule {
 }
 
 export enum MenuType {
-    Normal = 0,
-    Individualization = 1,
+    Normal = "Normal",
+    Individualization = "Individualization",
 }
 
 export class MergeSnsUsersInput implements IMergeSnsUsersInput {
@@ -30334,13 +30159,13 @@ export interface IMpAuthorzieUrlDto {
 }
 
 export enum MsgTypeEnum {
-    Text = 0,
-    Emoji = 1,
-    Audio = 2,
-    RedPacket = 3,
-    File = 4,
-    Location = 5,
-    Image = 6,
+    Text = "Text",
+    Emoji = "Emoji",
+    Audio = "Audio",
+    RedPacket = "RedPacket",
+    File = "File",
+    Location = "Location",
+    Image = "Image",
 }
 
 export class NameValueDto implements INameValueDto {
@@ -32500,9 +32325,9 @@ export interface IPaper {
 }
 
 export enum PaperCompositionEnum {
-    Fixed = 0,
-    Random = 1,
-    FixedPlusRandom = 2,
+    Fixed = "Fixed",
+    Random = "Random",
+    FixedPlusRandom = "FixedPlusRandom",
 }
 
 export class PaperDto implements IPaperDto {
@@ -32696,10 +32521,10 @@ export interface IPaperQuestion {
 }
 
 export enum PaperUsageType {
-    Competition = 0,
-    GamePK = 1,
-    Vote = 2,
-    Investigate = 3,
+    Competition = "Competition",
+    GamePK = "GamePK",
+    Vote = "Vote",
+    Investigate = "Investigate",
 }
 
 export class PlayGameOutput implements IPlayGameOutput {
@@ -33351,14 +33176,14 @@ export interface IQuestionItemDto {
 }
 
 export enum QuestionScoreTypeEnum {
-    Partial = 0,
-    Full = 1,
+    Partial = "Partial",
+    Full = "Full",
 }
 
 export enum QuestionTypeEnum {
-    Single = 0,
-    Multiple = 1,
-    Text = 2,
+    Single = "Single",
+    Multiple = "Multiple",
+    Text = "Text",
 }
 
 export class RankUserActionInfoOutput implements IRankUserActionInfoOutput {
@@ -34054,9 +33879,9 @@ export interface ISensingDeviceUserInfoInput {
 }
 
 export enum ServiceType {
-    Subscribe = 0,
-    HistoryToSubscribe = 1,
-    Service = 2,
+    Subscribe = "Subscribe",
+    HistoryToSubscribe = "HistoryToSubscribe",
+    Service = "Service",
 }
 
 export class SetMediaTagsInput implements ISetMediaTagsInput {
@@ -34316,11 +34141,11 @@ export interface ISingleUserPaperDetailDto {
 }
 
 export enum SnsActivityAuthorizationType {
-    Follow = 0,
-    Web = 1,
-    None = 2,
-    FollowAutoRegister = 3,
-    WebAutoRegister = 4,
+    Follow = "Follow",
+    Web = "Web",
+    None = "None",
+    FollowAutoRegister = "FollowAutoRegister",
+    WebAutoRegister = "WebAutoRegister",
 }
 
 export class SnsDataInput implements ISnsDataInput {
@@ -36073,190 +35898,6 @@ export interface ISnsUserTextDataInput {
     params: string | undefined;
 }
 
-export class Software implements ISoftware {
-    name!: string;
-    code!: string | undefined;
-    owner!: string | undefined;
-    contact!: string | undefined;
-    tenantId!: number | undefined;
-    url!: string | undefined;
-    logoUrl!: string | undefined;
-    largeImageUrl!: string | undefined;
-    envType!: number;
-    versionNumber!: string | undefined;
-    packageUrl!: string | undefined;
-    exePath!: string | undefined;
-    type!: number;
-    isShowToTenant!: boolean;
-    targetResolution_Width!: number | undefined;
-    targetResolution_Height!: number | undefined;
-    setting!: string | undefined;
-    language!: string | undefined;
-    auditStatus!: AuditStatus;
-    extensionData!: string | undefined;
-    gameType!: number;
-    description!: string | undefined;
-    supportedPlayersCount!: number | undefined;
-    isSupportAsync!: boolean;
-    isSendWechatBeforeGame!: boolean;
-    sendWeChatBeforGameTabName!: string | undefined;
-    isSendWechatAfterGame!: boolean;
-    sendWeChatAfterGameTabName!: string | undefined;
-    isShareAction!: boolean;
-    shareActionTabName!: string | undefined;
-    isDeleted!: boolean;
-    deleterUserId!: number | undefined;
-    deletionTime!: moment.Moment | undefined;
-    lastModificationTime!: moment.Moment | undefined;
-    lastModifierUserId!: number | undefined;
-    creationTime!: moment.Moment;
-    creatorUserId!: number | undefined;
-    id!: number;
-
-    constructor(data?: ISoftware) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"];
-            this.code = _data["code"];
-            this.owner = _data["owner"];
-            this.contact = _data["contact"];
-            this.tenantId = _data["tenantId"];
-            this.url = _data["url"];
-            this.logoUrl = _data["logoUrl"];
-            this.largeImageUrl = _data["largeImageUrl"];
-            this.envType = _data["envType"];
-            this.versionNumber = _data["versionNumber"];
-            this.packageUrl = _data["packageUrl"];
-            this.exePath = _data["exePath"];
-            this.type = _data["type"];
-            this.isShowToTenant = _data["isShowToTenant"];
-            this.targetResolution_Width = _data["targetResolution_Width"];
-            this.targetResolution_Height = _data["targetResolution_Height"];
-            this.setting = _data["setting"];
-            this.language = _data["language"];
-            this.auditStatus = _data["auditStatus"];
-            this.extensionData = _data["extensionData"];
-            this.gameType = _data["gameType"];
-            this.description = _data["description"];
-            this.supportedPlayersCount = _data["supportedPlayersCount"];
-            this.isSupportAsync = _data["isSupportAsync"];
-            this.isSendWechatBeforeGame = _data["isSendWechatBeforeGame"];
-            this.sendWeChatBeforGameTabName = _data["sendWeChatBeforGameTabName"];
-            this.isSendWechatAfterGame = _data["isSendWechatAfterGame"];
-            this.sendWeChatAfterGameTabName = _data["sendWeChatAfterGameTabName"];
-            this.isShareAction = _data["isShareAction"];
-            this.shareActionTabName = _data["shareActionTabName"];
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): Software {
-        data = typeof data === 'object' ? data : {};
-        let result = new Software();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        data["code"] = this.code;
-        data["owner"] = this.owner;
-        data["contact"] = this.contact;
-        data["tenantId"] = this.tenantId;
-        data["url"] = this.url;
-        data["logoUrl"] = this.logoUrl;
-        data["largeImageUrl"] = this.largeImageUrl;
-        data["envType"] = this.envType;
-        data["versionNumber"] = this.versionNumber;
-        data["packageUrl"] = this.packageUrl;
-        data["exePath"] = this.exePath;
-        data["type"] = this.type;
-        data["isShowToTenant"] = this.isShowToTenant;
-        data["targetResolution_Width"] = this.targetResolution_Width;
-        data["targetResolution_Height"] = this.targetResolution_Height;
-        data["setting"] = this.setting;
-        data["language"] = this.language;
-        data["auditStatus"] = this.auditStatus;
-        data["extensionData"] = this.extensionData;
-        data["gameType"] = this.gameType;
-        data["description"] = this.description;
-        data["supportedPlayersCount"] = this.supportedPlayersCount;
-        data["isSupportAsync"] = this.isSupportAsync;
-        data["isSendWechatBeforeGame"] = this.isSendWechatBeforeGame;
-        data["sendWeChatBeforGameTabName"] = this.sendWeChatBeforGameTabName;
-        data["isSendWechatAfterGame"] = this.isSendWechatAfterGame;
-        data["sendWeChatAfterGameTabName"] = this.sendWeChatAfterGameTabName;
-        data["isShareAction"] = this.isShareAction;
-        data["shareActionTabName"] = this.shareActionTabName;
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface ISoftware {
-    name: string;
-    code: string | undefined;
-    owner: string | undefined;
-    contact: string | undefined;
-    tenantId: number | undefined;
-    url: string | undefined;
-    logoUrl: string | undefined;
-    largeImageUrl: string | undefined;
-    envType: number;
-    versionNumber: string | undefined;
-    packageUrl: string | undefined;
-    exePath: string | undefined;
-    type: number;
-    isShowToTenant: boolean;
-    targetResolution_Width: number | undefined;
-    targetResolution_Height: number | undefined;
-    setting: string | undefined;
-    language: string | undefined;
-    auditStatus: AuditStatus;
-    extensionData: string | undefined;
-    gameType: number;
-    description: string | undefined;
-    supportedPlayersCount: number | undefined;
-    isSupportAsync: boolean;
-    isSendWechatBeforeGame: boolean;
-    sendWeChatBeforGameTabName: string | undefined;
-    isSendWechatAfterGame: boolean;
-    sendWeChatAfterGameTabName: string | undefined;
-    isShareAction: boolean;
-    shareActionTabName: string | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-}
-
 export class SoftwareOutput implements ISoftwareOutput {
     name!: string | undefined;
     code!: string | undefined;
@@ -36494,8 +36135,8 @@ export interface ISpecailUserDto {
 }
 
 export enum SpecialType {
-    White = 0,
-    Black = 1,
+    White = "White",
+    Black = "Black",
 }
 
 export class StoreActivity implements IStoreActivity {
@@ -37083,42 +36724,42 @@ export interface ITagDto {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
-    UxPage = 9,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
+    UxPage = "UxPage",
 }
 
 export enum TemplateEnum {
-    ActivityIntroduction = 1,
-    Action = 2,
-    Award = 3,
-    Register = 4,
-    GameOnLine = 5,
-    GameResult = 6,
+    ActivityIntroduction = "ActivityIntroduction",
+    Action = "Action",
+    Award = "Award",
+    Register = "Register",
+    GameOnLine = "GameOnLine",
+    GameResult = "GameResult",
 }
 
 export enum TemplateMessageType {
-    付款成功通知 = 0,
-    订单支付通知 = 1,
-    订单发货通知 = 2,
-    退款申请通知 = 3,
-    退款审核通知 = 4,
-    退款成功通知 = 5,
-    取货通知 = 6,
-    防盗器报警通知 = 7,
-    商机认领提醒 = 8,
+    付款成功通知 = "付款成功通知",
+    订单支付通知 = "订单支付通知",
+    订单发货通知 = "订单发货通知",
+    退款申请通知 = "退款申请通知",
+    退款审核通知 = "退款审核通知",
+    退款成功通知 = "退款成功通知",
+    取货通知 = "取货通知",
+    防盗器报警通知 = "防盗器报警通知",
+    商机认领提醒 = "商机认领提醒",
 }
 
 export enum ThingType {
-    Spu = 0,
-    Sku = 1,
+    Spu = "Spu",
+    Sku = "Sku",
 }
 
 export class Training implements ITraining {
@@ -37476,10 +37117,10 @@ export interface ITrainingBasicDto {
 }
 
 export enum TrainingCategoryEnum {
-    Basic = 0,
-    Skill = 1,
-    Manage = 2,
-    Other = 3,
+    Basic = "Basic",
+    Skill = "Skill",
+    Manage = "Manage",
+    Other = "Other",
 }
 
 export class TrainingSimpleDto implements ITrainingSimpleDto {
@@ -37615,17 +37256,17 @@ export interface ITrainingSimpleInfo {
 }
 
 export enum TrainingStatusEnum {
-    None = 0,
-    NotStarted = 1,
-    Overdue = 2,
-    Completed = 3,
+    None = "None",
+    NotStarted = "NotStarted",
+    Overdue = "Overdue",
+    Completed = "Completed",
 }
 
 export enum TrainingWayEnum {
-    LecturerAndInsideShare = 0,
-    LecturerAndOutersideShare = 1,
-    VideoAndInsideShare = 2,
-    VideoAndOutersideShare = 3,
+    LecturerAndInsideShare = "LecturerAndInsideShare",
+    LecturerAndOutersideShare = "LecturerAndOutersideShare",
+    VideoAndInsideShare = "VideoAndInsideShare",
+    VideoAndOutersideShare = "VideoAndOutersideShare",
 }
 
 export class UpdateActivityAwardsInput implements IUpdateActivityAwardsInput {
@@ -40603,13 +40244,13 @@ export interface IUserRoomMessageOutput {
 }
 
 export enum VerifyType {
-    WechatAuthentication = 0,
-    SinaWeiboAuthentication = 1,
-    QQweiboAuthentication = 2,
-    NoNameAuthentication = 3,
-    NoNameBySinaWeiboAuthentication = 4,
-    NoNameByQqWeiboAuthentication = 5,
-    UnAuthentication = -1,
+    WechatAuthentication = "WechatAuthentication",
+    SinaWeiboAuthentication = "SinaWeiboAuthentication",
+    QQweiboAuthentication = "QQweiboAuthentication",
+    NoNameAuthentication = "NoNameAuthentication",
+    NoNameBySinaWeiboAuthentication = "NoNameBySinaWeiboAuthentication",
+    NoNameByQqWeiboAuthentication = "NoNameByQqWeiboAuthentication",
+    UnAuthentication = "UnAuthentication",
 }
 
 export class WeChatJSViewModel implements IWeChatJSViewModel {
@@ -40721,10 +40362,10 @@ export interface IWechatLoginResultDto {
 }
 
 export enum WeixinAuthStatus {
-    Authrozied = 0,
-    UnAuthrozied = 1,
-    Locked = 2,
-    UnLocked = 3,
+    Authrozied = "Authrozied",
+    UnAuthrozied = "UnAuthrozied",
+    Locked = "Locked",
+    UnLocked = "UnLocked",
 }
 
 export class WeixinMpDto implements IWeixinMpDto {

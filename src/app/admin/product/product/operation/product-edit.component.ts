@@ -533,7 +533,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
     filterProductSku() {
         var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
         this.skuSelection.forEach((v, index, array) => {
-            if (v.auditStatus == 0) {
+            if (v.auditStatus == "Offline") {
                 downNum.push(v);
                 downNumIds.push(v.id);
             } else {

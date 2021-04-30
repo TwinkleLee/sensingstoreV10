@@ -3800,10 +3800,10 @@ export interface IDevieStatusChartReportInput {
 }
 
 export enum EnumOptStatus {
-    _0 = 0,
-    _1 = 1,
-    _2 = 2,
-    _3 = 3,
+    Undo = "Undo",
+    Processing = "Processing",
+    Completed = "Completed",
+    InPlan = "InPlan",
 }
 
 export class FaceBehaviorInput implements IFaceBehaviorInput {

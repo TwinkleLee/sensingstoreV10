@@ -8,7 +8,6 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies5';
 import { AddQuestionModalComponent } from '@app/admin/question/question/operation/add-question-modal.component';
-import {PaperCompositionEnum} from '@shared/service-proxies/service-proxies5'
 @Component({
     selector: 'naireModal',
     templateUrl: './naire-modal.component.html',
@@ -50,7 +49,6 @@ export class NaireModalComponent extends AppComponentBase implements AfterViewCh
     tags: any[] = [];
 
     PaperUsageType = PaperUsageType;
-    PaperCompositionEnum = PaperCompositionEnum;
 
     constructor(
         injector: Injector,

@@ -3733,7 +3733,6 @@ export class OrderExtensionServiceProxy {
     }
 }
 
-
 @Injectable()
 export class PayCenterServiceProxy {
     private http: HttpClient;
@@ -15582,8 +15581,8 @@ export interface IAliPayParameters {
 }
 
 export enum AuditStatus {
-    Offline = 0,
-    Online = 1,
+    Offline = "Offline",
+    Online = "Online",
 }
 
 export class BehaviorDto implements IBehaviorDto {
@@ -16771,22 +16770,22 @@ export interface IDollMachine {
 }
 
 export enum EnumInOrOutType {
-    In = 0,
-    Out = 1,
+    In = "In",
+    Out = "Out",
 }
 
 export enum EnumPointFromType {
-    CashPayment = 0,
-    Exchange = 1,
-    Activity = 2,
-    Dispatch = 3,
-    ThirdParty = 4,
+    CashPayment = "CashPayment",
+    Exchange = "Exchange",
+    Activity = "Activity",
+    Dispatch = "Dispatch",
+    ThirdParty = "ThirdParty",
 }
 
 export enum EnumSnsType {
-    Taobao = 0,
-    WeChat = 1,
-    Others = 2,
+    Taobao = "Taobao",
+    WeChat = "WeChat",
+    Others = "Others",
 }
 
 export class ExpressTrackingDto implements IExpressTrackingDto {
@@ -22628,8 +22627,8 @@ export interface IOrderSkuInput {
 }
 
 export enum OrderTagType {
-    Member = 0,
-    Customer = 1,
+    Member = "Member",
+    Customer = "Customer",
 }
 
 export class OrderWithTotalSaleDto implements IOrderWithTotalSaleDto {
@@ -22713,8 +22712,8 @@ export interface IOvoParkUserInfo {
 }
 
 export enum PayType {
-    Pay = 0,
-    Refund = 1,
+    Pay = "Pay",
+    Refund = "Refund",
 }
 
 export class PerHourOrderChartDto implements IPerHourOrderChartDto {
@@ -23146,11 +23145,11 @@ export interface IPrintOrderDto {
 }
 
 export enum PrintState {
-    None = 0,
-    WaitingForPrint = 1,
-    Printing = 2,
-    Printed = 3,
-    Failed = 4,
+    None = "None",
+    WaitingForPrint = "WaitingForPrint",
+    Printing = "Printing",
+    Printed = "Printed",
+    Failed = "Failed",
 }
 
 export class ProductChartDto implements IProductChartDto {
@@ -23522,17 +23521,17 @@ export interface IRefundOrderInput {
 }
 
 export enum RefundStatus {
-    Submitted = 0,
-    CheckPassed = 1,
-    Returned = 2,
-    Delivered = 3,
-    CheckRefused = 4,
+    Submitted = "Submitted",
+    CheckPassed = "CheckPassed",
+    Returned = "Returned",
+    Delivered = "Delivered",
+    CheckRefused = "CheckRefused",
 }
 
 export enum RefundWay {
-    Refund = 0,
-    Return = 1,
-    Exchange = 2,
+    Refund = "Refund",
+    Return = "Return",
+    Exchange = "Exchange",
 }
 
 export class RefuseRefundApplyInput implements IRefuseRefundApplyInput {
@@ -26084,15 +26083,15 @@ export interface ITagDtoPagedResultDto {
 }
 
 export enum TagType {
-    Resource = 0,
-    Device = 1,
-    Product = 2,
-    Ads = 3,
-    Other = 4,
-    Brand = 5,
-    Question = 6,
-    Counter = 7,
-    WechatPublicMessage = 8,
+    Resource = "Resource",
+    Device = "Device",
+    Product = "Product",
+    Ads = "Ads",
+    Other = "Other",
+    Brand = "Brand",
+    Question = "Question",
+    Counter = "Counter",
+    WechatPublicMessage = "WechatPublicMessage",
 }
 
 export class TakeTicketForActivityInput implements ITakeTicketForActivityInput {
@@ -26484,10 +26483,10 @@ export interface ITakeTicketResultDto {
 }
 
 export enum TakeType {
-    UserTake = 0,
-    ManagerGrant = 1,
-    RegisterAutoGrant = 2,
-    GameAutoGrant = 3,
+    UserTake = "UserTake",
+    ManagerGrant = "ManagerGrant",
+    RegisterAutoGrant = "RegisterAutoGrant",
+    GameAutoGrant = "GameAutoGrant",
 }
 
 export class TemplateChartDto implements ITemplateChartDto {
@@ -26831,8 +26830,8 @@ export interface ITicketTagAndCategoryOutput {
 }
 
 export enum TicketType {
-    Voucher = 0,
-    Discount = 1,
+    Voucher = "Voucher",
+    Discount = "Discount",
 }
 
 export class TicketUseCondition implements ITicketUseCondition {

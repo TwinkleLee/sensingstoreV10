@@ -11,8 +11,7 @@ import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { from } from 'rxjs';
 import * as moment from 'moment';
 import {
-  AuditStatus,TrainingServiceProxy, TrainingStatusEnum as TrainingStatus, TrainingBasicDto, TrainingAuditInput,AuditStatus as TrainingAuditStatus,
-  
+  AuditStatus, TrainingServiceProxy, TrainingBasicDto,TrainingAuditInput, AuditStatus as TrainingAuditStatus,TrainingStatusEnum 
 } from '@shared/service-proxies/service-proxies5';
 import { CreateOrEditTrainingModalComponent } from './create-or-edit-training-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -34,7 +33,6 @@ export class TrainingListComponent extends AppComponentBase {
   @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
 
   AuditStatus = AuditStatus;
-  TrainingStatus = TrainingStatus;
 
   filterText: string = "";
   auditStatus: any = '';
@@ -42,7 +40,9 @@ export class TrainingListComponent extends AppComponentBase {
 
   exportLoading = false;
 
-  lecturerSuggestion: any = []
+  lecturerSuggestion: any = [];
+
+  TrainingStatus = TrainingStatusEnum;
 
   busy = false;
 
@@ -128,8 +128,8 @@ export class TrainingListComponent extends AppComponentBase {
     // this.review(false);
     this._trainingService.trainingAudit(new TrainingAuditInput({
       trainingIds: [],
-      currentAuditStatus: TrainingAuditStatus["Online"],
-      targetAuditStatus: TrainingAuditStatus["Offline"]
+      currentAuditStatus: AuditStatus["Online"],
+      targetAuditStatus: AuditStatus["Offline"]
     })).subscribe(r => {
       this.getTrainings()
     })
@@ -140,8 +140,8 @@ export class TrainingListComponent extends AppComponentBase {
       // this.review(false, ary);
       this._trainingService.trainingAudit(new TrainingAuditInput({
         trainingIds: ary,
-        currentAuditStatus: TrainingAuditStatus["Online"],
-        targetAuditStatus: TrainingAuditStatus["Offline"]
+        currentAuditStatus: AuditStatus["Online"],
+        targetAuditStatus: AuditStatus["Offline"]
       })).subscribe(r => {
         this.getTrainings()
       })
@@ -154,8 +154,8 @@ export class TrainingListComponent extends AppComponentBase {
       // this.review(true, ary);
       this._trainingService.trainingAudit(new TrainingAuditInput({
         trainingIds: ary,
-        currentAuditStatus: TrainingAuditStatus["Offline"],
-        targetAuditStatus: TrainingAuditStatus["Online"]
+        currentAuditStatus: AuditStatus["Offline"],
+        targetAuditStatus: AuditStatus["Online"]
       })).subscribe(r => {
         this.getTrainings()
       })
@@ -166,8 +166,8 @@ export class TrainingListComponent extends AppComponentBase {
     // this.review(true);
     this._trainingService.trainingAudit(new TrainingAuditInput({
       trainingIds: [],
-      currentAuditStatus: TrainingAuditStatus["Offline"],
-      targetAuditStatus: TrainingAuditStatus["Online"]
+      currentAuditStatus: AuditStatus["Offline"],
+      targetAuditStatus: AuditStatus["Online"]
     })).subscribe(r => {
       this.getTrainings()
     })
@@ -196,10 +196,10 @@ export class TrainingListComponent extends AppComponentBase {
   filterTraining() {
     var upNum = [], upNumIds = [], downNum = [], downNumIds = [];
     this.couponPublishList.forEach((v, index, array) => {
-      if (v.auditStatus == 0) {
+      if (v.auditStatus == 'Offline') {
         downNum.push(v);
         downNumIds.push(v.id);
-      } else if (v.auditStatus == 1) {
+      } else if (v.auditStatus == 'Online') {
         upNum.push(v);
         upNumIds.push(v.id);
       }
@@ -260,7 +260,7 @@ export class TrainingListComponent extends AppComponentBase {
 
 
   goImport() {
-    this.router.navigate(['app', 'admin','import', 'import', 'training']);
+    this.router.navigate(['app', 'admin', 'import', 'import', 'training']);
   }
 
 
@@ -304,20 +304,20 @@ export class TrainingListComponent extends AppComponentBase {
   }
 
   // 筛选讲师
-  lecturerFilter (event) {
+  lecturerFilter(event) {
     this._LoginServiceProxy.getPlatformUsers(abp.session.tenantId).subscribe((result) => {
-        this.lecturerSuggestion = (result || []).map((item) => {
-            return {
-                'id': item.userId,
-                'value': item.userName
-            }
-          })
+      this.lecturerSuggestion = (result || []).map((item) => {
+        return {
+          'id': item.userId,
+          'value': item.userName
+        }
       })
+    })
   }
 
-  assignLecturer () {
-      var temp: any = {}
-      this.trainingUserId = this.lecturers.id
+  assignLecturer() {
+    var temp: any = {}
+    this.trainingUserId = this.lecturers.id
   }
 
 }

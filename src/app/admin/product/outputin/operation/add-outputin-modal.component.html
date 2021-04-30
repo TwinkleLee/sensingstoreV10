@@ -59,9 +59,9 @@
                                             {{l('nowQuantity')}}
                                         </th>
                                         <th>
-                                            <span *ngIf="Input.outPutInStorageType==0">{{l('OutQuantity')}}</span>
-                                            <span *ngIf="Input.outPutInStorageType==1">{{l('InQuantity')}}</span>
-                                            <span *ngIf="Input.outPutInStorageType==2">{{l('RealQuantity')}}</span>
+                                            <span *ngIf="Input.outPutInStorageType=='Out'">{{l('OutQuantity')}}</span>
+                                            <span *ngIf="Input.outPutInStorageType=='Put'">{{l('InQuantity')}}</span>
+                                            <span *ngIf="Input.outPutInStorageType=='Check'">{{l('RealQuantity')}}</span>
                                         </th>
                                     </tr>
                                 </ng-template>

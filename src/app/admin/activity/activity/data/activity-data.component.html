@@ -310,9 +310,9 @@
                                     <span>{{record.province}}</span>
                                   </td>
                                   <td>
-                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[0]">{{l('Taobao')}}</span>
-                                    <span *ngIf="record.snsType==_definitions_EnumSnsType[1]">{{l('WeChat')}}</span>
-                                    <span *ngIf="record.snsType==2">{{l('Others')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType['Taobao']">{{l('Taobao')}}</span>
+                                    <span *ngIf="record.snsType==_definitions_EnumSnsType['WeChat']">{{l('WeChat')}}</span>
+                                    <span *ngIf="record.snsType=='AliPay'||'AliPay_WeChat'||'Douyin'||'Weibo'||'Others'">{{l('Others')}}</span>
                                   </td>
                                   <td>
                                     <span>{{record.endTime | date : "yyyy/MM/dd"}}</span>

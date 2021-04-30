@@ -1,6 +1,6 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
-import { CreateResourceFileInput,UpdateResourceFileInput,ResourceFileServiceProxy, FileServiceProxy, TokenAuthServiceProxy, TagServiceProxy} from '@shared/service-proxies/service-proxies';
+import { CreateResourceFileInput,UpdateResourceFileInput,ResourceFileServiceProxy, FileServiceProxy, TokenAuthServiceProxy, TagServiceProxy, TagType} from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';
@@ -163,7 +163,7 @@ export class CreateOrEditResourceModalComponent extends AppComponentBase impleme
      //筛选标签
      filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query,void 0,100,0,0).subscribe((result)=>{
+        this._TagServiceProxy.getTagsByType(event.query,void 0,100,0, TagType.Resource).subscribe((result)=>{
                 this.tagSuggestion = result.items;
         })
     }

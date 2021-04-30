@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, AfterViewChecked 
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { EnumWeChatType,SnsMsgBeforeGameDto, SnsMsgAfterGameDto, ActionShareDto, ActivityServiceProxy, ActivityGameSettingsInput, HtmlTemplateServiceProxy, TemplateEnum, DeviceActivityServiceProxy, CreateDeviceActivityGameInput, UpdateDeviceActivityGameInput, UserActionServiceProxy, SnsActivityAuthorizationType } from '@shared/service-proxies/service-proxies5';
+import { SnsMsgBeforeGameDto, SnsMsgAfterGameDto, ActionShareDto, ActivityServiceProxy, ActivityGameSettingsInput, HtmlTemplateServiceProxy, TemplateEnum, DeviceActivityServiceProxy, CreateDeviceActivityGameInput, UpdateDeviceActivityGameInput, UserActionServiceProxy, SnsActivityAuthorizationType } from '@shared/service-proxies/service-proxies5';
 
 import { ActivatedRoute } from '@angular/router';
 import {  SoftwareServiceProxy } from '@shared/service-proxies/service-proxies-ads';

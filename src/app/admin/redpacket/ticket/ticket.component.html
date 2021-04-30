@@ -70,8 +70,8 @@
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="ticketType" name="ticketType">
                                                     <option value="">{{l("All")}}</option>
-                                                    <option [value]="0">{{l("Voucher")}}</option>
-                                                    <option [value]="1">{{l("Discount")}}</option>
+                                                    <option value="Voucher">{{l("Voucher")}}</option>
+                                                    <option value="Discount">{{l("Discount")}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -83,10 +83,10 @@
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="takeType" name="takeType">
                                                     <option value="">{{l("All")}}</option>
-                                                    <option [value]="0">{{l("UserTake")}}</option>
-                                                    <option [value]="1">{{l("ManagerGrant")}}</option>
-                                                    <option [value]="2">{{l("RegisterAutoGrant")}}</option>
-                                                    <option [value]="3">{{l("GameAutoGrant")}}</option>
+                                                    <option value="UserTake">{{l("UserTake")}}</option>
+                                                    <option value="ManagerGrant">{{l("ManagerGrant")}}</option>
+                                                    <option value="RegisterAutoGrant">{{l("RegisterAutoGrant")}}</option>
+                                                    <option value="GameAutoGrant">{{l("GameAutoGrant")}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -186,14 +186,14 @@
                                             <span>{{record.usage}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.ticketType==TicketType[0]">{{l('Voucher')}}</span>
-                                            <span *ngIf="record.ticketType==TicketType[1]">{{l('Discount')}}</span>
+                                            <span *ngIf="record.ticketType=='Voucher'">{{l('Voucher')}}</span>
+                                            <span *ngIf="record.ticketType=='Discount'">{{l('Discount')}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.takeType==TakeType[0]">{{l('UserTake')}}</span>
-                                            <span *ngIf="record.takeType==TakeType[1]">{{l('ManagerGrant')}}</span>
-                                            <span *ngIf="record.takeType==TakeType[2]">{{l('RegisterAutoGrant')}}</span>
-                                            <span *ngIf="record.takeType==TakeType[3]">{{l('GameAutoGrant')}}</span>
+                                            <span *ngIf="record.takeType=='UserTake'">{{l('UserTake')}}</span>
+                                            <span *ngIf="record.takeType=='ManagerGrant'">{{l('ManagerGrant')}}</span>
+                                            <span *ngIf="record.takeType=='RegisterAutoGrant'">{{l('RegisterAutoGrant')}}</span>
+                                            <span *ngIf="record.takeType=='GameAutoGrant'">{{l('GameAutoGrant')}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.limitTimes}}</span>
@@ -213,9 +213,9 @@
                                         </td>
 
                                         <td>
-                                            <span *ngIf="record.ticketStatus==0"
+                                            <span *ngIf="record.ticketStatus=='Offline'"
                                                 class="label label-dark label-inline">{{l('offline')}}</span>
-                                            <span *ngIf="record.ticketStatus==1"
+                                            <span *ngIf="record.ticketStatus=='Online'"
                                                 class="label label-success label-inline">{{l('online')}}</span>
                                         </td>
                                     </tr>
