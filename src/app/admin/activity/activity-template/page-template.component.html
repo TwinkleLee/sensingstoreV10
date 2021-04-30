@@ -104,12 +104,12 @@
                                             <span>{{record.actionUrl}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.templateType==TemplateEnum[1]">{{l('ActivityIntroduce')}}</span>
-                                            <span *ngIf="record.templateType==TemplateEnum[2]">{{l('messageTemplate')}}</span>
-                                            <span *ngIf="record.templateType==TemplateEnum[3]">{{l('WinningStatus')}}</span>
-                                            <span *ngIf="record.templateType==TemplateEnum[4]">{{l('Login')}}</span>
-                                            <span *ngIf="record.templateType==TemplateEnum[5]">{{l('OnlineGame')}}</span>
-                                            <span *ngIf="record.templateType==TemplateEnum[6]">{{l('GameResult')}}</span>
+                                            <span *ngIf="record.templateType==TemplateEnum['ActivityIntroduction']">{{l('ActivityIntroduce')}}</span>
+                                            <span *ngIf="record.templateType==TemplateEnum['Action']">{{l('messageTemplate')}}</span>
+                                            <span *ngIf="record.templateType==TemplateEnum['Award']">{{l('WinningStatus')}}</span>
+                                            <span *ngIf="record.templateType==TemplateEnum['Register']">{{l('Login')}}</span>
+                                            <span *ngIf="record.templateType==TemplateEnum['GameOnLine']">{{l('OnlineGame')}}</span>
+                                            <span *ngIf="record.templateType==TemplateEnum['GameResult']">{{l('GameResult')}}</span>
                                         </td>
                                     </tr>
                                 </ng-template>

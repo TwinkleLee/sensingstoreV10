@@ -84,8 +84,8 @@
                                             <span>{{record.orderFrom}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.payType==0">{{l('Pay')}}</span>
-                                            <span *ngIf="record.payType==1">{{l('Refund')}}</span>
+                                            <span *ngIf="record.payType=='Pay'">{{l('Pay')}}</span>
+                                            <span *ngIf="record.payType=='Refund'">{{l('Refund')}}</span>
                                         </td>
                                         <td style="width:25%;">
                                             <span>{{record.tradNumber}}</span>
