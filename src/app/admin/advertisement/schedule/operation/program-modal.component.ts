@@ -638,7 +638,9 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
         }).map(item => {
             return item.value
         })
-        this.content.monthDay && (this.content.monthDay = this.content.monthDay.split(','))
+
+        console.log("content.monthDay",this.content.monthDay)
+        this.content.monthDay && (this.content.monthDay = String(this.content.monthDay).split(','))
         //时间轴开始结束日期
         if (this.content.model != "0") {
             this.content.startTime = void 0;

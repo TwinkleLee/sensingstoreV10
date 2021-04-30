@@ -285,11 +285,11 @@
                                                                     <input
                                                                         [(ngModel)]="IsSearchSku" type="checkbox"
                                                                         name="IsSearchSku" />
-                                                                    
+                                                                        <b style="margin-left: 30px;line-height: 1.5rem;">
+                                                                            {{l("isFilterSku")}}
+                                                                        </b>
                                                                     <span></span>
-                                                                    <b style="margin-left: 30px;line-height: 1.5rem;">
-                                                                        {{l("isFilterSku")}}
-                                                                    </b>
+                                                                    
                                                                 </label>
                                                             </div>
                                                             <div class="form-group col-12">
@@ -349,7 +349,7 @@
                                         <div style="position:absolute;top:6rem;z-index:9999;"></div>
 
                                         <!-- <div [ngClass]="{'hide':!showBrand,'float_panel':true,'beautyScroll':true}" -->
-                                        <div *ngIf="showBrand" [ngClass]="{'float_panel':true,'beautyScroll':true}"
+                                        <div [ngClass]="{'hide':!showBrand,'float_panel':true,'beautyScroll':true}"
                                             [ngStyle]="{'height':'calc('+avalibleHeight+' - 20px)'}"
                                             style="top:6rem;left:5%;">
                                             <div class="panel_body">
