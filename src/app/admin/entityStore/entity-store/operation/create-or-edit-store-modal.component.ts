@@ -216,7 +216,9 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
         this.organizationUnit.openingTime = new Date(`2017-01-10T${this.openingTime}:00`);
         this.organizationUnit.closedTime = new Date(`2017-01-10T${this.closedTime}:00`);
         this.organizationUnit.position = new PositionDto(this.organizationUnit.position);
-        const createInput = new CreateStoreInput(this.organizationUnit);
+
+
+        const createInput = new UpdateStoreInput(this.organizationUnit);
         this.saving = true;
 
         if (window['BMap'].Geocoder) {
@@ -227,12 +229,12 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     this.organizationUnit.position.latitude = point.lat;
                 }
                 this._NewStoreServiceProxy
-                    .createStore(createInput)
+                    .addorUpdateStore(createInput)
                     .pipe(finalize(() => { this.saving = false }))
                     .subscribe((result) => {
                         console.log(result);
 
-                        this.updateRoomList(result);
+                        // this.updateRoomList(result);
 
                         this.notify.info(this.l('SavedSuccessfully'));
                         this.modalSave.emit();
@@ -246,7 +248,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 .subscribe((result) => {
                     console.log(result);
 
-                    this.updateRoomList(result);
+                    // this.updateRoomList(result);
 
                     this.notify.info(this.l('SavedSuccessfully'));
                     this.modalSave.emit();
@@ -291,11 +293,15 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     this.organizationUnit.position.latitude = point.lat;
                 }
                 this._NewStoreServiceProxy
-                    .updateStore(updateInput)
+                    .addorUpdateStore(updateInput)
                     .pipe(finalize(() => { this.saving = false }))
                     .subscribe((result) => {
                         console.log(result);
-                        this.updateRoomList(result);
+
+
+                        // this.updateRoomList(result);
+
+
                         this.notify.info(this.l('SavedSuccessfully'));
                         this.modalSave.emit();
                         this.close();
@@ -303,11 +309,12 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             }, this.organizationUnit.position.city);
         } else {
             this._NewStoreServiceProxy
-                .updateStore(updateInput)
+                .addorUpdateStore(updateInput)
                 .pipe(finalize(() => { this.saving = false }))
                 .subscribe((result) => {
+                    
                     console.log(result);
-                    this.updateRoomList(result);
+                    // this.updateRoomList(result);
                     this.notify.info(this.l('SavedSuccessfully'));
                     this.modalSave.emit();
                     this.close();
