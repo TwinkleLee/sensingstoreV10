@@ -769,7 +769,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this._deviceProductService.getProductsByDeviceId(
                 this.device.id,
                 void 0,
-                AuditStatus.Offline,
+                AuditStatus.Online,
                 void 0,
                 void 0,
                 1,

@@ -128,10 +128,10 @@
                                             <th style="width:5%">{{l('RecordId')}}</th>
                                             <th>{{l('name')}}</th>
                                             <th>{{l('Logo')}}</th>
-                                            <th pSortableColumn="ownerName">
+                                            <!-- <th pSortableColumn="ownerName">
                                                 {{l('owner')}}
                                                 <p-sortIcon field="ownerName"></p-sortIcon>
-                                            </th>
+                                            </th> -->
                                             <th pSortableColumn="openDate">
                                                 {{l('startDate')}}
                                                 <p-sortIcon field="openDate"></p-sortIcon>
@@ -183,7 +183,7 @@
                                                 <img [src]="fixFileUrl(record.activityLogoPath)"
                                                     (error)="showEmpty($event)" />
                                             </td>
-                                            <td>{{record.ownerName}}</td>
+                                            <!-- <td>{{record.ownerName}}</td> -->
                                             <td>{{record.openDate | date : "yyyy/MM/dd"}}</td>
                                             <td>{{record.endDate| date : "yyyy/MM/dd"}}</td>
                                             <td>
