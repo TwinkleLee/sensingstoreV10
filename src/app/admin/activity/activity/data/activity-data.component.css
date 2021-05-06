@@ -431,7 +431,7 @@
   visibility: hidden;
 }
 
-#ClearSpanBtn {
+#datePick #ClearSpanBtn {
   right: -14px !important;
   top: 0 !important;
 }

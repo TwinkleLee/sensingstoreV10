@@ -1,6 +1,8 @@
 <div [@routerTransition]>
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'Page' | localize" [description]="'applicationName' | localize">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            
             <div role="actions">
                 <button (click)="createItem()" class="btn btn-primary blue">
                     <i class="fa fa-plus"></i> {{l("add")}}{{l('Page')}}</button>

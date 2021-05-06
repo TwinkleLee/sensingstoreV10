@@ -124,8 +124,8 @@
                                                 (completeMethod)="lecturerFilter($event)" field="value"
                                                 [placeholder]="l('lecturer')" dataKey="id" [dropdown]="true"
                                                 (onSelect)="assignLecturer()" (onUnselect)="assignLecturer()"
-                                                [minLength]="1" name="SelectInput" inputStyleClass="form-control"
-                                                styleClass="width-percent-100">
+                                                name="SelectInput" inputStyleClass="form-control"
+                                                styleClass="width-percent-100" [multiple]="true" maxLength="1">
                                             </p-autoComplete>
                                         </div>
                                     </div>

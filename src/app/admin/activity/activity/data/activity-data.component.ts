@@ -10,7 +10,7 @@ import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 import * as moment from 'moment';
-import { ActivityServiceProxy, _definitions_EnumSnsType,ClearActivityUserDataInput, DoClearActivityDataInput, ReportServiceProxy as ActivityReportServiceProxy, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { ActivityServiceProxy, _definitions_EnumSnsType, ClearActivityUserDataInput, DoClearActivityDataInput, ReportServiceProxy as ActivityReportServiceProxy, UserActionServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { PlayerDataDetailComponent } from '@app/admin/activity/player-data/detail/player-data-detail.component';
 import { ChangeWhiteListModalComponent } from '@app/admin/activity/activity/data/operation/change-white-list.component';
 import { ExpressDetailModalComponent } from '@app/admin/activity/activity/data/operation/express-detail.component';
@@ -193,16 +193,18 @@ export class ActivityDataComponent extends AppComponentBase {
     if (this.RestoreSet.isClearAction || this.RestoreSet.isClearUserData || this.RestoreSet.isClearAward) {
       this.showRestore = false;
       this.message.confirm(this.l("ClearData"), this.l('AreYouSure'), (r) => {
-        this.restoreBusy = true;
-        this.RestoreSet.activityId = this.activityId;
-        this._ActivityServiceProxy.clearActivityData(new DoClearActivityDataInput(this.RestoreSet)).subscribe(r => {
-          this.notify.info(this.l('success'));
-          this.restoreBusy = false;
-          this.getPlayerData();
-          this.getRegisterUser();
-          this.drawActivityChart();
-          this.getActivityAwardUser();
-        })
+        if (r) {
+          this.restoreBusy = true;
+          this.RestoreSet.activityId = this.activityId;
+          this._ActivityServiceProxy.clearActivityData(new DoClearActivityDataInput(this.RestoreSet)).subscribe(r => {
+            this.notify.info(this.l('success'));
+            this.restoreBusy = false;
+            this.getPlayerData();
+            this.getRegisterUser();
+            this.drawActivityChart();
+            this.getActivityAwardUser();
+          })
+        }
       })
     } else {
       this.message.warn(this.l('atLeastChoseOneItem'));
@@ -389,13 +391,13 @@ export class ActivityDataComponent extends AppComponentBase {
   //返回
   goBack() {
     if (this.deviceId) {
-      this.router.navigate(['app', 'admin','device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
+      this.router.navigate(['app', 'admin', 'device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
     } else {
-      this.router.navigate(['app', 'admin','activity', 'activity']);
+      this.router.navigate(['app', 'admin', 'activity', 'activity']);
     }
   }
   changeSetup(e) {
-    this.router.navigate(['app', 'admin','activity', 'activity', e]);
+    this.router.navigate(['app', 'admin', 'activity', 'activity', e]);
   }
 
   imageOnUpload(result): void {

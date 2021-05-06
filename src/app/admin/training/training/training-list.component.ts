@@ -316,13 +316,18 @@ export class TrainingListComponent extends AppComponentBase {
   }
 
   assignLecturer() {
-    var temp: any = {}
-    this.trainingUserId = this.lecturers.id
+    console.log(this.lecturers)
+    if (this.lecturers.length !== 0) {
+      this.trainingUserId = this.lecturers[0].id
+    } else {
+      this.trainingUserId = ''
+    }
+    
   }
 
   deleteBatch () {
     this.checkSelection(true, (ary) => {
-      this.message.confirm(this.l('batchDeleteAdsQuestion'), this.l('AreYouSure'),(r) => {
+      this.message.confirm(this.l('deleteBatch'), this.l('AreYouSure'),(r) => {
         if (r) {
           this._trainingService.batchDeleteTraining(ary).subscribe((result) => {
             this.notify.info(this.l('success'));
