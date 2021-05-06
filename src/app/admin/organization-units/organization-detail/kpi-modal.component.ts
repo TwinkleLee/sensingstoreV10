@@ -69,11 +69,11 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
             this.operation = "edit";
             this.metaType = metaType;
 
-            if (this.metaType.kpiScale == 0) {
+            if (this.metaType.kpiScale == 'Year') {
                 this.metaType.scaleTime = moment(this.metaType.scaleTime).format('YYYY');
-            } else if (this.metaType.kpiScale == 1) {
+            } else if (this.metaType.kpiScale == 'Month') {
                 this.metaType.scaleTime = moment(this.metaType.scaleTime).format('YYYY-MM');
-            } else if (this.metaType.kpiScale == 3) {
+            } else if (this.metaType.kpiScale == 'Day') {
                 this.metaType.scaleTime = moment(this.metaType.scaleTime).format('YYYY-MM-DD');
             }
 
@@ -86,7 +86,7 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
                 this.metaType.organizationUnitId = metaType.id;
             }
             this.metaType.ouOrStoreName = metaType.name;
-            this.metaType.kpiScale = "0";
+            this.metaType.kpiScale = "Year";
         }
 
 

@@ -31,10 +31,10 @@
                         <div class="form-group col-6">
                             <label>{{l("cate")}}</label>
                             <select class="form-control" [(ngModel)]="objItem.category" name="category">
-                                <option [value]="0">{{l("Company")}}</option>
-                                <option [value]="1">{{l("Department")}}</option>
-                                <option [value]="2">{{l("Team")}}</option>
-                                <option [value]="3">{{l("Personal")}}</option>
+                                <option value="Company">{{l("Company")}}</option>
+                                <option value="Department">{{l("Department")}}</option>
+                                <option value="Team">{{l("Team")}}</option>
+                                <option value="Personal">{{l("Personal")}}</option>
                             </select>
                         </div>
                         <div class="form-group col-6">
@@ -55,13 +55,13 @@
                             <label>{{l('ParentType')}}</label>
                             <select class="form-control" [(ngModel)]="objItem.parent" name="parent"
                                 (change)="typeChange()">
-                                <option [value]="0">{{l("Objective")}}</option>
-                                <option [value]="1">{{l("KeyResult")}}</option>
+                                <option value="Objective">{{l("Objective")}}</option>
+                                <option value="KeyResult">{{l("KeyResult")}}</option>
                             </select>
                         </div>
                         <div class="form-group col-6">
                             <label>{{l('Parent')}}</label>
-                            <p-autoComplete *ngIf="objItem.parent == 0,else content" [(ngModel)]="parent"
+                            <p-autoComplete *ngIf="objItem.parent == 'Objective',else content" [(ngModel)]="parent"
                                 [suggestions]="parentSelection" (completeMethod)="parentFilter($event)" field="value"
                                 [placeholder]="l('Parent')" dataKey="id" [dropdown]="true" (onSelect)="assignParent()"
                                 (onUnselect)="assignParent()" [minLength]="1" name="parentId"

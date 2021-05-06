@@ -66,7 +66,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
     }
 
     optStatusChange() {
-        if (this.deviceRecord.optStatus == 2 && !this.deviceRecord.endTime) {
+        if (this.deviceRecord.optStatus == 'Completed' && !this.deviceRecord.endTime) {
             this.deviceRecord.endTime = moment().format('YYYY/MM/DD HH:mm');
         }
     }
@@ -100,7 +100,7 @@ export class CreateOrEditDeviceRecordComponent extends AppComponentBase {
                 // tenantId: this.device ? this.device.tenantId : '',
                 // deviceName: this.device ? this.device.name : '',
                 operator: this._sessionService.user.userName,
-                optStatus: '0'
+                optStatus: 'Undo'
             });
             this.deviceRecord.startTime = moment();
 

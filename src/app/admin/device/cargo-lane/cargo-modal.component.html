@@ -61,8 +61,8 @@
                                                 <div class="input-group">
                                                     <select #TypeCombobox class="form-control"
                                                         [(ngModel)]="Personality.cargoType" name="cargoType" required>
-                                                        <option [value]="0">{{l('orderCargo')}}</option>
-                                                        <option [value]="1">{{l('randomCargo')}}</option>
+                                                        <option value="Sequence">{{l('orderCargo')}}</option>
+                                                        <option value="Random">{{l('randomCargo')}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -113,9 +113,9 @@
                                                     <select (ngModelChange)="changeType(item)" #TypeCombobox
                                                         class="form-control" [(ngModel)]="item.type"
                                                         [ngModelOptions]="{standalone: true}" required>
-                                                        <option [value]="0">{{l('product')}}</option>
-                                                        <option [value]="1">{{l('Sku')}}</option>
-                                                        <option [value]="2">{{l('award')}}</option>
+                                                        <option value="Product">{{l('product')}}</option>
+                                                        <option value="Sku">{{l('Sku')}}</option>
+                                                        <option value="Award">{{l('award')}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row" *ngIf="Personality.cargoType==1">
+                                    <div class="row" *ngIf="Personality.cargoType=='Random'">
                                         <div class="form-group col-12" style="padding-left:0;text-align: center;">
                                             <div style="position:relative;">
                                                 <button type="button" class="btn btn-primary" (click)="addThing()">

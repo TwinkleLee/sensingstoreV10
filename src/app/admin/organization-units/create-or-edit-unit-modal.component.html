@@ -66,7 +66,7 @@
 
                         <div class="form-group col-6">
                             <label>{{l("type")}} </label>
-                            <select [(ngModel)]="organizationUnit.organizationUnitTypeId" name="organizationUnitTypeId" class="form-control">
+                            <select required [(ngModel)]="organizationUnit.organizationUnitTypeId" name="organizationUnitTypeId" class="form-control">
                                 <option value="">{{l('unknown')}}</option>
                                 <option [value]="outype.value" *ngFor="let outype of outypeList">{{outype.name}}</option>
                             </select>

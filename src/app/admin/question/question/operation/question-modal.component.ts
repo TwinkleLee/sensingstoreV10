@@ -68,7 +68,7 @@ export class QuestionModalComponent extends AppComponentBase implements AfterVie
 
 
     show(record?: any): void {
-        this.Question = { tags: [], type: 0, questionScoreType: 0, enabled: true, questionItems: [] };
+        this.Question = { tags: [], type: 'Single', questionScoreType: 'Partial', enabled: true, questionItems: [] };
         this.modal.show();
         function sortOrderNo(a, b) {
             return a.orderNo - b.orderNo

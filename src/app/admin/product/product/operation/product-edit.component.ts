@@ -182,7 +182,7 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
                 this.product.pointRule = new ProductPointRule({
                     "redeemRule": new RedeemRule( {
                         "pointRedeemable": false,
-                        "redeemType": RedeemType[1],
+                        "redeemType": RedeemType['Full'],
                         "redeemAmount": 0,
                         "cashAmount": 0
                       }),

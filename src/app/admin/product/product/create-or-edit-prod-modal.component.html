@@ -243,8 +243,8 @@
                                             <label>{{l("redeemType")}}</label>
                                             <select type="text" name="redeemType" class="form-control" [(ngModel)]="product.pointRule.redeemRule.redeemType"
                                                 required>
-                                                <option value='1'>{{l("Full")}}</option>
-                                                <option value='2'>{{l("Partial")}}</option>
+                                                <option value='Full'>{{l("Full")}}</option>
+                                                <option value='Partial'>{{l("Partial")}}</option>
                                             </select>
                                         </div>
 
@@ -256,7 +256,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType==RedeemType[2]">
+                                        <div class="col-3" *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType=='Partial'">
                                             <div class="form-group">
                                                 <label>{{l("cashAmount")}}</label>
                                                 <input class="form-control" type="number" name="cashAmount" [(ngModel)]="product.pointRule.redeemRule.cashAmount"

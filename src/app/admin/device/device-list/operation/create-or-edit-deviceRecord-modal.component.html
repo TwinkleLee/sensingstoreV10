@@ -150,9 +150,10 @@
                                     <select class="form-control" (change)="optStatusChange()" [(ngModel)]="deviceRecord.optStatus"
                                         name="selectStatus" required>
                                         <!-- <option value="">{{l('AllTypes')}}</option> -->
-                                        <option value="0">{{l('unsolved')}}</option>
-                                        <option value="1">{{l('resolving')}}</option>
-                                        <option value="2">{{l('resolved')}}</option>
+                                        <option value="Undo">{{l('unsolved')}}</option>
+                                        <option value="Processing">{{l('resolving')}}</option>
+                                        <option value="Completed">{{l('resolved')}}</option>
+                                        <option value="InPlan">{{l('InPlan')}}</option>
                                     </select>
                                 </div>
                             </div>

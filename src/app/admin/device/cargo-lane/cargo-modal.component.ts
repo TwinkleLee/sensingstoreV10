@@ -57,7 +57,7 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
             this.Personality = Object.assign({}, Personality);
             if (this.Personality.cargoThings && !this.Personality.cargoThings.length) {
                 this.Personality.cargoThings.push(new CreateCargoThingInput())
-                this.Personality.cargoThings[0].type = "1";
+                this.Personality.cargoThings[0].type = "Sku";
                 this.Personality.cargoThings[0].stock = 1;
                 this.Personality.cargoThings[0].orderNumber = 0;
             }
@@ -65,14 +65,14 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
             this.operation = "add";
             this.Personality = new CreateCargoRoadsInput();
             // this.Personality.type = "1";
-            this.Personality.cargoType = "0";
+            this.Personality.cargoType = "Sequence";
             this.Personality.deviceId = this.deviceId;
             this.Personality.isEnabled = true;
 
             //创建时给予一个默认货物
             this.Personality.cargoThings = [];
             this.Personality.cargoThings.push(new CreateCargoThingInput())
-            this.Personality.cargoThings[0].type = "2";
+            this.Personality.cargoThings[0].type = "Award";
             this.Personality.cargoThings[0].stock = 1;
             this.Personality.cargoThings[0].orderNumber = 0;
         }
@@ -101,10 +101,10 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
         this.nowSelectedItem.thingId = "";
         this.nowSelectedItem.thingName = "";
 
-        if (this.nowSelectedItem.type == 0) {//商品
+        if (this.nowSelectedItem.type == 'Product') {//商品
 
             if (this.Personality.cargoThings.some(item => {
-                return item.type == 0 && item.thingId == record.selection[0].id
+                return item.type == 'Product' && item.thingId == record.selection[0].id
             })) {
                 this.notify.warn(this.l('ExistRepeatedCargoThing'));
                 return
@@ -125,9 +125,9 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
             this.nowSelectedItem.thingId = record.selection[0].id;
             this.nowSelectedItem.thingName = record.selection[0].title;
         }
-        if (this.nowSelectedItem.type == 2) {//奖品
+        if (this.nowSelectedItem.type == 'Award') {//奖品
             if (this.Personality.cargoThings.some(item => {
-                return item.type == 2 && item.thingId == record.selection[0].awardId
+                return item.type == 'Award' && item.thingId == record.selection[0].awardId
             })) {
                 this.notify.warn(this.l('ExistRepeatedCargoThing'));
                 return
@@ -144,7 +144,7 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
     save(): void {
         console.log(this.Personality.cargoThings);
 
-        if (this.Personality.cargoType == '0' && this.Personality.cargoThings.length > 1) {
+        if (this.Personality.cargoType == 'Sequence' && this.Personality.cargoThings.length > 1) {
             this.message.warn(this.l('OrderCargoOnlyOneThing'))
             return
         }
@@ -226,7 +226,7 @@ export class CargoModalComponent extends AppComponentBase implements AfterViewCh
     addThing() {
         var newInput = new CreateCargoThingInput()
         this.Personality.cargoThings.push(newInput)
-        this.Personality.cargoThings[this.Personality.cargoThings.length - 1].type = "2";
+        this.Personality.cargoThings[this.Personality.cargoThings.length - 1].type = "Award";
         this.Personality.cargoThings[this.Personality.cargoThings.length - 1].stock = 1;
         this.Personality.cargoThings[this.Personality.cargoThings.length - 1].orderNumber = this.Personality.cargoThings.length - 1;
     }

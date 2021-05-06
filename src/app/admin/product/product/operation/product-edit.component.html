@@ -236,12 +236,12 @@
                                         <label>{{l("freightType")}}</label>
                                         <select type="text" name="freightType" class="form-control"
                                             [(ngModel)]="product.freightType">
-                                            <option value='0'>{{l('freightTemplate')}}</option>
-                                            <option value='1'>{{l('fixedPrice')}}</option>
+                                            <option value='Calculate'>{{l('freightTemplate')}}</option>
+                                            <option value='Fixed'>{{l('fixedPrice')}}</option>
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-3" *ngIf="product.freightType==0">
+                                    <div class="form-group col-3" *ngIf="product.freightType=='Calculate'">
                                         <label>{{l("freightTemplate")}}</label>
                                         <select type="text" name="shopFreightId" class="form-control"
                                             [(ngModel)]="product.shopFreightId">
@@ -251,7 +251,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-3" *ngIf="product.freightType==1">
+                                    <div class="col-3" *ngIf="product.freightType=='Fixed'">
                                         <div class="form-group">
                                             <label>{{l("fixedPrice")}}</label>
                                             <input class="form-control" type="number" name="fixedPrice"
@@ -264,10 +264,8 @@
                                 <div class="row" *ngIf="product.pointRule">
 
                                     <div class="form-group col-3" style="position:relative;min-height:5rem;">
-                                        <label class="checkbox checkbox-primary"
-                                            style="position:absolute;top:50%;">
-                                            <input
-                                                [(ngModel)]="product.pointRule.redeemRule.pointRedeemable"
+                                        <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                            <input [(ngModel)]="product.pointRule.redeemRule.pointRedeemable"
                                                 type="checkbox" name="pointRedeemable" />
                                             <span></span>
                                             {{l("pointRedeemable")}}
@@ -278,8 +276,9 @@
                                         <label>{{l("redeemType")}}</label>
                                         <select type="text" name="redeemType" class="form-control"
                                             [(ngModel)]="product.pointRule.redeemRule.redeemType" required>
-                                            <option value='1'>{{l("Full")}}</option>
-                                            <option value='2'>{{l("Partial")}}</option>
+                                            <option value="None">{{l('None')}}</option>
+                                            <option value='Full'>{{l("Full")}}</option>
+                                            <option value='Partial'>{{l("Partial")}}</option>
                                         </select>
                                     </div>
 
@@ -292,7 +291,7 @@
                                     </div>
 
                                     <div class="col-3"
-                                        *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType==2">
+                                        *ngIf="product.pointRule.redeemRule.pointRedeemable&&product.pointRule.redeemRule.redeemType=='Partial'">
                                         <div class="form-group">
                                             <label>{{l("cashAmount")}}</label>
                                             <input class="form-control" type="number" name="cashAmount"
@@ -305,11 +304,9 @@
                                 <div class="row" *ngIf="product.pointRule">
 
                                     <div class="form-group col-3" style="position:relative;min-height:5rem;">
-                                        <label class="checkbox checkbox-primary"
-                                            style="position:absolute;top:50%;">
-                                            <input
-                                                [(ngModel)]="product.pointRule.awardRule.pointAwardable" type="checkbox"
-                                                name="pointAwardable" />
+                                        <label class="checkbox checkbox-primary" style="position:absolute;top:50%;">
+                                            <input [(ngModel)]="product.pointRule.awardRule.pointAwardable"
+                                                type="checkbox" name="pointAwardable" />
                                             <span></span>
                                             {{l("pointAwardable")}}
                                         </label>

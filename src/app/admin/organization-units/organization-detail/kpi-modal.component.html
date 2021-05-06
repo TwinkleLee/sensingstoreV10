@@ -42,25 +42,25 @@
                                 <div class="input-group">
                                     <select class="form-control" [(ngModel)]="metaType.kpiScale" name="kpiScale"
                                         required>
-                                        <option value="0">{{l("yearly")}}</option>
-                                        <option value="1">{{l("monthly")}}</option>
-                                        <option value="3">{{l("daily")}}</option>
+                                        <option value="Year">{{l("yearly")}}</option>
+                                        <option value="Month">{{l("monthly")}}</option>
+                                        <option value="Day">{{l("daily")}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="form-group" *ngIf="metaType.kpiScale == 0">
+                            <div class="form-group" *ngIf="metaType.kpiScale == 'Year'">
                                 <label>{{l("CheckTime")}} ({{l("SuchAs")}}:2018)</label>
                                 <input class="form-control" type="text" name="scaleTime" [(ngModel)]="metaType.scaleTime"
                                     maxlength="32" required pattern="^\d{4}$">
                             </div>
-                            <div class="form-group" *ngIf="metaType.kpiScale == 1">
+                            <div class="form-group" *ngIf="metaType.kpiScale == 'Month'">
                                 <label>{{l("CheckTime")}} ({{l("SuchAs")}}:2018-06)</label>
                                 <input class="form-control" type="text" name="scaleTime" [(ngModel)]="metaType.scaleTime"
                                     maxlength="32" required pattern="^\d{4}-\d{2}$">
                             </div>
-                            <div class="form-group" *ngIf="metaType.kpiScale == 3">
+                            <div class="form-group" *ngIf="metaType.kpiScale == 'Day'">
                                 <label>{{l("CheckTime")}} ({{l("SuchAs")}}:2018-06-30)</label>
                                 <input class="form-control" type="text" name="scaleTime" [(ngModel)]="metaType.scaleTime"
                                     maxlength="32" required pattern="^\d{4}-\d{2}-\d{2}$">

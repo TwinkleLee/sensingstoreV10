@@ -50,8 +50,8 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
 
 
     tagType = [{
-        name: this.l("Resources"),
-        value: 'Resources'
+        name: this.l("Resource"),
+        value: 'Resource'
     }, {
         name: this.l("Devices"),
         value: 'Devices'

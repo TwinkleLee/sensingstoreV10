@@ -34,9 +34,9 @@
                                                 <select class="form-control" [(ngModel)]="PromotionType"
                                                     name="PromotionType">
                                                     <option value="">{{l('All')}}</option>
-                                                    <option value="0">{{l('InShop')}}</option>
+                                                    <option value="InShop">{{l('InShop')}}</option>
                                                     <!-- <option value="1">{{l('InGroup')}}</option> -->
-                                                    <option value="2">{{l('InProduct')}}</option>
+                                                    <option value="InProduct">{{l('InProduct')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -99,7 +99,7 @@
                                                     <li>
                                                         <a (click)="edit(record)" class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li *ngIf="record.promotionType==2">
+                                                    <li *ngIf="record.promotionType=='InProduct'">
                                                         <a (click)="godetail(record)"
                                                             class="icon-1311shangpinfenleipicishuxing dropdown-item">{{l('detail')}}</a>
                                                     </li>
@@ -123,13 +123,13 @@
                                         <td>{{record.startTime | date : "yyyy/MM/dd HH:mm"}}</td>
                                         <td>{{record.endTime| date : "yyyy/MM/dd HH:mm"}}</td>
                                         <td>
-                                            <span *ngIf="record.promotionType==0">{{l('InShop')}}</span>
-                                            <span *ngIf="record.promotionType==1">{{l('InGroup')}}</span>
-                                            <span *ngIf="record.promotionType==2">{{l('InProduct')}}</span>
+                                            <span *ngIf="record.promotionType=='InShop'">{{l('InShop')}}</span>
+                                            <span *ngIf="record.promotionType=='InGroup'">{{l('InGroup')}}</span>
+                                            <span *ngIf="record.promotionType=='InProduct'">{{l('InProduct')}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record.discountType==0">{{l('Voucher')}}</span>
-                                            <span *ngIf="record.discountType==1">{{l('Discount')}}</span>
+                                            <span *ngIf="record.discountType=='Voucher'">{{l('Voucher')}}</span>
+                                            <span *ngIf="record.discountType=='Discount'">{{l('Discount')}}</span>
                                         </td>
                                         <td>
                                             <span>{{record.discountAmount}}</span>

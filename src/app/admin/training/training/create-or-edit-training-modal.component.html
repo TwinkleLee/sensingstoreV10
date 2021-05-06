@@ -24,7 +24,7 @@
             </div>
 
             <div class="col-4">
-              <label>{{l("trainingNo")}}</label>
+              <label>{{l("courseNo")}}</label>
               <select required class="form-control" [(ngModel)]="training.courseId" name="courseId">
                 <option [value]="course.id" *ngFor="let course of courses">{{l(course.name)}}</option>
               </select>

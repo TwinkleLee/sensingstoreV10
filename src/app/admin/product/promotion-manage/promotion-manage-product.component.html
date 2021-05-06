@@ -24,8 +24,8 @@
                                         <div class="input-group">
                                             <select class="form-control" [(ngModel)]="batchDiscountType"
                                                 name="batchDiscountType" required>
-                                                <option value="0">{{l('Voucher')}}</option>
-                                                <option value="1">{{l('Discount')}}</option>
+                                                <option value="Voucher">{{l('Voucher')}}</option>
+                                                <option value="Discount">{{l('Discount')}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -185,8 +185,8 @@
                                                 <select class="form-control" [(ngModel)]="record.discountType"
                                                     [name]="'discountType'+record.id" required
                                                     (ngModelChange)="changeType(record)">
-                                                    <option value="0">{{l('Voucher')}}</option>
-                                                    <option value="1">{{l('Discount')}}</option>
+                                                    <option value="Voucher">{{l('Voucher')}}</option>
+                                                    <option value="Discount">{{l('Discount')}}</option>
                                                 </select>
                                             </td>
 
