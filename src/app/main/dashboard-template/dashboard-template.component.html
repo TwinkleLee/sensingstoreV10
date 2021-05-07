@@ -1,32 +1,22 @@
 <div [@routerTransition]>
-    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-subheader kt-grid__item">
-            <div [class]="containerClass">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">
-                        <i class="icon-fanhui text-info" (click)="goBack()"></i>
-                        <span>{{"DashboardTemplate" | localize}}</span>
-                    </h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <div class="kt-subheader__wrapper">
-                        <button (click)="createItem()" class="btn btn-primary blue">
-                            <i class="fa fa-plus"></i> {{l("add")}}{{l('DashboardTemplate')}}</button>
-                    </div>
-                </div>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'DashboardTemplate' | localize" [description]="'DashboardTemplate' | localize">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
+            <div role="actions">
+                <button (click)="createItem()" class="btn btn-primary blue">
+                    <i class="fa fa-plus"></i> {{l("add")}}{{l('DashboardTemplate')}}</button>
             </div>
-        </div>
+        </sub-header>
 
 
-        <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
-            <div class="kt-portlet kt-portlet--mobile">
-                <div class="kt-portlet__body">
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
 
                     <div class="row">
                         <form class="horizontal-form" autocomplete="off">
                             <div class="m-form m-form--label-align-right">
-                                <div class="row align-items-center m--margin-bottom-10">
+                                <div class="row align-items-center mb-4">
                                     <div class="col-2">
                                         <div class="form-group m-form__group align-items-center">
                                             <label>{{l('name')}}</label>

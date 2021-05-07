@@ -32,6 +32,7 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     @Input() deviceList;
+    @Input() _adsTransitionList;
 
     active = false;
     saving = false;
@@ -51,7 +52,6 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
     _record?: AddOrUpdateAdsPackageInput;
     adPackageList?: AdPackageDto[];
     _selectedList = [];
-    _adsTransitionList: any = [];
     constructor(
         injector: Injector,
         private _adsPackageSvc: AdsPackageServiceProxy,
@@ -87,7 +87,6 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
         return i + 1;
     }
     show(adpackage?: GetPackageDto, transitionList?: any): void {
-        this._adsTransitionList = transitionList;
         this.active = true;
         this.record = new AddOrUpdateAdsPackageInput();
         this._record = this.record;

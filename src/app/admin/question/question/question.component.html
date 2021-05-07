@@ -170,7 +170,8 @@
                                                         <a (click)="editQuestion(record)"
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li *ngIf="isGranted('Pages.Tenant.Question.Delete')&&!record.enabled">
+                                                    <li
+                                                        *ngIf="isGranted('Pages.Tenant.Question.Delete')&&!record.enabled">
                                                         <a (click)="deleteQuestion(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
@@ -193,7 +194,10 @@
                                             <span>{{record.score}}</span>
                                         </td>
                                         <td>
-                                            <span>{{l(QuestionTypeEnum[record.type])}}</span>
+                                            <span *ngIf="record.type=='Single'">{{l('oneChoose')}}</span>
+                                            <span *ngIf="record.type=='Multiple'">{{l('multiChoose')}}</span>
+                                            <span *ngIf="record.type=='Text'">{{l('text')}}</span>
+                                            <!-- <span>{{l(QuestionTypeEnum[record.type])}}</span> -->
                                         </td>
                                         <td>
                                             <span *ngIf="record.type!=2" style="line-height:1rem;">
@@ -207,8 +211,7 @@
                                             <span *ngIf="record.type==2">{{record.answer}}</span>
                                         </td>
                                         <td>
-                                            <span *ngFor="let tag of record.tags"
-                                                class="label label-dark label-inline">
+                                            <span *ngFor="let tag of record.tags" class="label label-dark label-inline">
                                                 {{tag.name}}
                                             </span>
                                             <span *ngIf="!record.tags||record.tags.length==0">

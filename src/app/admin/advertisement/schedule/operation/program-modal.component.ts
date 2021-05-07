@@ -291,7 +291,7 @@ export class ProgramModalComponent extends AppComponentBase implements AfterView
                         }
                         // console.log("Program.adList",Program.adList)
                         // console.log("initChild",initChild)
-                        // console.log("child",child)
+                        console.log("child",child)
 
                         if (!child.timeSpan || child.timeSpan == "00:00:00") child.timeSpan = "00:00:01";
                         return {

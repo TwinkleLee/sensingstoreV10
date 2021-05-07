@@ -81,7 +81,10 @@ export class KPIModalComponent extends AppComponentBase implements AfterViewChec
             this.operation = "add";
             this.metaType = {};
             if (this.isStore) {
+                console.log(1111);
+                
                 this.metaType.storeId = metaType.id;
+                this.metaType.storeName = metaType.name
             } else {
                 this.metaType.organizationUnitId = metaType.id;
             }

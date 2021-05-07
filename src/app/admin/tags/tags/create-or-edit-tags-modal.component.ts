@@ -53,8 +53,8 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
         name: this.l("Resource"),
         value: 'Resource'
     }, {
-        name: this.l("Devices"),
-        value: 'Devices'
+        name: this.l("Device"),
+        value: 'Device'
     }, {
         name: this.l("Product"),
         value: 'Product'
