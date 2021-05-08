@@ -148,11 +148,27 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
         abp.event.trigger('app.show.switchOUModal');
     }
     BindAccountToWechat() {
+        console.log(this.qrCodeImage, this.loadingQrcode)
         if (this.qrCodeImage) return this.onHidden()
-        if (this.loadingQrcode) return
+        // if (this.loadingQrcode) return
         if (this.loopInterval) clearInterval(this.loopInterval);
         this.loadingQrcode = true;
-        this._UserActionServiceProxy.postPlayerData4ActionQrcodeOnline(undefined, undefined, `${this.tenancyName}/${this.userName}`, undefined, undefined, undefined, EnumQRStatus["AfterGame"], _definitions_EnumSnsType["WeChat"], undefined, undefined, "781972096d884c3f8a5ce4b9e537c751", undefined, undefined, undefined)
+
+        this._UserActionServiceProxy.postPlayerData4ActionQrcode(
+            undefined, 
+            undefined, 
+            `${this.tenancyName}/${this.userName}`, 
+            undefined, 
+            undefined, 
+            undefined, 
+            EnumQRStatus["AfterGame"], 
+            _definitions_EnumSnsType["WeChat"], 
+            undefined, 
+            undefined, 
+            "781972096d884c3f8a5ce4b9e537c751", 
+            undefined, 
+            void 0, 
+            undefined)
             .pipe(this.myFinalize(() => { this.loadingQrcode = false; }))
             .subscribe(result => {
                 this.qrCodeImage = result.qrCodeImage;

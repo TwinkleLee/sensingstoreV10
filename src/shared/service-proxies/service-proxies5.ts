@@ -14809,13 +14809,13 @@ export class UserActionServiceProxy {
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (playerImage === null || playerImage === undefined)
-            throw new Error("The parameter 'playerImage' cannot be null.");
-        else
-            content_.append("PlayerImage", playerImage.data, playerImage.fileName ? playerImage.fileName : "PlayerImage");
-        if (playingImage === null || playingImage === undefined)
-            throw new Error("The parameter 'playingImage' cannot be null.");
-        else
+        // if (playerImage === null || playerImage === undefined)
+        //     throw new Error("The parameter 'playerImage' cannot be null.");
+        // else
+        //     content_.append("PlayerImage", playerImage.data, playerImage.fileName ? playerImage.fileName : "PlayerImage");
+        // if (playingImage === null || playingImage === undefined)
+        //     throw new Error("The parameter 'playingImage' cannot be null.");
+        // else
             content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
 
         let options_ : any = {

@@ -1304,64 +1304,6 @@ export class ImportFloorGuideRoomAndStoreServiceProxy {
     }
 
     /**
-     * @param fileforBrand (optional) 
-     * @param fileforBrand (optional) 
-     * @return Success
-     */
-    importBrandFromExcel(fileforBrand1: FileParameter | undefined, fileforBrand: FileParameter | null | undefined): Observable<ImportResultDto> {
-        let url_ = this.baseUrl + "/ImportFloorGuideRoomAndStore/ImportBrandFromExcel";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = new FormData();
-        if (fileforBrand !== null && fileforBrand !== undefined)
-            content_.append("fileforBrand", fileforBrand.data, fileforBrand.fileName ? fileforBrand.fileName : "fileforBrand");
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processImportBrandFromExcel(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processImportBrandFromExcel(<any>response_);
-                } catch (e) {
-                    return <Observable<ImportResultDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<ImportResultDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processImportBrandFromExcel(response: HttpResponseBase): Observable<ImportResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ImportResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<ImportResultDto>(<any>null);
-    }
-
-    /**
      * @param fileforStore (optional) 
      * @param fileforStore (optional) 
      * @return Success
@@ -6377,6 +6319,7 @@ export class RoomListDto implements IRoomListDto {
     description!: string | undefined;
     floorId!: string;
     floorNo!: string | undefined;
+    floorName!: string | undefined;
     buildingName!: string | undefined;
     buildingID!: string;
     storeName!: string | undefined;
@@ -6404,6 +6347,7 @@ export class RoomListDto implements IRoomListDto {
             this.description = _data["description"];
             this.floorId = _data["floorId"];
             this.floorNo = _data["floorNo"];
+            this.floorName = _data["floorName"];
             this.buildingName = _data["buildingName"];
             this.buildingID = _data["buildingID"];
             this.storeName = _data["storeName"];
@@ -6431,6 +6375,7 @@ export class RoomListDto implements IRoomListDto {
         data["description"] = this.description;
         data["floorId"] = this.floorId;
         data["floorNo"] = this.floorNo;
+        data["floorName"] = this.floorName;
         data["buildingName"] = this.buildingName;
         data["buildingID"] = this.buildingID;
         data["storeName"] = this.storeName;
@@ -6451,6 +6396,7 @@ export interface IRoomListDto {
     description: string | undefined;
     floorId: string;
     floorNo: string | undefined;
+    floorName: string | undefined;
     buildingName: string | undefined;
     buildingID: string;
     storeName: string | undefined;
