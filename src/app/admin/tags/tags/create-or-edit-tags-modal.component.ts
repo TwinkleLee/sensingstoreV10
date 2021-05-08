@@ -68,6 +68,9 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
         name: this.l("Question"),
         value: 'Question'
     }, {
+        name: this.l("Training"),
+        value: 'Training'
+    },{
         name: this.l("counter"),
         value: 'Counter'
     }, {
@@ -128,7 +131,7 @@ export class CreateOrEditTagModalComponent extends AppComponentBase implements A
             this.ServiceProxy = this._tagService
         }
 
-        if (this.tag.type == this.tagTypes.Question || this.tag.type == this.tagTypes.WechatPublicMessage) {
+        if (this.tag.type == this.tagTypes.Question || this.tag.type == this.tagTypes.WechatPublicMessage || this.tag.type == this.tagTypes.Training) {
             this.ServiceProxy = this._GameTagServiceProxy
         }
 

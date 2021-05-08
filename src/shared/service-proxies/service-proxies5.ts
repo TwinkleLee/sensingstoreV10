@@ -36734,6 +36734,7 @@ export enum TagType {
     Counter = "Counter",
     WechatPublicMessage = "WechatPublicMessage",
     UxPage = "UxPage",
+    Training = "Training",
 }
 
 export enum TemplateEnum {

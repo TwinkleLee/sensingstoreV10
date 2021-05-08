@@ -202,28 +202,28 @@ export class BrandCenterComponent extends AppComponentBase {
 
 
   onlineAll() {
-    this.message.confirm(`
-      <div class="form-group">
-          <label class="checkbox" style="display: flex;justify-content: center;">
-              <input id="brand_center_isOfflineProductBelongBrand"  type="checkbox" name="isOfflineProductBelongBrand" checked/>
-              <span></span>
-              ${this.l('isOnlineProductBelongBrand')}
-          </label>
-      </div>
-      `, this.l('confirmBrandOffline'), (r) => {
-      if (!r) return
-      if ($("#brand_center_isOfflineProductBelongBrand").is(':checked')) {
-        var isIncludeProduct = true;
-      } else {
-        var isIncludeProduct = false;
-      }
+    // this.message.confirm(`
+    //   <div class="form-group">
+    //       <label class="checkbox" style="display: flex;justify-content: center;">
+    //           <input id="brand_center_isOfflineProductBelongBrand"  type="checkbox" name="isOfflineProductBelongBrand" checked/>
+    //           <span></span>
+    //           ${this.l('isOnlineProductBelongBrand')}
+    //       </label>
+    //   </div>
+    //   `, this.l('confirmBrandOffline'), (r) => {
+    //   if (!r) return
+    //   if ($("#brand_center_isOfflineProductBelongBrand").is(':checked')) {
+    //     var isIncludeProduct = true;
+    //   } else {
+    //     var isIncludeProduct = false;
+    //   }
 
       this.message.confirm(this.l('confirmBrandOnline'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
 
           this._brandService.auditBrands(new OnlineOrOffLineBrandInput({
-            "isIncludeProduct": isIncludeProduct,
+            "isIncludeProduct": true,
             "wanted": OnlineOrOffLineBrandInputWanted["Online"],
             "isAllBrands": true,
             "brandIds": []
@@ -238,31 +238,31 @@ export class BrandCenterComponent extends AppComponentBase {
             })
         }
       })
-    })
+    // })
   }
 
   offlineAll() {
-    this.message.confirm(`
-    <div class="form-group">
-        <label class="checkbox" style="display: flex;justify-content: center;">
-            <input id="brand_center_isOfflineProductBelongBrand"  type="checkbox" name="isOfflineProductBelongBrand" checked/>
-            <span></span>
-            ${this.l('isOfflineProductBelongBrand')}
-        </label>
-    </div>
-    `, this.l('confirmBrandOffline'), (r) => {
-      if (!r) return
-      if ($("#brand_center_isOfflineProductBelongBrand").is(':checked')) {
-        var isIncludeProduct = true;
-      } else {
-        var isIncludeProduct = false;
-      }
+    // this.message.confirm(`
+    // <div class="form-group">
+    //     <label class="checkbox" style="display: flex;justify-content: center;">
+    //         <input id="brand_center_isOfflineProductBelongBrand"  type="checkbox" name="isOfflineProductBelongBrand" checked/>
+    //         <span></span>
+    //         ${this.l('isOfflineProductBelongBrand')}
+    //     </label>
+    // </div>
+    // `, this.l('confirmBrandOffline'), (r) => {
+    //   if (!r) return
+    //   if ($("#brand_center_isOfflineProductBelongBrand").is(':checked')) {
+    //     var isIncludeProduct = true;
+    //   } else {
+    //     var isIncludeProduct = false;
+    //   }
       this.message.confirm(this.l('confirmBrandOffline'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
 
           this._brandService.auditBrands(new OnlineOrOffLineBrandInput({
-            "isIncludeProduct": isIncludeProduct,
+            "isIncludeProduct": true,
             "wanted": OnlineOrOffLineBrandInputWanted["Offline"],
             "isAllBrands": true,
             "brandIds": []
@@ -277,7 +277,7 @@ export class BrandCenterComponent extends AppComponentBase {
             })
         }
       })
-    })
+    // })
 
   }
 

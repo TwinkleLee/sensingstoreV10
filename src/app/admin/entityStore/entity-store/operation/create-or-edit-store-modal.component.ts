@@ -171,12 +171,16 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                         }
                     })
                 ]).then(() => {
+                    // this.modal.show();
+                    // this.active = true;
+                    // this._changeDetector.detectChanges();
+                }).catch((e) => {
+                    console.log(e);
+                    // this.message.warn(this.l(e));
+                }).finally(() => {
                     this.modal.show();
                     this.active = true;
                     this._changeDetector.detectChanges();
-                }).catch((e) => {
-                    console.log(e);
-                    this.message.warn(this.l(e));
                 })
 
                 this.onShowBool = true;

@@ -2,7 +2,7 @@ import { Component, Injector, ViewChild, OnInit, AfterViewInit } from '@angular/
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 
-import { TagServiceProxy, TagType as Type } from '@shared/service-proxies/service-proxies';
+import { TagServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { TagServiceProxy as ProductTagServiceProxy } from '@shared/service-proxies/service-proxies-product'
 
@@ -10,7 +10,7 @@ import { TagServiceProxy as AdsTagServiceProxy, TagType } from '@shared/service-
 
 import { TagServiceProxy as DeviceTagServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter'
 
-import { TagServiceProxy as GameTagServiceProxy } from '@shared/service-proxies/service-proxies5'
+import { TagServiceProxy as GameTagServiceProxy,TagType as Type } from '@shared/service-proxies/service-proxies5'
 
 
 import { CreateOrEditTagModalComponent } from '@app/admin/tags/tags/create-or-edit-tags-modal.component';
@@ -109,7 +109,7 @@ export class TagsComponent extends AppComponentBase implements AfterViewInit {
       this.ServiceProxy = this._TagService
   }
 
-  if (this.tagType == Type.Question || this.tagType == Type.WechatPublicMessage) {
+  if (this.tagType == Type.Question || this.tagType == Type.WechatPublicMessage || this.tagType == Type.Training) {
       this.ServiceProxy = this._GameTagServiceProxy
   }
 

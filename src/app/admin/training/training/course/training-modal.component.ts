@@ -80,7 +80,7 @@ export class SetTrainingModalComponent extends AppComponentBase implements After
     //筛选标签
     filter(event) {
         //获取标签下拉
-        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Question).subscribe((result) => {
+        this._TagServiceProxy.getTagsByType(event.query, void 0, 100, 0, Type.Training).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
     }
