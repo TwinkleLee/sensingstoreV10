@@ -146,6 +146,8 @@ export class EntityStoreComponent extends AppComponentBase {
       .subscribe((result) => {
         this.primengTableHelper.totalRecordsCount = result.totalCount;
         this.primengTableHelper.records = result.items;
+
+        console.log(Array.isArray(result.items[0].rooms))
         // this.primengTableHelper.hideLoadingIndicator();
       });
   }

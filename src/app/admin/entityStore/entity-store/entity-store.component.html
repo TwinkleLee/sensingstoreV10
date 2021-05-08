@@ -222,10 +222,11 @@
                                                 {{record.position.location}}</span>
                                         </td>
                                         <td>
-                                            <span *ngIf="record['roomIds']!='[]'"
+                                            <span *ngIf="record.rooms.length!=0"
                                                 class="label label-success label-inline">{{l("isbinded")}}</span>
-                                            <span *ngIf="record['roomIds']=='[]'"
+                                            <span *ngIf="record.rooms.length==0"
                                                 class="label label-dark label-inline">{{l("unbinded")}}</span>
+                                                <!-- <span>{{ record.rooms.length }}</span> -->
                                         </td>
                                         <td>
                                             <span>{{getBrandName(record)}}</span>

@@ -14816,7 +14816,11 @@ export class UserActionServiceProxy {
         // if (playingImage === null || playingImage === undefined)
         //     throw new Error("The parameter 'playingImage' cannot be null.");
         // else
-            content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
+        // content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
+
+        // if (playerImage !== null || playerImage !== undefined) {
+        //     content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
+        // }
 
         let options_ : any = {
             body: content_,

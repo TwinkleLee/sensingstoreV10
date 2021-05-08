@@ -125,12 +125,12 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 }
 
                 // getRoom -> building -> floor 
-                var ids = JSON.parse(organizationUnit.roomIds) || [];
+                var ids = organizationUnit.rooms;
 
                 // 回显  楼，房间
                 Promise.all([
                     new Promise((resolve, reject) => {
-                        if (ids.lenght !== 0) {
+                        if (ids.length !== 0) {
                             this._roomServiceProxy.getRoomDetailsById(ids[0])
                                 .subscribe(r => {
                                     console.log(r);

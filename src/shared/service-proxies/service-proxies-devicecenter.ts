@@ -5394,6 +5394,76 @@ export class IdentityServiceProxy {
 }
 
 @Injectable()
+export class ImportBrandFromExcelServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_DEVICECENTER_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param fileforBrand (optional) 
+     * @param fileforBrand (optional) 
+     * @return Success
+     */
+    importBrand(fileforBrand1: FileParameter | undefined, fileforBrand: FileParameter | null | undefined): Observable<ImportResultDto> {
+        let url_ = this.baseUrl + "/ImportBrandFromExcel/ImportBrand";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = new FormData();
+        if (fileforBrand !== null && fileforBrand !== undefined)
+            content_.append("fileforBrand", fileforBrand.data, fileforBrand.fileName ? fileforBrand.fileName : "fileforBrand");
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processImportBrand(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processImportBrand(<any>response_);
+                } catch (e) {
+                    return <Observable<ImportResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ImportResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processImportBrand(response: HttpResponseBase): Observable<ImportResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ImportResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ImportResultDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class ImportDevicesServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -15815,6 +15885,94 @@ export interface IUpdateDeviceCategoryInput {
     iconUrl: string | undefined;
 }
 
+export class ImportResultDto implements IImportResultDto {
+    importResult!: string | undefined;
+    canNotFindImages!: string[] | undefined;
+    canNotFindSpus!: string[] | undefined;
+    canNotFindSkus!: string[] | undefined;
+    succeedCode!: string[] | undefined;
+    importState!: boolean;
+
+    constructor(data?: IImportResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.importResult = _data["importResult"];
+            if (Array.isArray(_data["canNotFindImages"])) {
+                this.canNotFindImages = [] as any;
+                for (let item of _data["canNotFindImages"])
+                    this.canNotFindImages!.push(item);
+            }
+            if (Array.isArray(_data["canNotFindSpus"])) {
+                this.canNotFindSpus = [] as any;
+                for (let item of _data["canNotFindSpus"])
+                    this.canNotFindSpus!.push(item);
+            }
+            if (Array.isArray(_data["canNotFindSkus"])) {
+                this.canNotFindSkus = [] as any;
+                for (let item of _data["canNotFindSkus"])
+                    this.canNotFindSkus!.push(item);
+            }
+            if (Array.isArray(_data["succeedCode"])) {
+                this.succeedCode = [] as any;
+                for (let item of _data["succeedCode"])
+                    this.succeedCode!.push(item);
+            }
+            this.importState = _data["importState"];
+        }
+    }
+
+    static fromJS(data: any): ImportResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ImportResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["importResult"] = this.importResult;
+        if (Array.isArray(this.canNotFindImages)) {
+            data["canNotFindImages"] = [];
+            for (let item of this.canNotFindImages)
+                data["canNotFindImages"].push(item);
+        }
+        if (Array.isArray(this.canNotFindSpus)) {
+            data["canNotFindSpus"] = [];
+            for (let item of this.canNotFindSpus)
+                data["canNotFindSpus"].push(item);
+        }
+        if (Array.isArray(this.canNotFindSkus)) {
+            data["canNotFindSkus"] = [];
+            for (let item of this.canNotFindSkus)
+                data["canNotFindSkus"].push(item);
+        }
+        if (Array.isArray(this.succeedCode)) {
+            data["succeedCode"] = [];
+            for (let item of this.succeedCode)
+                data["succeedCode"].push(item);
+        }
+        data["importState"] = this.importState;
+        return data; 
+    }
+}
+
+export interface IImportResultDto {
+    importResult: string | undefined;
+    canNotFindImages: string[] | undefined;
+    canNotFindSpus: string[] | undefined;
+    canNotFindSkus: string[] | undefined;
+    succeedCode: string[] | undefined;
+    importState: boolean;
+}
+
 export class ImportDeviceResultDto implements IImportDeviceResultDto {
     importResult!: string | undefined;
     canNotFindImages!: string[] | undefined;
@@ -18397,6 +18555,7 @@ export class StoresDto implements IStoresDto {
     storeStatus!: StoreStatus;
     storeDevicesInfo!: string | undefined;
     roomIds!: string | undefined;
+    rooms!: string[] | undefined;
     brandId!: number | undefined;
 
     constructor(data?: IStoresDto) {
@@ -18432,6 +18591,11 @@ export class StoresDto implements IStoresDto {
             this.storeStatus = _data["storeStatus"];
             this.storeDevicesInfo = _data["storeDevicesInfo"];
             this.roomIds = _data["roomIds"];
+            if (Array.isArray(_data["rooms"])) {
+                this.rooms = [] as any;
+                for (let item of _data["rooms"])
+                    this.rooms!.push(item);
+            }
             this.brandId = _data["brandId"];
         }
     }
@@ -18467,6 +18631,11 @@ export class StoresDto implements IStoresDto {
         data["storeStatus"] = this.storeStatus;
         data["storeDevicesInfo"] = this.storeDevicesInfo;
         data["roomIds"] = this.roomIds;
+        if (Array.isArray(this.rooms)) {
+            data["rooms"] = [];
+            for (let item of this.rooms)
+                data["rooms"].push(item);
+        }
         data["brandId"] = this.brandId;
         return data; 
     }
@@ -18495,6 +18664,7 @@ export interface IStoresDto {
     storeStatus: StoreStatus;
     storeDevicesInfo: string | undefined;
     roomIds: string | undefined;
+    rooms: string[] | undefined;
     brandId: number | undefined;
 }
 

@@ -167,7 +167,7 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
             undefined, 
             "781972096d884c3f8a5ce4b9e537c751", 
             undefined, 
-            void 0, 
+            undefined, 
             undefined)
             .pipe(this.myFinalize(() => { this.loadingQrcode = false; }))
             .subscribe(result => {
