@@ -567,7 +567,7 @@
                                                                     class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                             </li>
                                                             <li
-                                                                *ngIf="isGranted('Pages.Tenant.Products.Edit')&&record.auditStatus==0&&product.isMine!==false">
+                                                                *ngIf="isGranted('Pages.Tenant.Products.Edit')&&record.auditStatus=='Offline'&&product.isMine!==false">
                                                                 <a (click)="deleteSku(record.id)"
                                                                     class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                             </li>
