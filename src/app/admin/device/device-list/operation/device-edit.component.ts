@@ -287,6 +287,15 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
     actions: string = "click,playvideo,enter,Rfid,pickup";
     searchOuId: number[] = [];
 
+    // 状态
+    adsDeviceStatus: any = '';
+    softwareDeviceStatus: any = '';
+    productDeviceStatus: any = '';
+    couponDeviceStatus: any = '';
+    schedulingDeviceStatus: any = '';
+    activityDeviceStatus: any = '';
+    
+
     //能力
     abilities: any = [{
         name: 'BaseMsg',
@@ -1675,7 +1684,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._DeviceAdsServiceProxy.getAdsByDeviceId(
             this.device.id,
             void 0,
-            AuditStatus.Online,
+            this.adsDeviceStatus,
             this.adsFilterText,
             void 0,
             this.pAds.getMaxResultCount(this.paginatorAds, event),
@@ -1815,7 +1824,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._DeviceSoftwareServiceProxy.getSoftwaresByDeviceId(
             this.device.id,
             void 0,
-            AuditStatus.Online,
+            this.softwareDeviceStatus,
             this.softwareFilterText,
             void 0,
             this.pApp.getMaxResultCount(this.paginatorSoftware, event),
@@ -1973,7 +1982,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._deviceProductService.getProductsByDeviceId(
             this.device.id,
             void 0,
-            AuditStatus.Online,
+            this.productDeviceStatus,
             this.productFilterText,
             void 0,
             this.paginatorProduct ? this.pProduct.getMaxResultCount(this.paginatorProduct, event) : 10,
@@ -2123,7 +2132,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         this._deviceProductService.getCouponsByDeviceId(
             this.device.id,
             void 0,
-            AuditStatus.Online,
+            this.couponDeviceStatus,
             this.couponFilterText,
             void 0,
             this.pCoupon.getMaxResultCount(this.paginatorCoupon, event),

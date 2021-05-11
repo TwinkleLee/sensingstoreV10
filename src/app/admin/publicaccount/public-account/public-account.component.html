@@ -90,19 +90,21 @@
                       <span>{{record.nickName}}</span>
                     </td>
                     <td>
-                      <span *ngIf="record.status==0">{{l('Authrozied')}}</span>
+                      <!-- <span *ngIf="record.status==0">{{l('Authrozied')}}</span>
                       <span *ngIf="record.status==1">{{l('UnAuthrozied')}}</span>
                       <span *ngIf="record.status==2">{{l('Locked')}}</span>
-                      <span *ngIf="record.status==3">{{l('UnLocked')}}</span>
+                      <span *ngIf="record.status==3">{{l('UnLocked')}}</span> -->
+                      <span>{{l(record.status)}}</span>
                     </td>
                     <td>
-                      <span *ngIf="record.verify_type_info==-1">{{l('UnAuthentication')}}</span>
+                      <!-- <span *ngIf="record.verify_type_info==-1">{{l('UnAuthentication')}}</span>
                       <span *ngIf="record.verify_type_info==0">{{l('WechatAuthentication')}}</span>
                       <span *ngIf="record.verify_type_info==1">{{l('SinaWeiboAuthentication')}}</span>
                       <span *ngIf="record.verify_type_info==2">{{l('QQweiboAuthentication')}}</span>
                       <span *ngIf="record.verify_type_info==3">{{l('NoNameAuthentication')}}</span>
                       <span *ngIf="record.verify_type_info==4">{{l('NoNameBySinaWeiboAuthentication')}}</span>
-                      <span *ngIf="record.verify_type_info==5">{{l('NoNameByQqWeiboAuthentication')}}</span>
+                      <span *ngIf="record.verify_type_info==5">{{l('NoNameByQqWeiboAuthentication')}}</span> -->
+                      <span>{{l(record.verify_type_info)}}</span>
                     </td>
                     <td>
                       <span>{{record.authorizationTime| date : "yyyy/MM/dd"}}</span>
@@ -111,16 +113,18 @@
                       <span>{{record.expiredTime| date : "yyyy/MM/dd"}}</span>
                     </td>
                     <td>
-                      <span *ngIf="record.service_type_info==0">{{l('SubscribeAccount')}}</span>
+                      <!-- <span *ngIf="record.service_type_info==0">{{l('SubscribeAccount')}}</span>
                       <span *ngIf="record.service_type_info==1">{{l('HistoryToSubscribeAccount')}}</span>
-                      <span *ngIf="record.service_type_info==2">{{l('ServiceAccount')}}</span>
+                      <span *ngIf="record.service_type_info==2">{{l('ServiceAccount')}}</span> -->
+                      <span>{{l(record.service_type_info)}}</span>
                     </td>
                     <td>
                       <span>{{record.lastModificationTime| date : "yyyy/MM/dd"}}</span>
                     </td>
                     <td>
-                      <span *ngIf="record.mpType==0">{{l('PrivateUse')}}</span>
-                      <span *ngIf="record.mpType==1">{{l('PublicUse')}}</span>
+                      <!-- <span *ngIf="record.mpType==0">{{l('PrivateUse')}}</span>
+                      <span *ngIf="record.mpType==1">{{l('PublicUse')}}</span> -->
+                      <span>{{l(record.mpType)}}</span>
                     </td>
                   </tr>
                 </ng-template>

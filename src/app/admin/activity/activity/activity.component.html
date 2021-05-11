@@ -169,6 +169,11 @@
                                                             <a (click)="deleteActivity(record)"
                                                                 class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                         </li>
+                                                        <li
+                                                            *ngIf="isGranted('Pages.Tenant.Activities.Edit')&&record.isMine!==false&&isTemplate==false">
+                                                            <a (click)="saveAsTemplate(record)"
+                                                                class="icon-bianji dropdown-item">{{l('SaveAsTemplate')}}</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>

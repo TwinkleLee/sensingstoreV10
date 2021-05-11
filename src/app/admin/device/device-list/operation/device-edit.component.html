@@ -347,24 +347,48 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center mb-4">
-                                                <div class="col-4">
+
+                                                <div class="col-2">
                                                     <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="adsFilterText" name="filterText"
                                                                 (keyup.enter)="getAdsByDeviceId()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                            <span class="input-group-btn">
-                                                                <button (click)="getAdsByDeviceId()"
-                                                                    class="btn btn-primary" type="button">
-                                                                    <i class="icon-sousuo-sousuo"></i>
-                                                                </button>
-                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-8" style="text-align: right;"
+
+                                                <div class="col-2">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="adsDeviceStatus" name="adsDeviceStatus">
+                                                                <option value="">{{l('All')}}</option>
+                                                                <option value="Online">{{l('online')}}</option>
+                                                                <option value="Offline">{{l('offline')}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary" (click)="getAdsByDeviceId()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-6" style="text-align: right;"
                                                     *ngIf="isGranted('Pages.Tenant.Ads.Publish')">
+                                                    <label style="display:block;">&nbsp;</label>
                                                     <div class="form-group">
                                                         <button type="button" (click)="deleteBatchAd()"
                                                             class="btn btn-primary blue">
@@ -402,24 +426,45 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center mb-4">
-                                                <div class="col-4">
+                                                <div class="col-2">
                                                     <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="softwareFilterText"
                                                                 name="softwareFilterText"
                                                                 (keyup.enter)="getSoftwareByDeviceId()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                            <span class="input-group-btn">
-                                                                <button (click)="getSoftwareByDeviceId()"
-                                                                    class="btn btn-primary" type="button">
-                                                                    <i class="icon-sousuo-sousuo"></i>
-                                                                </button>
-                                                            </span>
+            
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-8" style="text-align: right;">
+                                                <div class="col-2">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="softwareDeviceStatus" name="softwareDeviceStatus">
+                                                                <option value="">{{l('All')}}</option>
+                                                                <option value="Online">{{l('online')}}</option>
+                                                                <option value="Offline">{{l('offline')}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary" (click)="getSoftwareByDeviceId()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6" style="text-align: right;">
+                                                    <label style="display:block;">&nbsp;</label>
                                                     <div class="form-group"
                                                         *ngIf="isGranted('Pages.Softwares.Publish')">
                                                         <button type="button" (click)="deleteBatchApp()"
@@ -460,25 +505,46 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
-                                                <div class="col-4">
+                                                <div class="col-2">
                                                     <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="productFilterText"
                                                                 name="productFilterText"
                                                                 (keyup.enter)="getProductByDeviceId()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                            <span class="input-group-btn">
-                                                                <button (click)="getProductByDeviceId()"
-                                                                    class="btn btn-primary" type="button">
-                                                                    <i class="icon-sousuo-sousuo"></i>
-                                                                </button>
-                                                            </span>
+                                                    
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-8" style="text-align: right;"
+                                                <div class="col-2">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="productDeviceStatus" name="productDeviceStatus">
+                                                                <option value="">{{l('All')}}</option>
+                                                                <option value="Online">{{l('online')}}</option>
+                                                                <option value="Offline">{{l('offline')}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary" (click)="getProductByDeviceId()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6" style="text-align: right;"
                                                     *ngIf="isGranted('Pages.Tenant.Products.Publish')">
+                                                    <label style="display:block;">&nbsp;</label>
                                                     <div class="form-group">
                                                         <button type="button" (click)="deleteBatchProduct()"
                                                             class="btn btn-primary blue">
@@ -517,25 +583,45 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center mb-4">
-                                                <div class="col-4">
+                                                <div class="col-2">
                                                     <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="couponFilterText"
                                                                 name="couponFilterText"
                                                                 (keyup.enter)="getCouponByDeviceId()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                            <span class="input-group-btn">
-                                                                <button (click)="getCouponByDeviceId()"
-                                                                    class="btn btn-primary" type="button">
-                                                                    <i class="icon-sousuo-sousuo"></i>
-                                                                </button>
-                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-8" style="text-align: right;"
+                                                <div class="col-2">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="couponDeviceStatus" name="couponDeviceStatus">
+                                                                <option value="">{{l('All')}}</option>
+                                                                <option value="Online">{{l('online')}}</option>
+                                                                <option value="Offline">{{l('offline')}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary" (click)="getCouponByDeviceId()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6" style="text-align: right;"
                                                     *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
+                                                    <label style="display:block;">&nbsp;</label>
                                                     <div class="form-group">
                                                         <button type="button" (click)="deleteBatchCoupon()"
                                                             class="btn btn-primary blue">
@@ -653,20 +739,41 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
-                                                <div class="col-4">
+                                                <div class="col-2">
                                                     <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="activityFilterText"
                                                                 name="activityFilterText"
                                                                 (keyup.enter)="getActivityByDeviceId()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                            <span class="input-group-btn">
-                                                                <button (click)="getActivityByDeviceId()"
-                                                                    class="btn btn-primary" type="button">
-                                                                    <i class="icon-sousuo-sousuo"></i>
-                                                                </button>
-                                                            </span>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="activityDeviceStatus" name="activityDeviceStatus">
+                                                                <option value="">{{l('All')}}</option>
+                                                                <option value="Online">{{l('online')}}</option>
+                                                                <option value="Offline">{{l('offline')}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary" (click)="getActivityByDeviceId()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2414,23 +2521,43 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
-                                                <div class="col-4">
+                                                <div class="col-2">
                                                     <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
                                                             <input [(ngModel)]="ScheduleFilterText"
                                                                 name="ScheduleFilterText"
                                                                 (keyup.enter)="getDeviceSchedulings()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                            <span class="input-group-btn">
-                                                                <button (click)="getDeviceSchedulings()"
-                                                                    class="btn btn-primary" type="button">
-                                                                    <i class="icon-sousuo-sousuo"></i>
-                                                                </button>
-                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-2">
+                                                    <div class="form-group m-form__group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" [(ngModel)]="schedulingDeviceStatus" name="schedulingDeviceStatus">
+                                                                <option value="">{{l('All')}}</option>
+                                                                <option value="Online">{{l('online')}}</option>
+                                                                <option value="Offline">{{l('offline')}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="form-group align-items-center">
+                                                        <label style="display:block;">&nbsp;</label>
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn btn-primary" (click)="getDeviceSchedulings()">
+                                                                <i class="la la-refresh"></i>
+                                                                {{l("search")}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </form>

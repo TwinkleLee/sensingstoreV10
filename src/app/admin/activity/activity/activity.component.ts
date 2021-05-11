@@ -10,9 +10,10 @@ import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
 import { CreateActivityModalComponent } from '@app/admin/activity/activity/create-activity-modal.component';
-import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, AuditStatus as ActivityAuditStatus, AuditStatus  } from '@shared/service-proxies/service-proxies5';
+import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, AuditStatus as ActivityAuditStatus, AuditStatus, ActivityFromTemplateInput } from '@shared/service-proxies/service-proxies5';
 
-import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-activity',
@@ -22,10 +23,10 @@ import {DeviceServiceProxy as NewDeviceServiceProxy} from '@shared/service-proxi
 })
 export class ActivityComponent extends AppComponentBase {
 
-  @ViewChild('createActivityModal',{static:true}) CreateActivityModalComponent: CreateActivityModalComponent;
-  @ViewChild('dataTable',{static:true}) dataTable: Table;
-  @ViewChild('paginator',{static:true}) paginator: Paginator;
-  @ViewChild('myTree',{static:false}) myTree: MyTreeComponent;
+  @ViewChild('createActivityModal', { static: true }) CreateActivityModalComponent: CreateActivityModalComponent;
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+  @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
 
   filterText: string = "";
   treeFilter: string = "";
@@ -75,32 +76,32 @@ export class ActivityComponent extends AppComponentBase {
       void 0,
       void 0,
       this.isTemplate,
-      void(0),
+      void (0),
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event)
     )
-    .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
-    .subscribe(result => {
-      console.log(result);
-      this.primengTableHelper.totalRecordsCount = result.totalCount;
-      this.primengTableHelper.records = result.items;
-    })
+      .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
+      .subscribe(result => {
+        console.log(result);
+        this.primengTableHelper.totalRecordsCount = result.totalCount;
+        this.primengTableHelper.records = result.items;
+      })
   }
   //新增红包
   createActivity() {
     this.CreateActivityModalComponent.show();
   }
   editActivity(record) {
-    this.router.navigate(['app', 'admin','activity', 'activity', 'basic'], { queryParams: { id: record.id, name: record.name } });
+    this.router.navigate(['app', 'admin', 'activity', 'activity', 'basic'], { queryParams: { id: record.id, name: record.name } });
   }
   showActivityData(record) {
-    this.router.navigate(['app', 'admin','activity', 'activity', 'data'], { queryParams: { id: record.id, name: record.name } });
+    this.router.navigate(['app', 'admin', 'activity', 'activity', 'data'], { queryParams: { id: record.id, name: record.name } });
   }
   //删除活动
   deleteActivity(record) {
-    this.message.confirm(this.l('deletethisactivity'),this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('deletethisactivity'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._acitvityService.deleteActivity(record.id).subscribe(result => {
           this.activityPublishList = [];
@@ -156,7 +157,7 @@ export class ActivityComponent extends AppComponentBase {
         return this.notify.info(this.l('noneOfflineGotten'));
       }
       if (upNum.length != 0) {
-        this.message.confirm(this.l("nowChooseTip0") + upNum.length + this.l("nowChooseTip1"),this.l('AreYouSure'), (r) => {
+        this.message.confirm(this.l("nowChooseTip0") + upNum.length + this.l("nowChooseTip1"), this.l('AreYouSure'), (r) => {
           if (r) {
             this.activityPublishList = downNum;
           }
@@ -170,7 +171,7 @@ export class ActivityComponent extends AppComponentBase {
         return this.notify.info(this.l('noneOnlineGotten'));
       }
       if (downNum.length != 0) {
-        this.message.confirm(this.l("nowChooseTip0") + downNum.length + this.l("nowChooseTip2"),this.l('AreYouSure'), (r) => {
+        this.message.confirm(this.l("nowChooseTip0") + downNum.length + this.l("nowChooseTip2"), this.l('AreYouSure'), (r) => {
           if (r) {
             this.activityPublishList = upNum;
           }
@@ -219,7 +220,7 @@ export class ActivityComponent extends AppComponentBase {
 
     if (this.operateAll) {
       this.activityPublishList = [];
-      this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'),this.l('AreYouSure'), (r) => {
+      this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewAll') : this.l('isPublishAll'), this.l('AreYouSure'), (r) => {
         if (r) {
           this._acitvityService.publishAllToOrganizationOrStoreOrDevices(input).subscribe(r => {
             this.notify.info(this.l('success'));
@@ -229,7 +230,7 @@ export class ActivityComponent extends AppComponentBase {
         }
       })
     } else {
-      this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'),this.l('AreYouSure'), (r) => {
+      this.message.confirm(this.publishType == 'delete' ? this.l('isWithdrewChosen') : this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
         if (r) {
           this._acitvityService.publishToOrganizationOrStoreOrDevices(input).subscribe(r => {
             this.notify.info(this.l('success'));
@@ -329,11 +330,33 @@ export class ActivityComponent extends AppComponentBase {
     });
   }
 
- 
+
   //筛选树
   filterTree(e?: Event) {
     e && e.preventDefault();
     this.myTree.filterTree(this.treeFilter);
+  }
+
+  saveAsTemplate(record) {
+    console.log(record);
+
+    this.message.confirm(this.l('saveAsTemplate'), this.l('AreYouSure'), (r) => {
+      if (r) {
+        var activityTemplate = new ActivityFromTemplateInput({
+          id: record.id,
+          name: record.name + ' (模板)',
+          isPublic: true,
+          isTemplate: true
+        })
+        console.log(activityTemplate)
+        this._acitvityService.createActivityFromTemplate(activityTemplate)
+          .pipe(finalize(() => { this.getActivity() }))
+          .subscribe(result => {
+            this.notify.info(this.l('SavedSuccessfully'));
+            this.getActivity()
+          })
+      }
+    })
   }
 }
 
