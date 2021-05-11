@@ -75,10 +75,10 @@
                                 <input class="form-control" type="number" name="secondWeight" [(ngModel)]="freight.secondWeight" required>
                             </div>
                             <div class="col-2">
-                                <input class="form-control" type="number" name="firstPrice" [(ngModel)]="freight.firstPrice" required>
+                                <input class="form-control" type="number" pattern="([0-9]*(\.[0-9]+)?|0)" name="firstPrice" [(ngModel)]="freight.firstPrice" required>
                             </div>
                             <div class="col-2">
-                                <input class="form-control" type="number" name="secondPrice" [(ngModel)]="freight.secondPrice" required>
+                                <input class="form-control" type="number" pattern="([0-9]*(\.[0-9]+)?|0)" name="secondPrice" [(ngModel)]="freight.secondPrice" required>
                             </div>
                             <div class="col-1"></div>
                         </div>
@@ -103,10 +103,10 @@
                                 <input class="form-control" type="number" [name]="'secondWeight'+i" [(ngModel)]="area.secondWeight" required>
                             </div>
                             <div class="col-2">
-                                <input class="form-control" type="number" [name]="'firstPrice'+i" [(ngModel)]="area.firstPrice" required>
+                                <input class="form-control" type="number" pattern="([0-9]*(\.[0-9]+)?|0)" [name]="'firstPrice'+i" [(ngModel)]="area.firstPrice" required>
                             </div>
                             <div class="col-2">
-                                <input class="form-control" type="number" [name]="'secondPrice'+i" [(ngModel)]="area.secondPrice" required>
+                                <input class="form-control" type="number" pattern="([0-9]*(\.[0-9]+)?|0)" [name]="'secondPrice'+i" [(ngModel)]="area.secondPrice" required>
                             </div>
                             <div class="col-1">
                                 <button type="button" class="btn btn-primary" (click)="deleteArea(i)">X</button>
