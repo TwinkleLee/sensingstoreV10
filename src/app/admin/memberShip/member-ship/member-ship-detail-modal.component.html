@@ -376,7 +376,7 @@
                                     </p-table>
                                     <div class="primeng-paging-container">
                                         <p-paginator [rows]="SkuPrimeng.defaultRecordsCountPerPage" #SkuPaginator
-                                            (onPageChange)="getSkuInfo($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                            (onPageChange)="getSkuInfo($event)" [totalRecords]="SkuPrimeng.totalRecordsCount"
                                             [rowsPerPageOptions]="SkuPrimeng.predefinedRecordsCountPerPage">
                                         </p-paginator>
                                         <span class="total-records-count">

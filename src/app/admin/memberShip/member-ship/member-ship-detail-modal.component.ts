@@ -137,7 +137,7 @@ export class MemberShipModalComponent extends AppComponentBase {
             this.member.id,
             void 0,
             void 0,
-            void 0,
+            this.filterText,
             this.startTime,
             this.endTime,
             void 0,

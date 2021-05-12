@@ -182,7 +182,7 @@ export class LoginComponent extends AppComponentBase implements OnInit {
                 id: "login_container",
                 appid: "wx992b1a4b0a7ef35b",
                 scope: "snsapi_login",
-                redirect_uri: encodeURIComponent(`${AppConsts.appBaseUrl}/account/login`),
+                redirect_uri: encodeURIComponent(`http://test5.sensingstore.com/account/login`),
                 // state: "",
                 // style: "",
                 // href: "" //为一个css文件的地址，或直接对CSS进行base64加密：格式：href: "data:text/css;base64,base64加密后的字符串"
