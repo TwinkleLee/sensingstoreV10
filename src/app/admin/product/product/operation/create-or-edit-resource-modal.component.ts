@@ -19,7 +19,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class CreateOrEditProductResourceModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+    @ViewChild('createOrEditModal',{static:false}) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     @Input("editable") editable:boolean=true;
     active = false;

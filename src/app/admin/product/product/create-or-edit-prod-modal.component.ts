@@ -21,7 +21,7 @@ import { finalize } from 'rxjs/operators';
 export class CreateOrEditProModalComponent extends AppComponentBase implements AfterViewChecked, OnDestroy {
 
     @ViewChild('nameInput', { static: true }) nameInput: ElementRef;
-    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
+    @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
 
     @ViewChild('tree', { static: false }) tree: MyTreeComponent;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();

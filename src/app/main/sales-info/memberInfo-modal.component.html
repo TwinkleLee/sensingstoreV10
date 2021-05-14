@@ -2,38 +2,42 @@
     tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <div class="m-portlet__head-tools width-percent-50 row" style="margin-left:15px;margin-top:30px;">
-                <div class="col-6" style="position:relative;">
-                    <div class="form-group m-form__group align-items-center">
-                        <label>{{l('startEndTime')}}</label>
-                        <date-range-picker needInitDate="true" name="SampleDateRangePicker" [showButton]="false"
-                            (buttonEmit)="getList()" [(startDate)]="StartTime" [(endDate)]="EndTime"
-                            [allowFutureDate]="false">
-                        </date-range-picker>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="form-group m-form__group align-items-center">
-                        <label>&nbsp;</label>
-                        <div class="input-group">
-                            <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
-                                (click)="getList()">
-                                <i class="la la-refresh"></i>
-                                {{l("search")}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" class="close" (click)="close()" aria-label="Close">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l("saleinfo")}}</span>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close()">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
-            <div [class]="containerClass">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="position:relative;">
+                        <div class="form-group m-form__group align-items-center">
+                            <label>{{l('startEndTime')}}</label>
+                            <date-range-picker needInitDate="true" name="SampleDateRangePicker" [showButton]="false"
+                                (buttonEmit)="getList()" [(startDate)]="StartTime" [(endDate)]="EndTime"
+                                [allowFutureDate]="false">
+                            </date-range-picker>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group m-form__group align-items-center">
+                            <label>&nbsp;</label>
+                            <div class="input-group">
+                                <button type="button" class="btn btn-primary" [buttonBusy]="primengTableHelper.isLoading"
+                                    (click)="getList()">
+                                    <i class="la la-refresh"></i>
+                                    {{l("search")}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card card-custom gutter-b">
                     <div class="card-body">
                         <tabset class="tab-container tabbable-line">
-                            <tab class="p-5" heading="{{title}}" customClass="m-tabs__item">
+                            <tab class="p-5" heading="{{'title'}}" customClass="m-tabs__item">
                                 <div class="row align-items-center">
                                     <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                                         <p-table #dataTable (onLazyLoad)="getList($event)"
@@ -106,7 +110,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

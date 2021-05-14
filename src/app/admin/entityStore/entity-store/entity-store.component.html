@@ -179,7 +179,7 @@
                                                         <a (click)="editStore(record)"
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']==StoreStatus[0]">
+                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']=='Stopped'">
                                                         <a (click)="deleteStore(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
