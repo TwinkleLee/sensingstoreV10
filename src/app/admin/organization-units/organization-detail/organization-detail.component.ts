@@ -1,7 +1,7 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
-import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy } from '@shared/service-proxies/service-proxies-product'
+import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy, OutPutInStorageServiceProxy, GetOutPutInStorageRecordDto, OutPutInStorageType, GetOutPutInStorageBillInput } from '@shared/service-proxies/service-proxies-product'
 import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy, FileType } from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -18,7 +18,9 @@ import { UserServiceProxy, GetUsersInput } from '@shared/service-proxies/service
 
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
-import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput,AuditStatus } from '@shared/service-proxies/service-proxies-devicecenter';
+import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component';
+import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput, AuditStatus } from '@shared/service-proxies/service-proxies-devicecenter';
+import { event } from 'jquery';
 
 
 @Component({
@@ -126,8 +128,16 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     //库存分页
     @ViewChild('dataTableKPI', { static: false }) dataTablekc: Table;
     @ViewChild('paginatorKPI', { static: false }) paginatorkc: Paginator;
-    kcPI = new PrimengTableHelper();
-    // @ViewChild('kpiModal', { static: false }) kpiModal: KPIModalComponent;
+    outPutInStoragePrimengTableHelper = new PrimengTableHelper();
+    @ViewChild("dateRangerKPI", { static: false }) dateRangerFill: DateRangePickerComponent;
+    @ViewChild('billModal', { static: false }) billModal: BillModalComponent;
+    outPutInStorageFilter:any = '';
+    outPutInStorageSelectionList: any = [];
+    outPutInStorageType: any = '';
+
+    StartTimeFill = moment().utc().subtract(31, 'days').startOf('day');
+    EndTimeFill = moment().utc().endOf('day');
+
 
     KPITypeList = [];
 
@@ -150,6 +160,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         private _StoreSoftwareServiceProxy: StoreSoftwareServiceProxy,
         private _OrganizationUnitServiceProxy: OrganizationUnitServiceProxy,
         private _StoreProductServiceProxy: StoreProductServiceProxy,
+        private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy
     ) {
         super(injector);
         this.initMessage();
@@ -188,22 +199,40 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
     //kpi
     initKPITab() {
-        this.getInOrOutFill()
+        this.getKPIByOUId();
     }
 
-    getInOrOutFill () {
+    deleteBatchBill () {
+    }
 
+    createBill () {
+        this.billModal.show();
+    }
+
+    getInOrOutFill(event?: LazyLoadEvent) {
+        this.outPutInStoragePrimengTableHelper.showLoadingIndicator();
+        this._OutPutInStorageServiceProxy.getOutPutInStorageBills(new GetOutPutInStorageBillInput({
+            storeId: [this.storeId],
+            ignoreStore: false,
+            startTime: this.StartTimeFill,
+            endTime: this.EndTimeFill,
+            outPutInStorageType: this.outPutInStorageType,
+            filter: this.outPutInStorageFilter,
+            sorting: this.outPutInStoragePrimengTableHelper.getSorting(this.dataTablekc),
+            maxResultCount: this.outPutInStoragePrimengTableHelper.getMaxResultCount(this.paginatorkc, event),
+            skipCount: this.outPutInStoragePrimengTableHelper.getSkipCount(this.paginatorkc, event),
+        })).pipe(this.myFinalize(() => { this.outPutInStoragePrimengTableHelper.hideLoadingIndicator(); }))
+        .subscribe(result => {
+            this.outPutInStoragePrimengTableHelper.totalRecordsCount = result.totalCount;
+            this.outPutInStoragePrimengTableHelper.records = result.items;
+        });
     }
 
     //num
     initNumTab() {
-        this.getKPIByOUId();
-        setTimeout(() => {
-            this.dateRangerKPI.refresh();
-        })
+        this.getInOrOutFill()
     }
     goImportKPI() {
-
     }
 
     createKPI() {

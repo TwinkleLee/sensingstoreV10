@@ -1,0 +1,36 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form *ngIf="active" #ProductsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="operationType=='add'">{{l("CreateBill")}}</span>
+                        <span *ngIf="operationType=='edit'">{{l("EditBill")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label></label>
+                            <input [(ngModel)]="addBillInput.from" type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

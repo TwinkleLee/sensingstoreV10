@@ -16,6 +16,7 @@ import {CreateOrEditUnitTypeModalComponent} from './create-or-edit-unitType-moda
 import {OrganizationUnitStoresComponent} from './organization-unit-stores.component'
 import { OUDetailComponent } from '@app/admin/organization-units/organization-detail/organization-detail.component';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
+import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { KPIModalComponent } from '@app/admin/organization-units/organization-de
         OrganizationUnitStoresComponent,
         OUDetailComponent,
         KPIModalComponent,
+        BillModalComponent
     ],
     imports: [AppSharedModule, AdminSharedModule, OrganizationUnitsRoutingModule],
     exports: [AddMemberModalComponent, AddRoleModalComponent, OrganizationTreeComponent]

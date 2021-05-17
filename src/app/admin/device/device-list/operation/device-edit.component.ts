@@ -847,6 +847,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
         if (this.isGranted("Pages.Tenant.Activities")) {
             this._deviceAcitvityService.getDeviceActivitiesById(
                 this.device.id,
+                this.activityDeviceStatus,
                 void 0,
                 void 0,
                 1,
@@ -1181,6 +1182,7 @@ export class DeviceEditComponent extends AppComponentBase implements OnInit {
             this.pActivity.showLoadingIndicator();
             this._deviceAcitvityService.getDeviceActivitiesById(
                 this.device.id,
+                this.activityDeviceStatus,
                 this.activityFilterText,
                 this.pActivity.getSorting(this.dataTableActivity),
                 this.pActivity.getMaxResultCount(this.paginatorActivity, event),

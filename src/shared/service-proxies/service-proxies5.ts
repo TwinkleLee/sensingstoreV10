@@ -3200,18 +3200,23 @@ export class DeviceActivityServiceProxy {
     }
 
     /**
+     * @param auditStatus (optional) 
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
      * @param skipCount (optional) 
      * @return Success
      */
-    getDeviceActivitiesById(deviceId: number, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfDeviceActivityDto> {
+    getDeviceActivitiesById(deviceId: number, auditStatus: AuditStatus | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfDeviceActivityDto> {
         let url_ = this.baseUrl + "/api/services/app/DeviceActivity/GetDeviceActivitiesById?";
         if (deviceId === undefined || deviceId === null)
             throw new Error("The parameter 'deviceId' must be defined and cannot be null.");
         else
             url_ += "DeviceId=" + encodeURIComponent("" + deviceId) + "&";
+        if (auditStatus === null)
+            throw new Error("The parameter 'auditStatus' cannot be null.");
+        else if (auditStatus !== undefined)
+            url_ += "AuditStatus=" + encodeURIComponent("" + auditStatus) + "&";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
@@ -14809,18 +14814,14 @@ export class UserActionServiceProxy {
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        // if (playerImage === null || playerImage === undefined)
-        //     throw new Error("The parameter 'playerImage' cannot be null.");
-        // else
-        //     content_.append("PlayerImage", playerImage.data, playerImage.fileName ? playerImage.fileName : "PlayerImage");
-        // if (playingImage === null || playingImage === undefined)
-        //     throw new Error("The parameter 'playingImage' cannot be null.");
-        // else
-        // content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
-
-        // if (playerImage !== null || playerImage !== undefined) {
-        //     content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
-        // }
+        if (playerImage === null || playerImage === undefined)
+            throw new Error("The parameter 'playerImage' cannot be null.");
+        else
+            content_.append("PlayerImage", playerImage.data, playerImage.fileName ? playerImage.fileName : "PlayerImage");
+        if (playingImage === null || playingImage === undefined)
+            throw new Error("The parameter 'playingImage' cannot be null.");
+        else
+            content_.append("PlayingImage", playingImage.data, playingImage.fileName ? playingImage.fileName : "PlayingImage");
 
         let options_ : any = {
             body: content_,
@@ -25469,6 +25470,7 @@ export class Course implements ICourse {
     picUrl!: string | undefined;
     description!: string | undefined;
     extensionData!: string | undefined;
+    courseTags!: CourseTag[] | undefined;
     isDeleted!: boolean;
     deleterUserId!: number | undefined;
     deletionTime!: moment.Moment | undefined;
@@ -25496,6 +25498,11 @@ export class Course implements ICourse {
             this.picUrl = _data["picUrl"];
             this.description = _data["description"];
             this.extensionData = _data["extensionData"];
+            if (Array.isArray(_data["courseTags"])) {
+                this.courseTags = [] as any;
+                for (let item of _data["courseTags"])
+                    this.courseTags!.push(CourseTag.fromJS(item));
+            }
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
@@ -25523,6 +25530,11 @@ export class Course implements ICourse {
         data["picUrl"] = this.picUrl;
         data["description"] = this.description;
         data["extensionData"] = this.extensionData;
+        if (Array.isArray(this.courseTags)) {
+            data["courseTags"] = [];
+            for (let item of this.courseTags)
+                data["courseTags"].push(item.toJSON());
+        }
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
@@ -25543,6 +25555,7 @@ export interface ICourse {
     picUrl: string | undefined;
     description: string | undefined;
     extensionData: string | undefined;
+    courseTags: CourseTag[] | undefined;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: moment.Moment | undefined;
@@ -25562,6 +25575,7 @@ export class CourseDto implements ICourseDto {
     picUrl!: string | undefined;
     description!: string | undefined;
     extensionData!: string | undefined;
+    courseTags!: IdNameDto[] | undefined;
 
     constructor(data?: ICourseDto) {
         if (data) {
@@ -25582,6 +25596,11 @@ export class CourseDto implements ICourseDto {
             this.picUrl = _data["picUrl"];
             this.description = _data["description"];
             this.extensionData = _data["extensionData"];
+            if (Array.isArray(_data["courseTags"])) {
+                this.courseTags = [] as any;
+                for (let item of _data["courseTags"])
+                    this.courseTags!.push(IdNameDto.fromJS(item));
+            }
         }
     }
 
@@ -25602,6 +25621,11 @@ export class CourseDto implements ICourseDto {
         data["picUrl"] = this.picUrl;
         data["description"] = this.description;
         data["extensionData"] = this.extensionData;
+        if (Array.isArray(this.courseTags)) {
+            data["courseTags"] = [];
+            for (let item of this.courseTags)
+                data["courseTags"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -25615,6 +25639,91 @@ export interface ICourseDto {
     picUrl: string | undefined;
     description: string | undefined;
     extensionData: string | undefined;
+    courseTags: IdNameDto[] | undefined;
+}
+
+export class CourseTag implements ICourseTag {
+    tenantId!: number;
+    courseId!: number;
+    course!: Course;
+    tagId!: number;
+    tag!: Tag;
+    isDeleted!: boolean;
+    deleterUserId!: number | undefined;
+    deletionTime!: moment.Moment | undefined;
+    lastModificationTime!: moment.Moment | undefined;
+    lastModifierUserId!: number | undefined;
+    creationTime!: moment.Moment;
+    creatorUserId!: number | undefined;
+    id!: number;
+
+    constructor(data?: ICourseTag) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tenantId = _data["tenantId"];
+            this.courseId = _data["courseId"];
+            this.course = _data["course"] ? Course.fromJS(_data["course"]) : <any>undefined;
+            this.tagId = _data["tagId"];
+            this.tag = _data["tag"] ? Tag.fromJS(_data["tag"]) : <any>undefined;
+            this.isDeleted = _data["isDeleted"];
+            this.deleterUserId = _data["deleterUserId"];
+            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
+            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = _data["lastModifierUserId"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CourseTag {
+        data = typeof data === 'object' ? data : {};
+        let result = new CourseTag();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
+        data["courseId"] = this.courseId;
+        data["course"] = this.course ? this.course.toJSON() : <any>undefined;
+        data["tagId"] = this.tagId;
+        data["tag"] = this.tag ? this.tag.toJSON() : <any>undefined;
+        data["isDeleted"] = this.isDeleted;
+        data["deleterUserId"] = this.deleterUserId;
+        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICourseTag {
+    tenantId: number;
+    courseId: number;
+    course: Course;
+    tagId: number;
+    tag: Tag;
+    isDeleted: boolean;
+    deleterUserId: number | undefined;
+    deletionTime: moment.Moment | undefined;
+    lastModificationTime: moment.Moment | undefined;
+    lastModifierUserId: number | undefined;
+    creationTime: moment.Moment;
+    creatorUserId: number | undefined;
+    id: number;
 }
 
 export class CreateActionShareInput implements ICreateActionShareInput {
@@ -26020,6 +26129,7 @@ export class CreateCourseInput implements ICreateCourseInput {
     picUrl!: string | undefined;
     description!: string | undefined;
     extensionData!: string | undefined;
+    tagIds!: number[] | undefined;
 
     constructor(data?: ICreateCourseInput) {
         if (data) {
@@ -26038,6 +26148,11 @@ export class CreateCourseInput implements ICreateCourseInput {
             this.picUrl = _data["picUrl"];
             this.description = _data["description"];
             this.extensionData = _data["extensionData"];
+            if (Array.isArray(_data["tagIds"])) {
+                this.tagIds = [] as any;
+                for (let item of _data["tagIds"])
+                    this.tagIds!.push(item);
+            }
         }
     }
 
@@ -26056,6 +26171,11 @@ export class CreateCourseInput implements ICreateCourseInput {
         data["picUrl"] = this.picUrl;
         data["description"] = this.description;
         data["extensionData"] = this.extensionData;
+        if (Array.isArray(this.tagIds)) {
+            data["tagIds"] = [];
+            for (let item of this.tagIds)
+                data["tagIds"].push(item);
+        }
         return data; 
     }
 }
@@ -26067,6 +26187,7 @@ export interface ICreateCourseInput {
     picUrl: string | undefined;
     description: string | undefined;
     extensionData: string | undefined;
+    tagIds: number[] | undefined;
 }
 
 export class CreateDeviceActivityGameInput implements ICreateDeviceActivityGameInput {
@@ -37612,6 +37733,7 @@ export class UpdateCourseInput implements IUpdateCourseInput {
     picUrl!: string | undefined;
     description!: string | undefined;
     extensionData!: string | undefined;
+    tagIds!: number[] | undefined;
 
     constructor(data?: IUpdateCourseInput) {
         if (data) {
@@ -37631,6 +37753,11 @@ export class UpdateCourseInput implements IUpdateCourseInput {
             this.picUrl = _data["picUrl"];
             this.description = _data["description"];
             this.extensionData = _data["extensionData"];
+            if (Array.isArray(_data["tagIds"])) {
+                this.tagIds = [] as any;
+                for (let item of _data["tagIds"])
+                    this.tagIds!.push(item);
+            }
         }
     }
 
@@ -37650,6 +37777,11 @@ export class UpdateCourseInput implements IUpdateCourseInput {
         data["picUrl"] = this.picUrl;
         data["description"] = this.description;
         data["extensionData"] = this.extensionData;
+        if (Array.isArray(this.tagIds)) {
+            data["tagIds"] = [];
+            for (let item of this.tagIds)
+                data["tagIds"].push(item);
+        }
         return data; 
     }
 }
@@ -37662,6 +37794,7 @@ export interface IUpdateCourseInput {
     picUrl: string | undefined;
     description: string | undefined;
     extensionData: string | undefined;
+    tagIds: number[] | undefined;
 }
 
 export class UpdateDeviceActivityGameInput implements IUpdateDeviceActivityGameInput {

@@ -1,7 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { CreateOrderInput, OrderServiceProxy, OrderItemDto } from '@shared/service-proxies/service-proxies2';
+import { CreateOrderInput, OrderServiceProxy, OrderItemDto, RefuseRefundApplyInput } from '@shared/service-proxies/service-proxies2';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 import { ProductServiceProxy } from '@shared/service-proxies/service-proxies-product';
@@ -157,8 +157,10 @@ export class OrderDetailModalComponent extends AppComponentBase {
         })
     }
     disagreeReturn() {
-        this._SensingShopManageServiceProxy.refuseRefundApply(
-            this.order.id
+        this._SensingShopManageServiceProxy.refuseRefundApply(new RefuseRefundApplyInput({
+            id: this.order.id,
+            refundReason: ''
+        })
         ).pipe(finalize(() => {
             this.saving = false;
         })).subscribe(r => {

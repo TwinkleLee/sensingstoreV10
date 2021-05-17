@@ -93,7 +93,8 @@ export class AppNavigationService {
 
             //应用管理
             new AppMenuItem('Software', 'Pages.Softwares', 'icon-app', '', [], [
-                new AppMenuItem('App', 'Pages.Softwares', 'icon-app', '/app/admin/software/software'),
+                new AppMenuItem('mySoftwares', 'Pages.Softwares', 'icon-app', '/app/admin/software/software'),
+                new AppMenuItem('App', 'Pages.Softwares', 'icon-app', '/app/admin/software/softwarelist'),
                 new AppMenuItem('AppPod', 'Pages.Administration.Host.AppPod', 'icon-yemian', '/app/admin/apppod/apppod'),
             ]),
 

@@ -38,6 +38,9 @@ import { ConnectorService } from '@app/shared/services/connector.service';
 import {AdminSharedModule} from '@app/admin/shared/admin-shared.module';
 import {AppSharedModule} from '@app/shared/app-shared.module';
 
+import { SoftwareListComponent } from '@app/admin/software/software/list/softwarelist.component'
+
+
 @NgModule({
     imports: [
         AdminSharedModule,
@@ -69,6 +72,7 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
         SoftwareEditComponent,
         SoftwareSettingModalComponent,
         SoftwareAuthComponent,
+        SoftwareListComponent
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

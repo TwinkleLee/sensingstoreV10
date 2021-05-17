@@ -1,0 +1,30 @@
+<div [@routerTransition]>
+    <div class="content d-flex flex-column flex-column-fluid">
+        <sub-header [title]="'Software' | localize" [description]="'App' | localize">
+            <div role="actions">
+            </div>
+        </sub-header>
+
+        <div [class]="containerClass">
+            <div class="card card-custom gutter-b">
+                <div class="card-body">
+                    <div class="m-portlet__body" *ngIf="appSession.tenant&&AuthorizedSoftwaresList.length">
+                        <div class="row">
+                            <!-- <div style="width:100%;font-weight: bold;font-size:2rem;">{{l("mySoftwares")}}</div> -->
+                            <div 
+                                style="display:inline-block;width:100px;margin:15px;position:relative;cursor:pointer;"
+                                *ngFor="let software of AuthorizedSoftwaresList">
+                                <img [src]="fixFileUrl(software.logoUrl)" (error)="showEmpty($event)"
+                                    style="width:100px;height:100px;border-radius: 50%;">
+                                <div style="width:100%;text-align:center;">
+                                    {{software.alias?software.alias:software.name}}</div>
+                            </div>
+                        </div>
+                
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

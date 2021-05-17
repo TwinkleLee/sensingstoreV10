@@ -7,6 +7,8 @@ import { SoftwareComponent } from '@app/admin/software/software/software.compone
 import { SoftwareEditComponent } from '@app/admin/software/software/operation/software-edit.component';
 import { SoftwareAuthComponent } from '@app/admin/software/software/auth/software-auth.component';
 
+import { SoftwareListComponent } from '@app/admin/software/software/list/softwarelist.component'
+
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -14,6 +16,7 @@ import { SoftwareAuthComponent } from '@app/admin/software/software/auth/softwar
                 path: '',
                 children: [
                     { path: 'software', component: SoftwareComponent, data: { permission: 'Pages.Softwares' } },
+                    { path: 'softwarelist', component: SoftwareListComponent, data: { permission: 'Pages.Softwares' } },
                     { path: 'software/operation/:id', component: SoftwareEditComponent, data: { permission: 'Pages.Softwares.Edit' } },
                     { path: 'software/auth', component: SoftwareAuthComponent, data: { permission: 'Pages.Softwares.Publish' } },
                     { path: 'software/auth/:id', component: SoftwareAuthComponent, data: { permission: 'Pages.Softwares.Publish' } },
