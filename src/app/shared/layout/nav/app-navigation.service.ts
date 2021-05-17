@@ -125,7 +125,7 @@ export class AppNavigationService {
                 new AppMenuItem('Likes', 'Pages.Tenant.Products.Like', 'icon-xin', '/app/admin/product/like'),
                 new AppMenuItem('Match', 'Pages.Tenant.Products.Match', 'icon-dapei', '/app/admin/product/match'),
                 new AppMenuItem('QuantityManage', 'Pages.Tenant.Products', 'icon-xunhuan', '/app/admin/product/outputin'),
-                new AppMenuItem('QuantityList', 'Pages.Tenant.Products', 'icon-tubiao_kucun', '/app/admin/product/skuList'),
+                // new AppMenuItem('QuantityList', 'Pages.Tenant.Products', 'icon-tubiao_kucun', '/app/admin/product/skuList'),
                 new AppMenuItem('PromotionManage', 'Pages.Tenant.Products', 'icon-cuxiao', '/app/admin/product/promotionManage'),
             ]),
 

@@ -165,7 +165,7 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
             _definitions_EnumSnsType["WeChat"], 
             undefined, 
             undefined, 
-            "718421c5c1da489fa5e62e2d578d31d9", 
+            "781972096d884c3f8a5ce4b9e537c751", 
             undefined, 
             undefined, 
             undefined)

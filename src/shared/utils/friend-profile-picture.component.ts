@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { AppConsts } from '@shared/AppConsts';
 import { ProfileServiceProxy } from '@shared/service-proxies/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'friend-profile-picture',
     template:
-    `<img [src]="profilePicture" class="{{cssClass}}" alt="...">`
+        `<img [src]="profilePicture" class="{{cssClass}}" alt="...">`
 })
 export class FriendProfilePictureComponent implements AfterViewInit {
 
@@ -30,10 +31,12 @@ export class FriendProfilePictureComponent implements AfterViewInit {
             this.tenantId = undefined;
         }
 
-        this._profileService.getFriendProfilePicture(this.userId, this.tenantId).subscribe((result) => {
-            if (result && result.profilePicture) {
-                this.profilePicture = 'data:image/jpeg;base64,' + result.profilePicture;
-            }
-        });
+        this._profileService.getFriendProfilePicture(this.userId, this.tenantId)
+            .pipe(finalize(() => { console.log(this.userId, this.tenantId) }))
+            .subscribe((result) => {
+                if (result && result.profilePicture) {
+                    this.profilePicture = 'data:image/jpeg;base64,' + result.profilePicture;
+                }
+            });
     }
 }

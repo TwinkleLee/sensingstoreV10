@@ -122,6 +122,13 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     @ViewChild("dateRangerKPI", { static: false }) dateRangerKPI: DateRangePickerComponent;
     @ViewChild('kpiModal', { static: false }) kpiModal: KPIModalComponent;
 
+
+    //库存分页
+    @ViewChild('dataTableKPI', { static: false }) dataTablekc: Table;
+    @ViewChild('paginatorKPI', { static: false }) paginatorkc: Paginator;
+    kcPI = new PrimengTableHelper();
+    // @ViewChild('kpiModal', { static: false }) kpiModal: KPIModalComponent;
+
     KPITypeList = [];
 
     constructor(
@@ -181,6 +188,15 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
     //kpi
     initKPITab() {
+        this.getInOrOutFill()
+    }
+
+    getInOrOutFill () {
+
+    }
+
+    //num
+    initNumTab() {
         this.getKPIByOUId();
         setTimeout(() => {
             this.dateRangerKPI.refresh();

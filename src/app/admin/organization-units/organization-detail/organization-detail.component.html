@@ -1,6 +1,7 @@
 <div>
     <div class="content d-flex flex-column flex-column-fluid">
-        <sub-header [title]="OUId ? l('OuDetail') : l('StoreDetail')" [description]="OUId ? OUName + '|' + OUId:OUName + '|' + storeId">
+        <sub-header [title]="OUId ? l('OuDetail') : l('StoreDetail')"
+            [description]="OUId ? OUName + '|' + OUId:OUName + '|' + storeId">
             <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions"></div>
         </sub-header>
@@ -12,8 +13,8 @@
                 <form #deviceInfooperationForm="ngForm" novalidate autocomplete="off">
                     <div class="card-body">
                         <tabset class="tab-container tabbable-line">
-                            <tab class="p-5" *ngIf="OUId" heading="{{l('User')}}" customClass="kt-tabs__item icon-yonghu"
-                                (selectTab)="getUsers()">
+                            <tab class="p-5" *ngIf="OUId" heading="{{l('User')}}"
+                                customClass="kt-tabs__item icon-yonghu" (selectTab)="getUsers()">
                                 <div class="row align-items-center">
                                     <form class="horizontal-form" autocomplete="off" name="userForm">
                                         <div class="m-form m-form--label-align-right">
@@ -260,9 +261,10 @@
                                                     <div class="form-group kt-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="deviceFilterText"
-                                                                name="deviceFilterText" (keyup.enter)="getDeviceByOUId()"
-                                                                autoFocus class="form-control kt-input"
-                                                                [placeholder]="l('name')" type="text">
+                                                                name="deviceFilterText"
+                                                                (keyup.enter)="getDeviceByOUId()" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getDeviceByOUId()"
                                                                     class="btn btn-primary" type="submit">
@@ -640,9 +642,10 @@
                                                     <div class="form-group kt-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="productFilterText"
-                                                                name="productFilterText" (keyup.enter)="getProductByOUId()"
-                                                                autoFocus class="form-control kt-input"
-                                                                [placeholder]="l('name')" type="text">
+                                                                name="productFilterText"
+                                                                (keyup.enter)="getProductByOUId()" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getProductByOUId()"
                                                                     class="btn btn-primary" type="submit">
@@ -764,9 +767,10 @@
                                                     <div class="form-group kt-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="couponFilterText"
-                                                                name="couponFilterText" (keyup.enter)="getCouponByOUId()"
-                                                                autoFocus class="form-control kt-input"
-                                                                [placeholder]="l('name')" type="text">
+                                                                name="couponFilterText"
+                                                                (keyup.enter)="getCouponByOUId()" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getCouponByOUId()"
                                                                     class="btn btn-primary" type="submit">
@@ -882,9 +886,10 @@
                                                     <div class="form-group kt-form__group align-items-center">
                                                         <div class="input-group">
                                                             <input [(ngModel)]="activityFilterText"
-                                                                name="activityFilterText" (keyup.enter)="getActivityByOUId()"
-                                                                autoFocus class="form-control kt-input"
-                                                                [placeholder]="l('name')" type="text">
+                                                                name="activityFilterText"
+                                                                (keyup.enter)="getActivityByOUId()" autoFocus
+                                                                class="form-control kt-input" [placeholder]="l('name')"
+                                                                type="text">
                                                             <span class="input-group-btn">
                                                                 <button (click)="getActivityByOUId()"
                                                                     class="btn btn-primary" type="submit">
@@ -1131,7 +1136,8 @@
                                                     <td>
                                                         <span>{{l(record.kpiScale)}}</span>
                                                     </td>
-                                                    <td *ngIf="record.kpiScale=='Year'">{{record.scaleTime | date : "yyyy"}}
+                                                    <td *ngIf="record.kpiScale=='Year'">
+                                                        {{record.scaleTime | date : "yyyy"}}
                                                     </td>
                                                     <td *ngIf="record.kpiScale=='Month'">
                                                         {{record.scaleTime | date : "yyyy/MM"}}</td>
@@ -1165,6 +1171,13 @@
                                 </div>
 
                             </tab>
+
+                            <tab class="p-5" heading="{{l('num')}}" customClass="kt-tabs__item icon-tubiao_kucun"
+                                (selectTab)="initNumTab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')">
+
+                            </tab>
+
+
                             <kpiModal #kpiModal (modalSave)="getKPIByOUId()"></kpiModal>
 
                         </tabset>

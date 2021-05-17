@@ -2521,7 +2521,7 @@
                                     <form class="horizontal-form" autocomplete="off" name="devicesForm">
                                         <div class="m-form m-form--label-align-right">
                                             <div class="row align-items-center m--margin-bottom-10">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <div class="form-group m-form__group align-items-center">
                                                         <label style="display:block;">&nbsp;</label>
                                                         <div class="input-group">
@@ -2530,18 +2530,6 @@
                                                                 (keyup.enter)="getDeviceSchedulings()" autoFocus
                                                                 class="form-control m-input" [placeholder]="l('name')"
                                                                 type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2">
-                                                    <div class="form-group m-form__group align-items-center">
-                                                        <label style="display:block;">&nbsp;</label>
-                                                        <div class="input-group">
-                                                            <select class="form-control" [(ngModel)]="schedulingDeviceStatus" name="schedulingDeviceStatus">
-                                                                <option value="">{{l('All')}}</option>
-                                                                <option value="Online">{{l('online')}}</option>
-                                                                <option value="Offline">{{l('offline')}}</option>
-                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
