@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>{{l("CateName")}} *</label>
+                                <label>{{l("cate")}} *</label>
                                 <input #nameInput="ngModel" class="form-control" type="text" name="Name" [(ngModel)]="category.name"
                                     required maxlength="32">
                                 <validation-messages [formCtrl]="nameInput"></validation-messages>

@@ -23,7 +23,7 @@ export class CreateOrEditDashboardTemplateModalComponent extends AppComponentBas
 
     operation: string = "add";
     objItem: any = {
-        reportType: 0,
+        reportType: 'Line',
     };
 
     constructor(
@@ -47,7 +47,7 @@ export class CreateOrEditDashboardTemplateModalComponent extends AppComponentBas
         } else {
             this.operation = "add";
             this.objItem = {
-                reportType: 0,
+                reportType: 'Line',
             };
         }
         this.modal.show();
@@ -74,7 +74,7 @@ export class CreateOrEditDashboardTemplateModalComponent extends AppComponentBas
     close(): void {
         this.active = false;
         this.objItem = {
-            reportType: 0
+            reportType: 'Line'
         };
         this.saving = false;
         this.modal.hide();
