@@ -128,6 +128,10 @@ packege > scripts下新增运行指令
 "eco": "ng build --prod --aot --build-optimizer --source-map=false --configuration=eco",
 ```
 
+#### 请求添加header：
+* `node_modules` 中搜索 `AbpHttpInterceptor` 改造方式类似 tenantId ouId
+
+
 ### 常用demo
 ##### 1.超级输入搜索框
 (商品的语言/区域 组织机构详情里的KPI类型)

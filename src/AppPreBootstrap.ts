@@ -91,6 +91,10 @@ export class AppPreBootstrap {
                 name: abp.multiTenancy.tenantIdCookieName,
                 value: abp.multiTenancy.getTenantIdCookie() + '',
             },
+            // {
+            //     name: abp.multiTenancy.OrganizationUnitId,
+            //     value: abp.multiTenancy.getOrganizationUnitIdCookie() + '',
+            // }
         ];
 
         XmlHttpRequestHelper.ajax(type, url, customHeaders, null, (result) => {
@@ -171,6 +175,8 @@ export class AppPreBootstrap {
                 'c=' + cookieLangValue + '|uic=' + cookieLangValue,
             [abp.multiTenancy
                 .tenantIdCookieName]: abp.multiTenancy.getTenantIdCookie(),
+            // [abp.multiTenancy
+            //     .OrganizationUnitId]: abp.multiTenancy.getOrganizationUnitIdCookie()
         };
 
         if (!cookieLangValue) {

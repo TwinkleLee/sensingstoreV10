@@ -1788,9 +1788,9 @@
                                                         <td>{{record.outerId}}</td>
                                                         <td>
                                                             <span
-                                                                *ngIf="record.cargoType==CargoTypeEnum[0]">{{l('orderCargo')}}</span>
+                                                                *ngIf="record.cargoType=='Sequence'">{{l('orderCargo')}}</span>
                                                             <span
-                                                                *ngIf="record.cargoType==CargoTypeEnum[1]">{{l('randomCargo')}}</span>
+                                                                *ngIf="record.cargoType=='Random'">{{l('randomCargo')}}</span>
                                                         </td>
                                                         <td>
                                                             <span>

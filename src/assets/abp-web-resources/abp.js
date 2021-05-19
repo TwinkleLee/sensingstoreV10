@@ -29,6 +29,17 @@ var abp = abp || {};
 
     abp.multiTenancy.tenantIdCookieName = 'Abp.TenantId';
 
+    abp.multiTenancy.OrganizationUnitId = 'Abp.OrganizationUnitId';
+
+    abp.multiTenancy.getOrganizationUnitIdCookie = function () {
+        var value = abp.utils.getCookieValue(abp.multiTenancy.OrganizationUnitId);
+        if (!value) {
+            return null;
+        }
+
+        return parseInt(value);
+    }
+
     abp.multiTenancy.setTenantIdCookie = function (tenantId) {
         if (tenantId) {
             abp.utils.setCookieValue(

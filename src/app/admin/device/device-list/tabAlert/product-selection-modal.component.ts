@@ -73,7 +73,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
                     this.primengTableHelper.records = result.items;
                     // this.primengTableHelper.hideLoadingIndicator();
                 })
-        } else if (this.cargoType == 0) {//货道 商品
+        } else if (this.cargoType == 'Product') {//货道 商品
             if (this.primengTableHelper.shouldResetPaging(event)) {
                 this.paginator.changePage(0);
                 return;
@@ -95,7 +95,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
                     this.primengTableHelper.records = result.items;
                     // this.primengTableHelper.hideLoadingIndicator();
                 })
-        } else if (this.cargoType == 1) {//货道 sku
+        } else if (this.cargoType == 'Sku') {//货道 sku
             if (this.primengTableHelper.shouldResetPaging(event)) {
                 this.paginator.changePage(0);
                 return;
@@ -117,7 +117,7 @@ export class ProductAlertModalComponent extends AppComponentBase {
                     this.primengTableHelper.records = result.items;
                     // this.primengTableHelper.hideLoadingIndicator();
                 })
-        } else if (this.cargoType == 2) {//货道 奖品
+        } else if (this.cargoType == 'Award') {//货道 奖品
             if (this.primengTableHelper.shouldResetPaging(event)) {
                 this.paginator.changePage(0);
                 return;

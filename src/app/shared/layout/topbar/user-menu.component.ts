@@ -61,6 +61,8 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
         private _UserActionServiceProxy: UserActionServiceProxy
     ) {
         super(injector, _dateTimeService);
+        
+        console.log(abp.session)
     }
 
     ngOnInit(): void {

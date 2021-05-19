@@ -9,6 +9,7 @@ export class AppAuthService {
     logout(reload?: boolean, returnUrl?: string): void {
         let customHeaders = {
             [abp.multiTenancy.tenantIdCookieName]: abp.multiTenancy.getTenantIdCookie(),
+            // [abp.multiTenancy.OrganizationUnitId]: abp.multiTenancy.getOrganizationUnitIdCookie(),
             'Authorization': 'Bearer ' + abp.auth.getToken()
         };
 
