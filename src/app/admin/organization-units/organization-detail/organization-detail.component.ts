@@ -18,10 +18,12 @@ import { UserServiceProxy, GetUsersInput } from '@shared/service-proxies/service
 
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
-import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component';
 import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput, AuditStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 import { event } from 'jquery';
 
+import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component'
+
+import * as _ from 'lodash'
 
 @Component({
     selector: 'OUDetail',
@@ -130,8 +132,9 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     @ViewChild('paginatorKPI', { static: false }) paginatorkc: Paginator;
     outPutInStoragePrimengTableHelper = new PrimengTableHelper();
     @ViewChild("dateRangerKPI", { static: false }) dateRangerFill: DateRangePickerComponent;
+
     @ViewChild('billModal', { static: false }) billModal: BillModalComponent;
-    outPutInStorageFilter:any = '';
+    outPutInStorageFilter: any = '';
     outPutInStorageSelectionList: any = [];
     outPutInStorageType: any = '';
 
@@ -140,6 +143,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
 
     KPITypeList = [];
+    treeList: any = '';
 
     constructor(
         injector: Injector,
@@ -164,6 +168,9 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     ) {
         super(injector);
         this.initMessage();
+        this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([], false).subscribe((result) => {
+            this.treeList = [result];
+        })
     }
 
     ngAfterViewInit() {
@@ -202,11 +209,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.getKPIByOUId();
     }
 
-    deleteBatchBill () {
+    deleteBatchBill() {
     }
 
-    createBill () {
-        this.billModal.show();
+    createBill() {
+        this.billModal.show(this.storeId);
     }
 
     getInOrOutFill(event?: LazyLoadEvent) {
@@ -222,10 +229,10 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             maxResultCount: this.outPutInStoragePrimengTableHelper.getMaxResultCount(this.paginatorkc, event),
             skipCount: this.outPutInStoragePrimengTableHelper.getSkipCount(this.paginatorkc, event),
         })).pipe(this.myFinalize(() => { this.outPutInStoragePrimengTableHelper.hideLoadingIndicator(); }))
-        .subscribe(result => {
-            this.outPutInStoragePrimengTableHelper.totalRecordsCount = result.totalCount;
-            this.outPutInStoragePrimengTableHelper.records = result.items;
-        });
+            .subscribe(result => {
+                this.outPutInStoragePrimengTableHelper.totalRecordsCount = result.totalCount;
+                this.outPutInStoragePrimengTableHelper.records = result.items;
+            });
     }
 
     //num

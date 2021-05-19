@@ -31,8 +31,8 @@ export class ImportComponent extends AppComponentBase implements OnInit {
   deviceId;
   importUrls: any = {
     //通过jq直接调接口
-    'match': AppConsts.remoteServiceBaseUrl + '/ImportMatches/ImportMatchByZip',
-    'like': AppConsts.remoteServiceBaseUrl + '/ImportLikes/ImportLikeByZip',
+    'match': AppConsts.remoteProductServiceUrl + '/ImportMatches/ImportMatchByZip',
+    'like': AppConsts.remoteProductServiceUrl + '/ImportLikes/ImportLikeByZip',
     'device': AppConsts.remoteDeviceCenterUrl + '/ImportDevices/ImportDevicesByExcel',
     'ads': AppConsts.remoteAdserviceUrl + '/ImportAds/ImportAdsByZip',
     'product': AppConsts.remoteProductServiceUrl + '/ImportProducts/ImportProductByZip',
@@ -40,8 +40,8 @@ export class ImportComponent extends AppComponentBase implements OnInit {
     'rfid': AppConsts.remoteProductServiceUrl + '/ImportSkuRfids/ImportSkuRfidByExcel',
     'storagecheck': AppConsts.remoteProductServiceUrl + '/ImportStorageCheck/ImportStoageCheckByExcel',
     'training': AppConsts.remoteActivityServiceUrl + '/ImportTrainings/ImportTrainingsByExcel',
-    'room': AppConsts.remoteFloorServiceUrl + '/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel',
-    'sulwhasoo': AppConsts.remoteServiceBaseUrl + '/ImportDeviceSchedule/ImportDeviceStoreScheduleByExcel',
+    'room': AppConsts.remoteDeviceCenterUrl + '/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel',
+    'sulwhasoo': AppConsts.remoteDeviceCenterUrl + '/ImportDeviceSchedule/ImportDeviceStoreScheduleByExcel',
   }
   accept = {
     'match': 'zip',

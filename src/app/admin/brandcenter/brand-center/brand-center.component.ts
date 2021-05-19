@@ -76,21 +76,9 @@ export class BrandCenterComponent extends AppComponentBase {
     this.router.navigate(['operation', record.id], { relativeTo: this.route });
   }
   deleteBrand(record) {
-    this.message.confirm(`
-    <div class="form-group">
-        <label class="checkbox" style="display: flex;justify-content: center;">
-            <input id="brand_center_isDeleteProductBelongBrand" class="form-control" type="checkbox" name="isDeleteProductBelongBrand" checked/>
-            <span></span>
-            ${this.l('isDeleteProductBelongBrand')}
-        </label>
-    </div>
- `, this.l('confirmDelete'), (r) => {
+    this.message.confirm(this.l('confirmDelete'), this.l('AreYouSure'),(r) => {
       if (!r) return
-      if ($("#brand_center_isDeleteProductBelongBrand").is(':checked')) {
-        var isIncludeProduct = true;
-      } else {
-        var isIncludeProduct = false;
-      }
+      var isIncludeProduct = false;
       this.primengTableHelper.showLoadingIndicator();
       var brandIds = [record.id]
       this._brandService.deleteBrands(
@@ -123,22 +111,10 @@ export class BrandCenterComponent extends AppComponentBase {
       return
     }
 
-    this.message.confirm(`
-    <div class="form-group">
-        <label class="checkbox" style="display: flex;justify-content: center;">
-            <input id="brand_center_isOnlineProductBelongBrand" type="checkbox" name="isOnlineProductBelongBrand" checked/>
-            <span></span>
-            ${this.l('isOnlineProductBelongBrand')}
-        </label>
-    </div>
-     `, this.l('confirmBrandOnline'), (r) => {
+    this.message.confirm(this.l('confirmBrandOnline'), this.l('AreYouSure'),(r) => {
       if (!r) return
 
-      if ($("#brand_center_isOnlineProductBelongBrand").is(':checked')) {
-        var isIncludeProduct = true;
-      } else {
-        var isIncludeProduct = false;
-      }
+      var isIncludeProduct = false;
       this.primengTableHelper.showLoadingIndicator();
 
       var brandIds = this.brandPublishList.map(item => {
@@ -164,21 +140,10 @@ export class BrandCenterComponent extends AppComponentBase {
       this.message.warn(this.l('atLeastChoseOneItem'))
       return
     }
-    this.message.confirm(`
-    <div class="form-group">
-        <label class="checkbox" style="display: flex;justify-content: center;">
-            <input id="brand_center_isOfflineProductBelongBrand"  type="checkbox" name="isOfflineProductBelongBrand" checked/>
-            <span></span>
-            ${this.l('isOfflineProductBelongBrand')}
-        </label>
-    </div>
-    `, this.l('confirmBrandOffline'), (r) => {
+    this.message.confirm(this.l('confirmBrandOffline'), this.l('AreYouSure'),(r) => {
       if (!r) return
-      if ($("#brand_center_isOfflineProductBelongBrand").is(':checked')) {
-        var isIncludeProduct = true;
-      } else {
-        var isIncludeProduct = false;
-      }
+      var isIncludeProduct = false;
+
       this.primengTableHelper.showLoadingIndicator();
 
       var brandIds = this.brandPublishList.map(item => {
@@ -218,7 +183,7 @@ export class BrandCenterComponent extends AppComponentBase {
     //     var isIncludeProduct = false;
     //   }
 
-      this.message.confirm(this.l('confirmBrandOnline'), this.l('AreYouSure'), (r) => {
+      this.message.confirm(this.l('confirmAllBrandOnline'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
 
@@ -257,7 +222,7 @@ export class BrandCenterComponent extends AppComponentBase {
     //   } else {
     //     var isIncludeProduct = false;
     //   }
-      this.message.confirm(this.l('confirmBrandOffline'), this.l('AreYouSure'), (r) => {
+      this.message.confirm(this.l('confirmAllBrandOffline'), this.l('AreYouSure'), (r) => {
         if (r) {
           this.primengTableHelper.showLoadingIndicator();
 
