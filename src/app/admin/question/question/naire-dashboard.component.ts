@@ -208,7 +208,7 @@ export class NaireDashboardComponent extends AppComponentBase {
         void 0,
         StartTime,
         EndTime,
-        this.filter2,
+        this.filter,
         this.ComPrimeng.getSorting(this.ComDataTable),
         this.ComPrimeng.getMaxResultCount(this.ComPaginator, event) || 10,
         this.ComPrimeng.getSkipCount(this.ComPaginator, event)
