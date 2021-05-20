@@ -17,7 +17,7 @@ import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
 export class HostOnlineStoreModalComponent extends AppComponentBase implements AfterViewChecked {
 
     @ViewChild('nameInput',{static:true}) nameInput: ElementRef;
-    @ViewChild('createOrEditModal',{static:true}) modal: ModalDirective;
+    @ViewChild('createOrEditModal',{static:false}) modal: ModalDirective;
 
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -33,6 +33,8 @@ export class HostOnlineStoreModalComponent extends AppComponentBase implements A
 
     tenantList: any = [];
 
+    tenant: any = '';
+
 
     constructor(
         injector: Injector,
@@ -40,9 +42,20 @@ export class HostOnlineStoreModalComponent extends AppComponentBase implements A
         private _tenantService: TenantServiceProxy
     ) {
         super(injector);
+    }
 
+    ngAfterViewChecked(): void {
+        //Temporary fix for: https://github.com/valor-software/ngx-bootstrap/issues/1508
+        // $('tabset ul.nav').addClass('m-tabs-line');
+        // $('tabset ul.nav li a.nav-link').addClass('m-tabs__link');
+    }
+
+    filterTenant(event) {
+        console.log(event.query);
+
+        //获取标签下拉
         this._tenantService.getTenants(
-            void 0,
+            event.query,
             void 0,
             void 0,
             void 0,
@@ -51,16 +64,13 @@ export class HostOnlineStoreModalComponent extends AppComponentBase implements A
             void 0,
             void 0,
             999,
-            0
-        ).subscribe(result => {
+            0).subscribe((result) => {
             this.tenantList = result.items;
-        });
+        })
     }
 
-    ngAfterViewChecked(): void {
-        //Temporary fix for: https://github.com/valor-software/ngx-bootstrap/issues/1508
-        // $('tabset ul.nav').addClass('m-tabs-line');
-        // $('tabset ul.nav li a.nav-link').addClass('m-tabs__link');
+    assignTenant () {
+        this.shopItem.tenantId = this.tenant.id;
     }
 
     show(shopItem?: any): void {

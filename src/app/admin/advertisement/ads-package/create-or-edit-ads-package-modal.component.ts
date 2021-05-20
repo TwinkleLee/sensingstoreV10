@@ -120,6 +120,9 @@ export class CreateOrEditAdsPackageModalComponent extends AppComponentBase imple
 
     save(): void {
         console.log(this.record);
+        if (this.adPackageList.length == 0) {
+            return this.message.warn(this.l('atLeastChoseOneItem'));
+        }
         
         this.record.adPackages = this.adPackageList;
         this._adsPackageSvc.addOrUpdateAdsPackage(this.record)

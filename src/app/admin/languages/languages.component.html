@@ -51,7 +51,7 @@
                                                 <ul class="dropdown-menu" *dropdownMenu>
                                                     <li>
                                                         <a href="javascript:;" class="dropdown-item"
-                                                            *ngIf="('Pages.Administration.Languages.Edit' | permission) && record.tenantId === appSession.tenantId"
+                                                            *ngIf="('Pages.Administration.Languages.ChangeTexts' | permission) && record.tenantId === appSession.tenantId"
                                                             (click)="createOrEditLanguageModal.show(record.id)">{{'Edit' | localize}}</a>
                                                     </li>
                                                     <li>
@@ -61,12 +61,12 @@
                                                     </li>
                                                     <li>
                                                         <a href="javascript:;" class="dropdown-item"
-                                                            *ngIf="'Pages.Administration.Languages.Edit' | permission"
+                                                            *ngIf="'Pages.Administration.Languages.ChangeTexts' | permission"
                                                             (click)="setAsDefaultLanguage(record)">{{'SetAsDefaultLanguage' | localize}}</a>
                                                     </li>
                                                     <li>
                                                         <a href="javascript:;" class="dropdown-item"
-                                                            *ngIf="('Pages.Administration.Languages.Delete' | permission) && record.tenantId === appSession.tenantId"
+                                                            *ngIf="('Pages.Administration.Languages.ChangeTexts' | permission) && record.tenantId === appSession.tenantId"
                                                             (click)="deleteLanguage(record)">{{'Delete' | localize}}</a>
                                                     </li>
                                                 </ul>

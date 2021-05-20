@@ -10,23 +10,32 @@
                     </h4>
                     <button type="button" class="close" (click)="close()" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
-                      </button>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <label>{{l("Name")}} *</label>
-                                <input class="form-control" type="text" name="displayName" [(ngModel)]="shopItem.displayName"
-                                    required maxlength="32">
+                                <input class="form-control" type="text" name="displayName"
+                                    [(ngModel)]="shopItem.displayName" required maxlength="32">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>{{l("TenantSelection")}}</label>
-                                <select [(ngModel)]="shopItem.tenantId" name="tenantId" class="form-control">
-                                    <option [value]="tenant.id" *ngFor="let tenant of tenantList">{{tenant.name}}</option>
-                                </select>
+                                <p-autoComplete [(ngModel)]="tenant"
+                                    id="SingleSelectInput"
+                                    [suggestions]="tenantList"
+                                    (completeMethod)="filterTenant($event)"
+                                    field="name"
+                                    (onSelect)="assignTenant()"
+                                    placeholder="Tenant"
+                                    [minLength]="1"
+                                    name="SingleSelectInput"
+                                    inputStyleClass="form-control"
+                                    styleClass="width-percent-100">
+                                </p-autoComplete>
                             </div>
                         </div>
                         <div class="col-12">
@@ -39,7 +48,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
                     <button type="submit" class="btn btn-primary blue" [disabled]="!MetaphysicsTypeForm.form.valid"
                         [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i>
                         <span>{{l("Save")}}</span></button>
