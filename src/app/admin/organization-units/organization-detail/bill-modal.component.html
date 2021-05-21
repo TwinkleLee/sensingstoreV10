@@ -40,7 +40,7 @@
                             <p-table #RecommendTable [busyIf]="primengTableHelper.isLoading" [value]="skuList" [paginator]="false">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th>{{l('Actions')}}</th>
+                                        <th style="width: 150px">{{l('Actions')}}</th>
                                         <th>
                                             {{l('name')}} *
                                         </th>
@@ -59,7 +59,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record">
-                                        <td>
+                                        <td style="width: 150px">
                                             <div class="btn-group dropdown" normalizePosition>
                                                 <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
                                                     type="button" tabindex="-1">

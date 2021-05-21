@@ -123,7 +123,7 @@
                                         [lazy]="true" [responsive]="OrderPrimeng.isResponsive">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th style="width:5%">{{l('Actions')}}</th>
+                                                <th style="width: 150px">{{l('Actions')}}</th>
                                                 <th>{{l('province')}}</th>
                                                 <th>{{l('city')}}</th>
                                                 <th>{{l('addressDetail')}}</th>
@@ -134,7 +134,7 @@
                                         </ng-template>
                                         <ng-template pTemplate="body" let-record let-i="rowIndex">
                                             <tr>
-                                                <td>
+                                                <td style="width: 150px">
                                                     <i class="icon-icon-test" (click)="deleteAddress(i)"></i>
                                                 </td>
                                                 <td>

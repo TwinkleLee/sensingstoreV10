@@ -135,34 +135,35 @@
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
-                            <p-table [scrollable]="true"  #dataTable (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
+                            <p-table [scrollable]="true" ScrollWidth="100%" #dataTable (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
                                 [(selection)]="storeCheckedList"
                                 [resizableColumns]="primengTableHelper.resizableColumns"
                                 [responsive]="primengTableHelper.isResponsive">
+
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th style="width: 150px;">{{l('Actions')}}</th>
                                         <th style="width: 5.0em">
                                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                         </th>
-                                        <th style="width:5%">{{l('RecordId')}}</th>
-                                        <th>{{l('storeOuterId')}}</th>
-                                        <th>{{l('Name')}}</th>
-                                        <th>
+                                        <th style="width:50px">{{l('RecordId')}}</th>
+                                        <th style="width:100px">{{l('storeOuterId')}}</th>
+                                        <th style="width:100px">{{l('Name')}}</th>
+                                        <th style="width:100px">
                                             {{l('openingTime')}}
                                         </th>
-                                        <th>
+                                        <th style="width:100px">
                                             {{l('closedTime')}}
                                             <!-- <p-sortIcon field="closedTime"></p-sortIcon> -->
                                         </th>
-                                        <th>{{l('qrCodeExtraInfo')}}</th>
-                                        <th>{{l('taobaoStoreId')}}</th>
-                                        <th>{{l('organization-units')}}</th>
-                                        <th style="width:20%">{{l('address')}}</th>
-                                        <th>{{l('Room')}}</th>
-                                        <th>{{l('Brand')}}</th>
-                                        <th>{{l('auditStatus')}}</th>
+                                        <th style="width:100px">{{l('qrCodeExtraInfo')}}</th>
+                                        <th style="width:100px">{{l('taobaoStoreId')}}</th>
+                                        <th style="width:100px">{{l('organization-units')}}</th>
+                                        <th style="width:100px">{{l('area')}}</th>
+                                        <th style="width:100px">{{l('Room')}}</th>
+                                        <th style="width:100px">{{l('Brand')}}</th>
+                                        <th style="width:100px">{{l('auditStatus')}}</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
@@ -190,48 +191,48 @@
                                                 </ul>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 5.0em">
                                             <p-tableCheckbox [value]="record"></p-tableCheckbox>
                                         </td>
-                                        <td style="width:5%"> {{transIndex(i)}}</td>
-                                        <td>
+                                        <td style="width:50px"> {{transIndex(i)}}</td>
+                                        <td style="width:100px">
                                             <span>{{record.outerId}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span [title]="record.displayName">{{record.displayName}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span>{{record.openingTime | date : "yyyy/MM/dd HH:mm"| slice:11:20}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span>{{record.closedTime | date : "yyyy/MM/dd HH:mm"| slice:11:20}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span>{{record.qrCodeExtraInfo}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span>{{record.taobaoStoreId}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span>{{record.organziationUnitName}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span *ngIf="record.position">{{record.position.area}}
                                                 {{record.position.province}}
                                                 {{record.position.city}} {{record.position.county}}
                                                 {{record.position.location}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span *ngIf="record.rooms.length!=0"
                                                 class="label label-success label-inline">{{l("isbinded")}}</span>
                                             <span *ngIf="record.rooms.length==0"
                                                 class="label label-dark label-inline">{{l("unbinded")}}</span>
                                                 <!-- <span>{{ record.rooms.length }}</span> -->
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span>{{getBrandName(record)}}</span>
                                         </td>
-                                        <td>
+                                        <td style="width:100px">
                                             <span *ngIf="record['storeStatus']==StoreStatus['Running']"
                                                 class="label label-success label-inline">{{l("online")}}</span>
                                             <span *ngIf="record['storeStatus']==StoreStatus['Stopped']"

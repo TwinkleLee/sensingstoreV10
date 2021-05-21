@@ -642,7 +642,7 @@
                                             [responsive]="pCoupon.isResponsive">
                                             <ng-template pTemplate="header">
                                                 <tr>
-                                                    <th *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
+                                                    <th style="width: 150px" *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
                                                         {{l('Actions')}}
                                                     </th>
                                                     <th style="width: 5.0em">
@@ -668,7 +668,7 @@
                                             </ng-template>
                                             <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                 <tr [pSelectableRow]="record">
-                                                    <td *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
+                                                    <td style="width: 150px" *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
                                                         <div class="btn-group dropdown" dropdown normalizePosition>
                                                             <button class="dropdown-toggle btn btn-sm btn-primary"
                                                                 data-toggle="dropdown" dropdownToggle
@@ -788,7 +788,7 @@
                                             [responsive]="pActivity.isResponsive">
                                             <ng-template pTemplate="header">
                                                 <tr>
-                                                    <th>{{l('Actions')}}</th>
+                                                    <th style="width: 150px">{{l('Actions')}}</th>
                                                     <th style="width: 5.0em">
                                                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                                     </th>
@@ -811,7 +811,7 @@
                                             </ng-template>
                                             <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                 <tr [pSelectableRow]="record">
-                                                    <td>
+                                                    <td style="width: 150px">
                                                         <div class="btn-group dropdown" dropdown normalizePosition>
                                                             <button class="dropdown-toggle btn btn-sm btn-primary"
                                                                 data-toggle="dropdown" dropdownToggle
@@ -1726,7 +1726,7 @@
                                                 [responsive]="pCargo.isResponsive">
                                                 <ng-template pTemplate="header">
                                                     <tr>
-                                                        <th>{{l('Actions')}}</th>
+                                                        <th style="width: 150px">{{l('Actions')}}</th>
                                                         <th style="width: 5.0em">
                                                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                                         </th>
@@ -1759,7 +1759,7 @@
                                                 </ng-template>
                                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                     <tr [pSelectableRow]="record">
-                                                        <td>
+                                                        <td style="width: 150px">
                                                             <div class="btn-group dropdown" dropdown normalizePosition>
                                                                 <button class="dropdown-toggle btn btn-sm btn-primary"
                                                                     data-toggle="dropdown" dropdownToggle
@@ -2022,7 +2022,7 @@
                                             [responsive]="primengTableHelper.isResponsive">
                                             <ng-template pTemplate="header">
                                                 <tr>
-                                                    <th style="width: 10%">{{l('Actions')}}</th>
+                                                    <th style="width: 150px">{{l('Actions')}}</th>
                                                     <!-- <th style="width: 5.0em">
                                                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                                     </th> -->
@@ -2044,7 +2044,7 @@
                                             </ng-template>
                                             <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                 <tr [pSelectableRow]="record">
-                                                    <td>
+                                                    <td style="width: 150px">
                                                         <div class="btn-group dropdown" dropdown normalizePosition>
                                                             <button type="button"
                                                                 class="dropdown-toggle btn btn-sm btn-primary"
@@ -2564,7 +2564,7 @@
                                             [responsive]="pSchedule.isResponsive">
                                             <ng-template pTemplate="header">
                                                 <tr>
-                                                    <th>{{l('Actions')}}</th>
+                                                    <th style="width: 150px">{{l('Actions')}}</th>
                                                     <th>{{l('RecordId')}}</th>
                                                     <th>{{l('name')}}</th>
                                                     <th>{{l('thumbnail')}}</th>
@@ -2580,7 +2580,7 @@
                                             </ng-template>
                                             <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                 <tr [pSelectableRow]="record">
-                                                    <td>
+                                                    <td style="width: 150px">
                                                         <div class="btn-group dropdown" dropdown normalizePosition>
                                                             <button class="dropdown-toggle btn btn-sm btn-primary"
                                                                 data-toggle="dropdown" dropdownToggle

@@ -55,6 +55,8 @@ export class EntityStoreComponent extends AppComponentBase {
   // brand&&room
   brandList: any = [];
 
+  frozenCols: any = [{ field: 'name', header: 'Action' }];
+
   constructor(injector: Injector,
     private _organizationUnitService: OrganizationUnitServiceProxy,
     private _NewStoreServiceProxy: NewStoreServiceProxy,

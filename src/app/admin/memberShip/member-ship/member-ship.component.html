@@ -135,7 +135,7 @@
                                 [responsive]="primengTableHelper.isResponsive">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th *ngIf="isGranted('Pages.Tenant.Member.Edit')">{{l('Actions')}}</th>
+                                        <th style="width: 150px" *ngIf="isGranted('Pages.Tenant.Member.Edit')">{{l('Actions')}}</th>
                                         <th style="width: 5.0em">
                                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                         </th>
@@ -161,7 +161,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                                        <td *ngIf="isGranted('Pages.Tenant.Member.Edit')">
+                                        <td style="width: 150px" *ngIf="isGranted('Pages.Tenant.Member.Edit')">
                                             <div class="btn-group dropdown" dropdown normalizePosition>
                                                 <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

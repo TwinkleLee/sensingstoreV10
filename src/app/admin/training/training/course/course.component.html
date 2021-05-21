@@ -58,7 +58,7 @@
                                 [responsive]="primengTableHelper.isResponsive">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th
+                                        <th style="width: 150px"
                                             *ngIf="isGranted('Pages.Tenant.Training.Delete')||isGranted('Pages.Tenant.Training.Edit')">
                                             {{l('Actions')}}</th>
                                         <th>
@@ -77,7 +77,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                                        <td
+                                        <td style="width: 150px"
                                             *ngIf="isGranted('Pages.Tenant.Training.Delete')||isGranted('Pages.Tenant.Training.Edit')">
                                             <div class="btn-group dropdown" dropdown normalizePosition>
                                                 <button class="dropdown-toggle btn btn-sm btn-primary"

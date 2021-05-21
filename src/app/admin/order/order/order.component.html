@@ -160,7 +160,7 @@
                 [responsive]="primengTableHelper.isResponsive" [scrollable]="true" ScrollWidth="100%">
                 <ng-template pTemplate="header">
                   <tr>
-                    <th style="width:250px;" *ngIf="isGranted('Pages.Tenant.Order.Delete')">{{l('Actions')}}</th>
+                    <th style="width: 150px" *ngIf="isGranted('Pages.Tenant.Order.Delete')">{{l('Actions')}}</th>
                     <th style="width:50px;">{{l('RecordId')}}</th>
                     <th style="width:200px;">{{l('orderNo')}}</th>
                     <th pSortableColumn="orderDateTime" style="width:150px;">
@@ -199,7 +199,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                   <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                    <td *ngIf="isGranted('Pages.Tenant.Order.Delete')" style="width:250px;">
+                    <td *ngIf="isGranted('Pages.Tenant.Order.Delete')" style="width: 150px">
                       <button class="btn btn-sm btn-primary" (click)="goDetail(record,true)">
                         {{l("Detail")}}
                       </button>

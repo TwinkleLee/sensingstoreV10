@@ -45,7 +45,7 @@
                                 [responsive]="primengTableHelper.isResponsive">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th style="width:15%">{{l('Actions')}}</th>
+                                        <th style="width: 150px">{{l('Actions')}}</th>
                                         <th style="width:5%">
                                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                         </th>
@@ -58,7 +58,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record">
-                                        <td>
+                                        <td style="width: 150px">
                                             <div class="btn-group dropdown" dropdown normalizePosition>
                                                 <button class="dropdown-toggle btn btn-sm btn-primary"
                                                     data-toggle="dropdown" dropdownToggle aria-haspopup="true"

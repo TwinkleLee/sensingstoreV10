@@ -124,7 +124,7 @@
                                     <p-table #dataTable [value]="angleList" [paginator]="false">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th>{{l('Actions')}}</th>
+                                                <th style="width: 150px">{{l('Actions')}}</th>
                                                 <th style="width:5%">{{l('RecordId')}}</th>
                                                 <th>
                                                     {{l('angle')}}
@@ -138,7 +138,7 @@
                                         </ng-template>
                                         <ng-template pTemplate="body" let-record let-i="rowIndex">
                                             <tr [pSelectableRow]="record">
-                                                <td>
+                                                <td style="width: 150px">
                                                     <div class="btn-group dropdown" dropdown normalizePosition>
                                                         <button type="button"
                                                             class="dropdown-toggle btn btn-sm btn-primary"

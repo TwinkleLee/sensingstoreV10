@@ -74,7 +74,7 @@
                 [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
                 <ng-template pTemplate="header">
                   <tr>
-                    <th style="width:5%">{{l('Actions')}}</th>
+                    <th style="width: 150px;">{{l('Actions')}}</th>
                     <th style="width:5%">{{l('RecordId')}}</th>
                     <th>{{l('headImage')}}</th>
                     <th>{{l('UserName')}}</th>
@@ -89,7 +89,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                   <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                    <td>
+                    <td style="width: 150px;">
                       <div class="btn-group dropdown" dropdown normalizePosition>
                         <button class="btn btn-sm btn-primary" (click)="goDetail(record)">
                           {{l("detail")}}

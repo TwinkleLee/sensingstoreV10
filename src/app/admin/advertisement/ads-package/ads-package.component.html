@@ -65,7 +65,7 @@
                                 [responsive]="primengTableHelper.isResponsive">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th style="width: 15%" *ngIf="isGranted('Pages.Tenant.Ads.AdsPackage')">
+                                        <th style="width: 150px" *ngIf="isGranted('Pages.Tenant.Ads.AdsPackage')">
                                             {{l('Actions')}}</th>
                                         <th style="width: 5%">
                                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
@@ -86,7 +86,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                                        <td
+                                        <td style="width: 150px"
                                             *ngIf="isGranted('Pages.Tenant.Ads.AdsPackage')||isGranted('Pages.Tenant.Coupons.Edit')">
                                             <div class="btn-group dropdown" dropdown normalizePosition>
                                                 <button class="dropdown-toggle btn btn-sm btn-primary"
