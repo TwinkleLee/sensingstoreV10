@@ -12193,6 +12193,84 @@ export class SensingTicketServiceProxy {
     }
 
     /**
+     * 获取券码
+     * @param securityKey (optional) 
+     * @param tenantId (optional) 
+     * @param openId (optional) 
+     * @param memberId (optional) 
+     * @param ticketId (optional) 
+     * @param sendMessage (optional) 
+     * @param limitDate (optional) 
+     * @return Success
+     */
+    takeTicket4User(securityKey: string | undefined, tenantId: number | undefined, openId: string | undefined, memberId: number | undefined, ticketId: number | undefined, sendMessage: boolean | undefined, limitDate: number | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/services/app/SensingTicket/TakeTicket4User?";
+        if (securityKey === null)
+            throw new Error("The parameter 'securityKey' cannot be null.");
+        else if (securityKey !== undefined)
+            url_ += "securityKey=" + encodeURIComponent("" + securityKey) + "&";
+        if (ticketId === null)
+            throw new Error("The parameter 'ticketId' cannot be null.");
+        else if (ticketId !== undefined)
+            url_ += "ticketId=" + encodeURIComponent("" + ticketId) + "&";
+        if (sendMessage === null)
+            throw new Error("The parameter 'sendMessage' cannot be null.");
+        else if (sendMessage !== undefined)
+            url_ += "SendMessage=" + encodeURIComponent("" + sendMessage) + "&";
+        if (limitDate === null)
+            throw new Error("The parameter 'limitDate' cannot be null.");
+        else if (limitDate !== undefined)
+            url_ += "limitDate=" + encodeURIComponent("" + limitDate) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "tenantId": tenantId !== undefined && tenantId !== null ? "" + tenantId : "",
+                "openId": openId !== undefined && openId !== null ? "" + openId : "",
+                "memberId": memberId !== undefined && memberId !== null ? "" + memberId : "",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTakeTicket4User(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTakeTicket4User(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processTakeTicket4User(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    /**
      * 跨服查询
      * @param body (optional) 
      * @return Success
@@ -12730,6 +12808,73 @@ export class SensingTicketServiceProxy {
             }));
         }
         return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * 核销券
+     * @param securityKey (optional) 
+     * @param subkey (optional) 
+     * @param ticketno (optional) 
+     * @return Success
+     */
+    verifyTicket(securityKey: string | undefined, subkey: string | undefined, ticketno: string | undefined): Observable<CheckTicketDto> {
+        let url_ = this.baseUrl + "/api/services/app/SensingTicket/VerifyTicket?";
+        if (securityKey === null)
+            throw new Error("The parameter 'securityKey' cannot be null.");
+        else if (securityKey !== undefined)
+            url_ += "SecurityKey=" + encodeURIComponent("" + securityKey) + "&";
+        if (subkey === null)
+            throw new Error("The parameter 'subkey' cannot be null.");
+        else if (subkey !== undefined)
+            url_ += "subkey=" + encodeURIComponent("" + subkey) + "&";
+        if (ticketno === null)
+            throw new Error("The parameter 'ticketno' cannot be null.");
+        else if (ticketno !== undefined)
+            url_ += "ticketno=" + encodeURIComponent("" + ticketno) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processVerifyTicket(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processVerifyTicket(<any>response_);
+                } catch (e) {
+                    return <Observable<CheckTicketDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CheckTicketDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processVerifyTicket(response: HttpResponseBase): Observable<CheckTicketDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CheckTicketDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CheckTicketDto>(<any>null);
     }
 }
 
@@ -17921,6 +18066,7 @@ export interface IGetPointPreOrderInput {
 }
 
 export class GetRefundDetailDto implements IGetRefundDetailDto {
+    id!: number;
     order!: OrderDto;
     refundWay!: RefundWay;
     refundReason!: string | undefined;
@@ -17944,6 +18090,7 @@ export class GetRefundDetailDto implements IGetRefundDetailDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.order = _data["order"] ? OrderDto.fromJS(_data["order"]) : <any>undefined;
             this.refundWay = _data["refundWay"];
             this.refundReason = _data["refundReason"];
@@ -17971,6 +18118,7 @@ export class GetRefundDetailDto implements IGetRefundDetailDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["order"] = this.order ? this.order.toJSON() : <any>undefined;
         data["refundWay"] = this.refundWay;
         data["refundReason"] = this.refundReason;
@@ -17991,6 +18139,7 @@ export class GetRefundDetailDto implements IGetRefundDetailDto {
 }
 
 export interface IGetRefundDetailDto {
+    id: number;
     order: OrderDto;
     refundWay: RefundWay;
     refundReason: string | undefined;
@@ -26143,6 +26292,7 @@ export interface ITakeTicketForActivityInput {
 }
 
 export class TaketicketForUserInput implements ITaketicketForUserInput {
+    tenantId!: number;
     openId!: string | undefined;
     appId!: string | undefined;
     securityKey!: string | undefined;
@@ -26151,6 +26301,8 @@ export class TaketicketForUserInput implements ITaketicketForUserInput {
     ticketId!: number;
     nickName!: string | undefined;
     headImgUrl!: string | undefined;
+    regPhone!: string | undefined;
+    memberId!: number | undefined;
 
     constructor(data?: ITaketicketForUserInput) {
         if (data) {
@@ -26163,6 +26315,7 @@ export class TaketicketForUserInput implements ITaketicketForUserInput {
 
     init(_data?: any) {
         if (_data) {
+            this.tenantId = _data["tenantId"];
             this.openId = _data["openId"];
             this.appId = _data["appId"];
             this.securityKey = _data["securityKey"];
@@ -26171,6 +26324,8 @@ export class TaketicketForUserInput implements ITaketicketForUserInput {
             this.ticketId = _data["ticketId"];
             this.nickName = _data["nickName"];
             this.headImgUrl = _data["headImgUrl"];
+            this.regPhone = _data["regPhone"];
+            this.memberId = _data["memberId"];
         }
     }
 
@@ -26183,6 +26338,7 @@ export class TaketicketForUserInput implements ITaketicketForUserInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["tenantId"] = this.tenantId;
         data["openId"] = this.openId;
         data["appId"] = this.appId;
         data["securityKey"] = this.securityKey;
@@ -26191,11 +26347,14 @@ export class TaketicketForUserInput implements ITaketicketForUserInput {
         data["ticketId"] = this.ticketId;
         data["nickName"] = this.nickName;
         data["headImgUrl"] = this.headImgUrl;
+        data["regPhone"] = this.regPhone;
+        data["memberId"] = this.memberId;
         return data; 
     }
 }
 
 export interface ITaketicketForUserInput {
+    tenantId: number;
     openId: string | undefined;
     appId: string | undefined;
     securityKey: string | undefined;
@@ -26204,6 +26363,8 @@ export interface ITaketicketForUserInput {
     ticketId: number;
     nickName: string | undefined;
     headImgUrl: string | undefined;
+    regPhone: string | undefined;
+    memberId: number | undefined;
 }
 
 export class TakeTicketRepDto implements ITakeTicketRepDto {

@@ -125,7 +125,7 @@
                             <p-table [value]="Question.questionItems" [paginator]="false">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th style="width:12%;">{{l('Actions')}}</th>
+                                        <th style="width: 150px">{{l('Actions')}}</th>
                                         <th style="width:6%;">{{l('sort')}}</th>
                                         <th style="width:6%;">{{l('prefix')}}</th>
                                         <th>
@@ -141,7 +141,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record">
-                                        <td>
+                                        <td style="width: 150px">
                                             <div class="btn-group dropdown" normalizePosition>
                                                 <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
                                                     type="button">

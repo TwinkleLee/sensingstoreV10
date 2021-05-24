@@ -15,10 +15,94 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6 form-group">
-                            <label></label>
-                            <input [(ngModel)]="addBillInput.from" type="text" class="form-control" />
+                            <label>{{l('from')}}</label>
+                            <input [(ngModel)]="Input.from" type="text" class="form-control" />
+                        </div>
+                        <div class="col-6 form-group">
+                            <label>{{l('outPutInStorageType')}}</label>
+                            <select required [(ngModel)]="Input.outPutInStorageType" name="outPutInStorageType" class="form-control">
+                                <option value="Put">{{l('Put')}}</option>
+                                <option value="Out">{{l('Out')}}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label>{{l('descrtption')}}</label>
+                            <textarea name="Input.descrtption" class="form-control" cols="30" rows="5"></textarea>
                         </div>
                     </div>
+
+
+
+                     <div class="row align-items-center">
+                        <!--<Primeng-Datatable-Start>-->
+                        <div class="primeng-datatable-container">
+                            <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
+                            <p-table #RecommendTable [busyIf]="primengTableHelper.isLoading" [value]="skuList" [paginator]="false">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 150px">{{l('Actions')}}</th>
+                                        <th>
+                                            {{l('name')}} *
+                                        </th>
+                                        <th>sku_id *</th>
+                                        <th>
+                                            {{l('Image')}}
+                                        </th>
+                                        <th>
+                                            {{l('nowQuantity')}}
+                                        </th>
+                                        <th>
+                                            <span *ngIf="Input.outPutInStorageType=='Out'">{{l('OutQuantity')}}</span>
+                                            <span *ngIf="Input.outPutInStorageType=='Put'">{{l('InQuantity')}}</span>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                    <tr [pSelectableRow]="record">
+                                        <td style="width: 150px">
+                                            <div class="btn-group dropdown" normalizePosition>
+                                                <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
+                                                    type="button" tabindex="-1">
+                                                    <span class="caret"></span> {{l("Delete")}}
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control titleInputInAddOutputinModal" type="text"
+                                                [ngModelOptions]="{standalone: true}" readonly [(ngModel)]="record.title"
+                                                 (click)="doSearch($event,record,i)">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="record.sku_id" (click)="doSearch($event,record,i)" readonly
+                                                >
+                                        </td>
+                                        <td>
+                                            <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;" (error)="fixPic($event)" />
+                                        </td>
+                                        <td>
+                                            <span>{{record.quantity}}</span>
+                                        </td>
+                                        <td>
+                                            <input class="form-control numberInputInAddOutputinModal" type="number"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number"
+                                                (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)"
+                                                [readonly]="record.loading||!record.skuId" [class.recordNotValid]="!record.valid">
+                                        </td>
+                                    </tr>
+                                </ng-template>
+
+                            </p-table>
+                        </div>
+                        <!--<Primeng-Datatable-End>-->
+                        <div class="row" style="margin:25px 0;width:100%;">
+                            <div class="col-12 text-center">
+                                <button (click)="add()" class="btn btn-primary blue" type="button">
+                                    <i class="fa fa-plus"></i> {{l("add")}}</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-primary"
@@ -34,3 +118,4 @@
 
     </div>
 </div>
+<skuGridModal #skuGridModal (modalSave)="getSelect($event)"></skuGridModal>

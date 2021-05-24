@@ -114,6 +114,7 @@ export class AppSessionService {
                             new Date(new Date().getTime() + 1 * 86400000), //1 day
                             abp.appPath
                         );
+                        
                         this.setCurrentOu(record.name, record.value);
                     })
 

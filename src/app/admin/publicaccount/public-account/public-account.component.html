@@ -58,7 +58,7 @@
                 [responsive]="primengTableHelper.isResponsive">
                 <ng-template pTemplate="header">
                   <tr>
-                    <th style="width: 15%">{{l('Actions')}}</th>
+                    <th style="width: 150px">{{l('Actions')}}</th>
                     <th style="width:5%">{{l('RecordId')}}</th>
                     <th>{{l('weixinAppID')}}</th>
                     <th>{{l('head_img')}}</th>
@@ -74,7 +74,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                   <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                    <td style="width:250px;">
+                    <td style="width: 150px">
                       <button class="btn btn-sm btn-primary" (click)="goManage(record)">
                         {{l("PublicAccountManage")}}
                       </button>

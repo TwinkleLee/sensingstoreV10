@@ -38,7 +38,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         'propertyValues': []
     };
     haveMainProperty:boolean=false;
-    selectProperty: any = {};
+    selectProperty: any = '';
     addPropertyList: any[] = [];
     mainPropertyIds: any[] = [];
     areaMode:boolean = false;
@@ -83,7 +83,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         
         this.mainPropertyIds = [];
         this.addPropertyList=[];
-        this.selectProperty = {};
+        this.selectProperty = '';
         this.modal.show();
 
 
@@ -110,8 +110,14 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         this.propertyList = this.propertyList.concat(this.addPropertyList.splice(index, 1));
         this.mainPropertyIds.splice(index+1, 1);
     }
+
+    handleSelect () {
+        console.log(this.selectProperty)
+    }
+
     //选中property
     addProperty() {
+        console.log(this.selectProperty)
         var index, select;
         this.propertyList.forEach((property,i)=>{
                 if(property.id == this.selectProperty){
@@ -121,6 +127,8 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         select = this.propertyList.splice(index, 1)[0];
         this.addPropertyList.push(select);
         select.propertyValues[0] && this.mainPropertyIds.push(select.propertyValues[0].id);
+        
+        console.log(select.propertyValues[0])
     }
 
 
@@ -156,7 +164,7 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     close(): void {
         this.propertyList = [];
         this.mainPropertyIds = [];
-        this.selectProperty = {};
+        this.selectProperty = '';
         this.mainProperty.propertyValues = [];
 
 

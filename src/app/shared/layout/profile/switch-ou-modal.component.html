@@ -17,14 +17,14 @@
                         [paginator]="false" [lazy]="false" [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th>{{l('Actions')}}</th>
+                                <th style="width: 150px">{{l('Actions')}}</th>
                                 <th>{{l('Id')}}</th>
                                 <th>{{l('OUName')}}</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-record let-i="rowIndex">
                             <tr>
-                                <td>
+                                <td style="width: 150px">
                                     <button class="btn btn-sm btn-primary" (click)="switchToOU(record)" *ngIf="appSession.ouId!=record.value">
                                         <i class="fa fa-sign-in"></i>{{l('SwitchOrganizationUnit')}}
                                     </button>

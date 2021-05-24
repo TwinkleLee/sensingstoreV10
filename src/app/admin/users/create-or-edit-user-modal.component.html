@@ -171,14 +171,14 @@
                                     <p-table #dataTable [(value)]="OnlineStoreMsgList" [lazy]="false" [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [resizableColumns]="primengTableHelper.resizableColumns" [responsive]="primengTableHelper.isResponsive">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th>{{l('Actions')}}</th>
+                                                <th style="width: 150px">{{l('Actions')}}</th>
                                                 <th>{{l('OnlineStoreName')}}</th>
                                                 <th>{{l('OnlineStoreJobNumber')}}</th>
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="body" let-record let-i="rowIndex">
                                             <tr>
-                                                <td>
+                                                <td style="width: 150px">
                                                     <a class="btn btn-default" (click)="saveOnlineStoreMsg(record)" *ngIf="record.editable">{{l('Save')}}</a>
                                                     <a class="btn btn-default" (click)="editOnlineStoreMsg(record)" *ngIf="!record.editable">{{l('Edit')}}</a>
                                                     <a class="btn btn-default" (click)="deleteOnlineStoreMsg(i)">{{l('Delete')}}</a>

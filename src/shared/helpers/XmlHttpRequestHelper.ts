@@ -24,6 +24,7 @@ export class XmlHttpRequestHelper {
         }
 
         xhr.setRequestHeader('Content-type', 'application/json');
+
         if (data) {
             xhr.send(data);
         } else {

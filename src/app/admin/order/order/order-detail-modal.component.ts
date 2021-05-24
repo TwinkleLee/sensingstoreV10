@@ -148,7 +148,7 @@ export class OrderDetailModalComponent extends AppComponentBase {
 
     agreeReturn() {
         this._SensingShopManageServiceProxy.acceptRefundOrder(
-            this.order.id
+            this.refund.id
         ).pipe(finalize(() => {
             this.saving = false;
         })).subscribe(r => {
@@ -158,7 +158,7 @@ export class OrderDetailModalComponent extends AppComponentBase {
     }
     disagreeReturn() {
         this._SensingShopManageServiceProxy.refuseRefundApply(new RefuseRefundApplyInput({
-            id: this.order.id,
+            id: this.refund.id,
             refundReason: ''
         })
         ).pipe(finalize(() => {

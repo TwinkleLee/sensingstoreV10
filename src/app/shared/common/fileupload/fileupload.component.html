@@ -106,7 +106,7 @@
                         [responsive]="primengTableHelper.isResponsive">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 30%">{{l('Actions')}}</th>
+                                <th style="width: 150px">{{l('Actions')}}</th>
                                 <th style="width:20%" pSortableColumn="id">
                                     {{l('ID')}}
                                     <p-sortIcon field="id"></p-sortIcon>
@@ -116,7 +116,7 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-record let-i="rowIndex">
                             <tr>
-                                <td>
+                                <td style="width: 150px">
                                     <span class="text-info" *ngIf="record.id==appliedResourceId">已应用</span>
                                     <button type="button" class="btn btn-primary" *ngIf="record.id!=appliedResourceId"
                                         (click)="useResPool(record)">{{l('Apply')}}</button>
