@@ -23,6 +23,8 @@ export class AccountComponent extends AppComponentBase implements OnInit {
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
     //troncell
     customTheme = AppConsts.customTheme;
+
+    year: any = new Date().getFullYear();
     
     tenantChangeDisabledRoutes: string[] = [
         'select-edition',

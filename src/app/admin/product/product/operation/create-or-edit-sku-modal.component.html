@@ -178,6 +178,7 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <!-- 关键属性 -->
                                 <div class="col-12" *ngIf="mainProperty.propertyId">
                                     <div class="form-group">
                                         <label>{{mainProperty.propertyName}}*({{l('keyProperty')}})</label>
@@ -212,8 +213,8 @@
                                     <div class="form-group row">
                                         <div class="col-10">
                                             <select [(ngModel)]="selectProperty" name="selectProperty"
-                                                class="form-control">
-                                                <option [value]="property" *ngFor="let property of propertyList">
+                                                class="form-control" (change)="handleSelect()">
+                                                <option [value]="property.propertyId" *ngFor="let property of propertyList">
                                                     {{property.propertyName}}</option>
                                             </select>
                                         </div>
