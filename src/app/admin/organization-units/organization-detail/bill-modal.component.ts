@@ -181,15 +181,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
 
     save(): void {
         this.saving = true;
-
-        this.Input.storageOuterId = this.Input.outerId;
-        this.Input.skuQuantity = this.Input.outPutInStorageSkus.map(item => {
-            item.quantity = item.number;
-            return item
-        })
-        console.log(this.Input)
-
-
+        console.log(new AddOrUpdateOutPutInStorageBillInput(this.Input))
         this._OutPutInStorageServiceProxy.addOrUpdateOutPutInStorageBill(new AddOrUpdateOutPutInStorageBillInput(this.Input))
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(() => {

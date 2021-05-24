@@ -22,17 +22,32 @@
 
                     </div>
                 </div>
-                <button *ngIf="appSession.tenant.id==5157" type="button" class="btn btn-primary" (click)="goImportSulwhasoo()" [buttonBusy]="exportLoading">
-                    <i class="icon-excel"></i>
-                    {{l('import')}}</button>
 
-                <button *ngIf="appSession.tenant.id==5157" type="button" class="btn btn-primary" (click)="goExportSulwhasoo()" [buttonBusy]="exportLoading">
-                    <i class="icon-excel"></i>
-                    {{l('Send')}}</button>
-
-                <button type="button" class="btn btn-primary" (click)="goExport()" [buttonBusy]="exportLoading">
-                    <i class="icon-excel"></i>
-                    {{l('export')}}</button>
+                <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
+                    <button class="btn btn-primary dropdown-toggle icon-excel" type="button" id="port"
+                        data-toggle="dropdown" dropdownToggle aria-haspopup="true" aria-expanded="false"
+                        [buttonBusy]="exportLoading">
+                        {{l('ImportOrExport')}}
+                    </button>
+                    <div class="dropdown-menu" *dropdownMenu aria-labelledby="port" x-placement="bottom-start">
+                        <a *ngIf="appSession.tenant.id!=5157" class="dropdown-item icon-shuminghaoxia_xian"
+                            (click)="goImport()">
+                            {{l('import')}}
+                        </a>
+                        <a *ngIf="appSession.tenant.id==5157" class="dropdown-item icon-shuminghaoxia_xian"
+                            (click)="goImportSulwhasoo()">
+                            {{l('import')}}
+                        </a>
+                        <a *ngIf="appSession.tenant.id!=5157" class="dropdown-item icon-shuminghaoshang_xian"
+                            (click)="goExport()">
+                            {{l('export')}}
+                        </a>
+                        <a *ngIf="appSession.tenant.id==5157" class="dropdown-item icon-shuminghaoshang_xian"
+                            (click)="goExportSulwhasoo()">
+                            {{l('export')}}
+                        </a>
+                    </div>
+                </div>
 
                 <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
                     <button class="btn btn-primary dropdown-toggle icon-piliangcaozuo" type="button" id="applyButton"
@@ -135,7 +150,8 @@
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
-                            <p-table [scrollable]="true" ScrollWidth="100%" #dataTable (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
+                            <p-table [scrollable]="true" ScrollWidth="100%" #dataTable
+                                (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
                                 [(selection)]="storeCheckedList"
                                 [resizableColumns]="primengTableHelper.resizableColumns"
@@ -180,7 +196,8 @@
                                                         <a (click)="editStore(record)"
                                                             class="icon-bianji dropdown-item">{{l('Edit')}}</a>
                                                     </li>
-                                                    <li *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']=='Stopped'">
+                                                    <li
+                                                        *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']=='Stopped'">
                                                         <a (click)="deleteStore(record)"
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
@@ -227,7 +244,7 @@
                                                 class="label label-success label-inline">{{l("isbinded")}}</span>
                                             <span *ngIf="record.rooms.length==0"
                                                 class="label label-dark label-inline">{{l("unbinded")}}</span>
-                                                <!-- <span>{{ record.rooms.length }}</span> -->
+                                            <!-- <span>{{ record.rooms.length }}</span> -->
                                         </td>
                                         <td style="width:100px">
                                             <span>{{getBrandName(record)}}</span>

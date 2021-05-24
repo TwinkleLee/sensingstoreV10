@@ -117,13 +117,9 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
 
     //选中property
     addProperty() {
-        console.log(this.selectProperty, this.propertyList)
         var select;
-
         select = this.propertyList.find(i => i.propertyId == this.selectProperty);
-
         this.propertyList = this.propertyList.filter(i => i.propertyId !== this.selectProperty)
-
         this.addPropertyList.push(select);
         select.propertyValues[0] && this.mainPropertyIds.push(select.propertyValues[0].id);
     }

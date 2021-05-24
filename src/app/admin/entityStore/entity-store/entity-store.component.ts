@@ -162,6 +162,10 @@ export class EntityStoreComponent extends AppComponentBase {
     this._SensingTicketServiceProxy.getTakeTicketListToExcel();
   }
 
+  goImport () {
+    this._router.navigate(['app', 'admin', 'import', 'import', 'store']);
+  }
+
   goExport() {
     this.exportLoading = true;
     this._NewStoreServiceProxy.getStoresToExcel(
