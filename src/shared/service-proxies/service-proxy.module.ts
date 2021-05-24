@@ -23,6 +23,8 @@ import * as SMARTDEVICEServiceProxies from './service-proxies-smartdevice';//对
 import * as AdsServiceProxies from './service-proxies-ads';//ads
 import * as ProductServiceProxies from './service-proxies-product';// product
 
+import * as GatewayServiceProxies from './service-proxies-gateway';// product
+
 @NgModule({
     providers: [
         ApiServiceProxies.AuditLogServiceProxy,
@@ -175,6 +177,8 @@ import * as ProductServiceProxies from './service-proxies-product';// product
         FloorServiceProxies.RoomServiceProxy,
         FloorServiceProxies.RobotServiceProxy,
         // FloorServiceProxies.ImportFloorGuideRoomAndStoreServiceProxy,
+
+        GatewayServiceProxies.DeviceMirrorPublishServiceProxy,
         
 
         OKRServiceProxies.OKRServiceProxy,

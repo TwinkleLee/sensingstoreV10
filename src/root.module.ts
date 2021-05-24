@@ -48,6 +48,7 @@ import { API_DEVICECENTER_URL } from '@shared/service-proxies/service-proxies-de
 import { API_SMARTDEVICE_URL } from '@shared/service-proxies/service-proxies-smartdevice';
 import { API_ADS_URL } from '@shared/service-proxies/service-proxies-ads';
 import { API_PRODUCT_URL } from '@shared/service-proxies/service-proxies-product';
+import { API_GATEWAY_URL } from '@shared/service-proxies/service-proxies-gateway';
 
 
 
@@ -282,6 +283,10 @@ export function getProductServiceBaseUrl(): string {
     return AppConsts.remoteProductServiceUrl;
 }
 
+export function getGatewayServiceBaseUrl(): string {
+    return AppConsts.remoteGatewayServiceUrl;
+}
+
 // end
 
 export function getCurrentLanguage(): string {
@@ -336,6 +341,7 @@ function handleLogoutRequest(authService: AppAuthService) {
         { provide: API_PAGER_URL, useFactory: getPaperServiceBaseUrl },
         // { provide: API_USER_URL, useFactory: getUserServiceBaseUrl },
         { provide: API_FLOOR_URL, useFactory: getFloorServiceBaseUrl },
+        { provide: API_GATEWAY_URL, useFactory: getGatewayServiceBaseUrl },
         { provide: API_OKR_URL, useFactory: getOKRServiceBaseUrl },
         { provide: API_DEVICECENTER_URL, useFactory:getDeviceCenterServiceBaseUrl  },
         { provide: API_SMARTDEVICE_URL, useFactory:getSmartDeviceServiceBaseUrl  },

@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core'
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TenantServiceProxy } from '@shared/service-proxies/service-proxies';
-import { DeviceServiceProxy as NewDeviceServiceProxy, DeviceMirrorPublishInput, PublishDeviceInput, StoreServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { DeviceServiceProxy as NewDeviceServiceProxy, PublishDeviceInput, StoreServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+
+import { DeviceMirrorPublishInput, DeviceMirrorPublishServiceProxy } from '@shared/service-proxies/service-proxies-gateway'
 
 import { ApplyServiceProxy, ApplyWanted as CreateApplyFormInputWanted, AuditStatus as AuditStatus2, ApplyFormType as CreateApplyFormInputApplyType, CreateApplyFormInput } from '@shared/service-proxies/service-proxies-devicecenter';
 
@@ -115,7 +117,8 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
     private _tokenService: TokenService,
     private route: ActivatedRoute,
     private _CounterDeviceServiceProxy: CounterDeviceServiceProxy,
-    private _NewDeviceServiceProxy: NewDeviceServiceProxy
+    private _NewDeviceServiceProxy: NewDeviceServiceProxy,
+    private _DeviceMirrorPublishServiceProxy: DeviceMirrorPublishServiceProxy
 
   ) {
     super(injector);
@@ -576,7 +579,7 @@ export class DeviceListComponent extends AppComponentBase implements OnInit {
         console.log(input)
         this.message.confirm(this.l('isPublishChosen'), this.l('AreYouSure'), (r) => {
           if (r) {
-            this._NewDeviceServiceProxy.publishDeviceMirror(input).subscribe((result) => {
+            this._DeviceMirrorPublishServiceProxy.publishDeviceMirror(input).subscribe((result) => {
               this.notify.info(this.l('success'));
               this.toPublish = false;
               this.operateAll = false;

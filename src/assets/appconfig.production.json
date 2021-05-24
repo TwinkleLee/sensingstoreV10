@@ -13,6 +13,7 @@
   "remoteFloorServiceUrl": "https://floorguide.api.troncell.com",
   "remoteAdserviceUrl": "https://ads.api.troncell.com",
   "remoteProductServiceUrl": "https://product.api.troncell.com",
+  "remoteGatewayServiceUrl": "https://spagateway.api.troncell.com",
   "localeMappings": {
     "angular": [
       {

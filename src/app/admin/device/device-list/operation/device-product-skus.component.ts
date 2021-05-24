@@ -1,4 +1,4 @@
-import { Component, ViewChild, Injector, } from '@angular/core';
+import { Component, ViewChild, Injector, OnInit } from '@angular/core';
 import { PriceTagServiceProxy, UpdateDefaultPriceTagInput } from '@shared/service-proxies/service-proxies-product';
 
 import { AuditStatus as AuditStatus8, DeviceServiceProxy, ProductServiceProxy, PublishEntitiesInput, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
@@ -46,6 +46,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         this.productName = deviceAndProduct.productName;
         this.deviceName = deviceAndProduct.deviceName;
     }
+
     toggleSkuGrid(f) {
         if (f) {
             $("#TableShow").show();
@@ -83,14 +84,14 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         }
 
         var id = Math.floor(Math.random() * 10000000);
+
         this.message.confirm(`
-        <div class="form-group">
-            <label class="checkbox">
-                <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
-                <span></span>
-            </label>
-        </div>
-     `, this.l('deleteThisAdOfDevice'), (r) => {
+<div class="form-group" style="display: flex;justify-content: center;">
+        <label class="checkbox">
+        <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
+        <span></span>
+    </label>
+</div>`, this.l('deleteThisAdOfDevice'), (r) => {
             if (!r) return
             if ($(`#device_product_skus_${id}`).is(':checked')) {
                 this.informDevice = true;
@@ -114,7 +115,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
                 this.deviceProductSkuSelection = [];
                 this.getDeviceProductSkus();
             })
-        })
+        },{ isHtml: true })
 
 
 
@@ -124,9 +125,10 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         if (this.deviceProductSkuSelection.length == 0) {
             return this.notify.info(this.l('atLeastChoseOneItem'));
         }
+        
         var id = Math.floor(Math.random() * 10000000);
         this.message.confirm(`
-        <div class="form-group">
+        <div class="form-group" style="display: flex;justify-content: center;">
             <label class="checkbox">
                 <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
                 <span></span>
@@ -159,16 +161,17 @@ export class DeviceProductSkuComponent extends AppComponentBase {
                 this.deviceProductSkuSelection = [];
                 this.getDeviceProductSkus();
             })
-        });
+        },{ isHtml: true });
     }
     //撤回单个
     withdrawSku(record) {
         var id = Math.floor(Math.random() * 10000000);
         this.message.confirm(`
-        <div class="form-group">
+        <div class="form-group" style="display: flex;justify-content: center;">
             <label class="checkbox">
-                <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
+                <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>
                 <span></span>
+                ${this.l('informDevice')}
             </label>
         </div>
      `, this.l('deleteThisSkuQuestion'), (r) => {
@@ -195,7 +198,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
                 this.deviceProductSkuSelection = [];
                 this.getDeviceProductSkus();
             })
-        })
+        },{ isHtml: true })
     }
     //操作imageGrid
     onOperateProductSkus(e) {
