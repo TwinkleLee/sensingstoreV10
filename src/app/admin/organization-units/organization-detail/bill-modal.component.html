@@ -1,6 +1,6 @@
 <div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
     tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form *ngIf="active" #ProductsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
                 <div class="modal-header">
@@ -16,11 +16,12 @@
                     <div class="row">
                         <div class="col-6 form-group">
                             <label>{{l('from')}}</label>
-                            <input [(ngModel)]="Input.from" type="text" class="form-control" />
+                            <input [(ngModel)]="Input.from" name="from" type="text" class="form-control" />
                         </div>
                         <div class="col-6 form-group">
                             <label>{{l('outPutInStorageType')}}</label>
-                            <select required [(ngModel)]="Input.outPutInStorageType" name="outPutInStorageType" class="form-control">
+                            <select required [(ngModel)]="Input.outPutInStorageType" name="outPutInStorageType"
+                                class="form-control">
                                 <option value="Put">{{l('Put')}}</option>
                                 <option value="Out">{{l('Out')}}</option>
                             </select>
@@ -33,11 +34,12 @@
 
 
 
-                     <div class="row align-items-center">
+                    <div class="row align-items-center">
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container">
                             <!-- resizableColumns="PersonalityPrimeng.resizableColumns" -->
-                            <p-table #RecommendTable [busyIf]="primengTableHelper.isLoading" [value]="skuList" [paginator]="false">
+                            <p-table #RecommendTable [busyIf]="primengTableHelper.isLoading" [value]="skuList"
+                                [paginator]="false">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th style="width: 150px">{{l('Actions')}}</th>
@@ -55,30 +57,32 @@
                                             <span *ngIf="Input.outPutInStorageType=='Out'">{{l('OutQuantity')}}</span>
                                             <span *ngIf="Input.outPutInStorageType=='Put'">{{l('InQuantity')}}</span>
                                         </th>
+                                        <th>{{l('RFID')}}</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record">
                                         <td style="width: 150px">
                                             <div class="btn-group dropdown" normalizePosition>
-                                                <button class="icon-icon-test btn btn-sm btn-primary" (click)="deleteRecord(i)"
-                                                    type="button" tabindex="-1">
+                                                <button class="icon-icon-test btn btn-sm btn-primary"
+                                                    (click)="deleteRecord(i)" type="button" tabindex="-1">
                                                     <span class="caret"></span> {{l("Delete")}}
                                                 </button>
                                             </div>
                                         </td>
                                         <td>
                                             <input class="form-control titleInputInAddOutputinModal" type="text"
-                                                [ngModelOptions]="{standalone: true}" readonly [(ngModel)]="record.title"
-                                                 (click)="doSearch($event,record,i)">
+                                                [ngModelOptions]="{standalone: true}" readonly
+                                                [(ngModel)]="record.title" (click)="doSearch($event,record,i)">
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
-                                                [(ngModel)]="record.sku_id" (click)="doSearch($event,record,i)" readonly
-                                                >
+                                            <input class="form-control" type="text"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.sku_id"
+                                                (click)="doSearch($event,record,i)" readonly>
                                         </td>
                                         <td>
-                                            <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;" (error)="fixPic($event)" />
+                                            <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;"
+                                                (error)="fixPic($event)" />
                                         </td>
                                         <td>
                                             <span>{{record.quantity}}</span>
@@ -87,7 +91,15 @@
                                             <input class="form-control numberInputInAddOutputinModal" type="number"
                                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number"
                                                 (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)"
-                                                [readonly]="record.loading||!record.skuId" [class.recordNotValid]="!record.valid">
+                                                [readonly]="record.loading||!record.skuId"
+                                                [class.recordNotValid]="!record.valid">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="record.rfid"
+                                                (input)="handleInput()"
+                                                [readonly]="record.number!=1||record.loading||!record.skuId"
+                                                [class.recordNotValid]="!record.valid">
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -107,7 +119,7 @@
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-primary"
                         (click)="close()">{{l("Cancel")}}</button>
-                    <button type="submit" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
+                    <button type="button" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
                         [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
                         <i class="fa fa-save"></i>
                         <span>{{l("Save")}}</span>

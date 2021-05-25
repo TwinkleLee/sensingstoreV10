@@ -25,7 +25,7 @@ export class ApplyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -328,7 +328,7 @@ export class BackendDownloadTaskServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -551,7 +551,7 @@ export class CouponServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -1148,7 +1148,7 @@ export class DeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -1779,7 +1779,7 @@ export class IdentityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -2022,7 +2022,7 @@ export class ImportProductsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -2090,7 +2090,7 @@ export class LikeInfoServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -2799,7 +2799,7 @@ export class LikeInfoExcelImporterServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -2863,7 +2863,7 @@ export class LikeItemServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -3150,7 +3150,7 @@ export class MatchInfoServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -3859,7 +3859,7 @@ export class OrganizationUnitServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -3931,7 +3931,7 @@ export class OutPutInStorageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -4487,7 +4487,7 @@ export class PriceTagServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -4812,7 +4812,7 @@ export class ProductServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -10053,7 +10053,7 @@ export class ProductCategoryServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -10652,7 +10652,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -10794,7 +10794,7 @@ export class SensingDeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -12361,7 +12361,7 @@ export class SensingShopServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -13694,7 +13694,7 @@ export class SensingSkuRfidServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -13826,7 +13826,7 @@ export class ShopServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -15058,7 +15058,7 @@ export class SkuRfidServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -15241,7 +15241,7 @@ export class StoreServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -15503,7 +15503,7 @@ export class TagServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_PRODUCT_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product5.sensingstore.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://product.api.troncell.com";
     }
 
     /**
@@ -16160,6 +16160,7 @@ export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutIn
     outPutInStorageType!: OutPutInStorageType;
     descrtption!: string | undefined;
     outPutInStorageSkus!: OutPutInStorageSku[] | undefined;
+    rfid!: string | undefined;
 
     constructor(data?: IAddOrUpdateOutPutInStorageBillInput) {
         if (data) {
@@ -16183,6 +16184,7 @@ export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutIn
                 for (let item of _data["outPutInStorageSkus"])
                     this.outPutInStorageSkus!.push(OutPutInStorageSku.fromJS(item));
             }
+            this.rfid = _data["rfid"];
         }
     }
 
@@ -16206,6 +16208,7 @@ export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutIn
             for (let item of this.outPutInStorageSkus)
                 data["outPutInStorageSkus"].push(item.toJSON());
         }
+        data["rfid"] = this.rfid;
         return data; 
     }
 }
@@ -16220,6 +16223,7 @@ export interface IAddOrUpdateOutPutInStorageBillInput {
     outPutInStorageType: OutPutInStorageType;
     descrtption: string | undefined;
     outPutInStorageSkus: OutPutInStorageSku[] | undefined;
+    rfid: string | undefined;
 }
 
 export class AddOrUpdateProductCategoryInput implements IAddOrUpdateProductCategoryInput {
@@ -18735,7 +18739,7 @@ export class CreateProductInput implements ICreateProductInput {
     orderNumber!: number;
     barcode!: string | undefined;
     /** 状态 */
-    auditStatus!: number;
+    auditStatus!: string | undefined;
     /** 商品备注信息 */
     description!: string | undefined;
     ageScope!: string | undefined;
@@ -18888,7 +18892,7 @@ export interface ICreateProductInput {
     orderNumber: number;
     barcode: string | undefined;
     /** 状态 */
-    auditStatus: number;
+    auditStatus: string | undefined;
     /** 商品备注信息 */
     description: string | undefined;
     ageScope: string | undefined;
@@ -19446,7 +19450,7 @@ export class CreateSkuInput implements ICreateSkuInput {
     ageScope!: string | undefined;
     /** Sku 针对性别 */
     gender!: string | undefined;
-    auditStatus!: number;
+    auditStatus!: string | undefined;
     description!: string | undefined;
     orderNumber!: number;
     barcode!: string | undefined;
@@ -19570,7 +19574,7 @@ export interface ICreateSkuInput {
     ageScope: string | undefined;
     /** Sku 针对性别 */
     gender: string | undefined;
-    auditStatus: number;
+    auditStatus: string | undefined;
     description: string | undefined;
     orderNumber: number;
     barcode: string | undefined;
@@ -27752,7 +27756,7 @@ export class ShopCategoryDto implements IShopCategoryDto {
     /** 点击图片跳转地址 */
     turnUrl!: string | undefined;
     /** 排序编号 */
-    orderNumber!: string | undefined;
+    orderNumber!: number;
 
     constructor(data?: IShopCategoryDto) {
         if (data) {
@@ -27806,7 +27810,7 @@ export interface IShopCategoryDto {
     /** 点击图片跳转地址 */
     turnUrl: string | undefined;
     /** 排序编号 */
-    orderNumber: string | undefined;
+    orderNumber: number;
 }
 
 export class ShopCategoryDtoPagedResultDto implements IShopCategoryDtoPagedResultDto {
@@ -31742,7 +31746,7 @@ export class UpdateProductInput implements IUpdateProductInput {
     orderNumber!: number;
     barcode!: string | undefined;
     /** 状态 */
-    auditStatus!: number;
+    auditStatus!: string | undefined;
     /** 商品备注信息 */
     description!: string | undefined;
     ageScope!: string | undefined;
@@ -31898,7 +31902,7 @@ export interface IUpdateProductInput {
     orderNumber: number;
     barcode: string | undefined;
     /** 状态 */
-    auditStatus: number;
+    auditStatus: string | undefined;
     /** 商品备注信息 */
     description: string | undefined;
     ageScope: string | undefined;
@@ -32551,7 +32555,7 @@ export class UpdateSkuInput implements IUpdateSkuInput {
     ageScope!: string | undefined;
     /** Sku 针对性别 */
     gender!: string | undefined;
-    auditStatus!: number;
+    auditStatus!: string | undefined;
     description!: string | undefined;
     orderNumber!: number;
     barcode!: string | undefined;
@@ -32678,7 +32682,7 @@ export interface IUpdateSkuInput {
     ageScope: string | undefined;
     /** Sku 针对性别 */
     gender: string | undefined;
-    auditStatus: number;
+    auditStatus: string | undefined;
     description: string | undefined;
     orderNumber: number;
     barcode: string | undefined;

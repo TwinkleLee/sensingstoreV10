@@ -303,6 +303,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     editKPI(record) {
         this.kpiModal.show(false, record);
     }
+
+    goDetail (record) {}
+
+    showRfid () {}
+
     deleteKPI(record) {
         this.message.confirm(this.l("DeleteThisKPI"), this.l('AreYouSure'), (r) => {
             if (r) {

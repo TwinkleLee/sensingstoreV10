@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "https://recommend5.sensingstore.com/swagger/v1/swagger.json",
+      "url": "https://recommend.api.troncell.com/swagger/v1/swagger.json",
       "output": null,
       "newLineBehavior": "Auto"
     }

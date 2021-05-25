@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "https://floor5.sensingstore.com/swagger/v1/swagger.json",
+      "url": "https://floorguide.api.troncell.com/swagger/v1/swagger.json",
       "url?": "https://floor.api.troncell.com/swagger/v1/swagger.json",
       "output": null
     }

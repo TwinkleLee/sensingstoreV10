@@ -75,7 +75,7 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
     show(): void {
         this.active = true;
         this.product.categorys = [];
-        this.product.auditStatus = 0;
+        this.product.auditStatus = 'Offline';
         this.product.pointRule = new ProductPointRule({
             "redeemRule": new RedeemRule({
                 "pointRedeemable": false,

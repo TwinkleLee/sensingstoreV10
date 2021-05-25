@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 
-import { AddOrUpdateOutPutInStorageBillInput, OutPutInStorageServiceProxy } from '@shared/service-proxies/service-proxies-product';
+import { AddOrUpdateOutPutInStorageBillInput, OutPutInStorageServiceProxy, OutPutInStorageSku } from '@shared/service-proxies/service-proxies-product';
 
 import { SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
 
@@ -20,9 +20,9 @@ import * as _ from 'lodash'
 })
 export class BillModalComponent extends AppComponentBase implements AfterViewChecked {
 
-    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
+    @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('skuGridModal', { static: true }) skuGridModal: SkuGridModalComponent;
+    @ViewChild('skuGridModal', { static: false }) skuGridModal: SkuGridModalComponent;
 
     active = false;
     saving = false;
@@ -36,6 +36,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         outPutInStorageType: 'Put',
         outPutInStorageSkus: []
     };
+
 
     constructor(
         injector: Injector,
@@ -106,7 +107,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         jqEle.eq(this.nowIndex).focus();
     }
 
-    show(storeId,record?): void {
+    show(storeId, record?): void {
         this.active = true;
         this.Input.storeId = storeId;
 
@@ -146,6 +147,8 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         })
     }
 
+    handleInput () {}
+
     checkNumber(value, index) {
         if (!value || parseInt(value) != value) {
             this.skuList[index].valid = false;
@@ -181,7 +184,15 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
 
     save(): void {
         this.saving = true;
-        console.log(new AddOrUpdateOutPutInStorageBillInput(this.Input))
+
+        console.log(this.Input)
+
+        this.Input.outPutInStorageSkus.forEach((item, index) => {
+            this.Input.outPutInStorageSkus[index] = new OutPutInStorageSku(item)
+        });
+
+        console.log(this.Input);
+
         this._OutPutInStorageServiceProxy.addOrUpdateOutPutInStorageBill(new AddOrUpdateOutPutInStorageBillInput(this.Input))
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(() => {
@@ -192,6 +203,12 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
 
     }
     close(): void {
+        this.Input = {
+            outPutInStorageType: 'Put',
+            outPutInStorageSkus: []
+        };
+        this.skuList = [];
+        this.nowIndex = '';
         this.active = false;
         this.modal.hide();
     }
