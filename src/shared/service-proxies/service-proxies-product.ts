@@ -4477,6 +4477,107 @@ export class OutPutInStorageServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * 根据店铺获取Sku
+     * @param pricesScope (optional) 
+     * @param categoryIds (optional) 
+     * @param storeIds (optional) 
+     * @param tagIds (optional) 
+     * @param rfidCode (optional) 
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getSkusByStoreId(pricesScope: string | undefined, categoryIds: number[] | undefined, storeIds: number[] | undefined, tagIds: number[] | undefined, rfidCode: string | undefined, filter: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<ExternalSkuDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/OutPutInStorage/GetSkusByStoreId?";
+        if (pricesScope === null)
+            throw new Error("The parameter 'pricesScope' cannot be null.");
+        else if (pricesScope !== undefined)
+            url_ += "PricesScope=" + encodeURIComponent("" + pricesScope) + "&";
+        if (categoryIds === null)
+            throw new Error("The parameter 'categoryIds' cannot be null.");
+        else if (categoryIds !== undefined)
+            categoryIds && categoryIds.forEach(item => { url_ += "CategoryIds=" + encodeURIComponent("" + item) + "&"; });
+        if (storeIds === null)
+            throw new Error("The parameter 'storeIds' cannot be null.");
+        else if (storeIds !== undefined)
+            storeIds && storeIds.forEach(item => { url_ += "StoreIds=" + encodeURIComponent("" + item) + "&"; });
+        if (tagIds === null)
+            throw new Error("The parameter 'tagIds' cannot be null.");
+        else if (tagIds !== undefined)
+            tagIds && tagIds.forEach(item => { url_ += "TagIds=" + encodeURIComponent("" + item) + "&"; });
+        if (rfidCode === null)
+            throw new Error("The parameter 'rfidCode' cannot be null.");
+        else if (rfidCode !== undefined)
+            url_ += "RfidCode=" + encodeURIComponent("" + rfidCode) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSkusByStoreId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSkusByStoreId(<any>response_);
+                } catch (e) {
+                    return <Observable<ExternalSkuDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ExternalSkuDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSkusByStoreId(response: HttpResponseBase): Observable<ExternalSkuDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ExternalSkuDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ExternalSkuDtoPagedResultDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -16160,7 +16261,6 @@ export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutIn
     outPutInStorageType!: OutPutInStorageType;
     descrtption!: string | undefined;
     outPutInStorageSkus!: OutPutInStorageSku[] | undefined;
-    rfid!: string | undefined;
 
     constructor(data?: IAddOrUpdateOutPutInStorageBillInput) {
         if (data) {
@@ -16184,7 +16284,6 @@ export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutIn
                 for (let item of _data["outPutInStorageSkus"])
                     this.outPutInStorageSkus!.push(OutPutInStorageSku.fromJS(item));
             }
-            this.rfid = _data["rfid"];
         }
     }
 
@@ -16208,7 +16307,6 @@ export class AddOrUpdateOutPutInStorageBillInput implements IAddOrUpdateOutPutIn
             for (let item of this.outPutInStorageSkus)
                 data["outPutInStorageSkus"].push(item.toJSON());
         }
-        data["rfid"] = this.rfid;
         return data; 
     }
 }
@@ -16223,7 +16321,6 @@ export interface IAddOrUpdateOutPutInStorageBillInput {
     outPutInStorageType: OutPutInStorageType;
     descrtption: string | undefined;
     outPutInStorageSkus: OutPutInStorageSku[] | undefined;
-    rfid: string | undefined;
 }
 
 export class AddOrUpdateProductCategoryInput implements IAddOrUpdateProductCategoryInput {
@@ -24455,6 +24552,7 @@ export class OutPutInStorageSku implements IOutPutInStorageSku {
     productId!: number;
     skuId!: number;
     number!: number;
+    rfid!: string | undefined;
 
     constructor(data?: IOutPutInStorageSku) {
         if (data) {
@@ -24470,6 +24568,7 @@ export class OutPutInStorageSku implements IOutPutInStorageSku {
             this.productId = _data["productId"];
             this.skuId = _data["skuId"];
             this.number = _data["number"];
+            this.rfid = _data["rfid"];
         }
     }
 
@@ -24485,6 +24584,7 @@ export class OutPutInStorageSku implements IOutPutInStorageSku {
         data["productId"] = this.productId;
         data["skuId"] = this.skuId;
         data["number"] = this.number;
+        data["rfid"] = this.rfid;
         return data; 
     }
 }
@@ -24493,6 +24593,7 @@ export interface IOutPutInStorageSku {
     productId: number;
     skuId: number;
     number: number;
+    rfid: string | undefined;
 }
 
 export enum OutPutInStorageType {

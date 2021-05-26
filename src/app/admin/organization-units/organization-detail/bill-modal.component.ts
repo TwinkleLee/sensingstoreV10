@@ -53,7 +53,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         this.primengTableHelper.showLoadingIndicator();
         record.loading = true;
 
-        this._OutPutInStorageServiceProxy.getSkus(
+        this._OutPutInStorageServiceProxy.getSkusByStoreId(
             void 0,
             void 0,
             this.Input.storeId ? [this.Input.storeId] : void 0,
@@ -114,6 +114,8 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         if (record) {
             this.operationType = 'edit';
             this.Input = record;
+
+            this.skuList = record.outPutInStorageSkus
         }
 
         this.modal.show();
@@ -207,8 +209,12 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             outPutInStorageType: 'Put',
             outPutInStorageSkus: []
         };
+
+        this.operationType = 'add';
+
         this.skuList = [];
         this.nowIndex = '';
+
         this.active = false;
         this.modal.hide();
     }

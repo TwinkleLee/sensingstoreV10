@@ -129,7 +129,7 @@
                     </div>
                     <div class="navi-text">
                         <div class="font-weight-bold">
-                            {{"SwitchOrganizationUnit" | localize}}
+                            {{"SwitchOrganizationUnit" | localize}}: {{ appSession.ou && (appSession.ou.displayName + '/' +appSession.ou.id) }}
                         </div>
                         <div class="text-muted">
                             <!-- {{"SwitchOrganizationUnit" | localize}} -->

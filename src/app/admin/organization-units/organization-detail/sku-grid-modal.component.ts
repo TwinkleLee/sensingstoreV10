@@ -45,7 +45,7 @@ export class SkuGridModalComponent extends AppComponentBase {
     getSkus(event?: LazyLoadEvent, e?: Event) {
         e && e.preventDefault();
         this.primengTableHelper.showLoadingIndicator();
-        this._OutPutInStorageServiceProxy.getSkus(
+        this._OutPutInStorageServiceProxy.getSkusByStoreId(
             void 0,
             void 0,
             this.storeList,

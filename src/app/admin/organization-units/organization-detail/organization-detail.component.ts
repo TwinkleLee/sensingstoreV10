@@ -22,6 +22,7 @@ import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput, Au
 import { event } from 'jquery';
 
 import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component'
+import { RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component'
 
 import * as _ from 'lodash'
 
@@ -134,6 +135,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     @ViewChild("dateRangerKPI", { static: false }) dateRangerFill: DateRangePickerComponent;
 
     @ViewChild('billModal', { static: false }) billModal: BillModalComponent;
+    @ViewChild('rfidListModal', { static: false }) rfidListModal: RfidListModalComponent;
     outPutInStorageFilter: any = '';
     outPutInStorageSelectionList: any = [];
     outPutInStorageType: any = '';
@@ -304,9 +306,13 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.kpiModal.show(false, record);
     }
 
-    goDetail (record) {}
+    goDetail (record) {
+        this.billModal.show(this.storeId, _.cloneDeep(record));
+    }
 
-    showRfid () {}
+    showRfid () {
+        this.rfidListModal.show(this.storeId);
+    }
 
     deleteKPI(record) {
         this.message.confirm(this.l("DeleteThisKPI"), this.l('AreYouSure'), (r) => {

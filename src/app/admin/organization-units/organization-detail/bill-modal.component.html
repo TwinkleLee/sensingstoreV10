@@ -16,11 +16,11 @@
                     <div class="row">
                         <div class="col-6 form-group">
                             <label>{{l('from')}}</label>
-                            <input [(ngModel)]="Input.from" name="from" type="text" class="form-control" />
+                            <input [disabled]="operationType=='edit'" [(ngModel)]="Input.from" name="from" type="text" class="form-control" />
                         </div>
                         <div class="col-6 form-group">
                             <label>{{l('outPutInStorageType')}}</label>
-                            <select required [(ngModel)]="Input.outPutInStorageType" name="outPutInStorageType"
+                            <select [disabled]="operationType=='edit'" required [(ngModel)]="Input.outPutInStorageType" name="outPutInStorageType"
                                 class="form-control">
                                 <option value="Put">{{l('Put')}}</option>
                                 <option value="Out">{{l('Out')}}</option>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-12 form-group">
                             <label>{{l('descrtption')}}</label>
-                            <textarea name="Input.descrtption" class="form-control" cols="30" rows="5"></textarea>
+                            <textarea [disabled]="operationType=='edit'" name="Input.descrtption" class="form-control" cols="30" rows="5"></textarea>
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
                                 [paginator]="false">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th style="width: 150px">{{l('Actions')}}</th>
+                                        <th style="width: 150px" *ngIf="operationType!='edit'">{{l('Actions')}}</th>
                                         <th>
                                             {{l('name')}} *
                                         </th>
@@ -62,8 +62,8 @@
                                 </ng-template>
                                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record">
-                                        <td style="width: 150px">
-                                            <div class="btn-group dropdown" normalizePosition>
+                                        <td style="width: 150px" *ngIf="operationType!='edit'">
+                                            <div class="btn-group dropdown"  normalizePosition>
                                                 <button class="icon-icon-test btn btn-sm btn-primary"
                                                     (click)="deleteRecord(i)" type="button" tabindex="-1">
                                                     <span class="caret"></span> {{l("Delete")}}
@@ -71,12 +71,12 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input class="form-control titleInputInAddOutputinModal" type="text"
+                                            <input [disabled]="operationType=='edit'" class="form-control titleInputInAddOutputinModal" type="text"
                                                 [ngModelOptions]="{standalone: true}" readonly
                                                 [(ngModel)]="record.title" (click)="doSearch($event,record,i)">
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text"
+                                            <input [disabled]="operationType=='edit'" class="form-control" type="text"
                                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="record.sku_id"
                                                 (click)="doSearch($event,record,i)" readonly>
                                         </td>
@@ -88,14 +88,14 @@
                                             <span>{{record.quantity}}</span>
                                         </td>
                                         <td>
-                                            <input class="form-control numberInputInAddOutputinModal" type="number"
+                                            <input [disabled]="operationType=='edit'" class="form-control numberInputInAddOutputinModal" type="number"
                                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number"
                                                 (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)"
                                                 [readonly]="record.loading||!record.skuId"
                                                 [class.recordNotValid]="!record.valid">
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text"
+                                            <input [disabled]="operationType=='edit'" class="form-control" type="text"
                                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="record.rfid"
                                                 (input)="handleInput()"
                                                 [readonly]="record.number!=1||record.loading||!record.skuId"
@@ -109,7 +109,7 @@
                         <!--<Primeng-Datatable-End>-->
                         <div class="row" style="margin:25px 0;width:100%;">
                             <div class="col-12 text-center">
-                                <button (click)="add()" class="btn btn-primary blue" type="button">
+                                <button *ngIf="operationType!='edit'" (click)="add()" class="btn btn-primary blue" type="button">
                                     <i class="fa fa-plus"></i> {{l("add")}}</button>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-primary"
                         (click)="close()">{{l("Cancel")}}</button>
-                    <button type="button" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid"
                         [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
                         <i class="fa fa-save"></i>
                         <span>{{l("Save")}}</span>

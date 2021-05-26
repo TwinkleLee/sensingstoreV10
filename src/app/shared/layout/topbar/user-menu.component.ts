@@ -46,6 +46,7 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
     customTheme = AppConsts.customTheme;
 
 
+
     public constructor(
         injector: Injector,
         private _linkedAccountService: LinkedAccountService,
@@ -62,7 +63,7 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
     ) {
         super(injector, _dateTimeService);
         
-        console.log(abp.session)
+        console.log(abp.session, this.appSession.ou)
     }
 
     ngOnInit(): void {
@@ -149,6 +150,7 @@ export class UserMenuComponent extends ThemesLayoutBaseComponent implements OnIn
     switchOU(): void {
         abp.event.trigger('app.show.switchOUModal');
     }
+
     BindAccountToWechat() {
         console.log(this.qrCodeImage, this.loadingQrcode)
         if (this.qrCodeImage) return this.onHidden()

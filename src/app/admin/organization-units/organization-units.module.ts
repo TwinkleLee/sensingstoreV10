@@ -18,6 +18,8 @@ import { OUDetailComponent } from '@app/admin/organization-units/organization-de
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
 import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component';
 import {SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
+import {RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component';
+
 
 @NgModule({
     declarations: [
@@ -35,7 +37,8 @@ import {SkuGridModalComponent } from '@app/admin/organization-units/organization
         OUDetailComponent,
         KPIModalComponent,
         BillModalComponent,
-        SkuGridModalComponent
+        SkuGridModalComponent,
+        RfidListModalComponent
     ],
     imports: [AppSharedModule, AdminSharedModule, OrganizationUnitsRoutingModule],
     exports: [AddMemberModalComponent, AddRoleModalComponent, OrganizationTreeComponent]
