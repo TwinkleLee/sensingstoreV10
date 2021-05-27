@@ -1,6 +1,6 @@
 import { Component, Injector, Input, EventEmitter, Output, ViewChild, AfterContentInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';;
-import {  ResourceFileServiceProxy, FileArea } from '@shared/service-proxies/service-proxies';
+import {  ResourceFileServiceProxy } from '@shared/service-proxies/service-proxies';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
