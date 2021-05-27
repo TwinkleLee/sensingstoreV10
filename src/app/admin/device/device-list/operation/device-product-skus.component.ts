@@ -91,7 +91,7 @@ export class DeviceProductSkuComponent extends AppComponentBase {
         <input id="device_product_skus_${id}" type="checkbox" name="device_product_skus_${id}" ${this.informDevice ? 'checked' : ''}/>${this.l('informDevice')}
         <span></span>
     </label>
-</div>`, this.l('deleteThisSkuOfDevice'), (r) => {
+</div>`, this.l('addThisSkuOfDevice'), (r) => {
             if (!r) return
             if ($(`#device_product_skus_${id}`).is(':checked')) {
                 this.informDevice = true;

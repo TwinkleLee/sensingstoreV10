@@ -7,6 +7,11 @@ import { Paginator } from 'primeng/paginator';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { OutPutInStorageServiceProxy, SkuRfidServiceProxy, SensingDeviceServiceProxy as SensingProductDeviceServiceProxy, PDFDto, TextForPDF } from '@shared/service-proxies/service-proxies-product';
 
+import { SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
+import { finalize } from 'rxjs/operators';
+
+import * as _ from 'lodash'
+
 
 
 // import { CreateOrEditSkuRfidModalComponent } from '@app/admin/product/outputin/create-or-edit-skurfid-modal.component';
@@ -25,10 +30,11 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
     @ViewChild('daterange', { static: true }) daterange: DateRangePickerComponent;
-    // @ViewChild('createOrEditSkuRfidModal', { static: true }) createOrEditSkuRfidModal: CreateOrEditSkuRfidModalComponent;
+    @ViewChild('skuGridModal', { static: true }) skuGridModal: SkuGridModalComponent;
 
     active = false;
     skuId;
+    skuTitle;
     storeId;
     rfidList: any = [];
     filter = '';
@@ -64,11 +70,40 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
             this.getList(event);
         })
     }
+
+    doSearch(e) {
+        this.primengTableHelper.showLoadingIndicator();
+
+        this._OutPutInStorageServiceProxy.getSkusByStoreId(
+            void 0,
+            void 0,
+            this.storeId ? [this.storeId] : void 0,
+            void 0,
+            void 0,
+            e.target.value,
+            void 0,
+            10,
+            0
+        ).pipe(finalize(() => {
+            this.primengTableHelper.hideLoadingIndicator();
+        }))
+            .subscribe(r => {
+                this.primengTableHelper.hideLoadingIndicator();
+                if (r.items.length == 1) {
+                    this.skuTitle = r.items[0].title;
+                    this.skuId = r.items[0].id;
+                } else {
+                    this.skuGridModal.show(this.storeId ? [this.storeId] : void 0, e.target.value, _.cloneDeep(r));
+                }
+            })
+    }
+
     generateAll() {
         if (this.rfidList.length == 0) {
             return this.message.warn(this.l('atLeastChoseOneItem'));
         }
-        console.log(this.skuId)
+        if (!this.skuId) return this.message.warn(this.l('ChoseOneSku'));
+
         var promptMsg = prompt("请输入格式配置", JSON.stringify({
             "IsTop": 1,
             "Content": JSON.stringify(
@@ -145,8 +180,17 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
             })
     }
 
+    getSelect (e) {
+        this.skuTitle = e.selection.title;
+        this.skuId = e.selection.id;
+        this.getList();
+    }
+
 
     getList(event?: LazyLoadEvent) {
+
+        if (this.skuTitle == '') this.skuId = '';
+  
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;
@@ -186,6 +230,7 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
 
     }
     close(): void {
+        this.skuTitle = '';
         this.skuId = '';
         this.rfidList = [];
         this.active = false;

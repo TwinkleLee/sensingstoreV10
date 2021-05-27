@@ -207,6 +207,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     }
     //选中property
     addProperty() {
+        if(!this.selectProperty) return
         var index, select;
         this.propertyList.forEach((property, i) => {
             if (property.propertyId == this.selectProperty) {

@@ -218,6 +218,10 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.billModal.show(this.storeId);
     }
 
+    goImportRfid() {
+        this.router.navigate(['app', 'admin','import', 'import', 'rfid']);
+    }
+
     getInOrOutFill(event?: LazyLoadEvent) {
         this.outPutInStoragePrimengTableHelper.showLoadingIndicator();
         this._OutPutInStorageServiceProxy.getOutPutInStorageBills(new GetOutPutInStorageBillInput({

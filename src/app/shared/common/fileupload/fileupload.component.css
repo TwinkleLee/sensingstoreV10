@@ -34,12 +34,12 @@
     zoom: 1;
     top: 0px;
     line-height: 26em;
-    z-index: 500;
+    z-index: 2;
 }
 .dropArea a{
     position: absolute;
     top: 50%;
-    z-index: 1000;
+    z-index: 2;
     transform: translateX(-50%);
 }
 .dropArea span{
