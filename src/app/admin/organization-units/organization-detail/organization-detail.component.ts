@@ -1,7 +1,7 @@
 import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
-import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy, OutPutInStorageServiceProxy, GetOutPutInStorageRecordDto, OutPutInStorageType, GetOutPutInStorageBillInput } from '@shared/service-proxies/service-proxies-product'
+import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy, OutPutInStorageServiceProxy, GetOutPutInStorageRecordDto, OutPutInStorageType, GetOutPutInStorageBillInput, GetOutPutInStorageRecordInput } from '@shared/service-proxies/service-proxies-product'
 import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy, FileType } from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
@@ -222,9 +222,9 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.outPutInStoragePrimengTableHelper.showLoadingIndicator();
         this._OutPutInStorageServiceProxy.getOutPutInStorageBills(new GetOutPutInStorageBillInput({
             storeId: [this.storeId],
-            ignoreStore: false,
             startTime: this.StartTimeFill,
             endTime: this.EndTimeFill,
+            ignoreStore: false,
             outPutInStorageType: this.outPutInStorageType,
             filter: this.outPutInStorageFilter,
             sorting: this.outPutInStoragePrimengTableHelper.getSorting(this.dataTablekc),
@@ -307,6 +307,8 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
 
     goDetail (record) {
+        console.log(record);
+        
         this.billModal.show(this.storeId, _.cloneDeep(record));
     }
 

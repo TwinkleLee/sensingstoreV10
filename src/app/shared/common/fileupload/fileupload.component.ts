@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FileServiceProxy, FileArea, ResourceFileServiceProxy, FileType as ResourceFileDtoType0, FileArea as FileArea2, OssServerServiceProxy, CreateResourceFileInput, FileType as CreateResourceFileInputType } from '@shared/service-proxies/service-proxies';
+import { FileServiceProxy, _definitions_FileArea as FileArea, ResourceFileServiceProxy, FileType as ResourceFileDtoType0, _definitions_FileArea as FileArea2, OssServerServiceProxy, CreateResourceFileInput, FileType as CreateResourceFileInputType } from '@shared/service-proxies/service-proxies';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';

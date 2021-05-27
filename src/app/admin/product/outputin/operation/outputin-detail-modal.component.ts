@@ -75,7 +75,7 @@ export class OutputinDetailModalComponent extends AppComponentBase implements Af
             skuId: this.skuId,
             storeId: void 0,//list
             startTime: StartTime ? StartTime : this.StartTime,
-            endtTime: EndTime ? EndTime : this.EndTime,
+            endTime: EndTime ? EndTime : this.EndTime,
             ignoreStore: void 0,
             outPutInStorageType: this.OutPutInStorageType,//OutPutInStorageType
             filter: this.filter,

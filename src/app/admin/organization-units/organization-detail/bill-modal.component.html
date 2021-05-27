@@ -47,10 +47,16 @@
                                         <th>
                                             {{l('Image')}}
                                         </th>
-                                        <th>
+                                        <th *ngIf="operationType=='add'">
                                             {{l('nowQuantity')}}
                                         </th>
-                                        <th>
+                                        <th *ngIf="operationType=='edit'">
+                                            {{l('before')}}
+                                        </th>
+                                        <th *ngIf="operationType=='edit'">
+                                            {{l('after')}}
+                                        </th>
+                                        <th *ngIf="operationType=='add'">
                                             <span *ngIf="Input.outPutInStorageType=='Out'">{{l('OutQuantity')}}</span>
                                             <span *ngIf="Input.outPutInStorageType=='Put'">{{l('InQuantity')}}</span>
                                         </th>
@@ -75,15 +81,21 @@
                                         <td>
                                             <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;" (error)="fixPic($event)" />
                                         </td>
-                                        <td>
+                                        <td *ngIf="operationType=='add'">
                                             <span>{{record.quantity}}</span>
                                         </td>
-                                        <td>
-                                            <input [disabled]="operationType=='edit'" class="form-control numberInputInAddOutputinModal" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number" (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)" [readonly]="record.loading||!record.skuId"
+                                        <td *ngIf="operationType=='edit'">
+                                            <span>{{record.quantityBefore}}</span>
+                                        </td>
+                                        <td *ngIf="operationType=='edit'">
+                                            <span>{{record.quantityAfter}}</span>
+                                        </td>
+                                        <td *ngIf="operationType=='add'">
+                                            <input class="form-control numberInputInAddOutputinModal" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number" (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)" [readonly]="record.loading||!record.skuId"
                                                 [class.recordNotValid]="!record.valid">
                                         </td>
                                         <td>
-                                            <input [disabled]="operationType=='edit'" class="form-control" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.rfid" (input)="handleInput()" [readonly]="record.number!=1||record.loading||!record.skuId" [class.recordNotValid]="!record.valid">
+                                            <input [disabled]="operationType=='edit'" class="form-control" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.rfid" (input)="buildInput()" [readonly]="record.loading||!record.skuId" [class.recordNotValid]="!record.valid">
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -102,7 +114,7 @@
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>
-                    <button type="submit" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                    <button *ngIf="operationType=='add'" type="submit" class="btn btn-primary blue" [disabled]="!ProductsForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
                         <i class="fa fa-save"></i>
                         <span>{{l("Save")}}</span>
                     </button>

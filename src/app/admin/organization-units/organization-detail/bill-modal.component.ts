@@ -4,7 +4,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { finalize } from 'rxjs/operators';
 
-import { AddOrUpdateOutPutInStorageBillInput, OutPutInStorageServiceProxy, OutPutInStorageSku } from '@shared/service-proxies/service-proxies-product';
+import { AddOrUpdateOutPutInStorageBillInput, GetOutPutInStorageRecordInput, OutPutInStorageServiceProxy, OutPutInStorageSku } from '@shared/service-proxies/service-proxies-product';
 
 import { SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
 
@@ -112,12 +112,10 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         this.Input.storeId = storeId;
 
         if (record) {
+            console.log(record);
             this.operationType = 'edit';
-            this.Input = record;
-
-            this.skuList = record.outPutInStorageSkus
+            this.getBillDetail(record.id);
         }
-
         this.modal.show();
     }
 
@@ -128,8 +126,41 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             sku_id: '',
             picUrl: '',
             quantity: void 0,
-            number: void 0
+            number: void 0,
+            rfid: ''
         });
+    }
+
+    getBillDetail(id) {
+        this._OutPutInStorageServiceProxy.getOutPutInStorageRecords(new GetOutPutInStorageRecordInput({
+            outPutInStorageBillId: id,
+            skuId: void 0,
+            storeId: void 0,
+            startTime: void 0,
+            endTime: void 0,
+            ignoreStore: void 0,
+            outPutInStorageType: void 0,
+            filter: void 0,
+            sorting: void 0,
+            maxResultCount: 999,
+            skipCount: 0,
+        })).pipe(finalize(() => { }))
+            .subscribe(result => {
+                console.log(result)
+                this.Input.from = result.items[0].bill.from;
+                this.Input.description = result.items[0].bill.description;
+                this.Input.outPutInStorageType = result.items[0].bill.outPutInStorageType;
+
+                this.skuList = result.items.map(item => {
+                    return {
+                        title: item.sku.title,
+                        sku_id: item.sku.sku_id,
+                        picUrl: item.sku.picUrl,
+                        quantityBefore: item.quantityBefore,
+                        quantityAfter: item.quantityAfter
+                    }
+                })
+            });
     }
 
     deleteRecord(i) {
@@ -149,7 +180,6 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         })
     }
 
-    handleInput () {}
 
     checkNumber(value, index) {
         if (!value || parseInt(value) != value) {
@@ -179,7 +209,8 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             return {
                 "productId": item.productId,
                 "skuId": item.skuId,
-                "number": item.number
+                "number": item.number,
+                "rfid": item.rfid
             }
         })
     }

@@ -2,7 +2,7 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { finalize } from 'rxjs/operators';
-import { TaobaoOpenPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
+import { External3rdPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
     selector: 'platformModal',
@@ -22,7 +22,7 @@ export class PlatformModalComponent extends AppComponentBase implements AfterVie
 
     constructor(
         injector: Injector,
-        private _TaobaoOpenPlatformServiceProxy: TaobaoOpenPlatformServiceProxy
+        private _External3rdPlatformServiceProxy: External3rdPlatformServiceProxy
     ) {
         super(injector);
     }
@@ -55,7 +55,7 @@ export class PlatformModalComponent extends AppComponentBase implements AfterVie
     save(): void {
         this.saving = true;
         if (this.operation == "add") {
-            this._TaobaoOpenPlatformServiceProxy.createTaobaoOpenPlatform(this.Platform)
+            this._External3rdPlatformServiceProxy.createPlatform(this.Platform)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));
@@ -63,7 +63,7 @@ export class PlatformModalComponent extends AppComponentBase implements AfterVie
                     this.modalSave.emit(null);
                 });
         } else {
-            this._TaobaoOpenPlatformServiceProxy.updateTaobaoOpenPlatform(this.Platform)
+            this._External3rdPlatformServiceProxy.updateOpenPlatform(this.Platform)
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(() => {
                     this.notify.info(this.l('SavedSuccessfully'));

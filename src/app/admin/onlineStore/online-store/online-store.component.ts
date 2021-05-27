@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/common/app-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { ExternalAccessServiceProxy, TaobaoOpenPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ExternalAccessServiceProxy, External3rdPlatformServiceProxy } from '@shared/service-proxies/service-proxies';
 import { TaobaoServiceProxy, SyncInput, SyncScopeEnum, MonecityServiceProxy } from '@shared/service-proxies/service-proxies-sync';
 import { CreateOrEditExternalAccessModalComponent } from '@app/admin/onlineStore/online-store/create-or-edit-online-modal.component';
 import { ChooseTaobaoModalComponent } from '@app/admin/onlineStore/online-store/choose-taobao-modal.component';
@@ -40,7 +40,7 @@ export class OnlineStoreComponent extends AppComponentBase {
   nowFromType;
   constructor(injector: Injector,
     private _externalaccessService: ExternalAccessServiceProxy,
-    private _taobaoPlatformService: TaobaoOpenPlatformServiceProxy,
+    private _External3rdPlatformServiceProxy: External3rdPlatformServiceProxy,
     private _TaobaoServiceProxy: TaobaoServiceProxy,
     private _MonecityServiceProxy: MonecityServiceProxy,
     private router: Router
@@ -56,7 +56,8 @@ export class OnlineStoreComponent extends AppComponentBase {
 
   chooseTaobao() {
     this.chooseTaobaoLoading = true;
-    this._taobaoPlatformService.getTaobaoOpenPlatformList(
+    this._External3rdPlatformServiceProxy.getPlatformList(
+      'Taobao,Weimob',
       void 0,
       void 0,
       100, 0

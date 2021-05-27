@@ -192,7 +192,7 @@ import * as GatewayServiceProxies from './service-proxies-gateway';// product
         ApiServiceProxies.BatchTaskLogServiceProxy,
         // ApiServiceProxies.ThirdParyServiceProxy,
         // ApiServiceProxies.TaobaoServiceProxy,
-        ApiServiceProxies.TaobaoOpenPlatformServiceProxy,
+        ApiServiceProxies.External3rdPlatformServiceProxy,
         ApiServiceProxies.ExternalAccessServiceProxy,
         // ApiServiceProxies.ProductServiceProxy,
         // ApiServiceProxies.CouponServiceProxy,
