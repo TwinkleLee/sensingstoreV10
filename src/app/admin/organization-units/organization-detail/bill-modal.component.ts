@@ -156,6 +156,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
                         title: item.sku.title,
                         sku_id: item.sku.sku_id,
                         picUrl: item.sku.picUrl,
+                        rfid: item.sku.rfidCode,
                         quantityBefore: item.quantityBefore,
                         quantityAfter: item.quantityAfter
                     }
