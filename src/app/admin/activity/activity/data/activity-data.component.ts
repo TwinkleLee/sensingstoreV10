@@ -217,11 +217,11 @@ export class ActivityDataComponent extends AppComponentBase {
     this.ExpressDetailModalComponent.show(record);
   }
   addToWhiteList(record) {
-    this.ChangeWhiteListModalComponent.show(record, 0);
+    this.ChangeWhiteListModalComponent.show(record, 'White');
   }
 
   addToBlackList(record) {
-    this.ChangeWhiteListModalComponent.show(record, 1);
+    this.ChangeWhiteListModalComponent.show(record, 'Black');
   }
 
   goDetail(record) {

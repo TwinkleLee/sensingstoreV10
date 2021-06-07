@@ -56,7 +56,8 @@ export class ActivityBasicComponent extends AppComponentBase implements AfterVie
         if (this.deviceId) {
             this.router.navigate(['app', 'admin','device', 'deviceList', 'operation', this.deviceId], { queryParams: { initTab: 'activity' } });
         } else {
-            this.router.navigate(['app', 'admin','activity', 'activity']);
+            // this.router.navigate(['app', 'admin','activity', 'activity']);
+            window.history.back();
         }
     }
     changeSetup(e) {

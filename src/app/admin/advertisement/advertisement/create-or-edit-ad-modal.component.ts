@@ -201,6 +201,7 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
     }
 
     save(): void {
+        
 
         this.Ad.tags = this.tags.map((item) => {
             return Number(item.id);
@@ -214,6 +215,8 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
                 return
             }
         }
+
+        console.log(this.Ad)
 
         if (this.operation == "add") {
             if (!this.Ad.resourceItemId) {
@@ -271,8 +274,9 @@ export class CreateOrEditAdModalComponent extends AppComponentBase implements Af
 
     // upload completed event
     onUpload(result): void {
+        console.log(result);
         this.Ad.resourceItemId = Number(result.resourceId);
-        this.Ad.fileUrl = result.fileUrl;
+        this.Ad.fileUrl = result.fileUri;
     }
 
     onBeforeSend(event): void {

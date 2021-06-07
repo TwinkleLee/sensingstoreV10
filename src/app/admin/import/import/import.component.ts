@@ -155,7 +155,8 @@ export class ImportComponent extends AppComponentBase implements OnInit {
       this.router.navigate(['app', 'admin', 'device', 'deviceList', 'operation', this.deviceId]);
     } 
     else if (this.target == 'rfid') {
-      this.router.navigate(['app', 'admin', 'product', 'outputin']);
+      // this.router.navigate(['app', 'admin', 'product', 'outputin']);
+      window.history.back();
     } 
     else if (this.target == 'storagecheck') {
       this.router.navigate(['app', 'admin', 'product', 'outputin']);

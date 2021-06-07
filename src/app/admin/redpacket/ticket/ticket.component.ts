@@ -138,7 +138,7 @@ export class TicketComponent extends AppComponentBase {
 
   //删除
   deleteItem(record) {
-    if (record.ticketStatus != 0) {
+    if (record.ticketStatus != 'Offline') {
       return this.notify.info(this.l('noneOfflineGotten'));
     }
     this.message.confirm(this.l('deletethisselected'), this.l('AreYouSure'), (r) => {

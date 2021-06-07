@@ -3,7 +3,14 @@
 
     <div class="content d-flex flex-column flex-column-fluid">
         <sub-header [title]="'MaintainRecord' | localize" [description]="'MaintainRecord' | localize">
-            <div role="actions"></div>
+            <div role="actions">
+                <button class="btn btn-primary" (click)="goImport()" [buttonBusy]="exportLoading">
+                    <i class="icon-excel"></i> {{l('ExportToExcel')}} </button>
+                <button (click)="deleteRecordList()" class="btn btn-primary blue">
+                    <i class="icon-piliangcaozuo"></i> {{l("deleteBatch")}}</button>
+                <button (click)="createRecord()" class="btn btn-primary blue">
+                    <i class="fa fa-plus"></i> {{l("CreateRecord")}}</button>
+            </div>
         </sub-header>
 
         <div [class]="containerClass">

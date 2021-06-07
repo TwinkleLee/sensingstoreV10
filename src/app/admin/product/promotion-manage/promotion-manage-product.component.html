@@ -59,6 +59,7 @@
 
         <!-- 正文 -->
         <sub-header [title]="l('PromotionActivity') + l('Product')" [description]="name">
+            <div action="back"><i class="icon-fanhui text-info" (click)="goBack()"></i></div>
             <div role="actions">
                 <button class="btn btn-primary" (click)="addProduct()">
                     <i class="fa fa-plus"></i>

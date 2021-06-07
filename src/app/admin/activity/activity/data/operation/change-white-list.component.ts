@@ -52,7 +52,7 @@ export class ChangeWhiteListModalComponent extends AppComponentBase implements A
     this.WhiteList.userId = record.id;
     this.WhiteList.type = type;
 
-    if (type == '0') {
+    if (type == 'White') {
       this._SpecialUserServiceProxy.getWhiteInfoByUser(
         this.activityId,
         record.id
@@ -72,7 +72,7 @@ export class ChangeWhiteListModalComponent extends AppComponentBase implements A
           this.addLogic();
         }
       })
-    } else if (type == '1') {
+    } else if (type == 'Black') {
       this._SpecialUserServiceProxy.getBlackInfoByUser(
         this.activityId,
         record.id
