@@ -60,6 +60,11 @@ export class ActivityDataComponent extends AppComponentBase {
   @ViewChild('registerPaginator', { static: true }) paginator4: Paginator;
   RegisterPrimeng: PrimengTableHelper = new PrimengTableHelper();
 
+  // 津美定制
+  filterText1;
+  @ViewChild('ticketDataTable', { static: true }) dataTable5: Table;
+  @ViewChild('ticketPaginator', { static: true }) paginator5: Paginator;
+  TicketPrimeng: PrimengTableHelper = new PrimengTableHelper();
 
   //数据统计
   dataChartLoading = false;
@@ -433,7 +438,11 @@ export class ActivityDataComponent extends AppComponentBase {
     return url;
   }
 
+  // 津美定制 tenantId = 5152
 
+  getTicketList () {}
+
+  checkTicket (record) {}
 }
 
 

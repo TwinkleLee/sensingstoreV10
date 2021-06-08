@@ -8,7 +8,7 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { ApplyWanted as CreateApplyFormInputWanted, CreateApplyFormInput, ApplyFormType as CreateApplyFormInputApplyType, ApplyServiceProxy, IdTypeDto } from '@shared/service-proxies/service-proxies-product';
 import { AppConsts } from '@shared/AppConsts';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateActivityModalComponent } from '@app/admin/activity/activity/create-activity-modal.component';
 import { ActivityServiceProxy, PublishEntitiesInput, ActivityAuditInput, AuditStatus as ActivityAuditStatus, AuditStatus, ActivityFromTemplateInput } from '@shared/service-proxies/service-proxies5';
 
@@ -51,7 +51,7 @@ export class ActivityComponent extends AppComponentBase {
     private router: Router,
 
     private _acitvityService: ActivityServiceProxy,
-
+    private _activatedRoute: ActivatedRoute,
     private applyService: ApplyServiceProxy,
     private _NewDeviceServiceProxy: NewDeviceServiceProxy) {
     super(injector);
@@ -62,6 +62,11 @@ export class ActivityComponent extends AppComponentBase {
     this._NewDeviceServiceProxy.getOuStoreDeviceTree([]).subscribe((result) => {
       this.deviceTree = [result];
     })
+
+    this._activatedRoute.queryParams.subscribe(queryParams => {
+      this.isTemplate = queryParams.isTemplate;
+    })
+    
   }
 
   getActivity(event?: LazyLoadEvent) {

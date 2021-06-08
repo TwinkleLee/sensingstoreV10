@@ -172,13 +172,13 @@ export class CreateOrEditGameModalComponent extends AppComponentBase implements 
   save(): void {
 
     if (this.Game.actionShare.imageLink && this.Game.actionShare.imageLink.indexOf('http') < 0) {
-      this.Game.actionShare.imageLink = ('https://s5.sensingstore.com/' + this.Game.actionShare.imageLink).replace(/\\/g, '/')
+      this.Game.actionShare.imageLink = ('https://identity.api.troncell.com/' + this.Game.actionShare.imageLink).replace(/\\/g, '/')
     }
     if (this.Game.beforeGameMessage.picUrl && this.Game.beforeGameMessage.picUrl.indexOf('http') < 0) {
-      this.Game.beforeGameMessage.picUrl = ('https://s5.sensingstore.com/' + this.Game.beforeGameMessage.picUrl).replace(/\\/g, '/')
+      this.Game.beforeGameMessage.picUrl = ('https://identity.api.troncell.com/' + this.Game.beforeGameMessage.picUrl).replace(/\\/g, '/')
     }
     if (this.Game.afterGameMessage.picUrl && this.Game.afterGameMessage.picUrl.indexOf('http') < 0) {
-      this.Game.afterGameMessage.picUrl = ('https://s5.sensingstore.com/' + this.Game.afterGameMessage.picUrl).replace(/\\/g, '/')
+      this.Game.afterGameMessage.picUrl = ('https://identity.api.troncell.com/' + this.Game.afterGameMessage.picUrl).replace(/\\/g, '/')
     }
 
     if (this.BeforeNotUseTemplate) {

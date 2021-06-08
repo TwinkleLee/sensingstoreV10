@@ -25,7 +25,7 @@ export class ActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2050,7 +2050,7 @@ export class AlipayServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2181,7 +2181,7 @@ export class ApplyServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2403,7 +2403,7 @@ export class AwardServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2681,7 +2681,7 @@ export class CommonServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2861,7 +2861,7 @@ export class CourseServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -3196,7 +3196,7 @@ export class DeviceActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -3593,6 +3593,7 @@ export class DeviceActivityServiceProxy {
     /**
      * @param body (optional) 
      * @return Success
+     * @deprecated
      */
     mirrorPublishActivityToDevices(body: MirrorPublishActivityToDevicesInput | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/DeviceActivity/MirrorPublishActivityToDevices";
@@ -3651,7 +3652,7 @@ export class DouyinServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -4024,7 +4025,7 @@ export class FileServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -4095,7 +4096,7 @@ export class HtmlTemplateServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -4363,7 +4364,7 @@ export class IdentityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -4434,7 +4435,7 @@ export class ImportQuestionsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -4505,7 +4506,7 @@ export class ImportTrainingsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -4627,7 +4628,7 @@ export class PaperServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -5443,7 +5444,7 @@ export class PublicAccountServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -5506,7 +5507,7 @@ export class ServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -5570,7 +5571,7 @@ export class QuestionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -6177,7 +6178,7 @@ export class ReleaseApiTestServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -6248,7 +6249,7 @@ export class RepertoryHelpServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -6387,7 +6388,7 @@ export class ReportServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -6636,7 +6637,7 @@ export class SengsingDeviceServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -7517,6 +7518,58 @@ export class SengsingDeviceServiceProxy {
         }
         return _observableOf<SensingDeviceStoreInfoDto>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    mirrorPublishActivityToDevices(body: DeviceMirrorPublishInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SengsingDevice/MirrorPublishActivityToDevices";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processMirrorPublishActivityToDevices(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processMirrorPublishActivityToDevices(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processMirrorPublishActivityToDevices(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -7527,7 +7580,7 @@ export class SensingDeviceActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -11019,7 +11072,7 @@ export class SensingWechatManageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -11188,7 +11241,7 @@ export class SnsServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -11256,7 +11309,7 @@ export class SnsUserInfoServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -11566,7 +11619,7 @@ export class SpecialUserServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -11964,7 +12017,7 @@ export class StoreActivityServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -12314,11 +12367,10 @@ export class TagServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
-     * 获取标签的列表，支持分页（无筛选条件）
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -12398,7 +12450,6 @@ export class TagServiceProxy {
     }
 
     /**
-     * 根据类型获取设备、品牌、店铺的标签
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
@@ -12475,7 +12526,6 @@ export class TagServiceProxy {
     }
 
     /**
-     * 新建设备、品牌、店铺标签
      * @param body (optional) 
      * @return Success
      */
@@ -12540,7 +12590,6 @@ export class TagServiceProxy {
     }
 
     /**
-     * 修改设备、品牌、店铺的标签
      * @param body (optional) 
      * @return Success
      */
@@ -12605,7 +12654,6 @@ export class TagServiceProxy {
     }
 
     /**
-     * 删除设备、品牌、店铺的标签
      * @param id (optional) 
      * @return Success
      */
@@ -12666,7 +12714,6 @@ export class TagServiceProxy {
     }
 
     /**
-     * 查看前N个Tag（N为传入得参数,可能用于下拉列表）
      * @param count (optional) 
      * @return Success
      */
@@ -12735,7 +12782,7 @@ export class TemplateMessageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -12828,7 +12875,7 @@ export class TrainingServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -13928,7 +13975,7 @@ export class TrainingListExcelExporterServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -13996,7 +14043,7 @@ export class TransferServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -14397,7 +14444,7 @@ export class UserActionServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -14869,7 +14916,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * ɨ�봫������ɶ�ά��ӿ�
+     * 扫码传库存生成二维码接口
     DDD
      * @param gameId (optional) 
      * @param targetUrl (optional) 
@@ -14937,7 +14984,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
+     * 扫码确认后收集用户信息
      * @param openId (optional) 
      * @param gameId (optional) 
      * @return Success
@@ -14999,7 +15046,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
+     * 扫码确认后收集用户信息
      * @param gameID (optional) 
      * @param filter (optional) 
      * @param sorting (optional) 
@@ -15076,7 +15123,7 @@ export class UserActionServiceProxy {
     }
 
     /**
-     * ɨ��ȷ�Ϻ��ռ��û���Ϣ
+     * 扫码确认后收集用户信息
      * @param id (optional) 
      * @return Success
      */
@@ -17393,7 +17440,7 @@ export class UserPaperServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -18192,7 +18239,7 @@ export class WechatManageServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -19453,7 +19500,7 @@ export class WeiboServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -19522,7 +19569,7 @@ export class WeixinServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -19723,7 +19770,7 @@ export class WeixinJSSDKServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -19934,7 +19981,7 @@ export class WeixinMpServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -20081,7 +20128,7 @@ export class WeixinOAuth2ServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -20550,7 +20597,7 @@ export class WeixinOpenPlatformServiceProxy {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_ACTIVITY_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://g5.api.troncell.com";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -27670,6 +27717,70 @@ export interface IDeviceActivityGameSimpleOutput {
     points: number;
     imageLink: string | undefined;
     id: number;
+}
+
+export class DeviceMirrorPublishInput implements IDeviceMirrorPublishInput {
+    sourceId!: number;
+    targetIds!: number[];
+    features!: string[];
+
+    constructor(data?: IDeviceMirrorPublishInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.targetIds = [];
+            this.features = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.sourceId = _data["sourceId"];
+            if (Array.isArray(_data["targetIds"])) {
+                this.targetIds = [] as any;
+                for (let item of _data["targetIds"])
+                    this.targetIds!.push(item);
+            }
+            if (Array.isArray(_data["features"])) {
+                this.features = [] as any;
+                for (let item of _data["features"])
+                    this.features!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): DeviceMirrorPublishInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new DeviceMirrorPublishInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["sourceId"] = this.sourceId;
+        if (Array.isArray(this.targetIds)) {
+            data["targetIds"] = [];
+            for (let item of this.targetIds)
+                data["targetIds"].push(item);
+        }
+        if (Array.isArray(this.features)) {
+            data["features"] = [];
+            for (let item of this.features)
+                data["features"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IDeviceMirrorPublishInput {
+    sourceId: number;
+    targetIds: number[];
+    features: string[];
 }
 
 export class DeviceSimpleDto implements IDeviceSimpleDto {

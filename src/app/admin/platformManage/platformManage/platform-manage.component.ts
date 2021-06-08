@@ -68,7 +68,7 @@ export class PlatformManageComponent extends AppComponentBase {
   }
   //删除活动
   deletePlatform(id) {
-    this.message.confirm(this.l('deletethisfacetag'), this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('deletethisplatform'), this.l('AreYouSure'), (r) => {
       if (r) {
         this._External3rdPlatformServiceProxy.deletePlatform(id).subscribe(result => {
           this.notify.info(this.l('success'));

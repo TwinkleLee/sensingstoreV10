@@ -262,36 +262,38 @@ export class BrandCenterComponent extends AppComponentBase {
       return
     }
 
-
-    this.message.confirm(this.l('isDeleteProductBelongBrand'), this.l('AreYouSure'), (r) => {
+    this.message.confirm(this.l('confirmBrandDelete'), this.l('AreYouSure'), (r) => {
       if (r) {
-        var isIncludeProduct = true;
-      } else {
-        var isIncludeProduct = false;
-      }
-      this.message.confirm(this.l('confirmBrandDelete'), this.l('AreYouSure'), (r) => {
-        if (r) {
-          this.primengTableHelper.showLoadingIndicator();
-          var brandIds = this.brandPublishList.map(item => {
-            return item.id
+        this.primengTableHelper.showLoadingIndicator();
+        var brandIds = this.brandPublishList.map(item => {
+          return item.id
+        })
+        this._brandService.deleteBrands(
+          false,
+          false,
+          brandIds
+        )
+          .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
+          .subscribe(r => {
+            // this.primengTableHelper.hideLoadingIndicator();
+            this.notify.info(this.l('success'));
+            this.getBrands();
           })
-          this._brandService.deleteBrands(
-            isIncludeProduct,
-            false,
-            brandIds
-          )
-            .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
-            .subscribe(r => {
-              // this.primengTableHelper.hideLoadingIndicator();
-              this.notify.info(this.l('success'));
-              this.getBrands();
-            })
 
-        }
-      })
-
-
+      }
     })
+
+
+    // this.message.confirm(this.l('isDeleteProductBelongBrand'), this.l('AreYouSure'), (r) => {
+    //   if (r) {
+    //     var isIncludeProduct = true;
+    //   } else {
+    //     var isIncludeProduct = false;
+    //   }
+      
+
+
+    // })
   }
 
 }

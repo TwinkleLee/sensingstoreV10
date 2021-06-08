@@ -274,7 +274,7 @@ export class MyTrainingComponent extends AppComponentBase {
         this.exportLoading = false;
       }, 2000)
 
-      var href = `https://g5.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
+      var href = `https://activity.api.troncell.com/api/File/DownloadTempFile?FileName=` + r.fileName + `&FileType=` + r.fileType + `&FileToken=` + r.fileToken;
       // window.location.href = href;
       var link = document.getElementById('aaa');
       $(link).attr("href", href);
