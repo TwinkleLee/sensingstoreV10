@@ -401,6 +401,7 @@ export class FileuploadComponent extends AppComponentBase implements OnInit {
   uploadFile(filearea, isLocal, WebUrl, Prefix, toResource, CreateThumbnail, onprogress, errorCallBack, successCallBack) {
     var form = $(this.fileupload.nativeElement).find("form")[0];
     var formData = new FormData(<HTMLFormElement>form);
+    console.log(formData);
     formData.append('Prefix', String(Prefix));
     formData.append('ToResource', String(toResource));
     formData.append('WebUrl', String(WebUrl));

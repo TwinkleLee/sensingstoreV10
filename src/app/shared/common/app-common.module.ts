@@ -63,6 +63,8 @@ import { MyAddressComponent } from '@app/shared/common/my-address/my-address.com
 import { DateRangePickerComponent } from './timing/date-range-picker.component';
 import { ChartsComponent } from '@app/shared/charts/charts.component';
 
+import { WEditorComponent } from '@app/shared/common/wang-editor/w-editor.component';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -129,6 +131,7 @@ import { ChartsComponent } from '@app/shared/charts/charts.component';
         MyAddressComponent,
         DateRangePickerComponent,
         ChartsComponent,
+        WEditorComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -154,6 +157,7 @@ import { ChartsComponent } from '@app/shared/charts/charts.component';
         MyAddressComponent,
         DateRangePickerComponent,
         ChartsComponent,
+        WEditorComponent
     ],
     providers: [
         DateTimeService,

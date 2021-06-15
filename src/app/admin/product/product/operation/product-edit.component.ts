@@ -289,6 +289,11 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
         })
     }
 
+    onComplete(e) {
+        console.log(e);
+        this.product.description = e;
+    }
+
 
     assignTags() {
         var tagString = [];
