@@ -326,9 +326,6 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>{{l("description")}}</label>
-                                            <!-- <textarea class="form-control" name="description"
-                                                [(ngModel)]="product.description"></textarea> -->
-                                            {{product.description}}
                                             <w-editor [html]="product.description" (onComplete)="onComplete($event)"></w-editor>
                                         </div>
                                     </div>

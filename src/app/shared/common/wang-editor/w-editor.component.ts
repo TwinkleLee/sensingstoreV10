@@ -5,7 +5,7 @@ import Editor from '../../../../../node_modules/wangeditor/dist/wangEditor.js';
 
 import { FileServiceProxy, _definitions_FileArea as FileArea, ResourceFileServiceProxy, FileType as ResourceFileDtoType0, _definitions_FileArea as FileArea2, OssServerServiceProxy, CreateResourceFileInput, FileType as CreateResourceFileInputType } from '@shared/service-proxies/service-proxies';
 import { TokenService } from 'abp-ng2-module';
-import { AppConsts } from '@shared/AppConsts.js';
+import { AppConsts } from '@shared/AppConsts.ts';
 import { from } from 'rxjs';
 
 @Component({
@@ -47,7 +47,7 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
     ngOnInit() {
 
         this.editor = new Editor("#editorMenu", "#editor");
-        this.editor.config.customUploadImg = this.onUploads;
+        this.editor.config.customUploadImg = this.onUploads.bind(this);
         this.setEditorConfig();
 
         this.editor.config.onchange = (html) => {
@@ -57,9 +57,10 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
 
     }
 
+    // 监测@Input传过来的值，如果有变化就会执行这里面的方法
+    /*注意 ngOnChanges的生命周期执行的顺序在ngOnInit之前*/
     ngOnChanges(changes: SimpleChanges): void {
-        // 监测@Input传过来的值，如果有变化就会执行这里面的方法
-        /*注意 ngOnChanges的生命周期执行的顺序在ngOnInit之前*/
+
         console.log(changes);
         if (changes['html'] != undefined) {
             this.editor.txt.html(changes['html'].currentValue);
@@ -67,16 +68,14 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
         }
     }
 
-    onUploads(resultFiles, insertImgFn) {
+    async onUploads(resultFiles, insertImgFn) {
         // resultFiles 是 input 中选中的文件列表
-        console.log(resultFiles);
         // insertImgFn 是获取图片 url 后，插入到编辑器的方法
-
         // 上传图片，返回结果，将图片插入到编辑器中
-        insertImgFn('http://sensingstore.oss-cn-shanghai.aliyuncs.com/Uploads/Tenants/5056/Ads/%E5%9B%BE%E6%96%87%E8%B6%B3%E7%90%83%E6%B8%B8%E6%88%8F_2019060415155053579386.png');
+        this.uploadbigFile(resultFiles, insertImgFn);
     }
 
-    uploadbigFile(resultFiles) {
+    uploadbigFile(resultFiles, successCallBack) {
         let file = resultFiles[0];
         let storeAs = "Uploads/Tenants/" + this.appSession.tenantId + "/Common/" + new Date().getTime() + file.name;
         this._OssServerServiceProxy.getToken().subscribe(r => {
@@ -110,33 +109,31 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
                         tags: [],
                         md5: null
                     })).subscribe(rr => {
-                        return rr
+                        console.log(rr)
+                        successCallBack && successCallBack(rr.fileUrl);
                     })
                 }).catch(function (err) {
                     console.log(err);
                 });
             } else {
-                // this.uploadedFiles = [];
-                // this.uploadedFiles.push(file);
-                this.onUpload(file);
-                console.log(this.onUpload(file))
+                this.onUpload(file, successCallBack);
             }
 
         })
     }
 
     //上传到服务器
-    onUpload(file, event?: any) {
+    onUpload(file, successCallBack,event?: any) {
         // V3 for ecovacs
         if (AppConsts.customTheme == 'kewosi') {
-            return this.uploadForEcovacs(file, FileArea[this.filearea], this.isLocal, this.WebUrl, this.Prefix, this._toResource, this.CreateThumbnail);
+            this.uploadForEcovacs(file, FileArea[this.filearea], this.isLocal, this.WebUrl, this.Prefix, this._toResource, this.CreateThumbnail, successCallBack);
         } else {
-            return this.uploadFile(file, FileArea[this.filearea], this.isLocal, this.WebUrl, this.Prefix, this._toResource, this.CreateThumbnail);
+            this.uploadFile(file, FileArea[this.filearea], this.isLocal, this.WebUrl, this.Prefix, this._toResource, this.CreateThumbnail, successCallBack);
         }
     }
 
     // V3 科沃斯上传图片方法
-    uploadForEcovacs(file, filearea, isLocal, WebUrl, Prefix, toResource, CreateThumbnail) {
+    uploadForEcovacs(file, filearea, isLocal, WebUrl, Prefix, toResource, CreateThumbnail, successCallBack) {
         var formData = new FormData();
         formData.append('file', file);
         var token = this._tokenService.getToken();
@@ -174,14 +171,15 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
                         tags: [],
                         md5: null
                     })).subscribe(rr => {
-                        return rr
+                        console.log(rr)
+                        successCallBack && successCallBack(rr.fileUrl);
                     })
                 }
             }
         })
     }
     //选中文件
-    uploadFile(file, filearea, isLocal, WebUrl, Prefix, toResource, CreateThumbnail) {
+    uploadFile(file, filearea, isLocal, WebUrl, Prefix, toResource, CreateThumbnail, successCallBack) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('Prefix', String(Prefix));
@@ -194,6 +192,9 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
         var tenantId = this.appSession.tenantId;
         var token = this._tokenService.getToken();
         var url = AppConsts.remoteServiceBaseUrl + "/api/File/UploadSingleBigFile?fileArea=" + filearea;
+
+        console.log(AppConsts.remoteServiceBaseUrl, AppConsts);
+
         var self = this;
         $.ajax({
             'type': 'POST',
@@ -225,7 +226,8 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
                         tags: [],
                         md5: null
                     })).subscribe(rr => {
-                        return rr
+                        console.log(rr)
+                        successCallBack && successCallBack(rr.fileUrl);
                     })
                 }
             },
