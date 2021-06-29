@@ -119,17 +119,20 @@ export class ProductSkuEditComponent extends AppComponentBase {
             this.sku.productId = this.productId;
             this.sku.promPrice = result.promPrice ? Number(result.promPrice) : void 0;
             this.tags = this.sku.skuTags ? this.sku.skuTags.map((item) => {
+                
                 return {
                     'id': item.id,
                     'value': item.name
                 }
             }) : [];
             var currentPropertyIds = [];
+            
             this.mainPropertyIds = this.sku.currentSkuPropertyValues.map((item) => {
                 currentPropertyIds.push(item.propertyId);
                 return item.propertyValueId;
             }) || [];
             this.initProperty(currentPropertyIds);
+            
         });
     }
 
@@ -166,7 +169,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         //     this.addPropertyList = [];
         //     this.addPropertyList = arr;
         // }, 1000)
-        console.log(list, '000', this.propertyList, '111', this.currentPropertyIds)
+        // console.log(list, '000', this.propertyList, '111', this.currentPropertyIds)
     }
 
     @HostListener('window:keyup', ['$event'])
@@ -193,11 +196,11 @@ export class ProductSkuEditComponent extends AppComponentBase {
     //跟随主要属性值变化改变图片
     changeImage() {
         if (!this.mainProperty) { return; }
-        console.log(this.mainProperty.propertyValues)
+        // console.log(this.mainProperty.propertyValues)
         var mainProperty = this.mainProperty.propertyValues.filter((item) => {
             return item.id == this.mainPropertyIds[0];
         })[0];
-        console.log(mainProperty)
+        // console.log(mainProperty)
         this.sku.picUrl = mainProperty ? mainProperty.defaultImage : "";
     }
     //将添加的property返回可选列表
@@ -217,6 +220,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
         select = this.propertyList.splice(index, 1)[0];
         this.addPropertyList.push(select);
         select.propertyValues[0] && this.mainPropertyIds.push(select.propertyValues[0].id);
+        
+        
     }
     //筛选标签
     filter(event) {
@@ -237,18 +242,21 @@ export class ProductSkuEditComponent extends AppComponentBase {
         this.router.navigate(['app', 'admin','product', 'product', 'operation', this.productId], { queryParams: { backFromSku: true } });
     }
     //保存
-    save(): void {
+    save(): void 
+    {
         this.saving = true;
         this.sku.propertyValueIds = this.mainPropertyIds.filter((id) => {
             return id != void 0;
         }).map((id) => {
             return Number(id);
         });
+        this.sku.propertyValueIds=this.sku.propertyValueIds.reverse();//调转数组顺序
+        console.log("this.sku.propertyValueIds:"+this.sku.propertyValueIds);
         this.addOrEditInput = new UpdateSkuInput(this.sku);
         // this.addOrEditInput.auditStatus = this.sku.auditStatus == "Online" ? 1 : 0;
         this.addOrEditInput.auditStatus = this.sku.auditStatus;
 
-        console.log(this.addOrEditInput.propertyValueIds)
+        // console.log(this.addOrEditInput.propertyValueIds)
         //此处是为了修复一个bug
         this.addOrEditInput.propertyValueIds.reverse();
 
@@ -258,6 +266,11 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.goBack();
             });
+            // console.log("保存错误问题"+this.addOrEditInput);
+            // console.log("保存错误问题"+this.sku.propertyValueIds);
+            // console.log("保存错误问题"+this._productsService.updateSku(this.addOrEditInput));
+            // console.log("保存错误问题"+this._productsService.updateSku(this.addOrEditInput)
+            // .pipe(finalize(() => { this.saving = false; })));
     }
     // upload completed event
     onUpload(result): void {
