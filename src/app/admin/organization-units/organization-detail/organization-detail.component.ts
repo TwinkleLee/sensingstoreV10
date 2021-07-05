@@ -1,10 +1,11 @@
-import { Component, ViewChild, Injector, OnInit, } from '@angular/core';
+import { Component, ViewChild, Injector, OnInit, Input, } from '@angular/core';
 import { DeviceServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProductServiceProxy, OutPutInStorageServiceProxy, GetOutPutInStorageRecordDto, OutPutInStorageType, GetOutPutInStorageBillInput, GetOutPutInStorageRecordInput } from '@shared/service-proxies/service-proxies-product'
 import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy, FileType } from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
+import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/service-proxies/service-proxies-floor'
 import { Router, ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -20,9 +21,11 @@ import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
 import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput, AuditStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 import { event } from 'jquery';
-
+import { BuildingServiceProxy, FloorServiceProxy } from '@shared/service-proxies/service-proxies-floor';
 import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component'
 import { RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component'
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
+import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import * as _ from 'lodash'
 
@@ -34,11 +37,21 @@ import * as _ from 'lodash'
 
 export class OUDetailComponent extends AppComponentBase implements OnInit {
 
+
     OUId;
     OUName;
     moment = moment;
     AuditStatus = AuditStatus;
 
+    buildingId: any = '';
+    singleBrand: any = {};
+    rooms: any = [];
+    lastRooms: any = [];
+    roomSuggestions: any = [];
+    brandSuggestions: any = [];
+    showBusy = false;
+    onShowBool = false;
+    active = false;
 
     storeId;
     FileType = FileType;
@@ -136,6 +149,17 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
     @ViewChild('billModal', { static: false }) billModal: BillModalComponent;
     @ViewChild('rfidListModal', { static: false }) rfidListModal: RfidListModalComponent;
+
+
+    //房间分页
+    @Input() brandList: any;
+    buildingList1:any=[];
+    buildingList:any=[];
+
+    organizationUnit: any = {
+        'position': {},
+        'storeId': ''
+    };
     outPutInStorageFilter: any = '';
     outPutInStorageSelectionList: any = [];
     outPutInStorageType: any = '';
@@ -166,41 +190,52 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         private _StoreSoftwareServiceProxy: StoreSoftwareServiceProxy,
         private _OrganizationUnitServiceProxy: OrganizationUnitServiceProxy,
         private _StoreProductServiceProxy: StoreProductServiceProxy,
-        private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy
+        private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy,
+        private _roomServiceProxy: RoomServiceProxy,
+        private _BrandServiceProxy: BrandServiceProxy,
+        private _NewStoreServiceProxy: NewStoreServiceProxy,
+        private _BuildingServiceProxy: BuildingServiceProxy,
     ) {
         super(injector);
         this.initMessage();
+        
+        this.getStoreBindRoom()
         this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([], false).subscribe((result) => {
             this.treeList = [result];
         })
+        this._BuildingServiceProxy.getBuildingsForSelect()
+      .subscribe(result => {
+        this.buildingList1 = result;
+      })
+      console.log("this.buildingList1:",this.buildingList1)
     }
-
     ngAfterViewInit() {
         $('date-range-picker input').val('');
     }
 
     ngOnInit() {
-
     }
-
 
     //初始化
     initMessage() {
         var urls = location.pathname.split('\/');
         // abp.ui.setBusy();
         this.route.queryParams.subscribe(queryParams => {
+            
             if (queryParams.isStore) {
                 this.storeId = urls[urls.length - 1];
+                this.organizationUnit.storeId = this.storeId
                 setTimeout(() => {
                     this.getDeviceByOUId()
+                    this.show()
                 }, 500)
             } else {
                 this.OUId = urls[urls.length - 1];
                 setTimeout(() => {
                     this.getUsers();
+                    this.show()
                 }, 500)
             }
-
             this.OUName = queryParams.name;
         })
 
@@ -219,7 +254,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
 
     goImportRfid() {
-        this.router.navigate(['app', 'admin','import', 'import', 'rfid']);
+        this.router.navigate(['app', 'admin', 'import', 'import', 'rfid']);
     }
 
     getInOrOutFill(event?: LazyLoadEvent) {
@@ -256,7 +291,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.pKPI.showLoadingIndicator();
         if (this.OUId) {
             this._OrganizationUnitServiceProxy.getOrganizationUintKpiNames(this.OUId).subscribe(r => {
-                console.log(r, 'kpinames')
                 this.KPITypeList = r;
             })
             this._OrganizationUnitServiceProxy.getOrganizationUnitKPIs(
@@ -279,7 +313,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 });
         } else {
             this._StoreServiceProxy.getKpiNames(this.storeId).subscribe(r => {
-                console.log(r, 'kpinames')
                 this.KPITypeList = r;
             })
             this._StoreServiceProxy.getStoreKPIs(
@@ -310,13 +343,13 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.kpiModal.show(false, record);
     }
 
-    goDetail (record) {
-        console.log(record);
-        
+    goDetail(record) {
+
+
         this.billModal.show(this.storeId, _.cloneDeep(record));
     }
 
-    showRfid () {
+    showRfid() {
         this.rfidListModal.show(this.storeId);
     }
 
@@ -357,7 +390,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                     for (var value of this.KPISelectionList) {
                         KPISelectionList.push(value.id);
                     }
-                    console.log(KPISelectionList);
+
                     if (this.OUId) {
                         this._OrganizationUnitServiceProxy.deleteOrganizationUnitKPIs(KPISelectionList)
                             .pipe(this.myFinalize(() => { this.pKPI.hideLoadingIndicator(); }))
@@ -471,7 +504,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                     this.pApp.totalRecordsCount = result.totalCount;
                     this.pApp.records = result.items;
                     // this.pApp.hideLoadingIndicator();
-                    // console.log(this.SoftwareType)
+
                 });
         } else if (this.storeId) {
             this.pApp.showLoadingIndicator();
@@ -488,7 +521,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                     this.pApp.totalRecordsCount = result.totalCount;
                     this.pApp.records = result.items;
                     // this.pApp.hideLoadingIndicator();
-                    console.log(this.SoftwareType)
+
                 });
         }
 
@@ -582,7 +615,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         }))
             .pipe(this.myFinalize(() => { this.pUser.hideLoadingIndicator(); }))
             .subscribe(result => {
-                console.log(result, '用户');
+
                 this.pUser.totalRecordsCount = result.totalCount;
                 this.pUser.records = result.items;
                 // this.pUser.hideLoadingIndicator();
@@ -624,9 +657,44 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             })).subscribe(result => {
                 this.primengTableHelper.totalRecordsCount = result.totalCount;
                 this.primengTableHelper.records = result.items;
-                console.log(this.primengTableHelper.records);
+
             })
 
+    }
+    roomFilter(event) {
+
+        this._roomServiceProxy.getRooms4Select(
+            this.buildingId,
+            void 0,
+            'store',
+            event.query
+        ).subscribe((result) => {
+            this.roomSuggestions = (result || []).map((item) => {
+
+                return {
+                    'id': item.id,
+                    'value': item.name
+                }
+            })
+        })
+    }
+    brandFilter(event) {
+        this._BrandServiceProxy.getBrands(
+            void 0,
+            void 0,
+            event.query,
+            void 0,
+            999, 0
+        ).subscribe(result => {
+            this.brandSuggestions = (result.items || []).map((item) => {
+
+                return {
+                    'id': item.id,
+                    'value': item.name
+                }
+            })
+
+        });
     }
 
     //转换序列
@@ -692,7 +760,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             )
                 .pipe(this.myFinalize(() => { this.pActivity.hideLoadingIndicator(); }))
                 .subscribe(result => {
-                    console.log(result);
+
                     this.pActivity.totalRecordsCount = result.totalCount;
                     this.pActivity.records = result.items;
                     // this.pActivity.hideLoadingIndicator();
@@ -708,7 +776,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             )
                 .pipe(this.myFinalize(() => { this.pActivity.hideLoadingIndicator(); }))
                 .subscribe(result => {
-                    console.log(result);
+
                     this.pActivity.totalRecordsCount = result.totalCount;
                     this.pActivity.records = result.items;
                     // this.pActivity.hideLoadingIndicator();
@@ -737,5 +805,70 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             }
         })
     }
+    deleteStore(record){
 
+    }
+    //Room
+    show(): void {
+        
+        
+        this.rooms = [];
+        this.lastRooms = [];
+        if (this.organizationUnit) {
+            this.showBusy = true;
+            this._NewStoreServiceProxy.getStoreById(this.organizationUnit.storeId).subscribe((r) => {
+                this.organizationUnit = r;
+                console.log("this.buildingList:",this.buildingList);
+                    this.organizationUnit.position = this.organizationUnit.position ? this.organizationUnit.position : {};
+            
+            
+            // getRoom -> building -> floor 
+            var ids = this.organizationUnit.rooms;
+            
+            // 回显 房间
+            Promise.all([
+                new Promise((resolve,reject) => {
+                    if (ids.length !== 0) {
+                        this._roomServiceProxy.getRoomDetailsById(ids[0])
+                            .subscribe(r => {
+                                this.buildingList=this.buildingList1.map(item=>
+                                    {
+                                        return{
+                                            'id': item.id,
+                                            'value': item.name
+                                        }
+                                    })
+                                    console.log("this.buildingList:",this.buildingList);
+                                    this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
+                                    console.log(" this.buildingId", this.buildingId);
+                                    
+                                this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
+                                    .subscribe(result => {
+                                        ids.forEach(item => {
+                                            var singleRoom: any = result.find(o => o.id == item)
+                                            this.rooms.push({
+                                                'id': singleRoom.id,
+                                                'value': singleRoom.name
+                                            });
+                                        });
+                                        resolve(void 0)
+                                    })
+                            })
+                    } else {
+                        resolve(void 0)
+                    }
+                })
+            ]).then(() => {
+            }).catch((e) => {
+            }).finally(() => {
+            })
+        })
+        } else {
+        }
+    }
+    assignBrand() { }
+    assignRoom() { }
+    getStoreBindRoom() {
+
+    }
 }

@@ -90,9 +90,9 @@
                         <form class="horizontal-form" autocomplete="off">
                             <div>
                                 <div class="row align-items-center mb-4">
-                                    <div class="col-3">
+                                    <div class="col-3" style="max-width:200px">
                                         <label>{{l('storeOuterId')}}/{{l('name')}}</label>
-                                        <div class="form-group align-items-center">
+                                        <div class="form-group align-items-center" >
                                             <div class="input-group">
                                                 <input [(ngModel)]="filterText" name="filterText" autoFocus
                                                     class="form-control m-input" (keyup.enter)="getStoreList($event)"
@@ -106,7 +106,7 @@
                                             (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
                                     </div>
                                     <div class="col-2">
-                                        <div class="form-group m-form__group align-items-center">
+                                        <div class="form-group m-form__group align-items-center" style="max-width:200px">
                                             <label>{{l('area')}}</label>
                                             <input class="form-control" #RegionCombobox name="areaFilter"
                                                 id="areaFilter" list="areaList" [(ngModel)]="areaFilter" />
@@ -116,9 +116,10 @@
                                             </datalist>
                                         </div>
                                     </div>
-                                    <div class="col-2">
+                                    <!-- 类型上下线 筛选-->
+                                    <div class="col-2" style="max-width:150px">
                                         <label>{{l('type')}}</label>
-                                        <div class="form-group ">
+                                        <div class="form-group " >
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="storeStatus"
                                                     name="storeStatus">
@@ -177,7 +178,6 @@
                                         <th style="width:100px">{{l('taobaoStoreId')}}</th>
                                         <th style="width:100px">{{l('organization-units')}}</th>
                                         <th style="width:100px">{{l('area')}}</th>
-                                        <th style="width:100px">{{l('Room')}}</th>
                                         <th style="width:100px">{{l('Brand')}}</th>
                                         <th style="width:100px">{{l('auditStatus')}}</th>
                                     </tr>
@@ -238,13 +238,6 @@
                                                 {{record.position.province}}
                                                 {{record.position.city}} {{record.position.county}}
                                                 {{record.position.location}}</span>
-                                        </td>
-                                        <td style="width:100px">
-                                            <span *ngIf="record.rooms.length!=0"
-                                                class="label label-success label-inline">{{l("isbinded")}}</span>
-                                            <span *ngIf="record.rooms.length==0"
-                                                class="label label-dark label-inline">{{l("unbinded")}}</span>
-                                            <!-- <span>{{ record.rooms.length }}</span> -->
                                         </td>
                                         <td style="width:100px">
                                             <span>{{getBrandName(record)}}</span>

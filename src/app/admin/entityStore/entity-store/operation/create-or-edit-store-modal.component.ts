@@ -11,15 +11,13 @@ import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/se
 import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
-
-
 @Component({
     selector: 'createOrEditStoreModal',
     templateUrl: './create-or-edit-store-modal.component.html'
 })
 export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
-    @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
+    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('organizationUnitDisplayName', { static: true }) organizationUnitDisplayNameInput: ElementRef;
     @ViewChild('map', { static: false }) map: MyMapComponent;
     @Output() modalSave: EventEmitter<any> = new EventEmitter();
@@ -84,9 +82,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 ary.push(item)
             }
         })
-
-        console.log(ary);
-
         var input: any = this.rooms.map(room => new UpdateRoomDto({
             id: room.id,
             storeId: store.storeId,
@@ -123,7 +118,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     var openingTime = moment(this.organizationUnit.openingTime).format("HH:mm");
                     this.openingTime = openingTime;
                 }
-
                 // getRoom -> building -> floor 
                 var ids = organizationUnit.rooms;
 
@@ -133,28 +127,25 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                         if (ids.length !== 0) {
                             this._roomServiceProxy.getRoomDetailsById(ids[0])
                                 .subscribe(r => {
-                                    console.log(r);
-                                    
                                     if (!r.floor) return reject('this room not found')
-
+                                    console.log("this.buildingList:",this.buildingList);
+                                    
                                     this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
+                                    
                                     this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
                                         .subscribe(result => {
                                             ids.forEach(item => {
                                                 var singleRoom: any = result.find(o => o.id == item)
-                                                console.log(singleRoom);
                                                 this.rooms.push({
                                                     'id': singleRoom.id,
                                                     'value': singleRoom.name
                                                 });
-
                                             });
-                                            this.lastRooms.concat(this.rooms)
-                                            resolve()
+                                            resolve(void 0)
                                         })
                                 })
                         } else {
-                            resolve()
+                            resolve(void 0)
                         }
                     }), new Promise((resolve, reject) => {
                         if (organizationUnit.brandId) {
@@ -164,10 +155,10 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                                     id: res.id,
                                     value: res.name
                                 }
-                                resolve()
+                                resolve(void 0)
                             })
                         } else {
-                            resolve()
+                            resolve(void 0)
                         }
                     })
                 ]).then(() => {
@@ -175,19 +166,15 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     // this.active = true;
                     // this._changeDetector.detectChanges();
                 }).catch((e) => {
-                    console.log(e);
                     // this.message.warn(this.l(e));
                 }).finally(() => {
                     this.modal.show();
                     this.active = true;
                     this._changeDetector.detectChanges();
                 })
-
                 this.onShowBool = true;
                 this.showBusy = false;
             })
-
-
         } else {
             this.organizationUnit = {
                 'position': {}
@@ -197,7 +184,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             this.active = true;
             this._changeDetector.detectChanges();
         }
-
     }
 
     save(): void {
@@ -206,7 +192,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
         } else {
             this.updateUnit();
         }
-
     }
 
     createUnit() {
@@ -215,7 +200,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             temp.push(i.id);
         });
         this.organizationUnit.roomIds = JSON.stringify(temp);
-
         this.organizationUnit.brandId = this.singleBrand.id;
         this.organizationUnit.openingTime = new Date(`2017-01-10T${this.openingTime}:00`);
         this.organizationUnit.closedTime = new Date(`2017-01-10T${this.closedTime}:00`);
@@ -236,7 +220,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     .addorUpdateStore(createInput)
                     .pipe(finalize(() => { this.saving = false }))
                     .subscribe((result) => {
-                        console.log(result);
 
                         // this.updateRoomList(result);
 
@@ -250,7 +233,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 .createStore(createInput)
                 .pipe(finalize(() => { this.saving = false }))
                 .subscribe((result) => {
-                    console.log(result);
 
                     // this.updateRoomList(result);
 
@@ -300,8 +282,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                     .addorUpdateStore(updateInput)
                     .pipe(finalize(() => { this.saving = false }))
                     .subscribe((result) => {
-                        console.log(result);
-
 
                         // this.updateRoomList(result);
 
@@ -316,8 +296,6 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                 .addorUpdateStore(updateInput)
                 .pipe(finalize(() => { this.saving = false }))
                 .subscribe((result) => {
-                    
-                    console.log(result);
                     // this.updateRoomList(result);
                     this.notify.info(this.l('SavedSuccessfully'));
                     this.modalSave.emit();
@@ -362,14 +340,15 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
 
     buildingChang() {
         this.rooms = [];
-        console.log(this.buildingId);
     }
 
 
     assignRoom() {
     }
+
+
+
     roomFilter(event) {
-        console.log(this.buildingId);
 
         this._roomServiceProxy.getRooms4Select(
             this.buildingId,
@@ -385,25 +364,21 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
             })
         })
     }
-
-    brandFilter(event) {
+    brandFilter(event) {   
         this._BrandServiceProxy.getBrands(
             void 0,
             void 0,
             event.query,
             void 0,
             999, 0
-        )
-            .subscribe(result => {
-                this.brandSuggestions = (result.items || []).map((item) => {
+        ).subscribe(result => {
+            this.brandSuggestions = (result.items || []).map((item) => {
                     return {
                         'id': item.id,
                         'value': item.name
                     }
                 })
             });
-
     }
-
     assignBrand() { }
 }

@@ -8,7 +8,7 @@ import {  OrganizationUnitServiceProxy} from '@shared/service-proxies/service-pr
 import { CreateOrEditStoreModalComponent } from './operation/create-or-edit-store-modal.component';
 import { MyTreeComponent } from '@app/shared/common/my-tree/my-tree.component';
 import { Router } from '@angular/router';
-import { BuildingServiceProxy } from '@shared/service-proxies/service-proxies-floor'
+import { BuildingServiceProxy, Room } from '@shared/service-proxies/service-proxies-floor'
 import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput,OrganizationUnitServiceProxy as DeviceOrganizationUnitServiceProxy, IdTypeDto, StoreStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
@@ -26,13 +26,16 @@ export class EntityStoreComponent extends AppComponentBase {
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
   @ViewChild('paginator', { static: true }) paginator: Paginator;
-  @ViewChild('createOrEditStoreModal', { static: false }) createOrEditStoreModal: CreateOrEditStoreModalComponent;
+  @ViewChild('createOrEditStoreModal', { static: true }) createOrEditStoreModal: CreateOrEditStoreModalComponent;
   @ViewChild('myTree', { static: false }) myTree: MyTreeComponent;
   @ViewChild('highTree', { static: false }) highTree;
 
 
   buildingList: any = [];
   StoreStatus = StoreStatus;
+
+
+
 
   filterText: string;
   storeCheckedList: any = [];
@@ -51,6 +54,7 @@ export class EntityStoreComponent extends AppComponentBase {
   exportLoading = false;
 
   storeStatus: any = "";
+ 
 
   // brand&&room
   brandList: any = [];
@@ -129,12 +133,11 @@ export class EntityStoreComponent extends AppComponentBase {
       return;
     }
     this.storeCheckedList = [];
-
-
     this.primengTableHelper.showLoadingIndicator();
-    console.log(this.primengTableHelper.getSorting(this.dataTable))
+
     this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
       storeStatus: this.storeStatus,
+      // roomstatus: this.roomstatus,
       organizationUnitId: this.chosenItem,
       areas: this.areaFilter ? [this.areaFilter] : void 0,
       filter: this.filterText,
@@ -142,16 +145,15 @@ export class EntityStoreComponent extends AppComponentBase {
       maxResultCount: this.primengTableHelper.getMaxResultCount(this.paginator, event),
       skipCount: this.primengTableHelper.getSkipCount(this.paginator, event)
     })
-
     )
       .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
       .subscribe((result) => {
         this.primengTableHelper.totalRecordsCount = result.totalCount;
         this.primengTableHelper.records = result.items;
-
-        console.log(Array.isArray(result.items[0].rooms))
-        // this.primengTableHelper.hideLoadingIndicator();
+        console.log("result.totalCount:",result.totalCount)
+        console.log("result.items:",result.items)
       });
+      
   }
 
   goImportSulwhasoo() {
