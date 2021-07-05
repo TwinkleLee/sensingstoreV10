@@ -93,6 +93,11 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
     clearBind() {
         $(document).off('click', this.clearBindFun);
     }
+
+    onComplete(e) {
+        this.product.description = e;
+    }
+    
     onShown(): void {
         this.tags = [];
         if (this.nameInput) {

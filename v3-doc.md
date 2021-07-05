@@ -129,7 +129,8 @@ packege > scripts下新增运行指令
 ```
 
 #### 请求添加header：
-* `node_modules` 中搜索 `AbpHttpInterceptor` 改造方式类似 tenantId ouId
+* `node_modules` 中搜索 `AbpHttpInterceptor` 改造方式类似 tenantId
+* 类同 `addTenantIdHeader` 
 
 
 ### 常用demo

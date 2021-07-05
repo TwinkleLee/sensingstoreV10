@@ -151,7 +151,7 @@
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
-                            <p-table ScrollWidth="100%" #dataTable
+                            <p-table ScrollWidth="100%" #dataTable [scrollable]="true"
                                 (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
                                 [(selection)]="storeCheckedList"
