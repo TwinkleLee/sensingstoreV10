@@ -22,7 +22,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-2" style="max-width:150px">
                                         <div class="form-group m-form__group align-items-center">
                                             <label>{{l('Building')}}</label>
                                             <div class="input-group">
@@ -36,16 +36,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-2" style="max-width:150px">
                                         <div class="form-group m-form__group align-items-center">
                                             <label>{{l('Floor')}}</label>
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="floorId" name="floorId"
-                                                    [disabled]="!buildingId">
+                                                    [disabled]="!buildingId" >
                                                     <option value="">
                                                         {{l("All")}}{{l("Floor")}}</option>
                                                     <option *ngFor="let floor of floorList" [value]="floor.id">
                                                         {{floor.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <!-- 房间绑定筛选 -->
+                                     <div class="col-2" style="max-width:150px">
+                                        <label>{{l('room')}}</label>
+                                        <div class="form-group ">
+                                            <div class="input-group">
+                                                <select class="form-control" [(ngModel)]="roomstatus"
+                                                    name="roomstatus">
+                                                    <option value="">{{l('All')}}</option>
+                                                    <option [value]="['binding']">{{l("binding")}}</option>
+                                                    <option [value]="['Unbound']">{{l("Unbound")}}</option>
                                                 </select>
                                             </div>
                                         </div>

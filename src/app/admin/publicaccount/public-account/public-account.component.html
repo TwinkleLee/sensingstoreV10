@@ -70,6 +70,7 @@
                     <th>{{l('service_type_info')}}</th>
                     <th>{{l('lastUpdated')}}</th>
                     <th>{{l('mpType')}}</th>
+                    <th>{{l('from')}}</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-record let-i="rowIndex">
@@ -125,6 +126,9 @@
                       <!-- <span *ngIf="record.mpType==0">{{l('PrivateUse')}}</span>
                       <span *ngIf="record.mpType==1">{{l('PublicUse')}}</span> -->
                       <span>{{l(record.mpType)}}</span>
+                    </td>
+                    <td>
+                      <span>{{l(record.from)}}</span>
                     </td>
                   </tr>
                 </ng-template>

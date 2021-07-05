@@ -29,6 +29,8 @@ export class RoomComponent extends AppComponentBase {
   floorId: any = "";
   floorList = [];
   selectedList = [];
+  recprdsList: any = [];
+  roomstatus: any= "";
 
   constructor(injector: Injector,
     private router: Router,
@@ -39,7 +41,7 @@ export class RoomComponent extends AppComponentBase {
   ) {
     super(injector);
     this._activatedRoute.queryParams.subscribe(queryParams => {
-      console.log("queryParams", queryParams);
+      // console.log("queryParams", queryParams);
       if (queryParams.buildingId) {
         this.buildingId = queryParams.buildingId;
       }
@@ -64,9 +66,12 @@ export class RoomComponent extends AppComponentBase {
       .subscribe(result => {
         this.floorList = result;
       })
+
   }
   //获取列表
   getList(event?: LazyLoadEvent) {
+    console.log("event:",event);
+    
     if (this.primengTableHelper.shouldResetPaging(event)) {
       this.paginator.changePage(0);
       return;
@@ -88,6 +93,7 @@ export class RoomComponent extends AppComponentBase {
         this.primengTableHelper.totalRecordsCount = result.totalCount;
         this.primengTableHelper.records = result.items;
       })
+      console.log("this.primengTableHelper;",this.primengTableHelper)
   }
 
   //创建
@@ -97,6 +103,8 @@ export class RoomComponent extends AppComponentBase {
 
   //修改
   editItem(record) {
+    console.log("Object.assign({}, record):",Object.assign({}, record));
+    
     this.roomModal.show(Object.assign({}, record))
   }
 
@@ -131,6 +139,7 @@ export class RoomComponent extends AppComponentBase {
           })
       }
     })
+    console.log("this.primengTableHelper.records:", this.primengTableHelper.records)
   }
 
   //转换序列
@@ -139,6 +148,6 @@ export class RoomComponent extends AppComponentBase {
   }
 
   goImport() {
-    this.router.navigate(['app', 'admin','import', 'import', 'room']);
+    this.router.navigate(['app', 'admin', 'import', 'import', 'room']);
   }
 }
