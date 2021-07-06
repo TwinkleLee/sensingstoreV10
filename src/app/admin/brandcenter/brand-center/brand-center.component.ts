@@ -75,6 +75,7 @@ export class BrandCenterComponent extends AppComponentBase {
   editBrand(record) {
     this.router.navigate(['operation', record.id], { relativeTo: this.route });
   }
+  
   deleteBrand(record) {
     this.message.confirm(this.l('confirmDelete'), this.l('AreYouSure'),(r) => {
       if (!r) return
@@ -101,7 +102,32 @@ export class BrandCenterComponent extends AppComponentBase {
   }
 
 
+  editBatch () {
+    if (this.brandPublishList.length == 0) {
+      this.message.warn(this.l('atLeastChoseOneItem'))
+      return
+    }
 
+    this.message.confirm(this.l('confirmSelect'), `
+    <div class="form-group m-form__group align-items-center" style="min-width: 240px;">
+      <label>品牌主题</label>
+      <div class="input-group" id="selectBrandStyle_0">
+        <select class="form-control">
+          <option value="">无</option>
+          <option value="样式一">样式一</option>
+          <option value="样式二">样式二</option>
+        </select>
+      </div>
+    </div>
+    `,(r) => {
+      if (!r) return
+
+      console.log($('#selectBrandStyle_0').find("option:selected").text());
+
+      
+
+    }, { isHtml: true })
+  }
 
 
   online() {

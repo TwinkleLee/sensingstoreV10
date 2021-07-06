@@ -1,6 +1,6 @@
 <div [@routerTransition]>
   <div class="content d-flex flex-column flex-column-fluid">
-    <sub-header [title]="'PublicAccount' | localize" [description]="'PublicAccount' | localize">
+    <sub-header [title]="'PublicAccount/miniprogram' | localize" [description]="'PublicAccount/miniprogram' | localize">
       <div role="actions">
       </div>
     </sub-header>
@@ -42,7 +42,7 @@
                     <button class="btn btn-primary" style="position:relative;top:1rem;" (click)="goCreate()"
                       *ngIf="isGranted('Pages.Tenant.Activities.Create')" type="button">
                       <i class="fa fa-plus"></i>
-                      {{l("bindPublicAccount")}}</button>
+                      {{l("bind")}}</button>
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                   <tr>
                     <th style="width: 150px">{{l('Actions')}}</th>
                     <th style="width:5%">{{l('RecordId')}}</th>
-                    <th>{{l('weixinAppID')}}</th>
+                    <th>{{l('appid')}}</th>
                     <th>{{l('head_img')}}</th>
                     <th>{{l('name')}}</th>
                     <th>{{l('Status')}}</th>
@@ -76,8 +76,11 @@
                 <ng-template pTemplate="body" let-record let-i="rowIndex">
                   <tr [pSelectableRow]="record" [attr.trid]="record.id">
                     <td style="width: 150px">
-                      <button class="btn btn-sm btn-primary" (click)="goManage(record)">
+                      <button *ngIf="record.from == 'Wechat'" class="btn btn-sm btn-primary" (click)="goManage(record)">
                         {{l("PublicAccountManage")}}
+                      </button>
+                      <button *ngIf="record.from == 'Miniprogram'" class="btn btn-sm btn-primary" (click)="goManage(record)">
+                        {{l("MiniProgramManage")}}
                       </button>
                     </td>
                     <td style="width:5%"> {{transIndex(i)}}</td>

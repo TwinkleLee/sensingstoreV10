@@ -50,12 +50,12 @@
                                         <th *ngIf="operationType=='add'">
                                             {{l('nowQuantity')}}
                                         </th>
-                                        <th *ngIf="operationType=='edit'">
+                                        <!-- <th *ngIf="operationType=='edit'">
                                             {{l('before')}}
                                         </th>
                                         <th *ngIf="operationType=='edit'">
                                             {{l('after')}}
-                                        </th>
+                                        </th> -->
                                         <th *ngIf="operationType=='add'">
                                             <span *ngIf="Input.outPutInStorageType=='Out'">{{l('OutQuantity')}}</span>
                                             <span *ngIf="Input.outPutInStorageType=='Put'">{{l('InQuantity')}}</span>
@@ -84,12 +84,12 @@
                                         <td *ngIf="operationType=='add'">
                                             <span>{{record.quantity}}</span>
                                         </td>
-                                        <td *ngIf="operationType=='edit'">
+                                        <!-- <td *ngIf="operationType=='edit'">
                                             <span>{{record.quantityBefore}}</span>
                                         </td>
                                         <td *ngIf="operationType=='edit'">
                                             <span>{{record.quantityAfter}}</span>
-                                        </td>
+                                        </td> -->
                                         <td *ngIf="operationType=='add'">
                                             <input class="form-control numberInputInAddOutputinModal" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number" (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)" [readonly]="record.loading||!record.skuId"
                                                 [class.recordNotValid]="!record.valid">

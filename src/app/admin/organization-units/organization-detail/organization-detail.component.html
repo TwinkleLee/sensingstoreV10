@@ -688,6 +688,9 @@
                                             [responsive]="pProduct.isResponsive">
                                             <ng-template pTemplate="header">
                                                 <tr>
+                                                    <th style="width: 150px" *ngIf="isGranted('Pages.Tenant.Coupons.Publish')">
+                                                        {{l('Actions')}}
+                                                    </th>
                                                     <th>ItemId</th>
                                                     <th style="width:30%">{{l('name')}}</th>
                                                     <th pSortableColumn="creationTime">
@@ -714,6 +717,22 @@
                                             </ng-template>
                                             <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                 <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                    <td style="width: 150px">
+                                                        <div class="btn-group dropdown" dropdown normalizePosition>
+                                                            <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                                data-toggle="dropdown" dropdownToggle
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-cog"></i>
+                                                                <span class="caret"></span> {{l("Actions")}}
+                                                            </button>
+                                                            <ul class="dropdown-menu" *dropdownMenu>
+                                                                <li>
+                                                                    <a class="icon-bianji dropdown-item"
+                                                                        (click)="goSku(record)">{{l('sku')}}</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <span [title]="record.itemId"
                                                             style="overflow:hidden;">{{record.itemId}}</span>
@@ -1174,158 +1193,286 @@
 
                             <tab class="p-5" heading="{{l('num')}}" customClass="kt-tabs__item icon-tubiao_kucun"
                                 (selectTab)="initNumTab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')&&storeId">
-                                <div class="row align-items-center">
-                                    <form class="horizontal-form" autocomplete="off" name="kpiForm">
-                                        <div class="kt-form kt-form--label-align-right">
-
-                                            <div class="row align-items-center m--margin-bottom-10">
-                                                <div class="col-12 text-right">
-                                                    <div>
-                                                        <button class="btn btn-primary" (click)="goImportRfid()">
-                                                        <i class="icon-excel"></i> {{l('import')}} </button>
- 
-                                                        <button *ngIf="isGranted('Pages.Tenant.Recommends.Create')" class="btn btn-primary" (click)="showRfid()">
-                                                            <i class="icon-shangpinguanli"></i> {{l('showAll')}}
+                                <tabset>
+                                    <tab (selectTab)="initNumTab();" class="p-5" heading="{{l('sku')}}">
+                                        
+                                        <div class="row align-items-center mb-4">
+                                            <div class="col-2">
+                                                <label>sku{{l('name')}}</label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input [(ngModel)]="filterSku" name="filter" (keyup.enter)="getSkuList()" autoFocus
+                                                            class="form-control m-input" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <label>rfid{{l('itemId')}}</label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input [(ngModel)]="rfid" name="rfid" (keyup.enter)="getSkuList()"
+                                                            class="form-control m-input" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            <!-- <div class="col-3" style="position:relative;padding-bottom: 0;top:-0.6rem;">
+                                                <app-high-tree #highTree
+                                                    [selfConfig]="{labelName:l('belongStore'),searchDepth:'store',includeOfflineStore:true}"
+                                                    (onTreeUpdate)="onTreeUpdate($event)"></app-high-tree>
+                                            </div> -->
+                    
+                                            <div class="col-2">
+                                                <div class="form-group m-form__group align-items-center">
+                                                    <label>&nbsp;</label>
+                                                    <div class="input-group">
+                                                        <button type="button" class="btn btn-primary"
+                                                            [buttonBusy]="primengTableHelper.isLoading" (click)="getSkuList()">
+                                                            <i class="la la-refresh"></i>
+                                                            {{l("search")}}
                                                         </button>
-                                                        <button (click)="createBill()" class="btn btn-primary blue"
-                                                            *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
-                                                            <i class="fa fa-plus"></i> {{l("createBill")}}</button>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row align-items-center m--margin-bottom-10"
-                                                style="padding-right:15px;">
-                                                <!-- 下拉选择  -->
-                                                <div class="col-3">
-                                                    <div class="form-group kt-form__group align-items-center">
-                                                        <div class="input-group">
-                                                            <input class="form-control" type="input"
-                                                                name="outPutInStorageFilter"
-                                                                [(ngModel)]="outPutInStorageFilter" />
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <!--<Primeng-Datatable-Start>-->
+                                            <div class="primeng-datatable-container" [busyIf]="skuPrimeg.isLoading">
+                                                <p-table #dataTableSku (onLazyLoad)="getSkuList($event)" [value]="skuPrimeg.records"
+                                                    [rows]="skuPrimeg.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
+                                                    [resizableColumns]="skuPrimeg.resizableColumns"
+                                                    [responsive]="skuPrimeg.isResponsive">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                            <!-- <th style="width: 150px">{{l('Actions')}}</th> -->
+                                                            <th style="width:5%">{{l('RecordId')}}</th>
+                                                            <th>{{l('name')}}</th>
+                                                            <th>{{l('Picture')}}</th>
+                                                            <th pSortableColumn="quantity">{{l('num')}}
+                                                                <p-sortIcon field="quantity"></p-sortIcon>
+                                                            </th>
+                                                            <th pSortableColumn="rfideCount">rfid{{l('amount')}}
+                                                                <p-sortIcon field="rfideCount"></p-sortIcon>
+                                                            </th>
+                                                        </tr>
+                    
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                        <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                            <!-- <td style="width: 150px">
+                                                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                                        data-toggle="dropdown" dropdownToggle aria-haspopup="true"
+                                                                        aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                        <span class="caret"></span> {{l("Actions")}}
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                                        <li>
+                                                                            <a (click)="showDetail(record)"
+                                                                                class="icon-1311shangpinfenleipicishuxing dropdown-item">{{l("num")}}{{l("detail")}}</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a (click)="showRfid(record.id)"
+                                                                                class="icon-shangpinguanli dropdown-item">{{l("rfid")}}{{l("detail")}}</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td> -->
+                                                            <td style="width:5%"> {{transIndex(i)}}</td>
+                                                            <td>
+                                                                <span>{{record.title}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <img [src]="fixFileUrl(record.picUrl)" style="width: 33px;"
+                                                                    (error)="fixPic($event)" />
+                                                            </td>
+                                                            <td>
+                                                                <span>{{record.quantity}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>{{record.rfideCount}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="emptymessage" let-records>
+                                                        <tr *ngIf="skuPrimeg.records">
+                                                            <td colspan="6">
+                                                                <img class="emptymessage"
+                                                                    src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                                <div class="primeng-paging-container">
+                                                    <p-paginator [rows]="skuPrimeg.defaultRecordsCountPerPage" #paginatorSku
+                                                        (onPageChange)="getSkuList($event)"
+                                                        [totalRecords]="skuPrimeg.totalRecordsCount"
+                                                        [rowsPerPageOptions]="skuPrimeg.predefinedRecordsCountPerPage">
+                                                    </p-paginator>
+                                                    <span class="total-records-count">
+                                                        {{l('TotalRecordsCount', skuPrimeg.totalRecordsCount)}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!--<Primeng-Datatable-End>-->
+                                        </div>
+                                    </tab>
+                                    <tab (selectTab)="getInOrOutFill();" class="p-5" heading="{{l('num')}}">
+                                        <div class="row align-items-center">
+                                            <form class="horizontal-form" autocomplete="off" name="kpiForm">
+                                                <div class="kt-form kt-form--label-align-right">
+        
+                                                    <div class="row align-items-center m--margin-bottom-10">
+                                                        <div class="col-12 text-right">
+                                                            <div>
+                                                                <button class="btn btn-primary" (click)="goImportRfid()">
+                                                                <i class="icon-excel"></i> {{l('import')}} </button>
+         
+                                                                <button *ngIf="isGranted('Pages.Tenant.Recommends.Create')" class="btn btn-primary" (click)="showRfid()">
+                                                                    <i class="icon-shangpinguanli"></i> {{l('showAll')}}
+                                                                </button>
+                                                                <button (click)="createBill()" class="btn btn-primary blue"
+                                                                    *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
+                                                                    <i class="fa fa-plus"></i> {{l("createBill")}}</button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-3">
-                                                    <div class="form-group kt-form__group align-items-center">
-                                                        <div class="input-group">
-                                                            <select class="form-control"
-                                                                [(ngModel)]="outPutInStorageType"
-                                                                name="outPutInStorageType" (change)="getInOrOutFill()">
-                                                                <option value="">{{l("All")}}</option>
-                                                                <option value="Out">{{l("Out")}}</option>
-                                                                <option value="Put">{{l("Put")}}</option>
-                                                                <option value="Check">{{l("Check")}}</option>
-                                                            </select>
+        
+                                                    <div class="row align-items-center m--margin-bottom-10"
+                                                        style="padding-right:15px;">
+                                                        <!-- 下拉选择  -->
+                                                        <div class="col-3">
+                                                            <div class="form-group kt-form__group align-items-center">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="input"
+                                                                        name="outPutInStorageFilter"
+                                                                        [(ngModel)]="outPutInStorageFilter" />
+                                                                </div>
+                                                            </div>
                                                         </div>
+        
+                                                        <div class="col-3">
+                                                            <div class="form-group kt-form__group align-items-center">
+                                                                <div class="input-group">
+                                                                    <select class="form-control"
+                                                                        [(ngModel)]="outPutInStorageType"
+                                                                        name="outPutInStorageType" (change)="getInOrOutFill()">
+                                                                        <option value="">{{l("All")}}</option>
+                                                                        <option value="Out">{{l("Out")}}</option>
+                                                                        <option value="Put">{{l("Put")}}</option>
+                                                                        <option value="Check">{{l("Check")}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+        
+                                                        <!-- 时间范围筛选 -->
+                                                        <div class="col-3" style="position:relative;">
+                                                            <div class="form-group kt-form__group align-items-center">
+                                                                <date-range-picker name="SampleDateRangePicker"
+                                                                    [showButton]="true" rangeMode="all"
+                                                                    (buttonEmit)="getInOrOutFill()"
+                                                                    [(startDate)]="StartTimeFill" [(endDate)]="EndTimeFill"
+                                                                    [allowFutureDate]="true" [needInitDate]="true"
+                                                                    [hasLabel]="false" #dateRangerFill [admitDelete]="false">
+                                                                </date-range-picker>
+                                                            </div>
+                                                        </div>
+        
                                                     </div>
                                                 </div>
-
-                                                <!-- 时间范围筛选 -->
-                                                <div class="col-3" style="position:relative;">
-                                                    <div class="form-group kt-form__group align-items-center">
-                                                        <date-range-picker name="SampleDateRangePicker"
-                                                            [showButton]="true" rangeMode="all"
-                                                            (buttonEmit)="getInOrOutFill()"
-                                                            [(startDate)]="StartTimeFill" [(endDate)]="EndTimeFill"
-                                                            [allowFutureDate]="true" [needInitDate]="true"
-                                                            [hasLabel]="false" #dateRangerFill [admitDelete]="false">
-                                                        </date-range-picker>
-                                                    </div>
+                                            </form>
+        
+                                            <div class="primeng-datatable-container"
+                                                [busyIf]="outPutInStoragePrimengTableHelper.isLoading">
+                                                <p-table #dataTablekc (onLazyLoad)="getInOrOutFill($event)"
+                                                    [value]="outPutInStoragePrimengTableHelper.records"
+                                                    [rows]="outPutInStoragePrimengTableHelper.defaultRecordsCountPerPage"
+                                                    [(selection)]="outPutInStorageSelectionList" [paginator]="false"
+                                                    [lazy]="false"
+                                                    [resizableColumns]="outPutInStoragePrimengTableHelper.resizableColumns"
+                                                    [responsive]="outPutInStoragePrimengTableHelper.isResponsive">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                            <th style="width: 150px">{{l('Actions')}}</th>
+                                                            <th style="width: 5.0em">
+                                                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                            </th>
+                                                            <th style="width:5%">{{l('RecordId')}}</th>
+                                                            <th>{{l('ouOrStoreName')}}</th>
+                                                            <th>{{l('billNo')}}</th>
+                                                            <th>{{l('creationTime')}}</th>
+                                                            <th>{{l('outPutInStorageType')}}</th>
+                                                            <th>{{l('from')}}</th>
+                                                            <th>{{l('description')}}</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                                        <tr [pSelectableRow]="record">
+                                                            <td style="width: 150px">
+                                                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                                        data-toggle="dropdown" dropdownToggle
+                                                                        aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                        <span class="caret"></span> {{l("Actions")}}
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                                        <li>
+                                                                            <a class="icon-shop dropdown-item"
+                                                                                (click)="goDetail(record)">{{l('detail')}}</a>
+                                                                        </li>
+        
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                            <td style="width: 5.0em">
+                                                                <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                                            </td>
+                                                            <td> {{transKPIIndex(i)}}</td>
+        
+                                                            <td>
+                                                                <span *ngIf="record.ouName">{{record.ouName}}</span>
+                                                                <span *ngIf="record.storeName">{{record.storeName}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>{{record.billNo}}</span>
+                                                            </td>
+        
+                                                            <td>
+                                                                {{record.creationTime | date : "yyyy-MM-dd"}}
+                                                            </td>
+                                                            <td><span>{{record.outPutInStorageType}}</span></td>
+                                                            <td><span>{{record.from}}</span></td>
+                                                            <td><span>{{record.description}}</span></td>
+        
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="emptymessage" let-records>
+                                                        <tr *ngIf="outPutInStoragePrimengTableHelper.records">
+                                                            <td colspan="9">
+                                                                <img class="emptymessage"
+                                                                    src="/assets/common/images/placeholder/deviceHolder.png" />
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                                <div class="primeng-paging-container">
+                                                    <p-paginator
+                                                        [rows]="outPutInStoragePrimengTableHelper.defaultRecordsCountPerPage"
+                                                        #paginatorkc (onPageChange)="getInOrOutFill($event)"
+                                                        [totalRecords]="outPutInStoragePrimengTableHelper.totalRecordsCount"
+                                                        [rowsPerPageOptions]="outPutInStoragePrimengTableHelper.predefinedRecordsCountPerPage">
+                                                    </p-paginator>
+                                                    <span class="total-records-count">
+                                                        {{l('TotalRecordsCount', outPutInStoragePrimengTableHelper.totalRecordsCount)}}
+                                                    </span>
                                                 </div>
-
                                             </div>
                                         </div>
-                                    </form>
-
-                                    <div class="primeng-datatable-container"
-                                        [busyIf]="outPutInStoragePrimengTableHelper.isLoading">
-                                        <p-table #dataTablekc (onLazyLoad)="getInOrOutFill($event)"
-                                            [value]="outPutInStoragePrimengTableHelper.records"
-                                            [rows]="outPutInStoragePrimengTableHelper.defaultRecordsCountPerPage"
-                                            [(selection)]="outPutInStorageSelectionList" [paginator]="false"
-                                            [lazy]="false"
-                                            [resizableColumns]="outPutInStoragePrimengTableHelper.resizableColumns"
-                                            [responsive]="outPutInStoragePrimengTableHelper.isResponsive">
-                                            <ng-template pTemplate="header">
-                                                <tr>
-                                                    <th style="width: 150px">{{l('Actions')}}</th>
-                                                    <th style="width: 5.0em">
-                                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                                    </th>
-                                                    <th style="width:5%">{{l('RecordId')}}</th>
-                                                    <th>{{l('ouOrStoreName')}}</th>
-                                                    <th>{{l('billNo')}}</th>
-                                                    <th>{{l('creationTime')}}</th>
-                                                    <th>{{l('outPutInStorageType')}}</th>
-                                                    <th>{{l('from')}}</th>
-                                                    <th>{{l('description')}}</th>
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="body" let-record let-i="rowIndex">
-                                                <tr [pSelectableRow]="record">
-                                                    <td style="width: 150px">
-                                                        <div class="btn-group dropdown" dropdown normalizePosition>
-                                                            <button class="dropdown-toggle btn btn-sm btn-primary"
-                                                                data-toggle="dropdown" dropdownToggle
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <i class="fa fa-cog"></i>
-                                                                <span class="caret"></span> {{l("Actions")}}
-                                                            </button>
-                                                            <ul class="dropdown-menu" *dropdownMenu>
-                                                                <li>
-                                                                    <a class="icon-shop dropdown-item"
-                                                                        (click)="goDetail(record)">{{l('detail')}}</a>
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                    <td style="width: 5.0em">
-                                                        <p-tableCheckbox [value]="record"></p-tableCheckbox>
-                                                    </td>
-                                                    <td> {{transKPIIndex(i)}}</td>
-
-                                                    <td>
-                                                        <span *ngIf="record.ouName">{{record.ouName}}</span>
-                                                        <span *ngIf="record.storeName">{{record.storeName}}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span>{{record.billNo}}</span>
-                                                    </td>
-
-                                                    <td>
-                                                        {{record.creationTime | date : "yyyy-MM-dd"}}
-                                                    </td>
-                                                    <td><span>{{record.outPutInStorageType}}</span></td>
-                                                    <td><span>{{record.from}}</span></td>
-                                                    <td><span>{{record.description}}</span></td>
-
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="emptymessage" let-records>
-                                                <tr *ngIf="outPutInStoragePrimengTableHelper.records">
-                                                    <td colspan="9">
-                                                        <img class="emptymessage"
-                                                            src="/assets/common/images/placeholder/deviceHolder.png" />
-                                                    </td>
-                                                </tr>
-                                            </ng-template>
-                                        </p-table>
-                                        <div class="primeng-paging-container">
-                                            <p-paginator
-                                                [rows]="outPutInStoragePrimengTableHelper.defaultRecordsCountPerPage"
-                                                #paginatorkc (onPageChange)="getInOrOutFill($event)"
-                                                [totalRecords]="outPutInStoragePrimengTableHelper.totalRecordsCount"
-                                                [rowsPerPageOptions]="outPutInStoragePrimengTableHelper.predefinedRecordsCountPerPage">
-                                            </p-paginator>
-                                            <span class="total-records-count">
-                                                {{l('TotalRecordsCount', outPutInStoragePrimengTableHelper.totalRecordsCount)}}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </tab>
+                                </tabset>
                             </tab>
 
 
