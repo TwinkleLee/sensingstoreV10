@@ -2,6 +2,8 @@ import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, After
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { ProductServiceProxy, RedeemType,TagServiceProxy, CreateProductInput, ProductCategoryServiceProxy, TagType as Type, ProductPointRule, RedeemRule, AwardRule } from '@shared/service-proxies/service-proxies-product';
 
+
+import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from 'abp-ng2-module';
@@ -32,12 +34,14 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
     uploadUrl: string;
     product: CreateProductInput = new CreateProductInput();
     tagSuggestion;
+    brandSuggestion;
     tags: any[] = [];
     progress: number = 0;
     categoryList: any[] = [];
     categoryName: string = '';
     isDetail: boolean = false;
     areaMode: boolean = false;
+    brand: any = '';
 
     RedeemType = RedeemType;
 
@@ -56,6 +60,7 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
         private _tagService: TagServiceProxy,
         private _tokenService: TokenService,
         private _cateService: ProductCategoryServiceProxy,
+        private _BrandServiceProxy: BrandServiceProxy,
         private ref: ChangeDetectorRef
     ) {
         super(injector);
@@ -139,6 +144,21 @@ export class CreateOrEditProModalComponent extends AppComponentBase implements A
         this._tagService.getTagsByType(event.query, void 0, 100, 0, Type.Product).subscribe((result) => {
             this.tagSuggestion = result.items;
         })
+    }
+    filterBrand (event) {
+        this._BrandServiceProxy.getBrands(
+            void 0,
+            void 0,
+            event.query,
+            void 0,
+            void 0,
+            void 0,
+        ).subscribe(res => {
+            this.brandSuggestion = res.items;
+        })
+    }
+    assignBrand () {
+        this.product.brandId = this.brand.id
     }
     assignTags() {
         var tagString = [];

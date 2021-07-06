@@ -89,6 +89,20 @@
                                                 <span class="icon-xiaxian"></span>{{l('Offline')}}</span>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>{{l("brand")}}</label>
+                                            <p-autoComplete [(ngModel)]="brand" [suggestions]="brandSuggestion"
+                                                (completeMethod)="filterBrand($event)" field="name" placeholder="brand" dataKey="id"
+                                                [multiple]="false" [dropdown]="true" (onSelect)="assignBrand()"
+                                                [minLength]="1" name="MultiSelectInput"
+                                                inputStyleClass="form-control" styleClass="width-percent-100">
+                                            </p-autoComplete>
+                                        </div>
+                                    </div>
+
+
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>{{l("subTitle")}}</label>
