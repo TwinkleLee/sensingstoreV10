@@ -168,9 +168,16 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     outPutInStorageSelectionList: any = [];
     outPutInStorageType: any = '';
 
+    // sku
+    @ViewChild('dataTableSku', { static: false }) dataTableSku: Table;
+    @ViewChild('paginatorSku', { static: false }) paginatorSku: Paginator;
+    @ViewChild('highTree', { static: false }) highTree;
+    filterSku: any = '';
+    rfid: any = '';
+    skuPrimeg = new PrimengTableHelper();
+
     StartTimeFill = moment().utc().subtract(31, 'days').startOf('day');
     EndTimeFill = moment().utc().endOf('day');
-
 
     KPITypeList = [];
     treeList: any = '';
@@ -220,6 +227,10 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.getroomdata()
     }
 
+    goSku (record) {
+        console.log(record)
+    }
+
     //初始化
     initMessage() {
         var urls = location.pathname.split('\/');
@@ -242,6 +253,33 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         })
 
     }
+
+    //获取列表
+  getSkuList(event?: LazyLoadEvent) {
+    // if (this.skuPrimeg.shouldResetPaging(event)) {
+    //   this.paginatorSku.changePage(0);
+    //   return;
+    // }
+
+    this.skuPrimeg.showLoadingIndicator();
+    this._OutPutInStorageServiceProxy.getSkusByStoreId(
+      void 0,
+      void 0,
+      [this.storeId],
+      void 0,
+      this.rfid,
+      this.filterSku,
+      void 0,
+      this.skuPrimeg.getMaxResultCount(this.paginatorSku, event),
+      this.skuPrimeg.getSkipCount(this.paginatorSku, event)
+    )
+    .pipe(this.myFinalize(() => { this.skuPrimeg.hideLoadingIndicator(); }))
+    .subscribe(result => {
+      this.skuPrimeg.totalRecordsCount = result.totalCount;
+      this.skuPrimeg.records = result.items;
+      // this.primengTableHelper.hideLoadingIndicator();
+    })
+  }
 
     //kpi
     initKPITab() {
@@ -281,7 +319,9 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
     //num
     initNumTab() {
-        this.getInOrOutFill()
+        setTimeout(() => {
+            this.getSkuList();
+        }, 500)
     }
     goImportKPI() {
     }

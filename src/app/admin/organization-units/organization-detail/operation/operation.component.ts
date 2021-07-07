@@ -156,7 +156,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
       roomType: undefined,
     })).subscribe(res => {
       this.notify.info(this.l('SavedSuccessfully'));
-      this.close();
       
       this.modalSave.emit(null);
     })

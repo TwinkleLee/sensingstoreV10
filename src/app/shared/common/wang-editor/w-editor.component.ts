@@ -42,10 +42,11 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
         injector: Injector
     ) {
         super(injector);
+
+        
     }
 
     ngOnInit() {
-
         this.editor = new Editor("#editorMenu", "#editor");
         this.editor.config.customUploadImg = this.onUploads.bind(this);
         this.setEditorConfig();
@@ -54,15 +55,12 @@ export class WEditorComponent extends AppComponentBase implements AfterViewCheck
             this.complete.emit(html)
         }
         this.editor.create();
-
     }
 
     // 监测@Input传过来的值，如果有变化就会执行这里面的方法
     /*注意 ngOnChanges的生命周期执行的顺序在ngOnInit之前*/
     ngOnChanges(changes: SimpleChanges): void {
-
-        console.log(changes);
-        if (changes['html'] != undefined) {
+        if (changes['html'] != undefined && this.editor) {
             this.editor.txt.html(changes['html'].currentValue);
             this.html = changes['html'].currentValue;
         }
