@@ -207,11 +207,11 @@
                                                     </td>
                                                     <td>
                                                         <span>{{record.openingTime | date : "yyyy/MM/dd hh:mm"|
-                                                        slice:11:20}}</span>
+                                                            slice:11:20}}</span>
                                                     </td>
                                                     <td>
                                                         <span>{{record.closedTime | date : "yyyy/MM/dd hh:mm"|
-                                                        slice:11:20}}</span>
+                                                            slice:11:20}}</span>
                                                     </td>
                                                     <td>
                                                         <span>{{record.qrCodeExtraInfo}}</span>
@@ -281,7 +281,7 @@
                                                             <select class="form-control" [(ngModel)]="deviceAuditStatus"
                                                                 name="deviceAuditStatus" (change)="getDeviceByOUId()">
                                                                 <option value="">{{l("All")+' / '+l("online")+' /
-                                                                '+l("offline")}}</option>
+                                                                    '+l("offline")}}</option>
                                                                 <option [value]="AuditStatus.Offline">{{l("offline")}}
                                                                 </option>
                                                                 <option [value]="AuditStatus.Online">{{l("online")}}
@@ -414,7 +414,7 @@
                                                             <select class="form-control" [(ngModel)]="adsAuditStatus"
                                                                 name="adsAuditStatus" (change)="getAdsByOUId()">
                                                                 <option value="">{{l("All")+' / '+l("online")+' /
-                                                                '+l("offline")}}</option>
+                                                                    '+l("offline")}}</option>
                                                                 <option [value]="AuditStatus.Offline">{{l("offline")}}
                                                                 </option>
                                                                 <option [value]="AuditStatus.Online">{{l("online")}}
@@ -598,9 +598,9 @@
                                                         <span>{{record.envType}}</span>
                                                     </td>
                                                     <td>{{record.startTime | date:'yyyy-MM-dd
-                                                    HH:mm'}}</td>
+                                                        HH:mm'}}</td>
                                                     <td>{{record.endTime | date:'yyyy-MM-dd
-                                                    HH:mm'}}</td>
+                                                        HH:mm'}}</td>
                                                     <td>
                                                         <span *ngIf="record.isDefault"
                                                             class="label label-success label-inline">{{l("true")}}</span>
@@ -663,7 +663,7 @@
                                                                 [(ngModel)]="productAuditStatus"
                                                                 name="productAuditStatus" (change)="getProductByOUId()">
                                                                 <option value="">{{l("All")+' / '+l("online")+' /
-                                                                '+l("offline")}}</option>
+                                                                    '+l("offline")}}</option>
                                                                 <option [value]="AuditStatus.Offline">{{l("offline")}}
                                                                 </option>
                                                                 <option [value]="AuditStatus.Online">{{l("online")}}
@@ -788,7 +788,7 @@
                                                             <select class="form-control" [(ngModel)]="couponAuditStatus"
                                                                 name="auditStatus" (change)="getCouponByOUId()">
                                                                 <option value="">{{l("All")+' / '+l("online")+' /
-                                                                '+l("offline")}}</option>
+                                                                    '+l("offline")}}</option>
                                                                 <option [value]="AuditStatus.Offline">{{l("offline")}}
                                                                 </option>
                                                                 <option [value]="AuditStatus.Online">{{l("online")}}
@@ -908,7 +908,7 @@
                                                                 name="activityAuditStatus"
                                                                 (change)="getActivityByOUId()">
                                                                 <option value="">{{l("All")+' / '+l("online")+' /
-                                                                '+l("offline")}}</option>
+                                                                    '+l("offline")}}</option>
                                                                 <option value="Offline">{{l("offline")}}</option>
                                                                 <option value="Online">{{l("online")}}</option>
                                                             </select>
@@ -1142,7 +1142,7 @@
                                                     <td *ngIf="record.kpiScale=='Month'">
                                                         {{record.scaleTime | date : "yyyy/MM"}}</td>
                                                     <td *ngIf="record.kpiScale=='Day'">{{record.scaleTime | date :
-                                                    "yyyy/MM/dd"}}</td>
+                                                        "yyyy/MM/dd"}}</td>
                                                     <td><span>{{record.name}}</span></td>
                                                     <td><span>{{record.value}}</span></td>
 
@@ -1182,9 +1182,10 @@
                                                 <div class="col-12 text-right">
                                                     <div>
                                                         <button class="btn btn-primary" (click)="goImportRfid()">
-                                                        <i class="icon-excel"></i> {{l('import')}} </button>
- 
-                                                        <button *ngIf="isGranted('Pages.Tenant.Recommends.Create')" class="btn btn-primary" (click)="showRfid()">
+                                                            <i class="icon-excel"></i> {{l('import')}} </button>
+
+                                                        <button *ngIf="isGranted('Pages.Tenant.Recommends.Create')"
+                                                            class="btn btn-primary" (click)="showRfid()">
                                                             <i class="icon-shangpinguanli"></i> {{l('showAll')}}
                                                         </button>
                                                         <button (click)="createBill()" class="btn btn-primary blue"
@@ -1321,84 +1322,66 @@
                                                 [rowsPerPageOptions]="outPutInStoragePrimengTableHelper.predefinedRecordsCountPerPage">
                                             </p-paginator>
                                             <span class="total-records-count">
-                                                {{l('TotalRecordsCount', outPutInStoragePrimengTableHelper.totalRecordsCount)}}
+                                                {{l('TotalRecordsCount',
+                                                outPutInStoragePrimengTableHelper.totalRecordsCount)}}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </tab>
-
-
                             <tab class="p-5" heading="{{l('room')}}" customClass="kt-tabs__item icon-tubiao_kucun"
                                 (selectTab)="initNumTab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')&&storeId">
+                                <button (click)="bindingroom()" class=" btn btn-sm btn-primary">{{l("binding")}}</button>
                                 <div class="form-group col-6">
-                                    
-                                    <!-- D:\troncell\sensingstoreV10\src\app\admin\floor\room\room.component.html -->
-                                    <div class="row align-items-center">
-                                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                                            <p-table #dataTable  [value]="primengTableHelper.records"
-                                                [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
-                                                [resizableColumns]="primengTableHelper.resizableColumns" 
-                                                [responsive]="primengTableHelper.isResponsive">
-                                                <ng-template pTemplate="header">
-                                                    <tr>
-                                                        <th>{{l('Actions')}}</th>
-                                                        <th>{{l('RecordId')}}</th>
-                                                        <th>{{l('name')}}</th>
-                                                        <th>{{l('type')}}</th>
-                                                        <th>{{l('itemId')}}</th>
-                                                        <th>{{l('Building')}}</th>
-                                                        <th>{{l('Floor')}}</th>
-                                                        <th>{{l('Store')}}</th>
-                                                    </tr>
-                                                </ng-template>
-                                                <ng-template pTemplate="body" let-record let-i="rowIndex">
-                                                    <tr [pSelectableRow]="record" [attr.trid]="record.id">
-                                                        <td>
-                                                            <a (click)="deleteStore(record)"
-                                                            class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
-                                                        </td>
-                                                        <td style="width:5%"> {{transIndex(i)}}</td>
-                                                        <td>
-                                                            <span>{{record.name}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{record.roomType}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{record.no}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{record.buildingName}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{record.floorName}}-({{record.floorNo}})</span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{{record.storeName}}</span>
-                                                        </td>
-                                                    </tr>
-                                                </ng-template>
-                                                <ng-template pTemplate="emptymessage" let-records>
-                                                    <tr *ngIf="primengTableHelper.records">
-                                                        <td colspan="10">
-                                                            <img class="emptymessage"
-                                                                src="/assets/common/images/placeholder/deviceHolder.png" />
-                                                        </td>
-                                                    </tr>
-                                                </ng-template>
-                                            </p-table>
-                                            <div class="primeng-paging-container">
-                                                <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                                    [totalRecords]="primengTableHelper.totalRecordsCount"
-                                                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
-                                                </p-paginator>
-                                                <span class="total-records-count">
-                                                    {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <p-table ScrollWidth="100%" #dataTableRoom (onLazyLoad)="getStoreList($event)"
+                                        [value]="roomlist" [paginator]="false" [lazy]="true">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width: 150px;">{{l('Actions')}}</th>
+                                                <th style="width:150px">{{l('room')}}</th>
+                                                <th style="width:150px">{{l('buildingName')}}</th>
+                                                <th style="width:150px">{{l('floorNo')}}</th>
+                                                <th style="width:150px">{{l('roomType')}}</th>
+                                                <th style="width:150px">{{l('storeName')}}</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                            <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                <td style="width: 150px;">
+                                                    <div class="btn-group dropdown" dropdown normalizePosition>
+                                                        <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                            data-toggle="dropdown" dropdownToggle
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
+                                                            <span class="caret"></span> {{l("Actions")}}
+                                                        </button>
+                                                        <ul class="dropdown-menu" *dropdownMenu>
+                                                            <li>
+                                                                <a class="icon-shop dropdown-item"
+                                                                    (click)="deleteroom(record)">{{l('untie')}}</a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td style="width:2100px">
+                                                    <span>{{record.name}}</span>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <span>{{record.buildingName}}</span>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <span>{{record.floorNo}}</span>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <span>{{record.roomType}}</span>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <span>{{record.storeName}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
                                 </div>
                             </tab>
 
@@ -1409,6 +1392,7 @@
                             <kpiModal #kpiModal (modalSave)="getKPIByOUId()"></kpiModal>
                             <billModal #billModal (modalSave)="getInOrOutFill()"></billModal>
                             <rfidListModal #rfidListModal></rfidListModal>
+                            <bindModal #bindModal (modalSave)="getroomdata()"></bindModal>
                         </tabset>
                     </div>
                 </form>

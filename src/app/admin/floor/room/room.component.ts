@@ -83,6 +83,7 @@ export class RoomComponent extends AppComponentBase {
       this.floorId,
       this.buildingId,
       void 0,
+      void 0,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),

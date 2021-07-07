@@ -1,0 +1,50 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form  #ProductsForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("bindingroom")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <!-- 绑定房间 roomIds -->
+                <div class="form-group col-6">
+                    <label>{{l("Building")}} </label>
+                    <select class="form-control typeSelect" [(ngModel)]="buildingId" (change)="buildingChang()"
+                        name="building" [attr.data-live-search]="true" jq-plugin="selectpicker">
+                        <option [value]="item.id" *ngFor="let item of buildingList">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label>{{l("floor")}} </label>
+                    <select class="form-control typeSelect" [(ngModel)]="floorId" (change)="floorChang()"
+                    [disabled]="!buildingId" name="floor" [attr.data-live-search]="true" jq-plugin="selectpicker">
+                        <option [value]="item.id" *ngFor="let item of floorList">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label>{{l("Room")}} </label>
+                    <select class="form-control typeSelect" [(ngModel)]="roomId"  [disabled]="!floorId"
+                        name="room" [attr.data-live-search]="true" jq-plugin="selectpicker">
+                        <option [value]="item.id" *ngFor="let item of roomList">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-primary"
+                        (click)="close()">{{l("Cancel")}}</button>
+                    <button *ngIf="operationType=='add'" type="submit" class="btn btn-primary blue"
+                        [disabled]="!buildingId||!floorId||!roomId" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{l("Save")}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

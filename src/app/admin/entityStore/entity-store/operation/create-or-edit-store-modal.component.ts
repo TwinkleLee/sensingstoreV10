@@ -28,6 +28,7 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
     active = false;
     saving = false;
     checkBoxShow = false;
+    i:number=0;
     outypeList: any[] = [];
     openingTime: string = "07:00";
     closedTime: string = "23:00";

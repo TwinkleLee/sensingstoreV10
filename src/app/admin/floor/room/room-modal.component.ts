@@ -74,6 +74,9 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
         if (objItem) {
             this.operation = "edit";
             this.objItem = objItem;
+            this.objItem.storeId=String(objItem.storeId)
+            console.log("this.objItem.storeId",this.objItem.storeId);
+            
             if (objItem.buildingID) {
                 this.buildingId = objItem.buildingID;
             }
@@ -115,11 +118,10 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
             this.primengTableHelper.totalRecordsCount = result.totalCount;
             this.storeList = result.items.map(item => {
                 return {
-                    id: item.storeId,
+                    id: String(item.storeId),
                     name: item.displayName
                 }
             });
-            console.log("this.storeList",this.storeList);
           });
       }
 
@@ -172,6 +174,8 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
     }
 
     save(): void {
+        console.log("this.objItem",this.objItem);
+         
         this.saving = true;
         if (!this.objItem.id) {
             this._RoomServiceProxy.createRoom(new CreateRoomInput(this.objItem))
@@ -182,7 +186,6 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
                     this.modalSave.emit(null);
                 })
         } else {
-            console.log("room-mpdeal.component.ts.this.objItem:",this.objItem)
             this._RoomServiceProxy.updateRoom(new UpdateRoomInput(this.objItem))
                 .pipe(finalize(() => { this.saving = false; }))
                 .subscribe(result => {

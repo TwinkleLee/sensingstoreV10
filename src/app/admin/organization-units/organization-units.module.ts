@@ -19,6 +19,7 @@ import { KPIModalComponent } from '@app/admin/organization-units/organization-de
 import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component';
 import {SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
 import {RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component';
+import { BindModalComponent } from './organization-detail/operation/operation.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {RfidListModalComponent } from '@app/admin/organization-units/organizatio
         KPIModalComponent,
         BillModalComponent,
         SkuGridModalComponent,
-        RfidListModalComponent
+        RfidListModalComponent,
+        BindModalComponent
     ],
     imports: [AppSharedModule, AdminSharedModule, OrganizationUnitsRoutingModule],
     exports: [AddMemberModalComponent, AddRoleModalComponent, OrganizationTreeComponent]

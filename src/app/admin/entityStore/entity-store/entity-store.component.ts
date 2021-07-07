@@ -199,7 +199,6 @@ export class EntityStoreComponent extends AppComponentBase {
   }
 
   editStore(record) {
-    console.log("record", record);
     this.createOrEditStoreModal.show(record)
   }
   deleteStore(record) {

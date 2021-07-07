@@ -5,7 +5,7 @@ import { CouponServiceProxy, ProductServiceProxy, StoreServiceProxy as StoreProd
 import { AdServiceProxy, SoftwareServiceProxy, SoftwareType, StoreAdsServiceProxy, StoreSoftwareServiceProxy, FileType } from '@shared/service-proxies/service-proxies-ads'
 
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto } from '@shared/service-proxies/service-proxies-floor'
+import { RoomServiceProxy, UpdateRoomListInput, UpdateRoomDto, UpdateRoomInput } from '@shared/service-proxies/service-proxies-floor'
 import { Router, ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -16,18 +16,19 @@ import { finalize } from 'rxjs/operators';
 import { DateRangePickerComponent } from '@app/shared/common/timing/date-range-picker.component';
 import { ActivityServiceProxy, StoreActivityServiceProxy } from '@shared/service-proxies/service-proxies5';
 import { UserServiceProxy, GetUsersInput } from '@shared/service-proxies/service-proxies';
-
 import { AppConsts } from '@shared/AppConsts';
 import { KPIModalComponent } from '@app/admin/organization-units/organization-detail/kpi-modal.component';
 import { StoreServiceProxy, OrganizationUnitServiceProxy, GetStorseListInput, AuditStatus } from '@shared/service-proxies/service-proxies-devicecenter';
 import { event } from 'jquery';
 import { BuildingServiceProxy, FloorServiceProxy } from '@shared/service-proxies/service-proxies-floor';
 import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component'
+import { BindModalComponent } from '@app/admin/organization-units/organization-detail/operation/operation.component'
 import { RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component'
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
 
 import * as _ from 'lodash'
+import { result } from 'lodash-es';
 
 @Component({
     selector: 'OUDetail',
@@ -152,9 +153,12 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
 
     //房间分页
+    @ViewChild('dataTableRoom', { static: false }) dataTableRoom: Table;
+    @ViewChild('paginatorRoom', { static: false }) paginatorRoom: Paginator;
+    @ViewChild('bindModal', { static: false }) bindModal: BindModalComponent;
+    
     @Input() brandList: any;
-    buildingList1:any=[];
-    buildingList:any=[];
+    roomlist: any[] = [];
 
     organizationUnit: any = {
         'position': {},
@@ -192,28 +196,28 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         private _StoreProductServiceProxy: StoreProductServiceProxy,
         private _OutPutInStorageServiceProxy: OutPutInStorageServiceProxy,
         private _roomServiceProxy: RoomServiceProxy,
+        private _RoomServiceProxy: RoomServiceProxy,
         private _BrandServiceProxy: BrandServiceProxy,
         private _NewStoreServiceProxy: NewStoreServiceProxy,
         private _BuildingServiceProxy: BuildingServiceProxy,
     ) {
         super(injector);
         this.initMessage();
-        
-        this.getStoreBindRoom()
         this._StoreServiceProxy.getCurrentTenantOrganizationUnitsAndStoresTree([], false).subscribe((result) => {
             this.treeList = [result];
         })
-        this._BuildingServiceProxy.getBuildingsForSelect()
-      .subscribe(result => {
-        this.buildingList1 = result;
-      })
-      console.log("this.buildingList1:",this.buildingList1)
+        //     this._BuildingServiceProxy.getBuildingsForSelect()
+        //   .subscribe(result => {
+        //     this.buildingList1 = result;
+        //   })
+        //   console.log("this.buildingList1:",this.buildingList1)
     }
     ngAfterViewInit() {
         $('date-range-picker input').val('');
     }
 
     ngOnInit() {
+        this.getroomdata()
     }
 
     //初始化
@@ -221,19 +225,17 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         var urls = location.pathname.split('\/');
         // abp.ui.setBusy();
         this.route.queryParams.subscribe(queryParams => {
-            
+
             if (queryParams.isStore) {
                 this.storeId = urls[urls.length - 1];
                 this.organizationUnit.storeId = this.storeId
                 setTimeout(() => {
                     this.getDeviceByOUId()
-                    this.show()
                 }, 500)
             } else {
                 this.OUId = urls[urls.length - 1];
                 setTimeout(() => {
                     this.getUsers();
-                    this.show()
                 }, 500)
             }
             this.OUName = queryParams.name;
@@ -258,6 +260,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
 
     getInOrOutFill(event?: LazyLoadEvent) {
+        
         this.outPutInStoragePrimengTableHelper.showLoadingIndicator();
         this._OutPutInStorageServiceProxy.getOutPutInStorageBills(new GetOutPutInStorageBillInput({
             storeId: [this.storeId],
@@ -805,70 +808,43 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             }
         })
     }
-    deleteStore(record){
+    bindingroom(){
+        this.bindModal.show(this.storeId);
+    }
+    deleteroom(record) {
 
+        this._RoomServiceProxy.updateRoom(new UpdateRoomInput({
+            id: record.id,
+            floorId:record.floorId,
+            name: record.name,
+            no: undefined,
+            description: undefined,
+            areaWidth: 0,
+            areaHeight: 0,
+            storeId: null,
+            storeName: undefined,
+            brandName: undefined,
+            brandLogo: undefined,
+            roomType: undefined,
+        })).subscribe(res => {
+            this.getroomdata();
+        })
     }
     //Room
-    show(): void {
+    getroomdata(): void {
         
-        
-        this.rooms = [];
-        this.lastRooms = [];
-        if (this.organizationUnit) {
-            this.showBusy = true;
-            this._NewStoreServiceProxy.getStoreById(this.organizationUnit.storeId).subscribe((r) => {
-                this.organizationUnit = r;
-                console.log("this.buildingList:",this.buildingList);
-                    this.organizationUnit.position = this.organizationUnit.position ? this.organizationUnit.position : {};
-            
-            
-            // getRoom -> building -> floor 
-            var ids = this.organizationUnit.rooms;
-            
-            // 回显 房间
-            Promise.all([
-                new Promise((resolve,reject) => {
-                    if (ids.length !== 0) {
-                        this._roomServiceProxy.getRoomDetailsById(ids[0])
-                            .subscribe(r => {
-                                this.buildingList=this.buildingList1.map(item=>
-                                    {
-                                        return{
-                                            'id': item.id,
-                                            'value': item.name
-                                        }
-                                    })
-                                    console.log("this.buildingList:",this.buildingList);
-                                    this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
-                                    console.log(" this.buildingId", this.buildingId);
-                                    
-                                this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
-                                    .subscribe(result => {
-                                        ids.forEach(item => {
-                                            var singleRoom: any = result.find(o => o.id == item)
-                                            this.rooms.push({
-                                                'id': singleRoom.id,
-                                                'value': singleRoom.name
-                                            });
-                                        });
-                                        resolve(void 0)
-                                    })
-                            })
-                    } else {
-                        resolve(void 0)
-                    }
-                })
-            ]).then(() => {
-            }).catch((e) => {
-            }).finally(() => {
-            })
+        this._RoomServiceProxy.getRoomsNew(
+            void 0,
+            void 0,
+            void 0,
+            this.storeId,
+            void 0,
+            void 0,
+            999,
+            void 0
+        ).subscribe(result => {
+            this.roomlist = result.items
         })
-        } else {
-        }
     }
-    assignBrand() { }
-    assignRoom() { }
-    getStoreBindRoom() {
 
-    }
 }
