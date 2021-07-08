@@ -1,7 +1,7 @@
 <div [@routerTransition]>
     <a id="aaa"></a>
 
-    <div class="content d-flex flex-column flex-column-fluid">
+    <div class="content d-flex flex-column flex-column-fluid" >
         <sub-header [title]="'EntityStore' | localize" [description]="'EntityStore' | localize">
             <div role="actions">
                 <div class="btn-group dropdown" dropdown *ngIf="isGranted('Pages.Tenant.Stores.Edit')">
@@ -83,7 +83,7 @@
         </sub-header>
 
 
-        <div [class]="containerClass" style="position:relative;">
+        <div [class]="containerClass" style="position:relative;" >
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <div class="row">
@@ -147,7 +147,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="row align-items-center">
+                    <div class="row align-items-center" >
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
@@ -182,7 +182,7 @@
                                         <th style="width:100px">{{l('auditStatus')}}</th>
                                     </tr>
                                 </ng-template>
-                                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                                <ng-template  pTemplate="body" let-record let-i="rowIndex">
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td style="width: 150px;">
                                             <div class="btn-group dropdown" dropdown normalizePosition>

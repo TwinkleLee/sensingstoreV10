@@ -32,6 +32,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
     operationType = "add";
     skuList: any = [];
     nowIndex: any = '';
+    skuListlength:number=0;
     Input: any = {
         outPutInStorageType: 'Put',
         outPutInStorageSkus: []
@@ -129,6 +130,9 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             number: void 0,
             rfid: ''
         });
+        this.skuListlength=this.skuList.length;
+        console.log("this.skuListlength",this.skuListlength);
+        
     }
 
     getBillDetail(id) {
@@ -166,6 +170,8 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
 
     deleteRecord(i) {
         this.skuList.splice(i, 1);
+        this.skuListlength=this.skuList.length;
+        console.log("this.skuListlength",this.skuListlength);
     }
 
     onShown(): void {
