@@ -852,23 +852,27 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.bindModal.show(this.storeId);
     }
     deleteroom(record) {
-
-        this._RoomServiceProxy.updateRoom(new UpdateRoomInput({
-            id: record.id,
-            floorId:record.floorId,
-            name: record.name,
-            no: undefined,
-            description: undefined,
-            areaWidth: 0,
-            areaHeight: 0,
-            storeId: null,
-            storeName: undefined,
-            brandName: undefined,
-            brandLogo: undefined,
-            roomType: undefined,
-        })).subscribe(res => {
-            this.getroomdata();
+        this.message.confirm(this.l("UntieThisRoom"), this.l('AreYouSure'),(r) => {
+            if(r){
+                this._RoomServiceProxy.updateRoom(new UpdateRoomInput({
+                    id: record.id,
+                    floorId:record.floorId,
+                    name: record.name,
+                    no: undefined,
+                    description: undefined,
+                    areaWidth: 0,
+                    areaHeight: 0,
+                    storeId: null,
+                    storeName: undefined,
+                    brandName: undefined,
+                    brandLogo: undefined,
+                    roomType: undefined,
+                })).subscribe(res => {
+                    this.getroomdata();
+                })
+            }
         })
+        
     }
     //Room
     getroomdata(): void {

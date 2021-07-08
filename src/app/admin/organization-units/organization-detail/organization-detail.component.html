@@ -1476,20 +1476,20 @@
                                 </tabset>
                             </tab>
 
-                            <tab class="p-5" heading="{{l('room')}}" customClass="kt-tabs__item icon-tubiao_kucun"
+                            <tab class="p-5" heading="{{l('Room')}}" customClass="kt-tabs__item icon-tubiao_kucun"
                                 (selectTab)="initNumTab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')&&storeId">
-                                <button (click)="bindingroom()" class=" btn btn-sm btn-primary">{{l("binding")}}</button>
-                                <div class="form-group col-6">
-                                    <p-table ScrollWidth="100%" #dataTableRoom (onLazyLoad)="getStoreList($event)"
+                                <button (click)="bindingroom()" class=" btn btn-sm btn-primary">{{l("bind")}}</button>
+                                <div class="form-group col-12">
+                                    <p-table ScrollWidth="100%" 
                                         [value]="roomlist" [paginator]="false" [lazy]="true">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th style="width: 150px;">{{l('Actions')}}</th>
-                                                <th style="width:150px">{{l('room')}}</th>
-                                                <th style="width:150px">{{l('buildingName')}}</th>
-                                                <th style="width:150px">{{l('floorNo')}}</th>
-                                                <th style="width:150px">{{l('roomType')}}</th>
-                                                <th style="width:150px">{{l('storeName')}}</th>
+                                                <th >{{l('Actions')}}</th>
+                                                <th >{{l('Room')}}</th>
+                                                <th >{{l('Building')}}</th>
+                                                <th >{{l('floorNo')}}</th>
+                                                <th >{{l('roomType')}}</th>
+                                                <th >{{l('storeName')}}</th>
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="body" let-record let-i="rowIndex">
@@ -1511,19 +1511,19 @@
                                                         </ul>
                                                     </div>
                                                 </td>
-                                                <td style="width:2100px">
+                                                <td >
                                                     <span>{{record.name}}</span>
                                                 </td>
-                                                <td style="width:200px">
+                                                <td >
                                                     <span>{{record.buildingName}}</span>
                                                 </td>
-                                                <td style="width:200px">
-                                                    <span>{{record.floorNo}}</span>
+                                                <td >
+                                                    <span>{{record.floorName}}</span>
                                                 </td>
-                                                <td style="width:200px">
+                                                <td >
                                                     <span>{{record.roomType}}</span>
                                                 </td>
-                                                <td style="width:200px">
+                                                <td >
                                                     <span>{{record.storeName}}</span>
                                                 </td>
                                             </tr>
