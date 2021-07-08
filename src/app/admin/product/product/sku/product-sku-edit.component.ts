@@ -88,13 +88,10 @@ export class ProductSkuEditComponent extends AppComponentBase {
          */
         _productsService.getPropertiesByProductId(this.productId).subscribe((result) => {
 
-
-            // console.log(result, 'getPropertiesByProductId')
-            // result[0].isDefaultDecideImage = true;
-
-
             this.initProperty(result);
         })
+        console.log("this.addPropertyList:",this.addPropertyList);
+        
     }
     initSkuMessage() {
         var urls = location.pathname.split("\/"), id;
@@ -131,12 +128,15 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 currentPropertyIds.push(item.propertyId);
                 return item.propertyValueId;
             }) || [];
+            console.log("this.mainPropertyIds",this.mainPropertyIds);
+            
             this.initProperty(currentPropertyIds);
             
         });
     }
 
     initProperty(list: any[]) {
+        
         if (!list || list.length == 0) { return; }
         if (typeof list[0] == 'number') {
             this.currentPropertyIds = list;
@@ -161,15 +161,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 return true;
             })
         }
-        // setTimeout(() => {
-        //     var arr = [];
-        //     for (var i = 0; i < this.addPropertyList.length; i++) {
-        //         arr.push(this.addPropertyList[i])
-        //     }
-        //     this.addPropertyList = [];
-        //     this.addPropertyList = arr;
-        // }, 1000)
-        // console.log(list, '000', this.propertyList, '111', this.currentPropertyIds)
+        
     }
 
     @HostListener('window:keyup', ['$event'])
@@ -196,22 +188,22 @@ export class ProductSkuEditComponent extends AppComponentBase {
     //跟随主要属性值变化改变图片
     changeImage() {
         if (!this.mainProperty) { return; }
-        // console.log(this.mainProperty.propertyValues)
         var mainProperty = this.mainProperty.propertyValues.filter((item) => {
             return item.id == this.mainPropertyIds[0];
         })[0];
-        // console.log(mainProperty)
         this.sku.picUrl = mainProperty ? mainProperty.defaultImage : "";
     }
     //将添加的property返回可选列表
     deleteProperty(index) {
         this.mainPropertyIds.splice(index + 1, 1);
         this.propertyList = this.propertyList.concat(this.addPropertyList.splice(index, 1));
+        
     }
     //选中property
     addProperty() {
         if(!this.selectProperty) return
         var index, select;
+        
         this.propertyList.forEach((property, i) => {
             if (property.propertyId == this.selectProperty) {
                 index = i;
@@ -250,13 +242,12 @@ export class ProductSkuEditComponent extends AppComponentBase {
         }).map((id) => {
             return Number(id);
         });
-        this.sku.propertyValueIds=this.sku.propertyValueIds.reverse();//调转数组顺序
-        console.log("this.sku.propertyValueIds:"+this.sku.propertyValueIds);
+        this.sku.propertyValueIds.reverse();//调转数组顺序
         this.addOrEditInput = new UpdateSkuInput(this.sku);
         // this.addOrEditInput.auditStatus = this.sku.auditStatus == "Online" ? 1 : 0;
         this.addOrEditInput.auditStatus = this.sku.auditStatus;
 
-        // console.log(this.addOrEditInput.propertyValueIds)
+        
         //此处是为了修复一个bug
         this.addOrEditInput.propertyValueIds.reverse();
 
@@ -266,11 +257,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.goBack();
             });
-            // console.log("保存错误问题"+this.addOrEditInput);
-            // console.log("保存错误问题"+this.sku.propertyValueIds);
-            // console.log("保存错误问题"+this._productsService.updateSku(this.addOrEditInput));
-            // console.log("保存错误问题"+this._productsService.updateSku(this.addOrEditInput)
-            // .pipe(finalize(() => { this.saving = false; })));
+            
     }
     // upload completed event
     onUpload(result): void {

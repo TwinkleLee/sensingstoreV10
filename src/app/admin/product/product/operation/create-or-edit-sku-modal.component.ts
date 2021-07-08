@@ -85,9 +85,6 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         this.addPropertyList = [];
         this.selectProperty = '';
         this.modal.show();
-
-
-        console.log("propertyValues" + this.mainProperty.propertyValues)
     }
 
     onShown(): void {
@@ -112,7 +109,6 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     }
 
     handleSelect() {
-        console.log(this.selectProperty)
     }
 
     //选中property
@@ -121,10 +117,32 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         if (!this.selectProperty) return;
 
         select = this.propertyList.find(i => i.propertyId == this.selectProperty);
-
+        
         this.propertyList = this.propertyList.filter(i => i.propertyId != this.selectProperty)
-        this.addPropertyList.push(select);
-
+        //固定添加sku  颜色  尺码  包装的顺序
+        //54645      54646        54687
+        if(this.propertyList!=null){
+            if(select!=null&& select.propertyId==54645)
+            {
+                this.addPropertyList.unshift(select);
+            }
+            if(select!=null&& select.propertyId==54646)
+            {
+                if(this.propertyList[0].propertyId==54687)
+                {
+                    this.addPropertyList.splice(1,0,select);
+                }else{
+                    this.addPropertyList.unshift(select);
+                }
+            }
+            if(select!=null&& select.propertyId==54687)
+            {
+                this.addPropertyList.push(select);
+            }
+        }else{
+            this.addPropertyList.push(select);
+        }
+        
         this.selectProperty = this.propertyList[0] && this.propertyList[0].propertyId;
         select.propertyValues[0] && this.mainPropertyIds.push(select.propertyValues[0].id);
     }

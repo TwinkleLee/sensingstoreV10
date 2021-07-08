@@ -42,6 +42,7 @@ export class CreateOrEditProductResourceModalComponent extends AppComponentBase 
     }
 
     show(id, resource?): void {
+        console.log("this.show.resource",resource);
         this.active = true;
         if (resource) {
             this.operationType = "edit";
@@ -85,7 +86,6 @@ export class CreateOrEditProductResourceModalComponent extends AppComponentBase 
         this.active = false;
         this.resource = {};
         this.modal.hide();
-        console.log(123)
     }
     // upload completed event
     onUpload(event): void {

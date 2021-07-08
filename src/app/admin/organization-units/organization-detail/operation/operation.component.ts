@@ -1,9 +1,7 @@
 import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef, AfterViewChecked, Input } from '@angular/core';
 import { ModalDirective } from '@node_modules/ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { AppConsts } from '@shared/AppConsts';
-import { finalize } from 'rxjs/operators';
-import { BuildingServiceProxy, Room } from '@shared/service-proxies/service-proxies-floor';
+import { BuildingServiceProxy} from '@shared/service-proxies/service-proxies-floor';
 import { RoomServiceProxy, CreateRoomInput, UpdateRoomInput, FloorServiceProxy } from '@shared/service-proxies/service-proxies-floor';
 
 import { AddOrUpdateOutPutInStorageBillInput, GetOutPutInStorageRecordInput, OutPutInStorageServiceProxy, OutPutInStorageSku } from '@shared/service-proxies/service-proxies-product';
@@ -11,8 +9,6 @@ import { AddOrUpdateOutPutInStorageBillInput, GetOutPutInStorageRecordInput, Out
 import { SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
 
 import * as _ from 'lodash'
-import { forEach, result } from 'lodash-es';
-import { ThemeSelectionPanelComponent } from '@app/shared/layout/theme-selection/theme-selection-panel.component';
 
 @Component({
   selector: 'bindModal',
@@ -26,7 +22,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
 
   @ViewChild('createOrEditModal', { static: false }) modal: ModalDirective;
   @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('skuGridModal', { static: false }) skuGridModal: SkuGridModalComponent;
   saving = false;
 
   storeId: "";
