@@ -154,18 +154,10 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
       
       this.modalSave.emit(null);
     })
+    this.floorId="";
+    this.close();
   }
   close(): void {
-    this.Input = {
-      outPutInStorageType: 'Put',
-      outPutInStorageSkus: []
-    };
-
-    this.operationType = 'add';
-
-    this.skuList = [];
-    this.nowIndex = '';
-
     this.modal.hide();
   }
 }

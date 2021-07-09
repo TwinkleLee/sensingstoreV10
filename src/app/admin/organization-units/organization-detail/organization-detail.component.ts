@@ -43,7 +43,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     OUName;
     moment = moment;
     AuditStatus = AuditStatus;
-
+    roomListLength:number=0;
     buildingId: any = '';
     singleBrand: any = {};
     rooms: any = [];
@@ -156,6 +156,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     @ViewChild('dataTableRoom', { static: false }) dataTableRoom: Table;
     @ViewChild('paginatorRoom', { static: false }) paginatorRoom: Paginator;
     @ViewChild('bindModal', { static: false }) bindModal: BindModalComponent;
+    roomPrimengTableHelper = new PrimengTableHelper();
     
     @Input() brandList: any;
     roomlist: any[] = [];
@@ -224,7 +225,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
 
     ngOnInit() {
-        this.getroomdata()
     }
 
     goSku (record) {
@@ -380,6 +380,10 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
     transKPIIndex(i, event?: LazyLoadEvent) {
         return i + 1 + this.pKPI.getSkipCount(this.paginatorKPI, event);
+    }
+    //库存
+    outPutInStoragePrimengTableHelperindex(i,event?:LazyLoadEvent){
+        return i + 1 + this.pProduct.getSkipCount(this.paginatorkc, event);
     }
 
     editKPI(record) {
@@ -667,6 +671,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     transUserIndex(i, event?: LazyLoadEvent) {
         return i + 1 + this.pUser.getSkipCount(this.paginatorFace, event);
     }
+    
     getRolesAsString(roles): string {
         let roleNames = '';
         for (let j = 0; j < roles.length; j++) {
@@ -739,7 +744,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
         });
     }
-
+    
     //转换序列
     transIndex(i, event?: LazyLoadEvent) {
         return i + 1 + this.primengTableHelper.getSkipCount(this.paginator, event);
@@ -850,6 +855,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
     bindingroom(){
         this.bindModal.show(this.storeId);
+        
     }
     deleteroom(record) {
         this.message.confirm(this.l("UntieThisRoom"), this.l('AreYouSure'),(r) => {
@@ -871,12 +877,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                     this.getroomdata();
                 })
             }
-        })
-        
+        }) 
+
     }
     //Room
     getroomdata(): void {
-        
         this._RoomServiceProxy.getRoomsNew(
             void 0,
             void 0,
@@ -887,8 +892,12 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             999,
             void 0
         ).subscribe(result => {
-            this.roomlist = result.items
+            this.roomlist = result.items;
+            this.roomListLength=this.roomlist.length;
         })
+        console.log("this.roomlist:",this.roomlist);
+        
     }
+    
 
 }
