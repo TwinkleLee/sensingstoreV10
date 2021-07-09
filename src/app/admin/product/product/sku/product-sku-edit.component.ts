@@ -90,7 +90,6 @@ export class ProductSkuEditComponent extends AppComponentBase {
 
             this.initProperty(result);
         })
-        console.log("this.addPropertyList:",this.addPropertyList);
         
     }
     initSkuMessage() {
@@ -128,7 +127,6 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 currentPropertyIds.push(item.propertyId);
                 return item.propertyValueId;
             }) || [];
-            console.log("this.mainPropertyIds",this.mainPropertyIds);
             
             this.initProperty(currentPropertyIds);
             
@@ -242,7 +240,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         }).map((id) => {
             return Number(id);
         });
-        this.sku.propertyValueIds.reverse();//调转数组顺序
+        this.sku.propertyValueIds.reverse();//调转数组顺序，此处是为了修复一个bug
         this.addOrEditInput = new UpdateSkuInput(this.sku);
         // this.addOrEditInput.auditStatus = this.sku.auditStatus == "Online" ? 1 : 0;
         this.addOrEditInput.auditStatus = this.sku.auditStatus;
@@ -257,6 +255,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.goBack();
             });
+            console.log("this.addOrEditInput:",this.addOrEditInput);
+            
             
     }
     // upload completed event

@@ -892,6 +892,8 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             999,
             void 0
         ).subscribe(result => {
+            console.log("result:",result);
+            
             this.roomlist = result.items;
             this.roomListLength=this.roomlist.length;
         })

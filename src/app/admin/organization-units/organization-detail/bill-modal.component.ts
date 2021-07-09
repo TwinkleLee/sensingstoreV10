@@ -163,9 +163,9 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
                         quantityAfter: item.quantityAfter
                     }
                 })
+                this.skuListlength=this.skuList.length;
             });
     }
-
     deleteRecord(i) {
         this.skuList.splice(i, 1);
         this.skuListlength=this.skuList.length;
@@ -243,7 +243,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             outPutInStorageType: 'Put',
             outPutInStorageSkus: []
         };
-
+        this.skuListlength=0;
         this.operationType = 'add';
 
         this.skuList = [];
