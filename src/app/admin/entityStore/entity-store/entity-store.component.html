@@ -147,16 +147,16 @@
                             </div>
                         </form>
                     </div>
-                    <div class="row align-items-center" >
+                    <div class="row align-items-center"  >
                         <!--<Primeng-Datatable-Start>-->
-                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading"   >
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
                             <p-table ScrollWidth="100%" #dataTable [scrollable]="true"
                                 (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
                                 [(selection)]="storeCheckedList"
                                 [resizableColumns]="primengTableHelper.resizableColumns"
-                                [responsive]="primengTableHelper.isResponsive">
+                                [responsive]="primengTableHelper.isResponsive"  >
 
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -182,7 +182,7 @@
                                         <th style="width:100px">{{l('auditStatus')}}</th>
                                     </tr>
                                 </ng-template>
-                                <ng-template  pTemplate="body" let-record let-i="rowIndex">
+                                <ng-template  pTemplate="body" let-record let-i="rowIndex" >
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td style="width: 150px;">
                                             <div class="btn-group dropdown" dropdown normalizePosition>
@@ -198,7 +198,7 @@
                                                     </li>
                                                     <li
                                                         *ngIf="isGranted('Pages.Tenant.Stores.Delete')&&record['storeStatus']=='Stopped'">
-                                                        <a (click)="deleteStore(record)"
+                                                        <a (click)="deleteStore(record)" 
                                                             class="icon-icon-test dropdown-item">{{l('Delete')}}</a>
                                                     </li>
                                                     <li>

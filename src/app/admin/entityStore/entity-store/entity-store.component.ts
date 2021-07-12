@@ -20,7 +20,7 @@ import { SensingTicketServiceProxy } from '@shared/service-proxies/service-proxi
 @Component({
   selector: 'app-entity-store-category',
   templateUrl: './entity-store.component.html',
-  animations: [appModuleAnimation()]
+  animations: [appModuleAnimation()],
 })
 export class EntityStoreComponent extends AppComponentBase {
 
@@ -150,8 +150,6 @@ export class EntityStoreComponent extends AppComponentBase {
       .subscribe((result) => {
         this.primengTableHelper.totalRecordsCount = result.totalCount;
         this.primengTableHelper.records = result.items;
-        console.log("result.totalCount:",result.totalCount)
-        console.log("result.items:",result.items)
       });
       
   }
@@ -199,6 +197,8 @@ export class EntityStoreComponent extends AppComponentBase {
   }
 
   editStore(record) {
+    console.log("record:",record);
+    
     this.createOrEditStoreModal.show(record)
   }
   deleteStore(record) {
@@ -237,7 +237,6 @@ export class EntityStoreComponent extends AppComponentBase {
     var input = this.filterStore().downNum.map(item => {
       return item.storeId
     })
-    console.log(input)
     this.message.confirm(
       this.l('deleteThisStore'),
       this.l('AreYouSure'),
