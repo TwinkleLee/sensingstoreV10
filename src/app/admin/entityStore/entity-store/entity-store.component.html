@@ -151,7 +151,7 @@
                         <!--<Primeng-Datatable-Start>-->
                         <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading"   >
                             <!-- resizableColumns="primengTableHelper.resizableColumns" -->
-                            <p-table ScrollWidth="100%" #dataTable [scrollable]="true"
+                            <p-table #dataTable [scrollable]="true" ScrollWidth="100%"
                                 (onLazyLoad)="getStoreList($event)" [value]="primengTableHelper.records"
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage" [paginator]="false" [lazy]="true"
                                 [(selection)]="storeCheckedList"
@@ -185,7 +185,7 @@
                                 <ng-template  pTemplate="body" let-record let-i="rowIndex" >
                                     <tr [pSelectableRow]="record" [attr.trid]="record.id">
                                         <td style="width: 150px;">
-                                            <div class="btn-group dropdown" dropdown normalizePosition>
+                                            <div class="btn-group" dropdown placement="bottom left" container="body">
                                                 <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fa fa-cog"></i>
