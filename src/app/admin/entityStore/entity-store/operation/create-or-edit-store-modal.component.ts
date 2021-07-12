@@ -129,18 +129,20 @@ export class CreateOrEditStoreModalComponent extends AppComponentBase {
                             this._roomServiceProxy.getRoomDetailsById(ids[0])
                                 .subscribe(r => {
                                     if (!r.floor) return reject('this room not found')
-                                    console.log("this.buildingList:",this.buildingList);
                                     
                                     this.buildingId = this.buildingList.find(i => i.id == r.floor.buildingId).id;
                                     
                                     this._roomServiceProxy.getRooms4Select(r.floor.buildingId, void 0, 'store', void 0)
                                         .subscribe(result => {
+                                            
                                             ids.forEach(item => {
                                                 var singleRoom: any = result.find(o => o.id == item)
-                                                this.rooms.push({
-                                                    'id': singleRoom.id,
-                                                    'value': singleRoom.name
-                                                });
+                                                if(singleRoom!=undefined){
+                                                    this.rooms.push({
+                                                        'id': singleRoom.id,
+                                                        'value': singleRoom.name
+                                                    });
+                                                }
                                             });
                                             resolve(void 0)
                                         })
