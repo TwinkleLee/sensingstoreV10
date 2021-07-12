@@ -78,7 +78,7 @@
                                     <label>{{l("store")}}</label>
                                     <div class="form-group m-form__group align-items-center">
                                         <div class="input-group">
-                                            <select class="form-control" [(ngModel)]="objItem.storeId" name="storeId" >
+                                            <select class="form-control" [(ngModel)]="objItem.storeId" name="storeId" (change)="storechange(objItem.storeId)">
                                                 <option *ngFor="let store of storeList" [value]="store.id">
                                                     {{store.name}}</option>
                                             </select>
@@ -89,7 +89,7 @@
                                     <label>{{l("brand")}}</label>
                                     <div class="form-group m-form__group align-items-center">
                                         <div class="input-group">
-                                            <select class="form-control" [(ngModel)]="objItem.brandId" name="storeId" disabled="false">
+                                            <select class="form-control" [(ngModel)]="objItem.brandId" name="brandId" disabled="false">
                                                 <option *ngFor="let brand of brandList" [value]="brand.id">
                                                     {{brand.name}}</option>
                                             </select>

@@ -9,6 +9,7 @@ import { AddOrUpdateOutPutInStorageBillInput, GetOutPutInStorageRecordInput, Out
 import { SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
 
 import * as _ from 'lodash'
+import { result } from 'lodash-es';
 
 @Component({
   selector: 'bindModal',
@@ -24,6 +25,9 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
   @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
   saving = false;
 
+  room:any;
+  no:any;
+  roomType:any;
   storeId: "";
   buildingList: any[] = [];
   buildingId: "";
@@ -69,7 +73,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
     this.roomId = "";
     this.getbuildinglist();
     console.log("this.roomId", this.roomId);
-
     this.modal.show();
   }
   getbuildinglist(): void {
@@ -102,7 +105,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
           name: r.name
         }
       })
-      console.log("this.floorList", this.floorList);
     })
 
   }
@@ -117,38 +119,35 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
       999,
       void 0
     ).subscribe(result => {
-      this.roomList = result.items.map(r => {
-        return {
-          id: r.id,
-          name: r.name,
-          storeId: r.storeId
-        }
-      }).filter(item => {
+      this.roomList = result.items.filter(item => {
         return item.storeId == null
       })
-      console.log("this.roomList", this.roomList);
+      
+      console.log("this.roomList:",this.roomList);
     })
   }
 
   save(): void {
     for (var i = 0; i < this.roomList.length; i++) {
       if (this.roomList[i].id == this.roomId) {
-        this.roomName = this.roomList[i].name;
+        this.room=this.roomList[i];
+
+        console.log("this.room:",this.room);
       }
     }
     this._RoomServiceProxy.updateRoom(new UpdateRoomInput({
-      id: this.roomId,
-      floorId: this.floorId,
-      name: this.roomName,
-      no: undefined,
-      description: undefined,
-      areaWidth: 0,
-      areaHeight: 0,
+      id: this.room.id,
+      floorId: this.room.floorId,
+      name: this.room.name,
+      no: this.room.no,
+      description: this.room.description,
+      areaWidth: this.room.areaWidth,
+      areaHeight: this.room.areaHeight,
       storeId: Number(this.storeId),
-      storeName: undefined,
-      brandName: undefined,
-      brandLogo: undefined,
-      roomType: undefined,
+      storeName: this.room.storeName,
+      brandName:this.room.brandName,
+      brandLogo:this.room.brandLogo,
+      roomType: this.room.roomType,
     })).subscribe(res => {
       this.notify.info(this.l('SavedSuccessfully'));
       

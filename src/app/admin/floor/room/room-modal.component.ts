@@ -10,6 +10,7 @@ import { CreateOrEditRoomResourceModalComponent } from './resource-modal.compone
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { Paginator } from 'primeng/paginator';
 import { StoreServiceProxy as NewStoreServiceProxy, PublishStoresInput, GetStorseListInput, StoreAuditInput,OrganizationUnitServiceProxy as DeviceOrganizationUnitServiceProxy, IdTypeDto, StoreStatus } from '@shared/service-proxies/service-proxies-devicecenter';
+import { result } from 'lodash-es';
 
 @Component({
     selector: 'roomModal',
@@ -75,7 +76,6 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
             this.operation = "edit";
             this.objItem = objItem;
             this.objItem.storeId=String(objItem.storeId)
-            console.log("this.objItem.storeId",this.objItem.storeId);
             
             if (objItem.buildingID) {
                 this.buildingId = objItem.buildingID;
@@ -93,7 +93,8 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
             void 0,
             void 0,
             void 0,
-            999, 0
+            999, 
+            0
           )
             .subscribe(result => {
               this.brandList = result.items;
@@ -102,7 +103,14 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
         this.modal.show();
         this.getStoreList();
     }
-
+    storechange(id):void
+    { 
+        this._NewStoreServiceProxy.getStoreById(id)
+        .subscribe(result=>{
+            this.objItem.brandId=result.brandId;
+        })
+        
+    }
     getStoreList() {
         this._NewStoreServiceProxy.getStoresList(new GetStorseListInput({
           storeStatus: StoreStatus['OnLine'],
@@ -114,7 +122,7 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
           skipCount: 0
         })
         )
-          .subscribe(result => {
+          .subscribe(result => {     
             this.primengTableHelper.totalRecordsCount = result.totalCount;
             this.storeList = result.items.map(item => {
                 return {
@@ -122,9 +130,9 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
                     name: item.displayName
                 }
             });
+            console.log("result:",result);
           });
       }
-
     getResByRoomId() {
         this._RoomServiceProxy.getRoomAngleLocationResources(
             this.objItem.id,
@@ -174,8 +182,8 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
     }
 
     save(): void {
-        console.log("this.objItem",this.objItem);
          
+        console.log("this.objItem:",this.objItem);
         this.saving = true;
         if (!this.objItem.id) {
             this._RoomServiceProxy.createRoom(new CreateRoomInput(this.objItem))
