@@ -1245,7 +1245,7 @@
                                                     [responsive]="skuPrimeg.isResponsive">
                                                     <ng-template pTemplate="header">
                                                         <tr>
-                                                            <!-- <th style="width: 150px">{{l('Actions')}}</th> -->
+                                                            <th style="width: 150px">{{l('Actions')}}</th>
                                                             <th style="width:5%">{{l('RecordId')}}</th>
                                                             <th>{{l('name')}}</th>
                                                             <th>{{l('Picture')}}</th>
@@ -1260,6 +1260,23 @@
                                                     </ng-template>
                                                     <ng-template pTemplate="body" let-record let-i="rowIndex">
                                                         <tr [pSelectableRow]="record" [attr.trid]="record.id">
+                                                            <td style="width: 150px;">
+                                                                <div class="btn-group dropdown" dropdown normalizePosition>
+                                                                    <button class="dropdown-toggle btn btn-sm btn-primary"
+                                                                        data-toggle="dropdown" dropdownToggle
+                                                                        aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="fa fa-cog"></i>
+                                                                        <span class="caret"></span> {{l("Actions")}}
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" *dropdownMenu>
+                                                                        <li>
+                                                                            <a class="icon-shop dropdown-item"
+                                                                                (click)="showRfid()">{{l('detail')}}</a>
+                                                                        </li>
+            
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
                                                             <td style="width:5%">{{outPutInStoragePrimengTableHelperindex(i)}}</td>
                                                             <td>
                                                                 <span>{{record.title}}</span>

@@ -399,7 +399,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     showRfid() {
         this.rfidListModal.show(this.storeId);
     }
-
     deleteKPI(record) {
         this.message.confirm(this.l("DeleteThisKPI"), this.l('AreYouSure'), (r) => {
             if (r) {
@@ -887,6 +886,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             void 0,
             void 0,
             this.storeId,
+            null,
             void 0,
             void 0,
             999,

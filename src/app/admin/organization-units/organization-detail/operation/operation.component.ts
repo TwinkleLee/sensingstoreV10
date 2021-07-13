@@ -114,6 +114,7 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
       void 0,
       void 0,
       void 0,
+      null,
       void 0,
       void 0,
       999,
