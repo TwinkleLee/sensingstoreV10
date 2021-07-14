@@ -188,16 +188,14 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
 
 
     getList(event?: LazyLoadEvent) {
-
-        if (this.skuTitle == '') this.skuId = '';
-  
+        if(this.storeId==undefined){
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;
         }
         this.primengTableHelper.showLoadingIndicator();
         this._OutPutInStorageServiceProxy.getSkuRfids(
-            [this.storeId],
+            void 0,
             this.skuId,
             void 0,
             void 0,
@@ -213,7 +211,35 @@ export class RfidListModalComponent extends AppComponentBase implements AfterVie
                 this.primengTableHelper.records = result.items;
                 // this.primengTableHelper.hideLoadingIndicator();
             })
+        }else{
+            if (this.skuTitle == '') this.skuId = '';
+  
+            if (this.primengTableHelper.shouldResetPaging(event)) {
+                this.paginator.changePage(0);
+                return;
+            }
+            this.primengTableHelper.showLoadingIndicator();
+            this._OutPutInStorageServiceProxy.getSkuRfids(
+                [this.storeId],
+                this.skuId,
+                void 0,
+                void 0,
+                void 0,
+                this.filter,
+                this.primengTableHelper.getSorting(this.dataTable),
+                this.primengTableHelper.getMaxResultCount(this.paginator, event),
+                this.primengTableHelper.getSkipCount(this.paginator, event)
+            )
+                .pipe(this.myFinalize(() => { this.primengTableHelper.hideLoadingIndicator(); }))
+                .subscribe(result => {
+                    this.primengTableHelper.totalRecordsCount = result.totalCount;
+                    this.primengTableHelper.records = result.items;
+                    // this.primengTableHelper.hideLoadingIndicator();
+                })
+    
+        }
 
+        
     }
     
     delete(record) {

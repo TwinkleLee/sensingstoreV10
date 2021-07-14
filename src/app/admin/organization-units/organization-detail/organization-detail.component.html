@@ -1026,6 +1026,9 @@
 
 
 
+
+                            
+
                             <tab class="p-5" heading="{{l('KPI')}}" customClass="kt-tabs__item icon-huodongshuju1"
                                 (selectTab)="initKPITab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')">
                                 <div class="row align-items-center">
@@ -1192,6 +1195,9 @@
 
                             </tab>
 
+
+
+
                             <tab class="p-5" heading="{{l('num')}}" customClass="kt-tabs__item icon-tubiao_kucun"
                                 (selectTab)="initNumTab();" *ngIf="isGranted('Pages.Tenant.KPIAssessment')&&storeId">
                                 <tabset>
@@ -1271,7 +1277,7 @@
                                                                     <ul class="dropdown-menu" *dropdownMenu>
                                                                         <li>
                                                                             <a class="icon-shop dropdown-item"
-                                                                                (click)="showRfid()">{{l('detail')}}</a>
+                                                                                (click)="rfidDetail(record)">{{l('detail')}}</a>
                                                                         </li>
             
                                                                     </ul>
@@ -1472,6 +1478,11 @@
                                     </tab>
                                 </tabset>
                             </tab>
+
+
+
+
+
 
                             
                             <tab class="p-5" heading="{{l('Room')}}" customClass="kt-tabs__item icon-tubiao_kucun"

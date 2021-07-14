@@ -505,6 +505,8 @@ export class ProductEditComponent extends AppComponentBase implements OnDestroy,
     }
     //新增sku
     createSku() {
+        
+        console.log("this.product.id:",this.product.id);
         this.createOrEditSkuModal.show(this.product.id);
     }
     //编辑sku

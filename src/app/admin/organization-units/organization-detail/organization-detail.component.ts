@@ -228,7 +228,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
 
     goSku (record) {
-        console.log(record)
     }
 
     //初始化
@@ -398,6 +397,11 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
 
     showRfid() {
         this.rfidListModal.show(this.storeId);
+    }
+    rfidDetail(record){
+        
+        console.log("record:",record.id);
+        this.rfidListModal.show(void 0,record.id);
     }
     deleteKPI(record) {
         this.message.confirm(this.l("DeleteThisKPI"), this.l('AreYouSure'), (r) => {
@@ -892,12 +896,10 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             999,
             void 0
         ).subscribe(result => {
-            console.log("result:",result);
             
             this.roomlist = result.items;
             this.roomListLength=this.roomlist.length;
         })
-        console.log("this.roomlist:",this.roomlist);
         
     }
     

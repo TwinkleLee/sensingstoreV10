@@ -91,6 +91,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
             this.initProperty(result);
         })
         
+        console.log("this.addPropertyList:",this.addPropertyList);
     }
     initSkuMessage() {
         var urls = location.pathname.split("\/"), id;

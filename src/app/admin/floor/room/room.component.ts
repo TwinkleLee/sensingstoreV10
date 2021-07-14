@@ -96,6 +96,7 @@ export class RoomComponent extends AppComponentBase {
         this.primengTableHelper.totalRecordsCount = result.totalCount;
         this.primengTableHelper.records = result.items;
       })
+      
   }
 
   //创建

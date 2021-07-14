@@ -41,7 +41,7 @@
                                             <label>{{l('Floor')}}</label>
                                             <div class="input-group">
                                                 <select class="form-control" [(ngModel)]="floorId" name="floorId"
-                                                    [disabled]="!buildingId" >
+                                                    [disabled]="!buildingId" (change)="bindchange()">
                                                     <option value="">
                                                         {{l("All")}}{{l("Floor")}}</option>
                                                     <option *ngFor="let floor of floorList" [value]="floor.id">
