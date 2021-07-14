@@ -276,6 +276,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     .subscribe(result => {
       this.skuPrimeg.totalRecordsCount = result.totalCount;
       this.skuPrimeg.records = result.items;
+      console.log("this.skuPrimeg.records:",this.skuPrimeg.records);
       // this.primengTableHelper.hideLoadingIndicator();
     })
   }

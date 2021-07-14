@@ -59,20 +59,24 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
   ngAfterViewChecked(): void {
 
   }
-  floorChang() {
+  roomchange(){
+  }
+  floorChange() {
     this.getroomlist();
+    if(this.roomList.length!=0){//当房间列表为默认值是为roomId赋值，因为使用默认值时roomId获取不到第一个id
+      this.roomId=this.roomList[0].id
+    }
   }
   onShown() {
 
   }
-  buildingChang() {
+  buildingChange() {
     this.getfloorlist();
   }
   show(storeId: any): void {
     this.storeId = storeId;
     this.roomId = "";
     this.getbuildinglist();
-    console.log("this.roomId", this.roomId);
     this.modal.show();
   }
   getbuildinglist(): void {
@@ -88,7 +92,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
           name: r.name
         }
       })
-      console.log("buildinglist", this.buildingList);
     })
   }
   getfloorlist(): void {
@@ -123,8 +126,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
       this.roomList = result.items.filter(item => {
         return item.storeId == null
       })
-      
-      console.log("this.roomList:",this.roomList);
     })
   }
 
@@ -132,8 +133,6 @@ export class BindModalComponent extends AppComponentBase implements AfterViewChe
     for (var i = 0; i < this.roomList.length; i++) {
       if (this.roomList[i].id == this.roomId) {
         this.room=this.roomList[i];
-
-        console.log("this.room:",this.room);
       }
     }
     this._RoomServiceProxy.updateRoom(new UpdateRoomInput({
