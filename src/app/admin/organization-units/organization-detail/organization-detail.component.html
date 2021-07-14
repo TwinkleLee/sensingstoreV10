@@ -1348,6 +1348,7 @@
                                                         <!-- 下拉选择  -->
                                                         <div class="col-3">
                                                             <div class="form-group kt-form__group align-items-center">
+                                                                <div><p>{{l("outPutInStorageFilter")}}</p></div>
                                                                 <div class="input-group">
                                                                     <input class="form-control" type="input"
                                                                         name="outPutInStorageFilter"
@@ -1358,14 +1359,15 @@
         
                                                         <div class="col-3">
                                                             <div class="form-group kt-form__group align-items-center">
+                                                                <div><p>{{l('outPutInStorageType')}}</p></div>
                                                                 <div class="input-group">
                                                                     <select class="form-control"
                                                                         [(ngModel)]="outPutInStorageType"
                                                                         name="outPutInStorageType" (change)="getInOrOutFill()">
-                                                                        <option value="">{{l("All")}}</option>
-                                                                        <option value="Out">{{l("Out")}}</option>
-                                                                        <option value="Put">{{l("Put")}}</option>
-                                                                        <option value="Check">{{l("Check")}}</option>
+                                                                        <option value="">{{l('All')}}</option>
+                                                                        <option value="Out">{{l('Out')}}</option>
+                                                                        <option value="Put">{{l('Put')}}</option>
+                                                                        <option value="Check">{{l('Check')}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -1373,6 +1375,7 @@
         
                                                         <!-- 时间范围筛选 -->
                                                         <div class="col-3" style="position:relative;">
+                                                            <div><p>{{l('creationTime')}}</p></div>
                                                             <div class="form-group kt-form__group align-items-center">
                                                                 <date-range-picker name="SampleDateRangePicker"
                                                                     [showButton]="true" rangeMode="all"
@@ -1560,6 +1563,7 @@
                             <billModal #billModal (modalSave)="getInOrOutFill()"></billModal>
                             <rfidListModal #rfidListModal></rfidListModal>
                             <bindModal #bindModal (modalSave)="getroomdata()"></bindModal>
+                            <skuModal #skuModal  ></skuModal>
                         </tabset>
 
                     </div>

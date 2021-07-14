@@ -23,6 +23,7 @@ import { event } from 'jquery';
 import { BuildingServiceProxy, FloorServiceProxy } from '@shared/service-proxies/service-proxies-floor';
 import { BillModalComponent } from '@app/admin/organization-units/organization-detail/bill-modal.component'
 import { BindModalComponent } from '@app/admin/organization-units/organization-detail/operation/operation.component'
+import { ProductSkuDetailModalComponent } from '@app/admin/organization-units/organization-detail/operation/product-sku-detail-modal/product-sku-detail-modal.component'
 import { RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component'
 import { BrandServiceProxy } from '@shared/service-proxies/service-proxies-devicecenter';
 import { StoreServiceProxy as NewStoreServiceProxy, CreateStoreInput, UpdateStoreInput, PositionDto } from '@shared/service-proxies/service-proxies-devicecenter';
@@ -99,6 +100,8 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     //商品分页
     @ViewChild('dataTableProduct', { static: false }) dataTableProduct: Table;
     @ViewChild('paginatorProduct', { static: false }) paginatorProduct: Paginator;
+    @ViewChild('skuModal', { static: false }) skuModal: ProductSkuDetailModalComponent;
+   
     ProductSelectionList: any[] = [];
     productFilterText;
     pProduct = new PrimengTableHelper();
@@ -155,6 +158,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     //房间分页
     @ViewChild('dataTableRoom', { static: false }) dataTableRoom: Table;
     @ViewChild('paginatorRoom', { static: false }) paginatorRoom: Paginator;
+    
     @ViewChild('bindModal', { static: false }) bindModal: BindModalComponent;
     roomPrimengTableHelper = new PrimengTableHelper();
     
@@ -228,6 +232,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     }
 
     goSku (record) {
+        this.skuModal.show(record)
     }
 
     //初始化

@@ -20,6 +20,7 @@ import { BillModalComponent } from '@app/admin/organization-units/organization-d
 import {SkuGridModalComponent } from '@app/admin/organization-units/organization-detail/sku-grid-modal.component';
 import {RfidListModalComponent } from '@app/admin/organization-units/organization-detail/rfid-list-modal.component';
 import { BindModalComponent } from './organization-detail/operation/operation.component';
+import { ProductSkuDetailModalComponent } from './organization-detail/operation/product-sku-detail-modal/product-sku-detail-modal.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { BindModalComponent } from './organization-detail/operation/operation.co
         BillModalComponent,
         SkuGridModalComponent,
         RfidListModalComponent,
-        BindModalComponent
+        BindModalComponent,
+        ProductSkuDetailModalComponent
     ],
     imports: [AppSharedModule, AdminSharedModule, OrganizationUnitsRoutingModule],
     exports: [AddMemberModalComponent, AddRoleModalComponent, OrganizationTreeComponent]
