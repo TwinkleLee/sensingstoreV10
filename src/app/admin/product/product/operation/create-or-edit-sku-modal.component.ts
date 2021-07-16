@@ -115,36 +115,9 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     addProperty() {
         var select, index;
         if (!this.selectProperty) return;
-
         select = this.propertyList.find(i => i.propertyId == this.selectProperty);
         this.propertyList = this.propertyList.filter(i => i.propertyId != this.selectProperty)
-        //固定添加sku  颜色  尺码  包装的顺序
-        //54645      54646        54687
-
-        if(this.addPropertyList.length!=0){//addlist不为空时判断
-            if(select!=null&& select.propertyId==54645)//添加进来得id为 54645  即颜色时无条件放置数列首位
-            {
-                this.addPropertyList.unshift(select);
-            }
-            if(select!=null&& select.propertyId==54646)//添加进来得id为 54646  即尺码时
-            {
-                if(this.addPropertyList[0].propertyId==54645)//判断addlist 第一个是否为 54645  即颜色时插入到第二位
-                {
-                    this.addPropertyList.splice(1,0,select);
-                }else{                                        //否则放置数组首位
-                    this.addPropertyList.unshift(select);
-                }
-            }
-            if(select!=null&& select.propertyId==54687)//添加进来得id为 54687  即包装时无条件放置数列末尾
-            {
-                this.addPropertyList.push(select);
-            }
-            this.mainPropertyIds=[]
-        }else{
-            this.addPropertyList.push(select);
-            this.mainPropertyIds=[]
-        }
-        
+        this.addPropertyList.push(select);
         this.selectProperty = this.propertyList[0] && this.propertyList[0].propertyId;
         select.propertyValues[0] && this.mainPropertyIds.push(select.propertyValues[0].id);
     }

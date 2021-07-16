@@ -68,6 +68,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
     addPropertyList: any[] = [];
     mainPropertyIds: any = [];
     currentPropertyIds = [];
+    allPropertiesList: any = [];
+
     constructor(
         injector: Injector,
         private _productsService: ProductServiceProxy,
@@ -78,7 +80,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         private _likeInfoService: LikeInfoServiceProxy,
     ) {
         super(injector);
-        this.initSkuMessage();
+
         //获取标签下拉
         _tagService.getTags(void 0, void 0, 100, 0).subscribe((result) => {
             this.tagSuggestion = result.items;
@@ -87,7 +89,8 @@ export class ProductSkuEditComponent extends AppComponentBase {
          * 待优化 : 当前使用获取1000条格式 然后过滤出是否显图属性
          */
         _productsService.getPropertiesByProductId(this.productId).subscribe((result) => {
-
+            this.allPropertiesList = result.concat();
+            this.initSkuMessage();
             this.initProperty(result);
         })
         
@@ -123,12 +126,43 @@ export class ProductSkuEditComponent extends AppComponentBase {
                 }
             }) : [];
             var currentPropertyIds = [];
-            
-            this.mainPropertyIds = this.sku.currentSkuPropertyValues.map((item) => {
+            var temp = [];
+            var tempSku = [];
+
+            this.allPropertiesList.forEach((item, index) => {
+                this.sku.currentSkuPropertyValues.forEach((i, index1) => {
+                    if (i.propertyId == item.propertyId) {
+                        temp.push({
+                            skuIndex: index1,
+                            // 关键属性
+                            isDefaultDecideImage: item.isDefaultDecideImage,
+                            allIndex: index,
+                            id: item.propertyId
+                        })
+                    }
+                });
+            });
+
+            temp = temp.sort((a, b) => a.allIndex-b.allIndex);
+
+            console.log(temp)
+
+            this.sku.currentSkuPropertyValues.forEach((item,index) => {
+                if (temp[index].isDefaultDecideImage) {
+                    tempSku.unshift(this.sku.currentSkuPropertyValues[temp[index].skuIndex])
+                } else {
+                    tempSku[index] = this.sku.currentSkuPropertyValues[temp[index].skuIndex]
+                }
+                
+            })
+
+            console.log(tempSku)
+
+            this.mainPropertyIds = tempSku.map((item) => {
                 currentPropertyIds.push(item.propertyId);
                 return item.propertyValueId;
             }) || [];
-            
+
             this.initProperty(currentPropertyIds);
             
         });
@@ -137,6 +171,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     initProperty(list: any[]) {
         
         if (!list || list.length == 0) { return; }
+
         if (typeof list[0] == 'number') {
             this.currentPropertyIds = list;
         } else if (typeof list[0] == 'object') {
@@ -144,6 +179,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
         } else {
             return;
         }
+
         if (!this.propertyList || this.propertyList.length == 0) {
             return;
         }
@@ -153,14 +189,19 @@ export class ProductSkuEditComponent extends AppComponentBase {
                     this.mainProperty = item;
                     return false;
                 }
-                if (this.currentPropertyIds.indexOf(item.propertyId) + 1 > 0) {
+                if (+this.currentPropertyIds.indexOf(item.propertyId) + 1 > 0) {
                     this.addPropertyList.push(item);
                     return false;
                 }
                 return true;
             })
         }
-        
+
+        this.currentPropertyIds = list.map(item => {
+            return item.propertyId
+        })
+
+        console.log(list, '000', this.propertyList, '111', this.currentPropertyIds)
     }
 
     @HostListener('window:keyup', ['$event'])
@@ -200,7 +241,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     }
     //选中property
     addProperty() {
-        if(!this.selectProperty) return
+        if (!this.selectProperty) return
         var index, select;
         
         this.propertyList.forEach((property, i) => {
@@ -230,7 +271,7 @@ export class ProductSkuEditComponent extends AppComponentBase {
     }
     //返回
     goBack() {
-        this.router.navigate(['app', 'admin','product', 'product', 'operation', this.productId], { queryParams: { backFromSku: true } });
+        this.router.navigate(['app', 'admin', 'product', 'product', 'operation', this.productId], { queryParams: { backFromSku: true } });
     }
     //保存
     save(): void 
@@ -330,16 +371,16 @@ export class ProductSkuEditComponent extends AppComponentBase {
             this.matchPrimeg.getMaxResultCount(this.paginatorMatch, event),
             this.matchPrimeg.getSkipCount(this.paginatorMatch, event)
         )
-        .pipe(this.myFinalize(() => { this.matchPrimeg.hideLoadingIndicator(); }))
-        .subscribe(result => {
-            this.matchPrimeg.totalRecordsCount = result.totalCount;
-            this.matchPrimeg.records = result.items;
-            this.matchPrimeg.hideLoadingIndicator();
-        });
+            .pipe(this.myFinalize(() => { this.matchPrimeg.hideLoadingIndicator(); }))
+            .subscribe(result => {
+                this.matchPrimeg.totalRecordsCount = result.totalCount;
+                this.matchPrimeg.records = result.items;
+                this.matchPrimeg.hideLoadingIndicator();
+            });
     }
     onOperateMatch(e) {
         if (e.action == 'info') {
-            this.router.navigate(['app', 'admin','product', 'match', 'operation', e.image.id]);
+            this.router.navigate(['app', 'admin', 'product', 'match', 'operation', e.image.id]);
         }
     }
     /**
@@ -358,16 +399,16 @@ export class ProductSkuEditComponent extends AppComponentBase {
             this.likePrimeg.getMaxResultCount(this.paginatorLikes, event),
             this.likePrimeg.getSkipCount(this.paginatorLikes, event)
         )
-        .pipe(this.myFinalize(() => { this.likePrimeg.hideLoadingIndicator(); }))
-        .subscribe(result => {
-            this.likePrimeg.totalRecordsCount = result.totalCount;
-            this.likePrimeg.records = result.items;
-            this.likePrimeg.hideLoadingIndicator();
-        });
+            .pipe(this.myFinalize(() => { this.likePrimeg.hideLoadingIndicator(); }))
+            .subscribe(result => {
+                this.likePrimeg.totalRecordsCount = result.totalCount;
+                this.likePrimeg.records = result.items;
+                this.likePrimeg.hideLoadingIndicator();
+            });
     }
     onOperateLikes(e) {
         if (e.action == 'info') {
-            this.router.navigate(['app', 'admin','product', 'like', 'operation', e.image.id]);
+            this.router.navigate(['app', 'admin', 'product', 'like', 'operation', e.image.id]);
         }
     }
 
@@ -387,12 +428,12 @@ export class ProductSkuEditComponent extends AppComponentBase {
             this.resourcePrimeg.getMaxResultCount(this.paginatorRes, event),
             this.resourcePrimeg.getSkipCount(this.paginatorRes, event)
         )
-        .pipe(this.myFinalize(() => { this.resourcePrimeg.hideLoadingIndicator(); }))
-        .subscribe(result => {
-            this.resourcePrimeg.totalRecordsCount = result.totalCount;
-            this.resourcePrimeg.records = result.items;
-            this.resourcePrimeg.hideLoadingIndicator();
-        });
+            .pipe(this.myFinalize(() => { this.resourcePrimeg.hideLoadingIndicator(); }))
+            .subscribe(result => {
+                this.resourcePrimeg.totalRecordsCount = result.totalCount;
+                this.resourcePrimeg.records = result.items;
+                this.resourcePrimeg.hideLoadingIndicator();
+            });
     }
     onOperateResource(event) {
         if (event.action == "info") {
