@@ -5,7 +5,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">
                         <span *ngIf="operationType=='add'">{{l("CreateBill")}}</span>
-                        <span *ngIf="operationType=='edit'">{{l("EditBill")}}</span>
+                        <span *ngIf="operationType=='edit'">{{l("Bill")}}</span>
                     </h4>
                     <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
                         <i aria-hidden="true" class="ki ki-close"></i>
@@ -50,12 +50,6 @@
                                         <th *ngIf="operationType=='add'">
                                             {{l('nowQuantity')}}
                                         </th>
-                                        <th *ngIf="operationType=='edit'">
-                                            {{l('before')}}
-                                        </th>
-                                        <th *ngIf="operationType=='edit'">
-                                            {{l('after')}}
-                                        </th>
                                         <th *ngIf="operationType=='add'">
                                             <span *ngIf="Input.outPutInStorageType=='Out'">{{l('OutQuantity')}}</span>
                                             <span *ngIf="Input.outPutInStorageType=='Put'">{{l('InQuantity')}}</span>
@@ -84,12 +78,6 @@
                                         <td *ngIf="operationType=='add'">
                                             <span>{{record.quantity}}</span>
                                         </td>
-                                        <td *ngIf="operationType=='edit'">
-                                            <span>{{record.quantityBefore}}</span>
-                                        </td>
-                                        <td *ngIf="operationType=='edit'">
-                                            <span>{{record.quantityAfter}}</span>
-                                        </td>
                                         <td *ngIf="operationType=='add'">
                                             <input class="form-control numberInputInAddOutputinModal" type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.number" (keydown.enter)="focusNext()" (ngModelChange)="checkNumber($event,i)" [readonly]="record.loading||!record.skuId"
                                                 [class.recordNotValid]="!record.valid">
@@ -106,11 +94,13 @@
                         <div class="row" style="margin:25px 0;width:100%;">
                             <div class="col-12 text-center">
                                 <button *ngIf="operationType!='edit'" (click)="add()" class="btn btn-primary blue" type="button">
-                                    <i class="fa fa-plus"></i> {{l("add")}}</button>
+                                    <i class="fa fa-plus"></i>{{l("add")}}</button>
                             </div>
                         </div>
                     </div>
-
+                    <span class="total-records-count">
+                        {{l('TotalRecordsCount', skuListlength)}}
+                    </span>
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-primary" (click)="close()">{{l("Cancel")}}</button>

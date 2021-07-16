@@ -99,6 +99,7 @@ export class FileuploadComponent extends AppComponentBase implements OnInit {
     'zip': ResourceFileDtoType.Zip,
     'png': ResourceFileDtoType.Image,
     'jpg': ResourceFileDtoType.Image,
+    'jpeg': ResourceFileDtoType.Image,
     'ppt': ResourceFileDtoType.PPT,
     'pdf': ResourceFileDtoType.PDF,
     'html': ResourceFileDtoType.Web,

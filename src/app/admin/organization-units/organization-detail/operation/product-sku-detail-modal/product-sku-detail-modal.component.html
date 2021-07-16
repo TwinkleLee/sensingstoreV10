@@ -1,0 +1,25 @@
+<div bsModal #createOrEditModal="bs-modal" (onShown)="onShown()" aria-labelledby="createOrEditModal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="row align-items-center" >
+                <div class="col-11"></div>
+                <div class="modal-header col-1">
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')" >
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="col-1"></div>
+                <div class="primeng-datatable-container" >
+                    <app-image-grid id="gridShow" [imageList]="pProduct.records">
+                    </app-image-grid>
+                </div>
+                <div class="primeng-paging-container">
+                        <span class="total-records-count">
+                            {{l('TotalRecordsCount',length)}}
+                        </span>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

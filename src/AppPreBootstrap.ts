@@ -289,7 +289,7 @@ export class AppPreBootstrap {
                 let result = response.result;
 
                 _merge(abp, result);
-
+                
                 abp.clock.provider = this.getCurrentClockProvider(
                     result.clock.provider
                 );

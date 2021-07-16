@@ -1246,7 +1246,7 @@ export class ImportFloorGuideRoomAndStoreServiceProxy {
      * @param fileforBrandAndStore (optional) 
      * @return Success
      */
-    importBrandAndStoreFromExcel(fileforBrandAndStore1: FileParameter | undefined, fileforBrandAndStore: FileParameter | null | undefined): Observable<ImportResultDto[]> {
+    importBrandAndStoreFromExcel(fileforBrandAndStore: FileParameter | undefined, fileforBrandAndStore1: FileParameter | null | undefined): Observable<ImportResultDto[]> {
         let url_ = this.baseUrl + "/ImportFloorGuideRoomAndStore/ImportBrandAndStoreFromExcel";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1308,7 +1308,7 @@ export class ImportFloorGuideRoomAndStoreServiceProxy {
      * @param fileforStore (optional) 
      * @return Success
      */
-    importStoreFromExcel(fileforStore1: FileParameter | undefined, fileforStore: FileParameter | null | undefined): Observable<ImportResultDto> {
+    importStoreFromExcel(fileforStore: FileParameter | undefined, fileforStore1: FileParameter | null | undefined): Observable<ImportResultDto> {
         let url_ = this.baseUrl + "/ImportFloorGuideRoomAndStore/ImportStoreFromExcel";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2163,6 +2163,10 @@ export class RoomServiceProxy {
             result200 = resultData200 !== undefined ? resultData200 : <any>null;
             return _observableOf(result200);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2215,6 +2219,10 @@ export class RoomServiceProxy {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -2269,6 +2277,10 @@ export class RoomServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2322,6 +2334,10 @@ export class RoomServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2335,13 +2351,15 @@ export class RoomServiceProxy {
      * @param floorId (optional) 
      * @param buildingId (optional) 
      * @param roomType (optional) 
+     * @param storeId (optional) 
+     * @param isBind (optional) 
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
      * @param skipCount (optional) 
      * @return Success
      */
-    getRooms(floorId: string | null | undefined, buildingId: string | null | undefined, roomType: string | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<RoomDtoPagedResultDto> {
+    getRooms(floorId: string | null | undefined, buildingId: string | null | undefined, roomType: string | null | undefined, storeId: number | null | undefined, isBind: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<RoomDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/Room/GetRooms?";
         if (floorId !== undefined && floorId !== null)
             url_ += "FloorId=" + encodeURIComponent("" + floorId) + "&";
@@ -2349,6 +2367,10 @@ export class RoomServiceProxy {
             url_ += "BuildingId=" + encodeURIComponent("" + buildingId) + "&";
         if (roomType !== undefined && roomType !== null)
             url_ += "RoomType=" + encodeURIComponent("" + roomType) + "&";
+        if (storeId !== undefined && storeId !== null)
+            url_ += "StoreId=" + encodeURIComponent("" + storeId) + "&";
+        if (isBind !== undefined && isBind !== null)
+            url_ += "IsBind=" + encodeURIComponent("" + isBind) + "&";
         if (filter !== undefined && filter !== null)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
         if (sorting !== undefined && sorting !== null)
@@ -2399,6 +2421,10 @@ export class RoomServiceProxy {
             result200 = RoomDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2411,13 +2437,15 @@ export class RoomServiceProxy {
      * @param floorId (optional) 
      * @param buildingId (optional) 
      * @param roomType (optional) 
+     * @param storeId (optional) 
+     * @param isBind (optional) 
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param maxResultCount (optional) 
      * @param skipCount (optional) 
      * @return Success
      */
-    getRoomsNew(floorId: string | null | undefined, buildingId: string | null | undefined, roomType: string | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<RoomListDtoPagedResultDto> {
+    getRoomsNew(floorId: string | null | undefined, buildingId: string | null | undefined, roomType: string | null | undefined, storeId: number | null | undefined, isBind: number | null | undefined, filter: string | null | undefined, sorting: string | null | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<RoomListDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/Room/GetRoomsNew?";
         if (floorId !== undefined && floorId !== null)
             url_ += "FloorId=" + encodeURIComponent("" + floorId) + "&";
@@ -2425,6 +2453,10 @@ export class RoomServiceProxy {
             url_ += "BuildingId=" + encodeURIComponent("" + buildingId) + "&";
         if (roomType !== undefined && roomType !== null)
             url_ += "RoomType=" + encodeURIComponent("" + roomType) + "&";
+        if (storeId !== undefined && storeId !== null)
+            url_ += "StoreId=" + encodeURIComponent("" + storeId) + "&";
+        if (isBind !== undefined && isBind !== null)
+            url_ += "IsBind=" + encodeURIComponent("" + isBind) + "&";
         if (filter !== undefined && filter !== null)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
         if (sorting !== undefined && sorting !== null)
@@ -2474,6 +2506,10 @@ export class RoomServiceProxy {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = RoomListDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -2531,6 +2567,10 @@ export class RoomServiceProxy {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = resultData200 !== undefined ? resultData200 : <any>null;
             return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -2604,6 +2644,10 @@ export class RoomServiceProxy {
             result200 = RoomAngleLocationResourcesDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2660,6 +2704,10 @@ export class RoomServiceProxy {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = resultData200 !== undefined ? resultData200 : <any>null;
             return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -2729,6 +2777,10 @@ export class RoomServiceProxy {
             }
             return _observableOf(result200);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2785,6 +2837,10 @@ export class RoomServiceProxy {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = RoomDto.fromJS(resultData200);
             return _observableOf(result200);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -2847,6 +2903,10 @@ export class RoomServiceProxy {
             }
             return _observableOf(result200);
             }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2899,6 +2959,10 @@ export class RoomServiceProxy {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Unauthorized", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -6319,10 +6383,10 @@ export class RoomListDto implements IRoomListDto {
     description!: string | undefined;
     floorId!: string;
     floorNo!: string | undefined;
-    floorName!: string | undefined;
     buildingName!: string | undefined;
     buildingID!: string;
     storeName!: string | undefined;
+    storeId!: number | undefined;
     brandName!: string | undefined;
     brandLogo!: string | undefined;
     roomType!: string | undefined;
@@ -6347,10 +6411,10 @@ export class RoomListDto implements IRoomListDto {
             this.description = _data["description"];
             this.floorId = _data["floorId"];
             this.floorNo = _data["floorNo"];
-            this.floorName = _data["floorName"];
             this.buildingName = _data["buildingName"];
             this.buildingID = _data["buildingID"];
             this.storeName = _data["storeName"];
+            this.storeId = _data["storeId"];
             this.brandName = _data["brandName"];
             this.brandLogo = _data["brandLogo"];
             this.roomType = _data["roomType"];
@@ -6375,10 +6439,10 @@ export class RoomListDto implements IRoomListDto {
         data["description"] = this.description;
         data["floorId"] = this.floorId;
         data["floorNo"] = this.floorNo;
-        data["floorName"] = this.floorName;
         data["buildingName"] = this.buildingName;
         data["buildingID"] = this.buildingID;
         data["storeName"] = this.storeName;
+        data["storeId"] = this.storeId;
         data["brandName"] = this.brandName;
         data["brandLogo"] = this.brandLogo;
         data["roomType"] = this.roomType;
@@ -6396,10 +6460,10 @@ export interface IRoomListDto {
     description: string | undefined;
     floorId: string;
     floorNo: string | undefined;
-    floorName: string | undefined;
     buildingName: string | undefined;
     buildingID: string;
     storeName: string | undefined;
+    storeId: number | undefined;
     brandName: string | undefined;
     brandLogo: string | undefined;
     roomType: string | undefined;
@@ -7197,6 +7261,7 @@ export class WeatherDto implements IWeatherDto {
     icon!: string | undefined;
     temp!: string | undefined;
     updatetime!: string | undefined;
+    weatherJson!: string | undefined;
 
     constructor(data?: IWeatherDto) {
         if (data) {
@@ -7214,6 +7279,7 @@ export class WeatherDto implements IWeatherDto {
             this.icon = _data["icon"];
             this.temp = _data["temp"];
             this.updatetime = _data["updatetime"];
+            this.weatherJson = _data["weatherJson"];
         }
     }
 
@@ -7231,6 +7297,7 @@ export class WeatherDto implements IWeatherDto {
         data["icon"] = this.icon;
         data["temp"] = this.temp;
         data["updatetime"] = this.updatetime;
+        data["weatherJson"] = this.weatherJson;
         return data; 
     }
 }
@@ -7241,6 +7308,7 @@ export interface IWeatherDto {
     icon: string | undefined;
     temp: string | undefined;
     updatetime: string | undefined;
+    weatherJson: string | undefined;
 }
 
 export interface FileParameter {

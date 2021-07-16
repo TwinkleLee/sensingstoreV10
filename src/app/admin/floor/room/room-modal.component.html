@@ -43,7 +43,6 @@
                                 </div>
                             </div>
                             <div class="row">
-
                                 <div class="col-6">
                                     <label>{{l("Building")}}</label>
                                     <div class="form-group m-form__group align-items-center">
@@ -69,20 +68,36 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+
                             <div class="row">
-                                <div class="form-group col-6">
+                               
+                                <div class="col-6">
                                     <label>{{l("store")}}</label>
-                                    <input class="form-control" type="text" name="storeName"
-                                        [(ngModel)]="objItem.storeName" disabled>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.storeId" name="storeId" (change)="storechange(objItem.storeId)">
+                                                <option *ngFor="let store of storeList" [value]="store.id">
+                                                    {{store.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-6">
-                                    <label>{{l("Brand")}}</label>
-                                    <input class="form-control" type="text" name="brandName"
-                                        [(ngModel)]="objItem.brandName" disabled>
+                                <div class="col-6">
+                                    <label>{{l("brand")}}</label>
+                                    <div class="form-group m-form__group align-items-center">
+                                        <div class="input-group">
+                                            <select class="form-control" [(ngModel)]="objItem.brandId" name="brandId" disabled="false">
+                                                <option *ngFor="let brand of brandList" [value]="brand.id">
+                                                    {{brand.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-
                                 <div class="form-group col-6">
                                     <label>{{l("width")}}</label>
                                     <input class="form-control" type="number" name="areaWidth"

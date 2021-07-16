@@ -85,9 +85,6 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
         this.addPropertyList = [];
         this.selectProperty = '';
         this.modal.show();
-
-
-        console.log("propertyValues" + this.mainProperty.propertyValues)
     }
 
     onShown(): void {
@@ -112,7 +109,6 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
     }
 
     handleSelect() {
-        console.log(this.selectProperty)
     }
 
     //选中property
@@ -148,6 +144,8 @@ export class CreateOrEditSkuModalComponent extends AppComponentBase implements A
             return Number(id);
         });
         this.addOrEditInput = new CreateSkuInput(this.sku);
+
+        console.log("this.addOrEditInput:",this.addOrEditInput);
         this._prodService.createSku(this.addOrEditInput)
             .pipe(finalize(() => { this.saving = false; }))
             .subscribe(() => {

@@ -29,6 +29,9 @@ export class RoomComponent extends AppComponentBase {
   floorId: any = "";
   floorList = [];
   selectedList = [];
+  recprdsList: any = [];
+  roomstatus: any= "";
+  bind:any='';
 
   constructor(injector: Injector,
     private router: Router,
@@ -39,7 +42,6 @@ export class RoomComponent extends AppComponentBase {
   ) {
     super(injector);
     this._activatedRoute.queryParams.subscribe(queryParams => {
-      console.log("queryParams", queryParams);
       if (queryParams.buildingId) {
         this.buildingId = queryParams.buildingId;
       }
@@ -53,7 +55,10 @@ export class RoomComponent extends AppComponentBase {
       })
     this.getFloor4Select();
   }
-
+  bindchange()
+  {
+    this.getList();
+  }
   getFloor4Select() {
     if (!this.buildingId) {
       this.floorId = "";
@@ -64,6 +69,7 @@ export class RoomComponent extends AppComponentBase {
       .subscribe(result => {
         this.floorList = result;
       })
+
   }
   //获取列表
   getList(event?: LazyLoadEvent) {
@@ -78,6 +84,8 @@ export class RoomComponent extends AppComponentBase {
       this.floorId,
       this.buildingId,
       void 0,
+      void 0,
+      this.bind,
       this.filterText,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -88,6 +96,7 @@ export class RoomComponent extends AppComponentBase {
         this.primengTableHelper.totalRecordsCount = result.totalCount;
         this.primengTableHelper.records = result.items;
       })
+      
   }
 
   //创建
@@ -97,6 +106,7 @@ export class RoomComponent extends AppComponentBase {
 
   //修改
   editItem(record) {
+    
     this.roomModal.show(Object.assign({}, record))
   }
 
@@ -139,6 +149,6 @@ export class RoomComponent extends AppComponentBase {
   }
 
   goImport() {
-    this.router.navigate(['app', 'admin','import', 'import', 'room']);
+    this.router.navigate(['app', 'admin', 'import', 'import', 'room']);
   }
 }

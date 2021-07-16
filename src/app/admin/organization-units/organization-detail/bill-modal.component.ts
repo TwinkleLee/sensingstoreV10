@@ -32,6 +32,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
     operationType = "add";
     skuList: any = [];
     nowIndex: any = '';
+    skuListlength:number=0;
     Input: any = {
         outPutInStorageType: 'Put',
         outPutInStorageSkus: []
@@ -85,7 +86,6 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
     }
 
     getSelect(e) {
-        console.log(e.selection);
         if (this.skuList.some(item => {
             return item.skuId == e.selection.id;
         }).length) {
@@ -112,7 +112,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
         this.Input.storeId = storeId;
 
         if (record) {
-            console.log(record);
+            
             this.operationType = 'edit';
             this.getBillDetail(record.id);
         }
@@ -129,6 +129,8 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             number: void 0,
             rfid: ''
         });
+        this.skuListlength=this.skuList.length;
+        
     }
 
     getBillDetail(id) {
@@ -146,7 +148,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             skipCount: 0,
         })).pipe(finalize(() => { }))
             .subscribe(result => {
-                console.log(result)
+                
                 this.Input.from = result.items[0].bill.from;
                 this.Input.description = result.items[0].bill.description;
                 this.Input.outPutInStorageType = result.items[0].bill.outPutInStorageType;
@@ -161,11 +163,13 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
                         quantityAfter: item.quantityAfter
                     }
                 })
+                this.skuListlength=this.skuList.length;
             });
     }
-
     deleteRecord(i) {
         this.skuList.splice(i, 1);
+        this.skuListlength=this.skuList.length;
+        
     }
 
     onShown(): void {
@@ -194,7 +198,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             return
         }
         if (value > this.skuList[index].quantity) {//出货
-            console.log('too much')
+            
             this.skuList[index].valid = false;
             this.buildInput();
         } else {
@@ -219,13 +223,11 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
     save(): void {
         this.saving = true;
 
-        console.log(this.Input)
 
         this.Input.outPutInStorageSkus.forEach((item, index) => {
             this.Input.outPutInStorageSkus[index] = new OutPutInStorageSku(item)
         });
 
-        console.log(this.Input);
 
         this._OutPutInStorageServiceProxy.addOrUpdateOutPutInStorageBill(new AddOrUpdateOutPutInStorageBillInput(this.Input))
             .pipe(finalize(() => { this.saving = false; }))
@@ -241,7 +243,7 @@ export class BillModalComponent extends AppComponentBase implements AfterViewChe
             outPutInStorageType: 'Put',
             outPutInStorageSkus: []
         };
-
+        this.skuListlength=0;
         this.operationType = 'add';
 
         this.skuList = [];

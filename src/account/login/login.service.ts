@@ -28,6 +28,7 @@ import { LocalStorageService } from '@shared/utils/local-storage.service';
 
 //V3 todo
 import { WeixinOAuth2ServiceProxy } from '@shared/service-proxies/service-proxies5';
+import { from } from 'rxjs';
 
 declare const FB: any; // Facebook API
 declare const gapi: any; // Facebook API
@@ -129,7 +130,7 @@ export class LoginService {
         });
 
         this._WeixinOAuth2ServiceProxy
-            .getLoginResult(code, state, "wechat")
+            .getLoginResult(code, state, "wechat", 'wechat')
             .subscribe({
                 next: (result) => {
                     if (!result.isBind) {
