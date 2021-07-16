@@ -75,11 +75,10 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
         if (objItem) {
             this.operation = "edit";
             this.objItem = objItem;
-            this.objItem.storeId=String(objItem.storeId)
-            
             if (objItem.buildingID) {
                 this.buildingId = objItem.buildingID;
             }
+            this.storechange(this.objItem.storeId)
         } else {
             this.operation = "add";
             this.buildingId = this.initBuildingId;
@@ -88,6 +87,11 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
                 floorId: this.initFloorId,
             };
         }
+        this.getStoreList();
+        this.getFloors();
+        this.modal.show();
+    }
+    getBrand(){
         this._BrandServiceProxy.getBrands(
             void 0,
             void 0,
@@ -97,17 +101,20 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
             0
           )
             .subscribe(result => {
-              this.brandList = result.items;
+              this.brandList = result.items.filter(r=>{
+                console.log("this.objItem.brandId:",this.objItem.brandId);
+                return r.id==this.objItem.brandId;
+              });
+              console.log("this.brandList:",this.brandList)
             });
-        this.getFloors();
-        this.modal.show();
-        this.getStoreList();
     }
     storechange(id):void
     { 
         this._NewStoreServiceProxy.getStoreById(id)
         .subscribe(result=>{
-            this.objItem.brandId=result.brandId;
+            console.log("result:",result);
+            this.objItem.brandId=result.brandId
+            this.getBrand()
         })
         
     }
@@ -130,7 +137,8 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
                     name: item.displayName
                 }
             });
-            console.log("result:",result);
+
+            console.log("this.storeList:",this.storeList);
           });
       }
     getResByRoomId() {
@@ -142,7 +150,6 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
             0
         ).subscribe(result => {
             this.angleList = result.items;
-            
         })
     }
 
@@ -183,7 +190,6 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
 
     save(): void {
          
-        console.log("this.objItem:",this.objItem);
         this.saving = true;
         if (!this.objItem.id) {
             this._RoomServiceProxy.createRoom(new CreateRoomInput(this.objItem))
@@ -207,7 +213,9 @@ export class CreateOrEditRoomModalComponent extends AppComponentBase implements 
 
     close(): void {
         this.active = false;
-        this.objItem = {};
+        this.objItem = [];
+        this.brandList=[];
+        this.storeList =[];
         this.saving = false;
         this.modal.hide();
     }

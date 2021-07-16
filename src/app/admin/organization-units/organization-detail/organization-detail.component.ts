@@ -310,7 +310,7 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
             endTime: this.EndTimeFill,
             ignoreStore: false,
             outPutInStorageType: this.outPutInStorageType,
-            filter: this.outPutInStorageFilter,
+            filter: this.outPutInStorageFilter.replace(/\s+/g,""),//查询时去除所有空格
             sorting: this.outPutInStoragePrimengTableHelper.getSorting(this.dataTablekc),
             maxResultCount: this.outPutInStoragePrimengTableHelper.getMaxResultCount(this.paginatorkc, event),
             skipCount: this.outPutInStoragePrimengTableHelper.getSkipCount(this.paginatorkc, event),

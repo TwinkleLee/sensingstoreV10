@@ -34,7 +34,6 @@ export class CreateOrEditRoomResourceModalComponent extends AppComponentBase imp
     }
 
     show(id, resource?): void {
-        // console.log(id);
         this.active = true;
         if (resource) {
             this.operationType = "edit";
@@ -53,7 +52,6 @@ export class CreateOrEditRoomResourceModalComponent extends AppComponentBase imp
     }
     save(): void {
         this.saving = true;
-        // console.log(this.resource)
         this._RoomServiceProxy.addOrUpdateAngleLocationResourcesToRoom(new RoomAngleLocationResourceInput(this.resource))
             .pipe(finalize(() => {
                 this.saving = false;
