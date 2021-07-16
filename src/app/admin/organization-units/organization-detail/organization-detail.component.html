@@ -1348,11 +1348,10 @@
                                                         <!-- 下拉选择  -->
                                                         <div class="col-3">
                                                             <div class="form-group kt-form__group align-items-center">
-                                                                <div><p>{{l("outPutInStorageFilter")}}</p></div>
+                                                                <div><p>{{l('billNo')}}</p></div>
                                                                 <div class="input-group">
-                                                                    <input class="form-control" type="input"
-                                                                        name="outPutInStorageFilter"
-                                                                        [(ngModel)]="outPutInStorageFilter" />
+                                                                    <input class="form-control" type="input" name="" [(ngModel)]="outPutInStorageFilter"
+                                                                    (click)="calAge($event)"> 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1386,7 +1385,17 @@
                                                                 </date-range-picker>
                                                             </div>
                                                         </div>
-        
+                                                        <div class="col-2" style="position:relative;">
+                                                            <label>&nbsp;</label>
+                                                            <div class="input-group align-items-center form-group ">
+                                                                <button type="button" class="btn btn-primary"
+                                                                    [buttonBusy]="primengTableHelper.isLoading" (click)="getInOrOutFill()">
+                                                                    <i class="la la-refresh"></i>
+                                                                    {{l("search")}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </form>
