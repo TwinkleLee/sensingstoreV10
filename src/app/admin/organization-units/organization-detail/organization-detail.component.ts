@@ -281,7 +281,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
     .subscribe(result => {
       this.skuPrimeg.totalRecordsCount = result.totalCount;
       this.skuPrimeg.records = result.items;
-      console.log("this.skuPrimeg.records:",this.skuPrimeg.records);
       // this.primengTableHelper.hideLoadingIndicator();
     })
   }
@@ -405,8 +404,6 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
         this.rfidListModal.show(this.storeId);
     }
     rfidDetail(record){
-        
-        console.log("record:",record.id);
         this.rfidListModal.show(void 0,record.id);
     }
     deleteKPI(record) {
@@ -887,6 +884,17 @@ export class OUDetailComponent extends AppComponentBase implements OnInit {
                 })
             }
         }) 
+
+    }
+    calAge(e){
+        e.preventDefault();
+        console.log("e:",e);
+        var evt = window.event || e;
+    if (evt.keyCode == 13) {
+
+        console.log("xxxxxxxxx:",);
+        this.getInOrOutFill()
+    }
 
     }
     //Room
