@@ -1324,19 +1324,19 @@
                                     </tab>
                                     <tab (selectTab)="getInOrOutFill();" class="p-5" heading="{{l('num')}}">
                                         <div class="row align-items-center">
-                                            <form class="horizontal-form" autocomplete="off" name="kpiForm">
+                                            <form class="horizontal-form" autocomplete="off" name="numForm">
                                                 <div class="kt-form kt-form--label-align-right">
         
                                                     <div class="row align-items-center m--margin-bottom-10">
                                                         <div class="col-12 text-right">
                                                             <div>
-                                                                <button class="btn btn-primary" (click)="goImportRfid()">
+                                                                <button class="btn btn-primary" type="button" (click)="goImportRfid()">
                                                                 <i class="icon-excel"></i> {{l('import')}} </button>
          
-                                                                <button *ngIf="isGranted('Pages.Tenant.Recommends.Create')" class="btn btn-primary" (click)="showRfid()">
+                                                                <button type="button" *ngIf="isGranted('Pages.Tenant.Recommends.Create')" class="btn btn-primary" (click)="showRfid()">
                                                                     <i class="icon-shangpinguanli"></i> {{l('showAll')}}
                                                                 </button>
-                                                                <button (click)="createBill()" class="btn btn-primary blue"
+                                                                <button type="button" (click)="createBill()" class="btn btn-primary blue"
                                                                     *ngIf="isGranted('Pages.Tenant.Recommends.Create')">
                                                                     <i class="fa fa-plus"></i> {{l("createBill")}}</button>
                                                             </div>
@@ -1348,17 +1348,16 @@
                                                         <!-- 下拉选择  -->
                                                         <div class="col-3">
                                                             <div class="form-group kt-form__group align-items-center">
-                                                                <div><p>{{l('billNo')}}</p></div>
+                                                                <label>{{l('filter')}}</label>
                                                                 <div class="input-group">
-                                                                    <input class="form-control" type="input" name="" [(ngModel)]="outPutInStorageFilter"
-                                                                    (click)="calAge($event)"> 
+                                                                    <input class="form-control" name="outPutInStorageFilter" [(ngModel)]="outPutInStorageFilter"> 
                                                                 </div>
                                                             </div>
                                                         </div>
         
                                                         <div class="col-3">
                                                             <div class="form-group kt-form__group align-items-center">
-                                                                <div><p>{{l('outPutInStorageType')}}</p></div>
+                                                                <label>{{l('outPutInStorageType')}}</label>
                                                                 <div class="input-group">
                                                                     <select class="form-control"
                                                                         [(ngModel)]="outPutInStorageType"
@@ -1374,7 +1373,7 @@
         
                                                         <!-- 时间范围筛选 -->
                                                         <div class="col-3" style="position:relative;">
-                                                            <div><p>{{l('creationTime')}}</p></div>
+                                                            <label>{{l('creationTime')}}</label>
                                                             <div class="form-group kt-form__group align-items-center">
                                                                 <date-range-picker name="SampleDateRangePicker"
                                                                     [showButton]="true" rangeMode="all"
