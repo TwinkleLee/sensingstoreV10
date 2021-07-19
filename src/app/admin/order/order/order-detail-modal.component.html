@@ -120,9 +120,10 @@
                                                         [(ngModel)]="record.title" disabled="disabled">
                                                 </td>
                                                 <td style="position:relative;"
-                                                    *ngIf="operationType=='edit'&&record.picUrl&&record.picUrl!='null'">
+                                                    *ngIf="operationType=='edit'">
                                                     <img [src]="record.picUrl"
                                                         style="position:absolute;top:50%;left:50%;height:100%;transform:translate(-50%,-50%);max-width:initial;">
+                                                    
                                                 </td>
                                                 <td class="nohidden" style="padding-top:1rem !important;"
                                                     *ngIf="operationType=='add'">

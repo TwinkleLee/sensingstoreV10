@@ -164,7 +164,7 @@
     <!-- <div class="form-control" hidden #advance style="position: absolute;bottom: -120px;z-index: 1000;"> -->
     <div class="form-control" hidden #advance style="position: absolute;top: 100%;z-index: 1000;border:none;">
         <label class="control-label">{{l("type")}}</label>
-        <select class="form-control" [(ngModel)]="_resourcetype" name="resourceType">
+        <select class="form-control" [(ngModel)]="_resourcetype" name="resourceType" (change)="handleChange()">
             <option [value]="type" *ngFor="let type of ResourceFileDtoTypes">{{type}}</option>
         </select>
         <label class="checkbox checkbox-success" style="margin-top: 6px;">

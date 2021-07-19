@@ -400,6 +400,7 @@ export class FileuploadComponent extends AppComponentBase implements OnInit {
   }
   //选中文件
   uploadFile(filearea, isLocal, WebUrl, Prefix, toResource, CreateThumbnail, onprogress, errorCallBack, successCallBack) {
+    console.log('selectType123',this._resourcetype);
     var form = $(this.fileupload.nativeElement).find("form")[0];
     var formData = new FormData(<HTMLFormElement>form);
     console.log(formData);
@@ -550,6 +551,8 @@ export class FileuploadComponent extends AppComponentBase implements OnInit {
   }
   //判断文件类型
   judgeType(name) {
+    console.log('filetype', name);
+
     if (name == this.EmptyHolder || name == this.LoadingHolder) { return; }
     if (!name) { return this._resourcetype = ResourceFileDtoType.Image; }
     //getname
@@ -560,6 +563,12 @@ export class FileuploadComponent extends AppComponentBase implements OnInit {
     var att = attr[0];
     this._resourcetype = this.fileType[att] || ResourceFileDtoType.Other;
   }
+
+
+  handleChange () {
+    console.log('fileType', this._resourcetype)
+  }
+  
   //
   ajust(e) {
     var shape = e.target.naturalWidth > e.target.naturalHeight;
